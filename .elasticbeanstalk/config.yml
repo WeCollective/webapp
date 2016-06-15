@@ -1,6 +1,8 @@
 branch-defaults:
   master:
     environment: webapp-dev
+  production:
+    environment: webapp-prod
 global:
   application_name: WECO
   default_ec2_keyname: null
