@@ -1,0 +1,10 @@
+branch-defaults:
+  master:
+    environment: webapp-dev
+global:
+  application_name: WECO
+  default_ec2_keyname: null
+  default_platform: 64bit Amazon Linux 2016.03 v2.1.1 running Node.js
+  default_region: eu-west-1
+  profile: weco
+  sc: git
