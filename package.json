@@ -1,0 +1,18 @@
+{
+  "name": "WECOWebApp",
+  "version": "1.0.0",
+  "description": "The front-end AngularJS app and server for WECO.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://MSChristensen@bitbucket.org/wecollective/wecowebapp.git"
+  },
+  "author": "WE Collective",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
