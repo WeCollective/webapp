@@ -109,6 +109,7 @@ module.exports = function(grunt) {
   });
 
   /* Register main tasks.
+  **    grunt serve           locally serve the web app and simultaneously watch for file changes
   **    grunt build           builds the current branch (cleans, lints, concats, minifies, compiles less)
   **    grunt publish         merges development branch into production
   **    grunt deploy:env      builds the current branch, and deploys to the specified environment
