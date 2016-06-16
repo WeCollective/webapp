@@ -102,7 +102,7 @@ module.exports = function(grunt) {
           } else {
             return '';
           }
-          return 'get checkout ' + checkout + ' && eb deploy';
+          return 'git checkout ' + checkout + ' && eb deploy';
         }
       }
     }
