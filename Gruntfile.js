@@ -108,10 +108,16 @@ module.exports = function(grunt) {
     }
   });
 
+  /* Register main tasks.
+  **    grunt build           builds the current branch (cleans, lints, concats, minifies, compiles less)
+  **    grunt publish         merges development branch into production
+  **    grunt deploy:env      builds the current branch, and deploys to the specified environment
+  **                          (either "development" or "production"), merging into production if needed.
+  */
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
   grunt.registerTask('serve', 'concurrent:serve');
   grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('publish', 'exec:publish');
-  grunt.registerTask('deploy:development', 'exec:deploy:development');
-  grunt.registerTask('deploy:production', ['publish', 'exec:deploy:production']);
+  grunt.registerTask('deploy:development', ['build', 'exec:deploy:development']);
+  grunt.registerTask('deploy:production', ['build', 'publish', 'exec:deploy:production']);
 };
