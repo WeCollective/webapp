@@ -113,5 +113,5 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('publish', 'exec:publish');
   grunt.registerTask('deploy:development', 'exec:deploy:development');
-  grunt.registerTask('deploy:production', 'exec:deploy:production');
+  grunt.registerTask('deploy:production', ['publish', 'exec:deploy:production']);
 };
