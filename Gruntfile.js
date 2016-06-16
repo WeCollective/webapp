@@ -93,8 +93,17 @@ module.exports = function(grunt) {
     exec: {
       publish: 'git checkout production && git merge master && git checkout master',
       deploy: {
-        development: 'git checkout master && eb deploy',
-        production: 'git checkout production && eb deploy'
+        cmd: function(environment) {
+          var checkout;
+          if(environment == 'development') {
+            checkout = 'master';
+          } else if(environment == 'production') {
+            checkout = 'production';
+          } else {
+            return '';
+          }
+          return 'get checkout ' + checkout + ' && eb deploy';
+        }
       }
     }
   });
