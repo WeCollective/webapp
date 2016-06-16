@@ -91,7 +91,7 @@ module.exports = function(grunt) {
     },
     // execute shell commands
     exec: {
-      publish: 'git checkout production; git merge master'
+      publish: 'git checkout production && git merge master'
     }
   });
 
