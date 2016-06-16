@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // REQUIRE MODULES
 var express    = require("express");          // call express
@@ -8,9 +8,12 @@ var app        = express();                   // define our app using express
 var env = (process.env.NODE_ENV || "development");
 var port = process.env.PORT || 8081;
 
-// SERVE THE STATIC ANGULAR APPLICATION
-app.use(express.static(__dirname + '/public'));
+// SERVE THE NODE MODULES FOLDER
+app.use("/dependencies/node", express.static(__dirname + "/node_modules"));
+
+// SERVE THE ANGULAR APPLICATION
+app.use("/", express.static(__dirname + "/public"));
 
 // START THE SERVER
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log("Magic happens on port " + port);

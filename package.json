@@ -14,6 +14,8 @@
   "author": "WE Collective",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
     "express": "^4.13.4"
   }
 }
