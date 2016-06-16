@@ -91,7 +91,11 @@ module.exports = function(grunt) {
     },
     // execute shell commands
     exec: {
-      publish: 'git checkout production && git merge master'
+      publish: 'git checkout production && git merge master && git checkout master',
+      deploy: {
+        development: 'git checkout master && eb deploy',
+        production: 'git checkout production && eb deploy'
+      }
     }
   });
 
@@ -99,4 +103,6 @@ module.exports = function(grunt) {
   grunt.registerTask('serve', 'concurrent:serve');
   grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('publish', 'exec:publish');
+  grunt.registerTask('deploy:development', 'exec:deploy:development');
+  grunt.registerTask('deploy:production', 'exec:deploy:production');
 };
