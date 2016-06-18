@@ -35,6 +35,12 @@ module.exports = function(grunt) {
     },
     // file minification
     uglify: {
+      options: {
+        // don't mangle names of important vars which can't be explicitly injected
+        mangle: {
+          except: ['angular', '$stateProvider', '$urlRouterProvider']
+        }
+      },
       dist: {
         files: {
           'public/weco.min.js': ['public/weco.js']
@@ -109,15 +115,15 @@ module.exports = function(grunt) {
   });
 
   /* Register main tasks.
-  **    grunt serve           locally serve the web app and simultaneously watch for file changes
   **    grunt build           builds the current branch (cleans, lints, concats, minifies, compiles less)
+  **    grunt serve           build, then locally serve the web app and simultaneously watch for file changes
   **    grunt publish         merges development branch into production
   **    grunt deploy:env      builds the current branch, and deploys to the specified environment
   **                          (either "development" or "production"), merging into production if needed.
   */
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('serve', 'concurrent:serve');
   grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('serve', ['build', 'concurrent:serve']);
   grunt.registerTask('publish', 'exec:publish');
   grunt.registerTask('deploy:development', ['build', 'exec:deploy:development']);
   grunt.registerTask('deploy:production', ['build', 'publish', 'exec:deploy:production']);
