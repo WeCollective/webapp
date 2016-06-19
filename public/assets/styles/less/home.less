@@ -38,3 +38,49 @@ div#home-content {
     }
   }
 }
+
+div#home-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 200px;
+  background-color: @light-grey;
+
+  ul#footer-links {
+    position: absolute;
+    left: 50px;
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+      li {
+        margin: 5px 0;
+        span {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  div#footer-stats {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    white-space: nowrap;
+    ul {
+      display: inline-block;
+      width: 50%;
+      white-space: normal;
+      box-sizing: border-box;
+      &#fields {
+        text-align: right;
+        font-weight: 500;
+        padding-right: 5px;
+      }
+      &#values {
+        padding-left: 5px;
+      }
+    }
+  }
+}
