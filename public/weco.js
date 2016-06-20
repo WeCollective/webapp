@@ -21,18 +21,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   .state('weco.home', {
     url: '/',
     templateUrl: '/app/home/home.view.html'
+  })
+  // Log In/Sign Up state
+  .state('weco.login', {
+    url: '/login',
+    templateUrl: '/app/login/login.view.html'
   });
-});
-
-var app = angular.module('wecoApp');
-app.factory('authFactory', function() {
-  var authFactory = {};
-
-  authFactory.isLoggedIn = function() {
-    return false;
-  };
-
-  return authFactory;
 });
 
 var app = angular.module('wecoApp');
@@ -46,3 +40,14 @@ app.directive('navBar', ['authFactory', function(authFactory) {
     }
   };
 }]);
+
+var app = angular.module('wecoApp');
+app.factory('authFactory', function() {
+  var authFactory = {};
+
+  authFactory.isLoggedIn = function() {
+    return false;
+  };
+
+  return authFactory;
+});

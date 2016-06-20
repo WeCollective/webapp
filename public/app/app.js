@@ -21,5 +21,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   .state('weco.home', {
     url: '/',
     templateUrl: '/app/home/home.view.html'
+  })
+  // Log In/Sign Up state
+  .state('weco.login', {
+    url: '/login',
+    templateUrl: '/app/login/login.view.html'
   });
 });
