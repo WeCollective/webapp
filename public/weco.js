@@ -9,10 +9,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider.state('weco', {
     abstract: true,
     resolve: {
-      authenticate: function() {
+      authenticate: ['authFactory', function(authFactory) {
         // TODO: check whether user authd, injecting auth service
         console.log("Checking auth status...");
-      }
+        console.log(authFactory.isLoggedIn());
+      }]
     },
     template: '<div class="full-page" ui-view></div>'
   })
@@ -24,10 +25,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 var app = angular.module('wecoApp');
-app.directive('navBar', function() {
+app.factory('authFactory', function() {
+  var authFactory = {};
+
+  authFactory.isLoggedIn = function() {
+    return false;
+  };
+
+  return authFactory;
+});
+
+var app = angular.module('wecoApp');
+app.directive('navBar', ['authFactory', function(authFactory) {
   return {
     restrict: 'E',
     replace: 'true',
-    templateUrl: '/app/nav/nav.view.html'
+    templateUrl: '/app/nav/nav.view.html',
+    link: function($scope, element, attrs) {
+      $scope.isLoggedIn = authFactory.isLoggedIn;
+    }
   };
-});
+}]);

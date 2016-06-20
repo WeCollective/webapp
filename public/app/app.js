@@ -9,10 +9,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider.state('weco', {
     abstract: true,
     resolve: {
-      authenticate: function() {
+      authenticate: ['authFactory', function(authFactory) {
         // TODO: check whether user authd, injecting auth service
         console.log("Checking auth status...");
-      }
+        console.log(authFactory.isLoggedIn());
+      }]
     },
     template: '<div class="full-page" ui-view></div>'
   })
