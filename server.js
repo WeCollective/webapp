@@ -20,7 +20,7 @@ app.use('/', express.static(__dirname + '/public'));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', function(req, res, next) {
-  res.sendFile('public/index.html', { root: __dirname + '/public' });
+  res.sendFile('index.html', { root: __dirname + '/public' });
 });
 
 // START THE SERVER
