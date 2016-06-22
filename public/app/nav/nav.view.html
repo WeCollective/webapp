@@ -12,8 +12,8 @@
         <img id="profile-picture" src="/assets/images/profile.jpg">
       </a>
       <a href="" ng-show="isLoggedIn()" ng-click="logout()"><span>Log Out</span></a>
-      <a ui-sref="weco.login" ng-show="!isLoggedIn()"><span>Log In</span></a>
-      <a href="" ng-show="!isLoggedIn()"><span>Sign Up</span></a>
+      <a ui-sref="weco.auth.login" ng-show="!isLoggedIn()"><span>Log In</span></a>
+      <a ui-sref="weco.auth.signup" ng-show="!isLoggedIn()"><span>Sign Up</span></a>
     </div>
   </div>
 </nav>

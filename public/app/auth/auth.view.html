@@ -1,0 +1,12 @@
+<div id="auth-background" ng-controller="authController">
+  <img src="/assets/images/logo.png">
+  <h1>{{ isLoginForm() ? 'Login to' : 'Sign up for'}} WECO</h1>
+  <form ng-submit="submit()">
+    <input type="text" name="username" ng-model="credentials.username" placeholder="Username" required></input>
+    <input type="email" name="email" ng-model="credentials.email" placeholder="Email" ng-show="!isLoginForm()" ng-required="isLoginForm()"></input>
+    <input type="text" name="password" ng-model="credentials.password" placeholder="Password" required></input>
+    <input type="submit" value="{{ isLoginForm() ? 'LOGIN' : 'SIGN UP' }}"></input>
+  </form>
+  <p ng-show="isLoginForm()">New Here? <a ui-sref="weco.auth.signup">Sign Up.</a></p>
+  <p ng-show="!isLoginForm()">Already have an account? <a ui-sref="weco.auth.login">Log in.</a></p>
+</div>

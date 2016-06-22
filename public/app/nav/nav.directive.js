@@ -10,7 +10,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       $scope.logout = function() {
         User.logout().then(function() {
           // successful logout; go to login page
-          $state.go('weco.login');
+          $state.go('weco.auth.login');
         }, function() {
           // TODO: pretty error
           alert('Unable to log out!');

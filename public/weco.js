@@ -22,11 +22,58 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     templateUrl: '/app/home/home.view.html'
   })
   // Log In/Sign Up state
-  .state('weco.login', {
-    url: '/login',
-    templateUrl: '/app/login/login.view.html'
+  .state('weco.auth', {
+    abstract: true,
+    templateUrl: '/app/auth/auth.view.html'
+  })
+  .state('weco.auth.login', {
+    url: '/login'
+  })
+  .state('weco.auth.signup', {
+    url: '/signup'
   });
 });
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
+  $scope.credentials = {};
+  $scope.user = User.data;
+
+  $scope.isLoginForm = function() {
+    return $state.current.name == 'weco.auth.login';
+  };
+
+  function login() {
+    User.login($scope.credentials).then(function() {
+      // successful login; redirect to home page
+      $state.go('weco.home');
+    }, function() {
+      // TODO: pretty error
+      alert('Unable to log in!');
+    });
+  }
+
+  function signup() {
+    /*User.login($scope.credentials).then(function() {
+      // successful login; redirect to home page
+      $state.go('weco.home');
+    }, function() {
+      // TODO: pretty error
+      alert('Unable to log in!');
+    });*/
+    console.log("sign up");
+  }
+
+  $scope.submit = function() {
+    if($scope.isLoginForm()) {
+      login();
+    } else {
+      signup();
+    }
+  };
+}]);
 
 "use strict";
 
@@ -35,24 +82,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 .constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
 
 ;
-'use strict';
-
-var app = angular.module('wecoApp');
-app.controller('loginController', ['$scope', '$state', 'User', function($scope, $state, User) {
-  $scope.credentials = {};
-  $scope.user = User.data;
-
-  $scope.login = function() {
-    User.login($scope.credentials).then(function() {
-      // successful login; redirect to home page
-      $state.go('weco.home');
-    }, function() {
-      // TODO: pretty error
-      alert('Unable to log in!');
-    });
-  };
-}]);
-
 var app = angular.module('wecoApp');
 app.directive('navBar', ['User', '$state', function(User, $state) {
   return {
@@ -65,7 +94,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       $scope.logout = function() {
         User.logout().then(function() {
           // successful logout; go to login page
-          $state.go('weco.login');
+          $state.go('weco.auth.login');
         }, function() {
           // TODO: pretty error
           alert('Unable to log out!');
