@@ -23,7 +23,8 @@ module.exports = function(grunt) {
       options: {
         node: true, // tell jshint we are using nodejs to avoid incorrect errors
         globals: {  // list of global variables and whether they are assignable
-          "angular": false
+          "angular": false,
+          "Promise": false
         }
       }
     },
