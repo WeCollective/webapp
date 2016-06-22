@@ -20,14 +20,13 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
   }
 
   function signup() {
-    /*User.login($scope.credentials).then(function() {
-      // successful login; redirect to home page
+    User.signup($scope.credentials).then(function() {
+      // successful signup; redirect to home page
       $state.go('weco.home');
     }, function() {
       // TODO: pretty error
-      alert('Unable to log in!');
-    });*/
-    console.log("sign up");
+      alert('Unable to sign up!');
+    });
   }
 
   $scope.submit = function() {

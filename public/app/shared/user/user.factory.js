@@ -38,5 +38,17 @@ app.factory('User', ['UserAPI', function(UserAPI) {
     });
   };
 
+  User.signup = function(credentials) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.signup(credentials).$promise.catch(function(response) {
+        reject(response.status);
+      }).then(function() {
+        data = UserAPI.get(function() {
+          resolve();
+        });
+      });
+    });
+  };
+
   return User;
 }]);

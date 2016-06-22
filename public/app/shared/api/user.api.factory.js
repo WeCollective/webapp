@@ -30,6 +30,12 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
         params: {
           id: 'logout'
         }
+      },
+      signup: {
+        method: 'POST',
+        params: {
+          id: ''
+        }
       }
     });
 
