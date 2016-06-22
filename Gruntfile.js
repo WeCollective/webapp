@@ -9,6 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-ng-constant');
 
   // Configure tasks
   grunt.initConfig({
@@ -111,20 +112,54 @@ module.exports = function(grunt) {
           return 'echo Checking out ' + checkout + ' && git checkout ' + checkout + ' && echo Deploying... && eb deploy && git checkout master';
         }
       }
+    },
+    // generate an 'config' angular module which defines the
+    // development/production variables for use by the angular app
+    ngconstant: {
+      options: {
+        space: ' ',
+        wrap: '"use strict";\n\n {\%= __ngModule %}',
+        name: 'config',
+      },
+      // development environment
+      development: {
+        options: {
+          dest: 'public/app/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: 'public/app/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: 'http://weco-api-prod.eu-west-1.elasticbeanstalk.com/'
+          }
+        }
+      }
     }
   });
 
   /* Register main tasks.
-  **    grunt build           builds the current branch (cleans, lints, concats, minifies, compiles less)
+  **    grunt build:env       builds the current branch (cleans, lints, concats, minifies, compiles less),
+  **                          configuring the app for the specified environment (i.e. using development/production api)
   **    grunt serve           build, then locally serve the web app and simultaneously watch for file changes
-  **    grunt publish         merges development branch into production
+  **    grunt publish         builds for production and merges development branch into production
   **    grunt deploy:env      builds the current branch, and deploys to the specified environment
   **                          (either "development" or "production"), merging into production if needed.
   */
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'less']);
-  grunt.registerTask('serve', ['build', 'concurrent:serve']);
-  grunt.registerTask('publish', 'exec:publish');
-  grunt.registerTask('deploy:development', ['build', 'exec:deploy:development']);
-  grunt.registerTask('deploy:production', ['build', 'publish', 'exec:deploy:production']);
+  grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('build:production', ['clean', 'ngconstant:production', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('serve', ['build:development', 'concurrent:serve']);
+  grunt.registerTask('publish', ['build:production', 'exec:publish']);
+  grunt.registerTask('deploy:development', ['build:development', 'exec:deploy:development']);
+  grunt.registerTask('deploy:production', ['publish', 'exec:deploy:production']);
 };
