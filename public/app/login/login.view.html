@@ -1,9 +1,9 @@
-<div id="login-background">
+<div id="login-background" ng-controller="loginController">
   <img src="/assets/images/logo.png">
   <h1>Login to WECO</h1>
-  <form>
-    <input type="text" name="username" placeholder="Username" required></input>
-    <input type="text" name="password" placeholder="Password" required></input>
+  <form ng-submit="login()">
+    <input type="text" name="username" ng-model="credentials.username" placeholder="Username" required></input>
+    <input type="text" name="password" ng-model="credentials.password" placeholder="Password" required></input>
     <input type="submit" value="LOGIN"></input>
   </form>
   <p>New Here? <a href="">Sign Up.</a></p>

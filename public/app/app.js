@@ -1,19 +1,18 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['ui.router']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'api']);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
-  // Abstract state parent to all other states in order to check auth status
+  // Abstract state parent to all other states
   $stateProvider.state('weco', {
     abstract: true,
     resolve: {
-      authenticate: ['authFactory', function(authFactory) {
-        // TODO: check whether user authd, injecting auth service
-        console.log("Checking auth status...");
-        console.log(authFactory.isLoggedIn());
-      }]
+      authenticate: function() {
+        // TODO
+        console.log("This code is ran before any state is reached...");
+      }
     },
     template: '<div class="full-page" ui-view></div>'
   })
