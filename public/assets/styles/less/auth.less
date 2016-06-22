@@ -8,12 +8,21 @@ div#auth-background {
   background: radial-gradient(@primary-light, @primary-dark);
   text-align: center;
 
-  img {
+  a#logo {
     display: block;
     width: 100px;
-    height: auto;
+    height: 100px;
     margin: auto;
     padding: 60px 0 40px 0;
+    img {
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+    }
+
+    &:hover img {
+      opacity: 1;
+    }
   }
 
   h1 {

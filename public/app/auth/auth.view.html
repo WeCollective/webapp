@@ -1,5 +1,5 @@
 <div id="auth-background" ng-controller="authController">
-  <img src="/assets/images/logo.png">
+  <a ui-sref="weco.home" id="logo"><img src="/assets/images/logo.png"></a>
   <h1>{{ isLoginForm() ? 'Login to' : 'Sign up for'}} WECO</h1>
   <form ng-submit="submit()">
     <input type="text" name="username" ng-model="credentials.username" placeholder="Username" required></input>
