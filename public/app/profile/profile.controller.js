@@ -13,4 +13,7 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
     console.log("Unable to get user");
     console.log(code);
   });
+
+  $scope.tabItems = ['about', 'timeline'];
+  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
 }]);

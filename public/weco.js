@@ -37,8 +37,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Profile page
     .state('weco.profile', {
       url: '/u/:username',
+      abstract: true,
       templateUrl: '/app/profile/profile.view.html',
       controller: 'profileController'
+    })
+    .state('weco.profile.about', {
+      url: '',
+      templateUrl: '/app/profile/about/about.view.html'
+    })
+    .state('weco.profile.timeline', {
+      templateUrl: '/app/profile/timeline/timeline.view.html'
     });
 
 });
@@ -79,6 +87,24 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       login();
     } else {
       signup();
+    }
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.directive('tabs', ['$state', function($state) {
+  return {
+    restrict: 'E',
+    replace: 'true',
+    scope: {
+      items: '&',
+      states: '&'
+    },
+    templateUrl: '/app/components/tabs/tabs.view.html',
+    link: function($scope, element, attrs) {
+      $scope.isSelected = function(index) {
+        return $state.current.name == $scope.states()[index];
+      };
     }
   };
 }]);
@@ -127,6 +153,9 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
     console.log("Unable to get user");
     console.log(code);
   });
+
+  $scope.tabItems = ['about', 'timeline'];
+  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
 }]);
 
 var api = angular.module('api', ['ngResource']);

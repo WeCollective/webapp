@@ -37,8 +37,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Profile page
     .state('weco.profile', {
       url: '/u/:username',
+      abstract: true,
       templateUrl: '/app/profile/profile.view.html',
       controller: 'profileController'
+    })
+    .state('weco.profile.about', {
+      url: '',
+      templateUrl: '/app/profile/about/about.view.html'
+    })
+    .state('weco.profile.timeline', {
+      templateUrl: '/app/profile/timeline/timeline.view.html'
     });
 
 });
