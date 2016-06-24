@@ -149,7 +149,7 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
       $scope.user = user;
     });
   }, function(code) {
-    // TODO: test this and handle properly
+    // TODO: 404 not found page when user not found
     console.log("Unable to get user");
     console.log(code);
   });
