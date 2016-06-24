@@ -2,6 +2,8 @@
   <a ui-sref="weco.home" id="logo"><img src="/assets/images/logo.png"></a>
   <h1>{{ isLoginForm() ? 'Login to' : 'Sign up for'}} WECO</h1>
   <form ng-submit="submit()">
+    <input type="text" name="firstname" ng-model="credentials.firstname" placeholder="First name" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
+    <input type="text" name="lastname" ng-model="credentials.lastname" placeholder="Last name" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
     <input type="text" name="username" ng-model="credentials.username" placeholder="Username" required></input>
     <input type="email" name="email" ng-model="credentials.email" placeholder="Email" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
     <input type="text" name="password" ng-model="credentials.password" placeholder="Password" required></input>
