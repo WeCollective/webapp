@@ -1,0 +1,24 @@
+ul.tabs {
+  display: inline-block;
+  a {
+    li {
+      display: inline-block;
+      padding: 4px 15px;
+      min-width: 80px;
+      text-align: center;
+
+      &.selected {
+        border-bottom: solid 2px black;
+
+        span {
+          font-weight: 500;
+        }
+      }
+
+      span {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
