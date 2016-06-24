@@ -3,15 +3,15 @@
 var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 
-  var User = $resource(ENV.apiEndpoint + 'user/:id',
+  var User = $resource(ENV.apiEndpoint + 'user/:param',
     {
-      id: 'me'
+      param: 'me'
     },
     {
       login: {
         method: 'POST',
         params: {
-          id: 'login'
+          param: 'login'
         },
         // indicate that the data is x-www-form-urlencoded
         headers: {
@@ -28,13 +28,13 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
       logout: {
         method: 'GET',
         params: {
-          id: 'logout'
+          param: 'logout'
         }
       },
       signup: {
         method: 'POST',
         params: {
-          id: ''
+          param: ''
         }
       }
     });

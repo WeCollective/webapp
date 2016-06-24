@@ -5,7 +5,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
     replace: 'true',
     templateUrl: '/app/nav/nav.view.html',
     link: function($scope, element, attrs) {
-      $scope.user = User.data;
+      $scope.user = User.me;
       $scope.isLoggedIn = User.isLoggedIn;
       $scope.logout = function() {
         User.logout().then(function() {

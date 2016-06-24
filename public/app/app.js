@@ -9,7 +9,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Log In/Sign Up state
     .state('auth', {
       abstract: true,
-      templateUrl: '/app/auth/auth.view.html'
+      templateUrl: '/app/auth/auth.view.html',
+      controller: 'authController'
     })
     .state('auth.login', {
       url: '/login'
@@ -35,8 +36,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Profile page
     .state('weco.profile', {
-      url: '/u',
-      templateUrl: '/app/profile/profile.view.html'
+      url: '/u/:username',
+      templateUrl: '/app/profile/profile.view.html',
+      controller: 'profileController'
     });
 
 });

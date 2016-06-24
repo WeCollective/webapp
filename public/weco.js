@@ -9,7 +9,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Log In/Sign Up state
     .state('auth', {
       abstract: true,
-      templateUrl: '/app/auth/auth.view.html'
+      templateUrl: '/app/auth/auth.view.html',
+      controller: 'authController'
     })
     .state('auth.login', {
       url: '/login'
@@ -35,8 +36,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Profile page
     .state('weco.profile', {
-      url: '/u',
-      templateUrl: '/app/profile/profile.view.html'
+      url: '/u/:username',
+      templateUrl: '/app/profile/profile.view.html',
+      controller: 'profileController'
     });
 
 });
@@ -46,7 +48,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 var app = angular.module('wecoApp');
 app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.credentials = {};
-  $scope.user = User.data;
+  $scope.user = User.me;
 
   $scope.isLoginForm = function() {
     return $state.current.name == 'auth.login';
@@ -95,7 +97,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
     replace: 'true',
     templateUrl: '/app/nav/nav.view.html',
     link: function($scope, element, attrs) {
-      $scope.user = User.data;
+      $scope.user = User.me;
       $scope.isLoggedIn = User.isLoggedIn;
       $scope.logout = function() {
         User.logout().then(function() {
@@ -110,6 +112,23 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
   };
 }]);
 
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('profileController', ['$scope', '$stateParams', 'User', function($scope, $stateParams, User) {
+  $scope.user = {};
+
+  User.get($stateParams.username).then(function(user) {
+    $scope.$apply(function() {
+      $scope.user = user;
+    });
+  }, function(code) {
+    // TODO: test this and handle properly
+    console.log("Unable to get user");
+    console.log(code);
+  });
+}]);
+
 var api = angular.module('api', ['ngResource']);
 api.config(['$httpProvider', function($httpProvider) {
   // must set withCredentials to keep cookies when making API requests
@@ -121,15 +140,15 @@ api.config(['$httpProvider', function($httpProvider) {
 var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 
-  var User = $resource(ENV.apiEndpoint + 'user/:id',
+  var User = $resource(ENV.apiEndpoint + 'user/:param',
     {
-      id: 'me'
+      param: 'me'
     },
     {
       login: {
         method: 'POST',
         params: {
-          id: 'login'
+          param: 'login'
         },
         // indicate that the data is x-www-form-urlencoded
         headers: {
@@ -146,13 +165,13 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
       logout: {
         method: 'GET',
         params: {
-          id: 'logout'
+          param: 'logout'
         }
       },
       signup: {
         method: 'POST',
         params: {
-          id: ''
+          param: ''
         }
       }
     });
@@ -165,16 +184,26 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 var app = angular.module('wecoApp');
 app.factory('User', ['UserAPI', function(UserAPI) {
   var User = {};
-  var data = {};
+  var me = {};
 
-  data = UserAPI.get(); // initial fetch
-  User.data = function() {
-    return data.data || {};
+  me = UserAPI.get(); // initial fetch
+  User.me = function() {
+    return me.data || {};
+  };
+
+  User.get = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.get({ param: username }).$promise.catch(function(response) {
+        reject(response.status);
+      }).then(function(user) {
+        resolve(user.data);
+      });
+    });
   };
 
   // if the user data has a username attribute, we're logged in
   User.isLoggedIn = function() {
-    return User.data().username || false;
+    return User.me().username || false;
   };
 
   User.login = function(credentials) {
@@ -182,7 +211,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.login(credentials).$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get(function() {
+        me = UserAPI.get(function() {
           resolve();
         });
       });
@@ -194,7 +223,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.logout().$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get();
+        me = UserAPI.get();
         resolve();
       });
     });
@@ -205,7 +234,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.signup(credentials).$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get(function() {
+        me = UserAPI.get(function() {
           resolve();
         });
       });

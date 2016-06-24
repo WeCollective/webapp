@@ -3,7 +3,7 @@
 var app = angular.module('wecoApp');
 app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.credentials = {};
-  $scope.user = User.data;
+  $scope.user = User.me;
 
   $scope.isLoginForm = function() {
     return $state.current.name == 'auth.login';

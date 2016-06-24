@@ -3,16 +3,26 @@
 var app = angular.module('wecoApp');
 app.factory('User', ['UserAPI', function(UserAPI) {
   var User = {};
-  var data = {};
+  var me = {};
 
-  data = UserAPI.get(); // initial fetch
-  User.data = function() {
-    return data.data || {};
+  me = UserAPI.get(); // initial fetch
+  User.me = function() {
+    return me.data || {};
+  };
+
+  User.get = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.get({ param: username }).$promise.catch(function(response) {
+        reject(response.status);
+      }).then(function(user) {
+        resolve(user.data);
+      });
+    });
   };
 
   // if the user data has a username attribute, we're logged in
   User.isLoggedIn = function() {
-    return User.data().username || false;
+    return User.me().username || false;
   };
 
   User.login = function(credentials) {
@@ -20,7 +30,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.login(credentials).$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get(function() {
+        me = UserAPI.get(function() {
           resolve();
         });
       });
@@ -32,7 +42,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.logout().$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get();
+        me = UserAPI.get();
         resolve();
       });
     });
@@ -43,7 +53,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.signup(credentials).$promise.catch(function(response) {
         reject(response.status);
       }).then(function() {
-        data = UserAPI.get(function() {
+        me = UserAPI.get(function() {
           resolve();
         });
       });
