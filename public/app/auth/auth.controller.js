@@ -6,7 +6,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
   $scope.user = User.data;
 
   $scope.isLoginForm = function() {
-    return $state.current.name == 'weco.auth.login';
+    return $state.current.name == 'auth.login';
   };
 
   function login() {
