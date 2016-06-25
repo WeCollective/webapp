@@ -113,7 +113,8 @@ module.exports = function(grunt) {
           }
           return 'echo Checking out ' + checkout + ' && git checkout ' + checkout + ' && echo Deploying... && eb deploy && git checkout master';
         }
-      }
+      },
+      commit: 'git add -u && git commit -m "automatic build commit"'
     },
     // generate an 'config' angular module which defines the
     // development/production variables for use by the angular app
@@ -174,7 +175,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build:local', ['clean', 'ngconstant:local', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('serve:local', ['build:local', 'concurrent:serve']);
   grunt.registerTask('serve:development', ['build:development', 'concurrent:serve']);
-  grunt.registerTask('publish', ['build:production', 'exec:publish']);
-  grunt.registerTask('deploy:development', ['build:development', 'exec:deploy:development']);
+  grunt.registerTask('publish', ['build:production', 'exec:commit', 'exec:publish']);
+  grunt.registerTask('deploy:development', ['build:development', 'exec:commit', 'exec:deploy:development']);
   grunt.registerTask('deploy:production', ['publish', 'exec:deploy:production']);
 };
