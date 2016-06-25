@@ -56,6 +56,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/profile/settings/settings.view.html'
     });
 
+    $urlRouterProvider.otherwise(function($injector, $location) {
+      var state = $injector.get('$state');
+      state.go('weco.notfound');
+      return $location.path();
+    });
 });
 
 var app = angular.module('wecoApp');
@@ -279,11 +284,8 @@ app.controller('profileController', ['$scope', '$state', 'User', function($scope
       $scope.user = user;
     });
   }, function(code) {
-    // TODO: 404 not found page when user not found
-    console.log("Unable to get user");
-    console.log(code);
+    // TODO: Handle other error codes
     if(code == 404) {
-      alert("Not found!");
       $state.go('weco.notfound');
     }
   });

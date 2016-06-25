@@ -56,4 +56,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/profile/settings/settings.view.html'
     });
 
+    $urlRouterProvider.otherwise(function($injector, $location) {
+      var state = $injector.get('$state');
+      state.go('weco.notfound');
+      return $location.path();
+    });
 });
