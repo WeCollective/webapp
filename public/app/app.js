@@ -47,6 +47,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('weco.profile.timeline', {
       templateUrl: '/app/profile/timeline/timeline.view.html'
+    })
+    .state('weco.profile.settings', {
+      templateUrl: '/app/profile/settings/settings.view.html'
     });
 
 });

@@ -47,6 +47,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('weco.profile.timeline', {
       templateUrl: '/app/profile/timeline/timeline.view.html'
+    })
+    .state('weco.profile.settings', {
+      templateUrl: '/app/profile/settings/settings.view.html'
     });
 
 });
@@ -113,7 +116,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var app = angular.module('wecoApp');
@@ -154,8 +157,8 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
     console.log(code);
   });
 
-  $scope.tabItems = ['about', 'timeline'];
-  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
+  $scope.tabItems = ['about', 'timeline', 'settings'];
+  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline', 'weco.profile.settings'];
 }]);
 
 var api = angular.module('api', ['ngResource']);

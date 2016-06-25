@@ -145,14 +145,25 @@ module.exports = function(grunt) {
             apiEndpoint: 'http://weco-api-prod.eu-west-1.elasticbeanstalk.com/'
           }
         }
+      },
+      local: {
+        options: {
+          dest: 'public/app/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'local',
+            apiEndpoint: 'http://localhost:8080/'
+          }
+        }
       }
     }
   });
 
   /* Register main tasks.
   **    grunt build:env       builds the current branch (cleans, lints, concats, minifies, compiles less),
-  **                          configuring the app for the specified environment (i.e. using development/production api)
-  **    grunt serve           build, then locally serve the web app and simultaneously watch for file changes
+  **                          configuring the app for the specified environment (i.e. using development/production/local api)
+  **    grunt serve:env       build, then locally serve the web app and simultaneously watch for file changes, using the 'env' api
   **    grunt publish         builds for production and merges development branch into production
   **    grunt deploy:env      builds the current branch, and deploys to the specified environment
   **                          (either "development" or "production"), merging into production if needed.
@@ -160,7 +171,9 @@ module.exports = function(grunt) {
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
   grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('build:production', ['clean', 'ngconstant:production', 'jshint', 'concat', 'uglify', 'less']);
-  grunt.registerTask('serve', ['build:development', 'concurrent:serve']);
+  grunt.registerTask('build:local', ['clean', 'ngconstant:local', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('serve:local', ['build:local', 'concurrent:serve']);
+  grunt.registerTask('serve:development', ['build:development', 'concurrent:serve']);
   grunt.registerTask('publish', ['build:production', 'exec:publish']);
   grunt.registerTask('deploy:development', ['build:development', 'exec:deploy:development']);
   grunt.registerTask('deploy:production', ['publish', 'exec:deploy:production']);
