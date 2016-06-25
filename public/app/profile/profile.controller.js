@@ -14,6 +14,19 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
     console.log(code);
   });
 
-  $scope.tabItems = ['about', 'timeline', 'settings'];
-  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline', 'weco.profile.settings'];
+  $scope.tabItems = ['about', 'timeline'];
+  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
+
+  // Watch for changes in the auth'd user's username
+  // When set, if this is the auth'd user's profile page, add the 'settings' tab
+  $scope.$watch(function() {
+    return User.me().username;
+  }, function(username) {
+    if(username == $stateParams.username) {
+      if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
+        $scope.tabItems.push('settings');
+        $scope.tabStates.push('weco.profile.settings');
+      }
+    }
+  });
 }]);
