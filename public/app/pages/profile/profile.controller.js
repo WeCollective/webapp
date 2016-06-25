@@ -3,18 +3,19 @@
 var app = angular.module('wecoApp');
 app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.user = {};
+  $scope.isLoading = true;
 
-  console.log($state.params.username);
   User.get($state.params.username).then(function(user) {
-    console.log("got user");
     $scope.$apply(function() {
       $scope.user = user;
+      $scope.isLoading = false;
     });
   }, function(code) {
     // TODO: Handle other error codes
     if(code == 404) {
       $state.go('weco.notfound');
     }
+    $scope.isLoading = false;
   });
 
   $scope.tabItems = ['about', 'timeline'];

@@ -63,6 +63,28 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
+/* Component to indicate loading on a DOM element.
+** Usage:
+**  <div>               - Parent must be position: relative
+**    <div loading>     - Root element upon which to superimpose a loading indicator
+**      ...             - Element's usual child content
+**    </div>
+**  </div>
+*/
+
+var app = angular.module('wecoApp');
+app.directive('loading', function() {
+  return {
+    restrict: 'A',
+    templateUrl: '/app/components/loading/loading.view.html',
+    scope: {
+      when: '&'
+    },
+    replace: false,
+    transclude: true
+  };
+});
+
 var app = angular.module('wecoApp');
 app.directive('navBar', ['User', '$state', function(User, $state) {
   return {
@@ -107,7 +129,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -276,18 +298,19 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 var app = angular.module('wecoApp');
 app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.user = {};
+  $scope.isLoading = true;
 
-  console.log($state.params.username);
   User.get($state.params.username).then(function(user) {
-    console.log("got user");
     $scope.$apply(function() {
       $scope.user = user;
+      $scope.isLoading = false;
     });
   }, function(code) {
     // TODO: Handle other error codes
     if(code == 404) {
       $state.go('weco.notfound');
     }
+    $scope.isLoading = false;
   });
 
   $scope.tabItems = ['about', 'timeline'];
