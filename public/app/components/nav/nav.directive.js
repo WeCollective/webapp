@@ -3,7 +3,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
   return {
     restrict: 'E',
     replace: 'true',
-    templateUrl: '/app/nav/nav.view.html',
+    templateUrl: '/app/components/nav/nav.view.html',
     link: function($scope, element, attrs) {
       $scope.user = User.me;
       $scope.isLoggedIn = User.isLoggedIn;

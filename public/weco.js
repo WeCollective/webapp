@@ -9,7 +9,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Log In/Sign Up state
     .state('auth', {
       abstract: true,
-      templateUrl: '/app/auth/auth.view.html',
+      templateUrl: '/app/pages/auth/auth.view.html',
       controller: 'authController'
     })
     .state('auth.login', {
@@ -32,64 +32,46 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Homepage state
     .state('weco.home', {
       url: '/',
-      templateUrl: '/app/home/home.view.html'
+      templateUrl: '/app/pages/home/home.view.html'
     })
     // Profile page
     .state('weco.profile', {
       url: '/u/:username',
       abstract: true,
-      templateUrl: '/app/profile/profile.view.html',
+      templateUrl: '/app/pages/profile/profile.view.html',
       controller: 'profileController'
     })
     .state('weco.profile.about', {
       url: '',
-      templateUrl: '/app/profile/about/about.view.html'
+      templateUrl: '/app/pages/profile/about/about.view.html'
     })
     .state('weco.profile.timeline', {
-      templateUrl: '/app/profile/timeline/timeline.view.html'
+      templateUrl: '/app/pages/profile/timeline/timeline.view.html'
     })
     .state('weco.profile.settings', {
-      templateUrl: '/app/profile/settings/settings.view.html'
+      templateUrl: '/app/pages/profile/settings/settings.view.html'
     });
 
 });
 
-'use strict';
-
 var app = angular.module('wecoApp');
-app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
-  $scope.credentials = {};
-  $scope.user = User.me;
-
-  $scope.isLoginForm = function() {
-    return $state.current.name == 'auth.login';
-  };
-
-  function login() {
-    User.login($scope.credentials).then(function() {
-      // successful login; redirect to home page
-      $state.go('weco.home');
-    }, function() {
-      // TODO: pretty error
-      alert('Unable to log in!');
-    });
-  }
-
-  function signup() {
-    User.signup($scope.credentials).then(function() {
-      // successful signup; redirect to home page
-      $state.go('weco.home');
-    }, function() {
-      // TODO: pretty error
-      alert('Unable to sign up!');
-    });
-  }
-
-  $scope.submit = function() {
-    if($scope.isLoginForm()) {
-      login();
-    } else {
-      signup();
+app.directive('navBar', ['User', '$state', function(User, $state) {
+  return {
+    restrict: 'E',
+    replace: 'true',
+    templateUrl: '/app/components/nav/nav.view.html',
+    link: function($scope, element, attrs) {
+      $scope.user = User.me;
+      $scope.isLoggedIn = User.isLoggedIn;
+      $scope.logout = function() {
+        User.logout().then(function() {
+          // successful logout; go to login page
+          $state.go('auth.login');
+        }, function() {
+          // TODO: pretty error
+          alert('Unable to log out!');
+        });
+      };
     }
   };
 }]);
@@ -119,61 +101,6 @@ app.directive('tabs', ['$state', function($state) {
 .constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
-var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', function(User, $state) {
-  return {
-    restrict: 'E',
-    replace: 'true',
-    templateUrl: '/app/nav/nav.view.html',
-    link: function($scope, element, attrs) {
-      $scope.user = User.me;
-      $scope.isLoggedIn = User.isLoggedIn;
-      $scope.logout = function() {
-        User.logout().then(function() {
-          // successful logout; go to login page
-          $state.go('auth.login');
-        }, function() {
-          // TODO: pretty error
-          alert('Unable to log out!');
-        });
-      };
-    }
-  };
-}]);
-
-'use strict';
-
-var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$stateParams', 'User', function($scope, $stateParams, User) {
-  $scope.user = {};
-
-  User.get($stateParams.username).then(function(user) {
-    $scope.$apply(function() {
-      $scope.user = user;
-    });
-  }, function(code) {
-    // TODO: 404 not found page when user not found
-    console.log("Unable to get user");
-    console.log(code);
-  });
-
-  $scope.tabItems = ['about', 'timeline'];
-  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
-
-  // Watch for changes in the auth'd user's username
-  // When set, if this is the auth'd user's profile page, add the 'settings' tab
-  $scope.$watch(function() {
-    return User.me().username;
-  }, function(username) {
-    if(username == $stateParams.username) {
-      if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
-        $scope.tabItems.push('settings');
-        $scope.tabStates.push('weco.profile.settings');
-      }
-    }
-  });
-}]);
-
 var api = angular.module('api', ['ngResource']);
 api.config(['$httpProvider', function($httpProvider) {
   // must set withCredentials to keep cookies when making API requests
@@ -287,4 +214,77 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   };
 
   return User;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
+  $scope.credentials = {};
+  $scope.user = User.me;
+
+  $scope.isLoginForm = function() {
+    return $state.current.name == 'auth.login';
+  };
+
+  function login() {
+    User.login($scope.credentials).then(function() {
+      // successful login; redirect to home page
+      $state.go('weco.home');
+    }, function() {
+      // TODO: pretty error
+      alert('Unable to log in!');
+    });
+  }
+
+  function signup() {
+    User.signup($scope.credentials).then(function() {
+      // successful signup; redirect to home page
+      $state.go('weco.home');
+    }, function() {
+      // TODO: pretty error
+      alert('Unable to sign up!');
+    });
+  }
+
+  $scope.submit = function() {
+    if($scope.isLoginForm()) {
+      login();
+    } else {
+      signup();
+    }
+  };
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('profileController', ['$scope', '$stateParams', 'User', function($scope, $stateParams, User) {
+  $scope.user = {};
+
+  User.get($stateParams.username).then(function(user) {
+    $scope.$apply(function() {
+      $scope.user = user;
+    });
+  }, function(code) {
+    // TODO: 404 not found page when user not found
+    console.log("Unable to get user");
+    console.log(code);
+  });
+
+  $scope.tabItems = ['about', 'timeline'];
+  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
+
+  // Watch for changes in the auth'd user's username
+  // When set, if this is the auth'd user's profile page, add the 'settings' tab
+  $scope.$watch(function() {
+    return User.me().username;
+  }, function(username) {
+    if(username == $stateParams.username) {
+      if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
+        $scope.tabItems.push('settings');
+        $scope.tabStates.push('weco.profile.settings');
+      }
+    }
+  });
 }]);
