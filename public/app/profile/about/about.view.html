@@ -1,5 +1,7 @@
 <h3 class="profile-tab-description">About you...</h3>
 <ul id="about-properties">
-  <li><span class="field">Name: </span> <span class="value">{{ user.name.first }} {{ user.name.last }}</span></li>
-  <li><span class="field">Username: </span> <span class="value">{{ user.username }}</span></li>
+  <li ng-show="user.name"><span class="field">Name: </span> <span class="value">{{ user.name.first }} {{ user.name.last }}</span></li>
+  <li ng-show="user.username"><span class="field">Username: </span> <span class="value">{{ user.username }}</span></li>
+  <li ng-show="user.gender"><span class="field">Gender: </span> <span class="value">{{ user.gender }}</span></li>
+  <li ng-show="user.dob"><span class="field">DOB: </span> <span class="value">{{ user.dob }}</span></li>
 </ul>
