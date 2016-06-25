@@ -15,7 +15,13 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
         reject(response.status);
       }).then(function(user) {
-        resolve(user.data);
+        if(user && user.data) {
+          resolve(user.data);
+        } else {
+          // successful response contains no user object:
+          // treat as 500 Internal Server Error
+          reject(500);
+        }
       });
     });
   };

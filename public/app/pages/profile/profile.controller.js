@@ -1,17 +1,20 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$stateParams', 'User', function($scope, $stateParams, User) {
+app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.user = {};
 
-  User.get($stateParams.username).then(function(user) {
+  console.log($state.params.username);
+  User.get($state.params.username).then(function(user) {
+    console.log("got user");
     $scope.$apply(function() {
       $scope.user = user;
     });
   }, function(code) {
-    // TODO: 404 not found page when user not found
-    console.log("Unable to get user");
-    console.log(code);
+    // TODO: Handle other error codes
+    if(code == 404) {
+      $state.go('weco.notfound');
+    }
   });
 
   $scope.tabItems = ['about', 'timeline'];
@@ -22,7 +25,7 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
   $scope.$watch(function() {
     return User.me().username;
   }, function(username) {
-    if(username == $stateParams.username) {
+    if(username == $state.params.username) {
       if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
         $scope.tabItems.push('settings');
         $scope.tabStates.push('weco.profile.settings');

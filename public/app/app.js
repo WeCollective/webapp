@@ -29,6 +29,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       },
       template: '<nav-bar></nav-bar><div class="full-page-nav" ui-view></div>'
     })
+    // 404 Not Found
+    .state('weco.notfound', {
+      templateUrl: '/app/pages/notfound/notfound.view.html'
+    })
     // Homepage state
     .state('weco.home', {
       url: '/',

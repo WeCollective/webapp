@@ -29,6 +29,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       },
       template: '<nav-bar></nav-bar><div class="full-page-nav" ui-view></div>'
     })
+    // 404 Not Found
+    .state('weco.notfound', {
+      templateUrl: '/app/pages/notfound/notfound.view.html'
+    })
     // Homepage state
     .state('weco.home', {
       url: '/',
@@ -168,7 +172,13 @@ app.factory('User', ['UserAPI', function(UserAPI) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
         reject(response.status);
       }).then(function(user) {
-        resolve(user.data);
+        if(user && user.data) {
+          resolve(user.data);
+        } else {
+          // successful response contains no user object:
+          // treat as 500 Internal Server Error
+          reject(500);
+        }
       });
     });
   };
@@ -259,10 +269,12 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$stateParams', 'User', function($scope, $stateParams, User) {
+app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
   $scope.user = {};
 
-  User.get($stateParams.username).then(function(user) {
+  console.log($state.params.username);
+  User.get($state.params.username).then(function(user) {
+    console.log("got user");
     $scope.$apply(function() {
       $scope.user = user;
     });
@@ -270,6 +282,10 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
     // TODO: 404 not found page when user not found
     console.log("Unable to get user");
     console.log(code);
+    if(code == 404) {
+      alert("Not found!");
+      $state.go('weco.notfound');
+    }
   });
 
   $scope.tabItems = ['about', 'timeline'];
@@ -280,7 +296,7 @@ app.controller('profileController', ['$scope', '$stateParams', 'User', function(
   $scope.$watch(function() {
     return User.me().username;
   }, function(username) {
-    if(username == $stateParams.username) {
+    if(username == $state.params.username) {
       if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
         $scope.tabItems.push('settings');
         $scope.tabStates.push('weco.profile.settings');
