@@ -1,14 +1,15 @@
 var app = angular.module('wecoApp');
 app.directive('modal', ['Modal', function(Modal) {
   return {
-    restrict: 'E',
+    restrict: 'A',
+    replace: false,
     scope: {},
     templateUrl: '/app/components/modals/modal.view.html',
     link: function($scope, elem, attrs) {
-      $scope.templateUrl = Modal.templateUrl;
+      $scope.getTemplateUrl = Modal.templateUrl;
       $scope.isOpen = Modal.isOpen;
-
-      Modal.show('/app/components/modals/modal.test.view.html');
+      $scope.Cancel = Modal.Cancel;
+      $scope.OK = Modal.OK;
     }
   };
 }]);

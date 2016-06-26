@@ -88,14 +88,15 @@ app.directive('loading', function() {
 var app = angular.module('wecoApp');
 app.directive('modal', ['Modal', function(Modal) {
   return {
-    restrict: 'E',
+    restrict: 'A',
+    replace: false,
     scope: {},
     templateUrl: '/app/components/modals/modal.view.html',
     link: function($scope, elem, attrs) {
-      $scope.templateUrl = Modal.templateUrl;
+      $scope.getTemplateUrl = Modal.templateUrl;
       $scope.isOpen = Modal.isOpen;
-
-      Modal.show('/app/components/modals/modal.test.view.html');
+      $scope.Cancel = Modal.Cancel;
+      $scope.OK = Modal.OK;
     }
   };
 }]);
@@ -114,9 +115,28 @@ app.factory('Modal', function() {
     return isOpen;
   };
 
-  Modal.show = function(url) {
+  var modalResolve;
+  var modalReject;
+  Modal.open = function(url) {
     templateUrl = url;
     isOpen = true;
+
+    return new Promise(function(resolve, reject) {
+      modalResolve = resolve;
+      modalReject = reject;
+    });
+  };
+
+  Modal.OK = function() {
+    isOpen = false;
+    modalResolve(true);
+  };
+  Modal.Cancel = function() {
+    isOpen = false;
+    modalResolve(false);
+  };
+  Modal.Error = function() {
+    modalReject();
   };
 
   return Modal;
@@ -380,4 +400,16 @@ app.controller('profileController', ['$scope', '$state', 'User', function($scope
       }
     }
   });
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('profileSettingsController', ['$scope', 'Modal', function($scope, Modal) {
+  $scope.test = 'TEST';
+  $scope.openModal = function() {
+    Modal.open('/app/components/modals/profile/settings/settings.modal.view.html').then(function(result) {
+      console.log(result);
+    }, function() {
+      console.log('error');
+    });
+  };
 }]);

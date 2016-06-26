@@ -12,9 +12,28 @@ app.factory('Modal', function() {
     return isOpen;
   };
 
-  Modal.show = function(url) {
+  var modalResolve;
+  var modalReject;
+  Modal.open = function(url) {
     templateUrl = url;
     isOpen = true;
+
+    return new Promise(function(resolve, reject) {
+      modalResolve = resolve;
+      modalReject = reject;
+    });
+  };
+
+  Modal.OK = function() {
+    isOpen = false;
+    modalResolve(true);
+  };
+  Modal.Cancel = function() {
+    isOpen = false;
+    modalResolve(false);
+  };
+  Modal.Error = function() {
+    modalReject();
   };
 
   return Modal;
