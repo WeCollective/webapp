@@ -67,6 +67,17 @@ div#auth-background {
         }
       }
 
+      &[disabled] {
+        background-color: @dark-grey;
+
+        &:hover {
+          background-color: @dark-grey;
+          box-shadow: none;
+          letter-spacing: normal;
+          cursor: auto;
+        }
+      }
+
       &:focus {
         outline: none;
       }
