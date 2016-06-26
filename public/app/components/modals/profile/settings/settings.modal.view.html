@@ -1,1 +1,4 @@
-<h1 ng-controller="profileSettingsController">TEST: {{ test }} </h1>
+<div id="profileSettingsModal" ng-controller="modalProfileSettingsController">
+  <h1>Change your {{ Modal.getInputArgs().title }}</h1>
+  <input ng-repeat="item in Modal.getInputArgs().inputs" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>
+</div>

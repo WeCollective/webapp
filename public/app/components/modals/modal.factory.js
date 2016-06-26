@@ -12,11 +12,17 @@ app.factory('Modal', function() {
     return isOpen;
   };
 
+  var modalInputArgs = {};
+  Modal.getInputArgs = function() {
+    return modalInputArgs;
+  };
+
   var modalResolve;
   var modalReject;
-  Modal.open = function(url) {
+  Modal.open = function(url, args) {
     templateUrl = url;
     isOpen = true;
+    modalInputArgs = args;
 
     return new Promise(function(resolve, reject) {
       modalResolve = resolve;

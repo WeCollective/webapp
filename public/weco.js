@@ -115,11 +115,17 @@ app.factory('Modal', function() {
     return isOpen;
   };
 
+  var modalInputArgs = {};
+  Modal.getInputArgs = function() {
+    return modalInputArgs;
+  };
+
   var modalResolve;
   var modalReject;
-  Modal.open = function(url) {
+  Modal.open = function(url, args) {
     templateUrl = url;
     isOpen = true;
+    modalInputArgs = args;
 
     return new Promise(function(resolve, reject) {
       modalResolve = resolve;
@@ -141,6 +147,11 @@ app.factory('Modal', function() {
 
   return Modal;
 });
+
+var app = angular.module('wecoApp');
+app.controller('modalProfileSettingsController', ['$scope', 'Modal', function($scope, Modal) {
+  $scope.Modal = Modal;
+}]);
 
 var app = angular.module('wecoApp');
 app.directive('navBar', ['User', '$state', function(User, $state) {
@@ -404,12 +415,13 @@ app.controller('profileController', ['$scope', '$state', 'User', function($scope
 
 var app = angular.module('wecoApp');
 app.controller('profileSettingsController', ['$scope', 'Modal', function($scope, Modal) {
-  $scope.test = 'TEST';
-  $scope.openModal = function() {
-    Modal.open('/app/components/modals/profile/settings/settings.modal.view.html').then(function(result) {
-      console.log(result);
-    }, function() {
-      console.log('error');
-    });
+  $scope.openModal = function(args) {
+    console.log(args);
+    Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
+      .then(function(result) {
+        console.log(result);
+      }, function() {
+        console.log('error');
+      });
   };
 }]);

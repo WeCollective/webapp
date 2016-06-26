@@ -1,8 +1,7 @@
 <h3 class="profile-tab-description">Control all your personal account settings here...</h3>
 <ul id="settings-properties" ng-controller="profileSettingsController">
-  <li><span class="field">Name: </span> <span class="value">{{ user.name.first }} {{ user.name.last }}</span><span class="change-value"> | <span ng-click="openModal()">Change</span></span></li>
-  <li><span class="field">Username: </span> <span class="value">{{ user.username }}</span><span class="change-value"> | <span>Change</span></span></li>
-  <li><span class="field">Email: </span> <span class="value">{{ user.email }}</span><span class="change-value"> | <span>Change</span></span></li>
-  <li><span class="field">Gender: </span> <span class="value">{{ user.gender || 'Not Set' }}</span><span class="change-value"> | <span>Change</span></span></li>
-  <li><span class="field">DOB: </span> <span class="value">{{ user.dob || 'Not Set' }}</span><span class="change-value"> | <span>Change</span></span></li>
+  <li><span class="field">Name: </span> <span class="value">{{ user.name.first }} {{ user.name.last }}</span><span class="change-value"> | <span ng-click="openModal({ title: 'Name', inputs: [{ placeholder: 'First name', type: 'text' }, { placeholder: 'Last name', type: 'text' }] })">Change</span></span></li>
+  <li><span class="field">Username: </span> <span class="value">{{ user.username }}</span><span class="change-value"> | <span ng-click="openModal({ title: 'Username', inputs: [{ placeholder: 'Username', type: 'text' }] })">Change</span></span></li>
+  <li><span class="field">Email: </span> <span class="value">{{ user.email }}</span><span class="change-value"> | <span ng-click="openModal({ title: 'Email', inputs: [{ placeholder: 'Email', type: 'email' }] })">Change</span></span></li>
+  <li><span class="field">DOB: </span> <span class="value">{{ user.dob || 'Not Set' }}</span><span class="change-value"> | <span ng-click="openModal({ title: 'Date of Birth', inputs: [{ placeholder: 'Date of Birth', type: 'date' }] })">Change</span></span></li>
 </ul>
