@@ -15,9 +15,9 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       // successful login; redirect to home page
       $scope.isLoading = false;
       $state.go('weco.home');
-    }, function() {
+    }, function(response) {
       // TODO: pretty error
-      alert('Unable to log in!');
+      alert(response.message);
       $scope.isLoading = false;
     });
   }
@@ -27,9 +27,9 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       // successful signup; redirect to home page
       $scope.isLoading = false;
       $state.go('weco.home');
-    }, function() {
+    }, function(response) {
       // TODO: pretty error
-      alert('Unable to sign up!');
+      alert(response.message);
       $scope.isLoading = false;
     });
   }

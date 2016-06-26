@@ -13,7 +13,7 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.get = function(username) {
     return new Promise(function(resolve, reject) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
-        reject(response.status);
+        reject(response.status, response.data.message);
       }).then(function(user) {
         if(user && user.data) {
           resolve(user.data);
@@ -34,7 +34,10 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.login = function(credentials) {
     return new Promise(function(resolve, reject) {
       UserAPI.login(credentials).$promise.catch(function(response) {
-        reject(response.status);
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function() {
         me = UserAPI.get(function() {
           resolve();
@@ -46,7 +49,10 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.logout = function() {
     return new Promise(function(resolve, reject) {
       UserAPI.logout().$promise.catch(function(response) {
-        reject(response.status);
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function() {
         me = UserAPI.get();
         resolve();
@@ -57,7 +63,10 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.signup = function(credentials) {
     return new Promise(function(resolve, reject) {
       UserAPI.signup(credentials).$promise.catch(function(response) {
-        reject(response.status);
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function() {
         me = UserAPI.get(function() {
           resolve();
