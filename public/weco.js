@@ -337,6 +337,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
   $scope.credentials = {};
   $scope.user = User.me;
   $scope.isLoading = false;
+  $scope.errorMessage = '';
 
   $scope.isLoginForm = function() {
     return $state.current.name == 'auth.login';
@@ -348,8 +349,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       $scope.isLoading = false;
       $state.go('weco.home');
     }, function(response) {
-      // TODO: pretty error
-      alert(response.message);
+      $scope.errorMessage = response.message;
       $scope.isLoading = false;
     });
   }
@@ -360,8 +360,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       $scope.isLoading = false;
       $state.go('weco.home');
     }, function(response) {
-      // TODO: pretty error
-      alert(response.message);
+      $scope.errorMessage = response.message;
       $scope.isLoading = false;
     });
   }
