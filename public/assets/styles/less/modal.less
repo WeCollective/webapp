@@ -3,8 +3,15 @@ div#modal-backdrop {
   width: 100%;
   height: 100%;
   background-color: #000;
-  opacity: 0.5;
   z-index: 1100;
+
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+
+  &:not(.ng-hide) {
+    transition: opacity 0.5s ease-out;
+    opacity: 0.5;
+  }
 }
 
 div#modal-container {
@@ -13,17 +20,28 @@ div#modal-container {
   height: 100%;
   z-index: 1200;
 
+  &:not(.ng-hide) div#modal-content {
+    // slide up and fade in animation
+    transition: all 0.5s ease-out;
+    top: 30%;
+    opacity: 1;
+  }
+
   div#modal-content {
     display: inline-block;
     position: relative;
     max-width: 80%;
     max-height: 80%;
-    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     border-radius: 10px;
     box-shadow: @shadow3;
+
+    // slide up and fade in animation
+    transition: all 0.5s ease-out;
+    top: calc(~"30% + 50px");
+    opacity: 0;
 
     div#modal-injected-content {
       width: 100%;
