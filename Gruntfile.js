@@ -72,14 +72,16 @@ module.exports = function(grunt) {
         files: ['public/assets/styles/less/**/*.less'],
         tasks: ['less'],
         options: {
-          spawn: false
+          spawn: false,
+          maxListeners: 99
         }
       },
       js: {
         files: ['public/**/*.js'],
         tasks: ['js'],
         options: {
-          spawn: false
+          spawn: false,
+          maxListeners: 99
         }
       }
     },
