@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.factory('Modal', function() {
+app.factory('Modal', ['$timeout', function($timeout) {
   var Modal = {};
 
   var templateUrl = '';
@@ -31,11 +31,15 @@ app.factory('Modal', function() {
   };
 
   Modal.OK = function() {
-    isOpen = false;
+    $timeout(function() {
+      isOpen = false;
+    });
     modalResolve(true);
   };
   Modal.Cancel = function() {
-    isOpen = false;
+    $timeout(function() {
+      isOpen = false;
+    });
     modalResolve(false);
   };
   Modal.Error = function() {
@@ -43,4 +47,4 @@ app.factory('Modal', function() {
   };
 
   return Modal;
-});
+}]);

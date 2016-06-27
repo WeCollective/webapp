@@ -13,7 +13,10 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.get = function(username) {
     return new Promise(function(resolve, reject) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
-        reject(response.status, response.data.message);
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function(user) {
         if(user && user.data) {
           resolve(user.data);
@@ -22,6 +25,19 @@ app.factory('User', ['UserAPI', function(UserAPI) {
           // treat as 500 Internal Server Error
           reject(500);
         }
+      });
+    });
+  };
+
+  User.update = function(data) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.update(data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
       });
     });
   };

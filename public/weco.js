@@ -95,14 +95,21 @@ app.directive('modal', ['Modal', function(Modal) {
     link: function($scope, elem, attrs) {
       $scope.getTemplateUrl = Modal.templateUrl;
       $scope.isOpen = Modal.isOpen;
-      $scope.Cancel = Modal.Cancel;
-      $scope.OK = Modal.OK;
+
+      // OK/Cancel broadcasts event down to child scopes,
+      // which is the injected modal content controller
+      $scope.OK = function() {
+        $scope.$broadcast('OK');
+      };
+      $scope.Cancel = function() {
+        $scope.$broadcast('Cancel');
+      };
     }
   };
 }]);
 
 var app = angular.module('wecoApp');
-app.factory('Modal', function() {
+app.factory('Modal', ['$timeout', function($timeout) {
   var Modal = {};
 
   var templateUrl = '';
@@ -134,11 +141,15 @@ app.factory('Modal', function() {
   };
 
   Modal.OK = function() {
-    isOpen = false;
+    $timeout(function() {
+      isOpen = false;
+    });
     modalResolve(true);
   };
   Modal.Cancel = function() {
-    isOpen = false;
+    $timeout(function() {
+      isOpen = false;
+    });
     modalResolve(false);
   };
   Modal.Error = function() {
@@ -146,11 +157,55 @@ app.factory('Modal', function() {
   };
 
   return Modal;
-});
+}]);
 
 var app = angular.module('wecoApp');
-app.controller('modalProfileSettingsController', ['$scope', 'Modal', function($scope, Modal) {
+app.controller('modalProfileSettingsController', ['$scope', '$timeout', 'Modal', 'User', function($scope, $timeout, Modal, User) {
   $scope.Modal = Modal;
+  $scope.values = [];
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+
+  $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if($scope.values.length < Modal.getInputArgs().inputs.length || $scope.values.indexOf('') > -1) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
+    // construct data to update using the proper fieldnames
+    var updateData = {};
+    for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
+      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.values[i];
+    }
+
+    // perform the update
+    $scope.isLoading = true;
+    User.update(updateData).then(function() {
+      $timeout(function() {
+        $scope.values = [];
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.values = [];
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
 }]);
 
 var app = angular.module('wecoApp');
@@ -197,7 +252,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -210,6 +265,13 @@ api.config(['$httpProvider', function($httpProvider) {
 
 var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
 
   var User = $resource(ENV.apiEndpoint + 'user/:param',
     {
@@ -226,12 +288,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         // transform the request to use x-www-form-urlencoded
-        transformRequest: function(data, headersGetter) {
-          var str = [];
-          for (var d in data)
-            str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-          return str.join("&");
-        }
+        transformRequest: makeFormEncoded
       },
       logout: {
         method: 'GET',
@@ -244,6 +301,15 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
         params: {
           param: ''
         }
+      },
+      update: {
+        method: 'PUT',
+        // indicate that the data is x-www-form-urlencoded
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        // transform the request to use x-www-form-urlencoded
+        transformRequest: makeFormEncoded
       }
     });
 
@@ -265,7 +331,10 @@ app.factory('User', ['UserAPI', function(UserAPI) {
   User.get = function(username) {
     return new Promise(function(resolve, reject) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
-        reject(response.status, response.data.message);
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function(user) {
         if(user && user.data) {
           resolve(user.data);
@@ -274,6 +343,19 @@ app.factory('User', ['UserAPI', function(UserAPI) {
           // treat as 500 Internal Server Error
           reject(500);
         }
+      });
+    });
+  };
+
+  User.update = function(data) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.update(data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
       });
     });
   };
@@ -378,12 +460,12 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', function($scope, $timeout, $state, User) {
   $scope.user = {};
   $scope.isLoading = true;
 
   User.get($state.params.username).then(function(user) {
-    $scope.$apply(function() {
+    $timeout(function() {
       $scope.user = user;
       $scope.isLoading = false;
     });
@@ -413,14 +495,55 @@ app.controller('profileController', ['$scope', '$state', 'User', function($scope
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('profileSettingsController', ['$scope', 'Modal', function($scope, Modal) {
-  $scope.openModal = function(args) {
-    console.log(args);
+app.controller('profileSettingsController', ['$scope', '$state', 'Modal', function($scope, $state, Modal) {
+  function openModal(args) {
     Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
       .then(function(result) {
-        console.log(result);
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
       }, function() {
+        // TODO: display pretty message
         console.log('error');
       });
+  }
+
+  $scope.openNameModal = function() {
+    openModal({
+      title: 'Name',
+      inputs: [{
+          placeholder: 'First name',
+          type: 'text',
+          fieldname: 'firstname'
+        }, {
+          placeholder: 'Last name',
+          type: 'text',
+          fieldname: 'lastname'
+        }
+      ]
+    });
+  };
+
+  $scope.openEmailModal = function() {
+    openModal({
+      title: 'Email',
+      inputs: [{
+        placeholder: 'Email',
+        type: 'email',
+        fieldname: 'email'
+      }]
+    });
+  };
+
+  $scope.openDOBModal = function() {
+    openModal({
+      title: 'Date of Birth',
+      inputs: [{
+        placeholder: 'Date of Birth',
+        type: 'date',
+        fieldname: 'dob'
+      }]
+    });
   };
 }]);

@@ -1,12 +1,12 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$state', 'User', function($scope, $state, User) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', function($scope, $timeout, $state, User) {
   $scope.user = {};
   $scope.isLoading = true;
 
   User.get($state.params.username).then(function(user) {
-    $scope.$apply(function() {
+    $timeout(function() {
       $scope.user = user;
       $scope.isLoading = false;
     });
