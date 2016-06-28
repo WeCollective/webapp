@@ -179,6 +179,11 @@ app.controller('modalProfileSettingsController', ['$scope', '$timeout', 'Modal',
     var updateData = {};
     for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
       updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.values[i];
+
+      // convert date input values to unix timestamp
+      if(Modal.getInputArgs().inputs[i].type == 'date') {
+        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.values[i]).getTime();
+      }
     }
 
     // perform the update
@@ -469,9 +474,9 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', fun
       $scope.user = user;
       $scope.isLoading = false;
     });
-  }, function(code) {
+  }, function(response) {
     // TODO: Handle other error codes
-    if(code == 404) {
+    if(response.status == 404) {
       $state.go('weco.notfound');
     }
     $scope.isLoading = false;

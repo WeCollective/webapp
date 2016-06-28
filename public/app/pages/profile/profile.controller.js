@@ -10,9 +10,9 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', fun
       $scope.user = user;
       $scope.isLoading = false;
     });
-  }, function(code) {
+  }, function(response) {
     // TODO: Handle other error codes
-    if(code == 404) {
+    if(response.status == 404) {
       $state.go('weco.notfound');
     }
     $scope.isLoading = false;
