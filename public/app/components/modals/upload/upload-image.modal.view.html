@@ -1,16 +1,18 @@
 <div id="upload-image-modal" ng-controller="modalUploadImageController">
   <h1>Upload Image</h1>
   <p>{{ errorMessage }}</p>
-  <div id="dragdrop"
-       ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported" ngf-hide-on-drop-not-available="true"
-       ngf-fix-orientation="true" ngf-resize="{ width: 500, height: 500, type: 'image/*', centerCrop: true }"
-       ngf-resize-if="$width > 500 || $height > 500">
-    <img src="/assets/images/image.png">
+  <div id="dragdrop" ng-show="!isUploading"
+       ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
+       ngf-hide-on-drop-not-available="true" ngf-fix-orientation="true">
+    <img id="graphic" src="/assets/images/image.png">
     <h2>Drop an image here!</h2>
+    <img id="preview" ngf-src="file">
   </div>
-  <div id="choose-file" ngf-select="setFile($file)" ngf-fix-orientation="true" ngf-accept="'image/*'"
-       ngf-resize="{ width: 500, height: 500, type: 'image/*', centerCrop: true }"
-       ngf-resize-if="$width > 500 || $height > 500">
+  <div id="choose-file" ng-show="!isUploading" ngf-select="setFile($file)"
+       ngf-fix-orientation="true" ngf-accept="'image/*'">
        {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
-   </div>
+  </div>
+  <div id="progress-container" ng-show="isUploading">
+    <div id="progress" style="width:{{ progress }}%"></div>
+  </div>
 </div>

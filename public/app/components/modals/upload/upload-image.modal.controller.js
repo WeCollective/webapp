@@ -4,13 +4,8 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
   $scope.errorMessage = '';
   $scope.uploadUrl = '';
   $scope.file = null;
-
-  // TODO:
-  /* - clean this up
-  ** - loggedIn for the get access url API route
-  ** - trigger upload on OK
-  ** - make pretty
-  */
+  $scope.isUploading = false;
+  $scope.progress = 0;
 
   // when the modal opens, fetch the pre-signed url to use to upload
   // the user's profile picture to S3
@@ -48,18 +43,22 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
       url: $scope.uploadUrl,
       method: 'PUT',
       headers: {
-        'Content-Type': $scope.file.type !== '' ? $scope.file.type : 'application/octet-stream'
+        'Content-Type': 'image/*'
       },
-      data: $scope.file,
-      withCredentials: false
-    }).then(function (resp) {
+      data: $scope.file
+    }).then(function(resp) {
       $scope.file = null;
-      console.log("Success!");
-    }, function (resp) {
+      $scope.isUploading = false;
+      $scope.progress = 0;
+      Modal.OK();
+    }, function(err) {
+      // TODO: handle error
       $scope.file = null;
-      console.log('Error status: ' + resp.status);
-    }, function (evt) {
-      console.log("PROGRESS CALLED");
+      $scope.isUploading = false;
+      $scope.progress = 0;
+      console.error("Unable to upload photo!");
+    }, function(evt) {
+      $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
   };
 
@@ -77,9 +76,10 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
       return;
     }
     $timeout(function() {
-      $scope.upload();
       $scope.errorMessage = '';
-      Modal.OK();
+      $scope.isUploading = true;
+      $scope.progress = 0;
+      $scope.upload();
     });
   });
 

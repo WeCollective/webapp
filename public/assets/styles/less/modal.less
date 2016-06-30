@@ -23,7 +23,7 @@ div#modal-container {
   &:not(.ng-hide) div#modal-content {
     // slide up and fade in animation
     transition: all 0.5s ease-out;
-    top: 30%;
+    top: calc(~"50% - 100px");
     opacity: 1;
   }
 
@@ -40,7 +40,7 @@ div#modal-container {
 
     // slide up and fade in animation
     transition: all 0.5s ease-out;
-    top: calc(~"30% + 50px");
+    top: calc(~"50% - 50px");
     opacity: 0;
 
     div#modal-injected-content {
