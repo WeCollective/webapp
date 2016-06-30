@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngFileUpload', 'api']);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
@@ -214,6 +214,93 @@ app.controller('modalProfileSettingsController', ['$scope', '$timeout', 'Modal',
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$http', 'ENV', 'Upload', function($scope, $timeout, Modal, $http, ENV, Upload) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.uploadUrl = '';
+  $scope.file = null;
+
+  // TODO:
+  /* - clean this up
+  ** - loggedIn for the get access url API route
+  ** - trigger upload on OK
+  ** - make pretty
+  */
+
+  // when the modal opens, fetch the pre-signed url to use to upload
+  // the user's profile picture to S3
+  $scope.$watch(function() {
+    return Modal.isOpen();
+  }, function(isOpen) {
+    if(isOpen) {
+      $http({
+        method: 'GET',
+        url: ENV.apiEndpoint + 'user/me/picture-upload-url'
+      }).then(function(response) {
+        if(response && response.data && response.data.data) {
+          $scope.uploadUrl = response.data.data;
+        } else {
+          // TODO: handle error
+          console.log("error");
+        }
+      }, function () {
+        // TODO: handle error
+        console.log("error");
+      });
+    }
+  });
+
+  $scope.setFile = function(file) {
+    $scope.file = file;
+  };
+
+  $scope.upload = function() {
+    if(!$scope.file) {
+      console.error("No file selected");
+      return;
+    }
+    Upload.http({
+      url: $scope.uploadUrl,
+      method: 'PUT',
+      headers: {
+        'Content-Type': $scope.file.type !== '' ? $scope.file.type : 'application/octet-stream'
+      },
+      data: $scope.file,
+      withCredentials: false
+    }).then(function (resp) {
+      $scope.file = null;
+      console.log("Success!");
+    }, function (resp) {
+      $scope.file = null;
+      console.log('Error status: ' + resp.status);
+    }, function (evt) {
+      console.log("PROGRESS CALLED");
+    });
+  };
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.file = null;
+      $scope.errorMessage = '';
+      Modal.Cancel();
+    });
+  });
+
+  $scope.$on('OK', function() {
+    if(!$scope.file) {
+      console.error("No file selected");
+      return;
+    }
+    $timeout(function() {
+      $scope.upload();
+      $scope.errorMessage = '';
+      Modal.OK();
+    });
+  });
+
+}]);
+
+var app = angular.module('wecoApp');
 app.directive('navBar', ['User', '$state', function(User, $state) {
   return {
     restrict: 'E',
@@ -257,7 +344,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -465,7 +552,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$timeout', '$state', 'User', function($scope, $timeout, $state, User) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', function($scope, $timeout, $state, User, Modal) {
   $scope.user = {};
   $scope.isLoading = true;
 
@@ -497,6 +584,19 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', fun
       }
     }
   });
+
+  $scope.openProfilePictureModal = function(args) {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', args)
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
 }]);
 
 var app = angular.module('wecoApp');

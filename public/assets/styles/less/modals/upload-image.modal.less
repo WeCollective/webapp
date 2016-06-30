@@ -1,0 +1,39 @@
+div#upload-image-modal {
+  min-width: 200px;
+
+  div#dragdrop {
+    width: 100%;
+    min-width: 300px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 25px 15px;
+    margin-bottom: 10px;
+
+    transition: border 0.8s linear;
+    border: 1px dashed transparent;
+    &.dragover {
+      border: 1px dashed @primary-light;
+      transition: border 0.3s linear;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    img {
+      width: 60px;
+      height: auto;
+    }
+  }
+
+  div#choose-file {
+    margin-top: 10px;
+    color: @button-focus;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

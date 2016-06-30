@@ -1,0 +1,16 @@
+<div id="upload-image-modal" ng-controller="modalUploadImageController">
+  <h1>Upload Image</h1>
+  <p>{{ errorMessage }}</p>
+  <div id="dragdrop"
+       ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported" ngf-hide-on-drop-not-available="true"
+       ngf-fix-orientation="true" ngf-resize="{ width: 500, height: 500, type: 'image/*', centerCrop: true }"
+       ngf-resize-if="$width > 500 || $height > 500">
+    <img src="/assets/images/image.png">
+    <h2>Drop an image here!</h2>
+  </div>
+  <div id="choose-file" ngf-select="setFile($file)" ngf-fix-orientation="true" ngf-accept="'image/*'"
+       ngf-resize="{ width: 500, height: 500, type: 'image/*', centerCrop: true }"
+       ngf-resize-if="$width > 500 || $height > 500">
+       {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
+   </div>
+</div>

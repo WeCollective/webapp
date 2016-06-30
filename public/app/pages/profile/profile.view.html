@@ -4,7 +4,10 @@
     <div id="profile-info">
       <h1>{{ user.name.first }} {{ user.name.last }}</h1>
       <h2>{{ user.username }}</h2>
-      <img id="profile-picture" src="/assets/images/profile.jpg">
+      <div id="profile-picture-container">
+        <img id="profile-picture" src="/assets/images/profile.jpg">
+        <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()">
+      </div>
       <ul>
         <li>Total Karma: <span>361</span></li>
         <li>Post Karma: <span>72</span></li>

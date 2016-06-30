@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$timeout', '$state', 'User', function($scope, $timeout, $state, User) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', function($scope, $timeout, $state, User, Modal) {
   $scope.user = {};
   $scope.isLoading = true;
 
@@ -33,4 +33,17 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', fun
       }
     }
   });
+
+  $scope.openProfilePictureModal = function(args) {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', args)
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
 }]);
