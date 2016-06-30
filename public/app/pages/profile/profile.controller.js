@@ -46,4 +46,8 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
         console.log('error');
       });
   };
+
+  $scope.isMyProfile = function() {
+    return User.me().username == $state.params.username;
+  };
 }]);
