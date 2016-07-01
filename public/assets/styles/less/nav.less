@@ -69,11 +69,17 @@ nav#nav-bar {
           }
         }
 
-        img {
-          height: 100%;
-          width: auto;
+        &#profile::after {
+          display: inline-block;
+          content: "";
+          height: 40px;
+          width: 40px;
+          margin-left: 5px;
+          margin-right: 15px;
           vertical-align: middle;
-          margin: 0 15px;
+          background-image: url('/assets/images/default-profile.jpg');
+          background-position: center;
+          background-size: cover;
         }
       }
     }
