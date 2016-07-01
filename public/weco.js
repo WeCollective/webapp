@@ -344,7 +344,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -427,22 +427,31 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
     return $http.get(ENV.apiEndpoint + 'user/' + username + '/picture');
   }
 
-  // Fetch the authenticated user object
-  UserAPI.get().$promise.catch(function() {
-    // TODO: handle error
-    console.error('Unable to fetch user!');
-  }).then(function(user) {
-    // Attach the profile picture url to the user object if it exists
-    getProfilePictureUrl().then(function(response) {
-      if(response && response.data && response.data.data) {
-        user.data.profileUrl = response.data.data;
-      }
-      me.data = user.data;
-    }, function () {
-      // no profile picture to attach
-      me.data = user.data;
+
+  function getMe() {
+    return new Promise(function(resolve, reject) {
+      // Fetch the authenticated user object
+      UserAPI.get().$promise.catch(function() {
+        // TODO: handle error
+        console.error('Unable to fetch user!');
+        reject();
+      }).then(function(user) {
+        // Attach the profile picture url to the user object if it exists
+        getProfilePictureUrl().then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrl = response.data.data;
+          }
+          me.data = user.data;
+          resolve();
+        }, function () {
+          // no profile picture to attach
+          me.data = user.data;
+          resolve();
+        });
+      });
     });
-  });
+  }
+  getMe();
 
   // Get authenticated user object
   User.me = function() {
@@ -506,9 +515,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
           message: response.data.message
         });
       }).then(function() {
-        me = UserAPI.get(function() {
-          resolve();
-        });
+        getMe().then(resolve, reject);
       });
     });
   };
@@ -535,9 +542,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
           message: response.data.message
         });
       }).then(function() {
-        me = UserAPI.get(function() {
-          resolve();
-        });
+        getMe().then(resolve, reject);
       });
     });
   };
