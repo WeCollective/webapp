@@ -230,7 +230,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
     if(isOpen) {
       $http({
         method: 'GET',
-        url: ENV.apiEndpoint + 'user/me/picture-upload-url'
+        url: ENV.apiEndpoint + 'user/me/' + Modal.getInputArgs().type + '-upload-url'
       }).then(function(response) {
         if(response && response.data && response.data.data) {
           $scope.uploadUrl = response.data.data;
@@ -344,7 +344,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -418,13 +418,18 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
   // fetch the presigned url for the profile picture for the specified user,
   // defaulting to authd user if not specified.
   // Returns the promise from $http.
-  function getProfilePictureUrl(username) {
+  function getPictureUrl(username, type) {
     // if no username specified, fetch self
     if(!username) {
       username = 'me';
     }
+
+    // if type not specified, default to profile picture
+    if(type != 'picture' && type != 'cover') {
+      type = 'picture';
+    }
     // fetch signedurl for user profile picture and attach to user object
-    return $http.get(ENV.apiEndpoint + 'user/' + username + '/picture');
+    return $http.get(ENV.apiEndpoint + 'user/' + username + '/' + type);
   }
 
 
@@ -437,13 +442,22 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         reject();
       }).then(function(user) {
         // Attach the profile picture url to the user object if it exists
-        getProfilePictureUrl().then(function(response) {
+        getPictureUrl('me', 'picture').then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrl = response.data.data;
           }
-          me.data = user.data;
-          resolve();
-        }, function () {
+          getPictureUrl('me', 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              user.data.coverUrl = response.data.data;
+            }
+            me.data = user.data;
+            resolve();
+          }, function() {
+            // no cover picture to attach
+            me.data = user.data;
+            resolve();
+          });
+        }, function() {
           // no profile picture to attach
           me.data = user.data;
           resolve();
@@ -468,11 +482,19 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         });
       }).then(function(user) {
         if(user && user.data) {
-          getProfilePictureUrl(username).then(function(response) {
+          getPictureUrl(username, 'picture').then(function(response) {
             if(response && response.data && response.data.data) {
               user.data.profileUrl = response.data.data;
             }
-            resolve(user.data);
+            getPictureUrl(username, 'cover').then(function(response) {
+              if(response && response.data && response.data.data) {
+                user.data.coverUrl = response.data.data;
+              }
+              resolve(user.data);
+            }, function() {
+              // no cover picture to attach
+              resolve(user.data);
+            });
           }, function(response) {
             // no profile picture url to attach
             resolve(user.data);
@@ -631,8 +653,21 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
     }
   });
 
-  $scope.openProfilePictureModal = function(args) {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', args)
+  $scope.openProfilePictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'picture' })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
+
+  $scope.openCoverPictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'cover' })
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
