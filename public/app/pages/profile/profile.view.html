@@ -4,7 +4,7 @@
     <div id="profile-info">
       <h1>{{ user.name.first }} {{ user.name.last }}</h1>
       <h2>{{ user.username }}</h2>
-      <div id="profile-picture">
+      <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
         <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()">
       </div>
       <ul>

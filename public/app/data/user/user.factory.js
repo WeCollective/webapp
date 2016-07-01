@@ -1,15 +1,45 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', function(UserAPI) {
+app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
   var User = {};
   var me = {};
 
-  me = UserAPI.get(); // initial fetch
+  // fetch the presigned url for the profile picture for the specified user,
+  // defaulting to authd user if not specified.
+  // Returns the promise from $http.
+  function getProfilePictureUrl(username) {
+    // if no username specified, fetch self
+    if(!username) {
+      username = 'me';
+    }
+    // fetch signedurl for user profile picture and attach to user object
+    return $http.get(ENV.apiEndpoint + 'user/' + username + '/picture');
+  }
+
+  // Fetch the authenticated user object
+  UserAPI.get().$promise.catch(function() {
+    // TODO: handle error
+    console.error('Unable to fetch user!');
+  }).then(function(user) {
+    // Attach the profile picture url to the user object if it exists
+    getProfilePictureUrl().then(function(response) {
+      if(response && response.data && response.data.data) {
+        user.data.profileUrl = response.data.data;
+      }
+      me.data = user.data;
+    }, function () {
+      // no profile picture to attach
+      me.data = user.data;
+    });
+  });
+
+  // Get authenticated user object
   User.me = function() {
     return me.data || {};
   };
 
+  // Get the specified user object, with attached profile picture url
   User.get = function(username) {
     return new Promise(function(resolve, reject) {
       UserAPI.get({ param: username }).$promise.catch(function(response) {
@@ -19,11 +49,22 @@ app.factory('User', ['UserAPI', function(UserAPI) {
         });
       }).then(function(user) {
         if(user && user.data) {
-          resolve(user.data);
+          getProfilePictureUrl(username).then(function(response) {
+            if(response && response.data && response.data.data) {
+              user.data.profileUrl = response.data.data;
+            }
+            resolve(user.data);
+          }, function(response) {
+            // no profile picture url to attach
+            resolve(user.data);
+          });
         } else {
           // successful response contains no user object:
           // treat as 500 Internal Server Error
-          reject(500);
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
         }
       });
     });
