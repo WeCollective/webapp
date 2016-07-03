@@ -1,5 +1,9 @@
 <div id="profile-cover" ng-style="{ 'height': user.coverUrl ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}'), url('/assets/images/default-cover.jpg');">
-  <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile()">
+   <!-- div required to set position-relative for positioning of #edit-cover
+   without affecting the z-index of #profile-cover background image -->
+  <div>
+    <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
+  </div>
 </div>
 <div id="profile-frame" ng-style="{ 'height': user.coverUrl ? '70%' : '100%' }">
   <div loading when="isLoading">
