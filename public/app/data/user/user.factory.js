@@ -29,8 +29,10 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
       UserAPI.get().$promise.catch(function() {
         // TODO: handle error
         console.error('Unable to fetch user!');
-        reject();
+        return reject();
       }).then(function(user) {
+        if(!user) { return reject(); }
+
         // Attach the profile picture url to the user object if it exists
         getPictureUrl('me', 'picture').then(function(response) {
           if(response && response.data && response.data.data) {
@@ -55,7 +57,9 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
       });
     });
   }
-  getMe();
+  getMe().then(function() {}, function () {
+    console.error("Unable to get user!");
+  });
 
   // Get authenticated user object
   User.me = function() {
