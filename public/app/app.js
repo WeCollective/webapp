@@ -66,21 +66,33 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('weco.profile.settings', {
       templateUrl: '/app/pages/profile/settings/settings.view.html'
     })
-    // Root Branches
+    // Branches
     .state('weco.branch', {
       url: '/b/:branchname',
       abstract: true,
       templateUrl: '/app/pages/branch/branch.view.html',
       controller: 'branchController'
     })
+    // Branch Nucleus
     .state('weco.branch.nucleus', {
       url: '/nucleus',
       templateUrl: '/app/pages/branch/nucleus/nucleus.view.html'
     })
+    // Subbranches
     .state('weco.branch.subbranches', {
-      url: '/subbranches',
-      templateUrl: '/app/pages/branch/subbranches/subbranches.view.html'
+      url: '/subbranches?filter',
+      params: {
+        filter: 'alltime'
+      },
+      resolve: {
+        filterBranches: function() {
+          // TODO: filter the branches according to the filter param
+        }
+      },
+      templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
+      controller: 'subbranchesController'
     })
+    // Branch wall
     .state('weco.branch.wall', {
       url: '/wall',
       templateUrl: '/app/pages/branch/wall/wall.view.html'
