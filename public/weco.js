@@ -5,6 +5,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
+  // remove trailing slashes from URL
+  $urlRouterProvider.rule(function($injector, $location) {
+    var path = $location.path();
+    var hasTrailingSlash = path[path.length-1] === '/';
+    if(hasTrailingSlash) {
+      //if last charcter is a slash, return the same url without the slash
+      var newPath = path.substr(0, path.length - 1);
+      return newPath;
+    }
+  });
+
   $stateProvider
     // Log In/Sign Up state
     .state('auth', {
@@ -54,6 +65,25 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('weco.profile.settings', {
       templateUrl: '/app/pages/profile/settings/settings.view.html'
+    })
+    // Root Branches
+    .state('weco.branch', {
+      url: '/b/:branchname',
+      abstract: true,
+      templateUrl: '/app/pages/branch/branch.view.html',
+      controller: 'branchController'
+    })
+    .state('weco.branch.nucleus', {
+      url: '/nucleus',
+      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html'
+    })
+    .state('weco.branch.subbranches', {
+      url: '/subbranches',
+      templateUrl: '/app/pages/branch/subbranches/subbranches.view.html'
+    })
+    .state('weco.branch.wall', {
+      url: '/wall',
+      templateUrl: '/app/pages/branch/wall/wall.view.html'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {
@@ -618,6 +648,16 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
     } else {
       signup();
     }
+  };
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('branchController', ['$scope', '$state', function($scope, $state) {
+  $scope.branchname = $state.params.branchname;
+  $scope.isControlSelected = function(control) {
+    return $state.current.name.indexOf(control) > -1;
   };
 }]);
 

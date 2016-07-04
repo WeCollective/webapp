@@ -1,4 +1,4 @@
-div#profile-cover {
+div#branch-cover {
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -24,7 +24,7 @@ div#profile-cover {
   }
 }
 
-div#profile-frame {
+div#branch-frame {
   background-color: @light-grey;
   width: 100%;
 
@@ -35,7 +35,7 @@ div#profile-frame {
     background-color: #fff;
     z-index: 100;
 
-    div#profile-info {
+    div#branch-info {
       width: 200px;
       height: 100%;
       float: left;
@@ -51,7 +51,7 @@ div#profile-frame {
         font-weight: 500;
       }
 
-      div#profile-picture {
+      div#branch-picture {
         position: relative;
         width: 200px;
         height: 200px;
@@ -60,7 +60,7 @@ div#profile-frame {
         background-size: cover;
         z-index: 0;
 
-        img#edit-profile {
+        img#edit-picture {
           position: absolute;
           width: 20px;
           height: auto;
@@ -75,18 +75,31 @@ div#profile-frame {
         }
       }
 
-      ul {
-        li {
-          font-size: 14px;
-          font-weight: 300;
-          padding-bottom: 5px;
-          span {
-            font-weight: 500;
+      ul#branch-controls {
+        text-align: center;
+        width: 200px;
+        margin-left: -20px;
+
+        a {
+          li {
+            display: inline-block;
+            width: 25px;
+            padding: 0 10px;
+
+            img {
+              width: 100%;
+              height: auto;
+              opacity: 0.5;
+            }
+          }
+
+          &:hover li img, &.selected li img {
+            opacity: 1;
           }
         }
       }
     }
-    div#profile-content {
+    div#branch-content {
       width: calc(~'100% - 200px');
       height: 100%;
       float: left;
@@ -98,15 +111,6 @@ div#profile-frame {
         margin-right: 20px;
         font-size: 26px;
         font-weight: 500;
-      }
-      .profile-tab-description {
-        text-align: center;
-        font-weight: 300;
-        font-size: 14px;
-        font-style: italic;
-        padding: 10px 0;
-        margin-bottom: 10px;
-        border-bottom: 1px solid @light-grey;
       }
     }
   }
