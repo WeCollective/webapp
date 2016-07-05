@@ -1,0 +1,72 @@
+div#branch-subbranches {
+  position: relative;
+  width: 100%;
+  height: calc(~'100% - 40px');
+  box-sizing: border-box;
+  padding: 10px 20px;
+
+  h1 {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  div#subbranch-list-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    ul#subbranch-list {
+      padding-top: 15px;
+      li {
+        height: 80px;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: solid 1px @light-grey;
+
+        span.index {
+          float: left;
+          font-size: 20px;
+          font-weight: 500;
+          color: @dark-grey;
+          line-height: 80px;
+        }
+        img {
+          float: left;
+          height: 100%;
+          width: auto;
+          border-radius: 3px;
+          margin: 0 10px;
+        }
+        div {
+          float: left;
+          height: 100%;
+
+          span {
+            display: block;
+            &.title {
+              font-size: 20px;
+              font-weight: 500;
+            }
+            &.description {
+              font-size: 14px;
+              font-weight: 400;
+
+              a {
+                color: @button-focus;
+                font-weight: 500;
+
+                &:hover {
+                  cursor: pointer;
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

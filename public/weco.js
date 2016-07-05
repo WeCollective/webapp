@@ -419,13 +419,35 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
 api.config(['$httpProvider', function($httpProvider) {
   // must set withCredentials to keep cookies when making API requests
   $httpProvider.defaults.withCredentials = true;
+}]);
+
+'use strict';
+
+var api = angular.module('api');
+api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  var Branch = $resource(ENV.apiEndpoint + 'branch/:param',
+    {
+      param: 'root'
+    },
+    {
+    });
+
+   return Branch;
 }]);
 
 'use strict';
@@ -481,6 +503,40 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
     });
 
    return User;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.factory('Branch', ['BranchAPI', '$http', 'ENV', function(BranchAPI, $http, ENV) {
+  var Branch = {};
+  var me = {};
+
+  // Get the root branches
+  Branch.getRoots = function() {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.get().$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function(branches) {
+        if(branches && branches.data) {
+          resolve(branches.data);
+        } else {
+          // successful response contains no branches object:
+          // treat as 500 Internal Server Error
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      });
+    });
+  };
+
+
+  return Branch;
 }]);
 
 'use strict';
@@ -712,7 +768,7 @@ app.controller('branchController', ['$scope', '$state', function($scope, $state)
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('subbranchesController', ['$scope', '$state', function($scope, $state) {
+app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
     ['weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "alltime" })',
@@ -721,6 +777,18 @@ app.controller('subbranchesController', ['$scope', '$state', function($scope, $s
      'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "week" })',
      'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "today" })',
      'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "hour" })'];
+
+  $scope.branches = [];
+
+  Branch.getRoots().then(function(branches) {
+    $timeout(function() {
+      $scope.branches = branches;
+      console.log($scope.branches);
+    });
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to get branches!");
+  });
 }]);
 
 'use strict';
