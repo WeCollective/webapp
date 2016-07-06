@@ -9,7 +9,7 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', functi
         }
       }, function() {
         // TODO: display pretty message
-        console.log('error');
+        console.error('Error updating profile settings');
       });
   }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(BranchAPI, SubbranchesAPI, $http, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -46,6 +46,19 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(B
             message: 'Something went wrong'
           });
         }
+      });
+    });
+  };
+
+  Branch.update = function(data) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.update({ branchid: $state.params.branchid }, data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
       });
     });
   };

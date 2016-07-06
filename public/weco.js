@@ -141,6 +141,60 @@ app.directive('loading', function() {
 });
 
 var app = angular.module('wecoApp');
+app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.Modal = Modal;
+  $scope.values = [];
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+
+  $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if($scope.values.length < Modal.getInputArgs().inputs.length || $scope.values.indexOf('') > -1) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
+    // construct data to update using the proper fieldnames
+    var updateData = {};
+    for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
+      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.values[i];
+
+      // convert date input values to unix timestamp
+      if(Modal.getInputArgs().inputs[i].type == 'date') {
+        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.values[i]).getTime();
+      }
+    }
+
+    // perform the update
+    $scope.isLoading = true;
+    Branch.update(updateData).then(function() {
+      $timeout(function() {
+        $scope.values = [];
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.values = [];
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.directive('modal', ['Modal', function(Modal) {
   return {
     restrict: 'A',
@@ -457,6 +511,15 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     {
     },
     {
+      update: {
+        method: 'PUT',
+        // indicate that the data is x-www-form-urlencoded
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        // transform the request to use x-www-form-urlencoded
+        transformRequest: makeFormEncoded
+      }
     });
 
    return Branch;
@@ -541,7 +604,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(BranchAPI, SubbranchesAPI, $http, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -586,6 +649,19 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(B
             message: 'Something went wrong'
           });
         }
+      });
+    });
+  };
+
+  Branch.update = function(data) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.update({ branchid: $state.params.branchid }, data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
       });
     });
   };
@@ -867,7 +943,32 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', f
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', function($scope, $state, $timeout) {
+app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', function($scope, $state, $timeout, Modal) {
+  function openModal(args) {
+    Modal.open('/app/components/modals/branch/nucleus/settings/settings.modal.view.html', args)
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error updating branch settings');
+      });
+  }
+
+  $scope.openVisibleNameModal = function() {
+    openModal({
+      title: 'Visible Name',
+      inputs: [
+        {
+          placeholder: 'Visible name',
+          type: 'text',
+          fieldname: 'name'
+        }
+      ]
+    });
+  };
 }]);
 
 'use strict';
@@ -973,7 +1074,7 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', functi
         }
       }, function() {
         // TODO: display pretty message
-        console.log('error');
+        console.error('Error updating profile settings');
       });
   }
 
