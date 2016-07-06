@@ -867,6 +867,12 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', f
 'use strict';
 
 var app = angular.module('wecoApp');
+app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', function($scope, $state, $timeout) {
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
