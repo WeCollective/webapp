@@ -1,14 +1,18 @@
 <div id="branch-subbranches">
-  <h1>Root Branches</h1>
+  <h1>{{ branch.id == 'root' ? 'Root Branches' : 'SubBranches' }}</h1>
   <tabs items="tabItems" states="tabStates"></tabs>
   <div id="subbranch-list-container">
     <ul id="subbranch-list">
-      <li ng-repeat="branch in branches">
+      <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index }}</span>
-        <img src="/assets/images/default-branch.jpg"></img>
+        <a ui-sref="weco.branch.subbranches({ branchid: '{{ subbranch.id }}', filter: 'alltime' })">
+          <img src="/assets/images/default-branch.jpg"></img>
+        </a>
         <div>
-          <span class="title">{{ branch.name }}</span>
-          <span class="description">Created by <a ui-sref="weco.profile.about({ username: '{{ branch.creator }}' })">{{ branch.creator }}</a> on {{ branch.date | date:'dd MMMM yyyy' }}</span>
+          <a ui-sref="weco.branch.subbranches({ branchid: '{{ subbranch.id }}', filter: 'alltime' })">
+            <span class="title">{{ subbranch.name }}</span>
+          </a>
+          <span class="description">Created by <a ui-sref="weco.profile.about({ username: '{{ subbranch.creator }}' })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>
         </div>
       </li>
     </ul>

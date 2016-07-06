@@ -546,9 +546,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(B
   var me = {};
 
   // Get the root branches
-  Branch.getRoots = function() {
+  Branch.getSubbranches = function(branchid) {
     return new Promise(function(resolve, reject) {
-      SubbranchesAPI.get({ parentid: 'root' }).$promise.catch(function(response) {
+      SubbranchesAPI.get({ parentid: branchid }).$promise.catch(function(response) {
         reject({
           status: response.status,
           message: response.data.message
@@ -809,7 +809,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', 'Branch', function($scope, $state, Branch) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.branchid = $state.params.branchid;
 
   // return true if the given branch control is selected,
@@ -820,10 +820,14 @@ app.controller('branchController', ['$scope', '$state', 'Branch', function($scop
 
   $scope.branch = {};
   Branch.get($state.params.branchid).then(function(branch) {
-    $scope.branch = branch;
-  }, function() {
-    // TODO: pretty error
-    console.error("Unable to get branch");
+    $timeout(function () {
+      $scope.branch = branch;
+    });
+  }, function(response) {
+    // TODO: handle other error codes
+    if(response.status == 404) {
+      $state.go('weco.notfound');
+    }
   });
 }]);
 
@@ -875,7 +879,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   $scope.branches = [];
 
-  Branch.getRoots().then(function(branches) {
+  Branch.getSubbranches($scope.branchid).then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
     });

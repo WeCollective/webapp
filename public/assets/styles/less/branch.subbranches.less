@@ -32,35 +32,41 @@ div#branch-subbranches {
           color: @dark-grey;
           line-height: 80px;
         }
-        img {
-          float: left;
-          height: 100%;
-          width: auto;
-          border-radius: 3px;
-          margin: 0 10px;
+        a {
+          img {
+            float: left;
+            height: 100%;
+            width: auto;
+            border-radius: 3px;
+            margin: 0 10px;
+          }
         }
         div {
           float: left;
           height: 100%;
 
-          span {
+          a span.title {
             display: block;
-            &.title {
-              font-size: 20px;
-              font-weight: 500;
+            font-size: 20px;
+            font-weight: 500;
+            
+            &:hover {
+              cursor: pointer;
+              text-decoration: underline;
             }
-            &.description {
-              font-size: 14px;
-              font-weight: 400;
+          }
 
-              a {
-                color: @button-focus;
-                font-weight: 500;
+          span.description {
+            font-size: 14px;
+            font-weight: 400;
 
-                &:hover {
-                  cursor: pointer;
-                  text-decoration: underline;
-                }
+            a {
+              color: @button-focus;
+              font-weight: 500;
+
+              &:hover {
+                cursor: pointer;
+                text-decoration: underline;
               }
             }
           }

@@ -6,9 +6,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(B
   var me = {};
 
   // Get the root branches
-  Branch.getRoots = function() {
+  Branch.getSubbranches = function(branchid) {
     return new Promise(function(resolve, reject) {
-      SubbranchesAPI.get({ parentid: 'root' }).$promise.catch(function(response) {
+      SubbranchesAPI.get({ parentid: branchid }).$promise.catch(function(response) {
         reject({
           status: response.status,
           message: response.data.message

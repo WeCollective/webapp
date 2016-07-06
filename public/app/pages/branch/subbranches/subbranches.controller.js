@@ -13,7 +13,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   $scope.branches = [];
 
-  Branch.getRoots().then(function(branches) {
+  Branch.getSubbranches($scope.branchid).then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
     });

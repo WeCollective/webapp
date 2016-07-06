@@ -1,5 +1,5 @@
 <div id="branch-nucleus">
-  <h1>Nucleus</h1>
+  <h1>{{ branch.id == 'root' ? 'Global Nucleus' : 'Nucleus' }}</h1>
   <tabs items="tabItems" states="tabStates"></tabs>
   <div ui-view></div>
 </div>
