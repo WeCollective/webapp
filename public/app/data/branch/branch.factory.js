@@ -1,14 +1,14 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', '$http', 'ENV', function(BranchAPI, $http, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(BranchAPI, SubbranchesAPI, $http, ENV) {
   var Branch = {};
   var me = {};
 
   // Get the root branches
   Branch.getRoots = function() {
     return new Promise(function(resolve, reject) {
-      BranchAPI.get().$promise.catch(function(response) {
+      SubbranchesAPI.get({ parentid: 'root' }).$promise.catch(function(response) {
         reject({
           status: response.status,
           message: response.data.message
@@ -27,7 +27,6 @@ app.factory('Branch', ['BranchAPI', '$http', 'ENV', function(BranchAPI, $http, E
       });
     });
   };
-
 
   return Branch;
 }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 var api = angular.module('api');
-api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
+api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
 
   function makeFormEncoded(data, headersGetter) {
     var str = [];
@@ -10,11 +10,11 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Branch = $resource(ENV.apiEndpoint + 'branch/:branchid',
+  var Subbranches = $resource(ENV.apiEndpoint + 'subbranches/:parentid',
     {
     },
     {
     });
 
-   return Branch;
+   return Subbranches;
 }]);

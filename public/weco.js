@@ -440,14 +440,34 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Branch = $resource(ENV.apiEndpoint + 'branch/:param',
+  var Branch = $resource(ENV.apiEndpoint + 'branch/:branchid',
     {
-      param: 'root'
     },
     {
     });
 
    return Branch;
+}]);
+
+'use strict';
+
+var api = angular.module('api');
+api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  var Subbranches = $resource(ENV.apiEndpoint + 'subbranches/:parentid',
+    {
+    },
+    {
+    });
+
+   return Subbranches;
 }]);
 
 'use strict';
@@ -508,14 +528,14 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', '$http', 'ENV', function(BranchAPI, $http, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(BranchAPI, SubbranchesAPI, $http, ENV) {
   var Branch = {};
   var me = {};
 
   // Get the root branches
   Branch.getRoots = function() {
     return new Promise(function(resolve, reject) {
-      BranchAPI.get().$promise.catch(function(response) {
+      SubbranchesAPI.get({ parentid: 'root' }).$promise.catch(function(response) {
         reject({
           status: response.status,
           message: response.data.message
@@ -534,7 +554,6 @@ app.factory('Branch', ['BranchAPI', '$http', 'ENV', function(BranchAPI, $http, E
       });
     });
   };
-
 
   return Branch;
 }]);
