@@ -76,7 +76,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Branch Nucleus
     .state('weco.branch.nucleus', {
       url: '/nucleus',
-      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html'
+      abstract: true,
+      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
+      controller: 'nucleusController'
+    })
+    .state('weco.branch.nucleus.about', {
+      url: '',
+      templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
+    })
+    .state('weco.branch.nucleus.control', {
+      templateUrl: '/app/pages/branch/nucleus/control/control.view.html'
     })
     // Subbranches
     .state('weco.branch.subbranches', {

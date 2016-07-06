@@ -6,7 +6,7 @@
       <div id="branch-picture" style="background-image: url('{{ branch.pictureUrl }}'), url('/assets/images/default-branch.jpg');">
       </div>
       <ul id="branch-controls">
-        <a ui-sref="weco.branch.nucleus({ branchname: '{{ branchname }}' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
+        <a ui-sref="weco.branch.nucleus.about({ branchname: '{{ branchname }}' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
           <li><img src="/assets/images/icons/black/nucleus.png"></li>
         </a>
         <a ui-sref="weco.branch.subbranches({ branchname: '{{ branchname }}' })" ng-class="{ 'selected' : isControlSelected('subbranches') }">

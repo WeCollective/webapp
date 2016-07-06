@@ -16,7 +16,6 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
   Branch.getRoots().then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
-      console.log($scope.branches);
     });
   }, function() {
     // TODO: pretty error

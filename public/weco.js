@@ -76,7 +76,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Branch Nucleus
     .state('weco.branch.nucleus', {
       url: '/nucleus',
-      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html'
+      abstract: true,
+      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
+      controller: 'nucleusController'
+    })
+    .state('weco.branch.nucleus.about', {
+      url: '',
+      templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
+    })
+    .state('weco.branch.nucleus.control', {
+      templateUrl: '/app/pages/branch/nucleus/control/control.view.html'
     })
     // Subbranches
     .state('weco.branch.subbranches', {
@@ -787,6 +796,16 @@ app.controller('branchController', ['$scope', '$state', function($scope, $state)
 'use strict';
 
 var app = angular.module('wecoApp');
+app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+  $scope.tabItems = ['about', 'control'];
+  $scope.tabStates =
+    ['weco.branch.nucleus.about({ "branchname": "' + $scope.branchname + '"})',
+     'weco.branch.nucleus.control({ "branchname": "' + $scope.branchname + '"})'];
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
@@ -802,7 +821,6 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
   Branch.getRoots().then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
-      console.log($scope.branches);
     });
   }, function() {
     // TODO: pretty error
