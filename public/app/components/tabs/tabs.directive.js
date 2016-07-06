@@ -12,7 +12,7 @@ app.directive('tabs', ['$state', function($state) {
     link: function($scope, element, attrs) {
       /* NB: states specified in '$scope.states' can be a pure state name, e.g. weco.home,
       **     or they can have parameters, e.g:
-      **        weco.branch.subbranches({ "branchname" : "root", "filter": "alltime" })
+      **        weco.branch.subbranches({ "branchid" : "root", "filter": "alltime" })
       **     In the latter case, the parameters must be specified in JSON parsable
       **     format, i.e. with double quotes around property names and values.
       */

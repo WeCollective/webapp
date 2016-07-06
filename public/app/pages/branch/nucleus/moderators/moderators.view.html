@@ -1,0 +1,10 @@
+<div id="branch-nucleus-moderators-list-container">
+  <ul>
+    <a ng-repeat="mod in branch.mods" ui-sref="weco.profile.about({ username: mods[$index].username })">
+      <li>
+        <div class="mod-picture" style="background-image: url('{{ mods[$index].profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
+        <span>{{ mods[$index].name.first }} {{ mods[$index].name.last }}</span>
+      </li>
+    </a>
+  </ul>
+</div>

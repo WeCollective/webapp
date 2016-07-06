@@ -68,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Branches
     .state('weco.branch', {
-      url: '/b/:branchname',
+      url: '/b/:branchid',
       abstract: true,
       templateUrl: '/app/pages/branch/branch.view.html',
       controller: 'branchController'
@@ -84,8 +84,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '',
       templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
     })
-    .state('weco.branch.nucleus.control', {
-      templateUrl: '/app/pages/branch/nucleus/control/control.view.html'
+    .state('weco.branch.nucleus.settings', {
+      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html'
+    })
+    .state('weco.branch.nucleus.moderators', {
+      templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
+      controller: 'nucleusModeratorsController'
     })
     // Subbranches
     .state('weco.branch.subbranches', {
@@ -387,7 +391,7 @@ app.directive('tabs', ['$state', function($state) {
     link: function($scope, element, attrs) {
       /* NB: states specified in '$scope.states' can be a pure state name, e.g. weco.home,
       **     or they can have parameters, e.g:
-      **        weco.branch.subbranches({ "branchname" : "root", "filter": "alltime" })
+      **        weco.branch.subbranches({ "branchid" : "root", "filter": "alltime" })
       **     In the latter case, the parameters must be specified in JSON parsable
       **     format, i.e. with double quotes around property names and values.
       */
@@ -552,6 +556,28 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', 'ENV', function(B
       }).then(function(branches) {
         if(branches && branches.data) {
           resolve(branches.data);
+        } else {
+          // successful response contains no branches object:
+          // treat as 500 Internal Server Error
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      });
+    });
+  };
+
+  Branch.get = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.get({ branchid: branchid }).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function(branch) {
+        if(branch && branch.data) {
+          resolve(branch.data);
         } else {
           // successful response contains no branches object:
           // treat as 500 Internal Server Error
@@ -783,24 +809,55 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', function($scope, $state) {
-  $scope.branchname = $state.params.branchname;
+app.controller('branchController', ['$scope', '$state', 'Branch', function($scope, $state, Branch) {
+  $scope.branchid = $state.params.branchid;
 
   // return true if the given branch control is selected,
   // i.e. if the current state contains the control name
   $scope.isControlSelected = function(control) {
     return $state.current.name.indexOf(control) > -1;
   };
+
+  $scope.branch = {};
+  Branch.get($state.params.branchid).then(function(branch) {
+    $scope.branch = branch;
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to get branch");
+  });
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', function($scope, $state, $timeout, User) {
+  $scope.mods = [];
+
+  $scope.getMod = function(username, index) {
+    User.get(username).then(function(data) {
+      $timeout(function() {
+        $scope.mods[index] = data;
+      });
+    }, function () {
+      // TODO: pretty error
+      console.error("Unable to get mod!");
+    });
+  };
+
+  for(var i = 0; i < $scope.branch.mods.length; i++) {
+    $scope.getMod($scope.branch.mods[i], i);
+  }
 }]);
 
 'use strict';
 
 var app = angular.module('wecoApp');
 app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
-  $scope.tabItems = ['about', 'control'];
+  $scope.tabItems = ['about', 'settings', 'moderators'];
   $scope.tabStates =
-    ['weco.branch.nucleus.about({ "branchname": "' + $scope.branchname + '"})',
-     'weco.branch.nucleus.control({ "branchname": "' + $scope.branchname + '"})'];
+    ['weco.branch.nucleus.about({ "branchid": "' + $scope.branchid + '"})',
+     'weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})',
+     'weco.branch.nucleus.moderators({ "branchid": "' + $scope.branchid + '"})'];
 }]);
 
 'use strict';
@@ -809,12 +866,12 @@ var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
-    ['weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "alltime" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "year" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "month" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "week" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "today" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "hour" })'];
+    ['weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "alltime" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "year" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "month" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "week" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "today" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "hour" })'];
 
   $scope.branches = [];
 

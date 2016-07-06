@@ -4,12 +4,12 @@ var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
-    ['weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "alltime" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "year" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "month" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "week" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "today" })',
-     'weco.branch.subbranches({ "branchname": "' + $scope.branchname + '", "filter": "hour" })'];
+    ['weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "alltime" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "year" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "month" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "week" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "today" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "hour" })'];
 
   $scope.branches = [];
 

@@ -68,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Branches
     .state('weco.branch', {
-      url: '/b/:branchname',
+      url: '/b/:branchid',
       abstract: true,
       templateUrl: '/app/pages/branch/branch.view.html',
       controller: 'branchController'
@@ -84,8 +84,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '',
       templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
     })
-    .state('weco.branch.nucleus.control', {
-      templateUrl: '/app/pages/branch/nucleus/control/control.view.html'
+    .state('weco.branch.nucleus.settings', {
+      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html'
+    })
+    .state('weco.branch.nucleus.moderators', {
+      templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
+      controller: 'nucleusModeratorsController'
     })
     // Subbranches
     .state('weco.branch.subbranches', {
