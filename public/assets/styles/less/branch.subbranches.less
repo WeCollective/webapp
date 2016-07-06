@@ -39,6 +39,12 @@ div#branch-subbranches {
             width: auto;
             border-radius: 3px;
             margin: 0 10px;
+            transition: box-shadow 0.2s ease-out;
+
+            &:hover {
+              transition: box-shadow 0.2s ease-out;
+              box-shadow: @shadow2;
+            }
           }
         }
         div {
@@ -49,7 +55,7 @@ div#branch-subbranches {
             display: block;
             font-size: 20px;
             font-weight: 500;
-            
+
             &:hover {
               cursor: pointer;
               text-decoration: underline;

@@ -17,10 +17,18 @@ div#branch-nucleus-moderators-list-container {
           border-radius: 3px;
           background-position: center;
           background-size: cover;
+          transition: box-shadow 0.2s ease-out;
         }
         span {
           font-size: 14px;
           font-weight: 500;
+        }
+
+        &:hover {
+          div.mod-picture {
+            transition: box-shadow 0.2s ease-out;
+            box-shadow: @shadow2;
+          }
         }
       }
     }
