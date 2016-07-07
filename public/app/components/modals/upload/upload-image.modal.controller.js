@@ -15,7 +15,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
     if(isOpen) {
       $http({
         method: 'GET',
-        url: ENV.apiEndpoint + 'user/me/' + Modal.getInputArgs().type + '-upload-url'
+        url: ENV.apiEndpoint + Modal.getInputArgs().route + Modal.getInputArgs().type + '-upload-url'
       }).then(function(response) {
         if(response && response.data && response.data.data) {
           $scope.uploadUrl = response.data.data;

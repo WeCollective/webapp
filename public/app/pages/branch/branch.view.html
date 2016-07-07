@@ -3,7 +3,8 @@
     <div id="branch-info">
       <h1>{{ branch.name }}</h1>
       <h2>&infin;</h2>
-      <div id="branch-picture" style="background-image: url('{{ branch.pictureUrl }}'), url('/assets/images/default-branch.jpg');">
+      <div id="branch-picture" style="background-image: url('{{ branch.profileUrl }}'), url('/assets/images/default-branch.jpg');">
+        <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()">
       </div>
       <ul id="branch-controls">
         <a ui-sref="weco.branch.nucleus.about({ branchid: '{{ branchid }}' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">

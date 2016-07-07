@@ -339,7 +339,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
     if(isOpen) {
       $http({
         method: 'GET',
-        url: ENV.apiEndpoint + 'user/me/' + Modal.getInputArgs().type + '-upload-url'
+        url: ENV.apiEndpoint + Modal.getInputArgs().route + Modal.getInputArgs().type + '-upload-url'
       }).then(function(response) {
         if(response && response.data && response.data.data) {
           $scope.uploadUrl = response.data.data;
@@ -486,7 +486,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -608,6 +608,17 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
   var Branch = {};
   var me = {};
 
+  // fetch the presigned url for the specified picture for the specified branch
+  // Returns the promise from $http.
+  Branch.getPictureUrl = function(id, type) {
+    // if type not specified, default to profile picture
+    if(type != 'picture' && type != 'cover') {
+      type = 'picture';
+    }
+    // fetch signedurl for user profile picture and attach to user object
+    return $http.get(ENV.apiEndpoint + 'branch/' + id + '/' + type);
+  };
+
   // Get the root branches
   Branch.getSubbranches = function(branchid) {
     return new Promise(function(resolve, reject) {
@@ -639,16 +650,26 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
           message: response.data.message
         });
       }).then(function(branch) {
-        if(branch && branch.data) {
-          resolve(branch.data);
-        } else {
-          // successful response contains no branches object:
-          // treat as 500 Internal Server Error
-          reject({
-            status: 500,
-            message: 'Something went wrong'
+        if(!branch || !branch.data) { return reject(); }
+
+        // Attach the profile picture url to the branch object if it exists
+        Branch.getPictureUrl(branchid, 'picture').then(function(response) {
+          if(response && response.data && response.data.data) {
+            branch.data.profileUrl = response.data.data;
+          }
+          Branch.getPictureUrl(branchid, 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              branch.data.coverUrl = response.data.data;
+            }
+            resolve(branch.data);
+          }, function() {
+            // no cover picture to attach
+            resolve(branch.data);
           });
-        }
+        }, function() {
+          // no profile picture to attach
+          resolve(branch.data);
+        });
       });
     });
   };
@@ -702,7 +723,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         console.error('Unable to fetch user!');
         return reject();
       }).then(function(user) {
-        if(!user) { return reject(); }
+        if(!user || !user.data) { return reject(); }
 
         // Attach the profile picture url to the user object if it exists
         getPictureUrl('me', 'picture').then(function(response) {
@@ -885,7 +906,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', function($scope, $state, $timeout, Branch, Modal) {
   $scope.branchid = $state.params.branchid;
 
   // return true if the given branch control is selected,
@@ -905,6 +926,20 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', fu
       $state.go('weco.notfound');
     }
   });
+
+
+  $scope.openProfilePictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'picture' })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
 }]);
 
 'use strict';
@@ -986,9 +1021,27 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   $scope.branches = [];
 
+  // Asynchronously load the branch images one by one
+  function loadBranchPictures(branches, idx) {
+    var target = branches.shift();
+    if(target) {
+      Branch.getPictureUrl($scope.branches[idx].id, 'picture').then(function(response) {
+        if(response && response.data && response.data.data) {
+          $scope.branches[idx].profileUrl = response.data.data;
+        }
+        loadBranchPictures(branches, idx + 1);
+      }, function () {
+        // Unable to fetch this picture - continue
+        loadBranchPictures(branches, idx + 1);
+      });
+    }
+  }
+
   Branch.getSubbranches($scope.branchid).then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
+      // slice() provides a clone of the branches array
+      loadBranchPictures($scope.branches.slice(), 0);
     });
   }, function() {
     // TODO: pretty error
@@ -1033,7 +1086,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
   });
 
   $scope.openProfilePictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'picture' })
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'user/me/', type: 'picture' })
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
@@ -1046,7 +1099,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
   };
 
   $scope.openCoverPictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'cover' })
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'user/me/', type: 'cover' })
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {

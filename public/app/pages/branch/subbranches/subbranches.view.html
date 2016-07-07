@@ -6,7 +6,7 @@
       <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index }}</span>
         <a ui-sref="weco.branch.subbranches({ branchid: '{{ subbranch.id }}', filter: 'alltime' })">
-          <img src="/assets/images/default-branch.jpg"></img>
+          <div style="background-image: url('{{ subbranch.profileUrl }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>
         <div>
           <a ui-sref="weco.branch.subbranches({ branchid: '{{ subbranch.id }}', filter: 'alltime' })">

@@ -31,7 +31,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         console.error('Unable to fetch user!');
         return reject();
       }).then(function(user) {
-        if(!user) { return reject(); }
+        if(!user || !user.data) { return reject(); }
 
         // Attach the profile picture url to the user object if it exists
         getPictureUrl('me', 'picture').then(function(response) {

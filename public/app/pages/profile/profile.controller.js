@@ -35,7 +35,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
   });
 
   $scope.openProfilePictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'picture' })
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'user/me/', type: 'picture' })
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
@@ -48,7 +48,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
   };
 
   $scope.openCoverPictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { type: 'cover' })
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'user/me/', type: 'cover' })
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {

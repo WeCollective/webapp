@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', function($scope, $state, $timeout, Branch, Modal) {
   $scope.branchid = $state.params.branchid;
 
   // return true if the given branch control is selected,
@@ -21,4 +21,18 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', fu
       $state.go('weco.notfound');
     }
   });
+
+
+  $scope.openProfilePictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'picture' })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
 }]);
