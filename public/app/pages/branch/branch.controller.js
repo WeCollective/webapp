@@ -35,4 +35,17 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         console.log('error');
       });
   };
+
+  $scope.openCoverPictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  };
 }]);

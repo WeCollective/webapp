@@ -1,4 +1,11 @@
-<div id="branch-frame" ng-style="{ 'height': '100%' }">
+<div id="branch-cover" ng-style="{ 'height': branch.coverUrl ? '30%' : '0' }" style="background-image: url('{{ branch.coverUrl }}')">
+   <!-- div required to set position-relative for positioning of #edit-cover
+   without affecting the z-index of #profile-cover background image -->
+  <div>
+    <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()">
+  </div>
+</div>
+<div id="branch-frame" ng-style="{ 'height': branch.coverUrl ? '70%' : '100%' }">
   <div loading when="isLoading">
     <div id="branch-info">
       <h1>{{ branch.name }}</h1>
