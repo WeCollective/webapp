@@ -141,6 +141,47 @@ app.directive('loading', function() {
 });
 
 var app = angular.module('wecoApp');
+app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.newBranch = {};
+  $scope.errorMessage = '';
+
+  $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if(!$scope.newBranch || !$scope.newBranch.id || !$scope.newBranch.name) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
+    // perform the update
+    $scope.isLoading = true;
+    Branch.create($scope.newBranch).then(function() {
+      $timeout(function() {
+        $scope.newBranch = {};
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.newBranch = {};
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
   $scope.inputValues = [];
@@ -695,6 +736,19 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
     });
   };
 
+  Branch.create = function(data) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.save(data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
   return Branch;
 }]);
 
@@ -963,6 +1017,31 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // TODO: display pretty message
         console.log('error');
       });
+  };
+
+  function createBranch() {
+    Modal.open('/app/components/modals/branch/create/create-branch.modal.view.html', {})
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  }
+
+  // Called when the add button in the branch controls is clicked.
+  // It's behaviour is dependent on the current state.
+  $scope.addContent = function () {
+    switch ($state.current.name) {
+      case 'weco.branch.subbranches':
+        createBranch();
+        break;
+      default:
+        console.error("Unable to add content in state " + $state.current.name);
+    }
   };
 }]);
 

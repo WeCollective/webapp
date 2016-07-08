@@ -84,5 +84,18 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
     });
   };
 
+  Branch.create = function(data) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.save(data).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
   return Branch;
 }]);

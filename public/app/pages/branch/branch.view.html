@@ -24,7 +24,7 @@
           <a ui-sref="weco.branch.wall({ branchid: '{{ branchid }}' })"  ng-class="{ 'selected' : isControlSelected('wall') }">
             <li><img src="/assets/images/icons/black/wall.png"></li>
           </a>
-          <a><li><img src="/assets/images/icons/black/add.png"></li></a>
+          <a id="add-content" ng-click="addContent()"><li><img src="/assets/images/icons/black/add.png"></li></a>
         </ul>
       </div>
       <div id="branch-content" ui-view>
