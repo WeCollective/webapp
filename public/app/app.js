@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngFileUpload', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'api']);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');

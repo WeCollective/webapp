@@ -3,7 +3,8 @@
   <p>{{ errorMessage }}</p>
   <div id="nucleus-settings-inputs">
     <div loading when="isLoading">
-      <input ng-repeat="item in Modal.getInputArgs().inputs" ng-model="values[$index]" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>
+      <input ng-repeat="item in Modal.getInputArgs().inputs" ng-model="inputValues[$index]" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>
+      <textarea ng-repeat="item in Modal.getInputArgs().textareas" ng-model="textareaValues[$index]" placeholder="{{ item.placeholder }}"></textarea>
     </div>
   </div>
 </div>

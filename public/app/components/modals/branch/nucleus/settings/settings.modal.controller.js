@@ -1,13 +1,15 @@
 var app = angular.module('wecoApp');
 app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
-  $scope.values = [];
+  $scope.inputValues = [];
+  $scope.textareaValues = [];
   $scope.errorMessage = '';
   $scope.isLoading = false;
 
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
-    if($scope.values.length < Modal.getInputArgs().inputs.length || $scope.values.indexOf('') > -1) {
+    if($scope.inputValues.length < Modal.getInputArgs().inputs.length || $scope.inputValues.indexOf('') > -1 ||
+       $scope.textareaValues.length < Modal.getInputArgs().textareas.length || $scope.textareaValues.indexOf('') > -1) {
       $timeout(function() {
         $scope.errorMessage = 'Please fill in all fields';
       });
@@ -15,21 +17,26 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
     }
 
     // construct data to update using the proper fieldnames
+    /* jshint shadow:true */
     var updateData = {};
     for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
-      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.values[i];
+      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.inputValues[i];
 
       // convert date input values to unix timestamp
       if(Modal.getInputArgs().inputs[i].type == 'date') {
-        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.values[i]).getTime();
+        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.inputValues[i]).getTime();
       }
+    }
+    for(var i = 0; i < Modal.getInputArgs().textareas.length; i++) {
+      updateData[Modal.getInputArgs().textareas[i].fieldname] = $scope.textareaValues[i];
     }
 
     // perform the update
     $scope.isLoading = true;
     Branch.update(updateData).then(function() {
       $timeout(function() {
-        $scope.values = [];
+        $scope.inputValues = [];
+        $scope.textareaValues = [];
         $scope.errorMessage = '';
         $scope.isLoading = false;
         Modal.OK();
@@ -44,7 +51,8 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
 
   $scope.$on('Cancel', function() {
     $timeout(function() {
-      $scope.values = [];
+      $scope.inputValues = [];
+      $scope.textareaValues = [];
       $scope.errorMessage = '';
       $scope.isLoading = false;
       Modal.Cancel();

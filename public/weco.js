@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngFileUpload', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'api']);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
@@ -143,13 +143,15 @@ app.directive('loading', function() {
 var app = angular.module('wecoApp');
 app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
-  $scope.values = [];
+  $scope.inputValues = [];
+  $scope.textareaValues = [];
   $scope.errorMessage = '';
   $scope.isLoading = false;
 
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
-    if($scope.values.length < Modal.getInputArgs().inputs.length || $scope.values.indexOf('') > -1) {
+    if($scope.inputValues.length < Modal.getInputArgs().inputs.length || $scope.inputValues.indexOf('') > -1 ||
+       $scope.textareaValues.length < Modal.getInputArgs().textareas.length || $scope.textareaValues.indexOf('') > -1) {
       $timeout(function() {
         $scope.errorMessage = 'Please fill in all fields';
       });
@@ -157,21 +159,26 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
     }
 
     // construct data to update using the proper fieldnames
+    /* jshint shadow:true */
     var updateData = {};
     for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
-      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.values[i];
+      updateData[Modal.getInputArgs().inputs[i].fieldname] = $scope.inputValues[i];
 
       // convert date input values to unix timestamp
       if(Modal.getInputArgs().inputs[i].type == 'date') {
-        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.values[i]).getTime();
+        updateData[Modal.getInputArgs().inputs[i].fieldname] = new Date($scope.inputValues[i]).getTime();
       }
+    }
+    for(var i = 0; i < Modal.getInputArgs().textareas.length; i++) {
+      updateData[Modal.getInputArgs().textareas[i].fieldname] = $scope.textareaValues[i];
     }
 
     // perform the update
     $scope.isLoading = true;
     Branch.update(updateData).then(function() {
       $timeout(function() {
-        $scope.values = [];
+        $scope.inputValues = [];
+        $scope.textareaValues = [];
         $scope.errorMessage = '';
         $scope.isLoading = false;
         Modal.OK();
@@ -186,7 +193,8 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
 
   $scope.$on('Cancel', function() {
     $timeout(function() {
-      $scope.values = [];
+      $scope.inputValues = [];
+      $scope.textareaValues = [];
       $scope.errorMessage = '';
       $scope.isLoading = false;
       Modal.Cancel();
@@ -992,6 +1000,14 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', f
 
 var app = angular.module('wecoApp');
 app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', function($scope, $state, $timeout, Modal) {
+
+  // modify newlines of \n form to HTML <br> tag form for proper display
+  $scope.addHTMLLineBreaks = function(str) {
+    if(str) {
+      return str.split('\n').join('<br>');
+    }
+  };
+
   function openModal(args) {
     Modal.open('/app/components/modals/branch/nucleus/settings/settings.modal.view.html', args)
       .then(function(result) {
@@ -1013,6 +1029,33 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
           placeholder: 'Visible name',
           type: 'text',
           fieldname: 'name'
+        }
+      ],
+      textareas: []
+    });
+  };
+
+  $scope.openRulesModal = function() {
+    openModal({
+      title: 'Rules & Etiquette',
+      inputs: [],
+      textareas: [
+        {
+          placeholder: 'Rules & Etiquette Text',
+          fieldname: 'rules'
+        }
+      ]
+    });
+  };
+
+  $scope.openDescriptionModal = function() {
+    openModal({
+      title: 'Description',
+      inputs: [],
+      textareas: [
+        {
+          placeholder: 'Description',
+          fieldname: 'description'
         }
       ]
     });
