@@ -14,6 +14,7 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
       $scope.branch = branch;
+      console.log(branch);
     });
   }, function(response) {
     // TODO: handle other error codes
