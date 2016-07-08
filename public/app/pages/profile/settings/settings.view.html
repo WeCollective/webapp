@@ -2,7 +2,7 @@
 <ul id="profile-settings-properties" ng-controller="profileSettingsController">
   <li id="change-cover"><span ng-click="openCoverPictureModal()">Change cover photo</span></li>
   <li id="change-picture"><span ng-click="openProfilePictureModal()">Change profile picture</span></li>
-  <li><span class="field">Name: </span> <span class="value">{{ user.name.first }} {{ user.name.last }}</span><span class="change-value"> | <span ng-click="openNameModal()">Change</span></span></li>
+  <li><span class="field">Name: </span> <span class="value">{{ user.firstname }} {{ user.lastname }}</span><span class="change-value"> | <span ng-click="openNameModal()">Change</span></span></li>
   <li><span class="field">Email: </span> <span class="value">{{ user.email }}</span><span class="change-value"> | <span ng-click="openEmailModal()">Change</span></span></li>
   <li><span class="field">DOB: </span> <span class="value">{{ user.dob | date:'dd MMMM yyyy' || 'Not Set' }}</span><span class="change-value"> | <span ng-click="openDOBModal()">Change</span></span></li>
 </ul>
