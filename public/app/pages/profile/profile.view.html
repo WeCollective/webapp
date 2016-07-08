@@ -1,32 +1,34 @@
-<div id="profile-cover" ng-style="{ 'height': user.coverUrl ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}')">
+<div id="profile-cover" ng-style="{ 'height': user.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}')">
    <!-- div required to set position-relative for positioning of #edit-cover
    without affecting the z-index of #profile-cover background image -->
   <div>
     <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
   </div>
 </div>
-<div id="profile-frame" ng-style="{ 'height': user.coverUrl ? '70%' : '100%' }">
-  <div loading when="isLoading">
-    <div id="profile-info">
-      <h1>{{ user.name.first }} {{ user.name.last }}</h1>
-      <h2>{{ user.username }}</h2>
-      <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-        <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()">
+<div id="profile-frame" ng-style="{ 'height': user.coverUrl && !isLoading ? '70%' : '100%' }">
+  <div id="loading-parent">
+    <div loading when="isLoading">
+      <div id="profile-info">
+        <h1>{{ user.name.first }} {{ user.name.last }}</h1>
+        <h2>{{ user.username }}</h2>
+        <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+          <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()">
+        </div>
+        <ul>
+          <li>Total Karma: <span>0</span></li>
+          <li>Post Karma: <span>0</span></li>
+          <li>Comment Karma: <span>0</span></li>
+          <li># of Posts: <span>0</span></li>
+          <li># of Comments: <span>0</span></li>
+          <li>Branches Created: <span>0</span></li>
+          <li>Moderator Positions: <span>0</span></li>
+        </ul>
       </div>
-      <ul>
-        <li>Total Karma: <span>0</span></li>
-        <li>Post Karma: <span>0</span></li>
-        <li>Comment Karma: <span>0</span></li>
-        <li># of Posts: <span>0</span></li>
-        <li># of Comments: <span>0</span></li>
-        <li>Branches Created: <span>0</span></li>
-        <li>Moderator Positions: <span>0</span></li>
-      </ul>
-    </div>
-    <div id="profile-content">
-      <h1>Profile</h1>
-      <tabs items="tabItems" states="tabStates"></tabs>
-      <div ui-view></div>
+      <div id="profile-content">
+        <h1>Profile</h1>
+        <tabs items="tabItems" states="tabStates"></tabs>
+        <div ui-view></div>
+      </div>
     </div>
   </div>
 </div>
