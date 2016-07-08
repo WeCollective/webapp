@@ -3,13 +3,6 @@
 var app = angular.module('wecoApp');
 app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', function($scope, $state, $timeout, Modal) {
 
-  // modify newlines of \n form to HTML <br> tag form for proper display
-  $scope.addHTMLLineBreaks = function(str) {
-    if(str) {
-      return str.split('\n').join('<br>');
-    }
-  };
-
   function openModal(args) {
     Modal.open('/app/components/modals/branch/nucleus/settings/settings.modal.view.html', args)
       .then(function(result) {

@@ -1,1 +1,7 @@
-<h1>Hi, about!</h1>
+<ul id="nucleus-about-properties">
+  <li ng-show="branch.name"><span class="field">Visible Name: </span> <span class="value">{{ branch.name }}</span></li>
+  <li ng-show="branch.description"><span class="field">Description: </span> <div class="value" ng-bind-html="addHTMLLineBreaks(branch.description) || 'Not Set'"></div></li>
+  <li ng-show="branch.rules"><span class="field">Rules &amp; Etiquette: </span> <div class="value" ng-bind-html="addHTMLLineBreaks(branch.rules) || 'Not Set'"></div></li>
+  <!--<li ng-show="user.gender"><span class="field">Gender: </span> <span class="value">{{ user.gender }}</span></li>
+  <li ng-show="user.dob"><span class="field">DOB: </span> <span class="value">{{ user.dob | date:'dd MMMM yyyy' }}</span></li>-->
+</ul>

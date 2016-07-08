@@ -7,4 +7,11 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', f
     ['weco.branch.nucleus.about({ "branchid": "' + $scope.branchid + '"})',
      'weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})',
      'weco.branch.nucleus.moderators({ "branchid": "' + $scope.branchid + '"})'];
+
+   // modify newlines of \n form to HTML <br> tag form for proper display
+   $scope.addHTMLLineBreaks = function(str) {
+     if(str) {
+       return str.split('\n').join('<br>');
+     }
+   };
 }]);
