@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', function($scope, $state, $timeout, Branch, Modal) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', 'User', function($scope, $state, $timeout, Branch, Modal, User) {
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
@@ -75,5 +75,14 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       default:
         console.error("Unable to add content in state " + $state.current.name);
     }
+  };
+
+  // returns a boolean indicating whether the current user
+  // is a moderator of the current branch
+  $scope.isModerator = function () {
+    if(!$scope.branch.mods) {
+      return false;
+    }
+    return $scope.branch.mods.indexOf(User.me().username) > -1;
   };
 }]);
