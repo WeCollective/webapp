@@ -50,9 +50,18 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
             resolve();
           });
         }, function() {
-          // no profile picture to attach
-          me.data = user.data;
-          resolve();
+          // no profile picture to attach, try cover
+          getPictureUrl('me', 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              user.data.coverUrl = response.data.data;
+            }
+            me.data = user.data;
+            resolve();
+          }, function() {
+            // no cover picture to attach
+            me.data = user.data;
+            resolve();
+          });
         });
       });
     });

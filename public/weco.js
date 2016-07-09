@@ -665,7 +665,10 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
       type = 'picture';
     }
     // fetch signedurl for user profile picture and attach to user object
-    return $http.get(ENV.apiEndpoint + 'branch/' + id + '/' + type);
+    return $http({
+      method: 'GET',
+      url: ENV.apiEndpoint + 'branch/' + id + '/' + type
+    });
   };
 
   // Get the root branches
@@ -700,7 +703,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
         });
       }).then(function(branch) {
         if(!branch || !branch.data) { return reject(); }
-
         // Attach the profile picture url to the branch object if it exists
         Branch.getPictureUrl(branchid, 'picture').then(function(response) {
           if(response && response.data && response.data.data) {
@@ -716,8 +718,16 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
             resolve(branch.data);
           });
         }, function() {
-          // no profile picture to attach
-          resolve(branch.data);
+          // no profile picture to attach, try cover
+          Branch.getPictureUrl(branchid, 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              branch.data.coverUrl = response.data.data;
+            }
+            resolve(branch.data);
+          }, function() {
+            // no cover picture to attach
+            resolve(branch.data);
+          });
         });
       });
     });
@@ -804,9 +814,18 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
             resolve();
           });
         }, function() {
-          // no profile picture to attach
-          me.data = user.data;
-          resolve();
+          // no profile picture to attach, try cover
+          getPictureUrl('me', 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              user.data.coverUrl = response.data.data;
+            }
+            me.data = user.data;
+            resolve();
+          }, function() {
+            // no cover picture to attach
+            me.data = user.data;
+            resolve();
+          });
         });
       });
     });
@@ -982,6 +1001,7 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
       $scope.branch = branch;
+      console.log(branch);
       $scope.isLoading = false;
     });
   }, function(response) {

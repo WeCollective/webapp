@@ -13,7 +13,10 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
       type = 'picture';
     }
     // fetch signedurl for user profile picture and attach to user object
-    return $http.get(ENV.apiEndpoint + 'branch/' + id + '/' + type);
+    return $http({
+      method: 'GET',
+      url: ENV.apiEndpoint + 'branch/' + id + '/' + type
+    });
   };
 
   // Get the root branches
@@ -48,7 +51,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
         });
       }).then(function(branch) {
         if(!branch || !branch.data) { return reject(); }
-
         // Attach the profile picture url to the branch object if it exists
         Branch.getPictureUrl(branchid, 'picture').then(function(response) {
           if(response && response.data && response.data.data) {
@@ -64,8 +66,16 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
             resolve(branch.data);
           });
         }, function() {
-          // no profile picture to attach
-          resolve(branch.data);
+          // no profile picture to attach, try cover
+          Branch.getPictureUrl(branchid, 'cover').then(function(response) {
+            if(response && response.data && response.data.data) {
+              branch.data.coverUrl = response.data.data;
+            }
+            resolve(branch.data);
+          }, function() {
+            // no cover picture to attach
+            resolve(branch.data);
+          });
         });
       });
     });
