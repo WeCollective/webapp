@@ -12,11 +12,31 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   };
 
   $scope.branch = {};
+  $scope.parent = {};
+  // Get branch
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
-      $scope.branch = branch;
-      console.log(branch);
-      $scope.isLoading = false;
+      // Get branch parent
+      if(branch.parentid) {
+        Branch.get(branch.parentid).then(function(parent) {
+          $timeout(function () {
+            $scope.branch = branch;
+            $scope.parent = parent;
+            $scope.isLoading = false;
+          });
+        }, function(response) {
+          // TODO: handle other error codes
+          if(response.status == 404) {
+            $state.go('weco.notfound');
+          }
+          $scope.isLoading = false;
+        });
+      } else {
+        $timeout(function () {
+          $scope.branch = branch;
+          $scope.isLoading = false;
+        });
+      }
     });
   }, function(response) {
     // TODO: handle other error codes
