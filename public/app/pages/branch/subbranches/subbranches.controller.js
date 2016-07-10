@@ -11,6 +11,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
      'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "today" })',
      'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "hour" })'];
 
+  $scope.isLoading = true;
   $scope.branches = [];
 
   // Asynchronously load the branch images one by one
@@ -32,11 +33,13 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
   Branch.getSubbranches($scope.branchid).then(function(branches) {
     $timeout(function() {
       $scope.branches = branches;
+      $scope.isLoading = false;
       // slice() provides a clone of the branches array
       loadBranchPictures($scope.branches.slice(), 0);
     });
   }, function() {
     // TODO: pretty error
     console.error("Unable to get branches!");
+    $scope.isLoading = false;
   });
 }]);

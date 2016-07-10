@@ -1,7 +1,7 @@
 <div id="branch-subbranches">
   <h1>{{ branch.id == 'root' ? 'Root Branches' : 'SubBranches' }}</h1>
   <tabs items="tabItems" states="tabStates"></tabs>
-  <div id="subbranch-list-container">
+  <div id="subbranch-list-container" loading when="isLoading">
     <ul id="subbranch-list">
       <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index }}</span>
