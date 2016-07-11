@@ -535,7 +535,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -572,6 +572,27 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     });
 
    return Branch;
+}]);
+
+'use strict';
+
+var api = angular.module('api');
+api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods',
+    {
+    },
+    {
+    });
+
+   return Mods;
 }]);
 
 'use strict';
@@ -653,7 +674,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModsAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -682,6 +703,28 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
       }).then(function(branches) {
         if(branches && branches.data) {
           resolve(branches.data);
+        } else {
+          // successful response contains no branches object:
+          // treat as 500 Internal Server Error
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      });
+    });
+  };
+
+  Branch.getMods = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.get({ branchid: branchid }).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function(mods) {
+        if(mods && mods.data) {
+          resolve(mods.data);
         } else {
           // successful response contains no branches object:
           // treat as 500 Internal Server Error
@@ -1097,7 +1140,7 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', function($scope, $state, $timeout, User) {
+app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', 'Branch', function($scope, $state, $timeout, User, Branch) {
   $scope.mods = [];
   $scope.isLoading = true;
 
@@ -1113,13 +1156,17 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   };
 
   var promises = [];
-  for(var i = 0; i < $scope.branch.mods.length; i++) {
-    promises.push($scope.getMod($scope.branch.mods[i], i));
-  }
-
-  // when all mods fetched, loading finished
-  Promise.all(promises).then(function () {
-    $scope.isLoading = false;
+  Branch.getMods($scope.branchid).then(function(mods) {
+    for(var i = 0; i < mods.length; i++) {
+      promises.push($scope.getMod(mods[i].username, i));
+    }
+    // when all mods fetched, loading finished
+    Promise.all(promises).then(function () {
+      $scope.isLoading = false;
+    });
+  }, function() {
+    // TODO pretty error
+    console.error("Unable to get mods!");
   });
 }]);
 
