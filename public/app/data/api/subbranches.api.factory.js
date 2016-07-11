@@ -10,7 +10,7 @@ api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Subbranches = $resource(ENV.apiEndpoint + 'subbranches/:parentid',
+  var Subbranches = $resource(ENV.apiEndpoint + 'branch/:branchid/subbranches',
     {
     },
     {

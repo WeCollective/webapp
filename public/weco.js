@@ -607,7 +607,7 @@ api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Subbranches = $resource(ENV.apiEndpoint + 'subbranches/:parentid',
+  var Subbranches = $resource(ENV.apiEndpoint + 'branch/:branchid/subbranches',
     {
     },
     {
@@ -695,7 +695,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
   // Get the root branches
   Branch.getSubbranches = function(branchid) {
     return new Promise(function(resolve, reject) {
-      SubbranchesAPI.get({ parentid: branchid }).$promise.catch(function(response) {
+      SubbranchesAPI.get({ branchid: branchid }).$promise.catch(function(response) {
         reject({
           status: response.status,
           message: response.data.message
