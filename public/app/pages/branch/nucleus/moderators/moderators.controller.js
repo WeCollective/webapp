@@ -17,16 +17,11 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   };
 
   var promises = [];
-  Branch.getMods($scope.branchid).then(function(mods) {
-    for(var i = 0; i < mods.length; i++) {
-      promises.push($scope.getMod(mods[i].username, i));
-    }
-    // when all mods fetched, loading finished
-    Promise.all(promises).then(function () {
-      $scope.isLoading = false;
-    });
-  }, function() {
-    // TODO pretty error
-    console.error("Unable to get mods!");
+  for(var i = 0; i < $scope.branch.mods.length; i++) {
+    promises.push($scope.getMod($scope.branch.mods[i].username, i));
+  }
+  // when all mods fetched, loading finished
+  Promise.all(promises).then(function () {
+    $scope.isLoading = false;
   });
 }]);

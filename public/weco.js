@@ -1156,17 +1156,12 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   };
 
   var promises = [];
-  Branch.getMods($scope.branchid).then(function(mods) {
-    for(var i = 0; i < mods.length; i++) {
-      promises.push($scope.getMod(mods[i].username, i));
-    }
-    // when all mods fetched, loading finished
-    Promise.all(promises).then(function () {
-      $scope.isLoading = false;
-    });
-  }, function() {
-    // TODO pretty error
-    console.error("Unable to get mods!");
+  for(var i = 0; i < $scope.branch.mods.length; i++) {
+    promises.push($scope.getMod($scope.branch.mods[i].username, i));
+  }
+  // when all mods fetched, loading finished
+  Promise.all(promises).then(function () {
+    $scope.isLoading = false;
   });
 }]);
 
@@ -1184,12 +1179,27 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
    $scope.$watch(function() {
      return $scope.branch.id;
    }, function() {
-     if($scope.branch.mods && $scope.branch.mods.indexOf(User.me().username) > -1) {
-       if($scope.tabItems.indexOf('settings') == -1) {
-         $scope.tabItems.push('settings');
-         $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
-       }
-     }
+     $scope.branch.mods = [];
+     Branch.getMods($scope.branchid).then(function(mods) {
+       $timeout(function () {
+         $scope.branch.mods = mods;
+         if($scope.branch.mods) {
+           for(var i = 0; i < $scope.branch.mods.length; i++) {
+             // is the authd user a mod of this branch?
+             if($scope.branch.mods[i].username == User.me().username) {
+               // add settings tab
+               if($scope.tabItems.indexOf('settings') == -1) {
+                 $scope.tabItems.push('settings');
+                 $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
+               }
+             }
+           }
+         }
+       });
+     }, function() {
+      // TODO pretty error
+      console.error("Unable to get mods!");
+     });
    });
 
    // modify newlines of \n form to HTML <br> tag form for proper display
