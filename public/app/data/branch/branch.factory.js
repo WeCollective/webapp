@@ -106,11 +106,13 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
   Branch.update = function(data) {
     return new Promise(function(resolve, reject) {
       BranchAPI.update({ branchid: $state.params.branchid }, data).$promise.catch(function(response) {
+        console.log(response);
         reject({
           status: response.status,
           message: response.data.message
         });
       }).then(function() {
+        console.log("done");
         resolve();
       });
     });

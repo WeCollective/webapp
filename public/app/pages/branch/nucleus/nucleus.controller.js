@@ -7,38 +7,26 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
     ['weco.branch.nucleus.about({ "branchid": "' + $scope.branchid + '"})',
      'weco.branch.nucleus.moderators({ "branchid": "' + $scope.branchid + '"})'];
 
-   // Watch for changes in the current branch
-   // If this the auth'd user is a moderator of this branch, add the 'settings' tab
-   $scope.$watch(function() {
-     return $scope.branch.id;
-   }, function() {
-     $scope.branch.mods = [];
-     Branch.getMods($scope.branchid).then(function(mods) {
-       $timeout(function () {
-         $scope.branch.mods = mods;
-         if($scope.branch.mods) {
-           for(var i = 0; i < $scope.branch.mods.length; i++) {
-             // is the authd user a mod of this branch?
-             if($scope.branch.mods[i].username == User.me().username) {
-               // add settings tab
-               if($scope.tabItems.indexOf('settings') == -1) {
-                 $scope.tabItems.push('settings');
-                 $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
-               }
-             }
-           }
+  // If this the auth'd user is a moderator of this branch, add the 'settings' tab
+  $scope.$watch($scope.isModerator, function() {
+   if($scope.branch.mods) {
+     for(var i = 0; i < $scope.branch.mods.length; i++) {
+       // is the authd user a mod of this branch?
+       if($scope.branch.mods[i].username == User.me().username) {
+         // add settings tab
+         if($scope.tabItems.indexOf('settings') == -1) {
+           $scope.tabItems.push('settings');
+           $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
          }
-       });
-     }, function() {
-      // TODO pretty error
-      console.error("Unable to get mods!");
-     });
-   });
-
-   // modify newlines of \n form to HTML <br> tag form for proper display
-   $scope.addHTMLLineBreaks = function(str) {
-     if(str) {
-       return str.split('\n').join('<br>');
+       }
      }
-   };
+   }
+  });
+
+  // modify newlines of \n form to HTML <br> tag form for proper display
+  $scope.addHTMLLineBreaks = function(str) {
+   if(str) {
+     return str.split('\n').join('<br>');
+   }
+  };
 }]);

@@ -13,39 +13,34 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
 
   $scope.branch = {};
   $scope.parent = {};
-  // Get branch
+  // fetch branch object
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
-      // Get branch parent
-      if(branch.parentid) {
-        Branch.get(branch.parentid).then(function(parent) {
-          $timeout(function () {
-            $scope.branch = branch;
-            $scope.parent = parent;
-            $scope.isLoading = false;
-          });
-        }, function(response) {
-          // TODO: handle other error codes
-          if(response.status == 404) {
-            $state.go('weco.notfound');
-          }
-          $scope.isLoading = false;
-        });
-      } else {
-        $timeout(function () {
-          $scope.branch = branch;
-          $scope.isLoading = false;
-        });
-      }
+      $scope.branch = branch;
     });
+    // now fetch branch mods
+    return Branch.getMods($scope.branchid);
   }, function(response) {
     // TODO: handle other error codes
+    // branch not found - 404
     if(response.status == 404) {
       $state.go('weco.notfound');
     }
+  }).then(function(mods) {
+    $timeout(function () {
+      $scope.branch.mods = mods;
+      $scope.isLoading = false;
+    });
+    // now fetch branch parent
+    return Branch.get($scope.branch.parentid);
+  }).then(function(parent) {
+    $timeout(function() {
+      $scope.parent = parent;
+    });
+  }, function(response) {
+    // No parent exists (in root)
     $scope.isLoading = false;
   });
-
 
   $scope.openProfilePictureModal = function() {
     Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'picture' })
@@ -104,6 +99,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
     if(!$scope.branch.mods) {
       return false;
     }
-    return $scope.branch.mods.indexOf(User.me().username) > -1;
+    for(var i = 0; i < $scope.branch.mods.length; i++) {
+      if($scope.branch.mods[i].username == User.me().username) {
+        return true;
+      }
+    }
+    return false;
   };
 }]);

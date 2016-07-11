@@ -779,11 +779,13 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
   Branch.update = function(data) {
     return new Promise(function(resolve, reject) {
       BranchAPI.update({ branchid: $state.params.branchid }, data).$promise.catch(function(response) {
+        console.log(response);
         reject({
           status: response.status,
           message: response.data.message
         });
       }).then(function() {
+        console.log("done");
         resolve();
       });
     });
@@ -1040,41 +1042,33 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
     return $state.current.name.indexOf(control) > -1;
   };
 
+  var promises = [];
   $scope.branch = {};
   $scope.parent = {};
-  // Get branch
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
-      // Get branch parent
-      if(branch.parentid) {
-        Branch.get(branch.parentid).then(function(parent) {
-          $timeout(function () {
-            $scope.branch = branch;
-            $scope.parent = parent;
-            $scope.isLoading = false;
-          });
-        }, function(response) {
-          // TODO: handle other error codes
-          if(response.status == 404) {
-            $state.go('weco.notfound');
-          }
-          $scope.isLoading = false;
-        });
-      } else {
-        $timeout(function () {
-          $scope.branch = branch;
-          $scope.isLoading = false;
-        });
-      }
+      $scope.branch = branch;
     });
+    return Branch.getMods($scope.branchid);
   }, function(response) {
     // TODO: handle other error codes
     if(response.status == 404) {
       $state.go('weco.notfound');
     }
+  }).then(function(mods) {
+    $timeout(function () {
+      $scope.branch.mods = mods;
+      $scope.isLoading = false;
+    });
+    return Branch.get($scope.branch.parentid);
+  }).then(function(parent) {
+    $timeout(function() {
+      $scope.parent = parent;
+    });
+  }, function(response) {
+    // No parent exists
     $scope.isLoading = false;
   });
-
 
   $scope.openProfilePictureModal = function() {
     Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'picture' })
@@ -1133,7 +1127,12 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
     if(!$scope.branch.mods) {
       return false;
     }
-    return $scope.branch.mods.indexOf(User.me().username) > -1;
+    for(var i = 0; i < $scope.branch.mods.length; i++) {
+      if($scope.branch.mods[i].username == User.me().username) {
+        return true;
+      }
+    }
+    return false;
   };
 }]);
 
@@ -1176,30 +1175,19 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
 
    // Watch for changes in the current branch
    // If this the auth'd user is a moderator of this branch, add the 'settings' tab
-   $scope.$watch(function() {
-     return $scope.branch.id;
-   }, function() {
-     $scope.branch.mods = [];
-     Branch.getMods($scope.branchid).then(function(mods) {
-       $timeout(function () {
-         $scope.branch.mods = mods;
-         if($scope.branch.mods) {
-           for(var i = 0; i < $scope.branch.mods.length; i++) {
-             // is the authd user a mod of this branch?
-             if($scope.branch.mods[i].username == User.me().username) {
-               // add settings tab
-               if($scope.tabItems.indexOf('settings') == -1) {
-                 $scope.tabItems.push('settings');
-                 $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
-               }
-             }
+   $scope.$watch($scope.isModerator, function() {
+     if($scope.branch.mods) {
+       for(var i = 0; i < $scope.branch.mods.length; i++) {
+         // is the authd user a mod of this branch?
+         if($scope.branch.mods[i].username == User.me().username) {
+           // add settings tab
+           if($scope.tabItems.indexOf('settings') == -1) {
+             $scope.tabItems.push('settings');
+             $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
            }
          }
-       });
-     }, function() {
-      // TODO pretty error
-      console.error("Unable to get mods!");
-     });
+       }
+     }
    });
 
    // modify newlines of \n form to HTML <br> tag form for proper display
