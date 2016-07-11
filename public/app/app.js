@@ -85,11 +85,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
     })
     .state('weco.branch.nucleus.settings', {
-      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html'
+      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
+      controller: 'nucleusSettingsController'
     })
     .state('weco.branch.nucleus.moderators', {
       templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
       controller: 'nucleusModeratorsController'
+    })
+    .state('weco.branch.nucleus.modtools', {
+      templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
+      controller: 'nucleusModToolsController'
     })
     // Subbranches
     .state('weco.branch.subbranches', {

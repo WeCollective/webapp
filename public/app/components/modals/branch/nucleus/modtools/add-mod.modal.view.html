@@ -1,0 +1,9 @@
+<div id="nucleus-addmod-modal" ng-controller="modalNucleusModToolsController">
+  <h1>Add a Moderator</h1>
+  <p>{{ errorMessage }}</p>
+  <div id="nucleus-addmod-inputs">
+    <div loading when="isLoading">
+      <input ng-model="data.username" placeholder="Username of new Moderator" type="text"></input>
+    </div>
+  </div>
+</div>

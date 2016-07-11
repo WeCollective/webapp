@@ -18,6 +18,11 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
            $scope.tabItems.push('settings');
            $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
          }
+         // add mod tools tab
+         if($scope.tabItems.indexOf('mod tools') == -1) {
+           $scope.tabItems.push('mod tools');
+           $scope.tabStates.push('weco.branch.nucleus.modtools({ "branchid": "' + $scope.branchid + '"})');
+         }
        }
      }
    }

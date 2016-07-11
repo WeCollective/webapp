@@ -85,11 +85,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
     })
     .state('weco.branch.nucleus.settings', {
-      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html'
+      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
+      controller: 'nucleusSettingsController'
     })
     .state('weco.branch.nucleus.moderators', {
       templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
       controller: 'nucleusModeratorsController'
+    })
+    .state('weco.branch.nucleus.modtools', {
+      templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
+      controller: 'nucleusModToolsController'
     })
     // Subbranches
     .state('weco.branch.subbranches', {
@@ -174,6 +179,43 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
   $scope.$on('Cancel', function() {
     $timeout(function() {
       $scope.newBranch = {};
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+  $scope.data = {};
+
+  $scope.$on('OK', function() {
+    var branchid = Modal.getInputArgs().branchid;
+    Branch.addMod(branchid, $scope.data.username).then(function() {
+      $timeout(function() {
+        $scope.data = {};
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        if(response.status == 404) {
+          $scope.errorMessage = 'That user doesn\'t exist';
+        }
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.data = {};
       $scope.errorMessage = '';
       $scope.isLoading = false;
       Modal.Cancel();
@@ -535,7 +577,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -733,6 +775,20 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
             message: 'Something went wrong'
           });
         }
+      });
+    });
+  };
+
+  Branch.addMod = function(branchid, username) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.save({ branchid: branchid }, { username: username })
+      .$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
       });
     });
   };
@@ -1167,6 +1223,23 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   });
 }]);
 
+var app = angular.module('wecoApp');
+app.controller('nucleusModToolsController', ['$scope', '$state', 'Modal', function($scope, $state, Modal) {
+
+  $scope.openAddModModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod.modal.view.html', { branchid: $scope.branchid })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error updating moderator settings');
+      });
+  };
+}]);
+
 'use strict';
 
 var app = angular.module('wecoApp');
@@ -1186,6 +1259,11 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
          if($scope.tabItems.indexOf('settings') == -1) {
            $scope.tabItems.push('settings');
            $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
+         }
+         // add mod tools tab
+         if($scope.tabItems.indexOf('mod tools') == -1) {
+           $scope.tabItems.push('mod tools');
+           $scope.tabStates.push('weco.branch.nucleus.modtools({ "branchid": "' + $scope.branchid + '"})');
          }
        }
      }
