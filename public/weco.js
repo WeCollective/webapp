@@ -535,7 +535,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1042,16 +1042,18 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
     return $state.current.name.indexOf(control) > -1;
   };
 
-  var promises = [];
   $scope.branch = {};
   $scope.parent = {};
+  // fetch branch object
   Branch.get($state.params.branchid).then(function(branch) {
     $timeout(function () {
       $scope.branch = branch;
     });
+    // now fetch branch mods
     return Branch.getMods($scope.branchid);
   }, function(response) {
     // TODO: handle other error codes
+    // branch not found - 404
     if(response.status == 404) {
       $state.go('weco.notfound');
     }
@@ -1060,13 +1062,14 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       $scope.branch.mods = mods;
       $scope.isLoading = false;
     });
+    // now fetch branch parent
     return Branch.get($scope.branch.parentid);
   }).then(function(parent) {
     $timeout(function() {
       $scope.parent = parent;
     });
   }, function(response) {
-    // No parent exists
+    // No parent exists (in root)
     $scope.isLoading = false;
   });
 
@@ -1173,29 +1176,28 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
     ['weco.branch.nucleus.about({ "branchid": "' + $scope.branchid + '"})',
      'weco.branch.nucleus.moderators({ "branchid": "' + $scope.branchid + '"})'];
 
-   // Watch for changes in the current branch
-   // If this the auth'd user is a moderator of this branch, add the 'settings' tab
-   $scope.$watch($scope.isModerator, function() {
-     if($scope.branch.mods) {
-       for(var i = 0; i < $scope.branch.mods.length; i++) {
-         // is the authd user a mod of this branch?
-         if($scope.branch.mods[i].username == User.me().username) {
-           // add settings tab
-           if($scope.tabItems.indexOf('settings') == -1) {
-             $scope.tabItems.push('settings');
-             $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
-           }
+  // If this the auth'd user is a moderator of this branch, add the 'settings' tab
+  $scope.$watch($scope.isModerator, function() {
+   if($scope.branch.mods) {
+     for(var i = 0; i < $scope.branch.mods.length; i++) {
+       // is the authd user a mod of this branch?
+       if($scope.branch.mods[i].username == User.me().username) {
+         // add settings tab
+         if($scope.tabItems.indexOf('settings') == -1) {
+           $scope.tabItems.push('settings');
+           $scope.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + $scope.branchid + '"})');
          }
        }
      }
-   });
+   }
+  });
 
-   // modify newlines of \n form to HTML <br> tag form for proper display
-   $scope.addHTMLLineBreaks = function(str) {
-     if(str) {
-       return str.split('\n').join('<br>');
-     }
-   };
+  // modify newlines of \n form to HTML <br> tag form for proper display
+  $scope.addHTMLLineBreaks = function(str) {
+   if(str) {
+     return str.split('\n').join('<br>');
+   }
+  };
 }]);
 
 'use strict';
