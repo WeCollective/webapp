@@ -97,7 +97,7 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         },
-        tasks: ['nodemon', 'watch']
+        tasks: ['exec:serve', 'watch']
       }
     },
     // execute shell commands
@@ -116,7 +116,8 @@ module.exports = function(grunt) {
           return 'echo Checking out ' + checkout + ' && git checkout ' + checkout + ' && echo Deploying... && eb deploy && git checkout master';
         }
       },
-      commit: 'git add -u && git commit -m "automatic build commit"'
+      commit: 'git add -u && git commit -m "automatic build commit"',
+      serve: 'node server.js'
     },
     // generate an 'config' angular module which defines the
     // development/production variables for use by the angular app
