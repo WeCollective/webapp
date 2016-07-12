@@ -10,7 +10,7 @@ api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods',
+  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username',
     {
     },
     {

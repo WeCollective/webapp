@@ -1,11 +1,12 @@
 var app = angular.module('wecoApp');
-app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
   $scope.data = {};
 
   $scope.$on('OK', function() {
+    $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
     Branch.addMod(branchid, $scope.data.username).then(function() {
       $timeout(function() {
@@ -16,6 +17,7 @@ app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal',
       });
     }, function(response) {
       $timeout(function() {
+        $scope.data = {};
         $scope.errorMessage = response.message;
         if(response.status == 404) {
           $scope.errorMessage = 'That user doesn\'t exist';

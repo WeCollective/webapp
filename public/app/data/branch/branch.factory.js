@@ -78,6 +78,20 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
     });
   };
 
+  Branch.removeMod = function(branchid, username) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.delete({ branchid: branchid, username: username })
+      .$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
   Branch.get = function(branchid) {
     return new Promise(function(resolve, reject) {
       BranchAPI.get({ branchid: branchid }).$promise.catch(function(response) {

@@ -6,7 +6,8 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   $scope.isLoading = true;
 
   $scope.getMod = function(username, index) {
-    User.get(username).then(function(data) {
+    var p = User.get(username);
+    p.then(function(data) {
       $timeout(function() {
         $scope.mods[index] = data;
       });
@@ -14,6 +15,7 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
       // TODO: pretty error
       console.error("Unable to get mod!");
     });
+    return p;
   };
 
   var promises = [];

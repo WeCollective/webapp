@@ -187,13 +187,14 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
   $scope.data = {};
 
   $scope.$on('OK', function() {
+    $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
     Branch.addMod(branchid, $scope.data.username).then(function() {
       $timeout(function() {
@@ -204,6 +205,7 @@ app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal',
       });
     }, function(response) {
       $timeout(function() {
+        $scope.data = {};
         $scope.errorMessage = response.message;
         if(response.status == 404) {
           $scope.errorMessage = 'That user doesn\'t exist';
@@ -219,6 +221,73 @@ app.controller('modalNucleusModToolsController', ['$scope', '$timeout', 'Modal',
       $scope.errorMessage = '';
       $scope.isLoading = false;
       Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = true;
+
+  $scope.mods = [];
+  $scope.selectedMod = {};
+  function getMod(username, index) {
+    var p = User.get(username);
+    p.then(function(data) {
+      $timeout(function () {
+        $scope.mods[index] = data;
+      });
+    }, function () {
+      // TODO: pretty error
+      console.error("Unable to get mod!");
+    });
+    return p;
+  }
+
+  // populate mods array with full mod user data based on the usernames
+  // given as an argument to the modal
+  var promises = [];
+  for(var i = 0; i < Modal.getInputArgs().mods.length; i++) {
+    promises.push(getMod(Modal.getInputArgs().mods[i].username, i));
+  }
+  // when all mods fetched, loading finished
+  Promise.all(promises).then(function () {
+    $scope.isLoading = false;
+  });
+
+  $scope.select = function(mod) {
+    $scope.selectedMod = mod;
+  };
+
+  $scope.$on('OK', function() {
+    $scope.isLoading = true;
+    var branchid = Modal.getInputArgs().branchid;
+    Branch.removeMod(branchid, $scope.selectedMod.username).then(function() {
+      $timeout(function() {
+        Modal.OK();
+        $scope.selectedMod = {};
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        if(response.status == 404) {
+          $scope.errorMessage = 'That user doesn\'t exist';
+        }
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      Modal.Cancel();
+      $scope.selectedMod = {};
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
     });
   });
 }]);
@@ -330,7 +399,12 @@ app.factory('Modal', ['$timeout', function($timeout) {
   var modalResolve;
   var modalReject;
   Modal.open = function(url, args) {
-    templateUrl = url;
+    // force change the template url so that controllers included on
+    // the template are reloaded
+    templateUrl = "";
+    $timeout(function () {
+      templateUrl = url;
+    });
     isOpen = true;
     modalInputArgs = args;
 
@@ -628,7 +702,7 @@ api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods',
+  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username',
     {
     },
     {
@@ -782,6 +856,20 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
   Branch.addMod = function(branchid, username) {
     return new Promise(function(resolve, reject) {
       ModsAPI.save({ branchid: branchid }, { username: username })
+      .$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
+  Branch.removeMod = function(branchid, username) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.delete({ branchid: branchid, username: username })
       .$promise.catch(function(response) {
         reject({
           status: response.status,
@@ -1203,7 +1291,8 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   $scope.isLoading = true;
 
   $scope.getMod = function(username, index) {
-    User.get(username).then(function(data) {
+    var p = User.get(username);
+    p.then(function(data) {
       $timeout(function() {
         $scope.mods[index] = data;
       });
@@ -1211,6 +1300,7 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
       // TODO: pretty error
       console.error("Unable to get mod!");
     });
+    return p;
   };
 
   var promises = [];
@@ -1224,11 +1314,42 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModToolsController', ['$scope', '$state', 'Modal', function($scope, $state, Modal) {
+app.controller('nucleusModToolsController', ['$scope', '$state', 'Modal', 'User', function($scope, $state, Modal, User) {
 
   $scope.openAddModModal = function() {
-    Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod.modal.view.html', { branchid: $scope.branchid })
+    Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod/add-mod.modal.view.html', { branchid: $scope.branchid })
       .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error updating moderator settings');
+      });
+  };
+
+  $scope.openRemoveModModal = function() {
+    var me;
+    /* jshint shadow:true */
+    for(var i = 0; i < $scope.branch.mods.length; i++) {
+      if($scope.branch.mods[i].username == User.me().username) {
+        me = $scope.branch.mods[i];
+      }
+    }
+
+    var removableMods = []; // a list of mods to be removed
+    for(var i = 0; i < $scope.branch.mods.length; i++) {
+      if($scope.branch.mods[i].date > me.date && $scope.branch.mods[i].username !== me.username) {
+        removableMods.push($scope.branch.mods[i]);
+      }
+    }
+
+    Modal.open('/app/components/modals/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
+      {
+        branchid: $scope.branchid,
+        mods: removableMods
+      }).then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
           $state.go($state.current, {}, {reload: true});

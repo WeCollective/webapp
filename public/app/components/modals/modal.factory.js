@@ -20,7 +20,12 @@ app.factory('Modal', ['$timeout', function($timeout) {
   var modalResolve;
   var modalReject;
   Modal.open = function(url, args) {
-    templateUrl = url;
+    // force change the template url so that controllers included on
+    // the template are reloaded
+    templateUrl = "";
+    $timeout(function () {
+      templateUrl = url;
+    });
     isOpen = true;
     modalInputArgs = args;
 
