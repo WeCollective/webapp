@@ -2,3 +2,7 @@
   <li><span ng-click="openAddModModal()">Add a Moderator</span></li>
   <li><span ng-click="openRemoveModModal()">Remove a Moderator</span></li>
 </ul>
+<h2>Moderator Action Log</h2>
+<ul id="nucleus-modtools-log">
+  <li ng-repeat="entry in modLog" ng-bind-html="getModLogEntryHTML(entry)"></li>
+</ul>

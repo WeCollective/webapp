@@ -689,6 +689,13 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var api = angular.module('api');
+api.factory('ModLogAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/modlog', {}, {});
+}]);
+
+'use strict';
+
+var api = angular.module('api');
 api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username', {}, {});
 }]);
@@ -756,7 +763,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -774,63 +781,28 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
     });
   };
 
-  // Get the root branches
-  Branch.getSubbranches = function(branchid) {
-    return new Promise(function(resolve, reject) {
-      SubbranchesAPI.get({ branchid: branchid }).$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function(branches) {
-        if(branches && branches.data) {
-          resolve(branches.data);
-        } else {
-          // successful response contains no branches object:
-          // treat as 500 Internal Server Error
-          reject({
-            status: 500,
-            message: 'Something went wrong'
-          });
-        }
-      });
-    });
-  };
-
   Branch.get = function(branchid) {
     return new Promise(function(resolve, reject) {
-      BranchAPI.get({ branchid: branchid }).$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function(branch) {
+      BranchAPI.get({ branchid: branchid }, function(branch) {
         if(!branch || !branch.data) { return reject(); }
-        // Attach the profile picture url to the branch object if it exists
+        // Attach the profile picture and cover urls to the branch object if they exist
         Branch.getPictureUrl(branchid, 'picture').then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.profileUrl = response.data.data;
           }
-          Branch.getPictureUrl(branchid, 'cover').then(function(response) {
-            if(response && response.data && response.data.data) {
-              branch.data.coverUrl = response.data.data;
-            }
-            resolve(branch.data);
-          }, function() {
-            // no cover picture to attach
-            resolve(branch.data);
-          });
-        }, function() {
-          // no profile picture to attach, try cover
-          Branch.getPictureUrl(branchid, 'cover').then(function(response) {
-            if(response && response.data && response.data.data) {
-              branch.data.coverUrl = response.data.data;
-            }
-            resolve(branch.data);
-          }, function() {
-            // no cover picture to attach
-            resolve(branch.data);
-          });
+          return Branch.getPictureUrl(branchid, 'cover');
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            branch.data.coverUrl = response.data.data;
+          }
+          resolve(branch.data);
+        }).catch(function () {
+          resolve(branch.data);
+        });
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
         });
       });
     });
@@ -838,28 +810,68 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', 
 
   Branch.update = function(data) {
     return new Promise(function(resolve, reject) {
-      BranchAPI.update({ branchid: $state.params.branchid }, data).$promise.catch(function(response) {
-        console.log(response);
+      BranchAPI.update({ branchid: $state.params.branchid }, data, function() {
+        resolve();
+      }, function(response) {
         reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        console.log("done");
-        resolve();
       });
     });
   };
 
   Branch.create = function(data) {
     return new Promise(function(resolve, reject) {
-      BranchAPI.save(data).$promise.catch(function(response) {
+      BranchAPI.save(data, function() {
+        resolve();
+      }, function(response) {
         reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        resolve();
+      });
+    });
+  };
+
+  // Get the root branches
+  Branch.getSubbranches = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      SubbranchesAPI.get({ branchid: branchid }, function(branches) {
+        if(branches && branches.data) {
+          resolve(branches.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // Get a branch's mod log
+  Branch.getModLog = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      ModLogAPI.get({ branchid: branchid }, function(log) {
+        if(log && log.data) {
+          resolve(log.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       });
     });
   };
@@ -1289,7 +1301,21 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModToolsController', ['$scope', '$state', 'Modal', 'User', function($scope, $state, Modal, User) {
+app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
+  $scope.modLog = [];
+  Branch.getModLog($scope.branchid).then(function(log) {
+    $timeout(function () {
+      $scope.modLog = log;
+    });
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to fetch mod log.");
+  });
+
+  $scope.getModLogEntryHTML = function(entry) {
+    // TODO: CREATE HTML FROM LOG ENTRY DATA
+    var html = '';
+  };
 
   $scope.openAddModModal = function() {
     Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod/add-mod.modal.view.html', { branchid: $scope.branchid })

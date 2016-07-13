@@ -1,5 +1,19 @@
 var app = angular.module('wecoApp');
-app.controller('nucleusModToolsController', ['$scope', '$state', 'Modal', 'User', function($scope, $state, Modal, User) {
+app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
+  $scope.modLog = [];
+  Branch.getModLog($scope.branchid).then(function(log) {
+    $timeout(function () {
+      $scope.modLog = log;
+    });
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to fetch mod log.");
+  });
+
+  $scope.getModLogEntryHTML = function(entry) {
+    // TODO: CREATE HTML FROM LOG ENTRY DATA
+    var html = '';
+  };
 
   $scope.openAddModModal = function() {
     Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod/add-mod.modal.view.html', { branchid: $scope.branchid })
