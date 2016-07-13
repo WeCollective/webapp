@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', 'User', function($scope, $state, $timeout, Branch, Modal, User) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $state, $timeout, Branch, Mod, User, Modal) {
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
@@ -19,7 +19,7 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       $scope.branch = branch;
     });
     // now fetch branch mods
-    return Branch.getMods($scope.branchid);
+    return Mod.getByBranch($scope.branchid);
   }, function(response) {
     // TODO: handle other error codes
     // branch not found - 404

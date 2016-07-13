@@ -10,7 +10,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var User = $resource(ENV.apiEndpoint + 'user/:param',
+  return $resource(ENV.apiEndpoint + 'user/:param',
     {
       param: 'me'
     },
@@ -49,6 +49,4 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
         transformRequest: makeFormEncoded
       }
     });
-
-   return User;
 }]);

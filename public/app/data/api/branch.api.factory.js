@@ -10,9 +10,7 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Branch = $resource(ENV.apiEndpoint + 'branch/:branchid',
-    {
-    },
+  return $resource(ENV.apiEndpoint + 'branch/:branchid', {},
     {
       update: {
         method: 'PUT',
@@ -24,6 +22,4 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
         transformRequest: makeFormEncoded
       }
     });
-
-   return Branch;
 }]);

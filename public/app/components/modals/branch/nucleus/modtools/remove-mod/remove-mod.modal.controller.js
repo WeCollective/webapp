@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
+app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = true;
@@ -37,7 +37,7 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
   $scope.$on('OK', function() {
     $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
-    Branch.removeMod(branchid, $scope.selectedMod.username).then(function() {
+    Mod.delete(branchid, $scope.selectedMod.username).then(function() {
       $timeout(function() {
         Modal.OK();
         $scope.selectedMod = {};

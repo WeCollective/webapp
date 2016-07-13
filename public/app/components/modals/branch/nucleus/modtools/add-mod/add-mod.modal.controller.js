@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
+app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
@@ -8,7 +8,7 @@ app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', '
   $scope.$on('OK', function() {
     $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
-    Branch.addMod(branchid, $scope.data.username).then(function() {
+    Mod.create(branchid, $scope.data.username).then(function() {
       $timeout(function() {
         $scope.data = {};
         $scope.errorMessage = '';

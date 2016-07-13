@@ -187,7 +187,7 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
+app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
@@ -196,7 +196,7 @@ app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', '
   $scope.$on('OK', function() {
     $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
-    Branch.addMod(branchid, $scope.data.username).then(function() {
+    Mod.create(branchid, $scope.data.username).then(function() {
       $timeout(function() {
         $scope.data = {};
         $scope.errorMessage = '';
@@ -226,7 +226,7 @@ app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', '
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', function($scope, $timeout, Modal, Branch, User) {
+app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = true;
@@ -264,7 +264,7 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
   $scope.$on('OK', function() {
     $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
-    Branch.removeMod(branchid, $scope.selectedMod.username).then(function() {
+    Mod.delete(branchid, $scope.selectedMod.username).then(function() {
       $timeout(function() {
         Modal.OK();
         $scope.selectedMod = {};
@@ -672,9 +672,7 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var Branch = $resource(ENV.apiEndpoint + 'branch/:branchid',
-    {
-    },
+  return $resource(ENV.apiEndpoint + 'branch/:branchid', {},
     {
       update: {
         method: 'PUT',
@@ -686,50 +684,20 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
         transformRequest: makeFormEncoded
       }
     });
-
-   return Branch;
 }]);
 
 'use strict';
 
 var api = angular.module('api');
 api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
-
-  function makeFormEncoded(data, headersGetter) {
-    var str = [];
-    for (var d in data)
-      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return str.join("&");
-  }
-
-  var Mods = $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username',
-    {
-    },
-    {
-    });
-
-   return Mods;
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username', {}, {});
 }]);
 
 'use strict';
 
 var api = angular.module('api');
 api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
-
-  function makeFormEncoded(data, headersGetter) {
-    var str = [];
-    for (var d in data)
-      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return str.join("&");
-  }
-
-  var Subbranches = $resource(ENV.apiEndpoint + 'branch/:branchid/subbranches',
-    {
-    },
-    {
-    });
-
-   return Subbranches;
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/subbranches', {}, {});
 }]);
 
 'use strict';
@@ -744,7 +712,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
     return str.join("&");
   }
 
-  var User = $resource(ENV.apiEndpoint + 'user/:param',
+  return $resource(ENV.apiEndpoint + 'user/:param',
     {
       param: 'me'
     },
@@ -783,14 +751,12 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
         transformRequest: makeFormEncoded
       }
     });
-
-   return User;
 }]);
 
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModsAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -827,56 +793,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
             message: 'Something went wrong'
           });
         }
-      });
-    });
-  };
-
-  Branch.getMods = function(branchid) {
-    return new Promise(function(resolve, reject) {
-      ModsAPI.get({ branchid: branchid }).$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function(mods) {
-        if(mods && mods.data) {
-          resolve(mods.data);
-        } else {
-          // successful response contains no branches object:
-          // treat as 500 Internal Server Error
-          reject({
-            status: 500,
-            message: 'Something went wrong'
-          });
-        }
-      });
-    });
-  };
-
-  Branch.addMod = function(branchid, username) {
-    return new Promise(function(resolve, reject) {
-      ModsAPI.save({ branchid: branchid }, { username: username })
-      .$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function() {
-        resolve();
-      });
-    });
-  };
-
-  Branch.removeMod = function(branchid, username) {
-    return new Promise(function(resolve, reject) {
-      ModsAPI.delete({ branchid: branchid, username: username })
-      .$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function() {
-        resolve();
       });
     });
   };
@@ -949,6 +865,65 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModsAPI', '$http', '$stat
   };
 
   return Branch;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http, $state, ENV) {
+  var Mod = {};
+
+  Mod.getByBranch = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.get({ branchid: branchid }).$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function(mods) {
+        if(mods && mods.data) {
+          resolve(mods.data);
+        } else {
+          // successful response contains no branches object:
+          // treat as 500 Internal Server Error
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      });
+    });
+  };
+
+  Mod.create = function(branchid, username) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.save({ branchid: branchid }, { username: username })
+      .$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
+  Mod.delete = function(branchid, username) {
+    return new Promise(function(resolve, reject) {
+      ModsAPI.delete({ branchid: branchid, username: username })
+      .$promise.catch(function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
+  return Mod;
 }]);
 
 'use strict';
@@ -1176,7 +1151,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Modal', 'User', function($scope, $state, $timeout, Branch, Modal, User) {
+app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $state, $timeout, Branch, Mod, User, Modal) {
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
@@ -1194,7 +1169,7 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       $scope.branch = branch;
     });
     // now fetch branch mods
-    return Branch.getMods($scope.branchid);
+    return Mod.getByBranch($scope.branchid);
   }, function(response) {
     // TODO: handle other error codes
     // branch not found - 404
