@@ -14,3 +14,39 @@ ul#nucleus-modtools-properties {
     }
   }
 }
+
+ul#nucleus-modtools-log {
+  position: relative;
+
+  h2 {
+    margin-top: 50px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  div {
+    min-height: 100px;
+
+    li {
+      padding: 10px 0;
+
+      span {
+        font-size: 14px;
+
+        &.time {
+          color: @dark-grey;
+          margin-right: 10px;
+        }
+
+        a {
+          color: @button-focus;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

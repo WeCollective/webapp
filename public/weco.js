@@ -1302,19 +1302,28 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
 
 var app = angular.module('wecoApp');
 app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
+  $scope.isLoading = true;
+
   $scope.modLog = [];
   Branch.getModLog($scope.branchid).then(function(log) {
     $timeout(function () {
       $scope.modLog = log;
+      $scope.isLoading = false;
     });
   }, function() {
     // TODO: pretty error
     console.error("Unable to fetch mod log.");
+    $scope.isLoading = false;
   });
 
-  $scope.getModLogEntryHTML = function(entry) {
-    // TODO: CREATE HTML FROM LOG ENTRY DATA
-    var html = '';
+  $scope.getLogActionVerb = function(action) {
+    if(action == 'addmod') {
+      return 'added';
+    } else if(action == 'removemod') {
+      return 'removed';
+    } else {
+      return '';
+    }
   };
 
   $scope.openAddModModal = function() {
