@@ -1,12 +1,13 @@
 nav#nav-bar {
+  position: relative;
   width: 100%;
-  height: 40px;
-  background-color: @primary-dark;
+  height: @nav-bar-height;
+  background: linear-gradient(to bottom, #2a2a2a, #131313);
   z-index: 1000;
   overflow-y: visible;
 
   div:first-child {
-    width: calc(~'100% - 200px');
+    width: calc(100% - @page-margin - @page-margin);
     height: 100%;
     margin: auto;
 
@@ -19,7 +20,6 @@ nav#nav-bar {
       display: inline-block;
       vertical-align: top;
       height: 100%;
-      padding-left: 15px;
 
       // pseudo-element for verticle centering
       &:before {
@@ -30,7 +30,7 @@ nav#nav-bar {
       }
 
       a img {
-        height: 50%;
+        height: 45%;
         width: auto;
         vertical-align: middle;
         padding: 0 15px;
@@ -72,8 +72,8 @@ nav#nav-bar {
 
         div#profile-picture {
           display: inline-block;
-          height: 40px;
-          width: 40px;
+          height: @nav-bar-height;
+          width: @nav-bar-height;
           margin-left: 5px;
           margin-right: 15px;
           vertical-align: middle;

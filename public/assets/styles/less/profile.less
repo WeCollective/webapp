@@ -1,119 +1,106 @@
 div#profile-cover {
+  position: relative;
   width: 100%;
   background-position: center;
   background-size: cover;
   z-index: 0;
+  
+  img#edit-cover {
+    position: absolute;
+    width: 20px;
+    height: auto;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.8;
 
-  div {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    img#edit-cover {
-      position: absolute;
-      width: 20px;
-      height: auto;
-      bottom: 10px;
-      right: 10px;
-      opacity: 0.8;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
     }
   }
 }
 
-div#profile-frame {
-  background-color: @light-grey;
-  width: 100%;
+div#profile-frame div.content {
+  position: relative;
+  z-index: 100;
 
-  div#loading-parent {
-    position: relative;
-    width: 70%;
+  div[loading] {
     height: 100%;
-    margin: auto;
-    background-color: #fff;
+    width: 100%;
     z-index: 100;
 
-    div[loading] {
+    div#profile-info {
+      width: 200px;
       height: 100%;
-      width: 100%;
-      z-index: 100;
+      float: left;
+      box-sizing: border-box;
+      padding: 10px 20px;
 
-      div#profile-info {
+      h1 {
+        font-size: 26px;
+        font-weight: 500;
+      }
+      h2 {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      div#profile-picture {
+        position: relative;
         width: 200px;
-        height: 100%;
-        float: left;
-        box-sizing: border-box;
-        padding: 10px 20px;
+        height: 200px;
+        margin: 20px 0 20px -20px;
+        background-position: center;
+        background-size: cover;
+        z-index: 0;
 
-        h1 {
-          font-size: 26px;
-          font-weight: 500;
-        }
-        h2 {
-          font-size: 15px;
-          font-weight: 500;
-        }
+        img#edit-profile {
+          position: absolute;
+          width: 20px;
+          height: auto;
+          bottom: 10px;
+          right: 10px;
+          opacity: 0.8;
 
-        div#profile-picture {
-          position: relative;
-          width: 200px;
-          height: 200px;
-          margin: 20px 0 20px -20px;
-          background-position: center;
-          background-size: cover;
-          z-index: 0;
-
-          img#edit-profile {
-            position: absolute;
-            width: 20px;
-            height: auto;
-            bottom: 10px;
-            right: 10px;
-            opacity: 0.8;
-
-            &:hover {
-              cursor: pointer;
-              opacity: 1;
-            }
-          }
-        }
-
-        ul {
-          li {
-            font-size: 14px;
-            font-weight: 300;
-            padding-bottom: 5px;
-            span {
-              font-weight: 500;
-            }
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
           }
         }
       }
-      div#profile-content {
-        width: calc(~'100% - 200px');
-        height: 100%;
-        float: left;
-        box-sizing: border-box;
-        padding: 10px 20px;
 
-        h1 {
-          display: inline-block;
-          margin-right: 20px;
-          font-size: 26px;
-          font-weight: 500;
-        }
-        .profile-tab-description {
-          text-align: center;
-          font-weight: 300;
+      ul {
+        li {
           font-size: 14px;
-          font-style: italic;
-          padding: 10px 0;
-          margin-bottom: 10px;
-          border-bottom: 1px solid @light-grey;
+          font-weight: 300;
+          padding-bottom: 5px;
+          span {
+            font-weight: 500;
+          }
         }
+      }
+    }
+    div#profile-content {
+      width: calc(~'100% - 200px');
+      height: 100%;
+      float: left;
+      box-sizing: border-box;
+      padding: 10px 20px;
+
+      h1 {
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 26px;
+        font-weight: 500;
+      }
+      .profile-tab-description {
+        text-align: center;
+        font-weight: 300;
+        font-size: 14px;
+        font-style: italic;
+        padding: 10px 0;
+        margin-bottom: 10px;
+        border-bottom: 1px solid @light-grey;
       }
     }
   }

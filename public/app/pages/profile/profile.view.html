@@ -1,12 +1,8 @@
 <div id="profile-cover" ng-style="{ 'height': user.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}')">
-   <!-- div required to set position-relative for positioning of #edit-cover
-   without affecting the z-index of #profile-cover background image -->
-  <div>
-    <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
-  </div>
+  <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
 </div>
-<div id="profile-frame" ng-style="{ 'height': user.coverUrl && !isLoading ? '70%' : '100%' }">
-  <div id="loading-parent">
+<div class="frame" id="profile-frame" ng-style="{ 'height': user.coverUrl && !isLoading ? '70%' : '100%' }">
+  <div class="content">
     <div loading when="isLoading">
       <div id="profile-info">
         <h1>{{ user.firstname }} {{ user.lastname }}</h1>

@@ -47,5 +47,17 @@ input, textarea {
 
 .full-page-nav {
   width: 100%;
-  height: calc(~'100% - 40px'); // full height - nav bar height
+  height: calc(100% - @nav-bar-height); // full height - nav bar height
+}
+
+div.frame {
+  background-color: @light-grey;
+  width: 100%;
+
+  div.content {
+    width: calc(100% - @page-margin - @page-margin);
+    height: 100%;
+    margin: auto;
+    background-color: #fff;
+  }
 }

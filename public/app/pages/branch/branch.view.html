@@ -1,12 +1,8 @@
 <div id="branch-cover" ng-style="{ 'height': branch.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ branch.coverUrl }}')">
-   <!-- div required to set position-relative for positioning of #edit-cover
-   without affecting the z-index of #profile-cover background image -->
-  <div>
-    <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl">
-  </div>
+  <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl">
 </div>
-<div id="branch-frame" ng-style="{ 'height': branch.coverUrl && !isLoading ? '70%' : '100%' }">
-  <div id="loading-parent">
+<div id="branch-frame" class="frame" ng-style="{ 'height': branch.coverUrl && !isLoading ? '70%' : '100%' }">
+  <div class="content">
     <div loading when="isLoading">
       <div id="branch-info">
         <h1>{{ branch.name }}</h1>
