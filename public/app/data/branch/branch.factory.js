@@ -73,9 +73,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$st
   };
 
   // Get the root branches
-  Branch.getSubbranches = function(branchid) {
+  Branch.getSubbranches = function(branchid, timeafter) {
     return new Promise(function(resolve, reject) {
-      SubbranchesAPI.get({ branchid: branchid }, function(branches) {
+      SubbranchesAPI.get({ branchid: branchid, timeafter: timeafter }, function(branches) {
         if(branches && branches.data) {
           resolve(branches.data);
         } else {

@@ -30,20 +30,54 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     }
   }
 
-  Branch.getSubbranches($scope.branchid).then(function(branches) {
-    $timeout(function() {
-      $scope.branches = branches;
-      $scope.isLoading = false;
-      // slice() provides a clone of the branches array
-      loadBranchPictures($scope.branches.slice(), 0);
-    });
-  }, function() {
-    // TODO: pretty error
-    console.error("Unable to get branches!");
-    $scope.isLoading = false;
-  });
+  function getSubbranches() {
+    // compute the appropriate timeafter for the selected time filter
+    var timeafter;
+    var date = new Date();
+    switch($scope.timeItems[$scope.selectedTimeItemIdx]) {
+      case 'ALL TIME':
+        timeafter = 0;
+        break;
+      case 'THIS YEAR':
+        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS MONTH':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS WEEK':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
+        break;
+      case 'TODAY':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS HOUR':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
+        break;
+      default:
+    }
 
+    // fetch the subbranches for this branch and timefilter
+    Branch.getSubbranches($scope.branchid, timeafter).then(function(branches) {
+      $timeout(function() {
+        $scope.branches = branches;
+        $scope.isLoading = false;
+        // slice() provides a clone of the branches array
+        loadBranchPictures($scope.branches.slice(), 0);
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get branches!");
+      $scope.isLoading = false;
+    });
+  }
+
+
+  // Time filter dropdown configuration
   $scope.timeTitle = 'TIME RANGE';
   $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'TODAY', 'THIS HOUR'];
   $scope.selectedTimeItemIdx = 0;
+  $scope.$watch('selectedTimeItemIdx', function () {
+    getSubbranches();
+  });
+
 }]);
