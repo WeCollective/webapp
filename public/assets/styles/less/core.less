@@ -50,14 +50,61 @@ input, textarea {
   height: calc(100% - @nav-bar-height); // full height - nav bar height
 }
 
+div.cover-photo {
+  position: relative;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  z-index: 200;
+  box-shadow: @shadow1;
+
+  img#edit-cover {
+    position: absolute;
+    width: 20px;
+    height: auto;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.8;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+}
+
 div.frame {
   background-color: @light-grey;
   width: 100%;
+  z-index: 100;
 
   div.content {
     width: calc(100% - @page-margin - @page-margin);
     height: 100%;
     margin: auto;
     background-color: #fff;
+
+    div.nav-column {
+      width: @nav-column-width;
+      height: 100%;
+      float: left;
+      box-sizing: border-box;
+      padding: 10px 20px;
+
+      h1 {
+        font-size: 26px;
+        font-weight: 500;
+      }
+      h2 {
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+
+    div.content-column {
+      width: calc(100% - @nav-column-width);
+      height: 100%;
+      float: left;
+    }
   }
 }

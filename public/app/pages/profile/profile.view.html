@@ -1,10 +1,10 @@
-<div id="profile-cover" ng-style="{ 'height': user.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}')">
+<div class="cover-photo" ng-style="{ 'height': user.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}')">
   <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
 </div>
 <div class="frame" id="profile-frame" ng-style="{ 'height': user.coverUrl && !isLoading ? '70%' : '100%' }">
   <div class="content">
     <div loading when="isLoading">
-      <div id="profile-info">
+      <div id="profile-info" class="nav-column">
         <h1>{{ user.firstname }} {{ user.lastname }}</h1>
         <h2>{{ user.username }}</h2>
         <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
@@ -20,7 +20,7 @@
           <li>Moderator Positions: <span>0</span></li>
         </ul>
       </div>
-      <div id="profile-content">
+      <div id="profile-content" class="content-column">
         <h1>Profile</h1>
         <tabs items="tabItems" states="tabStates"></tabs>
         <div ui-view></div>

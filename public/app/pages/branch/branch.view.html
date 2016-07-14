@@ -1,10 +1,10 @@
-<div id="branch-cover" ng-style="{ 'height': branch.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ branch.coverUrl }}')">
+<div class="cover-photo" ng-style="{ 'height': branch.coverUrl && !isLoading ? '35%' : '0' }" style="background-image: url('{{ branch.coverUrl }}')">
   <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl">
 </div>
-<div id="branch-frame" class="frame" ng-style="{ 'height': branch.coverUrl && !isLoading ? '70%' : '100%' }">
+<div id="branch-frame" class="frame" ng-style="{ 'height': branch.coverUrl && !isLoading ? '65%' : '100%' }">
   <div class="content">
     <div loading when="isLoading">
-      <div id="branch-info">
+      <div id="branch-info" class="nav-column">
         <h1>{{ branch.name }}</h1>
         <h2 ng-show="!branch.parentid">&infin;</h2>
         <h2 ng-show="branch.parentid"><span ng-show="parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: branch.parentid })">{{ parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: branch.id })">{{ branch.name }}</a></h2>
@@ -15,16 +15,16 @@
           <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
             <li><img src="/assets/images/icons/black/nucleus.png"></li>
           </a>
-          <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-            <li><img src="/assets/images/icons/black/branch.png"></li>
-          </a>
           <a ui-sref="weco.branch.wall({ branchid: branchid })"  ng-class="{ 'selected' : isControlSelected('wall') }">
             <li><img src="/assets/images/icons/black/wall.png"></li>
+          </a>
+          <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
+            <li><img src="/assets/images/icons/black/branch.png"></li>
           </a>
           <a id="add-content" ng-click="addContent()"><li><img src="/assets/images/icons/black/add.png"></li></a>
         </ul>
       </div>
-      <div id="branch-content" ui-view>
+      <div id="branch-content" class="content-column" ui-view>
       </div>
     </div>
   </div>
