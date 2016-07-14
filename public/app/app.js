@@ -98,15 +98,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Subbranches
     .state('weco.branch.subbranches', {
-      url: '/subbranches?filter',
-      params: {
-        filter: 'alltime'
-      },
-      resolve: {
-        filterBranches: function() {
-          // TODO: filter the branches according to the filter param
-        }
-      },
+      url: '/subbranches',
       templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
       controller: 'subbranchesController'
     })

@@ -5,17 +5,22 @@ div#branch-subbranches {
   box-sizing: border-box;
   padding: 10px 20px;
 
-  h1 {
-    display: inline-block;
-    margin-right: 20px;
-    font-size: 26px;
-    font-weight: 500;
+  div#subbranches-header {
+    width: 100%;
+    height: 50px;
+
+    h1 {
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 26px;
+      font-weight: 500;
+    }
   }
 
   div#subbranch-list-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: calc(~'100% - 50px');
     overflow-y: scroll;
 
     ul#subbranch-list {

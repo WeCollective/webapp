@@ -1,0 +1,14 @@
+<div class="dropdown">
+  <div class="title">
+    <span>{{ title() }}</span>
+  </div>
+  <div class="container">
+    <div class="item" ng-click="open()">
+      <span class="selected">{{ items[selected] }}</span>
+      <img src="/assets/images/icons/black/expand.png">
+    </div>
+    <ul ng-show="isOpen">
+      <li class="item" ng-repeat="item in items" ng-click="select($index)">{{ item }}</li>
+    </ul>
+  </div>
+</div>

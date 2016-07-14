@@ -1,15 +1,17 @@
 <div id="branch-subbranches">
-  <h1>{{ branch.id == 'root' ? 'Root Branches' : 'SubBranches' }}</h1>
-  <tabs items="tabItems" states="tabStates"></tabs>
+  <div id="subbranches-header">
+    <h1>{{ branch.id == 'root' ? 'Root Branches' : 'SubBranches' }}</h1>
+    <dropdown title="timeTitle" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+  </div>
   <div id="subbranch-list-container" loading when="isLoading">
     <ul id="subbranch-list">
       <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index }}</span>
-        <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id, filter: 'alltime' })">
+        <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id })">
           <div style="background-image: url('{{ subbranch.profileUrl }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>
         <div>
-          <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id, filter: 'alltime' })">
+          <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id })">
             <span class="title">{{ subbranch.name }}</span>
           </a>
           <span class="description">Created by <a ui-sref="weco.profile.about({ username: subbranch.creator })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>

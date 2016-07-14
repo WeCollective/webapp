@@ -98,15 +98,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Subbranches
     .state('weco.branch.subbranches', {
-      url: '/subbranches?filter',
-      params: {
-        filter: 'alltime'
-      },
-      resolve: {
-        filterBranches: function() {
-          // TODO: filter the branches according to the filter param
-        }
-      },
+      url: '/subbranches',
       templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
       controller: 'subbranchesController'
     })
@@ -122,6 +114,38 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       return $location.path();
     });
 });
+
+var app = angular.module('wecoApp');
+app.directive('dropdown', ['$timeout', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: 'true',
+    templateUrl: '/app/components/dropdown/dropdown.view.html',
+    scope: {
+      title: '&',
+      items: '=',
+      selected: '='
+    },
+    link: function($scope, element, attrs) {
+      $scope.isOpen = false;
+
+      $scope.open = function() {
+        $timeout(function () {
+          $scope.isOpen = true;
+        });
+      };
+      $scope.close = function() {
+        $timeout(function () {
+          $scope.isOpen = false;
+        });
+      };
+      $scope.select = function(idx) {
+        $scope.selected = idx;
+        $scope.close();
+      };
+    }
+  };
+}]);
 
 /* Component to indicate loading on a DOM element.
 ** Usage:
@@ -610,7 +634,7 @@ app.directive('tabs', ['$state', function($state) {
     link: function($scope, element, attrs) {
       /* NB: states specified in '$scope.states' can be a pure state name, e.g. weco.home,
       **     or they can have parameters, e.g:
-      **        weco.branch.subbranches({ "branchid" : "root", "filter": "alltime" })
+      **        weco.branch.subbranches({ "branchid" : "root" })
       **     In the latter case, the parameters must be specified in JSON parsable
       **     format, i.e. with double quotes around property names and values.
       */
@@ -1474,12 +1498,12 @@ var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
   $scope.tabStates =
-    ['weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "alltime" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "year" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "month" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "week" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "today" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '", "filter": "hour" })'];
+    ['weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
+     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })'];
 
   $scope.isLoading = true;
   $scope.branches = [];
@@ -1512,6 +1536,10 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     console.error("Unable to get branches!");
     $scope.isLoading = false;
   });
+
+  $scope.timeTitle = 'TIME RANGE';
+  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'TODAY', 'THIS HOUR'];
+  $scope.selectedTimeItemIdx = 0;
 }]);
 
 'use strict';
