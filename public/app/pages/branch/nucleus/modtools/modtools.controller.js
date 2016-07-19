@@ -1,6 +1,11 @@
 var app = angular.module('wecoApp');
 app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
   $scope.isLoading = true;
+  $scope.isModLogOpen = false;
+
+  $scope.toggleIsModLogOpen = function () {
+    $scope.isModLogOpen = !$scope.isModLogOpen;
+  };
 
   $scope.modLog = [];
   Branch.getModLog($scope.branchid).then(function(log) {

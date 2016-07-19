@@ -675,7 +675,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1329,6 +1329,11 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
 var app = angular.module('wecoApp');
 app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
   $scope.isLoading = true;
+  $scope.isModLogOpen = false;
+
+  $scope.toggleIsModLogOpen = function () {
+    $scope.isModLogOpen = !$scope.isModLogOpen;
+  };
 
   $scope.modLog = [];
   Branch.getModLog($scope.branchid).then(function(log) {
