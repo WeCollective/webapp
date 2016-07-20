@@ -13,16 +13,26 @@
           <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isModerator()">
         </div>
         <ul id="branch-controls">
-          <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
-            <li><img src="/assets/images/icons/black/nucleus.png"></li>
-          </a>
-          <a ui-sref="weco.branch.wall({ branchid: branchid })"  ng-class="{ 'selected' : isControlSelected('wall') }">
-            <li><img src="/assets/images/icons/black/wall.png"></li>
-          </a>
-          <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-            <li><img src="/assets/images/icons/black/branch.png"></li>
-          </a>
-          <a id="add-content" ng-click="addContent()"><li><img src="/assets/images/icons/black/add.png"></li></a>
+          <li>
+            <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
+              <img src="/assets/images/icons/black/nucleus.png">
+            </a>
+          </li>
+          <li>
+            <a ui-sref="weco.branch.wall({ branchid: branchid })"  ng-class="{ 'selected' : isControlSelected('wall') }">
+              <img src="/assets/images/icons/black/wall.png">
+            </a>
+          </li>
+          <li>
+            <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
+              <img src="/assets/images/icons/black/branch.png">
+            </a>
+          </li>
+          <li>
+            <a id="add-content" ng-click="addContent()">
+              <img src="/assets/images/icons/black/add.png">
+            </a>
+          </li>
         </ul>
       </div>
       <div id="branch-content" class="content-column" ui-view>

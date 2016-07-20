@@ -1,5 +1,7 @@
 <div id="branch-nucleus">
-  <h1>{{ branch.id == 'root' ? 'Global Nucleus' : 'Nucleus' }}</h1>
-  <tabs items="tabItems" states="tabStates"></tabs>
+  <div class="content-header" id="nucleus-header">
+    <h1>{{ branch.id == 'root' ? 'Global Nucleus' : 'Nucleus' }}</h1>
+    <tabs items="tabItems" states="tabStates"></tabs>
+  </div>
   <div ui-view></div>
 </div>

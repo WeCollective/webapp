@@ -1,9 +1,5 @@
 div#branch-frame div.content {
   position: relative;
-  width: 70%;
-  height: 100%;
-  background-color: #fff;
-  margin: auto;
 
   div[loading] {
     height: 100%;
@@ -23,7 +19,7 @@ div#branch-frame div.content {
         position: relative;
         width: @nav-column-width;
         height: @nav-column-width;
-        margin: 20px 0 20px -20px;
+        margin: 20px 0 0 -20px;
         background-position: center;
         background-size: cover;
         z-index: 0;
@@ -44,28 +40,37 @@ div#branch-frame div.content {
       }
 
       ul#branch-controls {
+        position: relative;
         text-align: center;
         width: @nav-column-width;
+        height: calc(@nav-column-width / 4);
         margin: 0 -20px;
+        border-bottom: solid 1px @light-grey;
 
-        a {
-          li {
-            display: inline-block;
-            width: 55px;
+        li {
+          float: left;
+          height: 100%;
+          width: calc(@nav-column-width / 4);
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          border-right: solid 1px @light-grey;
 
+          a {
             img {
-              width: 30px;
-              height: auto;
-              opacity: 0.3;
+              padding-top: calc(50% - 13px);
+              height: 26px;
+              width: auto;
+              opacity: 0.2;
+            }
+
+            &:hover img, &.selected img {
+              opacity: 0.7;
             }
           }
 
           &#add-content:hover {
             cursor: pointer;
-          }
-
-          &:hover li img, &.selected li img {
-            opacity: 1;
           }
         }
       }

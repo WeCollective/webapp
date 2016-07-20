@@ -90,6 +90,7 @@ div.frame {
       float: left;
       box-sizing: border-box;
       padding: 20px;
+      border-right: solid 1px @light-grey;
 
       h1 {
         font-size: 26px;
@@ -105,6 +106,10 @@ div.frame {
       width: calc(100% - @nav-column-width);
       height: 100%;
       float: left;
+
+      div.content-header {
+        border-bottom: solid 1px @light-grey;
+      }
     }
   }
 }
