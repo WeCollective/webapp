@@ -14,6 +14,7 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
 
     // perform the update
     $scope.isLoading = true;
+    $scope.newBranch.id = $scope.newBranch.id.toLowerCase();
     Branch.create($scope.newBranch).then(function() {
       $timeout(function() {
         $scope.newBranch = {};

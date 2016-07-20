@@ -185,6 +185,7 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
 
     // perform the update
     $scope.isLoading = true;
+    $scope.newBranch.id = $scope.newBranch.id.toLowerCase();
     Branch.create($scope.newBranch).then(function() {
       $timeout(function() {
         $scope.newBranch = {};
@@ -1178,6 +1179,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 
   $scope.submit = function() {
     $scope.isLoading = true;
+    $scope.credentials.username = $scope.credentials.username.toLowerCase();
     if($scope.isLoginForm()) {
       login();
     } else {
