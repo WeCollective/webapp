@@ -1548,8 +1548,10 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
       case 'THIS WEEK':
         timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
         break;
-      case 'TODAY':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0).getTime();
+      case 'LAST 24 HRS':
+        var yesterday = new Date(date);
+        yesterday.setDate(date.getDate() - 1);
+        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
         break;
       case 'THIS HOUR':
         timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
@@ -1575,7 +1577,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   // Time filter dropdown configuration
   $scope.timeTitle = 'TIME RANGE';
-  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'TODAY', 'THIS HOUR'];
+  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
   $scope.selectedTimeItemIdx = 0;
   $scope.$watch('selectedTimeItemIdx', function () {
     getSubbranches();
