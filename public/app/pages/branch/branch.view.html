@@ -6,9 +6,9 @@
     <div loading when="isLoading">
       <div id="branch-info" class="nav-column">
         <h1>{{ branch.name }}</h1>
-        <h2 id="branch-id" ng-show="branch.parentid">{{ branch.id }}</h2>
-        <h2 ng-show="!branch.parentid">&infin;</h2>
-        <h2 ng-show="branch.parentid"><span ng-show="parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: branch.parentid })">{{ parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: branch.id })">{{ branch.name }}</a></h2>
+        <h2 id="branch-id" ng-show="branch.parentid == 'none'">{{ branch.id }}</h2>
+        <h2 ng-show="branch.parentid == 'none'">&infin;</h2>
+        <h2 ng-show="branch.parentid != 'none'"><span ng-show="parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: branch.parentid })">{{ parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: branch.id })">{{ branch.name }}</a></h2>
         <div id="branch-picture" style="background-image: url('{{ branch.profileUrl }}'), url('/assets/images/default-branch.jpg');">
           <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isModerator()">
         </div>
