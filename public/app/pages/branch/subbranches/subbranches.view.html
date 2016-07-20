@@ -6,7 +6,7 @@
   <div id="subbranch-list-container" loading when="isLoading">
     <ul id="subbranch-list">
       <li ng-repeat="subbranch in branches">
-        <span class="index">{{ $index }}</span>
+        <span class="index">{{ $index + 1 }}</span>
         <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id })">
           <div style="background-image: url('{{ subbranch.profileUrl }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>

@@ -6,6 +6,12 @@
       <a ui-sref="weco.branch.wall({ branchid: 'root' })"><img src="/assets/images/icons/white/wall.png"></a>
       <a ui-sref="weco.branch.subbranches({ branchid: 'root' })"><img src="/assets/images/icons/white/branch.png"></a>
     </div>
+    <div id="search-box">
+      <div>
+        <input type="text" placeholder="Search..."></input>
+        <img src="/assets/images/icons/black/search.png">
+      </div>
+    </div>
     <div id="user-controls">
       <a id="profile" ui-sref="weco.profile.about({ username: user().username })" ng-show="isLoggedIn()">
         <span>{{ user().username }}</span>
