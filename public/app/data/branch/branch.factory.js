@@ -149,5 +149,38 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  // Either 'accept' or 'reject' a subbranch request
+  Branch.actionSubbranchRequest = function(action, parentid, childid) {
+    return new Promise(function(resolve, reject) {
+      function error(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }
+
+      if(action == 'accept') {
+        SubbranchRequestAPI.accept({
+          branchid: parentid,
+          childid: childid
+        }, {
+          action: action
+        }, resolve, error);
+      } else if(action == 'reject') {
+        SubbranchRequestAPI.reject({
+          branchid: parentid,
+          childid: childid
+        }, {
+          action: action
+        }, resolve, error);
+      } else {
+        return reject({
+          status: 400,
+          message: 'Invalid action'
+        });
+      }
+    });
+  };
+
   return Branch;
 }]);

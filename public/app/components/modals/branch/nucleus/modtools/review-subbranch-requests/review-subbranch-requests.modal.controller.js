@@ -39,9 +39,33 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
   });
 
 
-  $scope.$on('OK', function() {
+  $scope.action = function(index, action) {
     $scope.isLoading = true;
 
+    Branch.actionSubbranchRequest(action, $scope.requests[index].parentid,
+                                  $scope.requests[index].childid).then(function() {
+      $timeout(function() {
+        $scope.requests.splice(index, 1);
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        if(response.status == 404) {
+          $scope.errorMessage = 'That user doesn\'t exist';
+        }
+        $scope.isLoading = false;
+      });
+    });
+  };
+
+  $scope.$on('OK', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.OK();
+    });
   });
 
   $scope.$on('Cancel', function() {

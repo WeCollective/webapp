@@ -15,8 +15,8 @@
             </a>
             <div class="description">Created by <a ui-sref="weco.profile.about({ username: request.branch.creator })" target="_blank">{{ request.branch.creator }}</a> on {{ request.branch.date | date:'dd MMMM yyyy' }}</span>
             <div class="request-actions">
-              <div class="request-accept"><span>ACCEPT</span></div>
-              <div class="request-reject"><span>REJECT</span></div>
+              <div class="request-accept" ng-click="action($index, 'accept')"><span>ACCEPT</span></div>
+              <div class="request-reject" ng-click="action($index, 'reject')"><span>REJECT</span></div>
             </div>
           </div>
         </li>

@@ -358,9 +358,33 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
   });
 
 
-  $scope.$on('OK', function() {
+  $scope.action = function(index, action) {
     $scope.isLoading = true;
 
+    Branch.actionSubbranchRequest(action, $scope.requests[index].parentid,
+                                  $scope.requests[index].childid).then(function() {
+      $timeout(function() {
+        $scope.requests.splice(index, 1);
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        if(response.status == 404) {
+          $scope.errorMessage = 'That user doesn\'t exist';
+        }
+        $scope.isLoading = false;
+      });
+    });
+  };
+
+  $scope.$on('OK', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.OK();
+    });
   });
 
   $scope.$on('Cancel', function() {
@@ -842,6 +866,24 @@ api.factory('SubbranchRequestAPI', ['$resource', 'ENV', function($resource, ENV)
       },
       // transform the request to use x-www-form-urlencoded
       transformRequest: makeFormEncoded
+    },
+    accept: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    },
+    reject: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
     }
   });
 }]);
@@ -1052,6 +1094,39 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
           message: response.data.message
         });
       });
+    });
+  };
+
+  // Either 'accept' or 'reject' a subbranch request
+  Branch.actionSubbranchRequest = function(action, parentid, childid) {
+    return new Promise(function(resolve, reject) {
+      function error(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }
+
+      if(action == 'accept') {
+        SubbranchRequestAPI.accept({
+          branchid: parentid,
+          childid: childid
+        }, {
+          action: action
+        }, resolve, error);
+      } else if(action == 'reject') {
+        SubbranchRequestAPI.reject({
+          branchid: parentid,
+          childid: childid
+        }, {
+          action: action
+        }, resolve, error);
+      } else {
+        return reject({
+          status: 400,
+          message: 'Invalid action'
+        });
+      }
     });
   };
 

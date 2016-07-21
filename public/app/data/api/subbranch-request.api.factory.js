@@ -23,6 +23,24 @@ api.factory('SubbranchRequestAPI', ['$resource', 'ENV', function($resource, ENV)
       },
       // transform the request to use x-www-form-urlencoded
       transformRequest: makeFormEncoded
+    },
+    accept: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    },
+    reject: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
     }
   });
 }]);
