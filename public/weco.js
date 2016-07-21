@@ -318,6 +318,61 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.requests = [];
+  $scope.isLoading = true;
+
+  // Get the list of requests
+  Branch.getSubbranchRequests(Modal.getInputArgs().branchid).then(function(requests) {
+
+    // get a specific branch object and insert into requests array on branch attribute
+    function getBranch(branchid, index) {
+      var p = Branch.get(branchid);
+      p.then(function(data) {
+        requests[index].branch = data;
+      }, function () {
+        // TODO: pretty error
+        console.error("Unable to get branch!");
+      });
+      return p;
+    }
+
+    // populate requests array with full branch data based on the childids
+    var promises = [];
+    for(var i = 0; i < requests.length; i++) {
+      promises.push(getBranch(requests[i].childid, i));
+    }
+
+    // when all branches fetched, loading finished
+    Promise.all(promises).then(function () {
+      $timeout(function () {
+        $scope.requests = requests;
+        $scope.isLoading = false;
+      });
+    });
+  }, function () {
+    // TODO: pretty error
+    console.error("Unable to get subbranch requests!");
+  });
+
+
+  $scope.$on('OK', function() {
+    $scope.isLoading = true;
+
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalNucleusSubmitSubbranchRequestController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
@@ -764,10 +819,31 @@ api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
 
 var api = angular.module('api');
 api.factory('SubbranchRequestAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
   return $resource(ENV.apiEndpoint + 'branch/:branchid/requests/subbranches/:childid', {
     branchid: '@branchid',
     childid: '@childid'
-  }, {});
+  }, {
+    getAll: {
+      method: 'GET',
+      params: {
+        childid: ''
+      },
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
 }]);
 
 var api = angular.module('api');
@@ -949,6 +1025,27 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     return new Promise(function(resolve, reject) {
       SubbranchRequestAPI.save({ branchid: parentid, childid: childid }, function() {
         resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // Get all the subbranch requests on a given branch
+  Branch.getSubbranchRequests = function(parentid) {
+    return new Promise(function(resolve, reject) {
+      SubbranchRequestAPI.getAll({ branchid: parentid }, function(requests) {
+        if(requests && requests.data) {
+          resolve(requests.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
       }, function(response) {
         reject({
           status: response.status,
@@ -1461,6 +1558,21 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
 
   $scope.openSubmitSubbranchRequestModal = function() {
     Modal.open('/app/components/modals/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
+      {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error submitting subbranch request');
+      });
+  };
+
+  $scope.openReviewSubbranchRequestsModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
       {
         branchid: $scope.branchid
       }).then(function(result) {

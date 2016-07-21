@@ -128,5 +128,26 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  // Get all the subbranch requests on a given branch
+  Branch.getSubbranchRequests = function(parentid) {
+    return new Promise(function(resolve, reject) {
+      SubbranchRequestAPI.getAll({ branchid: parentid }, function(requests) {
+        if(requests && requests.data) {
+          resolve(requests.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Branch;
 }]);

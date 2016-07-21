@@ -88,4 +88,19 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         console.error('Error submitting subbranch request');
       });
   };
+
+  $scope.openReviewSubbranchRequestsModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
+      {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error submitting subbranch request');
+      });
+  };
 }]);

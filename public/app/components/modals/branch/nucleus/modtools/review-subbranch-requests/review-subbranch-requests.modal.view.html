@@ -1,0 +1,26 @@
+<div id="nucleus-reviewsubbranchrequests-modal" ng-controller="modalNucleusReviewSubbranchRequestsController">
+  <h1>Review SubBranch Requests</h1>
+  <p>{{ errorMessage }}</p>
+  <div id="nucleus-reviewsubbranchrequests-inputs">
+    <div loading when="isLoading">
+      <p ng-show="(!requests || requests.length == 0) && !isLoading">There are currently no SubBranch requests.</p>
+      <ul>
+        <li ng-repeat="request in requests">
+          <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">
+            <div style="background-image: url('{{ request.branch.profileUrl }}'), url('/assets/images/default-branch.jpg');"></div>
+          </a>
+          <div id="branch-info">
+            <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">
+              <span class="title">{{ request.branch.name }}</span>
+            </a>
+            <div class="description">Created by <a ui-sref="weco.profile.about({ username: request.branch.creator })" target="_blank">{{ request.branch.creator }}</a> on {{ request.branch.date | date:'dd MMMM yyyy' }}</span>
+            <div class="request-actions">
+              <div class="request-accept"><span>ACCEPT</span></div>
+              <div class="request-reject"><span>REJECT</span></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
