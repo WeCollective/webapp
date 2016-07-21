@@ -69,8 +69,9 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   };
 
   function createBranch() {
-    Modal.open('/app/components/modals/branch/create/create-branch.modal.view.html', {})
-      .then(function(result) {
+    Modal.open('/app/components/modals/branch/create/create-branch.modal.view.html', {
+        branchid: $scope.branchid
+      }).then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
           $state.go($state.current, {}, {reload: true});

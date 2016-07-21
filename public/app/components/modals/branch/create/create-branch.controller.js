@@ -1,6 +1,8 @@
 var app = angular.module('wecoApp');
 app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
-  $scope.newBranch = {};
+  $scope.newBranch = {
+    parentid: Modal.getInputArgs().branchid
+  };
   $scope.errorMessage = '';
 
   $scope.$on('OK', function() {

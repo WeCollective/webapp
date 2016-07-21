@@ -1,9 +1,11 @@
 <div id="create-branch-modal" ng-controller="modalCreateBranchController">
-  <h1>Create a new Branch</h1>
+  <h1>Create a new {{ newBranch.parentid == 'root' ? 'Root' : '' }} Branch</h1>
   <p>{{ errorMessage }}</p>
   <div id="create-branch-inputs">
     <div loading when="isLoading">
-      <input id="id" ng-model="newBranch.id" placeholder="Unique Name (URL)" type="text"></input>
+      <p class="explanatory" ng-show="newBranch.parentid != 'root'">A SubBranch request will be sent to this branch. For now, your new branch will be a Root branch.</p>
+      <input id="parentid" ng-show="newBranch.parentid != 'root'" ng-model="newBranch.parentid" placeholder="Unique Name of Requested Parent Branch" type="text"></input>
+      <input id="id" ng-model="newBranch.id" placeholder="Unique Name of New Branch" type="text"></input>
       <input ng-model="newBranch.name" placeholder="Visible Name" type="text"></input>
     </div>
   </div>
