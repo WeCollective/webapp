@@ -1,5 +1,3 @@
-'use strict';
-
 var api = angular.module('api');
 api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
 

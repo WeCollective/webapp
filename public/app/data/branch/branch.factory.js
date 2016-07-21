@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -105,6 +105,20 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$st
             message: 'Something went wrong'
           });
         }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // Submit a SubBranch request
+  Branch.submitSubbranchRequest = function(parentid, childid) {
+    return new Promise(function(resolve, reject) {
+      SubbranchRequestAPI.save({ branchid: parentid, childid: childid }, function() {
+        resolve();
       }, function(response) {
         reject({
           status: response.status,

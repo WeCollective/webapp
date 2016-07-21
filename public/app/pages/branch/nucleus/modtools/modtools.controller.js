@@ -51,7 +51,8 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       }
     }
 
-    var removableMods = []; // a list of mods to be removed
+    // a list of mods to be removed; not self, and must be added after self
+    var removableMods = [];
     for(var i = 0; i < $scope.branch.mods.length; i++) {
       if($scope.branch.mods[i].date > me.date && $scope.branch.mods[i].username !== me.username) {
         removableMods.push($scope.branch.mods[i]);
@@ -70,6 +71,21 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       }, function() {
         // TODO: display pretty message
         console.error('Error updating moderator settings');
+      });
+  };
+
+  $scope.openSubmitSubbranchRequestModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
+      {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error submitting subbranch request');
       });
   };
 }]);

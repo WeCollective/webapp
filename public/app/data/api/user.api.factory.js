@@ -1,5 +1,3 @@
-'use strict';
-
 var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 

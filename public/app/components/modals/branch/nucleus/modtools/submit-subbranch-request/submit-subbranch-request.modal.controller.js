@@ -1,14 +1,22 @@
 var app = angular.module('wecoApp');
-app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Mod', function($scope, $timeout, Modal, Mod) {
+app.controller('modalNucleusSubmitSubbranchRequestController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
   $scope.data = {};
 
   $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if(!$scope.data || !$scope.data.parentid) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
     $scope.isLoading = true;
     var branchid = Modal.getInputArgs().branchid;
-    Mod.create(branchid, $scope.data.username).then(function() {
+    Branch.submitSubbranchRequest($scope.data.parentid, branchid).then(function() {
       $timeout(function() {
         $scope.data = {};
         $scope.errorMessage = '';
@@ -17,11 +25,7 @@ app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', '
       });
     }, function(response) {
       $timeout(function() {
-        $scope.data = {};
         $scope.errorMessage = response.message;
-        if(response.status == 404) {
-          $scope.errorMessage = 'That user doesn\'t exist';
-        }
         $scope.isLoading = false;
       });
     });

@@ -2,6 +2,7 @@
   <li><span ng-click="openAddModModal()">Add a Moderator</span></li>
   <li><span ng-click="openRemoveModModal()">Remove a Moderator</span></li>
   <li><span ng-click="toggleIsModLogOpen()">{{ isModLogOpen ? 'Hide the Moderator Action Log' : 'Show the Moderator Action Log' }}</span></li>
+  <li><span ng-click="openSubmitSubbranchRequestModal()">Change Parent Branch</span></li>
 </ul>
 <ul id="nucleus-modtools-log" ng-show="isModLogOpen">
   <h2>Moderator Action Log</h2>

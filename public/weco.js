@@ -212,7 +212,7 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
+app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', 'Mod', function($scope, $timeout, Modal, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.isLoading = false;
@@ -313,6 +313,49 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
       $scope.selectedMod = {};
       $scope.errorMessage = '';
       $scope.isLoading = false;
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('modalNucleusSubmitSubbranchRequestController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+  $scope.data = {};
+
+  $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if(!$scope.data || !$scope.data.parentid) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
+    $scope.isLoading = true;
+    var branchid = Modal.getInputArgs().branchid;
+    Branch.submitSubbranchRequest($scope.data.parentid, branchid).then(function() {
+      $timeout(function() {
+        $scope.data = {};
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.data = {};
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
     });
   });
 }]);
@@ -676,7 +719,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -684,8 +727,6 @@ api.config(['$httpProvider', function($httpProvider) {
   // must set withCredentials to keep cookies when making API requests
   $httpProvider.defaults.withCredentials = true;
 }]);
-
-'use strict';
 
 var api = angular.module('api');
 api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
@@ -711,21 +752,23 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
     });
 }]);
 
-'use strict';
-
 var api = angular.module('api');
 api.factory('ModLogAPI', ['$resource', 'ENV', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + 'branch/:branchid/modlog', {}, {});
 }]);
-
-'use strict';
 
 var api = angular.module('api');
 api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username', {}, {});
 }]);
 
-'use strict';
+var api = angular.module('api');
+api.factory('SubbranchRequestAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/requests/subbranches/:childid', {
+    branchid: '@branchid',
+    childid: '@childid'
+  }, {});
+}]);
 
 var api = angular.module('api');
 api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
@@ -733,8 +776,6 @@ api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
     branchid: '@branchid'
   }, {});
 }]);
-
-'use strict';
 
 var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
@@ -790,7 +831,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -894,6 +935,20 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', '$http', '$st
             message: 'Something went wrong'
           });
         }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // Submit a SubBranch request
+  Branch.submitSubbranchRequest = function(parentid, childid) {
+    return new Promise(function(resolve, reject) {
+      SubbranchRequestAPI.save({ branchid: parentid, childid: childid }, function() {
+        resolve();
       }, function(response) {
         reject({
           status: response.status,
@@ -1381,7 +1436,8 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       }
     }
 
-    var removableMods = []; // a list of mods to be removed
+    // a list of mods to be removed; not self, and must be added after self
+    var removableMods = [];
     for(var i = 0; i < $scope.branch.mods.length; i++) {
       if($scope.branch.mods[i].date > me.date && $scope.branch.mods[i].username !== me.username) {
         removableMods.push($scope.branch.mods[i]);
@@ -1400,6 +1456,21 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       }, function() {
         // TODO: display pretty message
         console.error('Error updating moderator settings');
+      });
+  };
+
+  $scope.openSubmitSubbranchRequestModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
+      {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error submitting subbranch request');
       });
   };
 }]);
