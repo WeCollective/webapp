@@ -19,16 +19,6 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
     $scope.isLoading = false;
   });
 
-  $scope.getLogActionVerb = function(action) {
-    if(action == 'addmod') {
-      return 'added';
-    } else if(action == 'removemod') {
-      return 'removed';
-    } else {
-      return '';
-    }
-  };
-
   $scope.openAddModModal = function() {
     Modal.open('/app/components/modals/branch/nucleus/modtools/add-mod/add-mod.modal.view.html', { branchid: $scope.branchid })
       .then(function(result) {

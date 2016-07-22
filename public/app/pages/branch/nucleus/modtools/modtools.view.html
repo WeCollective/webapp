@@ -8,14 +8,6 @@
 <ul id="nucleus-modtools-log" ng-show="isModLogOpen">
   <h2>Moderator Action Log</h2>
   <div loading when="isLoading">
-    <li ng-repeat="entry in modLog">
-      <span class="time">{{ entry.date | date: 'dd MMMM yyyy HH:mm' }}</span>
-      <span class="entry">
-        <a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a>
-        {{ getLogActionVerb(entry.action) }}
-        <a ui-sref="weco.profile.about({ username: entry.data })">{{ entry.data }}</a>
-        as a moderator.
-      </span>
-    </li>
+    <li mod-log-entry ng-repeat="entry in modLog" entry="entry"></li>
   </div>
 </ul>
