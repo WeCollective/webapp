@@ -218,6 +218,18 @@ function getTemplate(entry) {
           ' made a SubBranch Request to ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data })">{{ entry.data }}</a>.' +
         '</span>';
+    case 'answer-subbranch-request':
+      var data = JSON.parse(entry.data);
+      return templateStr +
+        '<span class="entry">' +
+          '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a> ' +
+           data.response + 'ed a SubBranch Request to ' +
+          '<a ui-sref="weco.branch.nucleus.about({ branchid: \'' + data.parentid + '\' })">' + data.parentid + '</a>' +
+          ' made by ' +
+          '<a ui-sref="weco.profile.about({ username: \'' + data.childmod + '\' })">' + data.childmod + '</a>' +
+          ' from ' +
+          '<a ui-sref="weco.branch.nucleus.about({ branchid: \'' + data.childid + '\' })">' + data.childid + '</a>.' +
+        '</span>';
     default:
       return '';
   }
@@ -871,7 +883,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
