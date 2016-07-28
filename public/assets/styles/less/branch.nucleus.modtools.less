@@ -1,4 +1,6 @@
 ul#nucleus-modtools-properties {
+  box-sizing: border-box;
+  height: 30%;
   li {
     text-align: center;
     padding: 5px 0;
@@ -17,15 +19,23 @@ ul#nucleus-modtools-properties {
 
 ul#nucleus-modtools-log {
   position: relative;
-
-  h2 {
-    margin-top: 50px;
-    font-size: 18px;
-    font-weight: 500;
-  }
+  box-sizing: border-box;
+  height: 70%;
+  overflow-y: scroll;
 
   div {
-    min-height: 100px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    h3 {
+      margin-top: 10px;
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 400;
+      color: @dark-grey;
+    }
 
     li {
       padding: 10px 0;
