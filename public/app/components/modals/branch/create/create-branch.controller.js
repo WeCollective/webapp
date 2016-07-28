@@ -19,10 +19,13 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
     $scope.newBranch.id = $scope.newBranch.id.toLowerCase();
     Branch.create($scope.newBranch).then(function() {
       $timeout(function() {
+        var id = $scope.newBranch.id;
         $scope.newBranch = {};
         $scope.errorMessage = '';
         $scope.isLoading = false;
-        Modal.OK();
+        Modal.OK({
+          branchid: id
+        });
       });
     }, function(response) {
       $timeout(function() {

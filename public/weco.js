@@ -273,10 +273,13 @@ app.controller('modalCreateBranchController', ['$scope', '$timeout', 'Modal', 'B
     $scope.newBranch.id = $scope.newBranch.id.toLowerCase();
     Branch.create($scope.newBranch).then(function() {
       $timeout(function() {
+        var id = $scope.newBranch.id;
         $scope.newBranch = {};
         $scope.errorMessage = '';
         $scope.isLoading = false;
-        Modal.OK();
+        Modal.OK({
+          branchid: id
+        });
       });
     }, function(response) {
       $timeout(function() {
@@ -627,6 +630,10 @@ app.factory('Modal', ['$timeout', function($timeout) {
   Modal.getInputArgs = function() {
     return modalInputArgs;
   };
+  var modalOutputArgs = {};
+  Modal.getOutputArgs = function() {
+    return modalOutputArgs;
+  };
 
   var modalResolve;
   var modalReject;
@@ -646,17 +653,23 @@ app.factory('Modal', ['$timeout', function($timeout) {
     });
   };
 
-  Modal.OK = function() {
+  Modal.OK = function(args) {
     $timeout(function() {
       isOpen = false;
+      if(args) {
+        modalOutputArgs = args;
+      }
+      modalResolve(true);
     });
-    modalResolve(true);
   };
-  Modal.Cancel = function() {
+  Modal.Cancel = function(args) {
     $timeout(function() {
       isOpen = false;
+      if(args) {
+        modalOutputArgs = args;
+      }
+      modalResolve(false);
     });
-    modalResolve(false);
   };
   Modal.Error = function() {
     modalReject();
@@ -1576,7 +1589,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       }).then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
-          $state.go($state.current, {}, {reload: true});
+          if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
+            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid });
+          } else {
+            $state.go($state.current, {}, {reload: true});
+          }
         }
       }, function() {
         // TODO: display pretty message

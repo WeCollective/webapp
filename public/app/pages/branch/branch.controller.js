@@ -74,7 +74,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       }).then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
-          $state.go($state.current, {}, {reload: true});
+          if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
+            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid });
+          } else {
+            $state.go($state.current, {}, {reload: true});
+          }
         }
       }, function() {
         // TODO: display pretty message
