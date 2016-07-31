@@ -90,7 +90,20 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         }
       }, function() {
         // TODO: display pretty message
-        console.error('Error submitting subbranch request');
+        console.error('Error responding to subbranch request');
+      });
+  };
+
+  $scope.openDeleteBranchModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html', {})
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error deleting branch');
       });
   };
 }]);

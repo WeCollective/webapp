@@ -72,6 +72,19 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  Branch.delete = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.delete({ branchid: branchid }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   // Get the root branches
   Branch.getSubbranches = function(branchid, timeafter) {
     return new Promise(function(resolve, reject) {

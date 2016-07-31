@@ -339,6 +339,48 @@ app.controller('modalNucleusAddModController', ['$scope', '$timeout', 'Modal', '
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalNucleusDeleteBranchController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+  $scope.data = {};
+
+  $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if(!$scope.data || !$scope.data.branchid) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
+
+    $scope.isLoading = true;
+    Branch.delete($scope.data.branchid).then(function() {
+      $timeout(function() {
+        $scope.data = {};
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.data = {};
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal', 'Branch', 'User', 'Mod', function($scope, $timeout, Modal, Branch, User, Mod) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
@@ -896,7 +938,7 @@ app.directive('tabs', ['$state', function($state) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1108,6 +1150,19 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   Branch.create = function(data) {
     return new Promise(function(resolve, reject) {
       BranchAPI.save(data, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  Branch.delete = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchAPI.delete({ branchid: branchid }, function() {
         resolve();
       }, function(response) {
         reject({
@@ -1750,7 +1805,20 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         }
       }, function() {
         // TODO: display pretty message
-        console.error('Error submitting subbranch request');
+        console.error('Error responding to subbranch request');
+      });
+  };
+
+  $scope.openDeleteBranchModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html', {})
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.error('Error deleting branch');
       });
   };
 }]);

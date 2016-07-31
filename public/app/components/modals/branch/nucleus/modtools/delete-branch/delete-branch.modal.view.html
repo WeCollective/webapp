@@ -1,0 +1,9 @@
+<div id="nucleus-deletebranch-modal" ng-controller="modalNucleusDeleteBranchController">
+  <h1>Permanently Delete a Root Branch</h1>
+  <p>{{ errorMessage }}</p>
+  <div id="nucleus-deletebranch-inputs">
+    <div loading when="isLoading">
+      <input ng-model="data.branchid" placeholder="Unique Name of the Branch to be Deleted" type="text"></input>
+    </div>
+  </div>
+</div>
