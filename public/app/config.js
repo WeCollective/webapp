@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
+.constant('ENV', {name:'production',apiEndpoint:'http://weco-api-prod.eu-west-1.elasticbeanstalk.com/'})
 
 ;
