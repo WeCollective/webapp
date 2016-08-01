@@ -44,12 +44,18 @@ ul#nucleus-modtools-log {
     li {
       padding: 10px 0;
 
-      span {
+      div {
         font-size: 14px;
 
         &.time {
+          float: left;
+          width: 150px;
           color: @dark-grey;
-          margin-right: 10px;
+        }
+
+        &.entry {
+          float: left;
+          width: calc(~'100% - 150px');
         }
 
         a {

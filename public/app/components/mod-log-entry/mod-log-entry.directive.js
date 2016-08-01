@@ -28,29 +28,29 @@ function getLogActionVerb(action) {
 }
 
 function getTemplate(entry) {
-  var templateStr = '<span class="time">{{ entry.date | date: \'dd MMMM yyyy HH:mm\' }}</span>';
+  var templateStr = '<div class="time">{{ entry.date | date: \'dd MMMM yyyy HH:mm\' }}</div>';
 
   switch (entry.action) {
     case 'removemod':
     case 'addmod':
       return templateStr +
-        '<span class="entry">' +
+        '<div class="entry">' +
           '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a>' +
           ' ' + getLogActionVerb(entry.action) + ' ' +
           '<a ui-sref="weco.profile.about({ username: entry.data })">{{ entry.data }}</a>' +
           ' as a moderator.' +
-        '</span>';
+        '</div>';
     case 'make-subbranch-request':
       return templateStr +
-        '<span class="entry">' +
+        '<div class="entry">' +
           '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a>' +
           ' made a SubBranch Request to ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data })">{{ entry.data }}</a>.' +
-        '</span>';
+        '</div>';
     case 'answer-subbranch-request':
       var data = JSON.parse(entry.data);
       return templateStr +
-        '<span class="entry">' +
+        '<div class="entry">' +
           '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a> ' +
            data.response + 'ed a SubBranch Request to ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: \'' + data.parentid + '\' })">' + data.parentid + '</a>' +
@@ -58,7 +58,7 @@ function getTemplate(entry) {
           '<a ui-sref="weco.profile.about({ username: \'' + data.childmod + '\' })">' + data.childmod + '</a>' +
           ' from ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: \'' + data.childid + '\' })">' + data.childid + '</a>.' +
-        '</span>';
+        '</div>';
     default:
       return '';
   }

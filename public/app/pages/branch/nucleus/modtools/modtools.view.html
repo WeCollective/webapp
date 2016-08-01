@@ -10,6 +10,6 @@
   <div loading when="isLoading">
     <h2>Moderator Action Log</h2>
     <h3 ng-show="!modLog || modLog.length == 0">No entries to display</h3>
-    <li mod-log-entry ng-repeat="entry in modLog" entry="entry"></li>
+    <li class="clearfix" mod-log-entry ng-repeat="entry in modLog" entry="entry"></li>
   </div>
 </ul>
