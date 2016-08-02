@@ -481,6 +481,12 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
         $scope.requests = requests;
         $scope.isLoading = false;
       });
+    }, function() {
+      // NB: a single failed promise will result in error!
+      $timeout(function() {
+        $scope.errorMessage = 'Unable to fetch SubBranch requests.';
+        $scope.isLoading = false;
+      });
     });
   }, function () {
     // TODO: pretty error
@@ -1733,6 +1739,10 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   }
   // when all mods fetched, loading finished
   Promise.all(promises).then(function () {
+    $scope.isLoading = false;
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to fetch mods!");
     $scope.isLoading = false;
   });
 }]);

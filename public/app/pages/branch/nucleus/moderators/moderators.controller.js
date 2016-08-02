@@ -25,5 +25,9 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   // when all mods fetched, loading finished
   Promise.all(promises).then(function () {
     $scope.isLoading = false;
+  }, function() {
+    // TODO: pretty error
+    console.error("Unable to fetch mods!");
+    $scope.isLoading = false;
   });
 }]);

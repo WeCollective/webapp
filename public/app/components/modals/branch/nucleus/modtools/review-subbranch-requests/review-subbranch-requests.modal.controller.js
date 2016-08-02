@@ -32,6 +32,12 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
         $scope.requests = requests;
         $scope.isLoading = false;
       });
+    }, function() {
+      // NB: a single failed promise will result in error!
+      $timeout(function() {
+        $scope.errorMessage = 'Unable to fetch SubBranch requests.';
+        $scope.isLoading = false;
+      });
     });
   }, function () {
     // TODO: pretty error
