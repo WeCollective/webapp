@@ -7,7 +7,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
 
   // fetch the presigned url for the specified picture for the specified branch
   // Returns the promise from $http.
-  Branch.getPictureUrl = function(id, type) {
+  Branch.getPictureUrl = function(id, type, thumbnail) {
     // if type not specified, default to profile picture
     if(type != 'picture' && type != 'cover') {
       type = 'picture';
@@ -15,7 +15,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     // fetch signedurl for user profile picture and attach to user object
     return $http({
       method: 'GET',
-      url: ENV.apiEndpoint + 'branch/' + id + '/' + type
+      url: ENV.apiEndpoint + 'branch/' + id + '/' + type + (thumbnail ? '-thumb' : '')
     });
   };
 
@@ -24,17 +24,27 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
       BranchAPI.get({ branchid: branchid }, function(branch) {
         if(!branch || !branch.data) { return reject(); }
         // Attach the profile picture and cover urls to the branch object if they exist
-        Branch.getPictureUrl(branchid, 'picture').then(function(response) {
+        Branch.getPictureUrl(branchid, 'picture', false).then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.profileUrl = response.data.data;
           }
-          return Branch.getPictureUrl(branchid, 'cover');
+          return Branch.getPictureUrl(branchid, 'picture', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            branch.data.profileUrlThumb = response.data.data;
+          }
+          return Branch.getPictureUrl(branchid, 'cover', false);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.coverUrl = response.data.data;
           }
+          return Branch.getPictureUrl(branchid, 'cover', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            branch.data.coverUrlThumb = response.data.data;
+          }
           resolve(branch.data);
-        }).catch(function () {
+        }).catch(function() {
           resolve(branch.data);
         });
       }, function(response) {

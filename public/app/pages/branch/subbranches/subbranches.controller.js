@@ -18,12 +18,17 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
   function loadBranchPictures(branches, idx) {
     var target = branches.shift();
     if(target) {
-      Branch.getPictureUrl($scope.branches[idx].id, 'picture').then(function(response) {
+      Branch.getPictureUrl($scope.branches[idx].id, 'picture', false).then(function(response) {
         if(response && response.data && response.data.data) {
           $scope.branches[idx].profileUrl = response.data.data;
         }
+        return Branch.getPictureUrl($scope.branches[idx].id, 'picture', true);
+      }).then(function(response) {
+        if(response && response.data && response.data.data) {
+          $scope.branches[idx].profileUrlThumb = response.data.data;
+        }
         loadBranchPictures(branches, idx + 1);
-      }, function () {
+      }).catch(function () {
         // Unable to fetch this picture - continue
         loadBranchPictures(branches, idx + 1);
       });
