@@ -8,8 +8,10 @@ div#upload-image-modal {
     box-sizing: border-box;
     padding: 25px 15px;
     margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: @light-grey;
 
-    transition: border 0.8s linear;
+    transition: border 0.3s linear;
     border: 1px dashed transparent;
     &.dragover {
       border: 1px dashed @primary-light;
@@ -22,7 +24,7 @@ div#upload-image-modal {
     }
 
     h2 {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 300;
       margin-bottom: 15px;
     }
@@ -30,7 +32,7 @@ div#upload-image-modal {
     img {
 
       &#graphic {
-        width: 60px;
+        width: 80px;
         height: auto;
       }
 
