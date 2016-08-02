@@ -29,22 +29,28 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
             branch.data.profileUrl = response.data.data;
           }
           return Branch.getPictureUrl(branchid, 'picture', true);
+        }, function() {
+          return Branch.getPictureUrl(branchid, 'picture', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.profileUrlThumb = response.data.data;
           }
+          return Branch.getPictureUrl(branchid, 'cover', false);
+        }, function() {
           return Branch.getPictureUrl(branchid, 'cover', false);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.coverUrl = response.data.data;
           }
           return Branch.getPictureUrl(branchid, 'cover', true);
+        }, function() {
+          return Branch.getPictureUrl(branchid, 'cover', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             branch.data.coverUrlThumb = response.data.data;
           }
           resolve(branch.data);
-        }).catch(function() {
+        }, function() {
           resolve(branch.data);
         });
       }, function(response) {

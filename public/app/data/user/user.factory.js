@@ -8,7 +8,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
   // fetch the presigned url for the profile picture for the specified user,
   // defaulting to authd user if not specified.
   // Returns the promise from $http.
-  function getPictureUrl(username, type) {
+  function getPictureUrl(username, type, thumbnail) {
     // if no username specified, fetch self
     if(!username) {
       username = 'me';
@@ -19,7 +19,7 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
       type = 'picture';
     }
     // fetch signedurl for user profile picture and attach to user object
-    return $http.get(ENV.apiEndpoint + 'user/' + username + '/' + type);
+    return $http.get(ENV.apiEndpoint + 'user/' + username + '/' + type + (thumbnail ? '-thumb' : ''));
   }
 
 
@@ -34,34 +34,36 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         if(!user || !user.data) { return reject(); }
 
         // Attach the profile picture url to the user object if it exists
-        getPictureUrl('me', 'picture').then(function(response) {
+        getPictureUrl('me', 'picture', false).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrl = response.data.data;
           }
-          getPictureUrl('me', 'cover').then(function(response) {
-            if(response && response.data && response.data.data) {
-              user.data.coverUrl = response.data.data;
-            }
-            me.data = user.data;
-            resolve();
-          }, function() {
-            // no cover picture to attach
-            me.data = user.data;
-            resolve();
-          });
+          return getPictureUrl('me', 'picture', true);
         }, function() {
-          // no profile picture to attach, try cover
-          getPictureUrl('me', 'cover').then(function(response) {
-            if(response && response.data && response.data.data) {
-              user.data.coverUrl = response.data.data;
-            }
-            me.data = user.data;
-            resolve();
-          }, function() {
-            // no cover picture to attach
-            me.data = user.data;
-            resolve();
-          });
+          return getPictureUrl('me', 'picture', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrlThumb = response.data.data;
+          }
+          return getPictureUrl('me', 'cover', false);
+        }, function() {
+          return getPictureUrl('me', 'cover', false);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrl = response.data.data;
+          }
+          return getPictureUrl('me', 'cover', true);
+        }, function() {
+          return getPictureUrl('me', 'cover', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrlThumb = response.data.data;
+          }
+          me.data = user.data;
+          resolve();
+        }, function() {
+          me.data = user.data;
+          resolve();
         });
       });
     });
@@ -84,32 +86,38 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
           message: response.data.message
         });
       }).then(function(user) {
-        if(user && user.data) {
-          getPictureUrl(username, 'picture').then(function(response) {
-            if(response && response.data && response.data.data) {
-              user.data.profileUrl = response.data.data;
-            }
-            getPictureUrl(username, 'cover').then(function(response) {
-              if(response && response.data && response.data.data) {
-                user.data.coverUrl = response.data.data;
-              }
-              resolve(user.data);
-            }, function() {
-              // no cover picture to attach
-              resolve(user.data);
-            });
-          }, function(response) {
-            // no profile picture url to attach
-            resolve(user.data);
-          });
-        } else {
-          // successful response contains no user object:
-          // treat as 500 Internal Server Error
-          reject({
-            status: 500,
-            message: 'Something went wrong'
-          });
-        }
+        if(!user || !user.data) { return reject(); }
+
+        // Attach the profile picture url to the user object if it exists
+        getPictureUrl(username, 'picture', false).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrl = response.data.data;
+          }
+          return getPictureUrl(username, 'picture', true);
+        }, function() {
+          return getPictureUrl(username, 'picture', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrlThumb = response.data.data;
+          }
+          return getPictureUrl(username, 'cover', false);
+        }, function() {
+          return getPictureUrl(username, 'cover', false);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrl = response.data.data;
+          }
+          return getPictureUrl(username, 'cover', true);
+        }, function() {
+          return getPictureUrl(username, 'cover', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrlThumb = response.data.data;
+          }
+          resolve(user.data);
+        }, function() {
+          resolve(user.data);
+        });
       });
     });
   };
