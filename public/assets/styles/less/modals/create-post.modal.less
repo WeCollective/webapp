@@ -1,0 +1,27 @@
+div#create-post-modal {
+  div#create-post-inputs {
+    position: relative;
+    div[loading] {
+      min-width: 300px;
+      min-height: 50px;
+      max-width: 600px;
+
+      input, textarea {
+        display: block;
+        width: 100%;
+        min-width: 300px;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 3px;
+        border: 1px solid @light-grey;
+        font-size: 16px;
+        font-weight: 300;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

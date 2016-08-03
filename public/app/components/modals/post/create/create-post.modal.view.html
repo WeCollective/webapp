@@ -1,0 +1,11 @@
+<div id="create-post-modal" ng-controller="modalCreatePostController">
+  <h1>Create a Post</h1>
+  <p>{{ errorMessage }}</p>
+  <div id="create-post-inputs">
+    <div loading when="isLoading">
+      <input ng-model="newPost.title" placeholder="Title" type="text"></input>
+      <tag-editor items="newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
+      <textarea ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
+    </div>
+  </div>
+</div>

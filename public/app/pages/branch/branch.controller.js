@@ -86,12 +86,33 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       });
   }
 
+  function createPost() {
+    Modal.open('/app/components/modals/post/create/create-post.modal.view.html', {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
+            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid });
+          } else {
+            $state.go($state.current, {}, {reload: true});
+          }
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  }
+
   // Called when the add button in the branch controls is clicked.
   // It's behaviour is dependent on the current state.
   $scope.addContent = function () {
     switch ($state.current.name) {
       case 'weco.branch.subbranches':
         createBranch();
+        break;
+      case 'weco.branch.wall':
+        createPost();
         break;
       default:
         console.error("Unable to add content in state " + $state.current.name);

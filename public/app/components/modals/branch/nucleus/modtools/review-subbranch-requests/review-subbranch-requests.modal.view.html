@@ -13,7 +13,7 @@
             <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">
               <span class="title">{{ request.branch.name }}</span>
             </a>
-            <div class="description">Created by <a ui-sref="weco.profile.about({ username: request.branch.creator })" target="_blank">{{ request.branch.creator }}</a> on {{ request.branch.date | date:'dd MMMM yyyy' }}</span>
+            <div class="description">Created by <a ui-sref="weco.profile.about({ username: request.branch.creator })" target="_blank">{{ request.branch.creator }}</a> on {{ request.branch.date | date:'dd MMMM yyyy' }}</div>
             <div class="request-actions">
               <div class="request-accept" ng-click="action($index, 'accept')"><span>ACCEPT</span></div>
               <div class="request-reject" ng-click="action($index, 'reject')"><span>REJECT</span></div>

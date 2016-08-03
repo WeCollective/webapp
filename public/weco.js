@@ -727,6 +727,26 @@ app.factory('Modal', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+  $scope.newPost = {
+    branchids: [Modal.getInputArgs().branchid]
+  };
+  $scope.errorMessage = '';
+
+  $scope.$on('OK', function() {
+
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalProfileSettingsController', ['$scope', '$timeout', 'Modal', 'User', function($scope, $timeout, Modal, User) {
   $scope.Modal = Modal;
   $scope.values = [];
@@ -940,11 +960,69 @@ app.directive('tabs', ['$state', function($state) {
   };
 }]);
 
+var app = angular.module('wecoApp');
+app.directive('tagEditor', ['$timeout', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: 'true',
+    templateUrl: '/app/components/tag-editor/tag-editor.view.html',
+    scope: {
+      items: '=',
+      title: '&',
+      max: '&'
+    },
+    link: function($scope, element, attrs) {
+      $scope.errorMessage = '';
+      $scope.data = {};
+
+      $scope.addItem = function() {
+        $scope.errorMessage = '';
+
+        // ensure not already at max number of items
+        if($scope.items.length >= $scope.max()) {
+          return;
+        }
+
+        // ensure item exists
+        if(!$scope.data.item) {
+          return;
+        }
+
+        // ensure item doesn't contan whitespace
+        if(/\s/g.test($scope.data.item)) {
+          $scope.errorMessage = 'Cannot contain spaces.';
+          return;
+        }
+
+        // convert to all lowercase
+        $scope.data.item = $scope.data.item.toLowerCase();
+
+        // ensure not already in list
+        if($scope.items.indexOf($scope.data.item) > -1) {
+          return;
+        }
+
+        // add to list and clear textbox
+        $scope.items.push($scope.data.item);
+        $scope.data.item = undefined;
+      };
+
+      $scope.removeItem = function(item) {
+        $scope.errorMessage = '';
+        
+        if($scope.items.indexOf(item) > -1) {
+          $scope.items.splice($scope.items.indexOf(item), 1);
+        }
+      };
+    }
+  };
+}]);
+
 "use strict";
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'http://weco-api-prod.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1686,12 +1764,33 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
       });
   }
 
+  function createPost() {
+    Modal.open('/app/components/modals/post/create/create-post.modal.view.html', {
+        branchid: $scope.branchid
+      }).then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
+            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid });
+          } else {
+            $state.go($state.current, {}, {reload: true});
+          }
+        }
+      }, function() {
+        // TODO: display pretty message
+        console.log('error');
+      });
+  }
+
   // Called when the add button in the branch controls is clicked.
   // It's behaviour is dependent on the current state.
   $scope.addContent = function () {
     switch ($state.current.name) {
       case 'weco.branch.subbranches':
         createBranch();
+        break;
+      case 'weco.branch.wall':
+        createPost();
         break;
       default:
         console.error("Unable to add content in state " + $state.current.name);
