@@ -727,14 +727,46 @@ app.factory('Modal', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
+app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Post', function($scope, $timeout, Modal, Post) {
   $scope.newPost = {
     branchids: [Modal.getInputArgs().branchid]
   };
   $scope.errorMessage = '';
 
   $scope.$on('OK', function() {
+    // if not all fields are filled, display message
+    if(!$scope.newPost || !$scope.newPost.title || !$scope.newPost.branchids ||
+       $scope.newPost.branchids.length === 0 || !$scope.newPost.text) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please fill in all fields';
+      });
+      return;
+    }
 
+    // perform the update
+    $scope.isLoading = true;
+    $scope.newPost.type = 'text';
+    // create copy of post to not interfere with binding of items on tag-editor
+    var post = JSON.parse(JSON.stringify($scope.newPost)); // JSON parsing faciltates shallow copy
+    post.branchids = JSON.stringify($scope.newPost.branchids);
+    Post.create(post).then(function() {
+      $timeout(function() {
+        var id = $scope.newPost.branchids[0];
+        $scope.newPost = {
+          branchids: [Modal.getInputArgs().branchid]
+        };
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK({
+          branchid: id
+        });
+      });
+    }, function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
   });
 
   $scope.$on('Cancel', function() {
@@ -1063,6 +1095,11 @@ api.factory('ModLogAPI', ['$resource', 'ENV', function($resource, ENV) {
 var api = angular.module('api');
 api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username', {}, {});
+}]);
+
+var api = angular.module('api');
+api.factory('PostAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'post/:postid', {}, {});
 }]);
 
 var api = angular.module('api');
@@ -1443,6 +1480,28 @@ app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http
   };
 
   return Mod;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $http, $state, ENV) {
+  var Post = {};
+
+  Post.create = function(data) {
+    return new Promise(function(resolve, reject) {
+      PostAPI.save(data, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  return Post;
 }]);
 
 'use strict';
