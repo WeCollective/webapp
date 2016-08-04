@@ -6,8 +6,9 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
 
   Post.create = function(data) {
     return new Promise(function(resolve, reject) {
-      PostAPI.save(data, function() {
-        resolve();
+      PostAPI.save(data, function(response) {
+        // pass on the returned postid
+        resolve(response.data);
       }, function(response) {
         reject({
           status: response.status,

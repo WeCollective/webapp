@@ -728,16 +728,61 @@ app.factory('Modal', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Post', function($scope, $timeout, Modal, Post) {
+app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV', 'Upload', 'Modal', 'Post', function($scope, $timeout, $http, ENV, Upload, Modal, Post) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.file = null;
+  $scope.uploadUrl = '';
   $scope.isUploading = false;
+  $scope.isLoading = false;
+  $scope.progress = 0;
+  $scope.newPost = {
+    branchids: [Modal.getInputArgs().branchid]
+  };
+
   $scope.setFile = function(file) {
     $scope.file = file;
   };
 
-  $scope.newPost = {
-    branchids: [Modal.getInputArgs().branchid]
+  $scope.upload = function(postid) {
+    // get image upload signed url
+    $http({
+      method: 'GET',
+      url: ENV.apiEndpoint + 'post/' + postid + '/picture-upload-url'
+    }).then(function(response) {
+      if(response && response.data && response.data.data) {
+        $scope.uploadUrl = response.data.data;
+        // upload the image to s3
+        Upload.http({
+          url: $scope.uploadUrl,
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'image/*'
+          },
+          data: $scope.file
+        }).then(function(resp) {
+          $scope.file = null;
+          $scope.isUploading = false;
+          $scope.progress = 0;
+          Modal.OK();
+        }, function(err) {
+          // TODO: handle error
+          $scope.file = null;
+          $scope.isUploading = false;
+          $scope.progress = 0;
+          console.error("Unable to upload photo!");
+        }, function(evt) {
+          $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+      } else {
+        // TODO: handle error
+        console.log("error");
+      }
+    }, function () {
+      // TODO: handle error
+      console.log("error");
+    });
   };
-  $scope.errorMessage = '';
 
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
@@ -755,17 +800,18 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Pos
     // create copy of post to not interfere with binding of items on tag-editor
     var post = JSON.parse(JSON.stringify($scope.newPost)); // JSON parsing faciltates shallow copy
     post.branchids = JSON.stringify($scope.newPost.branchids);
-    Post.create(post).then(function() {
+    // save the post to the db
+    Post.create(post).then(function(postid) {
       $timeout(function() {
-        var id = $scope.newPost.branchids[0];
-        $scope.newPost = {
-          branchids: [Modal.getInputArgs().branchid]
-        };
         $scope.errorMessage = '';
         $scope.isLoading = false;
-        Modal.OK({
-          branchid: id
-        });
+        $scope.progress = 0;
+        if($scope.file) {
+          $scope.isUploading = true;
+          $scope.upload(postid);
+        } else {
+          Modal.OK();
+        }
       });
     }, function(response) {
       $timeout(function() {
@@ -1524,8 +1570,9 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
 
   Post.create = function(data) {
     return new Promise(function(resolve, reject) {
-      PostAPI.save(data, function() {
-        resolve();
+      PostAPI.save(data, function(response) {
+        // pass on the returned postid
+        resolve(response.data);
       }, function(response) {
         reject({
           status: response.status,
