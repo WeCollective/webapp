@@ -105,7 +105,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Branch wall
     .state('weco.branch.wall', {
       url: '/wall',
-      templateUrl: '/app/pages/branch/wall/wall.view.html'
+      templateUrl: '/app/pages/branch/wall/wall.view.html',
+      controller: 'wallController'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {

@@ -5,6 +5,10 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
+  // Time filter dropdown configuration
+  $scope.timeTitle = 'TIME RANGE';
+  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+
   // return true if the given branch control is selected,
   // i.e. if the current state contains the control name
   $scope.isControlSelected = function(control) {

@@ -105,7 +105,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Branch wall
     .state('weco.branch.wall', {
       url: '/wall',
-      templateUrl: '/app/pages/branch/wall/wall.view.html'
+      templateUrl: '/app/pages/branch/wall/wall.view.html',
+      controller: 'wallController'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {
@@ -1742,6 +1743,10 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
+  // Time filter dropdown configuration
+  $scope.timeTitle = 'TIME RANGE';
+  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+
   // return true if the given branch control is selected,
   // i.e. if the current state contains the control name
   $scope.isControlSelected = function(control) {
@@ -2116,15 +2121,6 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 
 var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
-  $scope.tabItems = ['all time', 'this year', 'this month', 'this week', 'today', 'this hour'];
-  $scope.tabStates =
-    ['weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })',
-     'weco.branch.subbranches({ "branchid": "' + $scope.branchid + '" })'];
-
   $scope.isLoading = true;
   $scope.branches = [];
 
@@ -2192,15 +2188,26 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     });
   }
 
-
-  // Time filter dropdown configuration
-  $scope.timeTitle = 'TIME RANGE';
-  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+  // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;
   $scope.$watch('selectedTimeItemIdx', function () {
     getSubbranches();
   });
 
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+  $scope.isLoading = true;
+  $scope.posts = [];
+
+  // watch for change in drop down menu time filter selection
+  $scope.selectedTimeItemIdx = 0;
+  $scope.$watch('selectedTimeItemIdx', function () {
+    
+  });
 }]);
 
 'use strict';

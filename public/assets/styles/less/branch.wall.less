@@ -1,0 +1,44 @@
+div#branch-wall {
+  position: relative;
+  width: 100%;
+  height: calc(100% - @nav-bar-height);
+  box-sizing: border-box;
+  padding: 10px 20px;
+
+  div#wall-header {
+    width: 100%;
+    height: 50px;
+
+    h1 {
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 26px;
+      font-weight: 500;
+    }
+  }
+
+  div#post-list-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    ul#post-list {
+      padding-top: 15px;
+      li {
+        height: 80px;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: solid 1px @light-grey;
+
+        span.index {
+          float: left;
+          font-size: 20px;
+          font-weight: 500;
+          color: @dark-grey;
+          line-height: 80px;
+        }
+      }
+    }
+  }
+}

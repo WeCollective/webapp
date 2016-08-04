@@ -1,1 +1,13 @@
-<h1>Wall!</h1>
+<div id="branch-wall">
+  <div class="content-header" id="wall-header">
+    <h1>{{ branch.id == 'root' ? 'World Wall' : 'Wall' }}</h1>
+    <dropdown title="timeTitle" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+  </div>
+  <div id="post-list-container" loading when="isLoading">
+    <ul id="post-list">
+      <li ng-repeat="post in posts">
+        <span class="index">{{ $index + 1 }}</span>
+      </li>
+    </ul>
+  </div>
+</div>
