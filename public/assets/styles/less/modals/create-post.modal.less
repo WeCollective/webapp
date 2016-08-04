@@ -1,27 +1,95 @@
 div#create-post-modal {
-  div#create-post-inputs {
-    position: relative;
-    div[loading] {
-      min-width: 300px;
-      min-height: 50px;
-      max-width: 600px;
+  position: relative;
+  min-width: 300px;
+  min-height: 50px;
+  max-width: 600px;
 
-      input, textarea {
-        display: block;
-        width: 100%;
-        min-width: 300px;
-        box-sizing: border-box;
-        padding: 10px 15px;
-        margin: 10px 0;
-        border-radius: 3px;
-        border: 1px solid @light-grey;
-        font-size: 16px;
-        font-weight: 300;
+  div#create-post-picture {
+    float: left;
+    width: 150px;
+    margin-right: 15px;
 
-        &:focus {
-          outline: none;
-        }
+    div#dragdrop {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 15px 5px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: @light-grey;
+
+      transition: border 0.3s linear;
+      border: 1px dashed transparent;
+      &.dragover {
+        border: 1px dashed @primary-light;
+        transition: border 0.3s linear;
       }
+
+      // ngAnimate is slow so ensure hidden when animating for fast ng-show
+      &.ng-hide.ng-hide-animate {
+         display: none !important;
+      }
+
+      img#graphic {
+        display: block;
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        border-radius: 5px;
+      }
+
+      h2 {
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 15px;
+      }
+
+      div#preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        background-position: center;
+        border-radius: 5px;
+      }
+    }
+    div#choose-file {
+      margin: 10px 0 20px 0;
+      font-size: 14px;
+      color: @button-focus;
+      text-decoration: underline;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      // ngAnimate is slow so ensure hidden when animating for fast ng-show
+      &.ng-hide.ng-hide-animate {
+         display: none !important;
+      }
+    }
+  }
+  div#create-post-inputs {
+    float: left;
+  }
+  div#create-post-inputs input, textarea {
+    display: block;
+    width: 100%;
+    min-width: 300px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid @light-grey;
+    font-size: 16px;
+    font-weight: 300;
+
+    &:focus {
+      outline: none;
     }
   }
 }

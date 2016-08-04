@@ -97,10 +97,8 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            console.log("ONE");
             $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            console.log("TWO");
             $state.go($state.current, {}, { reload: true });
           }
         }

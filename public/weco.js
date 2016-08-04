@@ -729,6 +729,11 @@ app.factory('Modal', ['$timeout', function($timeout) {
 
 var app = angular.module('wecoApp');
 app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Post', function($scope, $timeout, Modal, Post) {
+  $scope.isUploading = false;
+  $scope.setFile = function(file) {
+    $scope.file = file;
+  };
+
   $scope.newPost = {
     branchids: [Modal.getInputArgs().branchid]
   };
@@ -1877,10 +1882,8 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            console.log("ONE");
             $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            console.log("TWO");
             $state.go($state.current, {}, { reload: true });
           }
         }

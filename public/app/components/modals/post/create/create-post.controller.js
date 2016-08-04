@@ -1,5 +1,10 @@
 var app = angular.module('wecoApp');
 app.controller('modalCreatePostController', ['$scope', '$timeout', 'Modal', 'Post', function($scope, $timeout, Modal, Post) {
+  $scope.isUploading = false;
+  $scope.setFile = function(file) {
+    $scope.file = file;
+  };
+
   $scope.newPost = {
     branchids: [Modal.getInputArgs().branchid]
   };
