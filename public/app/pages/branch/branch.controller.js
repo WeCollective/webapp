@@ -79,9 +79,9 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid });
+            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            $state.go($state.current, {}, {reload: true});
+            $state.go($state.current, {}, { reload: true });
           }
         }
       }, function() {
@@ -97,9 +97,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid });
+            console.log("ONE");
+            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            $state.go($state.current, {}, {reload: true});
+            console.log("TWO");
+            $state.go($state.current, {}, { reload: true });
           }
         }
       }, function() {

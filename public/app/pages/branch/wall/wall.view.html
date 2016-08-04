@@ -5,21 +5,22 @@
   </div>
   <div id="post-list-container" loading when="isLoading">
     <ul id="post-list">
-      <li ng-repeat="post in posts">
+      <li ng-repeat="post in posts" loading when="post.isLoading">
         <span class="index">{{ $index + 1 }}</span>
         <div class="votes">
           <img src="/assets/images/icons/black/arrow-up.png">
-          <p>3,200</p>
+          <p>{{ post.individual }}</p>
           <img src="/assets/images/icons/black/arrow-down.png">
         </div>
-        <a ui-sref="">
+        <a>
           <div style="background-image: url('{{ post.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>
         <div class="data">
-          <a ui-sref="">
-            <span class="title">Post Title...</span>
+          <a>
+            <!-- TODO: calculate how many chars can fit given the width of the post data div -->
+            <p class="title">{{ post.title }}</p>
           </a>
-          <span class="description">Submitted by <a ui-sref="">username</a> to <a ui-sref="">Branch Name</a> on January 1st, 1970</span>
+          <span class="description">Submitted by <a>{{ post.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
         </div>
       </li>
     </ul>

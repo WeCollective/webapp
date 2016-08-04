@@ -1065,6 +1065,13 @@ api.config(['$httpProvider', function($httpProvider) {
 }]);
 
 var api = angular.module('api');
+api.factory('BranchPostsAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/posts', {
+    branchid: '@branchid'
+  }, {});
+}]);
+
+var api = angular.module('api');
 api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
 
   function makeFormEncoded(data, headersGetter) {
@@ -1211,7 +1218,7 @@ api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, BranchPostsAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -1421,6 +1428,27 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  // Get all the posts on a given branch
+  Branch.getPosts = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchPostsAPI.get({ branchid: branchid }, function(requests) {
+        if(requests && requests.data) {
+          resolve(requests.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Branch;
 }]);
 
@@ -1493,6 +1521,20 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
     return new Promise(function(resolve, reject) {
       PostAPI.save(data, function() {
         resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  Post.get = function(postid) {
+    return new Promise(function(resolve, reject) {
+      PostAPI.get({ postid: postid }, function(post) {
+        if(!post || !post.data) { return reject(); }
+        resolve(post.data);
       }, function(response) {
         reject({
           status: response.status,
@@ -1817,9 +1859,9 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid });
+            $state.go('weco.branch.subbranches', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            $state.go($state.current, {}, {reload: true});
+            $state.go($state.current, {}, { reload: true });
           }
         }
       }, function() {
@@ -1835,9 +1877,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         // reload state to force profile reload if OK was pressed
         if(result) {
           if(Modal.getOutputArgs() && Modal.getOutputArgs().branchid) {
-            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid });
+            console.log("ONE");
+            $state.go('weco.branch.wall', { branchid: Modal.getOutputArgs().branchid }, { reload: true });
           } else {
-            $state.go($state.current, {}, {reload: true});
+            console.log("TWO");
+            $state.go($state.current, {}, { reload: true });
           }
         }
       }, function() {
@@ -2130,12 +2174,16 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     if(target) {
       Branch.getPictureUrl($scope.branches[idx].id, 'picture', false).then(function(response) {
         if(response && response.data && response.data.data) {
-          $scope.branches[idx].profileUrl = response.data.data;
+          $timeout(function() {
+            $scope.branches[idx].profileUrl = response.data.data;
+          });
         }
         return Branch.getPictureUrl($scope.branches[idx].id, 'picture', true);
       }).then(function(response) {
         if(response && response.data && response.data.data) {
-          $scope.branches[idx].profileUrlThumb = response.data.data;
+          $timeout(function() {
+            $scope.branches[idx].profileUrlThumb = response.data.data;
+          });
         }
         loadBranchPictures(branches, idx + 1);
       }).catch(function () {
@@ -2199,14 +2247,57 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
   $scope.isLoading = false;
-  $scope.posts = [1, 2];
+  $scope.posts = [];
+
+  // Asynchronously load the post's data one by one
+  // TODO: load post pics here in the promise chain too
+  function loadPostData(posts, idx) {
+    var target = posts.shift();
+    if(target) {
+      Post.get($scope.posts[idx].id).then(function(response) {
+        if(response) {
+          $timeout(function() {
+            $scope.posts[idx].text = response.text;
+            $scope.posts[idx].title = response.title;
+            $scope.posts[idx].date = response.date;
+            $scope.posts[idx].creator = response.creator;
+            $scope.posts[idx].isLoading = false;
+          });
+        }
+        loadPostData(posts, idx + 1);
+      }).catch(function () {
+        // Unable to fetch this post data - continue
+        loadPostData(posts, idx + 1);
+      });
+    }
+  }
+
+  function getPosts() {
+    // fetch the posts for this branch and timefilter
+    Branch.getPosts($scope.branchid).then(function(posts) {
+      $timeout(function() {
+        $scope.posts = posts;
+        $scope.isLoading = false;
+        // set all posts to loading until their content is retrieved
+        for(var i = 0; i < $scope.posts.length; i++) {
+          $scope.posts[i].isLoading = true;
+        }
+        // slice() provides a clone of the posts array
+        loadPostData($scope.posts.slice(), 0);
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get posts!");
+      $scope.isLoading = false;
+    });
+  }
 
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;
   $scope.$watch('selectedTimeItemIdx', function () {
-
+    getPosts();
   });
 }]);
 

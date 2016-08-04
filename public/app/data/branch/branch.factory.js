@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, $http, $state, ENV) {
+app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchRequestAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(BranchAPI, SubbranchesAPI, ModLogAPI, SubbranchRequestAPI, BranchPostsAPI, $http, $state, ENV) {
   var Branch = {};
   var me = {};
 
@@ -208,6 +208,27 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
           message: 'Invalid action'
         });
       }
+    });
+  };
+
+  // Get all the posts on a given branch
+  Branch.getPosts = function(branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchPostsAPI.get({ branchid: branchid }, function(requests) {
+        if(requests && requests.data) {
+          resolve(requests.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
     });
   };
 

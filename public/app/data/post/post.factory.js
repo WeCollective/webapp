@@ -17,5 +17,19 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
     });
   };
 
+  Post.get = function(postid) {
+    return new Promise(function(resolve, reject) {
+      PostAPI.get({ postid: postid }, function(post) {
+        if(!post || !post.data) { return reject(); }
+        resolve(post.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Post;
 }]);
