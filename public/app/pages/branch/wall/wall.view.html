@@ -12,15 +12,15 @@
           <p>{{ post.individual }}</p>
           <img src="/assets/images/icons/black/arrow-down.png">
         </div>
-        <a>
-          <div style="background-image: url('{{ post.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
+        <a ng-show="post.profileUrlThumb">
+          <div style="background-image: url('{{ post.profileUrlThumb }}')"></div>
         </a>
         <div class="data">
           <a>
             <!-- TODO: calculate how many chars can fit given the width of the post data div -->
             <p class="title">{{ post.title }}</p>
           </a>
-          <span class="description">Submitted by <a>{{ post.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
+          <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.creator })">{{ post.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
         </div>
       </li>
     </ul>

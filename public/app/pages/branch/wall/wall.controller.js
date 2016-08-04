@@ -18,6 +18,8 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
             $scope.posts[idx].date = response.date;
             $scope.posts[idx].creator = response.creator;
             $scope.posts[idx].isLoading = false;
+            $scope.posts[idx].profileUrl = response.profileUrl;
+            $scope.posts[idx].profileUrlThumb = response.profileUrlThumb;
           });
         }
         loadPostData(posts, idx + 1);
