@@ -38,6 +38,89 @@ div#branch-wall {
           color: @dark-grey;
           line-height: 80px;
         }
+
+        div.votes {
+          position: relative;
+          float: left;
+          height: 100%;
+          width: 50px;
+          text-align: center;
+          margin-left: 5px;
+
+          img {
+            display: block;
+            position: absolute;
+            width: 26px;
+            height: auto;
+            left: 12px;
+            opacity: 0.3;
+
+            &:first-child {
+              top: 0;
+            }
+
+            &:last-child {
+              bottom: 0;
+            }
+
+            &:hover {
+              cursor: pointer;
+              opacity: 1;
+            }
+          }
+
+          p {
+            margin: 0;
+            font-size: 14px;
+            padding: 30px 0;
+          }
+        }
+
+        a {
+          div {
+            float: left;
+            height: 80px;
+            width: 80px;
+            border-radius: 3px;
+            margin: 0 10px;
+            background-size: cover;
+            background-position: center;
+
+            &:hover {
+              box-shadow: @shadow2;
+            }
+          }
+        }
+
+        div.data {
+          float: left;
+          height: 100%;
+
+          a span.title {
+            display: block;
+            font-size: 20px;
+            font-weight: 500;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          span.description {
+            font-size: 14px;
+            font-weight: 400;
+
+            a {
+              color: @button-focus;
+              font-weight: 500;
+
+              &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
       }
     }
   }
