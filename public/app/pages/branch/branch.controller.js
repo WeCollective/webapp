@@ -8,6 +8,35 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   // Time filter dropdown configuration
   $scope.timeTitle = 'TIME RANGE';
   $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+  $scope.getTimeafter = function(timeItem) {
+    // compute the appropriate timeafter for the selected time filter
+    var timeafter;
+    var date = new Date();
+    switch(timeItem) {
+      case 'ALL TIME':
+        timeafter = 0;
+        break;
+      case 'THIS YEAR':
+        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS MONTH':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS WEEK':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
+        break;
+      case 'LAST 24 HRS':
+        var yesterday = new Date(date);
+        yesterday.setDate(date.getDate() - 1);
+        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
+        break;
+      case 'THIS HOUR':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
+        break;
+      default:
+    }
+    return timeafter;
+  };
 
   // return true if the given branch control is selected,
   // i.e. if the current state contains the control name

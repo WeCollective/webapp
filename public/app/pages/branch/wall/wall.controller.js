@@ -26,8 +26,11 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   }
 
   function getPosts() {
+    // compute the appropriate timeafter for the selected time filter
+    var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
+
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter).then(function(posts) {
       $timeout(function() {
         $scope.posts = posts;
         $scope.isLoading = false;

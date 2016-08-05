@@ -32,31 +32,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   function getSubbranches() {
     // compute the appropriate timeafter for the selected time filter
-    var timeafter;
-    var date = new Date();
-    switch($scope.timeItems[$scope.selectedTimeItemIdx]) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
-      case 'THIS YEAR':
-        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
-        break;
-      case 'THIS MONTH':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
-        break;
-      case 'THIS WEEK':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
-        break;
-      case 'LAST 24 HRS':
-        var yesterday = new Date(date);
-        yesterday.setDate(date.getDate() - 1);
-        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
-        break;
-      case 'THIS HOUR':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
-        break;
-      default:
-    }
+    var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
 
     // fetch the subbranches for this branch and timefilter
     Branch.getSubbranches($scope.branchid, timeafter).then(function(branches) {

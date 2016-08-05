@@ -211,10 +211,10 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
-  // Get all the posts on a given branch
-  Branch.getPosts = function(branchid) {
+  // Get all the posts on a given branch submitted after a given time
+  Branch.getPosts = function(branchid, timeafter) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid }, function(requests) {
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter }, function(requests) {
         if(requests && requests.data) {
           resolve(requests.data);
         } else {

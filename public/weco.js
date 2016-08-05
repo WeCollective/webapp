@@ -1485,10 +1485,10 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
-  // Get all the posts on a given branch
-  Branch.getPosts = function(branchid) {
+  // Get all the posts on a given branch submitted after a given time
+  Branch.getPosts = function(branchid, timeafter) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid }, function(requests) {
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter }, function(requests) {
         if(requests && requests.data) {
           resolve(requests.data);
         } else {
@@ -1871,6 +1871,35 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   // Time filter dropdown configuration
   $scope.timeTitle = 'TIME RANGE';
   $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+  $scope.getTimeafter = function(timeItem) {
+    // compute the appropriate timeafter for the selected time filter
+    var timeafter;
+    var date = new Date();
+    switch(timeItem) {
+      case 'ALL TIME':
+        timeafter = 0;
+        break;
+      case 'THIS YEAR':
+        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS MONTH':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
+        break;
+      case 'THIS WEEK':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
+        break;
+      case 'LAST 24 HRS':
+        var yesterday = new Date(date);
+        yesterday.setDate(date.getDate() - 1);
+        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
+        break;
+      case 'THIS HOUR':
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
+        break;
+      default:
+    }
+    return timeafter;
+  };
 
   // return true if the given branch control is selected,
   // i.e. if the current state contains the control name
@@ -2301,31 +2330,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 
   function getSubbranches() {
     // compute the appropriate timeafter for the selected time filter
-    var timeafter;
-    var date = new Date();
-    switch($scope.timeItems[$scope.selectedTimeItemIdx]) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
-      case 'THIS YEAR':
-        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
-        break;
-      case 'THIS MONTH':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
-        break;
-      case 'THIS WEEK':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
-        break;
-      case 'LAST 24 HRS':
-        var yesterday = new Date(date);
-        yesterday.setDate(date.getDate() - 1);
-        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
-        break;
-      case 'THIS HOUR':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
-        break;
-      default:
-    }
+    var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
 
     // fetch the subbranches for this branch and timefilter
     Branch.getSubbranches($scope.branchid, timeafter).then(function(branches) {
@@ -2378,8 +2383,11 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   }
 
   function getPosts() {
+    // compute the appropriate timeafter for the selected time filter
+    var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
+
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter).then(function(posts) {
       $timeout(function() {
         $scope.posts = posts;
         $scope.isLoading = false;

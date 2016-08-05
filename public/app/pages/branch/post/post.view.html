@@ -8,7 +8,7 @@
     <div id="post-picture" ng-show="post.profileUrlThumb" style="background-image: url('{{ post.profileUrlThumb }}')"></div>
     <div class="data">
       <p class="title">{{ post.data.title }}</p>
-      <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.data.date | date:'dd MMMM yyyy' }}</span>
+      <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
     </div>
   </div>
   <div id="post-content">
