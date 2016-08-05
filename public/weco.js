@@ -1979,7 +1979,9 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         createBranch();
         break;
       case 'weco.branch.wall':
-        createPost();
+        if($scope.branchid != 'root') {
+          createPost();
+        }
         break;
       default:
         console.error("Unable to add content in state " + $state.current.name);
