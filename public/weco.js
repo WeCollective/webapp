@@ -107,6 +107,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/wall',
       templateUrl: '/app/pages/branch/wall/wall.view.html',
       controller: 'wallController'
+    })
+    // Posts
+    .state('weco.branch.post', {
+      url: '/p/:postid',
+      templateUrl: '/app/pages/branch/post/post.view.html',
+      controller: 'postController'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {
@@ -2239,6 +2245,29 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
+app.controller('postController', ['$scope', '$state', '$timeout', 'Post', function($scope, $state, $timeout, Post) {
+  $scope.isLoading = true;
+  $scope.post = {};
+
+  Post.get($state.params.postid).then(function(post) {
+    $timeout(function () {
+      $scope.post = post;
+      $scope.isLoading = false;
+    });
+  }, function(response) {
+    // TODO: handle other error codes
+    // post not found - 404
+    if(response.status == 404) {
+      $state.go('weco.notfound');
+    }
+    $scope.isLoading = false;
+  });
+
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
   $scope.isLoading = true;
   $scope.branches = [];
@@ -2334,13 +2363,8 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
-            $scope.posts[idx].text = response.text;
-            $scope.posts[idx].title = response.title;
-            $scope.posts[idx].date = response.date;
-            $scope.posts[idx].creator = response.creator;
+            $scope.posts[idx] = response;
             $scope.posts[idx].isLoading = false;
-            $scope.posts[idx].profileUrl = response.profileUrl;
-            $scope.posts[idx].profileUrlThumb = response.profileUrlThumb;
           });
         }
         loadPostData(posts, idx + 1);

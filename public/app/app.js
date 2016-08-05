@@ -107,6 +107,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/wall',
       templateUrl: '/app/pages/branch/wall/wall.view.html',
       controller: 'wallController'
+    })
+    // Posts
+    .state('weco.branch.post', {
+      url: '/p/:postid',
+      templateUrl: '/app/pages/branch/post/post.view.html',
+      controller: 'postController'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {

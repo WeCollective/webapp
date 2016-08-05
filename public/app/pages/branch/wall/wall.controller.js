@@ -13,13 +13,8 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
-            $scope.posts[idx].text = response.text;
-            $scope.posts[idx].title = response.title;
-            $scope.posts[idx].date = response.date;
-            $scope.posts[idx].creator = response.creator;
+            $scope.posts[idx] = response;
             $scope.posts[idx].isLoading = false;
-            $scope.posts[idx].profileUrl = response.profileUrl;
-            $scope.posts[idx].profileUrlThumb = response.profileUrlThumb;
           });
         }
         loadPostData(posts, idx + 1);
