@@ -11,7 +11,6 @@
       <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
     </div>
   </div>
-  <div id="post-content">
-    <p>{{ post.data.text }}</p>
+  <div id="post-content" marked="markdownRaw">
   </div>
 </div>

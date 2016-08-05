@@ -1,6 +1,13 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'hc.marked', 'api']);
+// configure the markdown parser for Githib Flavoured Markdown
+app.config(['markedProvider', function (markedProvider) {
+  markedProvider.setOptions({
+    gfm: true
+  });
+}]);
+// configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');

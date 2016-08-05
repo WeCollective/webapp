@@ -1,6 +1,13 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'hc.marked', 'api']);
+// configure the markdown parser for Githib Flavoured Markdown
+app.config(['markedProvider', function (markedProvider) {
+  markedProvider.setOptions({
+    gfm: true
+  });
+}]);
+// configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
@@ -2279,10 +2286,12 @@ var app = angular.module('wecoApp');
 app.controller('postController', ['$scope', '$state', '$timeout', 'Post', function($scope, $state, $timeout, Post) {
   $scope.isLoading = true;
   $scope.post = {};
+  $scope.markdownRaw = '';
 
   Post.get($state.params.postid).then(function(post) {
     $timeout(function () {
       $scope.post = post;
+      $scope.markdownRaw = post.data.text;
       $scope.isLoading = false;
     });
   }, function(response) {
@@ -2293,7 +2302,6 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     }
     $scope.isLoading = false;
   });
-
 }]);
 
 'use strict';

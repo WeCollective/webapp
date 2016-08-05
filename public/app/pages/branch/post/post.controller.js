@@ -4,10 +4,12 @@ var app = angular.module('wecoApp');
 app.controller('postController', ['$scope', '$state', '$timeout', 'Post', function($scope, $state, $timeout, Post) {
   $scope.isLoading = true;
   $scope.post = {};
+  $scope.markdownRaw = '';
 
   Post.get($state.params.postid).then(function(post) {
     $timeout(function () {
       $scope.post = post;
+      $scope.markdownRaw = post.data.text;
       $scope.isLoading = false;
     });
   }, function(response) {
@@ -18,5 +20,4 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     }
     $scope.isLoading = false;
   });
-
 }]);
