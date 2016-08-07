@@ -1119,7 +1119,7 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
