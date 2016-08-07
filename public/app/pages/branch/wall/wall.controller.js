@@ -5,6 +5,14 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.isLoading = false;
   $scope.posts = [];
 
+  // return the correct ui-sref string for when the specified post is clicked
+  $scope.getLink = function(post) {
+    if(post.type == 'text') {
+      return $state.href('weco.branch.post', { postid: post.id });
+    }
+    return post.text;
+  };
+
   // Asynchronously load the post's data one by one
   // TODO: load post pics here in the promise chain too
   function loadPostData(posts, idx) {

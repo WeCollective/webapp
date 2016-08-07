@@ -155,8 +155,10 @@ app.directive('dropdown', ['$timeout', function($timeout) {
         });
       };
       $scope.select = function(idx) {
-        $scope.selected = idx;
-        $scope.close();
+        $timeout(function () {
+          $scope.selected = idx;
+          $scope.close();
+        });
       };
     }
   };
@@ -755,6 +757,12 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     branchids: [Modal.getInputArgs().branchid]
   };
 
+  $scope.postType = {
+    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
+    idx: 0,
+    title: 'POST TYPE'
+  };
+
   $scope.togglePreview = function() {
     $scope.preview = !$scope.preview;
   };
@@ -815,7 +823,8 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
 
     // perform the update
     $scope.isLoading = true;
-    $scope.newPost.type = 'text';
+    $scope.newPost.type = $scope.postType.items[$scope.postType.idx].toLowerCase();
+
     // create copy of post to not interfere with binding of items on tag-editor
     var post = JSON.parse(JSON.stringify($scope.newPost)); // JSON parsing faciltates shallow copy
     post.branchids = JSON.stringify($scope.newPost.branchids);
@@ -1125,7 +1134,7 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2375,6 +2384,14 @@ var app = angular.module('wecoApp');
 app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
   $scope.isLoading = false;
   $scope.posts = [];
+
+  // return the correct ui-sref string for when the specified post is clicked
+  $scope.getLink = function(post) {
+    if(post.type == 'text') {
+      return $state.href('weco.branch.post', { postid: post.id });
+    }
+    return post.text;
+  };
 
   // Asynchronously load the post's data one by one
   // TODO: load post pics here in the promise chain too

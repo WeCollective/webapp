@@ -12,6 +12,12 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     branchids: [Modal.getInputArgs().branchid]
   };
 
+  $scope.postType = {
+    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
+    idx: 0,
+    title: 'POST TYPE'
+  };
+
   $scope.togglePreview = function() {
     $scope.preview = !$scope.preview;
   };
@@ -72,7 +78,8 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
 
     // perform the update
     $scope.isLoading = true;
-    $scope.newPost.type = 'text';
+    $scope.newPost.type = $scope.postType.items[$scope.postType.idx].toLowerCase();
+
     // create copy of post to not interfere with binding of items on tag-editor
     var post = JSON.parse(JSON.stringify($scope.newPost)); // JSON parsing faciltates shallow copy
     post.branchids = JSON.stringify($scope.newPost.branchids);

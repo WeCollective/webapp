@@ -23,8 +23,10 @@ app.directive('dropdown', ['$timeout', function($timeout) {
         });
       };
       $scope.select = function(idx) {
-        $scope.selected = idx;
-        $scope.close();
+        $timeout(function () {
+          $scope.selected = idx;
+          $scope.close();
+        });
       };
     }
   };
