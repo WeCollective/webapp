@@ -4,7 +4,8 @@ var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSani
 // configure the markdown parser for Githib Flavoured Markdown
 app.config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({
-    gfm: true
+    gfm: true,
+    sanitize: true
   });
 }]);
 // configure the router

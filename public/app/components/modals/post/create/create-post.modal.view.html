@@ -20,7 +20,9 @@
       <tag-editor items="newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
     </div>
     <!-- detach textarea from create-post-inputs so it flows below profile image -->
-    <textarea ng-show="!isUploading" ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
+    <textarea ng-show="!isUploading && !preview" ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
+    <div id="preview-content" marked="newPost.text" ng-show="preview"></div>
+    <p id="preview-post" ng-click="togglePreview()" ng-show="newPost.text.length > 0">{{ preview ? 'Edit...' : 'Preview...' }}</p>
 
     <div id="progress-container" ng-show="isUploading">
       <div id="progress" style="width:{{ progress }}%"></div>

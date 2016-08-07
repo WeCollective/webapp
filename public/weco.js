@@ -4,7 +4,8 @@ var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSani
 // configure the markdown parser for Githib Flavoured Markdown
 app.config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({
-    gfm: true
+    gfm: true,
+    sanitize: true
   });
 }]);
 // configure the router
@@ -749,8 +750,13 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   $scope.isUploading = false;
   $scope.isLoading = false;
   $scope.progress = 0;
+  $scope.preview = false;
   $scope.newPost = {
     branchids: [Modal.getInputArgs().branchid]
+  };
+
+  $scope.togglePreview = function() {
+    $scope.preview = !$scope.preview;
   };
 
   $scope.setFile = function(file) {
@@ -1119,7 +1125,7 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);

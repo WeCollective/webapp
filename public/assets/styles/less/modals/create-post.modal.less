@@ -64,10 +64,10 @@ div#create-post-modal {
         margin: 10px 0 20px 0;
         font-size: 14px;
         color: @button-focus;
-        text-decoration: underline;
 
         &:hover {
           cursor: pointer;
+          text-decoration: underline;
         }
 
         // ngAnimate is slow so ensure hidden when animating for fast ng-show
@@ -95,6 +95,25 @@ div#create-post-modal {
 
       &:focus {
         outline: none;
+      }
+    }
+
+    div#preview-content {
+      width: 100%;
+      max-height: 300px;
+      box-sizing: border-box;
+      padding: 0 15px;
+      overflow-y: scroll;
+    }
+
+    p#preview-post {
+      font-size: 12px;
+      color: @button-focus;
+      margin: 0;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
       }
     }
 

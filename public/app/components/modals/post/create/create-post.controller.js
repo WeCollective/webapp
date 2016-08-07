@@ -7,8 +7,13 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   $scope.isUploading = false;
   $scope.isLoading = false;
   $scope.progress = 0;
+  $scope.preview = false;
   $scope.newPost = {
     branchids: [Modal.getInputArgs().branchid]
+  };
+
+  $scope.togglePreview = function() {
+    $scope.preview = !$scope.preview;
   };
 
   $scope.setFile = function(file) {
