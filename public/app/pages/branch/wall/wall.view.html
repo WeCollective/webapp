@@ -2,6 +2,17 @@
   <div class="content-header" id="wall-header">
     <h1>{{ branch.id == 'root' ? 'World Wall' : 'Wall' }}</h1>
     <dropdown title="timeTitle" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+    <div id="stat-type-selector">
+      <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')">
+        <img src="/assets/images/icons/black/individual.png">
+      </div>
+      <div id="local-stat" ng-class="{ selected: stat == 'local' }" ng-click="setStat('local')">
+        <img src="/assets/images/icons/black/local.png">
+      </div>
+      <div id="global-stat" ng-class="{ selected: stat == 'global' }" ng-click="setStat('global')">
+        <img src="/assets/images/icons/black/global.png">
+      </div>
+    </div>
   </div>
   <div id="post-list-container" loading when="isLoading">
     <ul id="post-list">
@@ -9,7 +20,7 @@
         <span class="index">{{ $index + 1 }}</span>
         <div class="votes">
           <img src="/assets/images/icons/black/arrow-up.png">
-          <p>{{ post.individual }}</p>
+          <p>{{ post[stat] }}</p>
           <img src="/assets/images/icons/black/arrow-down.png">
         </div>
         <!-- Two DOM elements conditionally displayed if the post is a text type.

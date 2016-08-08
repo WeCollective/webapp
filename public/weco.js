@@ -1508,9 +1508,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   };
 
   // Get all the posts on a given branch submitted after a given time
-  Branch.getPosts = function(branchid, timeafter) {
+  Branch.getPosts = function(branchid, timeafter, stat) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter }, function(requests) {
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(requests) {
         if(requests && requests.data) {
           resolve(requests.data);
         } else {
@@ -2384,6 +2384,13 @@ var app = angular.module('wecoApp');
 app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
   $scope.isLoading = false;
   $scope.posts = [];
+  $scope.stat = 'individual';
+
+  $scope.setStat = function(stat) {
+    $scope.isLoading = true;
+    $scope.stat = stat;
+    getPosts();
+  };
 
   // return the correct ui-sref string for when the specified post is clicked
   $scope.getLink = function(post) {
@@ -2418,7 +2425,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, $scope.stat).then(function(posts) {
       $timeout(function() {
         $scope.posts = posts;
         $scope.isLoading = false;

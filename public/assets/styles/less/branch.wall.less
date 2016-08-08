@@ -15,6 +15,39 @@ div#branch-wall {
       font-size: 26px;
       font-weight: 500;
     }
+
+    div#stat-type-selector {
+      height: 100%;
+      float: right;
+
+      div {
+        position: relative;
+        display: inline-block;
+        height: 100%;
+        width: 50px;
+
+        &.selected img {
+          opacity: 0.8;
+        }
+
+        &:hover {
+          cursor: pointer;
+          img {
+            opacity: 0.8;
+          }
+        }
+
+        img {
+          position: absolute;
+          height: 40%;
+          width: auto;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.2;
+        }
+      }
+    }
   }
 
   div#post-list-container {
