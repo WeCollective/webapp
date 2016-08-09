@@ -9,7 +9,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
   Post.get($state.params.postid).then(function(post) {
     $timeout(function () {
       $scope.post = post;
-      $scope.markdownRaw = post.data.text;
+      $scope.markdownRaw = post.text;
       $scope.isLoading = false;
     });
   }, function(response) {

@@ -21,14 +21,15 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   // Asynchronously load the post's data one by one
-  // TODO: load post pics here in the promise chain too
   function loadPostData(posts, idx) {
     var target = posts.shift();
     if(target) {
+      console.log("CALLING");
       Post.get($scope.posts[idx].id).then(function(response) {
+        console.log(response);
         if(response) {
           $timeout(function() {
-            $scope.posts[idx] = response;
+            $scope.posts[idx].data = response;
             $scope.posts[idx].isLoading = false;
           });
         }

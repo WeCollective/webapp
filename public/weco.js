@@ -1510,9 +1510,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   // Get all the posts on a given branch submitted after a given time
   Branch.getPosts = function(branchid, timeafter, stat) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(requests) {
-        if(requests && requests.data) {
-          resolve(requests.data);
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(posts) {
+        if(posts && posts.data) {
+          resolve(posts.data);
         } else {
           reject({
             status: 500,
@@ -2306,7 +2306,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
   Post.get($state.params.postid).then(function(post) {
     $timeout(function () {
       $scope.post = post;
-      $scope.markdownRaw = post.data.text;
+      $scope.markdownRaw = post.text;
       $scope.isLoading = false;
     });
   }, function(response) {
@@ -2401,14 +2401,15 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   // Asynchronously load the post's data one by one
-  // TODO: load post pics here in the promise chain too
   function loadPostData(posts, idx) {
     var target = posts.shift();
     if(target) {
+      console.log("CALLING");
       Post.get($scope.posts[idx].id).then(function(response) {
+        console.log(response);
         if(response) {
           $timeout(function() {
-            $scope.posts[idx] = response;
+            $scope.posts[idx].data = response;
             $scope.posts[idx].isLoading = false;
           });
         }
