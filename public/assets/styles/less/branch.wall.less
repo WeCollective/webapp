@@ -128,6 +128,7 @@ div#branch-wall {
 
         div.data {
           display: inline-block;
+          position: relative;
           height: 100%;
           // set max width to faciltate ellipsis on long text.
           // 200px is ~ the space taken by the content to the left of the data div
@@ -157,6 +158,21 @@ div#branch-wall {
               &:hover {
                 cursor: pointer;
                 text-decoration: underline;
+              }
+            }
+          }
+
+          div.controls {
+            position: absolute;
+            bottom: 0;
+
+            img {
+              height: 16px;
+              width: auto;
+              opacity: 0.4;
+
+              &:hover {
+                opacity: 1;
               }
             }
           }

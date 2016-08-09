@@ -27,7 +27,7 @@
              One is to perform internal state transition with uisref. (Text posts)
              One is to link to an external site. (Non-text posts) -->
         <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })"
-           ng-show="post.data.profileUrlThumb" target="_blank">
+           ng-show="post.data.profileUrlThumb">
           <div style="background-image: url('{{ post.data.profileUrlThumb }}')"></div>
         </a>
         <a ng-if="post.type != 'text'" href="{{ post.data.text }}"
@@ -37,13 +37,16 @@
 
         <div class="data">
           <!-- Two DOM elements conditionally displayed again - see above. -->
-          <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })" target="_blank">
+          <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })">
             <p class="title">{{ post.data.title }}</p>
           </a>
           <a ng-if="post.type != 'text'" href="{{ post.data.text }}" target="_blank">
             <p class="title">{{ post.data.title }}</p>
           </a>
           <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
+          <div class="controls">
+            <a ui-sref="weco.branch.post({ postid: post.id })"><img src="/assets/images/icons/black/comment.png"></a>
+          </div>
         </div>
       </li>
     </ul>
