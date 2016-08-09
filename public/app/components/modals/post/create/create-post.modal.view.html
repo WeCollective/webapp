@@ -6,11 +6,13 @@
       <div id="dragdrop"
            ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
            ngf-hide-on-drop-not-available="false" ngf-fix-orientation="true">
-        <img id="graphic" src="/assets/images/image.png">
-        <h2>Drop an image here!</h2>
+        <img id="graphic" src="/assets/images/image.png" ng-show="postType.items[postType.idx] != 'IMAGE'">
+        <div id="image-preview" ng-show="postType.items[postType.idx] == 'IMAGE'"
+             style="background-image: url('{{ newPost.text }}'), url('/assets/images/invalid-image-url.png')"></div>
+        <h2 ng-show="postType.items[postType.idx] != 'IMAGE'">Drop an image here!</h2>
         <div id="preview" ngf-background="file"></div>
       </div>
-      <div id="choose-file" ng-show="!isUploading" ngf-select="setFile($file)"
+      <div id="choose-file" ng-show="postType.items[postType.idx] != 'IMAGE'" ngf-select="setFile($file)"
            ngf-fix-orientation="true" ngf-accept="'image/*'">
            {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
       </div>
@@ -22,10 +24,10 @@
     </div>
     <!-- detach textarea from create-post-inputs so it flows below profile image -->
     <textarea ng-show="!isUploading && !preview && postType.items[postType.idx] == 'TEXT'" ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
-    <input ng-show="postType.items[postType.idx] != 'TEXT'" ng-model="newPost.text" placeholder="URL" type="text"></input>
-    <div id="preview-content" marked="newPost.text" ng-show="preview && postType.items[postType.idx] == 'TEXT'"></div>
-    <p id="preview-post" ng-click="togglePreview()" ng-show="newPost.text.length > 0 && postType.items[postType.idx] == 'TEXT'">{{ preview ? 'Edit...' : 'Preview...' }}</p>
-    
+    <input ng-show="!isUploading && postType.items[postType.idx] != 'TEXT'" ng-model="newPost.text" placeholder="URL" type="text"></input>
+    <div id="preview-content" marked="newPost.text" ng-show="!isUploading && preview && postType.items[postType.idx] == 'TEXT'"></div>
+    <p id="preview-post" ng-click="togglePreview()" ng-show="!isUploading && newPost.text.length > 0 && postType.items[postType.idx] == 'TEXT'">{{ preview ? 'Edit...' : 'Preview...' }}</p>
+
     <div id="progress-container" ng-show="isUploading">
       <div id="progress" style="width:{{ progress }}%"></div>
     </div>

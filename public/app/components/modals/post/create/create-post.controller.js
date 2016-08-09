@@ -89,7 +89,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
         $scope.errorMessage = '';
         $scope.isLoading = false;
         $scope.progress = 0;
-        if($scope.file) {
+        if($scope.file && $scope.newPost.type != 'image') {
           $scope.isUploading = true;
           $scope.upload(postid);
         } else {
