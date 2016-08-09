@@ -6,5 +6,8 @@
       <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.creator })">{{ post.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
     </div>
   </div>
-  <div id="post-content" marked="markdownRaw"></div>
+  <div id="image-post" class="post-content" ng-show="post.type == 'image'">
+    <div style="background-image: url('{{ post.text }}'), url('/assets/images/invalid-image-url.png')"></div>
+  </div>
+  <div class="post-content" marked="markdownRaw" ng-show="post.type == 'text'"></div>
 </div>
