@@ -151,6 +151,22 @@ div#branch-wall {
             font-size: 14px;
             font-weight: 400;
 
+            &::before {
+              content: '';
+              display: inline-block;
+              width: 10px;
+              height: 10px;
+              margin-right: 5px;
+              border-radius: 50%;
+            }
+
+            &.image::before { background-color: @post-type-image; }
+            &.video::before { background-color: @post-type-video; }
+            &.audio::before { background-color: @post-type-audio; }
+            &.text::before { background-color: @post-type-text; }
+            &.page::before { background-color: @post-type-page; }
+            &.poll::before { background-color: @post-type-poll; }
+
             a {
               color: @button-focus;
               font-weight: 500;
