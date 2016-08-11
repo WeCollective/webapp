@@ -1145,9 +1145,28 @@ api.config(['$httpProvider', function($httpProvider) {
 
 var api = angular.module('api');
 api.factory('BranchPostsAPI', ['$resource', 'ENV', function($resource, ENV) {
-  return $resource(ENV.apiEndpoint + 'branch/:branchid/posts', {
-    branchid: '@branchid'
-  }, {});
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  return $resource(ENV.apiEndpoint + 'branch/:branchid/posts/:postid', {
+    branchid: '@branchid',
+    postid: ''
+  }, {
+    vote: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
 }]);
 
 var api = angular.module('api');
@@ -1593,7 +1612,7 @@ app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $http, $state, ENV) {
+app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, $http, $state, ENV) {
   var Post = {};
 
   // fetch the presigned url for the specified picture for the specified post
@@ -1646,6 +1665,26 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
           message: response.data.message
         });
       });
+    });
+  };
+
+  Post.vote = function(branchid, postid, vote) {
+    return new Promise(function(resolve, reject) {
+      if(vote != 'up' && vote != 'down') { return reject(); }
+
+      BranchPostsAPI.vote({
+          branchid: branchid,
+          postid: postid
+        },{
+          vote: vote
+        }, function() {
+          resolve();
+        }, function(response) {
+          reject({
+            status: response.status,
+            message: response.data.message
+          });
+        });
     });
   };
 
@@ -2386,6 +2425,18 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.posts = [];
   $scope.stat = 'individual';
 
+  $scope.vote = function(post, direction) {
+    Post.vote($scope.branchid, post.id, direction).then(function() {
+      var inc = (direction == 'up') ? 1 : -1;
+      $timeout(function() {
+        post.individual += inc;
+      });
+    }, function(err) {
+      // TODO: pretty error
+      console.error("Unable to vote on post!");
+    });
+  };
+
   $scope.setStat = function(stat) {
     $scope.isLoading = true;
     $scope.stat = stat;
@@ -2404,9 +2455,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   function loadPostData(posts, idx) {
     var target = posts.shift();
     if(target) {
-      console.log("CALLING");
       Post.get($scope.posts[idx].id).then(function(response) {
-        console.log(response);
         if(response) {
           $timeout(function() {
             $scope.posts[idx].data = response;

@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $http, $state, ENV) {
+app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, $http, $state, ENV) {
   var Post = {};
 
   // fetch the presigned url for the specified picture for the specified post
@@ -54,6 +54,26 @@ app.factory('Post', ['PostAPI', '$http', '$state', 'ENV', function(PostAPI, $htt
           message: response.data.message
         });
       });
+    });
+  };
+
+  Post.vote = function(branchid, postid, vote) {
+    return new Promise(function(resolve, reject) {
+      if(vote != 'up' && vote != 'down') { return reject(); }
+
+      BranchPostsAPI.vote({
+          branchid: branchid,
+          postid: postid
+        },{
+          vote: vote
+        }, function() {
+          resolve();
+        }, function(response) {
+          reject({
+            status: response.status,
+            message: response.data.message
+          });
+        });
     });
   };
 

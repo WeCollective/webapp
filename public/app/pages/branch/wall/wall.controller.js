@@ -6,6 +6,18 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.posts = [];
   $scope.stat = 'individual';
 
+  $scope.vote = function(post, direction) {
+    Post.vote($scope.branchid, post.id, direction).then(function() {
+      var inc = (direction == 'up') ? 1 : -1;
+      $timeout(function() {
+        post.individual += inc;
+      });
+    }, function(err) {
+      // TODO: pretty error
+      console.error("Unable to vote on post!");
+    });
+  };
+
   $scope.setStat = function(stat) {
     $scope.isLoading = true;
     $scope.stat = stat;
@@ -24,9 +36,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   function loadPostData(posts, idx) {
     var target = posts.shift();
     if(target) {
-      console.log("CALLING");
       Post.get($scope.posts[idx].id).then(function(response) {
-        console.log(response);
         if(response) {
           $timeout(function() {
             $scope.posts[idx].data = response;
