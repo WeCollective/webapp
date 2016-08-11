@@ -1,7 +1,8 @@
 <div id="branch-wall">
   <div class="content-header" id="wall-header">
     <h1>{{ branch.id == 'root' ? 'World Wall' : 'Wall' }}</h1>
-    <dropdown title="timeTitle" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+    <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+    <dropdown title="'POST TYPE'" items="postTypeItems" selected="selectedPostTypeItemIdx"></dropdown>
     <div id="stat-type-selector">
       <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')">
         <img src="/assets/images/icons/black/individual.png">
@@ -16,7 +17,7 @@
   </div>
   <div id="post-list-container" loading when="isLoading">
     <ul id="post-list">
-      <li ng-repeat="post in posts" loading when="post.isLoading">
+      <li ng-repeat="post in posts | filter: { type: (postTypeItems[selectedPostTypeItemIdx] == 'ALL') ? '' : postTypeItems[selectedPostTypeItemIdx] }" loading when="post.isLoading">
         <span class="index">{{ $index + 1 }}</span>
         <div class="votes">
           <img src="/assets/images/icons/black/arrow-up.png" ng-click="vote(post, 'up')">

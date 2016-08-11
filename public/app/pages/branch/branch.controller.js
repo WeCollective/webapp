@@ -6,7 +6,6 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
   $scope.isLoading = true;
 
   // Time filter dropdown configuration
-  $scope.timeTitle = 'TIME RANGE';
   $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
   $scope.getTimeafter = function(timeItem) {
     // compute the appropriate timeafter for the selected time filter

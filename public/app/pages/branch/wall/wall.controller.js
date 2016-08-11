@@ -79,4 +79,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.$watch('selectedTimeItemIdx', function () {
     getPosts();
   });
+
+  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
+  $scope.selectedPostTypeItemIdx = 0;
 }]);
