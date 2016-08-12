@@ -77,5 +77,20 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', func
     });
   };
 
+  // get the post on a specific branch
+  Post.getPostOnBranch = function(postid, branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchPostsAPI.get({ postid: postid, branchid: branchid }, function(post) {
+        if(!post || !post.data) { return reject(); }
+        resolve(post.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Post;
 }]);

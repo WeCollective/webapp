@@ -1695,6 +1695,21 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', func
     });
   };
 
+  // get the post on a specific branch
+  Post.getPostOnBranch = function(postid, branchid) {
+    return new Promise(function(resolve, reject) {
+      BranchPostsAPI.get({ postid: postid, branchid: branchid }, function(post) {
+        if(!post || !post.data) { return reject(); }
+        resolve(post.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Post;
 }]);
 
@@ -2360,7 +2375,13 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     return false;
   }
 
-  Post.get($state.params.postid).then(function(post) {
+  // ensure the post exists on the specified branch
+  Post.getPostOnBranch($state.params.postid, $scope.branchid).then(function() {
+    return Post.get($state.params.postid);
+  }, function() {
+    // post does not exist on this branch
+    $state.go('weco.notfound');
+  }).then(function(post) {
     $timeout(function () {
       $scope.post = post;
       $scope.markdownRaw = post.text;

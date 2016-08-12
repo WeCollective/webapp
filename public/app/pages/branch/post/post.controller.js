@@ -18,7 +18,13 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     return false;
   }
 
-  Post.get($state.params.postid).then(function(post) {
+  // ensure the post exists on the specified branch
+  Post.getPostOnBranch($state.params.postid, $scope.branchid).then(function() {
+    return Post.get($state.params.postid);
+  }, function() {
+    // post does not exist on this branch
+    $state.go('weco.notfound');
+  }).then(function(post) {
     $timeout(function () {
       $scope.post = post;
       $scope.markdownRaw = post.text;
