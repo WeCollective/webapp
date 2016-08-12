@@ -2,8 +2,8 @@
   <li ng-show="branchid == 'root'"><span class="danger" ng-click="openDeleteBranchModal()">Delete a Root Branch</span></li>
   <li><span ng-click="openAddModModal()">Add a Moderator</span></li>
   <li><span ng-click="openRemoveModModal()">Remove a Moderator</span></li>
-  <li><span ng-click="openSubmitSubbranchRequestModal()">Submit SubBranch Request</span></li>
-  <li><span ng-click="openReviewSubbranchRequestsModal()">Review SubBranch Requests</span></li>
+  <li><span ng-click="openSubmitSubbranchRequestModal()">Submit Child Branch Request</span></li>
+  <li><span ng-click="openReviewSubbranchRequestsModal()">Review Child Branch Requests</span></li>
   <li><span ng-click="toggleIsModLogOpen()">{{ isModLogOpen ? 'Hide the Moderator Action Log' : 'Show the Moderator Action Log' }}</span></li>
 </ul>
 <ul id="nucleus-modtools-log" ng-show="isModLogOpen">

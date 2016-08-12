@@ -44,7 +44,7 @@ function getTemplate(entry) {
       return templateStr +
         '<div class="entry">' +
           '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a>' +
-          ' made a SubBranch Request to ' +
+          ' made a Child Branch Request to ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data })">{{ entry.data }}</a>.' +
         '</div>';
     case 'answer-subbranch-request':
@@ -52,7 +52,7 @@ function getTemplate(entry) {
       return templateStr +
         '<div class="entry">' +
           '<a ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a> ' +
-           data.response + 'ed a SubBranch Request to ' +
+           data.response + 'ed a Child Branch Request to ' +
           '<a ui-sref="weco.branch.nucleus.about({ branchid: \'' + data.parentid + '\' })">' + data.parentid + '</a>' +
           ' made by ' +
           '<a ui-sref="weco.profile.about({ username: \'' + data.childmod + '\' })">' + data.childmod + '</a>' +
