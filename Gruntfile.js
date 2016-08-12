@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       options: {
         // don't mangle names of important vars which can't be explicitly injected
         mangle: {
-          except: ['angular', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$injector', '$location']
+          except: ['angular', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$injector', '$location', '$sceDelegateProvider']
         }
       },
       dist: {

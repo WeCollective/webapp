@@ -8,6 +8,13 @@ app.config(['markedProvider', function (markedProvider) {
     sanitize: true
   });
 }]);
+// configure angular's sanitizer to whitelist youtube URLs to allow embedding
+app.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    '*://www.youtube.com/**'
+  ]);
+});
 // configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
