@@ -115,98 +115,101 @@ div#branch-post {
     overflow-y: scroll;
 
     div#comment-thread {
-      position: relative;
       width: 100%;
       height: 100%;
       box-sizing: border-box;
       border-top: 1px solid @light-grey;
 
       div.comment {
+        position: relative;
         width: 100%;
         padding: 10px 0;
 
-        div.votes {
-          position: relative;
-          float: left;
-          width: 50px;
-          text-align: center;
-          margin-left: 5px;
+        div[loading] {
+          min-height: 50px;
+          
+          div.votes {
+            position: relative;
+            float: left;
+            width: 50px;
+            text-align: center;
+            margin-left: 5px;
 
-          img {
-            display: block;
-            position: absolute;
-            width: 26px;
-            height: auto;
-            left: 12px;
-            opacity: 0.3;
+            img {
+              display: block;
+              position: absolute;
+              width: 26px;
+              height: auto;
+              left: 12px;
+              opacity: 0.3;
 
-            &:first-child {
-              top: 0;
-            }
-
-            &:last-child {
-              bottom: 0;
-            }
-
-            &:hover {
-              cursor: pointer;
-              opacity: 0.7;
-            }
-          }
-
-          p {
-            margin: 0;
-            font-size: 14px;
-            padding: 30px 0;
-          }
-        }
-
-        div.data {
-          display: inline-block;
-          height: 100%;
-          width: calc(~"100% - 55px");
-
-          span.comment-title {
-            font-size: 14px;
-            font-weight: 300;
-
-            a {
-              color: @button-focus;
-              font-weight: 600;
-
-              &:hover {
-                text-decoration: underline;
+              &:first-child {
+                top: 0;
               }
-            }
-          }
 
-          p.comment-text {
-            margin: 0;
-            font-size: 14px;
-          }
-
-          ul.comment-controls {
-            margin: 10px 0;
-            li {
-              display: inline-block;
-              font-size: 12px;
-              color: @dark-grey;
-
-              padding-right: 10px;
-              &:not(:last-of-type) {
-                border-right: solid 1px @dark-grey;
-              }
-              &:not(:first-of-type) {
-                padding: 0 10px;
+              &:last-child {
+                bottom: 0;
               }
 
               &:hover {
                 cursor: pointer;
-                color: @button-focus;
+                opacity: 0.7;
               }
+            }
+
+            p {
+              margin: 0;
+              font-size: 14px;
+              padding: 30px 0;
             }
           }
 
+          div.data {
+            display: inline-block;
+            height: 100%;
+            width: calc(~"100% - 55px");
+
+            span.comment-title {
+              font-size: 14px;
+              font-weight: 300;
+
+              a {
+                color: @button-focus;
+                font-weight: 600;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+
+            p.comment-text {
+              margin: 0;
+              font-size: 14px;
+            }
+
+            ul.comment-controls {
+              margin: 10px 0;
+              li {
+                display: inline-block;
+                font-size: 12px;
+                color: @dark-grey;
+
+                padding-right: 10px;
+                &:not(:last-of-type) {
+                  border-right: solid 1px @dark-grey;
+                }
+                &:not(:first-of-type) {
+                  padding: 0 10px;
+                }
+
+                &:hover {
+                  cursor: pointer;
+                  color: @button-focus;
+                }
+              }
+            }
+          }
         }
       }
     }

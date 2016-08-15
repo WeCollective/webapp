@@ -18,5 +18,19 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  Comment.get = function(postid, commentid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid, commentid: commentid }, function(comment) {
+        if(!comment || !comment.data) { return reject(); }
+        resolve(comment.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Comment;
 }]);

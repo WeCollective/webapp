@@ -1,14 +1,17 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$state', '$timeout', 'Post', function($scope, $state, $timeout, Post) {
-  $scope.isLoading = true;
+app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comment', function($scope, $state, $timeout, Post, Comment) {
+  $scope.isLoadingPost = true;
+  $scope.isLoadingComments = true;
   $scope.post = {};
+  $scope.comments = [];
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
-  $scope.onPost = function () {
-    console.log("POST");
+  // when a new comment is posted, reload the comments
+  $scope.onPost = function() {
+    getComments();
   };
 
   function isYouTubeUrl(url) {
@@ -32,7 +35,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     $timeout(function () {
       $scope.post = post;
       $scope.markdownRaw = post.text;
-      $scope.isLoading = false;
+      $scope.isLoadingPost = false;
 
       // get the video embed url if this is a video post
       if($scope.post.type == 'video' && isYouTubeUrl($scope.post.text)) {
@@ -49,6 +52,47 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     if(response.status == 404) {
       $state.go('weco.notfound');
     }
-    $scope.isLoading = false;
+    $scope.isLoadingPost = false;
   });
+
+  // Asynchronously load the comments's data one by one
+  function loadCommentData(comments, idx) {
+    var target = comments.shift();
+    if(target) {
+      Comment.get($state.params.postid, $scope.comments[idx].id).then(function(response) {
+        if(response) {
+          $timeout(function() {
+            $scope.comments[idx].data = response;
+            $scope.comments[idx].isLoading = false;
+          });
+        }
+        loadCommentData(comments, idx + 1);
+      }).catch(function () {
+        // Unable to fetch this comment data - continue
+        loadCommentData(comments, idx + 1);
+      });
+    }
+  }
+
+  function getComments() {
+    // fetch the posts for this branch and timefilter
+    Post.getRootComments($state.params.postid).then(function(comments) {
+      $timeout(function() {
+        $scope.comments = comments;
+        $scope.isLoadingComments = false;
+        // set all comments to loading until their content is retrieved
+        for(var i = 0; i < $scope.comments.length; i++) {
+          $scope.comments[i].isLoading = true;
+        }
+        // slice() provides a clone of the comments array
+        loadCommentData($scope.comments.slice(), 0);
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get comments!");
+      $scope.isLoadingComments = false;
+    });
+  }
+
+  getComments();
 }]);

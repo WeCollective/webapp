@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, $http, $state, ENV) {
+app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, CommentAPI, $http, $state, ENV) {
   var Post = {};
 
   // fetch the presigned url for the specified picture for the specified post
@@ -83,6 +83,21 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', func
       BranchPostsAPI.get({ postid: postid, branchid: branchid }, function(post) {
         if(!post || !post.data) { return reject(); }
         resolve(post.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // get the root comments on a post
+  Post.getRootComments = function(postid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid }, function(comments) {
+        if(!comments || !comments.data) { return reject(); }
+        resolve(comments.data);
       }, function(response) {
         reject({
           status: response.status,

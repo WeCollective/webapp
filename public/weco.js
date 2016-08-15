@@ -1251,8 +1251,9 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
 
 var api = angular.module('api');
 api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
-  return $resource(ENV.apiEndpoint + 'post/:postid/comments', {
-    postid: '@postid'
+  return $resource(ENV.apiEndpoint + 'post/:postid/comments/:commentid', {
+    postid: '@postid',
+    commentid: ''
   }, {});
 }]);
 
@@ -1633,6 +1634,20 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  Comment.get = function(postid, commentid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid, commentid: commentid }, function(comment) {
+        if(!comment || !comment.data) { return reject(); }
+        resolve(comment.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Comment;
 }]);
 
@@ -1698,7 +1713,7 @@ app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, $http, $state, ENV) {
+app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state', 'ENV', function(PostAPI, BranchPostsAPI, CommentAPI, $http, $state, ENV) {
   var Post = {};
 
   // fetch the presigned url for the specified picture for the specified post
@@ -1780,6 +1795,21 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', '$http', '$state', 'ENV', func
       BranchPostsAPI.get({ postid: postid, branchid: branchid }, function(post) {
         if(!post || !post.data) { return reject(); }
         resolve(post.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // get the root comments on a post
+  Post.getRootComments = function(postid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid }, function(comments) {
+        if(!comments || !comments.data) { return reject(); }
+        resolve(comments.data);
       }, function(response) {
         reject({
           status: response.status,
@@ -2437,14 +2467,16 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$state', '$timeout', 'Post', function($scope, $state, $timeout, Post) {
-  $scope.isLoading = true;
+app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comment', function($scope, $state, $timeout, Post, Comment) {
+  $scope.isLoadingPost = true;
+  $scope.isLoadingComments = true;
   $scope.post = {};
+  $scope.comments = [];
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
   $scope.onPost = function () {
-    console.log("POST");
+    getComments();
   };
 
   function isYouTubeUrl(url) {
@@ -2468,7 +2500,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     $timeout(function () {
       $scope.post = post;
       $scope.markdownRaw = post.text;
-      $scope.isLoading = false;
+      $scope.isLoadingPost = false;
 
       // get the video embed url if this is a video post
       if($scope.post.type == 'video' && isYouTubeUrl($scope.post.text)) {
@@ -2485,8 +2517,49 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
     if(response.status == 404) {
       $state.go('weco.notfound');
     }
-    $scope.isLoading = false;
+    $scope.isLoadingPost = false;
   });
+
+  // Asynchronously load the comments's data one by one
+  function loadCommentData(comments, idx) {
+    var target = comments.shift();
+    if(target) {
+      Comment.get($state.params.postid, $scope.comments[idx].id).then(function(response) {
+        if(response) {
+          $timeout(function() {
+            $scope.comments[idx].data = response;
+            $scope.comments[idx].isLoading = false;
+          });
+        }
+        loadCommentData(comments, idx + 1);
+      }).catch(function () {
+        // Unable to fetch this comment data - continue
+        loadCommentData(comments, idx + 1);
+      });
+    }
+  }
+
+  function getComments() {
+    // fetch the posts for this branch and timefilter
+    Post.getRootComments($state.params.postid).then(function(comments) {
+      $timeout(function() {
+        $scope.comments = comments;
+        $scope.isLoadingComments = false;
+        // set all comments to loading until their content is retrieved
+        for(var i = 0; i < $scope.comments.length; i++) {
+          $scope.comments[i].isLoading = true;
+        }
+        // slice() provides a clone of the comments array
+        loadCommentData($scope.comments.slice(), 0);
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get posts!");
+      $scope.isLoadingComments = false;
+    });
+  }
+
+  getComments();
 }]);
 
 'use strict';
