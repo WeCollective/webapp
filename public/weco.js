@@ -1137,6 +1137,55 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
   };
 }]);
 
+var app = angular.module('wecoApp');
+app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', function($scope, $timeout, Comment) {
+  $scope.isLoading = false;
+  $scope.comment = {
+    text: ''
+  };
+
+  $scope.postComment = function() {
+    $timeout(function() {
+      $scope.isLoading = true;
+    });
+
+    $scope.comment.postid = $scope.postid();
+    $scope.comment.parentid = $scope.parentid();
+
+    Comment.create($scope.comment).then(function(id) {
+      $timeout(function() {
+        $scope.isLoading = false;
+        $scope.comment = {
+          text: ''
+        };
+        $scope.onPost(id);
+      });
+    }, function(err) {
+      // TODO pretty err
+      console.log(err);
+
+      $timeout(function() {
+        $scope.isLoading = false;
+      });
+    });
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.directive('writeComment', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      parentid: '&',
+      postid: '&',
+      onPost: '='
+    },
+    templateUrl: '/app/components/write-comment/write-comment.view.html',
+    controller: 'writeCommentController'
+  };
+});
+
 "use strict";
 
  angular.module('config', [])
@@ -1198,6 +1247,13 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
         transformRequest: makeFormEncoded
       }
     });
+}]);
+
+var api = angular.module('api');
+api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'post/:postid/comments', {
+    postid: '@postid'
+  }, {});
 }]);
 
 var api = angular.module('api');
@@ -1555,6 +1611,29 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   };
 
   return Branch;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(CommentAPI, $http, $state, ENV) {
+  var Comment = {};
+
+  Comment.create = function(data) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.save(data, function(response) {
+        // pass on the returned commentid
+        resolve(response.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  return Comment;
 }]);
 
 'use strict';
@@ -2363,6 +2442,10 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
   $scope.post = {};
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
+
+  $scope.onPost = function () {
+    console.log("POST");
+  };
 
   function isYouTubeUrl(url) {
     if(url && url !== '') {

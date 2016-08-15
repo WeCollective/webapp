@@ -7,6 +7,10 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', functi
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
+  $scope.onPost = function () {
+    console.log("POST");
+  };
+
   function isYouTubeUrl(url) {
     if(url && url !== '') {
       var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
