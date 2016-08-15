@@ -113,3 +113,38 @@ div.frame {
     }
   }
 }
+
+div.button {
+  display: inline-block;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &.ok {
+    background-color: @button;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: @button-focus;
+      box-shadow: @shadow2;
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  &.cancel {
+    background-color: @dark-grey;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: @primary-light;
+      transition: all 0.3s ease-out;
+    }
+  }
+}
