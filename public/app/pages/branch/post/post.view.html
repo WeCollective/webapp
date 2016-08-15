@@ -26,7 +26,11 @@
     <div style="background-image: url('{{ post.text }}'), url('/assets/images/invalid-image-url.png')"></div>
   </div>
   <div id="video-post" class="post-content" ng-show="post.type == 'video' && videoEmbedURL !== ''">
-    <iframe width="854" height="480" ng-src="{{ videoEmbedURL }}" frameborder="0" allowfullscreen></iframe>
+    <div id="video-wrapper">
+      <iframe width="854" height="480" ng-src="{{ videoEmbedURL }}" frameborder="0" allowfullscreen></iframe>
+    </div>
   </div>
   <div class="post-content" marked="markdownRaw" ng-show="post.type == 'text'"></div>
+
+  <div id="post-comments">COMMENTS</div>
 </div>
