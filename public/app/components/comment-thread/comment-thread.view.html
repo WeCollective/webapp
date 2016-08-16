@@ -6,7 +6,7 @@
       <img src="/assets/images/icons/black/arrow-down.png">
     </div>
     <div class="data">
-      <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | 4 days ago</span>
+      <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ timeSince(comment.date) }}</span>
       <p class="comment-text">{{ comment.data.text }}</p>
       <ul class="comment-controls">
         <li>REPLY</li><!--
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="replies">
-    <!-- Another comment thread goes here -->
+    <!-- Comment replies -->
     <comment-thread comments="comment.comments"></comment-thread>
     <span class="load-more" ng-click="$parent.loadMore(comment)">LOAD MORE</span>
   </div>
