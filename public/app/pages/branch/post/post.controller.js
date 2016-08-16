@@ -10,7 +10,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   $scope.videoEmbedURL = '';
 
   // when a new comment is posted, reload the comments
-  $scope.onPost = function() {
+  $scope.onSubmitComment = function() {
     getComments();
   };
 

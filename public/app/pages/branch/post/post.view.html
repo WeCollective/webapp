@@ -31,8 +31,8 @@
     </div>
   </div>
   <div class="post-content" marked="markdownRaw" ng-show="post.type == 'text'"></div>
-  <write-comment postid="post.id" parentid="'none'" on-post="onPost"></write-comment>
   <div id="post-comments">
+    <write-comment postid="post.id" parentid="'none'" on-submit="onSubmitComment"></write-comment>
     <div id="comment-thread" loading when="isLoadingComments">
       <comment-thread comments="comments"></comment-thread>
     </div>

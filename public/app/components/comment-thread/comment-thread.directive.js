@@ -8,6 +8,30 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
     },
     templateUrl: '/app/components/comment-thread/comment-thread.view.html',
     link: function ($scope) {
+      $scope.openComment = undefined; // the comment which is being replied to
+      $scope.openReply = function(comment) {
+        $timeout(function () {
+          if($scope.openComment) {
+            $scope.openComment.openReply = false;
+          }
+          $scope.openComment = comment;
+          $scope.openComment.openReply = true;
+        });
+      };
+      $scope.closeReply = function() {
+        $timeout(function() {
+          $scope.openComment.openReply = false;
+          $scope.openComment = undefined;
+        });
+      };
+      $scope.onCancelComment = function() {
+        $scope.closeReply();
+      };
+      $scope.onSubmitComment = function() {
+        $scope.loadMore($scope.openComment);
+        $scope.closeReply();
+      };
+
       // compute a string indicate time since post
       $scope.timeSince = function(date) {
         var msPerMinute = 60 * 1000;

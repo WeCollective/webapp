@@ -19,7 +19,7 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
         $scope.comment = {
           text: ''
         };
-        $scope.onPost(id);
+        $scope.onSubmit(id);
       });
     }, function(err) {
       // TODO pretty err
@@ -28,6 +28,16 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
       $timeout(function() {
         $scope.isLoading = false;
       });
+    });
+  };
+
+  $scope.cancelComment = function() {
+    $timeout(function() {
+      $scope.isLoading = false;
+      $scope.comment = {
+        text: ''
+      };
+      $scope.onCancel();
     });
   };
 }]);
