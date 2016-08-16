@@ -34,25 +34,7 @@
   <write-comment postid="post.id" parentid="'none'" on-post="onPost"></write-comment>
   <div id="post-comments">
     <div id="comment-thread" loading when="isLoadingComments">
-      <div class="comment clearfix" ng-repeat="comment in comments">
-        <div loading when="comment.isLoading">
-          <div class="votes">
-            <img src="/assets/images/icons/black/arrow-up.png">
-            <p>{{ comment.individual }}</p>
-            <img src="/assets/images/icons/black/arrow-down.png">
-          </div>
-          <div class="data">
-            <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | 4 days ago</span>
-            <p class="comment-text">{{ comment.data.text }}</p>
-            <ul class="comment-controls">
-              <li>REPLY</li><!--
-              --><li>SAVE</li><!--
-              --><li>PERMALINK</li><!--
-              --><li>FLAG</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <comment-thread comments="comments"></comment-thread>
     </div>
   </div>
 </div>

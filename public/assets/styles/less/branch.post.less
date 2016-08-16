@@ -125,22 +125,21 @@ div#branch-post {
         width: 100%;
         padding: 10px 0;
 
-        div[loading] {
-          min-height: 50px;
-          
+        //div[loading] {
+          //min-height: 50px;
+
           div.votes {
             position: relative;
             float: left;
-            width: 50px;
+            width: 30px;
             text-align: center;
-            margin-left: 5px;
 
             img {
               display: block;
               position: absolute;
-              width: 26px;
+              width: 16px;
               height: auto;
-              left: 12px;
+              left: 6px;
               opacity: 0.3;
 
               &:first-child {
@@ -160,7 +159,7 @@ div#branch-post {
             p {
               margin: 0;
               font-size: 14px;
-              padding: 30px 0;
+              padding: 20px 0;
             }
           }
 
@@ -210,7 +209,27 @@ div#branch-post {
               }
             }
           }
-        }
+
+          div.replies {
+            box-sizing: border-box;
+            border-left: 1px solid @light-grey;
+            margin-left: 14px;
+            padding-left: 15px;
+
+            span.load-more {
+              display: inline-block;
+              font-size: 10px;
+              font-weight: 600;
+              color: @button-focus;
+              vertical-align: bottom;
+
+              &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+            }
+          }
+        //}
       }
     }
   }

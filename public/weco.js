@@ -138,6 +138,28 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 var app = angular.module('wecoApp');
+app.directive('commentThread', function() {
+  return {
+    restrict: 'E',
+    replace: false,
+    scope: {
+      comments: '='
+    },
+    templateUrl: '/app/components/comment-thread/comment-thread.view.html',
+    link: function ($scope) {
+      $scope.loadMore = function(comment) {
+        
+      };
+    }
+  };
+});
+
+var app = angular.module('wecoApp');
+app.controller('repliesController', ['$scope', '$timeout', 'Comment', function($scope, $timeout, Comment) {
+  console.log("HI");
+}]);
+
+var app = angular.module('wecoApp');
 app.directive('dropdown', ['$timeout', function($timeout) {
   return {
     restrict: 'E',
@@ -2475,7 +2497,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
-  $scope.onPost = function () {
+  // when a new comment is posted, reload the comments
+  $scope.onPost = function() {
     getComments();
   };
 
@@ -2554,7 +2577,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
       });
     }, function() {
       // TODO: pretty error
-      console.error("Unable to get posts!");
+      console.error("Unable to get comments!");
       $scope.isLoadingComments = false;
     });
   }
