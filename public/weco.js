@@ -156,6 +156,7 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
             if(response) {
               $timeout(function() {
                 scope.comments[idx].data = response;
+                scope.comments[idx].isLoading = false;
               });
             }
             loadCommentData(scope, comments, idx + 1);
@@ -171,6 +172,10 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
         Comment.getMany(comment.postid, comment.id).then(function(comments) {
           $timeout(function() {
             comment.comments = comments;
+            // set all comments to loading until their content is retrieved
+            for(var i = 0; i < comment.comments.length; i++) {
+              comment.comments[i].isLoading = true;
+            }
             // slice() provides a clone of the comments array
             loadCommentData(comment, comments.slice(), 0);
           });
