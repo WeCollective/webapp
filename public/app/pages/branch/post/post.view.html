@@ -33,6 +33,7 @@
   <div class="post-content" marked="markdownRaw" ng-show="post.type == 'text'"></div>
   <div id="post-comments">
     <write-comment postid="post.id" parentid="'none'" on-submit="onSubmitComment"></write-comment>
+    <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
     <div id="comment-thread" loading when="isLoadingComments">
       <comment-thread comments="comments"></comment-thread>
     </div>
