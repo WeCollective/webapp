@@ -18,6 +18,21 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  // get the root comments on a post
+  Comment.getMany = function(postid, parentid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid, parentid: parentid }, function(comments) {
+        if(!comments || !comments.data) { return reject(); }
+        resolve(comments.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   Comment.get = function(postid, commentid) {
     return new Promise(function(resolve, reject) {
       CommentAPI.get({ postid: postid, commentid: commentid }, function(comment) {

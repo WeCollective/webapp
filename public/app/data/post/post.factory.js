@@ -92,20 +92,5 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
     });
   };
 
-  // get the root comments on a post
-  Post.getRootComments = function(postid) {
-    return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid }, function(comments) {
-        if(!comments || !comments.data) { return reject(); }
-        resolve(comments.data);
-      }, function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      });
-    });
-  };
-
   return Post;
 }]);

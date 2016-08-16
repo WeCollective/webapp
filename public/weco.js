@@ -138,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 var app = angular.module('wecoApp');
-app.directive('commentThread', function() {
+app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeout) {
   return {
     restrict: 'E',
     replace: false,
@@ -147,12 +147,45 @@ app.directive('commentThread', function() {
     },
     templateUrl: '/app/components/comment-thread/comment-thread.view.html',
     link: function ($scope) {
+      // Asynchronously load the comments's data one by one
+      // The 'scope' is the bound comment object onto which the data should be attached
+      function loadCommentData(scope, comments, idx) {
+        var target = comments.shift();
+        if(target) {
+          Comment.get(scope.postid, scope.comments[idx].id).then(function(response) {
+            if(response) {
+              $timeout(function() {
+                scope.comments[idx].data = response;
+              });
+            }
+            loadCommentData(scope, comments, idx + 1);
+          }).catch(function () {
+            // Unable to fetch this comment data - continue
+            loadCommentData(scope, comments, idx + 1);
+          });
+        }
+      }
+
+      function getReplies(comment) {
+        // fetch the replies to this comment
+        Comment.getMany(comment.postid, comment.id).then(function(comments) {
+          $timeout(function() {
+            comment.comments = comments;
+            // slice() provides a clone of the comments array
+            loadCommentData(comment, comments.slice(), 0);
+          });
+        }, function() {
+          // TODO: pretty error
+          console.error("Unable to get replies!");
+        });
+      }
+
       $scope.loadMore = function(comment) {
-        
+        getReplies(comment);
       };
     }
   };
-});
+}]);
 
 var app = angular.module('wecoApp');
 app.controller('repliesController', ['$scope', '$timeout', 'Comment', function($scope, $timeout, Comment) {
@@ -1656,6 +1689,21 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  // get the root comments on a post
+  Comment.getMany = function(postid, parentid) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.get({ postid: postid, parentid: parentid }, function(comments) {
+        if(!comments || !comments.data) { return reject(); }
+        resolve(comments.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   Comment.get = function(postid, commentid) {
     return new Promise(function(resolve, reject) {
       CommentAPI.get({ postid: postid, commentid: commentid }, function(comment) {
@@ -1817,21 +1865,6 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
       BranchPostsAPI.get({ postid: postid, branchid: branchid }, function(post) {
         if(!post || !post.data) { return reject(); }
         resolve(post.data);
-      }, function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      });
-    });
-  };
-
-  // get the root comments on a post
-  Post.getRootComments = function(postid) {
-    return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid }, function(comments) {
-        if(!comments || !comments.data) { return reject(); }
-        resolve(comments.data);
       }, function(response) {
         reject({
           status: response.status,
@@ -2563,8 +2596,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   }
 
   function getComments() {
-    // fetch the posts for this branch and timefilter
-    Post.getRootComments($state.params.postid).then(function(comments) {
+    // fetch the comments for this post
+    Comment.getMany($state.params.postid).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;

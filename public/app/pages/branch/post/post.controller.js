@@ -75,8 +75,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   }
 
   function getComments() {
-    // fetch the posts for this branch and timefilter
-    Post.getRootComments($state.params.postid).then(function(comments) {
+    // fetch the comments for this post
+    Comment.getMany($state.params.postid).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;
