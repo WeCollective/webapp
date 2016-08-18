@@ -47,5 +47,25 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  Comment.vote = function(postid, commentid, vote) {
+    return new Promise(function(resolve, reject) {
+      if(vote != 'up' && vote != 'down') { return reject(); }
+
+      CommentAPI.vote({
+          postid: postid,
+          commentid: commentid
+        },{
+          vote: vote
+        }, function() {
+          resolve();
+        }, function(response) {
+          reject({
+            status: response.status,
+            message: response.data.message
+          });
+        });
+    });
+  };
+
   return Comment;
 }]);

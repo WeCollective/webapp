@@ -241,6 +241,18 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
       $scope.loadMore = function(comment) {
         getReplies(comment);
       };
+
+      $scope.vote = function(comment, direction) {
+        Comment.vote(comment.postid, comment.id, direction).then(function() {
+          var inc = (direction == 'up') ? 1 : -1;
+          $timeout(function() {
+            comment.individual += inc;
+          });
+        }, function(err) {
+          // TODO: pretty error
+          console.error("Unable to vote on comment!");
+        });
+      };
     }
   };
 }]);
@@ -1370,10 +1382,28 @@ api.factory('BranchAPI', ['$resource', 'ENV', function($resource, ENV) {
 
 var api = angular.module('api');
 api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+  
   return $resource(ENV.apiEndpoint + 'post/:postid/comments/:commentid', {
     postid: '@postid',
     commentid: ''
-  }, {});
+  }, {
+    vote: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
 }]);
 
 var api = angular.module('api');
@@ -1779,6 +1809,26 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
           message: response.data.message
         });
       });
+    });
+  };
+
+  Comment.vote = function(postid, commentid, vote) {
+    return new Promise(function(resolve, reject) {
+      if(vote != 'up' && vote != 'down') { return reject(); }
+
+      CommentAPI.vote({
+          postid: postid,
+          commentid: commentid
+        },{
+          vote: vote
+        }, function() {
+          resolve();
+        }, function(response) {
+          reject({
+            status: response.status,
+            message: response.data.message
+          });
+        });
     });
   };
 

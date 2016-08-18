@@ -1,9 +1,9 @@
 <div class="comment clearfix" ng-repeat="comment in comments">
   <div loading when="comment.isLoading">
     <div class="votes">
-      <img src="/assets/images/icons/black/arrow-up.png">
+      <img src="/assets/images/icons/black/arrow-up.png" ng-click="vote(comment, 'up')">
       <p>{{ comment.individual }}</p>
-      <img src="/assets/images/icons/black/arrow-down.png">
+      <img src="/assets/images/icons/black/arrow-down.png" ng-click="vote(comment, 'down')">
     </div>
     <div class="data">
       <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ timeSince(comment.date) }}</span>

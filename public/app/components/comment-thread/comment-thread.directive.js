@@ -102,6 +102,18 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
       $scope.loadMore = function(comment) {
         getReplies(comment);
       };
+
+      $scope.vote = function(comment, direction) {
+        Comment.vote(comment.postid, comment.id, direction).then(function() {
+          var inc = (direction == 'up') ? 1 : -1;
+          $timeout(function() {
+            comment.individual += inc;
+          });
+        }, function(err) {
+          // TODO: pretty error
+          console.error("Unable to vote on comment!");
+        });
+      };
     }
   };
 }]);
