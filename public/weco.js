@@ -1188,6 +1188,19 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
 }]);
 
 var app = angular.module('wecoApp');
+app.directive("scrollToTopWhen", ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+  return {
+    link: function($scope, element, attrs) {
+      $rootScope.$on(attrs.scrollToTopWhen, function() {
+        $timeout(function () {
+          angular.element(element)[0].scrollTop = 0;
+        });
+      });
+    }
+  };
+}]);
+
+var app = angular.module('wecoApp');
 app.directive('tabs', ['$state', function($state) {
   return {
     restrict: 'E',
@@ -2317,7 +2330,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $state, $timeout, Branch, Mod, User, Modal) {
+app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal) {
   $scope.branchid = $state.params.branchid;
   $scope.isLoading = true;
 
@@ -2463,6 +2476,11 @@ app.controller('branchController', ['$scope', '$state', '$timeout', 'Branch', 'M
         if($scope.branchid != 'root') {
           createPost();
         }
+        break;
+      case 'weco.branch.post':
+        // broadcast add comment clicked so that the comment section is scrolled
+        // to the top, where the comment box is visible
+        $rootScope.$broadcast('add-comment');
         break;
       default:
         console.error("Unable to add content in state " + $state.current.name);
