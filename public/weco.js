@@ -212,6 +212,9 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
                 scope.comments[idx].isLoading = false;
               });
             }
+            // attach the number of replies to comment object
+            getReplies(scope.comments[idx], true);
+            // continue
             loadCommentData(scope, comments, idx + 1);
           }).catch(function () {
             // Unable to fetch this comment data - continue
@@ -220,18 +223,24 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
         }
       }
 
-      function getReplies(comment) {
-        // fetch the replies to this comment
-        Comment.getMany(comment.postid, comment.id).then(function(comments) {
-          $timeout(function() {
-            comment.comments = comments;
-            // set all comments to loading until their content is retrieved
-            for(var i = 0; i < comment.comments.length; i++) {
-              comment.comments[i].isLoading = true;
-            }
-            // slice() provides a clone of the comments array
-            loadCommentData(comment, comments.slice(), 0);
-          });
+      function getReplies(comment, countOnly) {
+        // fetch the replies to this comment, or just the number of replies
+        Comment.getMany(comment.postid, comment.id, countOnly).then(function(response) {
+          if(countOnly) {
+            $timeout(function() {
+              comment.count = response;
+            });
+          } else {
+            $timeout(function() {
+              comment.comments = response;
+              // set all comments to loading until their content is retrieved
+              for(var i = 0; i < comment.comments.length; i++) {
+                comment.comments[i].isLoading = true;
+              }
+              // slice() provides a clone of the comments array
+              loadCommentData(comment, response.slice(), 0);
+            });
+          }
         }, function() {
           // TODO: pretty error
           console.error("Unable to get replies!");
@@ -1783,10 +1792,11 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
-  // get the root comments on a post
-  Comment.getMany = function(postid, parentid) {
+  // get the comments on a post or replies to another comment
+  // if countOnly, will only return the _number_ of comments
+  Comment.getMany = function(postid, parentid, countOnly) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid }, function(comments) {
+      CommentAPI.get({ postid: postid, parentid: parentid, count: countOnly }, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {
@@ -2690,6 +2700,18 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
     $scope.isLoadingPost = false;
   });
 
+  function getReplyCount(comment) {
+    // fetch just the number of replies to the comment
+    Comment.getMany(comment.postid, comment.id, true).then(function(response) {
+      $timeout(function() {
+        comment.count = response;
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get reply count!");
+    });
+  }
+
   // Asynchronously load the comments's data one by one
   function loadCommentData(comments, idx) {
     var target = comments.shift();
@@ -2701,6 +2723,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
             $scope.comments[idx].isLoading = false;
           });
         }
+        getReplyCount($scope.comments[idx]);
         loadCommentData(comments, idx + 1);
       }).catch(function () {
         // Unable to fetch this comment data - continue

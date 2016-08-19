@@ -55,6 +55,18 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
     $scope.isLoadingPost = false;
   });
 
+  function getReplyCount(comment) {
+    // fetch just the number of replies to the comment
+    Comment.getMany(comment.postid, comment.id, true).then(function(response) {
+      $timeout(function() {
+        comment.count = response;
+      });
+    }, function() {
+      // TODO: pretty error
+      console.error("Unable to get reply count!");
+    });
+  }
+
   // Asynchronously load the comments's data one by one
   function loadCommentData(comments, idx) {
     var target = comments.shift();
@@ -66,6 +78,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
             $scope.comments[idx].isLoading = false;
           });
         }
+        getReplyCount($scope.comments[idx]);
         loadCommentData(comments, idx + 1);
       }).catch(function () {
         // Unable to fetch this comment data - continue
