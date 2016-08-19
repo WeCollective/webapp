@@ -7,12 +7,21 @@ api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
       str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return str.join("&");
   }
-  
+
   return $resource(ENV.apiEndpoint + 'post/:postid/comments/:commentid', {
     postid: '@postid',
     commentid: ''
   }, {
     vote: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    },
+    update: {
       method: 'PUT',
       // indicate that the data is x-www-form-urlencoded
       headers: {

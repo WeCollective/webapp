@@ -7,7 +7,9 @@ app.directive('writeComment', function() {
       parentid: '&',
       postid: '&',
       onSubmit: '=',
-      onCancel: '='
+      onCancel: '=',
+      update: '=',
+      placeholder: '&'
     },
     templateUrl: '/app/components/write-comment/write-comment.view.html',
     controller: 'writeCommentController'

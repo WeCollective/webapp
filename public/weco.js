@@ -138,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 var app = angular.module('wecoApp');
-app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeout) {
+app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment, User, $timeout) {
   return {
     restrict: 'E',
     replace: false,
@@ -147,14 +147,17 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
     },
     templateUrl: '/app/components/comment-thread/comment-thread.view.html',
     link: function ($scope) {
+      $scope.user = User.me();
+
       $scope.openComment = undefined; // the comment which is being replied to
-      $scope.openReply = function(comment) {
+      $scope.openReply = function(comment, isEdit) {
         $timeout(function () {
           if($scope.openComment) {
             $scope.openComment.openReply = false;
           }
           $scope.openComment = comment;
           $scope.openComment.openReply = true;
+          $scope.openComment.update = isEdit;
         });
       };
       $scope.closeReply = function() {
@@ -167,8 +170,28 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
         $scope.closeReply();
       };
       $scope.onSubmitComment = function() {
-        $scope.loadMore($scope.openComment);
-        $scope.closeReply();
+        if($scope.openComment.update) { // if the comment was edited
+          $timeout(function () {
+            $scope.openComment.isLoading = true;
+          });
+
+          // reload the comment data
+          Comment.get($scope.openComment.postid, $scope.openComment.id).then(function(response) {
+            $timeout(function() {
+              $scope.openComment.data = response;
+              $scope.openComment.isLoading = false;
+              $scope.closeReply();
+            });
+          }, function () {
+            // TODO: pretty error
+            console.error("Unable to reload comment!");
+            $scope.closeReply();
+          });
+        } else {  // if the comment was replied to
+          // load the replies
+          $scope.loadMore($scope.openComment);
+          $scope.closeReply();
+        }
       };
 
       // compute a string indicate time since post
@@ -261,6 +284,13 @@ app.directive('commentThread', ['Comment', '$timeout', function(Comment, $timeou
           // TODO: pretty error
           console.error("Unable to vote on comment!");
         });
+      };
+
+      $scope.isOwnComment = function(comment) {
+        if(!User.me() || !comment.data) {
+          return false;
+        }
+        return User.me().username == comment.data.creator;
       };
     }
   };
@@ -1281,22 +1311,45 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
     $scope.comment.postid = $scope.postid();
     $scope.comment.parentid = $scope.parentid();
 
-    Comment.create($scope.comment).then(function(id) {
-      $timeout(function() {
-        $scope.isLoading = false;
-        $scope.comment = {
-          text: ''
-        };
-        $scope.onSubmit(id);
-      });
-    }, function(err) {
-      // TODO pretty err
-      console.log(err);
+    // update an existing comment
+    if($scope.update) {
+      // NB: if we are editing the existing comment, the supplied "parentid" is
+      // actually the id of the comment to be edited
+      Comment.update($scope.comment.postid, $scope.comment.parentid, $scope.comment.text).then(function() {
+        $timeout(function() {
+          $scope.isLoading = false;
+          $scope.comment = {
+            text: ''
+          };
+          $scope.onSubmit($scope.comment.id);
+        });
+      }, function(err) {
+        // TODO pretty err
+        console.log(err);
 
-      $timeout(function() {
-        $scope.isLoading = false;
+        $timeout(function() {
+          $scope.isLoading = false;
+        });
       });
-    });
+    } else {
+      // create a new comment
+      Comment.create($scope.comment).then(function(id) {
+        $timeout(function() {
+          $scope.isLoading = false;
+          $scope.comment = {
+            text: ''
+          };
+          $scope.onSubmit(id);
+        });
+      }, function(err) {
+        // TODO pretty err
+        console.log(err);
+
+        $timeout(function() {
+          $scope.isLoading = false;
+        });
+      });
+    }
   };
 
   $scope.cancelComment = function() {
@@ -1319,7 +1372,9 @@ app.directive('writeComment', function() {
       parentid: '&',
       postid: '&',
       onSubmit: '=',
-      onCancel: '='
+      onCancel: '=',
+      update: '=',
+      placeholder: '&'
     },
     templateUrl: '/app/components/write-comment/write-comment.view.html',
     controller: 'writeCommentController'
@@ -1398,12 +1453,21 @@ api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
       str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     return str.join("&");
   }
-  
+
   return $resource(ENV.apiEndpoint + 'post/:postid/comments/:commentid', {
     postid: '@postid',
     commentid: ''
   }, {
     vote: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    },
+    update: {
       method: 'PUT',
       // indicate that the data is x-www-form-urlencoded
       headers: {
@@ -1839,6 +1903,24 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
             message: response.data.message
           });
         });
+    });
+  };
+
+  Comment.update = function(postid, commentid, text) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.update({
+        postid: postid,
+        commentid: commentid
+      }, {
+        text: text
+      }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
     });
   };
 

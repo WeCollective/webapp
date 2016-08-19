@@ -68,5 +68,23 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
     });
   };
 
+  Comment.update = function(postid, commentid, text) {
+    return new Promise(function(resolve, reject) {
+      CommentAPI.update({
+        postid: postid,
+        commentid: commentid
+      }, {
+        text: text
+      }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Comment;
 }]);
