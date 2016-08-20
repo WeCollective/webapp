@@ -2927,6 +2927,8 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       var inc = (direction == 'up') ? 1 : -1;
       $timeout(function() {
         post.individual += inc;
+        post.local += inc;
+        post.global += inc;
       });
     }, function(err) {
       // TODO: pretty error
