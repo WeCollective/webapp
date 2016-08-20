@@ -4,7 +4,7 @@ var app = angular.module('wecoApp');
 app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
   $scope.isLoading = false;
   $scope.posts = [];
-  $scope.stat = 'individual';
+  $scope.stat = 'global';
 
   $scope.vote = function(post, direction) {
     Post.vote($scope.branchid, post.id, direction).then(function() {
