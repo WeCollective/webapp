@@ -2,8 +2,8 @@
   <div class="title">
     <span>{{ title() }}</span>
   </div>
-  <div class="container">
-    <div class="item" ng-click="open()">
+  <div class="container" ng-mouseleave="select(selected)">
+    <div class="item" ng-mouseover="open()">
       <span class="selected">{{ items[selected] }}</span>
       <img src="/assets/images/icons/black/expand.png">
     </div>
