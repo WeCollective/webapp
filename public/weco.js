@@ -236,8 +236,6 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
                 scope.comments[idx].isLoading = false;
               });
             }
-            // attach the number of replies to comment object
-            getReplies(scope.comments[idx], true);
             // continue
             loadCommentData(scope, comments, idx + 1);
           }).catch(function () {
@@ -247,24 +245,18 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
         }
       }
 
-      function getReplies(comment, countOnly) {
+      function getReplies(comment) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, countOnly, $scope.sortBy.toLowerCase()).then(function(response) {
-          if(countOnly) {
-            $timeout(function() {
-              comment.count = response;
-            });
-          } else {
-            $timeout(function() {
-              comment.comments = response;
-              // set all comments to loading until their content is retrieved
-              for(var i = 0; i < comment.comments.length; i++) {
-                comment.comments[i].isLoading = true;
-              }
-              // slice() provides a clone of the comments array
-              loadCommentData(comment, response.slice(), 0);
-            });
-          }
+        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase()).then(function(response) {
+          $timeout(function() {
+            comment.comments = response;
+            // set all comments to loading until their content is retrieved
+            for(var i = 0; i < comment.comments.length; i++) {
+              comment.comments[i].isLoading = true;
+            }
+            // slice() provides a clone of the comments array
+            loadCommentData(comment, response.slice(), 0);
+          });
         }, function() {
           // TODO: pretty error
           console.error("Unable to get replies!");
@@ -1897,10 +1889,9 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
   };
 
   // get the comments on a post or replies to another comment
-  // if countOnly, will only return the _number_ of comments
-  Comment.getMany = function(postid, parentid, countOnly, sortBy) {
+  Comment.getMany = function(postid, parentid, sortBy) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid, count: countOnly, sort: sortBy }, function(comments) {
+      CommentAPI.get({ postid: postid, parentid: parentid, sort: sortBy }, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {
@@ -2837,19 +2828,6 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
     $scope.isLoadingPost = false;
   });
 
-  function getReplyCount(comment) {
-    // fetch just the number of replies to the comment
-    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-    Comment.getMany(comment.postid, comment.id, true, sortBy).then(function(response) {
-      $timeout(function() {
-        comment.count = response;
-      });
-    }, function() {
-      // TODO: pretty error
-      console.error("Unable to get reply count!");
-    });
-  }
-
   // Asynchronously load the comments's data one by one
   function loadCommentData(comments, idx) {
     var target = comments.shift();
@@ -2861,7 +2839,6 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
             $scope.comments[idx].isLoading = false;
           });
         }
-        getReplyCount($scope.comments[idx]);
         loadCommentData(comments, idx + 1);
       }).catch(function () {
         // Unable to fetch this comment data - continue
@@ -2873,7 +2850,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   function getComments() {
     // fetch the comments for this post
     var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-    Comment.getMany($state.params.postid, undefined, false, sortBy).then(function(comments) {
+    Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;

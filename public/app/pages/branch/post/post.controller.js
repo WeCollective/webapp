@@ -65,19 +65,6 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
     $scope.isLoadingPost = false;
   });
 
-  function getReplyCount(comment) {
-    // fetch just the number of replies to the comment
-    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-    Comment.getMany(comment.postid, comment.id, true, sortBy).then(function(response) {
-      $timeout(function() {
-        comment.count = response;
-      });
-    }, function() {
-      // TODO: pretty error
-      console.error("Unable to get reply count!");
-    });
-  }
-
   // Asynchronously load the comments's data one by one
   function loadCommentData(comments, idx) {
     var target = comments.shift();
@@ -89,7 +76,6 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
             $scope.comments[idx].isLoading = false;
           });
         }
-        getReplyCount($scope.comments[idx]);
         loadCommentData(comments, idx + 1);
       }).catch(function () {
         // Unable to fetch this comment data - continue
@@ -101,7 +87,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   function getComments() {
     // fetch the comments for this post
     var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-    Comment.getMany($state.params.postid, undefined, false, sortBy).then(function(comments) {
+    Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;

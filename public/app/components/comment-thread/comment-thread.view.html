@@ -23,6 +23,6 @@
   <div class="replies">
     <!-- Comment replies -->
     <comment-thread comments="comment.comments" sort-by="sortBy"></comment-thread>
-    <span ng-show="comment.count > 0 && (!comment.comments || comment.comments.length == 0)" class="load-more" ng-click="$parent.loadMore(comment)">LOAD {{ comment.count }} MORE</span>
+    <span ng-show="comment.replies > 0 && (!comment.comments || comment.comments.length == 0)" class="load-more" ng-click="$parent.loadMore(comment)">LOAD {{ comment.replies }} MORE</span>
   </div>
 </div>

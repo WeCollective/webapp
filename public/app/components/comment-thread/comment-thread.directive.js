@@ -97,8 +97,6 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
                 scope.comments[idx].isLoading = false;
               });
             }
-            // attach the number of replies to comment object
-            getReplies(scope.comments[idx], true);
             // continue
             loadCommentData(scope, comments, idx + 1);
           }).catch(function () {
@@ -108,24 +106,18 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
         }
       }
 
-      function getReplies(comment, countOnly) {
+      function getReplies(comment) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, countOnly, $scope.sortBy.toLowerCase()).then(function(response) {
-          if(countOnly) {
-            $timeout(function() {
-              comment.count = response;
-            });
-          } else {
-            $timeout(function() {
-              comment.comments = response;
-              // set all comments to loading until their content is retrieved
-              for(var i = 0; i < comment.comments.length; i++) {
-                comment.comments[i].isLoading = true;
-              }
-              // slice() provides a clone of the comments array
-              loadCommentData(comment, response.slice(), 0);
-            });
-          }
+        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase()).then(function(response) {
+          $timeout(function() {
+            comment.comments = response;
+            // set all comments to loading until their content is retrieved
+            for(var i = 0; i < comment.comments.length; i++) {
+              comment.comments[i].isLoading = true;
+            }
+            // slice() provides a clone of the comments array
+            loadCommentData(comment, response.slice(), 0);
+          });
         }, function() {
           // TODO: pretty error
           console.error("Unable to get replies!");

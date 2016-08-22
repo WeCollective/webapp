@@ -19,10 +19,9 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
   };
 
   // get the comments on a post or replies to another comment
-  // if countOnly, will only return the _number_ of comments
-  Comment.getMany = function(postid, parentid, countOnly, sortBy) {
+  Comment.getMany = function(postid, parentid, sortBy) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid, count: countOnly, sort: sortBy }, function(comments) {
+      CommentAPI.get({ postid: postid, parentid: parentid, sort: sortBy }, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {
