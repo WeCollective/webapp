@@ -9,8 +9,8 @@
       <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ timeSince(comment.date) }}{{ comment.data.edited ? '*' : '' }}</span>
       <p class="comment-text">{{ comment.data.text }}</p>
       <ul class="comment-controls">
-           <li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)">EDIT</li><!--
-        --><li ng-click="openReply(comment, false)">REPLY</li><!--
+           <li ng-click="openReply(comment, false)">REPLY</li><!--
+        --><li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)">EDIT</li><!--
         --><li>SAVE</li><!--
         --><li ng-click="openCommentPermalink(comment)">PERMALINK</li><!--
         --><li>FLAG</li>
