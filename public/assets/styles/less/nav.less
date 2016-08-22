@@ -30,15 +30,16 @@ nav#nav-bar {
         vertical-align: middle;
       }
 
-      a img {
-        height: 55%;
-        width: auto;
-        vertical-align: middle;
-        padding: 0 10px;
-        opacity: 0.7;
-
-        &:hover {
+      a {
+        &:hover img, &.selected img {
           opacity: 1;
+        }
+        img {
+          height: 55%;
+          width: auto;
+          vertical-align: middle;
+          padding: 0 10px;
+          opacity: 0.7;
         }
       }
     }
@@ -99,15 +100,15 @@ nav#nav-bar {
         }
 
         span {
-          color: #fff;
           vertical-align: middle;
           padding: 3px 10px;
           border-radius: 2px;
           font-size: 14px;
-          font-weight: 300;
+          font-weight: 500;
+          color: @dark-grey;
 
           &:hover {
-            background-color: @primary-light;
+            color: #fff;
           }
         }
 

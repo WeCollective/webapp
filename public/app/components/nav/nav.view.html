@@ -2,9 +2,15 @@
   <div>
     <a ui-sref="weco.home"><img src="/assets/images/nav-logo.png"></a>
     <div id="nav-controls">
-      <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })"><img src="/assets/images/icons/white/nucleus.png"></a>
-      <a ui-sref="weco.branch.subbranches({ branchid: 'root' })"><img src="/assets/images/icons/white/branch.png"></a>
-      <a ui-sref="weco.branch.wall({ branchid: 'root' })"><img src="/assets/images/icons/white/wall.png"></a>
+      <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
+        <img src="/assets/images/icons/white/nucleus.png">
+      </a>
+      <a ui-sref="weco.branch.subbranches({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
+        <img src="/assets/images/icons/white/branch.png">
+      </a>
+      <a ui-sref="weco.branch.wall({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('wall') }">
+        <img src="/assets/images/icons/white/wall.png">
+      </a>
     </div>
     <div id="search-box">
       <div>
