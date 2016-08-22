@@ -22,6 +22,10 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       $scope.isControlSelected = function(control) {
         return $state.current.name.indexOf(control) > -1;
       };
+
+      $scope.onHomePage = function() {
+        return $state.current.name == 'weco.home';
+      };
     }
   };
 }]);

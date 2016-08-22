@@ -1216,6 +1216,10 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       $scope.isControlSelected = function(control) {
         return $state.current.name.indexOf(control) > -1;
       };
+
+      $scope.onHomePage = function() {
+        return $state.current.name == 'weco.home';
+      };
     }
   };
 }]);
@@ -2383,7 +2387,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
         break;
       case 'THIS WEEK':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay(), 0, 0, 0, 0).getTime();
+        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1, 0, 0, 0, 0).getTime();
         break;
       case 'LAST 24 HRS':
         var yesterday = new Date(date);

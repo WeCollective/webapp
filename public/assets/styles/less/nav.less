@@ -51,6 +51,11 @@ nav#nav-bar {
       top: 8px;
       left: calc(50% - 175px);
 
+      transition: opacity 0.3s ease-out;
+      &.ng-hide {
+        opacity: 0;
+      }
+
       div {
         position: relative;
         width: 100%;
