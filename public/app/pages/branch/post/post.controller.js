@@ -9,6 +9,16 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
+  // Time filter dropdown configuration
+  $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
+  $scope.selectedSortItemIdx = 0;
+
+  // watch for change in drop down menu sort by selection
+  $scope.selectedSortItemIdx = 0;
+  $scope.$watch('selectedSortItemIdx', function () {
+    getComments();
+  });
+
   // when a new comment is posted, reload the comments
   $scope.onSubmitComment = function() {
     getComments();
@@ -57,7 +67,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
 
   function getReplyCount(comment) {
     // fetch just the number of replies to the comment
-    Comment.getMany(comment.postid, comment.id, true).then(function(response) {
+    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+    Comment.getMany(comment.postid, comment.id, true, sortBy).then(function(response) {
       $timeout(function() {
         comment.count = response;
       });
@@ -89,7 +100,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
 
   function getComments() {
     // fetch the comments for this post
-    Comment.getMany($state.params.postid).then(function(comments) {
+    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+    Comment.getMany($state.params.postid, undefined, false, sortBy).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;

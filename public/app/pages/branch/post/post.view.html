@@ -1,4 +1,4 @@
-<div id="branch-post" loading when="isLoading">
+<div id="branch-post" loading when="isLoadingPost">
   <div id="post-header">
     <!-- Two DOM elements conditionally displayed if the post is a text type.
          One is to perform internal state transition with uisref. (Text posts)
@@ -20,6 +20,7 @@
         <p class="title">{{ post.title }}</p>
       </a>
       <span ng-class="post.type" class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.creator })">{{ post.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
+      <dropdown title="'SORT BY'" items="sortItems" selected="selectedSortItemIdx"></dropdown>
     </div>
   </div>
   <div id="post-comments" scroll-to-top-when="add-comment">
@@ -35,7 +36,7 @@
     <write-comment postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
     <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
     <div id="comment-thread" loading when="isLoadingComments" ng-show="comments.length > 0">
-      <comment-thread comments="comments"></comment-thread>
+      <comment-thread comments="comments" sort-by="sortItems[selectedSortItemIdx]"></comment-thread>
     </div>
   </div>
 </div>

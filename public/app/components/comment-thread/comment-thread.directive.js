@@ -4,7 +4,8 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
     restrict: 'E',
     replace: false,
     scope: {
-      comments: '='
+      comments: '=',
+      sortBy: '='
     },
     templateUrl: '/app/components/comment-thread/comment-thread.view.html',
     link: function ($scope) {
@@ -109,7 +110,7 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
 
       function getReplies(comment, countOnly) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, countOnly).then(function(response) {
+        Comment.getMany(comment.postid, comment.id, countOnly, $scope.sortBy.toLowerCase()).then(function(response) {
           if(countOnly) {
             $timeout(function() {
               comment.count = response;

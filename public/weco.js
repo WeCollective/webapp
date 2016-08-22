@@ -143,7 +143,8 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
     restrict: 'E',
     replace: false,
     scope: {
-      comments: '='
+      comments: '=',
+      sortBy: '='
     },
     templateUrl: '/app/components/comment-thread/comment-thread.view.html',
     link: function ($scope) {
@@ -248,7 +249,7 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
 
       function getReplies(comment, countOnly) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, countOnly).then(function(response) {
+        Comment.getMany(comment.postid, comment.id, countOnly, $scope.sortBy.toLowerCase()).then(function(response) {
           if(countOnly) {
             $timeout(function() {
               comment.count = response;
@@ -340,7 +341,7 @@ app.directive('dropdown', ['$timeout', function($timeout) {
 */
 
 var app = angular.module('wecoApp');
-app.directive('loading', function() {
+app.directive('loading', ['$compile', function($compile) {
   return {
     restrict: 'A',
     templateUrl: '/app/components/loading/loading.view.html',
@@ -348,9 +349,35 @@ app.directive('loading', function() {
       when: '&'
     },
     replace: false,
-    transclude: true
+    transclude: true,
+    link: function($scope, element, attrs, ctrl, transclude) {
+      /*  Here we perform transclusion manually, instead of using ng-transclude.
+      **  This is because ng-transclude automatically assigns the transcluded
+      **  content a new *child* scope of the transcluded contents's context.
+      **  However, we want the transcluded html to keep the *same* scope of its
+      **  context so that its behaviour is unaffected, and changes made within it
+      **  are reflected in it's context's scope.
+      **
+      **  To do this, we make the scope of the transcluded content that of
+      **  the parent scope of this directive. (even though the scope
+      **  is isolate, its $parent is actually still that of its context,
+      **  there just isn't any prototypical inheritance).
+      **  The directive's context ($parent) and the context of the transcluded
+      **  content are the same, so the transcluded content keeps the scope
+      **  of its parent, as desired.
+      **
+      **  This is implemented through use of the transclude function.
+      **  The second param clones the transcluded html and assigns it the scope
+      **  supplied in the first parameter. You can then do with it as you want,
+      **  and so we append it to the directive template (having removed ng-transclude
+      **  from the end of the template also).
+      */
+      transclude($scope.$parent, function(clone, scope) {
+        element.append(clone);
+      });
+    }
   };
-});
+}]);
 
 /* Directive for dynamically generating a template for the display of an entry
 ** to the mod log.
@@ -1398,7 +1425,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1871,9 +1898,9 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
 
   // get the comments on a post or replies to another comment
   // if countOnly, will only return the _number_ of comments
-  Comment.getMany = function(postid, parentid, countOnly) {
+  Comment.getMany = function(postid, parentid, countOnly, sortBy) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid, count: countOnly }, function(comments) {
+      CommentAPI.get({ postid: postid, parentid: parentid, count: countOnly, sort: sortBy }, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {
@@ -2754,6 +2781,16 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
 
+  // Time filter dropdown configuration
+  $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
+  $scope.selectedSortItemIdx = 0;
+
+  // watch for change in drop down menu sort by selection
+  $scope.selectedSortItemIdx = 0;
+  $scope.$watch('selectedSortItemIdx', function () {
+    getComments();
+  });
+
   // when a new comment is posted, reload the comments
   $scope.onSubmitComment = function() {
     getComments();
@@ -2802,7 +2839,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
 
   function getReplyCount(comment) {
     // fetch just the number of replies to the comment
-    Comment.getMany(comment.postid, comment.id, true).then(function(response) {
+    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+    Comment.getMany(comment.postid, comment.id, true, sortBy).then(function(response) {
       $timeout(function() {
         comment.count = response;
       });
@@ -2834,7 +2872,8 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
 
   function getComments() {
     // fetch the comments for this post
-    Comment.getMany($state.params.postid).then(function(comments) {
+    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+    Comment.getMany($state.params.postid, undefined, false, sortBy).then(function(comments) {
       $timeout(function() {
         $scope.comments = comments;
         $scope.isLoadingComments = false;
