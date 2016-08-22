@@ -128,6 +128,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/p/:postid',
       templateUrl: '/app/pages/branch/post/post.view.html',
       controller: 'postController'
+    })
+    // Comment Permalink
+    .state('weco.branch.post.comment', {
+      url: '/c/:commentid'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {

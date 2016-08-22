@@ -82,6 +82,23 @@ div#branch-post {
     padding: 10px 15px;
     overflow-y: scroll;
 
+    p#permalink-notice {
+      font-size: 14px;
+      background-color: @light-grey;
+      border-radius: 3px;
+      border: 1px solid @dark-grey;
+      padding: 5px 10px;
+
+      a {
+        color: @button-focus;
+        padding-left: 5px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
     div.post-content {
       width: 100%;
       box-sizing: border-box;

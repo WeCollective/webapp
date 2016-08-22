@@ -12,7 +12,7 @@
            <li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)">EDIT</li><!--
         --><li ng-click="openReply(comment, false)">REPLY</li><!--
         --><li>SAVE</li><!--
-        --><li>PERMALINK</li><!--
+        --><li ng-click="openCommentPermalink(comment)">PERMALINK</li><!--
         --><li>FLAG</li>
       </ul>
       <write-comment ng-show="comment.openReply" postid="comment.postid" parentid="comment.id"

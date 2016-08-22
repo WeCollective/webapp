@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment, User, $timeout) {
+app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', function($state, Comment, User, $timeout) {
   return {
     restrict: 'E',
     replace: false,
@@ -93,7 +93,7 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
           Comment.get(scope.postid, scope.comments[idx].id).then(function(response) {
             if(response) {
               $timeout(function() {
-                scope.comments[idx].data = response;
+                scope.comments[idx].data = response.data;
                 scope.comments[idx].isLoading = false;
               });
             }
@@ -145,6 +145,10 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
           return false;
         }
         return User.me().username == comment.data.creator;
+      };
+
+      $scope.openCommentPermalink = function(comment) {
+        $state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
       };
     }
   };

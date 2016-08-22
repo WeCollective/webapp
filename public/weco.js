@@ -128,6 +128,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/p/:postid',
       templateUrl: '/app/pages/branch/post/post.view.html',
       controller: 'postController'
+    })
+    // Comment Permalink
+    .state('weco.branch.post.comment', {
+      url: '/c/:commentid'
     });
 
     $urlRouterProvider.otherwise(function($injector, $location) {
@@ -138,7 +142,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 var app = angular.module('wecoApp');
-app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment, User, $timeout) {
+app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', function($state, Comment, User, $timeout) {
   return {
     restrict: 'E',
     replace: false,
@@ -232,7 +236,7 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
           Comment.get(scope.postid, scope.comments[idx].id).then(function(response) {
             if(response) {
               $timeout(function() {
-                scope.comments[idx].data = response;
+                scope.comments[idx].data = response.data;
                 scope.comments[idx].isLoading = false;
               });
             }
@@ -284,6 +288,10 @@ app.directive('commentThread', ['Comment', 'User', '$timeout', function(Comment,
           return false;
         }
         return User.me().username == comment.data.creator;
+      };
+
+      $scope.openCommentPermalink = function(comment) {
+        $state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
       };
     }
   };
@@ -2764,7 +2772,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comment', function($scope, $state, $timeout, Post, Comment) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', function($scope, $rootScope, $state, $timeout, Post, Comment) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -2785,6 +2793,10 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   // when a new comment is posted, reload the comments
   $scope.onSubmitComment = function() {
     getComments();
+  };
+
+  $scope.isCommentPermalink = function() {
+    return $state.current.name == 'weco.branch.post.comment';
   };
 
   function isYouTubeUrl(url) {
@@ -2835,7 +2847,7 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
       Comment.get($state.params.postid, $scope.comments[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
-            $scope.comments[idx].data = response;
+            $scope.comments[idx].data = response.data;
             $scope.comments[idx].isLoading = false;
           });
         }
@@ -2848,27 +2860,53 @@ app.controller('postController', ['$scope', '$state', '$timeout', 'Post', 'Comme
   }
 
   function getComments() {
-    // fetch the comments for this post
-    var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-    Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
-      $timeout(function() {
-        $scope.comments = comments;
+    if($scope.isCommentPermalink()) {
+      // fetch the permalinked comment
+      Comment.get($state.params.postid, $state.params.commentid).then(function(comment) {
+        console.log(comment);
+        $timeout(function() {
+          $scope.comments = [comment];
+          $scope.isLoadingComments = false;
+          // set all comments to loading until their content is retrieved
+          for(var i = 0; i < $scope.comments.length; i++) {
+            $scope.comments[i].isLoading = true;
+          }
+          // slice() provides a clone of the comments array
+          loadCommentData($scope.comments.slice(), 0);
+        });
+      }, function() {
+        // TODO: pretty error
+        console.error("Unable to get comments!");
         $scope.isLoadingComments = false;
-        // set all comments to loading until their content is retrieved
-        for(var i = 0; i < $scope.comments.length; i++) {
-          $scope.comments[i].isLoading = true;
-        }
-        // slice() provides a clone of the comments array
-        loadCommentData($scope.comments.slice(), 0);
       });
-    }, function() {
-      // TODO: pretty error
-      console.error("Unable to get comments!");
-      $scope.isLoadingComments = false;
-    });
+    } else {
+      // fetch all the comments for this post
+      var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+      Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
+        console.log(comments);
+        $timeout(function() {
+          $scope.comments = comments;
+          $scope.isLoadingComments = false;
+          // set all comments to loading until their content is retrieved
+          for(var i = 0; i < $scope.comments.length; i++) {
+            $scope.comments[i].isLoading = true;
+          }
+          // slice() provides a clone of the comments array
+          loadCommentData($scope.comments.slice(), 0);
+        });
+      }, function() {
+        // TODO: pretty error
+        console.error("Unable to get comments!");
+        $scope.isLoadingComments = false;
+      });
+    }
   }
 
-  getComments();
+  // reload the comments on any state change
+  // (when first navigated to AND when going to/from comment permalink state)
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options) {
+    getComments();
+  });
 }]);
 
 'use strict';

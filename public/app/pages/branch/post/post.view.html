@@ -24,6 +24,7 @@
     </div>
   </div>
   <div id="post-comments" scroll-to-top-when="add-comment">
+    <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
     <div id="image-post" class="post-content" ng-show="post.type == 'image'">
       <div style="background-image: url('{{ post.text }}'), url('/assets/images/invalid-image-url.png')"></div>
     </div>
