@@ -28,6 +28,22 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     return $state.current.name == 'weco.branch.post.comment';
   };
 
+  // a vote for the post made on the post page is considered the same as a vote
+  // made on the world wall, i.e. counts as a vote on the root branch
+  $scope.vote = function(post, direction) {
+    Post.vote('root', post.id, direction).then(function() {
+      var inc = (direction == 'up') ? 1 : -1;
+      $timeout(function() {
+        post.individual += inc;
+        post.local += inc;
+        post.global += inc;
+      });
+    }, function(err) {
+      // TODO: pretty error
+      console.error("Unable to vote on post!");
+    });
+  };
+
   function isYouTubeUrl(url) {
     if(url && url !== '') {
       var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -47,13 +63,14 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     $state.go('weco.notfound');
   }).then(function(post) {
     $timeout(function () {
+      console.log(post);
       $scope.post = post;
       $scope.markdownRaw = post.text;
       $scope.isLoadingPost = false;
 
       // get the video embed url if this is a video post
-      if($scope.post.type == 'video' && isYouTubeUrl($scope.post.text)) {
-        var video_id = $scope.post.text.split('v=')[1] || $scope.post.text.split('embed/')[1];
+      if($scope.post.type == 'video' && isYouTubeUrl($scope.post.data.text)) {
+        var video_id = $scope.post.data.text.split('v=')[1] || $scope.post.data.text.split('embed/')[1];
         if(video_id.indexOf('&') != -1) {
           video_id = video_id.substring(0, video_id.indexOf('&'));
         }
@@ -92,7 +109,6 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     if($scope.isCommentPermalink()) {
       // fetch the permalinked comment
       Comment.get($state.params.postid, $state.params.commentid).then(function(comment) {
-        console.log(comment);
         $timeout(function() {
           $scope.comments = [comment];
           $scope.isLoadingComments = false;
@@ -112,7 +128,6 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       // fetch all the comments for this post
       var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
       Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
-        console.log(comments);
         $timeout(function() {
           $scope.comments = comments;
           $scope.isLoadingComments = false;
