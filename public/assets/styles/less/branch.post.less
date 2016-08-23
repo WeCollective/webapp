@@ -1,26 +1,28 @@
 div#branch-post {
+  display: table;
+  border-spacing: 20px;
   position: relative;
+
+  .table-row {
+    display: table-row;
+  }
+
   div#post-header {
-    height: 120px;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px;
-    border-bottom: solid 1px @light-grey;
 
     div.votes {
       position: relative;
       float: left;
-      height: 100%;
-      min-width: 50px;
+      min-width: 20px;
       text-align: center;
-      margin-left: 5px;
+      margin-right: 10px;
 
       img {
         display: block;
         position: absolute;
-        width: 26px;
+        width: 20px;
         height: auto;
-        left: 12px;
         opacity: 0.3;
 
         &:first-child {
@@ -61,9 +63,10 @@ div#branch-post {
     div.data {
       display: inline-block;
       height: 100%;
+      max-width: calc(~'100% - 200px');
 
       a p.title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 500;
         margin: 0;
         white-space: nowrap;
@@ -105,19 +108,7 @@ div#branch-post {
           }
         }
       }
-
-      .dropdown {
-        display: block;
-      }
     }
-  }
-  div#post-comments {
-    position: relative;
-    width: 100%;
-    height: calc(~'100% - 120px');  // take off height of post header
-    box-sizing: border-box;
-    padding: 10px 15px;
-    overflow-y: scroll;
 
     p#permalink-notice {
       font-size: 14px;
@@ -170,12 +161,38 @@ div#branch-post {
       }
     }
 
-    p#no-comments {
-      font-style: italic;
+    .write-comment .button.cancel {
+      display: none;
     }
 
-    div#comment-thread {
+    .dropdown {
+      display: block;
+      border-bottom: solid 1px @light-grey;
+    }
+  }
+
+  div#fill-height {
+    height: 100%;
+    div#post-comments-wrapper {
+      position: relative;
+      height: 100%;
       width: 100%;
+
+      div#post-comments {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        p#no-comments {
+          font-style: italic;
+        }
+
+        div#comment-thread {
+          width: 100%;
+        }
+      }
     }
   }
 }

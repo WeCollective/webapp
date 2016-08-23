@@ -1,7 +1,7 @@
-<div class="cover-photo" ng-style="{ 'height': user.coverUrl && !isLoading ? '30%' : '0' }" style="background-image: url('{{ user.coverUrl }}'), url('{{ user.coverUrlThumb }}')">
+<div class="cover-photo" style="height: {{ user.coverUrl && !isLoading ? '35%' : '0' }}; background-image: url('{{ user.coverUrl }}'), url('{{ user.coverUrlThumb }}')">
   <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
 </div>
-<div class="frame" id="profile-frame" ng-style="{ 'height': user.coverUrl && !isLoading ? '70%' : '100%' }">
+<div class="frame" id="profile-frame">
   <div class="content">
     <div loading when="isLoading">
       <div id="profile-info" class="nav-column">

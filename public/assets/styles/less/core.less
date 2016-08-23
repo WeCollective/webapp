@@ -46,8 +46,10 @@ input, textarea {
 }
 
 .full-page-nav {
+  position: relative;
   width: 100%;
-  height: calc(100% - @nav-bar-height); // full height - nav bar height
+  height: calc(100% - @nav-bar-height);
+  padding-top: @nav-bar-height;
 }
 
 div.cover-photo {
