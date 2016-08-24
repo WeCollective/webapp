@@ -2789,6 +2789,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.comments = [];
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
+  $scope.previewState = 'show'; // other states: 'show', 'maximise'
 
   // Time filter dropdown configuration
   $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
@@ -2807,6 +2808,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
 
   $scope.isCommentPermalink = function() {
     return $state.current.name == 'weco.branch.post.comment';
+  };
+
+  $scope.setPreviewState = function(state) {
+    $scope.previewState = state;
   };
 
   // a vote for the post made on the post page is considered the same as a vote
