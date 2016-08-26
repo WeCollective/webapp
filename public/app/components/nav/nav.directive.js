@@ -7,7 +7,9 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
     link: function($scope, element, attrs) {
       $scope.user = User.me;
       $scope.isLoggedIn = User.isLoggedIn;
+
       $scope.logout = function() {
+        $scope.expanded = false;
         User.logout().then(function() {
           // successful logout; go to login page
           $state.go('auth.login');
@@ -25,6 +27,15 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
 
       $scope.onHomePage = function() {
         return $state.current.name == 'weco.home';
+      };
+
+      $scope.expanded = false;
+      $scope.isNavExpanded = function() {
+        return $scope.expanded;
+      };
+
+      $scope.toggleNav = function() {
+        $scope.expanded = !$scope.expanded;
       };
     }
   };
