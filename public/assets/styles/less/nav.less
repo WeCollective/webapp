@@ -88,6 +88,7 @@ nav#nav-bar {
     }
 
     #user-controls {
+      position: relative;
       display: inline-block;
       float: right;
       vertical-align: top;
@@ -115,7 +116,6 @@ nav#nav-bar {
         }
 
         &#profile {
-          position: relative;
           span {
             font-weight: 500;
           }
@@ -131,30 +131,6 @@ nav#nav-bar {
           }
           img {
             margin: 0;
-          }
-
-          ul#nav-menu-items {
-            position: absolute;
-            top: calc(@nav-bar-height - 10px);
-            left: 0;
-            width: 100%;
-            background-color: @primary-dark;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 5px;
-            box-shadow: @shadow2;
-
-            li {
-              height: @nav-bar-height;
-              border-radius: 5px;
-
-              &:hover {
-                background-color: @primary-light;
-              }
-
-              span {
-                line-height: @nav-bar-height
-              }
-            }
           }
         }
 
@@ -172,6 +148,51 @@ nav#nav-bar {
 
           &:hover {
             color: #fff;
+          }
+        }
+      }
+
+      ul#nav-menu-items {
+        position: absolute;
+        top: calc(@nav-bar-height + 10px);
+        right: -10px;
+        min-width: 150px;
+        border-radius: 3px;
+        box-shadow: @shadow2;
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          top: -6px;
+          right: 15px;
+          width: 12px;
+          height: 12px;
+          background-color: #fff;
+          transform: rotate(45deg);
+          box-shadow: @shadow2;
+          z-index: 500;
+        }
+
+        li {
+          position: relative;
+          height: @nav-bar-height;
+          border-radius: 3px;
+          padding: 0 10px;
+          z-index: 900;
+          background-color: #fff;
+
+
+          &:hover {
+            cursor: pointer;
+            background-color: @light-grey;
+          }
+
+          span {
+            line-height: @nav-bar-height;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 500;
           }
         }
       }

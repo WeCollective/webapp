@@ -25,10 +25,10 @@
         <span>{{ user().username }}</span>
         <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
         <img src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()">
-        <ul id="nav-menu-items" ng-show="isNavExpanded()">
-          <li ng-click="logout()"><span>Log Out</span></li>
-        </ul>
       </a>
+      <ul id="nav-menu-items" ng-show="isNavExpanded()">
+        <li ng-click="logout()"><span>Log Out</span></li>
+      </ul>
       <a ui-sref="auth.login" ng-show="!isLoggedIn()"><span>Log In</span></a>
       <a ui-sref="auth.signup" ng-show="!isLoggedIn()"><span>Sign Up</span></a>
     </div>
