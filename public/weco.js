@@ -141,6 +141,16 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
+app.controller('rootController', ['$scope', '$state', function($scope, $state) {
+  $scope.hasNavBar = function() {
+    if($state.current.name.indexOf('auth') > -1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+}]);
+
 var app = angular.module('wecoApp');
 app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', function($state, Comment, User, $timeout) {
   return {
