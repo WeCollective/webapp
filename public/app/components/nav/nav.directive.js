@@ -22,7 +22,7 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       // return true if the given branch control is selected,
       // i.e. if the current state contains the control name
       $scope.isControlSelected = function(control) {
-        return $state.current.name.indexOf(control) > -1;
+        return $state.current.name.indexOf(control) > -1 && $state.params.branchid == 'root';
       };
 
       $scope.onHomePage = function() {

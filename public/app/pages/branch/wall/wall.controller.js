@@ -41,7 +41,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
-            $scope.posts[idx].data = response.data;
+            $scope.posts[idx] = response;
             $scope.posts[idx].isLoading = false;
           });
         }
@@ -61,7 +61,6 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     Branch.getPosts($scope.branchid, timeafter, $scope.stat).then(function(posts) {
       $timeout(function() {
         $scope.posts = posts;
-        console.log(posts);
         $scope.isLoading = false;
         // set all posts to loading until their content is retrieved
         for(var i = 0; i < $scope.posts.length; i++) {
