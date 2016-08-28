@@ -134,6 +134,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/c/:commentid'
     });
 
+    $urlRouterProvider.when('/b/{branchid}', '/b/{branchid}/wall');
     $urlRouterProvider.otherwise(function($injector, $location) {
       var state = $injector.get('$state');
       state.go('weco.notfound');
