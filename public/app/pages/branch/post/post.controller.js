@@ -68,9 +68,8 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     $state.go('weco.notfound');
   }).then(function(post) {
     $timeout(function () {
-      console.log(post);
       $scope.post = post;
-      $scope.markdownRaw = post.text;
+      $scope.markdownRaw = post.data.text;
       $scope.isLoadingPost = false;
 
       // get the video embed url if this is a video post

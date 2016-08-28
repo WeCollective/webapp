@@ -130,30 +130,37 @@ div#branch-post {
 
       &.maximised {
         &#image-post div {
-          transition: all 0.3s ease-out;
+          transition: height 0.3s ease-out;
           height: 350px;
           width: auto;
         }
         &#video-post {
-          transition: all 0.3s ease-out;
+          transition: width 0.3s ease-out;
           width: 100%;
         }
       }
 
-      &#image-post div {
-        width: auto;
-        height: 200px;
-        transition: all 0.3s ease-out;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
+      &#image-post {
+        &:not(.ng-hide) div {
+          transition: height 0.3s ease-out;
+        }
+        div {
+          width: auto;
+          height: 200px;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
       }
 
       &#video-post {
         width: 43.75%;
         margin-left: auto;
         margin-right: auto;
-        transition: all 0.3s ease-out;
+
+        &:not(.ng-hide) {
+          transition: width 0.3s ease-out;
+        }
 
         div#video-wrapper {
           position: relative;
@@ -169,6 +176,11 @@ div#branch-post {
             height: 100%;
           }
         }
+      }
+
+      &#text-post {
+        max-height: 350px;
+        overflow-y: scroll;
       }
     }
 
