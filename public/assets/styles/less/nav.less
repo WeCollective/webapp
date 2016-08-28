@@ -102,19 +102,26 @@ nav#nav-bar {
         vertical-align: middle;
       }
 
-      a {
-        img {
-          height: calc(@nav-bar-height / 2);
-          width: auto;
-          margin: 0 10px;
-          vertical-align: middle;
-          opacity: 0.7;
+      img#expand, a img {
+        height: calc(@nav-bar-height / 2);
+        width: auto;
+        vertical-align: middle;
+        opacity: 0.7;
 
-          &:hover {
-            opacity: 1;
-          }
+        &.expanded {
+          opacity: 1;
         }
 
+        &:hover {
+          cursor: pointer;
+          opacity: 1;
+        }
+      }
+
+      a {
+        img {
+          margin: 0 10px;
+        }
         &#profile {
           span {
             font-weight: 500;
@@ -128,9 +135,6 @@ nav#nav-bar {
             vertical-align: middle;
             background-position: center;
             background-size: cover;
-          }
-          img {
-            margin: 0;
           }
         }
 

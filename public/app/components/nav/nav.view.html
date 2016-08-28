@@ -24,8 +24,8 @@
       <a id="profile" ui-sref="weco.profile.about({ username: user().username })" ng-show="isLoggedIn()" ng-class="{ 'selected' : isControlSelected('profile') }">
         <span>{{ user().username }}</span>
         <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
-        <img src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()">
       </a>
+      <img id="expand" ng-show="isLoggedIn()" src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }">
       <ul id="nav-menu-items" ng-show="isNavExpanded()">
         <li ng-click="logout()"><span>Log Out</span></li>
       </ul>
