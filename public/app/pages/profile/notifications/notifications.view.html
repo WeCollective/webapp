@@ -1,3 +1,13 @@
 <h3 class="profile-tab-description">Account Notifications</h3>
-<ul id="profile-notifications-properties" ng-controller="profileNotificationsController">
-</ul>
+<div id="profile-notifications" ng-controller="profileNotificationsController">
+  <ul loading when="isLoading">
+    <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread }">
+      <div class="toggleUnread"></div>
+      <a><div class="user-profile" style="background-image: url(''), url('/assets/images/default-profile.jpg')"></div></a>
+      <div class="data">
+        <span class="title">Username 1 has submitted a subbranch request to X</span>
+        <span class="description">received at time X on date Y</span>
+      </div>
+    </li>
+  </ul>
+</div>

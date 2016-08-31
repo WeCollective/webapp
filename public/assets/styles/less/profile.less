@@ -48,22 +48,33 @@ div#profile-frame {
       }
       div#profile-content {
         box-sizing: border-box;
-        padding: 10px 20px;
+        padding: 10px 0;
 
-        h1 {
-          display: inline-block;
-          margin-right: 20px;
-          font-size: 26px;
-          font-weight: 500;
+        div#content-header {
+          padding: 0 20px;
+          height: 50px;
+
+          h1 {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 26px;
+            font-weight: 500;
+          }
         }
-        .profile-tab-description {
-          text-align: center;
-          font-weight: 300;
-          font-size: 14px;
-          font-style: italic;
-          padding: 10px 0;
-          margin-bottom: 10px;
-          border-bottom: 1px solid @light-grey;
+
+        div[ui-view] {
+          width: 100%;
+          height: calc(~'100% - 50px');
+
+          .profile-tab-description {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-weight: 300;
+            font-size: 14px;
+            font-style: italic;
+            border-bottom: 1px solid @light-grey;
+          }
         }
       }
     }

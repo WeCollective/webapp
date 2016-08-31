@@ -1668,6 +1668,21 @@ api.factory('SubbranchesAPI', ['$resource', 'ENV', function($resource, ENV) {
 }]);
 
 var api = angular.module('api');
+api.factory('UserNotificationsAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  return $resource(ENV.apiEndpoint + 'user/:username/notifications', {
+    username: '@username'
+  }, {});
+}]);
+
+var api = angular.module('api');
 api.factory('UserAPI', ['$resource', 'ENV', function($resource, ENV) {
 
   function makeFormEncoded(data, headersGetter) {
@@ -2204,7 +2219,7 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function(UserAPI, UserNotificationsAPI, $http, ENV) {
   var User = {};
   var me = {};
 
@@ -2393,6 +2408,19 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
         });
       }).then(function() {
         getMe().then(resolve, reject);
+      });
+    });
+  };
+
+  User.getNotifications = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.get({ username: username }).$promise.catch(function() {
+        // TODO: handle error
+        console.error('Unable to fetch user notifications!');
+        return reject();
+      }).then(function(notifications) {
+        if(!notifications || !notifications.data) { return reject(); }
+        return resolve(notifications.data);
       });
     });
   };
@@ -3171,8 +3199,26 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('profileNotificationsController', ['$scope', '$state', function($scope, $state) {
-  
+app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', function($scope, $state, $timeout, User) {
+  $scope.isLoading = false;
+  $scope.notifications = [];
+
+  function getNotifications() {
+    $scope.isLoading = true;
+
+    User.getNotifications($state.params.username).then(function(notifications) {
+      $timeout(function() {
+        $scope.notifications = notifications;
+        $scope.isLoading = false;
+        console.log(notifications);
+      });
+    }, function() {
+      // TODO pretty error
+      console.error('Unable to fetch notifications');
+    });
+  }
+
+  getNotifications();
 }]);
 
 'use strict';

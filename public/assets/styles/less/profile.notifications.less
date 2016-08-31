@@ -1,0 +1,64 @@
+div#profile-notifications {
+  position: relative;
+  width: 100%;
+  height: calc(~"100% - 50px");
+  overflow-y: scroll;
+
+  ul {
+    li {
+      position: relative;
+      height: 65px;
+      padding: 10px 20px;
+      border-bottom: solid 1px @light-grey;
+
+      &.unread {
+        background-color: @unread;
+
+        div.toggleUnread {
+          background-color: @unread-dark;
+        }
+      }
+
+      div.toggleUnread {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        top: 10px;
+        right: 10px;
+        border: 1px solid @dark-grey;
+        border-radius: 50%;
+      }
+
+      a div.user-profile {
+        float: left;
+        height: 65px;
+        width: 65px;
+        background-position: center;
+        background-size: cover;
+        border-radius: 5px;
+        margin-right: 10px;
+
+        &:hover {
+          box-shadow: @shadow2;
+        }
+      }
+
+      div.data {
+        display: inline-block;
+
+        span {
+          display: block;
+          &.title {
+            font-size: 16px;
+            font-weight: 500;
+          }
+
+          &.description {
+            font-size: 14px;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+}
