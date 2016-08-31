@@ -41,7 +41,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
+            var global_stat = $scope.posts[idx].global;
             $scope.posts[idx] = response;
+            $scope.posts[idx].global = global_stat;
             $scope.posts[idx].isLoading = false;
           });
         }

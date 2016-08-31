@@ -1457,7 +1457,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -1889,6 +1889,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     return new Promise(function(resolve, reject) {
       BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(posts) {
         if(posts && posts.data) {
+          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({
@@ -3062,7 +3063,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
+            var global_stat = $scope.posts[idx].global;
             $scope.posts[idx] = response;
+            $scope.posts[idx].global = global_stat;
             $scope.posts[idx].isLoading = false;
           });
         }
