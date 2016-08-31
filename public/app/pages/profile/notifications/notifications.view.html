@@ -3,10 +3,12 @@
   <ul loading when="isLoading">
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread }">
       <div class="toggleUnread"></div>
-      <a><div class="user-profile" style="background-image: url(''), url('/assets/images/default-profile.jpg')"></div></a>
-      <div class="data">
+      <div class="images">
+        <a ui-sref="weco.profile.about({ username: notification.data.username })"><div class="user-profile" style="background-image: url(''), url('/assets/images/default-profile.jpg')"></div></a>
+      </div>
+      <div notification-entry entry="notification">
         <span class="title">Username 1 has submitted a subbranch request to X</span>
-        <span class="description">received at time X on date Y</span>
+        <span class="description">received at {{ notification.date | date:'hh:mm on dd of MMMM yyyy' }}</span>
       </div>
     </li>
   </ul>

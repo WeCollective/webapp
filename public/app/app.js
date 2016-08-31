@@ -1,6 +1,17 @@
 "use strict";
 
 var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'hc.marked', 'api']);
+// configure notification type constants (matches server)
+app.constant('NotificationTypes', {
+  'NEW_CHILD_BRANCH_REQUEST': 0,
+  'CHILD_BRANCH_REQUEST_ANSWERED': 1,
+  'BRANCH_MOVED': 2,
+  'ADDED_MODERATOR': 3,
+  'REMOVED_MODERATOR': 4,
+  'NEW_COMMENT': 5,
+  'NEW_REPLY': 6
+});
+
 // configure the markdown parser for Githib Flavoured Markdown
 app.config(['markedProvider', function (markedProvider) {
   markedProvider.setOptions({

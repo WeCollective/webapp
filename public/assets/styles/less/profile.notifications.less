@@ -10,6 +10,7 @@ div#profile-notifications {
       height: 65px;
       padding: 10px 20px;
       border-bottom: solid 1px @light-grey;
+      overflow: hidden;
 
       &.unread {
         background-color: @unread;
@@ -29,33 +30,48 @@ div#profile-notifications {
         border-radius: 50%;
       }
 
-      a div.user-profile {
+      div.images {
         float: left;
-        height: 65px;
-        width: 65px;
-        background-position: center;
-        background-size: cover;
-        border-radius: 5px;
-        margin-right: 10px;
+        a div.user-profile {
+          height: 65px;
+          width: 65px;
+          background-position: center;
+          background-size: cover;
+          border-radius: 5px;
+          margin-right: 10px;
 
-        &:hover {
-          box-shadow: @shadow2;
+          &:hover {
+            box-shadow: @shadow2;
+          }
         }
       }
 
-      div.data {
-        display: inline-block;
+      div[notification-entry] {
+        overflow: hidden;
 
-        span {
+        div {
           display: block;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+
           &.title {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 5px;
           }
 
           &.description {
             font-size: 14px;
             font-weight: 300;
+          }
+
+          a {
+            font-weight: 500;
+            color: @button-focus;
+
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }
