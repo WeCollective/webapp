@@ -216,7 +216,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     return new Promise(function(resolve, reject) {
       BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(posts) {
         if(posts && posts.data) {
-          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({

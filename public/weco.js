@@ -72,14 +72,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'profileController'
     })
     .state('weco.profile.about', {
-      url: '',
+      url: '/about',
       templateUrl: '/app/pages/profile/about/about.view.html'
     })
     .state('weco.profile.timeline', {
+      url: '/timeline',
       templateUrl: '/app/pages/profile/timeline/timeline.view.html'
     })
     .state('weco.profile.settings', {
-      templateUrl: '/app/pages/profile/settings/settings.view.html'
+      url: '/settings',
+      templateUrl: '/app/pages/profile/settings/settings.view.html',
+      selfOnly: true,
+      redirectTo: 'auth.login'
+    })
+    .state('weco.profile.notifications', {
+      url: '/notifications',
+      templateUrl: '/app/pages/profile/notifications/notifications.view.html',
+      selfOnly: true,
+      redirectTo: 'auth.login'
     })
     // Branches
     .state('weco.branch', {
@@ -134,13 +144,50 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/c/:commentid'
     });
 
+    // default child states
+    $urlRouterProvider.when('/u/{username}', '/u/{username}/about');
     $urlRouterProvider.when('/b/{branchid}', '/b/{branchid}/wall');
+
+    // 404 redirect
     $urlRouterProvider.otherwise(function($injector, $location) {
       var state = $injector.get('$state');
       state.go('weco.notfound');
       return $location.path();
     });
 });
+
+app.run(['$rootScope', '$state', 'User', function($rootScope, $state, User) {
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    var me = User.me();
+
+    // If factory hasn't initialised and me = {}, perform fresh fetch from server
+    // to check authentication status. If unauthenticated, user will still be {}
+    if(Object.keys(me).length === 0) {
+      User.isAuthenticated().then(function(user) {
+        me = user;
+        doChecks();
+      }, doChecks);
+    } else {
+      doChecks();
+    }
+
+    function doChecks() {
+      // If state requires authentication and user isn’t authenticated,
+      // transition to the specified redirection state
+      if(toState.authenticate && Object.keys(me).length === 0) {
+        $state.transitionTo(toState.redirectTo);
+        event.preventDefault();
+      }
+
+      // If state requires authenticated user to be the user specified in the URL,
+      // transition to the specified redirection state
+      if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
+        $state.transitionTo(toState.redirectTo);
+        event.preventDefault();
+      }
+    }
+  });
+}]);
 
 app.controller('rootController', ['$scope', '$state', function($scope, $state) {
   $scope.hasNavBar = function() {
@@ -1889,7 +1936,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     return new Promise(function(resolve, reject) {
       BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(posts) {
         if(posts && posts.data) {
-          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({
@@ -2228,6 +2274,20 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
   getMe().then(function() {}, function () {
     console.error("Unable to get user!");
   });
+
+  // Try to fetch self on GET user/me to check auth status
+  User.isAuthenticated = function() {
+    return new Promise(function(resolve, reject) {
+      UserAPI.get().$promise.catch(function() {
+        // TODO: handle error
+        console.error('Unable to fetch user!');
+        return reject();
+      }).then(function(user) {
+        if(!user || !user.data) { return reject(); }
+        return resolve(user.data);
+      });
+    });
+  };
 
   // Get authenticated user object
   User.me = function() {
@@ -3110,6 +3170,11 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.selectedPostTypeItemIdx = 0;
 }]);
 
+var app = angular.module('wecoApp');
+app.controller('profileNotificationsController', ['$scope', '$state', function($scope, $state) {
+  
+}]);
+
 'use strict';
 
 var app = angular.module('wecoApp');
@@ -3142,6 +3207,10 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
       if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
         $scope.tabItems.push('settings');
         $scope.tabStates.push('weco.profile.settings');
+      }
+      if($scope.tabItems.indexOf('notifications') == -1 && $scope.tabStates.indexOf('weco.profile.notifications') == -1) {
+        $scope.tabItems.push('notifications');
+        $scope.tabStates.push('weco.profile.notifications');
       }
     }
   });

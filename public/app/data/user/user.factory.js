@@ -72,6 +72,20 @@ app.factory('User', ['UserAPI', '$http', 'ENV', function(UserAPI, $http, ENV) {
     console.error("Unable to get user!");
   });
 
+  // Try to fetch self on GET user/me to check auth status
+  User.isAuthenticated = function() {
+    return new Promise(function(resolve, reject) {
+      UserAPI.get().$promise.catch(function() {
+        // TODO: handle error
+        console.error('Unable to fetch user!');
+        return reject();
+      }).then(function(user) {
+        if(!user || !user.data) { return reject(); }
+        return resolve(user.data);
+      });
+    });
+  };
+
   // Get authenticated user object
   User.me = function() {
     return me.data || {};

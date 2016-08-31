@@ -31,6 +31,10 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
         $scope.tabItems.push('settings');
         $scope.tabStates.push('weco.profile.settings');
       }
+      if($scope.tabItems.indexOf('notifications') == -1 && $scope.tabStates.indexOf('weco.profile.notifications') == -1) {
+        $scope.tabItems.push('notifications');
+        $scope.tabStates.push('weco.profile.notifications');
+      }
     }
   });
 
