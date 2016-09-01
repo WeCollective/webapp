@@ -8,7 +8,18 @@ api.factory('UserNotificationsAPI', ['$resource', 'ENV', function($resource, ENV
     return str.join("&");
   }
 
-  return $resource(ENV.apiEndpoint + 'user/:username/notifications', {
-    username: '@username'
-  }, {});
+  return $resource(ENV.apiEndpoint + 'user/:username/notifications/:notificationid', {
+    username: '@username',
+    notificationid: ''
+  }, {
+    update: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
 }]);

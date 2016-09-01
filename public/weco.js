@@ -1722,9 +1722,20 @@ api.factory('UserNotificationsAPI', ['$resource', 'ENV', function($resource, ENV
     return str.join("&");
   }
 
-  return $resource(ENV.apiEndpoint + 'user/:username/notifications', {
-    username: '@username'
-  }, {});
+  return $resource(ENV.apiEndpoint + 'user/:username/notifications/:notificationid', {
+    username: '@username',
+    notificationid: ''
+  }, {
+    update: {
+      method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
 }]);
 
 var api = angular.module('api');
@@ -2466,6 +2477,24 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
       }).then(function(notifications) {
         if(!notifications || !notifications.data) { return reject(); }
         return resolve(notifications.data);
+      });
+    });
+  };
+
+  // mark a specified notification as either read or unread
+  User.markNotification = function(username, notificationid, unread) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.update({
+        username: username,
+        notificationid: notificationid
+      }, {
+        unread: unread
+      }).$promise.catch(function(err) {
+        // TODO: handle error
+        console.error('Unable to mark notification! ', err);
+        return reject();
+      }).then(function() {
+        resolve();
       });
     });
   };
@@ -3264,6 +3293,18 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
     });
   }
 
+  $scope.toggleUnread = function(notification) {
+    User.markNotification(User.me().username, notification.id, !notification.unread).then(function() {
+      $timeout(function() {
+        notification.unread = !notification.unread;
+      });
+    }, function(err) {
+      // TODO handle error
+      console.error("Unable to mark notification! ", err);
+    });
+  };
+
+  // initial fetch of notifications
   getNotifications();
 }]);
 

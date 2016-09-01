@@ -2,7 +2,7 @@
 <div id="profile-notifications" ng-controller="profileNotificationsController">
   <ul loading when="isLoading">
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread }">
-      <div class="toggleUnread"></div>
+      <div class="toggle-unread" ng-click="toggleUnread(notification)"></div>
       <div class="images">
         <!--
         <a ui-sref="weco.profile.about({ username: notification.data.username })"><div class="user-profile" style="background-image: url('{{ notification.profileUrl }}'), url('/assets/images/default-profile.jpg')"></div></a>

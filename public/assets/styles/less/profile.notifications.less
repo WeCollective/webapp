@@ -15,12 +15,12 @@ div#profile-notifications {
       &.unread {
         background-color: @unread;
 
-        div.toggleUnread {
+        div.toggle-unread {
           background-color: @unread-dark;
         }
       }
 
-      div.toggleUnread {
+      div.toggle-unread {
         position: absolute;
         width: 15px;
         height: 15px;
@@ -28,6 +28,10 @@ div#profile-notifications {
         right: 10px;
         border: 1px solid @dark-grey;
         border-radius: 50%;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       div.images {

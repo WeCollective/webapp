@@ -207,5 +207,23 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
     });
   };
 
+  // mark a specified notification as either read or unread
+  User.markNotification = function(username, notificationid, unread) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.update({
+        username: username,
+        notificationid: notificationid
+      }, {
+        unread: unread
+      }).$promise.catch(function(err) {
+        // TODO: handle error
+        console.error('Unable to mark notification! ', err);
+        return reject();
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
   return User;
 }]);

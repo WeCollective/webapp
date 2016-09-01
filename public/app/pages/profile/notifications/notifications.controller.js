@@ -19,5 +19,17 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
     });
   }
 
+  $scope.toggleUnread = function(notification) {
+    User.markNotification(User.me().username, notification.id, !notification.unread).then(function() {
+      $timeout(function() {
+        notification.unread = !notification.unread;
+      });
+    }, function(err) {
+      // TODO handle error
+      console.error("Unable to mark notification! ", err);
+    });
+  };
+
+  // initial fetch of notifications
   getNotifications();
 }]);
