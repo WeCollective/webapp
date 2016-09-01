@@ -4,7 +4,7 @@
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread }">
       <div class="toggleUnread"></div>
       <div class="images">
-        <a ui-sref="weco.profile.about({ username: notification.data.username })"><div class="user-profile" style="background-image: url(''), url('/assets/images/default-profile.jpg')"></div></a>
+        <a ui-sref="weco.profile.about({ username: notification.data.username })"><div class="user-profile" style="background-image: url('{{ notification.profileUrl }}'), url('/assets/images/default-profile.jpg')"></div></a>
       </div>
       <div notification-entry entry="notification">
         <span class="title">Username 1 has submitted a subbranch request to X</span>

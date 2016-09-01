@@ -8,7 +8,7 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
   // fetch the presigned url for the profile picture for the specified user,
   // defaulting to authd user if not specified.
   // Returns the promise from $http.
-  function getPictureUrl(username, type, thumbnail) {
+  User.getPictureUrl = function(username, type, thumbnail) {
     // if no username specified, fetch self
     if(!username) {
       username = 'me';
@@ -20,7 +20,7 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
     }
     // fetch signedurl for user profile picture and attach to user object
     return $http.get(ENV.apiEndpoint + 'user/' + username + '/' + type + (thumbnail ? '-thumb' : ''));
-  }
+  };
 
 
   function getMe() {
@@ -34,27 +34,27 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
         if(!user || !user.data) { return reject(); }
 
         // Attach the profile picture url to the user object if it exists
-        getPictureUrl('me', 'picture', false).then(function(response) {
+        User.getPictureUrl('me', 'picture', false).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrl = response.data.data;
           }
-          return getPictureUrl('me', 'picture', true);
+          return User.getPictureUrl('me', 'picture', true);
         }, function() {
-          return getPictureUrl('me', 'picture', true);
+          return User.getPictureUrl('me', 'picture', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrlThumb = response.data.data;
           }
-          return getPictureUrl('me', 'cover', false);
+          return User.getPictureUrl('me', 'cover', false);
         }, function() {
-          return getPictureUrl('me', 'cover', false);
+          return User.getPictureUrl('me', 'cover', false);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.coverUrl = response.data.data;
           }
-          return getPictureUrl('me', 'cover', true);
+          return User.getPictureUrl('me', 'cover', true);
         }, function() {
-          return getPictureUrl('me', 'cover', true);
+          return User.getPictureUrl('me', 'cover', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.coverUrlThumb = response.data.data;
@@ -103,27 +103,27 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
         if(!user || !user.data) { return reject(); }
 
         // Attach the profile picture url to the user object if it exists
-        getPictureUrl(username, 'picture', false).then(function(response) {
+        User.getPictureUrl(username, 'picture', false).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrl = response.data.data;
           }
-          return getPictureUrl(username, 'picture', true);
+          return User.getPictureUrl(username, 'picture', true);
         }, function() {
-          return getPictureUrl(username, 'picture', true);
+          return User.getPictureUrl(username, 'picture', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.profileUrlThumb = response.data.data;
           }
-          return getPictureUrl(username, 'cover', false);
+          return User.getPictureUrl(username, 'cover', false);
         }, function() {
-          return getPictureUrl(username, 'cover', false);
+          return User.getPictureUrl(username, 'cover', false);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.coverUrl = response.data.data;
           }
-          return getPictureUrl(username, 'cover', true);
+          return User.getPictureUrl(username, 'cover', true);
         }, function() {
-          return getPictureUrl(username, 'cover', true);
+          return User.getPictureUrl(username, 'cover', true);
         }).then(function(response) {
           if(response && response.data && response.data.data) {
             user.data.coverUrlThumb = response.data.data;
