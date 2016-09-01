@@ -179,6 +179,8 @@ app.run(['$rootScope', '$state', 'User', 'Mod', function($rootScope, $state, Use
     var me = User.me();
     var mods = [];
 
+    // check if the state we are transitioning to has access restrictions,
+    // performing checks if needed
     if(toState.modOnly) {
       getMods(function() {
         getSelf(doChecks);

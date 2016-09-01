@@ -21,7 +21,23 @@ app.directive('notificationEntry', ['$compile', 'NotificationTypes', function($c
         return '' +
           '<div class="title">' +
             '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> ' +
-            'has submitted a parent branch request to <a ui-sref="weco.branch.nucleus.modtools({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
+            'has submitted a parent branch request from <a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.childid })">b/{{ entry.data.childid }}</a> ' +
+            'to <a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
+          '</div>' +
+          '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+      case NotificationTypes.CHILD_BRANCH_REQUEST_ANSWERED:
+        return '' +
+          '<div class="title">' +
+            '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> {{ entry.data.action }}ed ' +
+            'your parent branch request from <a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.childid })">b/{{ entry.data.childid }}</a> ' +
+            'to <a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
+          '</div>' +
+          '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+      case NotificationTypes.BRANCH_MOVED:
+        return '' +
+          '<div class="title">' +
+            '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.childid })">b/{{ entry.data.childid }}</a> was moved to ' +
+            '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
           '</div>' +
           '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
       default:
