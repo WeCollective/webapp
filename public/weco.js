@@ -6,10 +6,9 @@ app.constant('NotificationTypes', {
   'NEW_CHILD_BRANCH_REQUEST': 0,
   'CHILD_BRANCH_REQUEST_ANSWERED': 1,
   'BRANCH_MOVED': 2,
-  'ADDED_MODERATOR': 3,
-  'REMOVED_MODERATOR': 4,
-  'NEW_COMMENT': 5,
-  'NEW_REPLY': 6
+  'MODERATOR': 3,
+  'NEW_COMMENT': 4,
+  'NEW_REPLY': 5
 });
 
 // configure the markdown parser for Githib Flavoured Markdown
@@ -1380,6 +1379,14 @@ app.directive('notificationEntry', ['$compile', 'NotificationTypes', function($c
           '<div class="title">' +
             '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.childid })">b/{{ entry.data.childid }}</a> was moved to ' +
             '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
+          '</div>' +
+          '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+      case NotificationTypes.MODERATOR:
+        return '' +
+          '<div class="title">' +
+            '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> {{ entry.data.action }}{{ entry.data.action == \'add\' ? \'ed\' : \'d\' }} ' +
+            '<a ui-sref="weco.profile.about({ username: entry.data.mod })">{{ entry.data.mod }}</a> as a moderator on ' +
+            '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.branchid })">b/{{ entry.data.branchid }}</a>' +
           '</div>' +
           '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
       default:
