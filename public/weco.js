@@ -117,20 +117,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'nucleusController'
     })
     .state('weco.branch.nucleus.about', {
-      url: '',
+      url: '/about',
       templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
     })
     .state('weco.branch.nucleus.settings', {
+      url: '/settings',
       templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
-      controller: 'nucleusSettingsController'
+      controller: 'nucleusSettingsController',
+      modOnly: true,
+      redirectTo: 'auth.login'
     })
     .state('weco.branch.nucleus.moderators', {
+      url: '/moderators',
       templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
       controller: 'nucleusModeratorsController'
     })
     .state('weco.branch.nucleus.modtools', {
+      url: '/modtools',
       templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
-      controller: 'nucleusModToolsController'
+      controller: 'nucleusModToolsController',
+      modOnly: true,
+      redirectTo: 'auth.login'
     })
     // Subbranches
     .state('weco.branch.subbranches', {
@@ -167,34 +174,61 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
-app.run(['$rootScope', '$state', 'User', function($rootScope, $state, User) {
+app.run(['$rootScope', '$state', 'User', 'Mod', function($rootScope, $state, User, Mod) {
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     var me = User.me();
+    var mods = [];
 
-    // If factory hasn't initialised and me = {}, perform fresh fetch from server
-    // to check authentication status. If unauthenticated, user will still be {}
-    if(Object.keys(me).length === 0) {
-      User.isAuthenticated().then(function(user) {
-        me = user;
-        doChecks();
-      }, doChecks);
-    } else {
-      doChecks();
+    if(toState.modOnly) {
+      getMods(function() {
+        getSelf(doChecks);
+      });
+    } else if(toState.selfOnly) {
+      getSelf(doChecks);
+    }
+
+    function getMods(cb) {
+      Mod.getByBranch(toParams.branchid).then(function(branchMods) {
+        mods = branchMods;
+        cb();
+      }, cb);
+    }
+
+    function getSelf(cb) {
+      // If factory hasn't initialised and me = {}, perform fresh fetch from server
+      // to check authentication status. If unauthenticated, user will still be {}
+      if(Object.keys(me).length === 0) {
+        User.isAuthenticated().then(function(user) {
+          me = user;
+          cb();
+        }, cb);
+      } else {
+        cb();
+      }
     }
 
     function doChecks() {
-      // If state requires authentication and user isn’t authenticated,
-      // transition to the specified redirection state
-      if(toState.authenticate && Object.keys(me).length === 0) {
-        $state.transitionTo(toState.redirectTo);
-        event.preventDefault();
-      }
-
       // If state requires authenticated user to be the user specified in the URL,
       // transition to the specified redirection state
       if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
         $state.transitionTo(toState.redirectTo);
         event.preventDefault();
+      }
+
+      // If state requires authenticated user to be a mod of the branch specified in the URL,
+      // transition to the specified redirection state
+      if(toState.modOnly) {
+        var isMod = false;
+        for(var i = 0; i < mods.length; i++) {
+          if(mods[i].username == me.username) {
+            isMod = true;
+          }
+        }
+
+        if(!isMod) {
+          $state.transitionTo(toState.redirectTo);
+          event.preventDefault();
+        }
       }
     }
   });
@@ -1327,7 +1361,7 @@ app.directive('notificationEntry', ['$compile', 'NotificationTypes', function($c
         return '' +
           '<div class="title">' +
             '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> ' +
-            'has submitted a parent branch request to <a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
+            'has submitted a parent branch request to <a ui-sref="weco.branch.nucleus.modtools({ branchid: entry.data.parentid })">b/{{ entry.data.parentid }}</a>' +
           '</div>' +
           '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
       default:
