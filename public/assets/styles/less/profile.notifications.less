@@ -14,9 +14,14 @@ div#profile-notifications {
 
       &.unread {
         background-color: @unread;
-
         div.toggle-unread {
           background-color: @unread-dark;
+        }
+      }
+      &:not(.unread) {
+        background-color: transparent;
+        div.toggle-unread {
+          background-color: transparent;
         }
       }
 
