@@ -7,8 +7,7 @@ app.constant('NotificationTypes', {
   'CHILD_BRANCH_REQUEST_ANSWERED': 1,
   'BRANCH_MOVED': 2,
   'MODERATOR': 3,
-  'NEW_COMMENT': 4,
-  'NEW_REPLY': 5
+  'COMMENT': 4
 });
 
 // configure the markdown parser for Githib Flavoured Markdown

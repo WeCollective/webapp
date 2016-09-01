@@ -48,6 +48,29 @@ app.directive('notificationEntry', ['$compile', 'NotificationTypes', function($c
             '<a ui-sref="weco.branch.nucleus.about({ branchid: entry.data.branchid })">b/{{ entry.data.branchid }}</a>' +
           '</div>' +
           '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+      case NotificationTypes.COMMENT:
+      console.log(entry.data);
+        if(entry.data.parentid == 'none') {
+          // commented on post
+          return '' +
+            '<div class="title">' +
+              '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> ' +
+              '<a ui-sref="weco.branch.post.comment({ branchid: entry.data.branchid, postid: entry.data.postid, commentid: entry.data.commentid })">commented</a> on your ' +
+              '<a ui-sref="weco.branch.post({ branchid: entry.data.branchid, postid: entry.data.postid })">post</a>' +
+            '</div>' +
+            '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+        } else {
+          // replied to comment
+          return '' +
+            '<div class="title">' +
+              '<a ui-sref="weco.profile.about({ username: entry.data.username })">{{ entry.data.username }}</a> ' +
+              '<a ui-sref="weco.branch.post.comment({ branchid: entry.data.branchid, postid: entry.data.postid, commentid: entry.data.commentid })">replied</a> to your ' +
+              '<a ui-sref="weco.branch.post.comment({ branchid: entry.data.branchid, postid: entry.data.postid, commentid: entry.data.parentid })">comment</a> on a ' +
+              '<a ui-sref="weco.branch.post({ branchid: entry.data.branchid, postid: entry.data.postid })">post</a>' +
+            '</div>' +
+            '<div class="description">received at {{ entry.date | date:\'hh:mm on dd of MMMM yyyy\' }}</div>';
+        }
+        break;
       default:
         return '';
     }
