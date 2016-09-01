@@ -1,6 +1,8 @@
 var app = angular.module('wecoApp');
-app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', function($scope, $state, $timeout, User) {
+app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', function($scope, $state, $timeout, User, NotificationTypes) {
   $scope.isLoading = false;
+  $scope.NotificationTypes = NotificationTypes;
+  $scope.me = User.me;
   $scope.notifications = [];
 
   function getNotifications() {
