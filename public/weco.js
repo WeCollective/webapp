@@ -188,7 +188,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
   }
 
   // subscribe to real time notifications using websockets (socket.io)
-  socket.on('on_connect', 'notifications', function (data) {
+  socket.on('on_connect', 'notifications', function(data) {
     console.log("CONNECTED");
     getSelf(function() {
       if(!me.username) { return; }  // not auth'd
@@ -203,7 +203,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
   });
 
   // unsubscribe from real time notifications using websockets (socket.io)
-  socket.on('on_disconnect', 'notifications', function (data) {
+  socket.on('on_disconnect', 'notifications', function(data) {
     console.log("DISCONNECTED");
     getSelf(function() {
       if(!me.username) { return; }  // not auth'd
@@ -215,6 +215,10 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
         console.error("Error unsubscribing from notifications");
       });
     });
+  });
+
+  socket.on('notification', 'notifications', function(data) {
+    alert("Notification! " + JSON.stringify(data));
   });
 
   // state access controls
