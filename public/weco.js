@@ -234,6 +234,19 @@ app.run(['$rootScope', '$state', 'User', 'Mod', function($rootScope, $state, Use
   });
 }]);
 
+// make socket.io for real-time comms available as a service
+app.factory('socket', ['$rootScope', 'ENV', function($rootScope, ENV) {
+  // tell jshint that io is a global var
+  /* globals io */
+
+  // socket.notifications refers to the notifications socket namespace
+  // socket.messages refers to the messages socket namespace
+  return {
+    notifications: io.connect(ENV.apiEndpoint + 'notifications'),
+    messages: io.connect(ENV.apiEndpoint + 'messages')
+  };
+}]);
+
 app.controller('rootController', ['$scope', '$state', function($scope, $state) {
   $scope.hasNavBar = function() {
     if($state.current.name.indexOf('auth') > -1) {
@@ -1296,7 +1309,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 }]);
 
 var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', function(User, $state) {
+app.directive('navBar', ['User', '$state', 'socket', function(User, $state, socket) {
   return {
     restrict: 'E',
     replace: 'true',
@@ -1334,6 +1347,12 @@ app.directive('navBar', ['User', '$state', function(User, $state) {
       $scope.toggleNav = function() {
         $scope.expanded = !$scope.expanded;
       };
+
+      socket.notifications.on('news', function (data) {
+        console.log(data);
+        socket.notifications.emit('my other event', { my: 'data' });
+      });
+
     }
   };
 }]);
