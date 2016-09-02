@@ -20,17 +20,22 @@
     </div>
     <div id="user-controls">
       <!--<a><img src="assets/images/icons/white/message.png"></a>-->
-      <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="isLoggedIn()"><img src="assets/images/icons/white/notification.png"></a>
+      <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="isLoggedIn()">
+        <div id="notifications" ng-show="isLoggedIn()">
+          <img src="assets/images/icons/white/notification.png">
+          <div id="notification-count" ng-show="notificationCount > 0"><span>{{ notificationCount > 9 ? '9+' : notificationCount }}</span></div>
+        </div>
+      </a>
       <a id="profile" ui-sref="weco.profile.about({ username: user().username })" ng-show="isLoggedIn()" ng-class="{ 'selected' : isControlSelected('profile') }">
-        <span>{{ user().username }}</span>
+        <span class="text">{{ user().username }}</span>
         <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
       </a>
       <img id="expand" ng-show="isLoggedIn()" src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }">
       <ul id="nav-menu-items" ng-show="isNavExpanded()">
         <li ng-click="logout()"><span>Log Out</span></li>
       </ul>
-      <a ui-sref="auth.login" ng-show="!isLoggedIn()"><span>Log In</span></a>
-      <a ui-sref="auth.signup" ng-show="!isLoggedIn()"><span>Sign Up</span></a>
+      <a ui-sref="auth.login" ng-show="!isLoggedIn()"><span class="text">Log In</span></a>
+      <a ui-sref="auth.signup" ng-show="!isLoggedIn()"><span class="text">Sign Up</span></a>
     </div>
   </div>
 </nav>

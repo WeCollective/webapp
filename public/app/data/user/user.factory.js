@@ -199,18 +199,24 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket'
     });
   };
 
-  User.getNotifications = function(username) {
+  User.getNotifications = function(username, unreadCount) {
     return new Promise(function(resolve, reject) {
-      UserNotificationsAPI.get({ username: username }).$promise.catch(function(response) {
+      UserNotificationsAPI.get({
+        username: username,
+        unreadCount: unreadCount
+      }, function(response) {
+        if(!response || !response.data) {
+          if(unreadCount) return resolve(0);
+          return reject();
+        }
+        return resolve(response.data);
+      }, function(response) {
         // TODO: handle error
         console.error('Unable to fetch user notifications!');
         return reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function(notifications) {
-        if(!notifications || !notifications.data) { return reject(); }
-        return resolve(notifications.data);
       });
     });
   };

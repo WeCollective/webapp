@@ -217,10 +217,6 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
     });
   });
 
-  socket.on('notification', 'notifications', function(data) {
-    alert("Notification! " + JSON.stringify(data));
-  });
-
   // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     var mods = [];
@@ -1387,7 +1383,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 }]);
 
 var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', 'socket', function(User, $state, socket) {
+app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, $state, $timeout, socket) {
   return {
     restrict: 'E',
     replace: 'true',
@@ -1426,7 +1422,32 @@ app.directive('navBar', ['User', '$state', 'socket', function(User, $state, sock
         $scope.expanded = !$scope.expanded;
       };
 
-      // TODO:
+      $scope.notificationCount = 0;
+      function getUnreadNotificationCount() {
+        User.getNotifications(User.me().username, true).then(function(count) {
+          $timeout(function () {
+            $scope.notificationCount = count;
+          });
+        }, function(err) {
+          // TODO pretty error
+          console.error("Error fetching notification count");
+        });
+      }
+
+      $scope.$watch(function() {
+        return User.me().username;
+      }, function() {
+        if(!User.me().username) { return; }
+        getUnreadNotificationCount();
+      });
+
+      $scope.$on('$stateChangeSuccess', function() {
+        getUnreadNotificationCount();
+      });
+
+      socket.on('notification', 'notifications', function() {
+        getUnreadNotificationCount();
+      });
     }
   };
 }]);
@@ -2566,18 +2587,24 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket'
     });
   };
 
-  User.getNotifications = function(username) {
+  User.getNotifications = function(username, unreadCount) {
     return new Promise(function(resolve, reject) {
-      UserNotificationsAPI.get({ username: username }).$promise.catch(function(response) {
+      UserNotificationsAPI.get({
+        username: username,
+        unreadCount: unreadCount
+      }, function(response) {
+        if(!response || !response.data) {
+          if(unreadCount) return resolve(0);
+          return reject();
+        }
+        return resolve(response.data);
+      }, function(response) {
         // TODO: handle error
         console.error('Unable to fetch user notifications!');
         return reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function(notifications) {
-        if(!notifications || !notifications.data) { return reject(); }
-        return resolve(notifications.data);
       });
     });
   };

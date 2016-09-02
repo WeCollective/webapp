@@ -217,10 +217,6 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
     });
   });
 
-  socket.on('notification', 'notifications', function(data) {
-    alert("Notification! " + JSON.stringify(data));
-  });
-
   // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     var mods = [];

@@ -102,7 +102,9 @@ nav#nav-bar {
         vertical-align: middle;
       }
 
-      img#expand, a img {
+      img#expand, a div#notifications {
+        position: relative;
+        display: inline-block;
         height: calc(@nav-bar-height / 2);
         width: auto;
         vertical-align: middle;
@@ -116,11 +118,32 @@ nav#nav-bar {
           cursor: pointer;
           opacity: 1;
         }
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+
+        div#notification-count {
+          position: absolute;
+          top: -4px;
+          right: 0;
+          min-width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background-color: red;
+          text-align: center;
+          font-size: 9px;
+          color: #fff;
+          font-weight: 500;
+          box-sizing: border-box;
+          padding-top: 2px;
+        }
       }
 
       a {
         img {
-          margin: 0 10px;
+          margin: 0 5px;
         }
         &#profile {
           span {
@@ -142,7 +165,7 @@ nav#nav-bar {
           color: #fff;
         }
 
-        span {
+        span.text {
           vertical-align: middle;
           padding: 3px 10px;
           border-radius: 2px;

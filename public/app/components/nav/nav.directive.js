@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', 'socket', function(User, $state, socket) {
+app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, $state, $timeout, socket) {
   return {
     restrict: 'E',
     replace: 'true',
@@ -38,7 +38,32 @@ app.directive('navBar', ['User', '$state', 'socket', function(User, $state, sock
         $scope.expanded = !$scope.expanded;
       };
 
-      // TODO:
+      $scope.notificationCount = 0;
+      function getUnreadNotificationCount() {
+        User.getNotifications(User.me().username, true).then(function(count) {
+          $timeout(function () {
+            $scope.notificationCount = count;
+          });
+        }, function(err) {
+          // TODO pretty error
+          console.error("Error fetching notification count");
+        });
+      }
+
+      $scope.$watch(function() {
+        return User.me().username;
+      }, function() {
+        if(!User.me().username) { return; }
+        getUnreadNotificationCount();
+      });
+
+      $scope.$on('$stateChangeSuccess', function() {
+        getUnreadNotificationCount();
+      });
+
+      socket.on('notification', 'notifications', function() {
+        getUnreadNotificationCount();
+      });
     }
   };
 }]);
