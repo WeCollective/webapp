@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function(UserAPI, UserNotificationsAPI, $http, ENV) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $http, ENV, socket) {
   var User = {};
   var me = {};
 
@@ -162,6 +162,11 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
           message: response.data.message
         });
       }).then(function() {
+        // reconnect to web sockets to force new 'connection' event,
+        // so that the socket id can be obtained and stored on the session object
+        // via User.subscribeToNotifications
+        socket.disconnect();
+        socket.reconnect();
         getMe().then(resolve, reject);
       });
     });
@@ -196,10 +201,13 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
 
   User.getNotifications = function(username) {
     return new Promise(function(resolve, reject) {
-      UserNotificationsAPI.get({ username: username }).$promise.catch(function() {
+      UserNotificationsAPI.get({ username: username }).$promise.catch(function(response) {
         // TODO: handle error
         console.error('Unable to fetch user notifications!');
-        return reject();
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function(notifications) {
         if(!notifications || !notifications.data) { return reject(); }
         return resolve(notifications.data);
@@ -215,12 +223,51 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
         notificationid: notificationid
       }, {
         unread: unread
-      }).$promise.catch(function(err) {
+      }).$promise.catch(function(response) {
         // TODO: handle error
-        console.error('Unable to mark notification! ', err);
-        return reject();
+        console.error('Unable to mark notification!');
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function() {
         resolve();
+      });
+    });
+  };
+
+  // subscribe to real time notifications by storing socketID in db session entry
+  User.subscribeToNotifications = function(username, socketID) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.update({
+        username: username
+      }, {
+        socketID: socketID
+      }).$promise.catch(function(response) {
+        // TODO: handle error
+        console.error('Unable to mark notification!');
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
+  // subscribe to real time notifications by storing socketID in db session entry
+  User.unsubscribeFromNotifications = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.delete({
+        username: username
+      }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       });
     });
   };

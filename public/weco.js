@@ -172,9 +172,53 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
-app.run(['$rootScope', '$state', 'User', 'Mod', function($rootScope, $state, User, Mod) {
+app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
+  var me = User.me();
+  function getSelf(cb) {
+    // If factory hasn't initialised and me = {}, perform fresh fetch from server
+    // to check authentication status. If unauthenticated, user will still be {}
+    if(Object.keys(me).length === 0) {
+      User.isAuthenticated().then(function(user) {
+        me = user;
+        cb();
+      }, cb);
+    } else {
+      cb();
+    }
+  }
+
+  // subscribe to real time notifications using websockets (socket.io)
+  socket.on('on_connect', 'notifications', function (data) {
+    console.log("CONNECTED");
+    getSelf(function() {
+      if(!me.username) { return; }  // not auth'd
+
+      // (adds socket id to the session store)
+      User.subscribeToNotifications(me.username, data.id).then(function() {
+      }, function (err) {
+        // TODO pretty error
+        console.error("Error subscribing to notifications");
+      });
+    });
+  });
+
+  // unsubscribe from real time notifications using websockets (socket.io)
+  socket.on('on_disconnect', 'notifications', function (data) {
+    console.log("DISCONNECTED");
+    getSelf(function() {
+      if(!me.username) { return; }  // not auth'd
+
+      // (removes socket id from the session store)
+      User.unsubscribeFromNotifications(me.username, data.id).then(function() {
+      }, function (err) {
+        // TODO pretty error
+        console.error("Error unsubscribing from notifications");
+      });
+    });
+  });
+
+  // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-    var me = User.me();
     var mods = [];
 
     // check if the state we are transitioning to has access restrictions,
@@ -192,19 +236,6 @@ app.run(['$rootScope', '$state', 'User', 'Mod', function($rootScope, $state, Use
         mods = branchMods;
         cb();
       }, cb);
-    }
-
-    function getSelf(cb) {
-      // If factory hasn't initialised and me = {}, perform fresh fetch from server
-      // to check authentication status. If unauthenticated, user will still be {}
-      if(Object.keys(me).length === 0) {
-        User.isAuthenticated().then(function(user) {
-          me = user;
-          cb();
-        }, cb);
-      } else {
-        cb();
-      }
     }
 
     function doChecks() {
@@ -239,12 +270,55 @@ app.factory('socket', ['$rootScope', 'ENV', function($rootScope, ENV) {
   // tell jshint that io is a global var
   /* globals io */
 
-  // socket.notifications refers to the notifications socket namespace
-  // socket.messages refers to the messages socket namespace
-  return {
-    notifications: io.connect(ENV.apiEndpoint + 'notifications'),
-    messages: io.connect(ENV.apiEndpoint + 'messages')
+  var socket = {};
+
+  // the socket connections to each namespace
+  var connections = {};
+  // store the actions registered to certain events on certain namespaces
+  var actions = [];
+
+  socket.reconnect = function() {
+    // notifications and messages refer to their respective socket namespaces
+    console.log("Reconnecting");
+    // create new socket connections to each namespace
+    connections = {
+      notifications: io.connect(ENV.apiEndpoint + 'notifications', {'forceNew': true }),
+      messages: io.connect(ENV.apiEndpoint + 'messages', {'forceNew': true })
+    };
+
+    // bind all registered actions to the new connection instances
+    for(var i = 0; i < actions.length; i++) {
+      connections[actions[i].namespace].on(actions[i].event, actions[i].cb);
+    }
   };
+
+  socket.disconnect = function() {
+    console.log("Disconnecting");
+    // disconnect all sockets
+    for(var namespace in connections) {
+      connections[namespace].io.disconnect();
+    }
+  };
+
+  socket.on = function(event, namespace, cb) {
+    // store the action being registered
+    actions.push({
+      event: event,
+      namespace: namespace,
+      cb: cb
+    });
+    // bind the action to the connection instance
+    connections[namespace].on(event, cb);
+  };
+
+  socket.reconnect();
+  return socket;
+
+  // socket.on(event, namespace).then()
+  /*  socket.io().notifications.on/emit etc
+  **  socket.reconnect()
+  **  socket.disconnect
+  */
 }]);
 
 app.controller('rootController', ['$scope', '$state', function($scope, $state) {
@@ -1348,11 +1422,7 @@ app.directive('navBar', ['User', '$state', 'socket', function(User, $state, sock
         $scope.expanded = !$scope.expanded;
       };
 
-      socket.notifications.on('news', function (data) {
-        console.log(data);
-        socket.notifications.emit('my other event', { my: 'data' });
-      });
-
+      // TODO:
     }
   };
 }]);
@@ -2294,7 +2364,7 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function(UserAPI, UserNotificationsAPI, $http, ENV) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $http, ENV, socket) {
   var User = {};
   var me = {};
 
@@ -2455,6 +2525,11 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
           message: response.data.message
         });
       }).then(function() {
+        // reconnect to web sockets to force new 'connection' event,
+        // so that the socket id can be obtained and stored on the session object
+        // via User.subscribeToNotifications
+        socket.disconnect();
+        socket.reconnect();
         getMe().then(resolve, reject);
       });
     });
@@ -2489,10 +2564,13 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
 
   User.getNotifications = function(username) {
     return new Promise(function(resolve, reject) {
-      UserNotificationsAPI.get({ username: username }).$promise.catch(function() {
+      UserNotificationsAPI.get({ username: username }).$promise.catch(function(response) {
         // TODO: handle error
         console.error('Unable to fetch user notifications!');
-        return reject();
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function(notifications) {
         if(!notifications || !notifications.data) { return reject(); }
         return resolve(notifications.data);
@@ -2508,12 +2586,51 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', function
         notificationid: notificationid
       }, {
         unread: unread
-      }).$promise.catch(function(err) {
+      }).$promise.catch(function(response) {
         // TODO: handle error
-        console.error('Unable to mark notification! ', err);
-        return reject();
+        console.error('Unable to mark notification!');
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
       }).then(function() {
         resolve();
+      });
+    });
+  };
+
+  // subscribe to real time notifications by storing socketID in db session entry
+  User.subscribeToNotifications = function(username, socketID) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.update({
+        username: username
+      }, {
+        socketID: socketID
+      }).$promise.catch(function(response) {
+        // TODO: handle error
+        console.error('Unable to mark notification!');
+        return reject({
+          status: response.status,
+          message: response.data.message
+        });
+      }).then(function() {
+        resolve();
+      });
+    });
+  };
+
+  // subscribe to real time notifications by storing socketID in db session entry
+  User.unsubscribeFromNotifications = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserNotificationsAPI.delete({
+        username: username
+      }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       });
     });
   };

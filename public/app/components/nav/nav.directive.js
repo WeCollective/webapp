@@ -38,11 +38,7 @@ app.directive('navBar', ['User', '$state', 'socket', function(User, $state, sock
         $scope.expanded = !$scope.expanded;
       };
 
-      socket.notifications.on('news', function (data) {
-        console.log(data);
-        socket.notifications.emit('my other event', { my: 'data' });
-      });
-
+      // TODO:
     }
   };
 }]);
