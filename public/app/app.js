@@ -173,62 +173,45 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
-  var me = User.me();
-  function getSelf(cb) {
-    // If factory hasn't initialised and me = {}, perform fresh fetch from server
-    // to check authentication status. If unauthenticated, user will still be {}
-    if(Object.keys(me).length === 0) {
-      User.isAuthenticated().then(function(user) {
-        me = user;
-        cb();
-      }, cb);
-    } else {
-      cb();
-    }
-  }
 
-  // subscribe to real time notifications using websockets (socket.io)
   socket.on('on_connect', 'notifications', function(data) {
-    console.log("CONNECTED");
-    getSelf(function() {
-      if(!me.username) { return; }  // not auth'd
-
-      // (adds socket id to the session store)
-      User.subscribeToNotifications(me.username, data.id).then(function() {
-      }, function (err) {
-        // TODO pretty error
-        console.error("Error subscribing to notifications");
-      });
+    console.log("Connection established");
+    User.get().then(function(me) {
+      if(!me.username) { throw 'Not Authenticated'; }
+      return User.subscribeToNotifications(me.username, data.id);
+    }).then(function() {
+      console.log("Successfully subscribed to notifications");
+    }).catch(function(err) {
+      // TODO pretty error
+      console.error("Error subscribing to notifications: ", err);
     });
   });
 
   // unsubscribe from real time notifications using websockets (socket.io)
   socket.on('on_disconnect', 'notifications', function(data) {
-    console.log("DISCONNECTED");
-    getSelf(function() {
-      if(!me.username) { return; }  // not auth'd
-
-      // (removes socket id from the session store)
-      User.unsubscribeFromNotifications(me.username, data.id).then(function() {
-      }, function (err) {
+    console.log("Disconnected");
+    if(User.me().username) {
+      User.unsubscribeFromNotifications(User.me().username, data.id).then(function () {
+        console.log("Successfully unsubscribed from notifications");
+      }, function(err) {
         // TODO pretty error
-        console.error("Error unsubscribing from notifications");
+        console.error("Error unsubscribing to notifications: ", err);
       });
-    });
+    } else {
+      // TODO pretty error
+      console.error("Error unsubscribing to notifications: Not Authenticated");
+    }
   });
 
   // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     var mods = [];
-
     // check if the state we are transitioning to has access restrictions,
     // performing checks if needed
     if(toState.modOnly) {
-      getMods(function() {
-        getSelf(doChecks);
-      });
+      getMods(doChecks);
     } else if(toState.selfOnly) {
-      getSelf(doChecks);
+      doChecks();
     }
 
     function getMods(cb) {
@@ -241,7 +224,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
     function doChecks() {
       // If state requires authenticated user to be the user specified in the URL,
       // transition to the specified redirection state
-      if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
+      if(toState.selfOnly && (Object.keys(User.me()).length === 0 || toParams.username != User.me().username)) {
         $state.transitionTo(toState.redirectTo);
         event.preventDefault();
       }
@@ -251,7 +234,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
       if(toState.modOnly) {
         var isMod = false;
         for(var i = 0; i < mods.length; i++) {
-          if(mods[i].username == me.username) {
+          if(mods[i].username == User.me().username) {
             isMod = true;
           }
         }

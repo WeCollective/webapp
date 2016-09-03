@@ -173,62 +173,45 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
-  var me = User.me();
-  function getSelf(cb) {
-    // If factory hasn't initialised and me = {}, perform fresh fetch from server
-    // to check authentication status. If unauthenticated, user will still be {}
-    if(Object.keys(me).length === 0) {
-      User.isAuthenticated().then(function(user) {
-        me = user;
-        cb();
-      }, cb);
-    } else {
-      cb();
-    }
-  }
 
-  // subscribe to real time notifications using websockets (socket.io)
   socket.on('on_connect', 'notifications', function(data) {
-    console.log("CONNECTED");
-    getSelf(function() {
-      if(!me.username) { return; }  // not auth'd
-
-      // (adds socket id to the session store)
-      User.subscribeToNotifications(me.username, data.id).then(function() {
-      }, function (err) {
-        // TODO pretty error
-        console.error("Error subscribing to notifications");
-      });
+    console.log("Connection established");
+    User.get().then(function(me) {
+      if(!me.username) { throw 'Not Authenticated'; }
+      return User.subscribeToNotifications(me.username, data.id);
+    }).then(function() {
+      console.log("Successfully subscribed to notifications");
+    }).catch(function(err) {
+      // TODO pretty error
+      console.error("Error subscribing to notifications: ", err);
     });
   });
 
   // unsubscribe from real time notifications using websockets (socket.io)
   socket.on('on_disconnect', 'notifications', function(data) {
-    console.log("DISCONNECTED");
-    getSelf(function() {
-      if(!me.username) { return; }  // not auth'd
-
-      // (removes socket id from the session store)
-      User.unsubscribeFromNotifications(me.username, data.id).then(function() {
-      }, function (err) {
+    console.log("Disconnected");
+    if(User.me().username) {
+      User.unsubscribeFromNotifications(User.me().username, data.id).then(function () {
+        console.log("Successfully unsubscribed from notifications");
+      }, function(err) {
         // TODO pretty error
-        console.error("Error unsubscribing from notifications");
+        console.error("Error unsubscribing to notifications: ", err);
       });
-    });
+    } else {
+      // TODO pretty error
+      console.error("Error unsubscribing to notifications: Not Authenticated");
+    }
   });
 
   // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     var mods = [];
-
     // check if the state we are transitioning to has access restrictions,
     // performing checks if needed
     if(toState.modOnly) {
-      getMods(function() {
-        getSelf(doChecks);
-      });
+      getMods(doChecks);
     } else if(toState.selfOnly) {
-      getSelf(doChecks);
+      doChecks();
     }
 
     function getMods(cb) {
@@ -241,7 +224,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
     function doChecks() {
       // If state requires authenticated user to be the user specified in the URL,
       // transition to the specified redirection state
-      if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
+      if(toState.selfOnly && (Object.keys(User.me()).length === 0 || toParams.username != User.me().username)) {
         $state.transitionTo(toState.redirectTo);
         event.preventDefault();
       }
@@ -251,7 +234,7 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
       if(toState.modOnly) {
         var isMod = false;
         for(var i = 0; i < mods.length; i++) {
-          if(mods[i].username == me.username) {
+          if(mods[i].username == User.me().username) {
             isMod = true;
           }
         }
@@ -1392,7 +1375,6 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
     templateUrl: '/app/components/nav/nav.view.html',
     link: function($scope, element, attrs) {
       $scope.user = User.me;
-      $scope.isLoggedIn = User.isLoggedIn;
 
       $scope.logout = function() {
         $scope.expanded = false;
@@ -1665,7 +1647,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2391,9 +2373,71 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $http, ENV, socket) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $timeout, $http, ENV, socket) {
   var User = {};
   var me = {};
+
+  // Get authenticated user object
+  User.me = function() {
+    return me || {};
+  };
+
+  // Get the specified user object, with attached profile picture url
+  User.get = function(username) {
+    return new Promise(function(resolve, reject) {
+      UserAPI.get({ param: username || 'me' }, function(user) {
+        if(!user || !user.data) { return reject(); }
+
+        // Attach the profile picture url to the user object if it exists
+        User.getPictureUrl(username || 'me', 'picture', false).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrl = response.data.data;
+          }
+          return User.getPictureUrl(username || 'me', 'picture', true);
+        }, function() {
+          return User.getPictureUrl(username || 'me', 'picture', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.profileUrlThumb = response.data.data;
+          }
+          return User.getPictureUrl(username || 'me', 'cover', false);
+        }, function() {
+          return User.getPictureUrl(username || 'me', 'cover', false);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrl = response.data.data;
+          }
+          return User.getPictureUrl(username || 'me', 'cover', true);
+        }, function() {
+          return User.getPictureUrl(username || 'me', 'cover', true);
+        }).then(function(response) {
+          if(response && response.data && response.data.data) {
+            user.data.coverUrlThumb = response.data.data;
+          }
+          if(!username) {
+            me = user.data;
+          }
+          resolve(user.data);
+        }, function() {
+          if(!username) {
+            me = user.data;
+          }
+          resolve(user.data);
+        });
+      }, function(response) {
+        if(!username) {
+          me = {};
+        }
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  // Intial fetch of me object
+  User.get().then(function () {},function () {});
 
   // fetch the presigned url for the profile picture for the specified user,
   // defaulting to authd user if not specified.
@@ -2412,179 +2456,68 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket'
     return $http.get(ENV.apiEndpoint + 'user/' + username + '/' + type + (thumbnail ? '-thumb' : ''));
   };
 
-
-  function getMe() {
-    return new Promise(function(resolve, reject) {
-      // Fetch the authenticated user object
-      UserAPI.get().$promise.catch(function() {
-        // TODO: handle error
-        console.error('Unable to fetch user!');
-        return reject();
-      }).then(function(user) {
-        if(!user || !user.data) { return reject(); }
-
-        // Attach the profile picture url to the user object if it exists
-        User.getPictureUrl('me', 'picture', false).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.profileUrl = response.data.data;
-          }
-          return User.getPictureUrl('me', 'picture', true);
-        }, function() {
-          return User.getPictureUrl('me', 'picture', true);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.profileUrlThumb = response.data.data;
-          }
-          return User.getPictureUrl('me', 'cover', false);
-        }, function() {
-          return User.getPictureUrl('me', 'cover', false);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.coverUrl = response.data.data;
-          }
-          return User.getPictureUrl('me', 'cover', true);
-        }, function() {
-          return User.getPictureUrl('me', 'cover', true);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.coverUrlThumb = response.data.data;
-          }
-          me.data = user.data;
-          resolve();
-        }, function() {
-          me.data = user.data;
-          resolve();
-        });
-      });
-    });
-  }
-  getMe().then(function() {}, function () {
-    console.error("Unable to get user!");
-  });
-
-  // Try to fetch self on GET user/me to check auth status
-  User.isAuthenticated = function() {
-    return new Promise(function(resolve, reject) {
-      UserAPI.get().$promise.catch(function() {
-        // TODO: handle error
-        console.error('Unable to fetch user!');
-        return reject();
-      }).then(function(user) {
-        if(!user || !user.data) { return reject(); }
-        return resolve(user.data);
-      });
-    });
-  };
-
-  // Get authenticated user object
-  User.me = function() {
-    return me.data || {};
-  };
-
-  // Get the specified user object, with attached profile picture url
-  User.get = function(username) {
-    return new Promise(function(resolve, reject) {
-      UserAPI.get({ param: username }).$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function(user) {
-        if(!user || !user.data) { return reject(); }
-
-        // Attach the profile picture url to the user object if it exists
-        User.getPictureUrl(username, 'picture', false).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.profileUrl = response.data.data;
-          }
-          return User.getPictureUrl(username, 'picture', true);
-        }, function() {
-          return User.getPictureUrl(username, 'picture', true);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.profileUrlThumb = response.data.data;
-          }
-          return User.getPictureUrl(username, 'cover', false);
-        }, function() {
-          return User.getPictureUrl(username, 'cover', false);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.coverUrl = response.data.data;
-          }
-          return User.getPictureUrl(username, 'cover', true);
-        }, function() {
-          return User.getPictureUrl(username, 'cover', true);
-        }).then(function(response) {
-          if(response && response.data && response.data.data) {
-            user.data.coverUrlThumb = response.data.data;
-          }
-          resolve(user.data);
-        }, function() {
-          resolve(user.data);
-        });
-      });
-    });
-  };
-
   User.update = function(data) {
     return new Promise(function(resolve, reject) {
-      UserAPI.update(data).$promise.catch(function(response) {
+      UserAPI.update(data, function() {
+        resolve();
+      }, function(response) {
         reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        resolve();
       });
     });
-  };
-
-  // if the user data has a username attribute, we're logged in
-  User.isLoggedIn = function() {
-    return User.me().username || false;
   };
 
   User.login = function(credentials) {
     return new Promise(function(resolve, reject) {
-      UserAPI.login(credentials).$promise.catch(function(response) {
-        reject({
-          status: response.status,
-          message: response.data.message
-        });
-      }).then(function() {
+      UserAPI.login(credentials, function() {
         // reconnect to web sockets to force new 'connection' event,
         // so that the socket id can be obtained and stored on the session object
         // via User.subscribeToNotifications
         socket.disconnect();
         socket.reconnect();
-        getMe().then(resolve, reject);
+        User.get().then(resolve, reject);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       });
     });
   };
 
   User.logout = function() {
     return new Promise(function(resolve, reject) {
-      UserAPI.logout().$promise.catch(function(response) {
+      UserAPI.logout({}, function() {
+        $timeout(function() {
+          socket.disconnect();
+          me = {};
+          resolve();
+        });
+      }, function(response) {
         reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        me = UserAPI.get();
-        resolve();
       });
     });
   };
 
   User.signup = function(credentials) {
     return new Promise(function(resolve, reject) {
-      UserAPI.signup(credentials).$promise.catch(function(response) {
+      UserAPI.signup(credentials, function() {
+        // reconnect to web sockets to force new 'connection' event,
+        // so that the socket id can be obtained and stored on the session object
+        // via User.subscribeToNotifications
+        socket.disconnect();
+        socket.reconnect();
+        User.get().then(resolve, reject);
+      }, function(response) {
         reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        getMe().then(resolve, reject);
       });
     });
   };
@@ -2619,15 +2552,15 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket'
         notificationid: notificationid
       }, {
         unread: unread
-      }).$promise.catch(function(response) {
+      }, function() {
+        resolve();
+      }, function(response) {
         // TODO: handle error
         console.error('Unable to mark notification!');
         return reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        resolve();
       });
     });
   };
@@ -2639,15 +2572,15 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$http', 'ENV', 'socket'
         username: username
       }, {
         socketID: socketID
-      }).$promise.catch(function(response) {
+      }, function() {
+        resolve();
+      }, function(response) {
         // TODO: handle error
         console.error('Unable to mark notification!');
         return reject({
           status: response.status,
           message: response.data.message
         });
-      }).then(function() {
-        resolve();
       });
     });
   };

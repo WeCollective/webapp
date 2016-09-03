@@ -6,7 +6,6 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
     templateUrl: '/app/components/nav/nav.view.html',
     link: function($scope, element, attrs) {
       $scope.user = User.me;
-      $scope.isLoggedIn = User.isLoggedIn;
 
       $scope.logout = function() {
         $scope.expanded = false;
