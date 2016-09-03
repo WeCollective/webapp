@@ -38,6 +38,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-exec": "^1.0.0",
     "grunt-ng-constant": "^2.0.1",
-    "grunt-nodemon": "^0.4.2"
+    "grunt-nodemon": "^0.4.2",
+    "grunt-preprocess": "^5.1.0"
   }
 }

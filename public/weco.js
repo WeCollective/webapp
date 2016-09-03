@@ -321,7 +321,9 @@ app.factory('socket', ['$rootScope', 'ENV', function($rootScope, ENV) {
   */
 }]);
 
-app.controller('rootController', ['$scope', '$state', function($scope, $state) {
+app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $state, ENV) {
+  $scope.socketioURL = ENV + 'socket.io/socket.io.js';
+
   $scope.hasNavBar = function() {
     if($state.current.name.indexOf('auth') > -1) {
       return false;
@@ -1663,7 +1665,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);

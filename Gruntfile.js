@@ -10,6 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-ng-constant');
+  grunt.loadNpmTasks('grunt-preprocess');
 
   // Configure tasks
   grunt.initConfig({
@@ -161,6 +162,35 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+    preprocess : {
+      local: {
+        src: 'public/index.template.html',
+        dest: 'public/index.html',
+        options: {
+          context: {
+            ENV: 'local'
+          }
+        }
+      },
+      development: {
+        src: 'public/index.template.html',
+        dest: 'public/index.html',
+        options: {
+          context: {
+            ENV: 'development'
+          }
+        }
+      },
+      production: {
+        src: 'public/index.template.html',
+        dest: 'public/index.html',
+        options: {
+          context: {
+            ENV: 'production'
+          }
+        }
+      }
     }
   });
 
@@ -173,9 +203,9 @@ module.exports = function(grunt) {
   **                          (either "development" or "production"), merging into production if needed.
   */
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'jshint', 'concat', 'uglify', 'less']);
-  grunt.registerTask('build:production', ['clean', 'ngconstant:production', 'jshint', 'concat', 'uglify', 'less']);
-  grunt.registerTask('build:local', ['clean', 'ngconstant:local', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'preprocess:development', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('build:production', ['clean', 'ngconstant:production', 'preprocess:production', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('build:local', ['clean', 'ngconstant:local', 'preprocess:local', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('serve:local', ['build:local', 'concurrent:serve']);
   grunt.registerTask('serve:development', ['build:development', 'concurrent:serve']);
   grunt.registerTask('publish', ['build:production', 'exec:commit', 'exec:publish']);

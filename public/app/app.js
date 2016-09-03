@@ -321,7 +321,9 @@ app.factory('socket', ['$rootScope', 'ENV', function($rootScope, ENV) {
   */
 }]);
 
-app.controller('rootController', ['$scope', '$state', function($scope, $state) {
+app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $state, ENV) {
+  $scope.socketioURL = ENV + 'socket.io/socket.io.js';
+
   $scope.hasNavBar = function() {
     if($state.current.name.indexOf('auth') > -1) {
       return false;
