@@ -224,26 +224,35 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $
     function doChecks() {
       // If state requires authenticated user to be the user specified in the URL,
       // transition to the specified redirection state
-      if(toState.selfOnly && (Object.keys(User.me()).length === 0 || toParams.username != User.me().username)) {
-        $state.transitionTo(toState.redirectTo);
-        event.preventDefault();
-      }
-
-      // If state requires authenticated user to be a mod of the branch specified in the URL,
-      // transition to the specified redirection state
-      if(toState.modOnly) {
-        var isMod = false;
-        for(var i = 0; i < mods.length; i++) {
-          if(mods[i].username == User.me().username) {
-            isMod = true;
-          }
-        }
-
-        if(!isMod) {
+      User.get().then(function(me) {
+        if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
+          console.log(Object.keys(me).length);
           $state.transitionTo(toState.redirectTo);
           event.preventDefault();
         }
-      }
+
+        // If state requires authenticated user to be a mod of the branch specified in the URL,
+        // transition to the specified redirection state
+        if(toState.modOnly) {
+          var isMod = false;
+          for(var i = 0; i < mods.length; i++) {
+            if(mods[i].username == me.username) {
+              isMod = true;
+            }
+          }
+
+          if(!isMod) {
+            $state.transitionTo(toState.redirectTo);
+            event.preventDefault();
+          }
+        }
+      }, function(err) {
+        if(err) {
+          console.error("Unable to fetch self: ", err);
+          $state.transitionTo(toState.redirectTo);
+          event.preventDefault();
+        }
+      });
     }
   });
 }]);
