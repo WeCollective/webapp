@@ -2109,9 +2109,9 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   };
 
   // Get all the posts on a given branch submitted after a given time
-  Branch.getPosts = function(branchid, timeafter, stat) {
+  Branch.getPosts = function(branchid, timeafter, sortBy, stat) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, stat: stat }, function(posts) {
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, sortBy: sortBy, stat: stat }, function(posts) {
         if(posts && posts.data) {
           resolve(posts.data);
         } else {
@@ -3352,9 +3352,21 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   function getPosts() {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
+    var sortBy;
+    switch($scope.sortByItems[$scope.selectedSortByItemIdx]) {
+      case 'TOTAL POINTS':
+        sortBy = 'points';
+        break;
+      case 'DATE':
+        sortBy = 'date';
+        break;
+      default:
+        sortBy = 'points';
+        break;
+    }
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter, $scope.stat).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat).then(function(posts) {
       $timeout(function() {
         $scope.posts = posts;
         $scope.isLoading = false;
@@ -3383,6 +3395,13 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'POINTS ON COMMENTS', 'DATE'];
   $scope.selectedSortByItemIdx = 0;
+
+  $scope.$watch('selectedSortByItemIdx', function () {
+    if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
+      $scope.setStat('individual');
+    }
+    getPosts();
+  });
 }]);
 
 var app = angular.module('wecoApp');

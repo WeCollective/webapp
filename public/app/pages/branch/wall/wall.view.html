@@ -4,7 +4,7 @@
     <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
     <dropdown title="'POST TYPE'" items="postTypeItems" selected="selectedPostTypeItemIdx"></dropdown>
     <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
-    <div id="stat-type-selector">
+    <div id="stat-type-selector" ng-show="sortByItems[selectedSortByItemIdx] == 'TOTAL POINTS'">
       <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')">
         <img src="/assets/images/icons/black/individual.png">
       </div>
