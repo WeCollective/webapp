@@ -1408,6 +1408,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
 
       $scope.notificationCount = 0;
       function getUnreadNotificationCount() {
+        if(!User.me().username) { return; }
         User.getNotifications(User.me().username, true).then(function(count) {
           $timeout(function () {
             $scope.notificationCount = count;
@@ -1421,17 +1422,15 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
       $scope.$watch(function() {
         return User.me().username;
       }, function() {
-        if(!User.me().username) { return; }
         getUnreadNotificationCount();
       });
 
-      $scope.$on('$stateChangeSuccess', function() {
-        getUnreadNotificationCount();
-      });
+      $scope.$on('$stateChangeSuccess', getUnreadNotificationCount);
+      socket.on('notification', 'notifications', getUnreadNotificationCount);
 
-      socket.on('notification', 'notifications', function() {
-        getUnreadNotificationCount();
-      });
+      $scope.showNotificationCount = function() {
+        return $scope.notificationCount > 0;
+      };
     }
   };
 }]);
@@ -1647,7 +1646,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3372,6 +3371,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
+
+  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'POINTS ON COMMENTS', 'DATE'];
+  $scope.selectedSortByItemIdx = 0;
 }]);
 
 var app = angular.module('wecoApp');

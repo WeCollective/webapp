@@ -3,6 +3,7 @@
     <h1>{{ branch.id == 'root' ? 'World Wall' : 'Wall' }}</h1>
     <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
     <dropdown title="'POST TYPE'" items="postTypeItems" selected="selectedPostTypeItemIdx"></dropdown>
+    <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
     <div id="stat-type-selector">
       <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')">
         <img src="/assets/images/icons/black/individual.png">

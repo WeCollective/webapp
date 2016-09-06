@@ -39,6 +39,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
 
       $scope.notificationCount = 0;
       function getUnreadNotificationCount() {
+        if(!User.me().username) { return; }
         User.getNotifications(User.me().username, true).then(function(count) {
           $timeout(function () {
             $scope.notificationCount = count;
@@ -52,17 +53,15 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
       $scope.$watch(function() {
         return User.me().username;
       }, function() {
-        if(!User.me().username) { return; }
         getUnreadNotificationCount();
       });
 
-      $scope.$on('$stateChangeSuccess', function() {
-        getUnreadNotificationCount();
-      });
+      $scope.$on('$stateChangeSuccess', getUnreadNotificationCount);
+      socket.on('notification', 'notifications', getUnreadNotificationCount);
 
-      socket.on('notification', 'notifications', function() {
-        getUnreadNotificationCount();
-      });
+      $scope.showNotificationCount = function() {
+        return $scope.notificationCount > 0;
+      };
     }
   };
 }]);
