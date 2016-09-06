@@ -2,6 +2,7 @@
   <div class="content-header" id="subbranches-header">
     <h1>{{ branch.id == 'root' ? 'Root Branches' : 'Child Branches' }}</h1>
     <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+    <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
   </div>
   <div id="subbranch-list-container" loading when="isLoading">
     <ul id="subbranch-list">

@@ -3290,6 +3290,9 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     getSubbranches();
   });
 
+  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'POINTS ON COMMENTS', 'DATE'];
+  $scope.selectedSortByItemIdx = 0;
+
 }]);
 
 'use strict';
