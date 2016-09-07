@@ -3363,6 +3363,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       case 'DATE':
         sortBy = 'date';
         break;
+      case 'NUMBER OF COMMENTS':
+        sortBy = 'comment_count';
+        break;
       default:
         sortBy = 'points';
         break;
@@ -3396,7 +3399,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
 
-  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'POINTS ON COMMENTS', 'DATE'];
+  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'DATE'];
   $scope.selectedSortByItemIdx = 0;
 
   $scope.$watch('selectedSortByItemIdx', function () {
