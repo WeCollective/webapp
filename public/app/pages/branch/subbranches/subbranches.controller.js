@@ -33,9 +33,27 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
   function getSubbranches() {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
+    var sortBy;
+    switch($scope.sortByItems[$scope.selectedSortByItemIdx]) {
+      case 'TOTAL POINTS':
+        sortBy = 'post_points';
+        break;
+      case 'DATE':
+        sortBy = 'date';
+        break;
+      case 'NUMBER OF POSTS':
+        sortBy = 'post_count';
+        break;
+      case 'NUMBER OF COMMENTS':
+        sortBy = 'post_comments';
+        break;
+      default:
+        sortBy = 'date';
+        break;
+    }
 
     // fetch the subbranches for this branch and timefilter
-    Branch.getSubbranches($scope.branchid, timeafter).then(function(branches) {
+    Branch.getSubbranches($scope.branchid, timeafter, sortBy).then(function(branches) {
       $timeout(function() {
         $scope.branches = branches;
         $scope.isLoading = false;
@@ -55,7 +73,10 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     getSubbranches();
   });
 
-  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'POINTS ON COMMENTS', 'DATE'];
+  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF POSTS', 'NUMBER OF COMMENTS', 'DATE'];
   $scope.selectedSortByItemIdx = 0;
+  $scope.$watch('selectedSortByItemIdx', function () {
+    getSubbranches();
+  });
 
 }]);
