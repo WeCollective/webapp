@@ -1,6 +1,9 @@
 <nav id="nav-bar">
   <div>
-    <a ui-sref="weco.home"><img src="/assets/images/nav-logo.png"></a>
+    <a ui-sref="weco.home">
+      <img id="animation" src="/assets/images/logo-animation.gif">
+      <img src="/assets/images/nav-logo.png">
+    </a>
     <div id="nav-controls">
       <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
         <img src="/assets/images/icons/white/nucleus.png">
