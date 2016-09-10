@@ -305,12 +305,6 @@ app.factory('socket', ['$rootScope', 'ENV', function($rootScope, ENV) {
 
   socket.reconnect();
   return socket;
-
-  // socket.on(event, namespace).then()
-  /*  socket.io().notifications.on/emit etc
-  **  socket.reconnect()
-  **  socket.disconnect
-  */
 }]);
 
 app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $state, ENV) {
