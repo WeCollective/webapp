@@ -12,16 +12,20 @@ div.dropdown {
   }
 
   div.item, li.item {
+    position: relative;
     display: inline-block;
     box-sizing: border-box;
-    padding: 5px 10px;
+    padding: 5px 20px 5px 10px;
     font-size: 12px;
     border-radius: 3px;
 
     img {
-      padding-left: 5px;
+      position: absolute;
+      right: 5px;
+      top: 8px;
       height: 10px;
       width: auto;
+      z-index: 1000;
     }
 
     span.selected {
