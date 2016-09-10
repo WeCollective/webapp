@@ -3,7 +3,11 @@
 var app = angular.module('wecoApp');
 app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal) {
   $scope.branchid = $state.params.branchid;
+  $scope.showCover = true;
   $scope.isLoading = true;
+
+  $scope.showCoverPicture = function() { $scope.showCover = true; };
+  $scope.hideCoverPicture = function() { $scope.showCover = false; };
 
   // Time filter dropdown configuration
   $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];

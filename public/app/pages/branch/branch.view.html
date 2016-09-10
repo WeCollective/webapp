@@ -1,7 +1,8 @@
-<div class="cover-photo" style="height: {{ branch.coverUrl && !isLoading ? '35%' : '0' }}; background-image: url('{{ branch.coverUrl }}'), url('{{ branch.coverUrlThumb }}')">
-  <img id="edit-cover" src="/assets/images/icons/white/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl">
-</div>
+<div class="cover-photo" style="height: {{ branch.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ branch.coverUrl }}'), url('{{ branch.coverUrlThumb }}')"></div>
 <div id="branch-frame" class="frame">
+  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl">
+  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="branch.coverUrl && showCover">
+  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="branch.coverUrl && !showCover">
   <div class="content">
     <div loading when="isLoading">
       <div id="branch-info" class="nav-column">

@@ -3,7 +3,11 @@
 var app = angular.module('wecoApp');
 app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', function($scope, $timeout, $state, User, Modal) {
   $scope.user = {};
+  $scope.showCover = true;
   $scope.isLoading = true;
+
+  $scope.showCoverPicture = function() { $scope.showCover = true; };
+  $scope.hideCoverPicture = function() { $scope.showCover = false; };
 
   User.get($state.params.username).then(function(user) {
     $timeout(function() {

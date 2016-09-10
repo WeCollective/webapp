@@ -1,5 +1,28 @@
 div#branch-frame {
+  position: relative;
   height: 100%;
+
+  img.cover-control {
+    position: absolute;
+    top: 10px;
+    width: 22px;
+    height: auto;
+    opacity: 0.3;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    &#hide-cover, &#show-cover {
+      right: 10px;
+    }
+
+    &#edit-cover {
+      right: 40px;
+    }
+  }
+
   div.content {
     position: relative;
 
