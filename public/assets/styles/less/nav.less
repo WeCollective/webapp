@@ -222,7 +222,7 @@ nav#nav-bar {
       ul#nav-menu-items {
         position: absolute;
         top: calc(@nav-bar-height + 10px);
-        right: -10px;
+        right: 10px;
         min-width: 150px;
         border-radius: 3px;
         box-shadow: @shadow2;
@@ -239,6 +239,7 @@ nav#nav-bar {
           transform: rotate(45deg);
           box-shadow: @shadow2;
           z-index: 500;
+          background-color: @primary-dark;
         }
 
         li {
@@ -247,12 +248,12 @@ nav#nav-bar {
           border-radius: 3px;
           padding: 0 10px;
           z-index: 900;
-          background-color: #fff;
+          background-color: @primary-dark;
 
 
           &:hover {
             cursor: pointer;
-            background-color: @light-grey;
+            background-color: @primary-light;
           }
 
           span {
@@ -260,6 +261,7 @@ nav#nav-bar {
             font-size: 14px;
             text-transform: uppercase;
             font-weight: 500;
+            color: #fff;
           }
         }
       }
