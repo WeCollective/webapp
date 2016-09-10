@@ -15,7 +15,7 @@
       </a>
       <a ng-if="post.type != 'text'" href="{{ post.data.text }}"
          ng-show="post.profileUrlThumb || (post.type == 'image' && post.data.text)" target="_blank">
-        <div class="post-picture" style="background-image: url('{{ post.type == 'image' ? post.data.text : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.png')"></div>
+        <div class="post-picture" style="background-image: url('{{ post.type == 'image' ? post.data.text : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
       </a>
       <div class="data">
         <!-- Two DOM elements conditionally displayed again - see above. -->
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div id="image-post" class="post-content" ng-show="post.type == 'image' && previewState != 'hide'" ng-class="{ 'maximised': previewState == 'maximise' }">
-      <div style="background-image: url('{{ post.data.text }}'), url('/assets/images/invalid-image-url.png')"></div>
+      <div style="background-image: url('{{ post.data.text }}'), url('/assets/images/invalid-image-url.jpg')"></div>
     </div>
     <div id="video-post" class="post-content" ng-show="post.type == 'video' && videoEmbedURL !== '' && previewState != 'hide'" ng-class="{ 'maximised': previewState == 'maximise' }">
       <div id="video-wrapper">

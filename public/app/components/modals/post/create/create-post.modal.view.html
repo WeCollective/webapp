@@ -8,7 +8,7 @@
            ngf-hide-on-drop-not-available="false" ngf-fix-orientation="true">
         <img id="graphic" src="/assets/images/image.png" ng-show="postType.items[postType.idx] != 'IMAGE'">
         <div id="image-preview" ng-show="postType.items[postType.idx] == 'IMAGE'"
-             style="background-image: url('{{ newPost.text }}'), url('/assets/images/invalid-image-url.png')"></div>
+             style="background-image: url('{{ newPost.text }}'), url('/assets/images/invalid-image-url.jpg')"></div>
         <h2 ng-show="postType.items[postType.idx] != 'IMAGE'">Drop an image here!</h2>
         <div id="preview" ngf-background="file"></div>
       </div>

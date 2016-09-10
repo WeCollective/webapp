@@ -34,7 +34,7 @@
         </a>
         <a ng-if="post.type != 'text'" href="{{ post.data.text }}"
            ng-show="post.profileUrlThumb || (post.type == 'image' && post.data.text)" target="_blank">
-          <div style="background-image: url('{{ post.type == 'image' ? post.data.text : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.png')"></div>
+          <div style="background-image: url('{{ post.type == 'image' ? post.data.text : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
         </a>
 
         <div class="data">
