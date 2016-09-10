@@ -1,5 +1,6 @@
 <h3 class="profile-tab-description">Account Notifications</h3>
 <div id="profile-notifications" ng-controller="profileNotificationsController">
+  <div id="empty" ng-show="!notifications || notifications.length == 0">No notifications.</div>
   <ul loading when="isLoading">
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread == true }">
       <div class="toggle-unread" ng-click="setUnread(notification, !notification.unread)"></div>
