@@ -1434,6 +1434,20 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
       $scope.showNotificationCount = function() {
         return $scope.notificationCount > 0;
       };
+
+      var animationSrc = '';
+      $scope.triggerAnimation = function () {
+        $timeout(function () {
+          animationSrc = '/assets/images/logo-animation.gif';
+        });
+        $timeout(function () {
+          animationSrc = '';
+        }, 1000);
+      };
+
+      $scope.getAnimationSrc = function () {
+        return animationSrc;
+      };
     }
   };
 }]);

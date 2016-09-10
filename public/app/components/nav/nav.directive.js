@@ -62,6 +62,22 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
       $scope.showNotificationCount = function() {
         return $scope.notificationCount > 0;
       };
+
+      var animationSrc = '';
+      $scope.triggerAnimation = function () {
+        // set animation src to the animated gif
+        $timeout(function () {
+          animationSrc = '/assets/images/logo-animation.gif';
+        });
+        // cancel after 1 sec
+        $timeout(function () {
+          animationSrc = '';
+        }, 1000);
+      };
+
+      $scope.getAnimationSrc = function () {
+        return animationSrc;
+      };
     }
   };
 }]);

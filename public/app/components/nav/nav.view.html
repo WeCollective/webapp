@@ -1,7 +1,7 @@
 <nav id="nav-bar">
   <div>
-    <a ui-sref="weco.home">
-      <img id="animation" src="/assets/images/logo-animation.gif">
+    <a ui-sref="weco.home" ng-click="triggerAnimation()">
+      <img id="animation" ng-src="{{ getAnimationSrc() }}">
       <img src="/assets/images/nav-logo.png">
     </a>
     <div id="nav-controls">
