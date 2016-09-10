@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="nucleus-submitsubbranchrequest-inputs">
     <div loading when="isLoading">
-      <input ng-model="data.parentid" placeholder="Unique Name of New Parent Branch" type="text"></input>
+      <input ng-model="data.parentid" placeholder="Unique Name of New Parent Branch" type="text" ng-change="data.parentid = data.parentid.split(' ').join('')"></input>
     </div>
   </div>
 </div>

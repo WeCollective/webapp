@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="nucleus-addmod-inputs">
     <div loading when="isLoading">
-      <input ng-model="data.username" placeholder="Username of new Moderator" type="text"></input>
+      <input ng-model="data.username" placeholder="Username of new Moderator" type="text" ng-change="data.username = data.username.split(' ').join('')"></input>
     </div>
   </div>
 </div>

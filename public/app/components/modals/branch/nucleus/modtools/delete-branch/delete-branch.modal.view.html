@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="nucleus-deletebranch-inputs">
     <div loading when="isLoading">
-      <input ng-model="data.branchid" placeholder="Unique Name of the Branch to be Deleted" type="text"></input>
+      <input ng-model="data.branchid" placeholder="Unique Name of the Branch to be Deleted" type="text" ng-change="data.branchid = data.branchid.split(' ').join('')"></input>
     </div>
   </div>
 </div>
