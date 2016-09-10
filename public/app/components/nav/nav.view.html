@@ -33,7 +33,7 @@
         <span class="text">{{ user().username }}</span>
         <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
       </a>
-      <img id="expand" ng-show="user().username !== undefined" src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }">
+      <div id="expand"><img ng-show="user().username !== undefined" src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }"></div>
       <ul id="nav-menu-items" ng-show="isNavExpanded()">
         <li ng-click="logout()"><span>Log Out</span></li>
       </ul>
