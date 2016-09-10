@@ -28,7 +28,7 @@
         <span ng-class="post.type" class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
       </div>
     </div>
-    <div id="preview-controls" class="clearfix">
+    <div id="preview-controls" class="clearfix" ng-show="post.type != 'page' && post.type != 'audio'">
       <img src="/assets/images/icons/black/hide.png" ng-click="setPreviewState('hide')" ng-show="previewState == 'show' || previewState == 'maximise'">
       <img src="/assets/images/icons/black/show.png" ng-click="setPreviewState('show')" ng-show="previewState == 'hide'">
       <img src="/assets/images/icons/black/maximise.png" ng-click="setPreviewState('maximise')" ng-show="previewState == 'show' && post.type != 'text'">
