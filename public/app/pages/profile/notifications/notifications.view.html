@@ -4,9 +4,7 @@
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread == true }">
       <div class="toggle-unread" ng-click="setUnread(notification, !notification.unread)"></div>
       <div class="images">
-        <!--
-        <a ui-sref="weco.profile.about({ username: notification.data.username })"><div class="user-profile" style="background-image: url('{{ notification.profileUrl }}'), url('/assets/images/default-profile.jpg')"></div></a>
-        -->
+        <img ng-src="assets/images/notifications/{{ getNotificationImageType(notification) }}.png">
       </div>
       <div class="notification-entry">
         <div class="title" ng-if="notification.type == NotificationTypes.NEW_CHILD_BRANCH_REQUEST"><a ng-click="setUnread(notification, false)" ui-sref="weco.profile.about({ username: notification.data.username })">{{ notification.data.username == me().username ? 'you' : notification.data.username }}</a> submitted a child branch request from <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.nucleus.about({ branchid: notification.data.childid })">b/{{ notification.data.childid }}</a> to <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.nucleus.about({ branchid: notification.data.parentid })">b/{{ notification.data.parentid }}</a></div>

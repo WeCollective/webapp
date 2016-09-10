@@ -3432,6 +3432,21 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
   $scope.me = User.me;
   $scope.notifications = [];
 
+  $scope.getNotificationImageType = function(notification) {
+    switch(notification.type) {
+      case NotificationTypes.NEW_CHILD_BRANCH_REQUEST:
+      case NotificationTypes.CHILD_BRANCH_REQUEST_ANSWERED:
+      case NotificationTypes.BRANCH_MOVED:
+        return 'branch';
+      case NotificationTypes.MODERATOR:
+        return 'moderator';
+      case NotificationTypes.COMMENT:
+        return 'comment';
+      default:
+        return 'user';
+    }
+  };
+
   function getNotifications() {
     $scope.isLoading = true;
 
