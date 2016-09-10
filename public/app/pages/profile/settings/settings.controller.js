@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('profileSettingsController', ['$scope', '$state', 'Modal', function($scope, $state, Modal) {
+app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', function($scope, $state, Modal, Alerts) {
   function openModal(args) {
     Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
       .then(function(result) {
@@ -8,8 +8,7 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', functi
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating profile settings');
+        Alerts.push('error', 'Unable to update profile settings.');
       });
   }
 

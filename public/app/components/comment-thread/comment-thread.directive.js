@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', function($state, Comment, User, $timeout) {
+app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts', function($state, Comment, User, $timeout, Alerts) {
   return {
     restrict: 'E',
     replace: false,
@@ -45,8 +45,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
               $scope.closeReply();
             });
           }, function () {
-            // TODO: pretty error
-            console.error("Unable to reload comment!");
+            Alerts.push('error', 'Unable to reload comment!');
             $scope.closeReply();
           });
         } else {  // if the comment was replied to
@@ -119,8 +118,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
             loadCommentData(comment, response.slice(), 0);
           });
         }, function() {
-          // TODO: pretty error
-          console.error("Unable to get replies!");
+          Alerts.push('error', 'Unable to get replies!');
         });
       }
 
@@ -135,8 +133,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
             comment.individual += inc;
           });
         }, function(err) {
-          // TODO: pretty error
-          console.error("Unable to vote on comment!");
+          Alerts.push('error', 'Unable to vote on comment!');
         });
       };
 

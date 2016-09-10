@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', function($scope, $state, $timeout, Modal) {
+app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', 'Alerts', function($scope, $state, $timeout, Modal, Alerts) {
 
   function openModal(args) {
     Modal.open('/app/components/modals/branch/nucleus/settings/settings.modal.view.html', args)
@@ -11,8 +11,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating branch settings');
+        Alerts.push('error', 'Error updating branch settings.');
       });
   }
 

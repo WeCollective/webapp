@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', function($scope, $rootScope, $state, $timeout, Post, Comment) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -44,8 +44,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
         post.global += inc;
       });
     }, function(err) {
-      // TODO: pretty error
-      console.error("Unable to vote on post!");
+      Alerts.push('error', 'Error voting on post.');
     });
   };
 
@@ -82,10 +81,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       }
     });
   }, function(response) {
-    // TODO: handle other error codes
     // post not found - 404
     if(response.status == 404) {
       $state.go('weco.notfound');
+    } else {
+      Alerts.push('error', 'Error fetching post.');
     }
     $scope.isLoadingPost = false;
   });
@@ -124,8 +124,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           loadCommentData($scope.comments.slice(), 0);
         });
       }, function() {
-        // TODO: pretty error
-        console.error("Unable to get comments!");
+        Alerts.push('error', 'Error loading comments.');
         $scope.isLoadingComments = false;
       });
     } else {
@@ -143,8 +142,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           loadCommentData($scope.comments.slice(), 0);
         });
       }, function() {
-        // TODO: pretty error
-        console.error("Unable to get comments!");
+        Alerts.push('error', 'Error loading comments.');
         $scope.isLoadingComments = false;
       });
     }

@@ -13,8 +13,7 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
         $scope.mods[index] = data;
       });
     }, function () {
-      // TODO: pretty error
-      console.error("Unable to get mod!");
+      $scope.errorMessage = 'Unable to get mod!';
     });
     return p;
   }

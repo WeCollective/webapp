@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', function($scope, $timeout, Comment) {
+app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', 'Alerts', function($scope, $timeout, Comment, Alerts) {
   $scope.isLoading = false;
   $scope.comment = {
     text: ''
@@ -26,9 +26,7 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
           $scope.onSubmit($scope.comment.id);
         });
       }, function(err) {
-        // TODO pretty err
-        console.log(err);
-
+        Alerts.push('error', 'Error editing comment.');
         $timeout(function() {
           $scope.isLoading = false;
         });
@@ -44,9 +42,7 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
           $scope.onSubmit(id);
         });
       }, function(err) {
-        // TODO pretty err
-        console.log(err);
-
+        Alerts.push('error', 'Error posting comment.');
         $timeout(function() {
           $scope.isLoading = false;
         });

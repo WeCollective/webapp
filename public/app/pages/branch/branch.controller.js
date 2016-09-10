@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal) {
+app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', 'Alerts', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal, Alerts) {
   $scope.branchid = $state.params.branchid;
   $scope.showCover = true;
   $scope.isLoading = true;
@@ -86,8 +86,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to update profile picture.');
       });
   };
 
@@ -99,8 +98,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to update cover picture.');
       });
   };
 
@@ -117,8 +115,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           }
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to create new branch.');
       });
   }
 
@@ -135,8 +132,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           }
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to create new post.');
       });
   }
 

@@ -14,8 +14,7 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
       p.then(function(data) {
         requests[index].branch = data;
       }, function () {
-        // TODO: pretty error
-        console.error("Unable to get branch!");
+        $scope.errorMessage = 'Unable to get branch!';
       });
       return p;
     }
@@ -33,15 +32,13 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
         $scope.isLoading = false;
       });
     }, function() {
-      // NB: a single failed promise will result in error!
       $timeout(function() {
-        $scope.errorMessage = 'Unable to fetch SubBranch requests.';
+        $scope.errorMessage = 'Unable to fetch child branch requests!';
         $scope.isLoading = false;
       });
     });
   }, function () {
-    // TODO: pretty error
-    console.error("Unable to get subbranch requests!");
+    $scope.errorMessage = 'Unable to fetch child branch requests!';
   });
 
 

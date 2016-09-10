@@ -24,6 +24,14 @@ app.config(function($sceDelegateProvider) {
     '*://www.youtube.com/**'
   ]);
 });
+// custom angular filter for reversing an array
+app.filter('reverse', function() {
+  return function(items) {
+    if (!angular.isArray(items)) return false;
+    if (!items) { return false; }
+    return items.slice().reverse();
+  };
+});
 // configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);

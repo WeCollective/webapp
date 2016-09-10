@@ -20,12 +20,10 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
         if(response && response.data && response.data.data) {
           $scope.uploadUrl = response.data.data;
         } else {
-          // TODO: handle error
-          console.log("error");
+          $scope.errorMessage = 'Unable to upload photo!';
         }
       }, function () {
-        // TODO: handle error
-        console.log("error");
+        $scope.errorMessage = 'Unable to upload photo!';
       });
     }
   });
@@ -36,7 +34,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 
   $scope.upload = function() {
     if(!$scope.file) {
-      console.error("No file selected");
+      $scope.errorMessage = 'No file selected!';
       return;
     }
     Upload.http({
@@ -52,11 +50,10 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
       $scope.progress = 0;
       Modal.OK();
     }, function(err) {
-      // TODO: handle error
       $scope.file = null;
       $scope.isUploading = false;
       $scope.progress = 0;
-      console.error("Unable to upload photo!");
+      $scope.errorMessage = 'Unable to upload photo!';
     }, function(evt) {
       $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
@@ -72,7 +69,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 
   $scope.$on('OK', function() {
     if(!$scope.file) {
-      console.error("No file selected");
+      $scope.errorMessage = 'No file selected!';
       return;
     }
     $timeout(function() {

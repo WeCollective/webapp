@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', function($scope, $state, $timeout, User, NotificationTypes) {
+app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', 'Alerts', function($scope, $state, $timeout, User, NotificationTypes, Alerts) {
   $scope.isLoading = false;
   $scope.NotificationTypes = NotificationTypes;
   $scope.me = User.me;
@@ -29,8 +29,7 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         $scope.isLoading = false;
       });
     }, function() {
-      // TODO pretty error
-      console.error('Unable to fetch notifications');
+      Alerts.push('error', 'Unable to fetch notifications.');
     });
   }
 
@@ -40,8 +39,7 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         notification.unread = unread;
       });
     }, function(err) {
-      // TODO handle error
-      console.error("Unable to mark notification! ", err);
+      Alerts.push('error', 'Unable to mark notification.');
     });
   };
 

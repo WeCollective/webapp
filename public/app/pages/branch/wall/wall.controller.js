@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', function($scope, $state, $timeout, Branch, Post, Alerts) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
@@ -15,8 +15,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         post.global += inc;
       });
     }, function(err) {
-      // TODO: pretty error
-      console.error("Unable to vote on post!");
+      Alerts.push('error', 'Error voting on post.');
     });
   };
 
@@ -87,8 +86,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         loadPostData($scope.posts.slice(), 0);
       });
     }, function() {
-      // TODO: pretty error
-      console.error("Unable to get posts!");
+      Alerts.push('error', 'Error fetching posts.');
       $scope.isLoading = false;
     });
   }

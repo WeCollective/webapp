@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, $state, $timeout, socket) {
+app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', function(User, $state, $timeout, socket, Alerts) {
   return {
     restrict: 'E',
     replace: 'true',
@@ -13,8 +13,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
           // successful logout; go to login page
           $state.go('auth.login');
         }, function() {
-          // TODO: pretty error
-          alert('Unable to log out!');
+          Alerts.push('error', 'Unable to log out.');
         });
       };
 
@@ -45,8 +44,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
             $scope.notificationCount = count;
           });
         }, function(err) {
-          // TODO pretty error
-          console.error("Error fetching notification count");
+          Alerts.push('error', 'Error fetching notifications.');
         });
       }
 

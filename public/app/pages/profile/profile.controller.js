@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', function($scope, $timeout, $state, User, Modal) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', 'Alerts', function($scope, $timeout, $state, User, Modal, Alerts) {
   $scope.user = {};
   $scope.showCover = true;
   $scope.isLoading = true;
@@ -15,9 +15,10 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
       $scope.isLoading = false;
     });
   }, function(response) {
-    // TODO: Handle other error codes
     if(response.status == 404) {
       $state.go('weco.notfound');
+    } else {
+      Alerts.push('error', 'Unable to fetch user.');
     }
     $scope.isLoading = false;
   });
@@ -50,8 +51,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to change profile picture.');
       });
   };
 
@@ -63,8 +63,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to change cover picture.');
       });
   };
 

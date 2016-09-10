@@ -24,6 +24,14 @@ app.config(function($sceDelegateProvider) {
     '*://www.youtube.com/**'
   ]);
 });
+// custom angular filter for reversing an array
+app.filter('reverse', function() {
+  return function(items) {
+    if (!angular.isArray(items)) return false;
+    if (!items) { return false; }
+    return items.slice().reverse();
+  };
+});
 // configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -320,7 +328,67 @@ app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $s
 }]);
 
 var app = angular.module('wecoApp');
-app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', function($state, Comment, User, $timeout) {
+app.directive('alerts', ['$timeout', 'Alerts', function($timeout, Alerts) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+
+    },
+    templateUrl: '/app/components/alerts/alerts.view.html',
+    link: function ($scope) {
+      $scope.alerts = Alerts.get;
+      $scope.close = Alerts.close;
+    }
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.factory('Alerts', ['$timeout', function($timeout) {
+  var Alerts = {};
+
+  var queue = [];
+  var duration = 5000;
+
+  function purge() {
+    queue = queue.filter(function(alert) {
+      return alert.alive === true;
+    });
+  }
+
+  function close(alert) {
+    alert.alive = false;
+    $timeout(function() {
+      purge();
+    }, 600);
+  }
+
+  Alerts.get = function () {
+    return queue;
+  };
+
+  Alerts.push = function(type, text) {
+    var alert = {
+      type: type,
+      text: text,
+      alive: true
+    };
+    queue = [alert].concat(queue);
+
+    $timeout(function() {
+      close(alert);
+    }, duration);
+  };
+
+  Alerts.close = function(idx) {
+    close(queue[idx]);
+  };
+
+  return Alerts;
+}]);
+
+var app = angular.module('wecoApp');
+app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts', function($state, Comment, User, $timeout, Alerts) {
   return {
     restrict: 'E',
     replace: false,
@@ -366,8 +434,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
               $scope.closeReply();
             });
           }, function () {
-            // TODO: pretty error
-            console.error("Unable to reload comment!");
+            Alerts.push('error', 'Unable to reload comment!');
             $scope.closeReply();
           });
         } else {  // if the comment was replied to
@@ -440,8 +507,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
             loadCommentData(comment, response.slice(), 0);
           });
         }, function() {
-          // TODO: pretty error
-          console.error("Unable to get replies!");
+          Alerts.push('error', 'Unable to get replies!');
         });
       }
 
@@ -456,8 +522,7 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', functio
             comment.individual += inc;
           });
         }, function(err) {
-          // TODO: pretty error
-          console.error("Unable to vote on comment!");
+          Alerts.push('error', 'Unable to vote on comment!');
         });
       };
 
@@ -783,8 +848,7 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
         $scope.mods[index] = data;
       });
     }, function () {
-      // TODO: pretty error
-      console.error("Unable to get mod!");
+      $scope.errorMessage = 'Unable to get mod!';
     });
     return p;
   }
@@ -851,8 +915,7 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
       p.then(function(data) {
         requests[index].branch = data;
       }, function () {
-        // TODO: pretty error
-        console.error("Unable to get branch!");
+        $scope.errorMessage = 'Unable to get branch!';
       });
       return p;
     }
@@ -870,15 +933,13 @@ app.controller('modalNucleusReviewSubbranchRequestsController', ['$scope', '$tim
         $scope.isLoading = false;
       });
     }, function() {
-      // NB: a single failed promise will result in error!
       $timeout(function() {
-        $scope.errorMessage = 'Unable to fetch SubBranch requests.';
+        $scope.errorMessage = 'Unable to fetch child branch requests!';
         $scope.isLoading = false;
       });
     });
   }, function () {
-    // TODO: pretty error
-    console.error("Unable to get subbranch requests!");
+    $scope.errorMessage = 'Unable to fetch child branch requests!';
   });
 
 
@@ -1164,21 +1225,18 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
           $scope.progress = 0;
           Modal.OK();
         }, function(err) {
-          // TODO: handle error
           $scope.file = null;
           $scope.isUploading = false;
           $scope.progress = 0;
-          console.error("Unable to upload photo!");
+          $scope.errorMessage = 'Unable to upload photo!';
         }, function(evt) {
           $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
         });
       } else {
-        // TODO: handle error
-        console.log("error");
+        $scope.errorMessage = 'Unable to upload photo!';
       }
     }, function () {
-      // TODO: handle error
-      console.log("error");
+      $scope.errorMessage = 'Unable to upload photo!';
     });
   };
 
@@ -1305,12 +1363,10 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
         if(response && response.data && response.data.data) {
           $scope.uploadUrl = response.data.data;
         } else {
-          // TODO: handle error
-          console.log("error");
+          $scope.errorMessage = 'Unable to upload photo!';
         }
       }, function () {
-        // TODO: handle error
-        console.log("error");
+        $scope.errorMessage = 'Unable to upload photo!';
       });
     }
   });
@@ -1321,7 +1377,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 
   $scope.upload = function() {
     if(!$scope.file) {
-      console.error("No file selected");
+      $scope.errorMessage = 'No file selected!';
       return;
     }
     Upload.http({
@@ -1337,11 +1393,10 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
       $scope.progress = 0;
       Modal.OK();
     }, function(err) {
-      // TODO: handle error
       $scope.file = null;
       $scope.isUploading = false;
       $scope.progress = 0;
-      console.error("Unable to upload photo!");
+      $scope.errorMessage = 'Unable to upload photo!';
     }, function(evt) {
       $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
@@ -1357,7 +1412,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 
   $scope.$on('OK', function() {
     if(!$scope.file) {
-      console.error("No file selected");
+      $scope.errorMessage = 'No file selected!';
       return;
     }
     $timeout(function() {
@@ -1371,7 +1426,7 @@ app.controller('modalUploadImageController', ['$scope', '$timeout', 'Modal', '$h
 }]);
 
 var app = angular.module('wecoApp');
-app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, $state, $timeout, socket) {
+app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', function(User, $state, $timeout, socket, Alerts) {
   return {
     restrict: 'E',
     replace: 'true',
@@ -1385,8 +1440,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
           // successful logout; go to login page
           $state.go('auth.login');
         }, function() {
-          // TODO: pretty error
-          alert('Unable to log out!');
+          Alerts.push('error', 'Unable to log out.');
         });
       };
 
@@ -1417,8 +1471,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', function(User, 
             $scope.notificationCount = count;
           });
         }, function(err) {
-          // TODO pretty error
-          console.error("Error fetching notification count");
+          Alerts.push('error', 'Error fetching notifications.');
         });
       }
 
@@ -1577,7 +1630,7 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', function($scope, $timeout, Comment) {
+app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', 'Alerts', function($scope, $timeout, Comment, Alerts) {
   $scope.isLoading = false;
   $scope.comment = {
     text: ''
@@ -1604,9 +1657,7 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
           $scope.onSubmit($scope.comment.id);
         });
       }, function(err) {
-        // TODO pretty err
-        console.log(err);
-
+        Alerts.push('error', 'Error editing comment.');
         $timeout(function() {
           $scope.isLoading = false;
         });
@@ -1622,9 +1673,7 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', funct
           $scope.onSubmit(id);
         });
       }, function(err) {
-        // TODO pretty err
-        console.log(err);
-
+        Alerts.push('error', 'Error posting comment.');
         $timeout(function() {
           $scope.isLoading = false;
         });
@@ -2671,7 +2720,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal) {
+app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout', 'Branch', 'Mod', 'User', 'Modal', 'Alerts', function($scope, $rootScope, $state, $timeout, Branch, Mod, User, Modal, Alerts) {
   $scope.branchid = $state.params.branchid;
   $scope.showCover = true;
   $scope.isLoading = true;
@@ -2756,8 +2805,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to update profile picture.');
       });
   };
 
@@ -2769,8 +2817,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to update cover picture.');
       });
   };
 
@@ -2787,8 +2834,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           }
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to create new branch.');
       });
   }
 
@@ -2805,8 +2851,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
           }
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to create new post.');
       });
   }
 
@@ -2850,7 +2895,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', 'Branch', function($scope, $state, $timeout, User, Branch) {
+app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', 'Branch', 'Alerts', function($scope, $state, $timeout, User, Branch, Alerts) {
   $scope.mods = [];
   $scope.isLoading = true;
 
@@ -2861,8 +2906,7 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
         $scope.mods[index] = data;
       });
     }, function () {
-      // TODO: pretty error
-      console.error("Unable to get mod!");
+      Alerts.push('error', 'Error fetching moderator.');
     });
     return p;
   };
@@ -2875,14 +2919,13 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   Promise.all(promises).then(function () {
     $scope.isLoading = false;
   }, function() {
-    // TODO: pretty error
-    console.error("Unable to fetch mods!");
+    Alerts.push('error', 'Error fetching moderators.');
     $scope.isLoading = false;
   });
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
+app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', 'Alerts', function($scope, $state, $timeout, Modal, User, Branch, Alerts) {
   $scope.isLoading = true;
   $scope.isModLogOpen = false;
 
@@ -2897,8 +2940,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       $scope.isLoading = false;
     });
   }, function() {
-    // TODO: pretty error
-    console.error("Unable to fetch mod log.");
+    Alerts.push('error', 'Error fetching moderator action log.');
     $scope.isLoading = false;
   });
 
@@ -2910,8 +2952,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating moderator settings');
+        Alerts.push('error', 'Error updating moderator settings.');
       });
   };
 
@@ -2942,8 +2983,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating moderator settings');
+        Alerts.push('error', 'Error updating moderator settings.');
       });
   };
 
@@ -2957,8 +2997,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error submitting subbranch request');
+        Alerts.push('error', 'Error submitting child branch request.');
       });
   };
 
@@ -2972,8 +3011,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error responding to subbranch request');
+        Alerts.push('error', 'Error responding to child branch request.');
       });
   };
 
@@ -2985,8 +3023,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error deleting branch');
+        Alerts.push('error', 'Error deleting branch.');
       });
   };
 }]);
@@ -3032,7 +3069,7 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', function($scope, $state, $timeout, Modal) {
+app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Modal', 'Alerts', function($scope, $state, $timeout, Modal, Alerts) {
 
   function openModal(args) {
     Modal.open('/app/components/modals/branch/nucleus/settings/settings.modal.view.html', args)
@@ -3042,8 +3079,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating branch settings');
+        Alerts.push('error', 'Error updating branch settings.');
       });
   }
 
@@ -3091,7 +3127,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', function($scope, $rootScope, $state, $timeout, Post, Comment) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -3134,8 +3170,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
         post.global += inc;
       });
     }, function(err) {
-      // TODO: pretty error
-      console.error("Unable to vote on post!");
+      Alerts.push('error', 'Error voting on post.');
     });
   };
 
@@ -3172,10 +3207,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       }
     });
   }, function(response) {
-    // TODO: handle other error codes
     // post not found - 404
     if(response.status == 404) {
       $state.go('weco.notfound');
+    } else {
+      Alerts.push('error', 'Error fetching post.');
     }
     $scope.isLoadingPost = false;
   });
@@ -3214,8 +3250,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           loadCommentData($scope.comments.slice(), 0);
         });
       }, function() {
-        // TODO: pretty error
-        console.error("Unable to get comments!");
+        Alerts.push('error', 'Error loading comments.');
         $scope.isLoadingComments = false;
       });
     } else {
@@ -3233,8 +3268,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           loadCommentData($scope.comments.slice(), 0);
         });
       }, function() {
-        // TODO: pretty error
-        console.error("Unable to get comments!");
+        Alerts.push('error', 'Error loading comments.');
         $scope.isLoadingComments = false;
       });
     }
@@ -3250,7 +3284,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', 'Alerts', function($scope, $state, $timeout, Branch, Alerts) {
   $scope.isLoading = true;
   $scope.branches = [];
 
@@ -3310,8 +3344,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
         loadBranchPictures($scope.branches.slice(), 0);
       });
     }, function() {
-      // TODO: pretty error
-      console.error("Unable to get branches!");
+      Alerts.push('error', 'Error fetching branches.');
       $scope.isLoading = false;
     });
   }
@@ -3333,7 +3366,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', function($scope, $state, $timeout, Branch, Post) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', function($scope, $state, $timeout, Branch, Post, Alerts) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
@@ -3347,8 +3380,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         post.global += inc;
       });
     }, function(err) {
-      // TODO: pretty error
-      console.error("Unable to vote on post!");
+      Alerts.push('error', 'Error voting on post.');
     });
   };
 
@@ -3419,8 +3451,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         loadPostData($scope.posts.slice(), 0);
       });
     }, function() {
-      // TODO: pretty error
-      console.error("Unable to get posts!");
+      Alerts.push('error', 'Error fetching posts.');
       $scope.isLoading = false;
     });
   }
@@ -3446,7 +3477,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', function($scope, $state, $timeout, User, NotificationTypes) {
+app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', 'Alerts', function($scope, $state, $timeout, User, NotificationTypes, Alerts) {
   $scope.isLoading = false;
   $scope.NotificationTypes = NotificationTypes;
   $scope.me = User.me;
@@ -3476,8 +3507,7 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         $scope.isLoading = false;
       });
     }, function() {
-      // TODO pretty error
-      console.error('Unable to fetch notifications');
+      Alerts.push('error', 'Unable to fetch notifications.');
     });
   }
 
@@ -3487,8 +3517,7 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         notification.unread = unread;
       });
     }, function(err) {
-      // TODO handle error
-      console.error("Unable to mark notification! ", err);
+      Alerts.push('error', 'Unable to mark notification.');
     });
   };
 
@@ -3499,7 +3528,7 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', function($scope, $timeout, $state, User, Modal) {
+app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', 'Alerts', function($scope, $timeout, $state, User, Modal, Alerts) {
   $scope.user = {};
   $scope.showCover = true;
   $scope.isLoading = true;
@@ -3513,9 +3542,10 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
       $scope.isLoading = false;
     });
   }, function(response) {
-    // TODO: Handle other error codes
     if(response.status == 404) {
       $state.go('weco.notfound');
+    } else {
+      Alerts.push('error', 'Unable to fetch user.');
     }
     $scope.isLoading = false;
   });
@@ -3548,8 +3578,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to change profile picture.');
       });
   };
 
@@ -3561,8 +3590,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.log('error');
+        Alerts.push('error', 'Unable to change cover picture.');
       });
   };
 
@@ -3572,7 +3600,7 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('profileSettingsController', ['$scope', '$state', 'Modal', function($scope, $state, Modal) {
+app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', function($scope, $state, Modal, Alerts) {
   function openModal(args) {
     Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
       .then(function(result) {
@@ -3581,8 +3609,7 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', functi
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating profile settings');
+        Alerts.push('error', 'Unable to update profile settings.');
       });
   }
 

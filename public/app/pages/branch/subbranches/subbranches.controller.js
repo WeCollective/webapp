@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', function($scope, $state, $timeout, Branch) {
+app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', 'Alerts', function($scope, $state, $timeout, Branch, Alerts) {
   $scope.isLoading = true;
   $scope.branches = [];
 
@@ -61,8 +61,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
         loadBranchPictures($scope.branches.slice(), 0);
       });
     }, function() {
-      // TODO: pretty error
-      console.error("Unable to get branches!");
+      Alerts.push('error', 'Error fetching branches.');
       $scope.isLoading = false;
     });
   }

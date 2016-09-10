@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', 'Branch', function($scope, $state, $timeout, User, Branch) {
+app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', 'User', 'Branch', 'Alerts', function($scope, $state, $timeout, User, Branch, Alerts) {
   $scope.mods = [];
   $scope.isLoading = true;
 
@@ -12,8 +12,7 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
         $scope.mods[index] = data;
       });
     }, function () {
-      // TODO: pretty error
-      console.error("Unable to get mod!");
+      Alerts.push('error', 'Error fetching moderator.');
     });
     return p;
   };
@@ -26,8 +25,7 @@ app.controller('nucleusModeratorsController', ['$scope', '$state', '$timeout', '
   Promise.all(promises).then(function () {
     $scope.isLoading = false;
   }, function() {
-    // TODO: pretty error
-    console.error("Unable to fetch mods!");
+    Alerts.push('error', 'Error fetching moderators.');
     $scope.isLoading = false;
   });
 }]);

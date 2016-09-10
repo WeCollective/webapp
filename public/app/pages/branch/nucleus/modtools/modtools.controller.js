@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', function($scope, $state, $timeout, Modal, User, Branch) {
+app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', 'Alerts', function($scope, $state, $timeout, Modal, User, Branch, Alerts) {
   $scope.isLoading = true;
   $scope.isModLogOpen = false;
 
@@ -14,8 +14,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       $scope.isLoading = false;
     });
   }, function() {
-    // TODO: pretty error
-    console.error("Unable to fetch mod log.");
+    Alerts.push('error', 'Error fetching moderator action log.');
     $scope.isLoading = false;
   });
 
@@ -27,8 +26,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating moderator settings');
+        Alerts.push('error', 'Error updating moderator settings.');
       });
   };
 
@@ -59,8 +57,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error updating moderator settings');
+        Alerts.push('error', 'Error updating moderator settings.');
       });
   };
 
@@ -74,8 +71,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error submitting subbranch request');
+        Alerts.push('error', 'Error submitting child branch request.');
       });
   };
 
@@ -89,8 +85,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error responding to subbranch request');
+        Alerts.push('error', 'Error responding to child branch request.');
       });
   };
 
@@ -102,8 +97,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
-        // TODO: display pretty message
-        console.error('Error deleting branch');
+        Alerts.push('error', 'Error deleting branch.');
       });
   };
 }]);
