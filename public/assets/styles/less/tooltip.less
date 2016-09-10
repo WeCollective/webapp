@@ -1,0 +1,20 @@
+div.tooltip {
+  position: absolute;
+  padding: 5px 10px;
+  background-color: @primary-dark;
+  border-radius: 3px;
+  text-align: left;
+  white-space: nowrap;
+
+  transition: opacity 0.2s ease-out;
+  opacity: 1;
+  &.ng-hide {
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+  }
+
+  span.tooltip-text {
+    color: #fff;
+    font-size: 12px;
+  }
+}

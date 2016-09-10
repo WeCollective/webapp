@@ -123,8 +123,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           // slice() provides a clone of the comments array
           loadCommentData($scope.comments.slice(), 0);
         });
-      }, function() {
-        Alerts.push('error', 'Error loading comments.');
+      }, function(err) {
+        if(err.status != 404) {
+          Alerts.push('error', 'Error loading comments.');
+        }
         $scope.isLoadingComments = false;
       });
     } else {
@@ -141,8 +143,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           // slice() provides a clone of the comments array
           loadCommentData($scope.comments.slice(), 0);
         });
-      }, function() {
-        Alerts.push('error', 'Error loading comments.');
+      }, function(err) {
+        if(err.status != 404) {
+          Alerts.push('error', 'Error loading comments.');
+        }
         $scope.isLoadingComments = false;
       });
     }

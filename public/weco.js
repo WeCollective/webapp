@@ -1630,6 +1630,45 @@ app.directive('tagEditor', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
+app.directive('tooltip', ['$timeout', function($timeout) {
+  return {
+    restrict: 'A',
+    replace: false,
+    scope: {
+      tooltipText: '&'
+    },
+    transclude: true,
+    templateUrl: '/app/components/tooltip/tooltip.view.html',
+    link: function ($scope, element) {
+      $scope.show = false;
+      var el = element[0];
+      var tooltip = el.querySelector('.tooltip');
+      var top = 0;
+      var left = 0;
+
+      $scope.top = function() {
+        return el.offsetTop + 60;
+      };
+      $scope.left = function() {
+        return el.offsetLeft;
+      };
+
+      el.addEventListener('mouseover', function () {
+        $timeout(function () {
+          $scope.show = true;
+        });
+      }, false);
+
+      el.addEventListener('mouseout', function () {
+        $timeout(function () {
+          $scope.show = false;
+        });
+      }, false);
+    }
+  };
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', 'Alerts', function($scope, $timeout, Comment, Alerts) {
   $scope.isLoading = false;
   $scope.comment = {
@@ -3249,8 +3288,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           // slice() provides a clone of the comments array
           loadCommentData($scope.comments.slice(), 0);
         });
-      }, function() {
-        Alerts.push('error', 'Error loading comments.');
+      }, function(err) {
+        if(err.status != 404) {
+          Alerts.push('error', 'Error loading comments.');
+        }
         $scope.isLoadingComments = false;
       });
     } else {
@@ -3267,8 +3308,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           // slice() provides a clone of the comments array
           loadCommentData($scope.comments.slice(), 0);
         });
-      }, function() {
-        Alerts.push('error', 'Error loading comments.');
+      }, function(err) {
+        if(err.status != 404) {
+          Alerts.push('error', 'Error loading comments.');
+        }
         $scope.isLoadingComments = false;
       });
     }
