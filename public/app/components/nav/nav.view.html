@@ -6,13 +6,13 @@
     </a>
     <div id="nav-controls">
       <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
-        <img src="/assets/images/icons/white/nucleus.png">
+        <img src="/assets/images/icons/white/nucleus.png" tooltip-text="'Global Nucleus'" offset-y="40">
       </a>
       <a ui-sref="weco.branch.subbranches({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-        <img src="/assets/images/icons/white/branch.png">
+        <img src="/assets/images/icons/white/branch.png" tooltip-text="'Root Branches'" offset-y="40">
       </a>
       <a ui-sref="weco.branch.wall({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('wall') }">
-        <img src="/assets/images/icons/white/wall.png">
+        <img src="/assets/images/icons/white/wall.png" tooltip-text="'Global Wall'" offset-y="40">
       </a>
     </div>
     <div id="search-box" ng-hide="onHomePage()">

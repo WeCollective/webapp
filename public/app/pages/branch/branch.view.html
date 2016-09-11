@@ -15,22 +15,22 @@
         <ul id="branch-controls">
           <li>
             <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }" >
-              <img src="/assets/images/icons/black/nucleus.png" tooltip-text="'Nucleus'">
+              <img src="/assets/images/icons/black/nucleus.png" tooltip-text="'Nucleus'" offset-y="60">
             </a>
           </li>
           <li>
             <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-              <img src="/assets/images/icons/black/branch.png" tooltip-text="'Child Branches'">
+              <img src="/assets/images/icons/black/branch.png" tooltip-text="'Child Branches'" offset-y="60">
             </a>
           </li>
           <li>
             <a ui-sref="weco.branch.wall({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('wall') }">
-              <img src="/assets/images/icons/black/wall.png" tooltip-text="'Wall'">
+              <img src="/assets/images/icons/black/wall.png" tooltip-text="'Wall'" offset-y="60">
             </a>
           </li>
           <li>
             <a id="add-content" ng-click="addContent()">
-              <img src="/assets/images/icons/black/add.png" tooltip-text="'Add New Content'">
+              <img src="/assets/images/icons/black/add.png" tooltip-text="'Add New Content'" offset-y="60">
             </a>
           </li>
         </ul>
