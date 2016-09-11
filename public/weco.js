@@ -1772,7 +1772,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2921,9 +2921,9 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         createBranch();
         break;
       case 'weco.branch.wall':
-        if($scope.branchid != 'root') {
+        //if($scope.branchid != 'root') {
           createPost();
-        }
+        //}
         break;
       case 'weco.branch.post':
         // broadcast add comment clicked so that the comment section is scrolled

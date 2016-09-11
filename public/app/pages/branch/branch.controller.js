@@ -144,9 +144,9 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         createBranch();
         break;
       case 'weco.branch.wall':
-        if($scope.branchid != 'root') {
+        //if($scope.branchid != 'root') {
           createPost();
-        }
+        //}
         break;
       case 'weco.branch.post':
         // broadcast add comment clicked so that the comment section is scrolled
