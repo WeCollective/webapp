@@ -1,4 +1,3 @@
-<div class="tooltip" ng-show="show" ng-style="{ 'top': top() + 'px', 'left': left() + 'px' }">
-  <span class="tooltip-text">{{ tooltipText() }}</span>
+<div class="tooltip" ng-show="show()" ng-style="{ 'top': y() + 'px', 'left': x() + 'px' }">
+  <span class="tooltip-text">{{ text() }}</span>
 </div>
-<ng-transclude></ng-transclude>

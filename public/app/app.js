@@ -181,7 +181,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
-
+  $rootScope.tooltip = {};
+  
   socket.on('on_connect', 'notifications', function(data) {
     console.log("Connection established");
     User.get().then(function(me) {

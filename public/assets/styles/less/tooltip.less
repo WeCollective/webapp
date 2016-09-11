@@ -1,10 +1,13 @@
 div.tooltip {
   position: absolute;
-  padding: 5px 10px;
+  height: 30px;
+  padding: 0 10px;
   background-color: @primary-dark;
-  border-radius: 3px;
+  border-radius: 5px;
   text-align: left;
   white-space: nowrap;
+  z-index: 1000;
+  box-shadow: @shadow2;
 
   transition: opacity 0.2s ease-out;
   opacity: 1;
@@ -16,5 +19,6 @@ div.tooltip {
   span.tooltip-text {
     color: #fff;
     font-size: 12px;
+    line-height: 30px;
   }
 }
