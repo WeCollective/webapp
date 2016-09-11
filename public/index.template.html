@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/styles/css/app.css">
   </head>
-  <body ng-app="wecoApp" ng-controller="rootController">
+  <body ng-app="wecoApp" ng-controller="rootController" ng-class="{ 'modalOpen': modalOpen() }">
     <tooltip></tooltip>
     <alerts></alerts>
     <div modal></div>

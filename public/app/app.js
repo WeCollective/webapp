@@ -186,8 +186,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
-app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
+app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', function($rootScope, $state, User, Mod, socket, Modal) {
   $rootScope.tooltip = {};
+  $rootScope.modalOpen = Modal.isOpen;
 
   socket.on('on_connect', 'notifications', function(data) {
     console.log("Connection established");
