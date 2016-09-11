@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
+app.controller('authController', ['$scope', '$state', 'User', 'Alerts', function($scope, $state, User, Alerts) {
   $scope.credentials = {};
   $scope.user = User.me;
   $scope.isLoading = false;
@@ -27,6 +27,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       // successful signup; redirect to home page
       $scope.isLoading = false;
       $state.go('weco.home');
+      Alerts.push('success', 'Check your inbox to verify your account!', true);
     }, function(response) {
       $scope.errorMessage = response.message;
       $scope.isLoading = false;

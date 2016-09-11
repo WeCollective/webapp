@@ -135,12 +135,7 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
   User.signup = function(credentials) {
     return new Promise(function(resolve, reject) {
       UserAPI.signup(credentials, function() {
-        // reconnect to web sockets to force new 'connection' event,
-        // so that the socket id can be obtained and stored on the session object
-        // via User.subscribeToNotifications
-        socket.disconnect();
-        socket.reconnect();
-        User.get().then(resolve, reject);
+        resolve();
       }, function(response) {
         reject({
           status: response.status,

@@ -375,17 +375,18 @@ app.factory('Alerts', ['$timeout', function($timeout) {
     return queue;
   };
 
-  Alerts.push = function(type, text) {
+  Alerts.push = function(type, text, persist) {
     var alert = {
       type: type,
       text: text,
       alive: true
     };
     queue = [alert].concat(queue);
-
-    $timeout(function() {
-      close(alert);
-    }, duration);
+    if(!persist) {
+      $timeout(function() {
+        close(alert);
+      }, duration);
+    }
   };
 
   Alerts.close = function(idx) {
@@ -1772,7 +1773,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2632,12 +2633,7 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
   User.signup = function(credentials) {
     return new Promise(function(resolve, reject) {
       UserAPI.signup(credentials, function() {
-        // reconnect to web sockets to force new 'connection' event,
-        // so that the socket id can be obtained and stored on the session object
-        // via User.subscribeToNotifications
-        socket.disconnect();
-        socket.reconnect();
-        User.get().then(resolve, reject);
+        resolve();
       }, function(response) {
         reject({
           status: response.status,
@@ -2732,7 +2728,7 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('authController', ['$scope', '$state', 'User', function($scope, $state, User) {
+app.controller('authController', ['$scope', '$state', 'User', 'Alerts', function($scope, $state, User, Alerts) {
   $scope.credentials = {};
   $scope.user = User.me;
   $scope.isLoading = false;
@@ -2758,6 +2754,7 @@ app.controller('authController', ['$scope', '$state', 'User', function($scope, $
       // successful signup; redirect to home page
       $scope.isLoading = false;
       $state.go('weco.home');
+      Alerts.push('success', 'Check your inbox to verify your account!', true);
     }, function(response) {
       $scope.errorMessage = response.message;
       $scope.isLoading = false;

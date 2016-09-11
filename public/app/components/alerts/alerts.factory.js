@@ -22,17 +22,18 @@ app.factory('Alerts', ['$timeout', function($timeout) {
     return queue;
   };
 
-  Alerts.push = function(type, text) {
+  Alerts.push = function(type, text, persist) {
     var alert = {
       type: type,
       text: text,
       alive: true
     };
     queue = [alert].concat(queue);
-
-    $timeout(function() {
-      close(alert);
-    }, duration);
+    if(!persist) {
+      $timeout(function() {
+        close(alert);
+      }, duration);
+    }
   };
 
   Alerts.close = function(idx) {
