@@ -25,13 +25,14 @@
         <a ng-if="post.type != 'text'" href="{{ post.data.text }}" target="_blank">
           <p class="title">{{ post.data.title }}</p>
         </a>
+        <span ng-class="post.type" class="post-type-marker" tooltip-text="(post.type | capitalize) + ' Post'" offset-y="20"></span>
         <span ng-class="post.type" class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
       </div>
       <div id="preview-controls" class="clearfix" ng-show="post.type != 'page' && post.type != 'audio'">
-        <img src="/assets/images/icons/black/hide.png" ng-click="setPreviewState('hide')" ng-show="previewState == 'show' || previewState == 'maximise'">
-        <img src="/assets/images/icons/black/show.png" ng-click="setPreviewState('show')" ng-show="previewState == 'hide'">
-        <img src="/assets/images/icons/black/maximise.png" ng-click="setPreviewState('maximise')" ng-show="previewState == 'show' && post.type != 'text'">
-        <img src="/assets/images/icons/black/minimise.png" ng-click="setPreviewState('show')" ng-show="previewState == 'maximise' && post.type != 'text'">
+        <img src="/assets/images/icons/black/hide.png" ng-click="setPreviewState('hide')" ng-show="previewState == 'show' || previewState == 'maximise'" tooltip-text="'Hide'" offset-y="30">
+        <img src="/assets/images/icons/black/show.png" ng-click="setPreviewState('show')" ng-show="previewState == 'hide'" tooltip-text="'Reveal'" offset-y="30">
+        <img src="/assets/images/icons/black/maximise.png" ng-click="setPreviewState('maximise')" ng-show="previewState == 'show' && post.type != 'text'" tooltip-text="'Expand'" offset-y="30" offset-x="-10">
+        <img src="/assets/images/icons/black/minimise.png" ng-click="setPreviewState('show')" ng-show="previewState == 'maximise' && post.type != 'text'" tooltip-text="'Shrink'" offset-y="30" offset-x="-10">
       </div>
     </div>
     <div id="image-post" class="post-content" ng-show="post.type == 'image' && previewState != 'hide'" ng-class="{ 'maximised': previewState == 'maximise' }">

@@ -32,6 +32,12 @@ app.filter('reverse', function() {
     return items.slice().reverse();
   };
 });
+// custom angular filter for capitalizing a string
+app.filter('capitalize', function() {
+  return function(input) {
+    return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+  };
+});
 // configure the router
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -182,7 +188,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', function($rootScope, $state, User, Mod, socket) {
   $rootScope.tooltip = {};
-  
+
   socket.on('on_connect', 'notifications', function(data) {
     console.log("Connection established");
     User.get().then(function(me) {

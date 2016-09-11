@@ -1,15 +1,15 @@
 <div class="cover-photo" style="height: {{ user.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ user.coverUrl }}'), url('{{ user.coverUrlThumb }}')"></div>
 <div class="frame" id="profile-frame">
-  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl">
-  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="user.coverUrl && showCover">
-  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="user.coverUrl && !showCover">
+  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl" tooltip-text="'Upload New Cover'" offset-y="30" offset-x="-100">
+  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="user.coverUrl && showCover" tooltip-text="'Hide Cover'" offset-y="30" offset-x="-60">
+  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="user.coverUrl && !showCover" tooltip-text="'Show Cover'" offset-y="30" offset-x="-60">
   <div class="content">
     <div loading when="isLoading">
       <div id="profile-info" class="nav-column">
         <h1>{{ user.firstname }} {{ user.lastname }}</h1>
         <h2>{{ user.username }}</h2>
         <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-          <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()">
+          <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()" tooltip-text="'Upload New Image'" offset-y="30">
         </div>
         <ul>
           <li>Total Karma: <span>0</span></li>
