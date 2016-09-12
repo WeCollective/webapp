@@ -72,6 +72,22 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/verify/verify.view.html',
       controller: 'verifyController'
     })
+    .state('reset-password', {
+      url: '/reset-password',
+      abstract: true,
+      templateUrl: '/app/pages/reset-password/reset-password.view.html',
+      controller: 'resetPasswordController'
+    })
+    .state('reset-password.request', {
+      url: '/request',
+      templateUrl: '/app/pages/reset-password/request/request.view.html',
+      controller: 'requestResetPasswordController'
+    })
+    .state('reset-password.confirm', {
+      url: '/:username/:token',
+      templateUrl: '/app/pages/reset-password/confirm/confirm.view.html',
+      controller: 'confirmResetPasswordController'
+    })
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
@@ -332,7 +348,9 @@ app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $s
   $scope.socketioURL = ENV + 'socket.io/socket.io.js';
 
   $scope.hasNavBar = function() {
-    if($state.current.name.indexOf('auth') > -1 || $state.current.name.indexOf('verify') > -1) {
+    if($state.current.name.indexOf('auth') > -1 ||
+       $state.current.name.indexOf('verify') > -1 ||
+       $state.current.name.indexOf('reset-password') > -1) {
       return false;
     } else {
       return true;
@@ -2741,6 +2759,20 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  // send a reset password link to the users inbox
+  User.requestResetPassword = function(username) {
+    return new Promise(function(resolve, reject) {
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, reject);
+    });
+  };
+
+  // send a reset password link to the users inbox
+  User.resetPassword = function(username, password, token) {
+    return new Promise(function(resolve, reject) {
+      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, reject);
+    });
+  };
+
   return User;
 }]);
 
@@ -3757,6 +3789,50 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alert
       }]
     });
   };
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('confirmResetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
+  $scope.resetPassword = function() {
+    $scope.isLoading = true;
+    if($scope.credentials.password != $scope.credentials.confirmPassword) {
+      Alerts.push('error', 'The two passwords are different.');
+      $scope.isLoading = false;
+      return;
+    }
+    User.resetPassword($state.params.username, $scope.credentials.password, $state.params.token).then(function() {
+      Alerts.push('success', 'Successfully updated password! You can now login.', true);
+      $scope.isLoading = false;
+      $state.go('auth.login');
+    }, function(response) {
+      $timeout(function () {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('requestResetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
+  $scope.sendLink = function() {
+    $scope.isLoading = true;
+    User.requestResetPassword($scope.credentials.username).then(function() {
+      $state.go('weco.home');
+      $scope.isLoading = false;
+      Alerts.push('success', 'A password reset link has been sent to your inbox.', true);
+    }, function(response) {
+      $scope.isLoading = false;
+      $scope.errorMessage = response.message;
+    });
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('resetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+  $scope.credentials = {};
 }]);
 
 var app = angular.module('wecoApp');

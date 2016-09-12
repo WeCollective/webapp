@@ -238,5 +238,19 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  // send a reset password link to the users inbox
+  User.requestResetPassword = function(username) {
+    return new Promise(function(resolve, reject) {
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, reject);
+    });
+  };
+
+  // send a reset password link to the users inbox
+  User.resetPassword = function(username, password, token) {
+    return new Promise(function(resolve, reject) {
+      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, reject);
+    });
+  };
+
   return User;
 }]);

@@ -72,6 +72,22 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: '/app/pages/verify/verify.view.html',
       controller: 'verifyController'
     })
+    .state('reset-password', {
+      url: '/reset-password',
+      abstract: true,
+      templateUrl: '/app/pages/reset-password/reset-password.view.html',
+      controller: 'resetPasswordController'
+    })
+    .state('reset-password.request', {
+      url: '/request',
+      templateUrl: '/app/pages/reset-password/request/request.view.html',
+      controller: 'requestResetPasswordController'
+    })
+    .state('reset-password.confirm', {
+      url: '/:username/:token',
+      templateUrl: '/app/pages/reset-password/confirm/confirm.view.html',
+      controller: 'confirmResetPasswordController'
+    })
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
@@ -332,7 +348,9 @@ app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $s
   $scope.socketioURL = ENV + 'socket.io/socket.io.js';
 
   $scope.hasNavBar = function() {
-    if($state.current.name.indexOf('auth') > -1 || $state.current.name.indexOf('verify') > -1) {
+    if($state.current.name.indexOf('auth') > -1 ||
+       $state.current.name.indexOf('verify') > -1 ||
+       $state.current.name.indexOf('reset-password') > -1) {
       return false;
     } else {
       return true;

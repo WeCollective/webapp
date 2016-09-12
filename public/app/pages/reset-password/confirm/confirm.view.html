@@ -1,0 +1,5 @@
+<form ng-submit="resetPassword()">
+  <input type="password" name="password" ng-model="credentials.password" placeholder="New Password" required></input>
+  <input type="password" name="confirmPassword" ng-model="credentials.confirmPassword" placeholder="Confirm Password" required></input>
+  <input type="submit" value="RESET PASSWORD" ng-disabled="isLoading"></input>
+</form>

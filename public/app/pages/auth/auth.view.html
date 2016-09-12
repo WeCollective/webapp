@@ -11,6 +11,7 @@
     <input type="password" name="password" ng-model="credentials.password" placeholder="Password" required></input>
     <input type="submit" value="{{ isLoginForm() ? 'LOGIN' : 'SIGN UP' }}" ng-disabled="isLoading"></input>
   </form>
+  <p ng-show="isLoginForm()"><a ui-sref="reset-password.request">Forgot your password?</a></p>
   <p ng-show="isLoginForm()">New Here? <a ui-sref="auth.signup">Sign Up.</a></p>
   <p ng-show="!isLoginForm()">Already have an account? <a ui-sref="auth.login">Log in.</a></p>
 </div>
