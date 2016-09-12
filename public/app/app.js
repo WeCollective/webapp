@@ -67,6 +67,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('auth.signup', {
       url: '/signup'
     })
+    .state('verify', {
+      url: '/:username/verify/:token',
+      templateUrl: '/app/pages/verify/verify.view.html',
+      controller: 'verifyController'
+    })
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
@@ -327,7 +332,7 @@ app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $s
   $scope.socketioURL = ENV + 'socket.io/socket.io.js';
 
   $scope.hasNavBar = function() {
-    if($state.current.name.indexOf('auth') > -1) {
+    if($state.current.name.indexOf('auth') > -1 || $state.current.name.indexOf('verify') > -1) {
       return false;
     } else {
       return true;

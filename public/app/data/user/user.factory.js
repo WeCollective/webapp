@@ -224,5 +224,12 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  // verify user account
+  User.verify = function(username, token) {
+    return new Promise(function(resolve, reject) {
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, reject);
+    });
+  };
+
   return User;
 }]);

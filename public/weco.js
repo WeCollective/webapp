@@ -67,6 +67,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('auth.signup', {
       url: '/signup'
     })
+    .state('verify', {
+      url: '/:username/verify/:token',
+      templateUrl: '/app/pages/verify/verify.view.html',
+      controller: 'verifyController'
+    })
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
@@ -327,7 +332,7 @@ app.controller('rootController', ['$scope', '$state', 'ENV', function($scope, $s
   $scope.socketioURL = ENV + 'socket.io/socket.io.js';
 
   $scope.hasNavBar = function() {
-    if($state.current.name.indexOf('auth') > -1) {
+    if($state.current.name.indexOf('auth') > -1 || $state.current.name.indexOf('verify') > -1) {
       return false;
     } else {
       return true;
@@ -2722,6 +2727,13 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  // verify user account
+  User.verify = function(username, token) {
+    return new Promise(function(resolve, reject) {
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, reject);
+    });
+  };
+
   return User;
 }]);
 
@@ -3709,4 +3721,27 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alert
       }]
     });
   };
+}]);
+
+var app = angular.module('wecoApp');
+app.controller('verifyController', ['$scope', '$state', '$interval', '$timeout', 'User', 'Alerts', function($scope, $state, $interval, $timeout, User, Alerts) {
+  $scope.message = 'Verifying your account.';
+
+  $interval(function () {
+    if($scope.message.indexOf('...') > -1) {
+      $scope.message = 'Verifying your account.';
+    } else {
+      $scope.message += '.';
+    }
+  }, 1000);
+
+  $timeout(function () {
+    User.verify($state.params.username, $state.params.token).then(function() {
+      $state.go('auth.login');
+      Alerts.push('success', 'Account verified! You can now login.', true);
+    }, function(err) {
+      Alerts.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
+      $state.go('auth.signup');
+    });
+  }, 3000);
 }]);

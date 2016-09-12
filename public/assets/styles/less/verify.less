@@ -1,0 +1,32 @@
+div#verify-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: @primary-light;
+  background: -webkit-radial-gradient(@primary-light, @primary-dark);
+  background: -o-radial-gradient(@primary-light, @primary-dark);
+  background: -moz-radial-gradient(@primary-light, @primary-dark);
+  background: radial-gradient(@primary-light, @primary-dark);
+  text-align: center;
+
+  div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+      display: block;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 300;
+      color: #fff;
+      margin-top: 20px;
+      letter-spacing: 2px;
+    }
+  }
+}
