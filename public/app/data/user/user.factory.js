@@ -231,5 +231,12 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  // resend the user verification email
+  User.resendVerification = function(username) {
+    return new Promise(function(resolve, reject) {
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reverify').then(resolve, reject);
+    });
+  };
+
   return User;
 }]);

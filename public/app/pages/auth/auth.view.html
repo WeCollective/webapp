@@ -2,6 +2,7 @@
   <a ui-sref="weco.home" id="logo"><img src="/assets/images/logo.png"></a>
   <h1>{{ isLoginForm() ? 'Login to' : 'Sign up for'}} WECO</h1>
   <p id="auth-error-message">{{ errorMessage }}</p>
+  <p id="resend-verification" ng-show="showResendVerification" ng-click="resendVerification()">Resend verification email.</p>
   <form ng-submit="submit()">
     <input type="text" name="firstname" ng-model="credentials.firstname" placeholder="First name" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
     <input type="text" name="lastname" ng-model="credentials.lastname" placeholder="Last name" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
