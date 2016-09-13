@@ -227,28 +227,36 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
   // verify user account
   User.verify = function(username, token) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // resend the user verification email
   User.resendVerification = function(username) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/reverify').then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reverify').then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // send a reset password link to the users inbox
   User.requestResetPassword = function(username) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // send a reset password link to the users inbox
   User.resetPassword = function(username, password, token) {
     return new Promise(function(resolve, reject) {
-      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, reject);
+      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 

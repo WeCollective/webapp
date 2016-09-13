@@ -2748,28 +2748,36 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
   // verify user account
   User.verify = function(username, token) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/verify/' + token).then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // resend the user verification email
   User.resendVerification = function(username) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/reverify').then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reverify').then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // send a reset password link to the users inbox
   User.requestResetPassword = function(username) {
     return new Promise(function(resolve, reject) {
-      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, reject);
+      $http.get(ENV.apiEndpoint + 'user/' + username + '/reset-password').then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
   // send a reset password link to the users inbox
   User.resetPassword = function(username, password, token) {
     return new Promise(function(resolve, reject) {
-      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, reject);
+      $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, function(response) {
+        reject(response.data);
+      });
     });
   };
 
@@ -2783,6 +2791,7 @@ app.controller('authController', ['$scope', '$state', '$timeout', 'User', 'Alert
   $scope.credentials = {};
   $scope.user = User.me;
   $scope.isLoading = false;
+  $scope.loopAnimation = false;
   $scope.errorMessage = '';
   $scope.showResendVerification = false;
 
@@ -2794,11 +2803,13 @@ app.controller('authController', ['$scope', '$state', '$timeout', 'User', 'Alert
     User.login($scope.credentials).then(function() {
       // successful login; redirect to home page
       $scope.isLoading = false;
+      $scope.loopAnimation = false;
       $state.go('weco.home');
     }, function(response) {
       $timeout(function() {
         $scope.errorMessage = response.message;
         $scope.isLoading = false;
+        $scope.loopAnimation = false;
 
         // if forbidden, account is not verified
         if(response.status == 403) {
@@ -2812,18 +2823,22 @@ app.controller('authController', ['$scope', '$state', '$timeout', 'User', 'Alert
     User.signup($scope.credentials).then(function() {
       // successful signup; redirect to home page
       $scope.isLoading = false;
+      $scope.loopAnimation = false;
       $state.go('weco.home');
       Alerts.push('success', 'Check your inbox to verify your account!', true);
     }, function(response) {
       $timeout(function() {
         $scope.errorMessage = response.message;
         $scope.isLoading = false;
+        $scope.loopAnimation = false;
       });
     });
   }
 
   $scope.submit = function() {
     $scope.isLoading = true;
+    $scope.loopAnimation = true;
+    $scope.triggerAnimation();
     $scope.credentials.username = $scope.credentials.username.toLowerCase();
     if($scope.isLoginForm()) {
       login();
@@ -2849,6 +2864,28 @@ app.controller('authController', ['$scope', '$state', '$timeout', 'User', 'Alert
         $scope.showResendVerification = false;
       });
     });
+  };
+
+  var animationSrc = '/assets/images/logo-animation-large.gif';
+  $scope.triggerAnimation = function() {
+    if(animationSrc !== '') {
+      $timeout(function() {
+        animationSrc = '';
+      });
+    }
+    // set animation src to the animated gif
+    $timeout(function () {
+      animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+    // cancel after 1 sec
+    $timeout(function () {
+      animationSrc = '';
+      if($scope.loopAnimation) $scope.triggerAnimation();
+    }, 1000);
+  };
+
+  $scope.getAnimationSrc = function () {
+    return animationSrc;
   };
 }]);
 
@@ -3794,20 +3831,26 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alert
 var app = angular.module('wecoApp');
 app.controller('confirmResetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
   $scope.resetPassword = function() {
-    $scope.isLoading = true;
+    $scope.setLoading(true);
+    $scope.setLoopAnimation(true);
+    $scope.triggerAnimation();
+
     if($scope.credentials.password != $scope.credentials.confirmPassword) {
       Alerts.push('error', 'The two passwords are different.');
-      $scope.isLoading = false;
+      $scope.setLoading(false);
+      $scope.setLoopAnimation(false);
       return;
     }
     User.resetPassword($state.params.username, $scope.credentials.password, $state.params.token).then(function() {
       Alerts.push('success', 'Successfully updated password! You can now login.', true);
-      $scope.isLoading = false;
+      $scope.setLoading(false);
+      $scope.setLoopAnimation(false);
       $state.go('auth.login');
     }, function(response) {
       $timeout(function () {
-        $scope.errorMessage = response.message;
-        $scope.isLoading = false;
+        $scope.setErrorMessage(response.message);
+        $scope.setLoading(false);
+        $scope.setLoopAnimation(false);
       });
     });
   };
@@ -3816,14 +3859,19 @@ app.controller('confirmResetPasswordController', ['$scope', '$state', '$timeout'
 var app = angular.module('wecoApp');
 app.controller('requestResetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
   $scope.sendLink = function() {
-    $scope.isLoading = true;
+    $scope.setLoading(true);
+    $scope.setLoopAnimation(true);
+    $scope.triggerAnimation();
+
     User.requestResetPassword($scope.credentials.username).then(function() {
       $state.go('weco.home');
-      $scope.isLoading = false;
+      $scope.setLoading(false);
+      $scope.setLoopAnimation(false);
       Alerts.push('success', 'A password reset link has been sent to your inbox.', true);
     }, function(response) {
-      $scope.isLoading = false;
-      $scope.errorMessage = response.message;
+      $scope.setLoading(false);
+      $scope.setErrorMessage(response.message);
+      $scope.setLoopAnimation(false);
     });
   };
 }]);
@@ -3832,14 +3880,52 @@ var app = angular.module('wecoApp');
 app.controller('resetPasswordController', ['$scope', '$state', '$timeout', 'User', 'Alerts', function($scope, $state, $timeout, User, Alerts) {
   $scope.errorMessage = '';
   $scope.isLoading = false;
+  $scope.loopAnimation = false;
   $scope.credentials = {};
+
+  var animationSrc = '/assets/images/logo-animation-large.gif';
+  $scope.triggerAnimation = function() {
+    if(animationSrc !== '') {
+      $timeout(function() {
+        animationSrc = '';
+      });
+    }
+    // set animation src to the animated gif
+    $timeout(function () {
+      animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+    // cancel after 1 sec
+    $timeout(function () {
+      animationSrc = '';
+      if($scope.loopAnimation) $scope.triggerAnimation();
+    }, 1000);
+  };
+
+  $scope.setLoopAnimation = function(loop) { $scope.loopAnimation = loop; };
+  $scope.setErrorMessage = function(message) { $scope.errorMessage = message; };
+  $scope.setLoading = function(loading) { $scope.isLoading = loading; };
+
+  $scope.getAnimationSrc = function () {
+    return animationSrc;
+  };
 }]);
 
 var app = angular.module('wecoApp');
 app.controller('verifyController', ['$scope', '$state', '$interval', '$timeout', 'User', 'Alerts', function($scope, $state, $interval, $timeout, User, Alerts) {
   $scope.message = 'Verifying your account.';
+  var animationSrc = '/assets/images/logo-animation-large.gif';
 
   $interval(function () {
+    if(animationSrc !== '') {
+      $timeout(function() {
+        animationSrc = '';
+      });
+    }
+    // set animation src to the animated gif
+    $timeout(function () {
+      animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+
     if($scope.message.indexOf('...') > -1) {
       $scope.message = 'Verifying your account.';
     } else {
@@ -3856,4 +3942,8 @@ app.controller('verifyController', ['$scope', '$state', '$interval', '$timeout',
       $state.go('auth.signup');
     });
   }, 3000);
+
+  $scope.getAnimationSrc = function () {
+    return animationSrc;
+  };
 }]);
