@@ -207,7 +207,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
-app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', function($rootScope, $state, User, Mod, socket, Modal) {
+app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', 'Alerts', function($rootScope, $state, User, Mod, socket, Modal, Alerts) {
   $rootScope.tooltip = {};
   $rootScope.modalOpen = Modal.isOpen;
 
@@ -219,7 +219,6 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', function($roo
     }).then(function() {
       console.log("Successfully subscribed to notifications");
     }).catch(function(err) {
-      // TODO pretty error
       console.error("Error subscribing to notifications: ", err);
     });
   });
@@ -231,11 +230,9 @@ app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', function($roo
       User.unsubscribeFromNotifications(User.me().username, data.id).then(function () {
         console.log("Successfully unsubscribed from notifications");
       }, function(err) {
-        // TODO pretty error
         console.error("Error unsubscribing to notifications: ", err);
       });
     } else {
-      // TODO pretty error
       console.error("Error unsubscribing to notifications: Not Authenticated");
     }
   });
