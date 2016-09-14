@@ -92,5 +92,14 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
     });
   };
 
+  Post.flag = function(postid, branchid, flag_type) {
+    return new Promise(function(resolve, reject) {
+      $http.post(ENV.apiEndpoint + 'post/' + postid + '/flag', {
+        flag_type: flag_type,
+        branchid: branchid
+      }).then(resolve, reject);
+    });
+  };
+
   return Post;
 }]);

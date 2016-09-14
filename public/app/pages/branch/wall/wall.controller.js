@@ -92,7 +92,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   }
 
   $scope.openFlagPostModal = function(post) {
-    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { postType: post.type, branchid: $scope.branchid })
+    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post })
       .then(function(result) {
         if(result) {
           Alerts.push('success', 'Post flagged. The branch moderators will be informed.');
