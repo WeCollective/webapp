@@ -48,7 +48,8 @@
           <span ng-class="post.type" class="post-type-marker" tooltip-text="(post.type | capitalize) + ' Post'" offset-y="20"></span>
           <span ng-class="post.type" class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> at {{ post.date | date:'hh:mm on dd of MMMM yyyy' }}</span>
           <div class="controls">
-            <a ui-sref="weco.branch.post({ postid: post.id })"><img src="/assets/images/icons/black/comment.png" tooltip-text="'Comments'" offset-y="20"></a>
+            <a ui-sref="weco.branch.post({ postid: post.id })"><img class="control" src="/assets/images/icons/black/comment.png" tooltip-text="'Comments'" offset-y="20"></a>
+            <img class="control" src="/assets/images/icons/black/flag.png" tooltip-text="'Flag Post'" offset-y="20" ng-click="openFlagPostModal(post)">
           </div>
         </div>
       </li>

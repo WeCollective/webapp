@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', function($scope, $state, $timeout, Branch, Post, Alerts) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', function($scope, $state, $timeout, Branch, Post, Alerts, Modal) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
@@ -90,6 +90,17 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       $scope.isLoading = false;
     });
   }
+
+  $scope.openFlagPostModal = function(post) {
+    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { postType: post.type, branchid: $scope.branchid })
+      .then(function(result) {
+        if(result) {
+          Alerts.push('success', 'Post flagged. The branch moderators will be informed.');
+        }
+      }, function() {
+        Alerts.push('error', 'Unable to flag post.');
+      });
+  };
 
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;

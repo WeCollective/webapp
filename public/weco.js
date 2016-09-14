@@ -1317,6 +1317,36 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', function($scope, $timeout, Modal) {
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+  $scope.branchid = Modal.getInputArgs().branchid;
+
+  $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().postType.toUpperCase() + ' POST'];
+  $scope.selectedFlagItemIdx = 0;
+
+  $scope.$on('OK', function() {
+
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+
+  $scope.close = function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });    
+  };
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalProfileSettingsController', ['$scope', '$timeout', 'Modal', 'User', function($scope, $timeout, Modal, User) {
   $scope.Modal = Modal;
   $scope.values = [];
@@ -1793,7 +1823,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3539,7 +3569,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', function($scope, $state, $timeout, Branch, Post, Alerts) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', function($scope, $state, $timeout, Branch, Post, Alerts, Modal) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
@@ -3628,6 +3658,17 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       $scope.isLoading = false;
     });
   }
+
+  $scope.openFlagPostModal = function(post) {
+    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { postType: post.type, branchid: $scope.branchid })
+      .then(function(result) {
+        if(result) {
+          Alerts.push('success', 'Post flagged. The branch moderators will be informed.');
+        }
+      }, function() {
+        Alerts.push('error', 'Unable to flag post.');
+      });
+  };
 
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;
