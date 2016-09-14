@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="dragdrop" ng-show="!isUploading"
        ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
-       ngf-hide-on-drop-not-available="true" ngf-fix-orientation="true">
+       ngf-hide-on-drop-not-available="true" ngf-fix-orientation="true" ngf-max-size="20MB">
     <img id="graphic" src="/assets/images/image.png">
     <h2>Drop an image here!</h2>
     <img id="preview" ngf-src="file">
