@@ -45,4 +45,17 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
 
   // initial fetch of notifications
   getNotifications();
+
+  $scope.reasonString = function(reason) {
+    switch(reason) {
+      case 'branch_rules':
+        return 'for violating the branch rules';
+      case 'site_rules':
+        return 'for violating the site rules';
+      case 'wrong_type':
+        return 'for being tagged with an incorrect post type';
+      default:
+        return '';
+    }
+  };
 }]);

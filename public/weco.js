@@ -7,7 +7,8 @@ app.constant('NotificationTypes', {
   'CHILD_BRANCH_REQUEST_ANSWERED': 1,
   'BRANCH_MOVED': 2,
   'MODERATOR': 3,
-  'COMMENT': 4
+  'COMMENT': 4,
+  'POST_FLAGGED': 5
 });
 
 // configure the markdown parser for Githib Flavoured Markdown
@@ -1327,7 +1328,7 @@ var app = angular.module('wecoApp');
 app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post', 'Alerts', function($scope, $timeout, Modal, Post, Alerts) {
   $scope.errorMessage = '';
   $scope.isLoading = false;
-  $scope.branchid = Modal.getInputArgs().post.branchid;
+  $scope.branchid = Modal.getInputArgs().branchid;
 
   $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
   $scope.selectedFlagItemIdx = 0;
@@ -1352,7 +1353,7 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
         return;
     }
 
-    Post.flag(post.id, post.branchid, type).then(function() {
+    Post.flag(post.id, $scope.branchid, type).then(function() {
       $timeout(function() {
         $scope.errorMessage = '';
         $scope.isLoading = false;
@@ -1384,11 +1385,11 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal', 'Post', 'Alerts', function($scope, $timeout, Modal, Post, Alerts) {
+app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal', 'Post', 'Branch', 'Alerts', function($scope, $timeout, Modal, Post, Branch, Alerts) {
   $scope.errorMessage = '';
   $scope.isLoading = false;
   $scope.post = Modal.getInputArgs().post;
-  $scope.data = {
+  $scope.text = {
     reason: ''
   };
 
@@ -1402,6 +1403,45 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
   $scope.selectedReasonItemIdx = 0;
 
   $scope.$on('OK', function() {
+    $scope.isLoading = true;
+    var action;
+    var data;
+    switch($scope.selectedResolveItemIdx) {
+      case 0: // change post type
+        action = 'change_type';
+        data = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
+        break;
+      case 1: // remove post
+        action = 'remove';
+        if($scope.selectedReasonItemIdx === 0) {
+          data = 'branch_rules';
+        } else if($scope.selectedReasonItemIdx === 1) {
+          data = 'site_rules';
+        } else {
+          Alerts.push('error', 'Unknown reason.');
+          return;
+        }
+        break;
+      case 2: // approve post
+        action = 'approve';
+        break;
+      default:
+        Alerts.push('error', 'Unknown action.');
+        return;
+    }
+
+    Branch.resolveFlaggedPost($scope.post.branchid, $scope.post.id, action, data, $scope.text.reason).then(function() {
+      $timeout(function() {
+        $scope.errorMessage = '';
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }).catch(function(response) {
+      $timeout(function() {
+        $scope.errorMessage = response.message;
+        $scope.isLoading = false;
+      });
+    });
   });
 
   $scope.$on('Cancel', function() {
@@ -2393,6 +2433,22 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  Branch.resolveFlaggedPost = function(branchid, postid, action, data, reason, message) {
+    return new Promise(function(resolve, reject) {
+      var body = {};
+      body.action = action;
+      body[(action === 'change_type') ? 'type' : 'reason'] = data;
+      body.message = message;
+      var url = ENV.apiEndpoint + 'branch/' + branchid + '/posts/' + postid + '/resolve';
+      $http.post(url, body).then(resolve, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Branch;
 }]);
 
@@ -3311,6 +3367,7 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
       .then(function(result) {
         if(result) {
           Alerts.push('success', 'Done.');
+          getPosts();
         }
       }, function() {
         Alerts.push('error', 'Error resolving flags on post.');
@@ -3893,7 +3950,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   }
 
   $scope.openFlagPostModal = function(post) {
-    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post })
+    Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post, branchid: $scope.branchid })
       .then(function(result) {
         if(result) {
           Alerts.push('success', 'Post flagged. The branch moderators will be informed.');
@@ -3970,6 +4027,19 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
 
   // initial fetch of notifications
   getNotifications();
+
+  $scope.reasonString = function(reason) {
+    switch(reason) {
+      case 'branch_rules':
+        return 'for violating the branch rules';
+      case 'site_rules':
+        return 'for violating the site rules';
+      case 'wrong_type':
+        return 'for being tagged with an incorrect post type';
+      default:
+        return '';
+    }
+  };
 }]);
 
 'use strict';

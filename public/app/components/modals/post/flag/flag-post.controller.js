@@ -2,7 +2,7 @@ var app = angular.module('wecoApp');
 app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post', 'Alerts', function($scope, $timeout, Modal, Post, Alerts) {
   $scope.errorMessage = '';
   $scope.isLoading = false;
-  $scope.branchid = Modal.getInputArgs().post.branchid;
+  $scope.branchid = Modal.getInputArgs().branchid;
 
   $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
   $scope.selectedFlagItemIdx = 0;
@@ -27,7 +27,7 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
         return;
     }
 
-    Post.flag(post.id, post.branchid, type).then(function() {
+    Post.flag(post.id, $scope.branchid, type).then(function() {
       $timeout(function() {
         $scope.errorMessage = '';
         $scope.isLoading = false;

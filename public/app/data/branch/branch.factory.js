@@ -253,5 +253,21 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  Branch.resolveFlaggedPost = function(branchid, postid, action, data, reason, message) {
+    return new Promise(function(resolve, reject) {
+      var body = {};
+      body.action = action;
+      body[(action === 'change_type') ? 'type' : 'reason'] = data;
+      body.message = message;
+      var url = ENV.apiEndpoint + 'branch/' + branchid + '/posts/' + postid + '/resolve';
+      $http.post(url, body).then(resolve, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Branch;
 }]);

@@ -113,6 +113,7 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
       .then(function(result) {
         if(result) {
           Alerts.push('success', 'Done.');
+          getPosts();
         }
       }, function() {
         Alerts.push('error', 'Error resolving flags on post.');
