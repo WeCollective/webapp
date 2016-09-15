@@ -44,6 +44,14 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
         return;
     }
 
+    if(!$scope.text.reason || $scope.text.reason.length === 0) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please provide an explanatory message for the OP';
+        $scope.isLoading = false;
+      });
+      return;
+    }
+
     Branch.resolveFlaggedPost($scope.post.branchid, $scope.post.id, action, data, $scope.text.reason).then(function() {
       $timeout(function() {
         $scope.errorMessage = '';

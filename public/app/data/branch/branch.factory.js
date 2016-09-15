@@ -253,7 +253,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
-  Branch.resolveFlaggedPost = function(branchid, postid, action, data, reason, message) {
+  Branch.resolveFlaggedPost = function(branchid, postid, action, data, message) {
     return new Promise(function(resolve, reject) {
       var body = {};
       body.action = action;

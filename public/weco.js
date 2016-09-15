@@ -8,7 +8,8 @@ app.constant('NotificationTypes', {
   'BRANCH_MOVED': 2,
   'MODERATOR': 3,
   'COMMENT': 4,
-  'POST_FLAGGED': 5
+  'POST_FLAGGED': 5,
+  'POST_REMOVED': 6
 });
 
 // configure the markdown parser for Githib Flavoured Markdown
@@ -1430,6 +1431,14 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
         return;
     }
 
+    if(!$scope.text.reason || $scope.text.reason.length === 0) {
+      $timeout(function() {
+        $scope.errorMessage = 'Please provide an explanatory message for the OP';
+        $scope.isLoading = false;
+      });
+      return;
+    }
+
     Branch.resolveFlaggedPost($scope.post.branchid, $scope.post.id, action, data, $scope.text.reason).then(function() {
       $timeout(function() {
         $scope.errorMessage = '';
@@ -2433,7 +2442,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
-  Branch.resolveFlaggedPost = function(branchid, postid, action, data, reason, message) {
+  Branch.resolveFlaggedPost = function(branchid, postid, action, data, message) {
     return new Promise(function(resolve, reject) {
       var body = {};
       body.action = action;
