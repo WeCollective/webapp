@@ -9,7 +9,8 @@ app.constant('NotificationTypes', {
   'MODERATOR': 3,
   'COMMENT': 4,
   'POST_FLAGGED': 5,
-  'POST_REMOVED': 6
+  'POST_REMOVED': 6,
+  'POST_TYPE_CHANGED': 7
 });
 
 // configure the markdown parser for Githib Flavoured Markdown
@@ -1431,7 +1432,7 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
         return;
     }
 
-    if(!$scope.text.reason || $scope.text.reason.length === 0) {
+    if(action !== 'change_type' && (!$scope.text.reason || $scope.text.reason.length === 0)) {
       $timeout(function() {
         $scope.errorMessage = 'Please provide an explanatory message for the OP';
         $scope.isLoading = false;
