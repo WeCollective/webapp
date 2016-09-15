@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', function($scope, $state, $timeout, Branch, Post, Alerts) {
+app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', function($scope, $state, $timeout, Branch, Post, Alerts, Modal) {
   $scope.isLoading = false;
   $scope.posts = [];
 
@@ -107,4 +107,16 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
       $scope.isLoading = false;
     });
   }
+
+  $scope.openResolveFlagPostModal = function(post) {
+    Modal.open('/app/components/modals/post/flag/resolve/resolve-flag-post.modal.view.html', { post: post })
+      .then(function(result) {
+        if(result) {
+          Alerts.push('success', 'Done.');
+        }
+      }, function() {
+        Alerts.push('error', 'Error resolving flags on post.');
+      });
+  };
+
 }]);
