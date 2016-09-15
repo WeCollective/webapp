@@ -8,6 +8,10 @@
     <ul id="post-list">
       <li ng-repeat="post in posts | filter: { type: (postTypeItems[selectedPostTypeItemIdx] == 'ALL') ? '' : postTypeItems[selectedPostTypeItemIdx] }" loading when="post.isLoading">
         <span class="index">{{ $index + 1 }}</span>
+        <div class="flags">
+          <img src="/assets/images/icons/white/flag.png">
+          <span>{{ post.branch_rules_count + post.site_rules_count + post.wrong_type_count }}</span>
+        </div>
         <!-- Two DOM elements conditionally displayed if the post is a text type.
              One is to perform internal state transition with uisref. (Text posts)
              One is to link to an external site. (Non-text posts) -->

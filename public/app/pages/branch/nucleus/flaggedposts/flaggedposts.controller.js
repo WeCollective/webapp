@@ -56,7 +56,7 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
       Post.get($scope.posts[idx].id).then(function(response) {
         if(response) {
           $timeout(function() {
-            $scope.posts[idx] = response;
+            $scope.posts[idx].data = response.data;
             $scope.posts[idx].isLoading = false;
           });
         }
