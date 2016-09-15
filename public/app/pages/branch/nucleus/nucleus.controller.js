@@ -23,6 +23,11 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
            $scope.tabItems.push('mod tools');
            $scope.tabStates.push('weco.branch.nucleus.modtools({ "branchid": "' + $scope.branchid + '"})');
          }
+         // add flagged posts tab
+         if($scope.tabItems.indexOf('flagged posts') == -1) {
+           $scope.tabItems.push('flagged posts');
+           $scope.tabStates.push('weco.branch.nucleus.flaggedposts({ "branchid": "' + $scope.branchid + '"})');
+         }
        }
      }
    }

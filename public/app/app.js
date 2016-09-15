@@ -172,6 +172,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       modOnly: true,
       redirectTo: 'auth.login'
     })
+    .state('weco.branch.nucleus.flaggedposts', {
+      url: '/flaggedposts',
+      templateUrl: '/app/pages/branch/nucleus/flaggedposts/flaggedposts.view.html',
+      controller: 'nucleusFlaggedPostsController',
+      modOnly: true,
+      redirectTo: 'auth.login'
+    })
     // Subbranches
     .state('weco.branch.subbranches', {
       url: '/subbranches',

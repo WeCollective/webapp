@@ -232,5 +232,26 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
     });
   };
 
+  // Get all the flagged posts on a given branch submitted after a given time
+  Branch.getFlaggedPosts = function(branchid, timeafter, sortBy) {
+    return new Promise(function(resolve, reject) {
+      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, sortBy: sortBy, flag: true }, function(posts) {
+        if(posts && posts.data) {
+          resolve(posts.data);
+        } else {
+          reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return Branch;
 }]);
