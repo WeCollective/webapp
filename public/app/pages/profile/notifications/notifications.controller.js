@@ -15,6 +15,10 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         return 'moderator';
       case NotificationTypes.COMMENT:
         return 'comment';
+      case NotificationTypes.POST_FLAGGED:
+      case NotificationTypes.POST_REMOVED:
+      case NotificationTypes.POST_TYPE_CHANGED:
+        return 'flagged';
       default:
         return 'user';
     }

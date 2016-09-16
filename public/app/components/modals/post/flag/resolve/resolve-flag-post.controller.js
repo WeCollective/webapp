@@ -44,7 +44,7 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
         return;
     }
 
-    if(action !== 'change_type' && (!$scope.text.reason || $scope.text.reason.length === 0)) {
+    if(action === 'remove' && (!$scope.text.reason || $scope.text.reason.length === 0)) {
       $timeout(function() {
         $scope.errorMessage = 'Please provide an explanatory message for the OP';
         $scope.isLoading = false;
