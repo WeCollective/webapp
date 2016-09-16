@@ -1,7 +1,9 @@
 <div id="flag-post-modal" ng-controller="modalFlagPostController">
-  <h1>Flag a Post</h1>
-  <p>{{ errorMessage }}</p>
-  <dropdown title="'THIS POST IS'" items="flagItems" selected="selectedFlagItemIdx"></dropdown>
-  <p class="info" ng-show="selectedFlagItemIdx == 0">Note: Please check the <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-click="close()">branch rules</a> first.</p>
-  <p class="info" ng-show="selectedFlagItemIdx == 1">Note: Please check the <a>site rules</a> first.</p>
+  <div id="flag-post-modal-content" loading when="isLoading">
+    <h1>Flag a Post</h1>
+    <p>{{ errorMessage }}</p>
+    <dropdown title="'THIS POST IS'" items="flagItems" selected="selectedFlagItemIdx"></dropdown>
+    <p class="info" ng-show="selectedFlagItemIdx == 0">Note: Please check the <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-click="close()">branch rules</a> first.</p>
+    <p class="info" ng-show="selectedFlagItemIdx == 1">Note: Please check the <a>site rules</a> first.</p>
+  </div>
 </div>

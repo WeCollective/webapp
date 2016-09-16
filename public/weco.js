@@ -1948,7 +1948,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2710,7 +2710,12 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
       $http.post(ENV.apiEndpoint + 'post/' + postid + '/flag', {
         flag_type: flag_type,
         branchid: branchid
-      }).then(resolve, reject);
+      }).then(resolve, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
     });
   };
 
