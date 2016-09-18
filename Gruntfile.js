@@ -165,29 +165,38 @@ module.exports = function(grunt) {
     },
     preprocess : {
       local: {
-        src: 'public/index.template.html',
-        dest: 'public/index.html',
+        files : {
+          'public/index.html' : 'public/index.template.html',
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+        },
         options: {
           context: {
-            ENV: 'local'
+            ENV: 'local',
+            SSL: 'false'
           }
         }
       },
       development: {
-        src: 'public/index.template.html',
-        dest: 'public/index.html',
+        files : {
+          'public/index.html' : 'public/index.template.html',
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+        },
         options: {
           context: {
-            ENV: 'development'
+            ENV: 'development',
+            SSL: 'false'
           }
         }
       },
       production: {
-        src: 'public/index.template.html',
-        dest: 'public/index.html',
+        files : {
+          'public/index.html' : 'public/index.template.html',
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+        },
         options: {
           context: {
-            ENV: 'production'
+            ENV: 'production',
+            SSL: 'true'
           }
         }
       }
