@@ -7,7 +7,7 @@ var helmet = require('helmet');               // protect against common web vuln
 
 // SET ENVIRONMENT AND PORT
 var env = (process.env.NODE_ENV || 'development');
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 80;
 
 // REDIRECT TRAFFIC ON HTTP TO HTTPS
 app.use(function(req, res, next) {
