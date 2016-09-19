@@ -10,13 +10,15 @@ var env = (process.env.NODE_ENV || 'development');
 var port = process.env.PORT || 80;
 
 // REDIRECT TRAFFIC ON HTTP TO HTTPS
-app.use(function(req, res, next) {
-  if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-    res.redirect('https://' + req.get('Host') + req.url);
-  } else {
-    next();
-  }
-});
+if(process.env.NODE_ENV === 'production') {
+  app.use(function(req, res, next) {
+    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+      res.redirect('https://' + req.get('Host') + req.url);
+    } else {
+      next();
+    }
+  });
+}
 
 // MIDDLEWARE
 app.use(helmet());
