@@ -9,13 +9,22 @@ var helmet = require('helmet');               // protect against common web vuln
 var env = (process.env.NODE_ENV || 'development');
 var port = process.env.PORT || 8081;
 
-// REDIRECT TRAFFIC ON HTTP TO HTTPS
 if(process.env.NODE_ENV === 'production') {
+  // REDIRECT TRAFFIC ON HTTP TO HTTPS
   app.use(function(req, res, next) {
     if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
       res.redirect('https://' + req.get('Host') + req.url);
     } else {
       next();
+    }
+  });
+
+  // REDIRECT APEX DOMAIN TO WWW. SUBDOMAIN
+  app.use(function(req, res, next) {
+    if(req.get('Host').match(/^www\..*/i)) {
+      next();
+    } else {
+      res.redirect(301, 'https://www.'  + req.get('Host') + req.url);
     }
   });
 }
