@@ -1,0 +1,32 @@
+.responsive(@maxWidth; @rules) {
+  @media only screen and (max-width: @maxWidth) {
+    @rules();
+  }
+}
+
+@screen-small: 992px;
+@screen-medium: 1200px;
+@screen-large: 1600px;
+@screen-xlarge: 1920px;
+
+
+@nav-bar-height: 45px;
+@page-margin: 18%;
+@nav-column-width: 250px;
+
+/*
+@nav-bar-height-large: 45px;
+@page-margin-large: 18%;
+@nav-column-width-large: 250px;
+
+@nav-bar-height-medium: 35px;
+@page-margin-medium: 10%;
+@nav-column-width-medium: 200px;
+*/
+
+/*
+USE:
+.responsive(@screen-large, {
+  height: @nav-bar-height-medium;
+});
+*/
