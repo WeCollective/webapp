@@ -217,9 +217,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 });
 
-app.run(['$rootScope', '$state', 'User', 'Mod', 'socket', 'Modal', 'Alerts', function($rootScope, $state, User, Mod, socket, Modal, Alerts) {
+app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket', 'Modal', 'Alerts', function($rootScope, $state, $timeout, $window, User, Mod, socket, Modal, Alerts) {
   $rootScope.tooltip = {};
   $rootScope.modalOpen = Modal.isOpen;
+
+  // Tell Prerender.io to cache when DOM is loaded
+  $timeout(function () {
+    $window.prerenderReady = true;
+  });
 
   socket.on('on_connect', 'notifications', function(data) {
     console.log("Connection established");

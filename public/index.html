@@ -22,6 +22,8 @@
     <div modal></div>
     <div ng-class="{ 'full-page-nav': hasNavBar(), 'full-page': !hasNavBar() }" ui-view></div>
 
+    <!-- PRERENDER IO WILL CACHE WHEN prerenderReady SET TO TRUE -->
+    <script>window.prerenderReady = false;</script>
     <!-- DEPENDENCIES -->
     <script src="http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/socket.io/socket.io.js"></script>
     <script src="/dependencies/node/angular/angular.min.js"></script>
