@@ -20,6 +20,7 @@
     "angular-resource": "^1.5.7",
     "angular-sanitize": "^1.5.7",
     "angular-ui-router": "^0.3.1",
+    "es6-promise-polyfill": "^1.2.0",
     "express": "^4.13.4",
     "helmet": "^2.1.1",
     "highlightjs": "^8.7.0",
