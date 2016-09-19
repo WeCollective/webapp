@@ -27,9 +27,12 @@ if(process.env.NODE_ENV === 'production') {
       res.redirect(301, 'https://www.'  + req.get('Host') + req.url);
     }
   });
+
+  // PRERENDER IO
+  app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
 }
 
-// MIDDLEWARE
+// SECURITY MIDDLEWARE
 app.use(helmet());
 
 // SERVE THE NODE MODULES FOLDER
