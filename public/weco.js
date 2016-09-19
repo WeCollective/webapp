@@ -1948,7 +1948,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://weco-api-prod.eu-west-1.elasticbeanstalk.com/'})
+.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
