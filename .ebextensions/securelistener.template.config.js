@@ -6,5 +6,8 @@ option_settings:
     InstancePort: 80
     InstanceProtocol: HTTP
   aws:elb:listener:80:
-    ListenerEnabled: false
+    ListenerEnabled: true
+    ListenerProtocol: HTTP
+    InstancePort: 80
+    InstanceProtocol: HTTP
 // @endif
