@@ -147,7 +147,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'https://weco-api-prod.eu-west-1.elasticbeanstalk.com/'
+            apiEndpoint: 'https://wecoapi.com/'
           }
         }
       },
@@ -167,8 +167,7 @@ module.exports = function(grunt) {
       local: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
-          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
         },
         options: {
           context: {
@@ -180,8 +179,7 @@ module.exports = function(grunt) {
       development: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
-          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
         },
         options: {
           context: {
@@ -193,8 +191,7 @@ module.exports = function(grunt) {
       production: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
-          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
         },
         options: {
           context: {
