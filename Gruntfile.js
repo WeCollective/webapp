@@ -147,7 +147,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://weco-api-prod.eu-west-1.elasticbeanstalk.com/'
+            apiEndpoint: 'https://weco-api-prod.eu-west-1.elasticbeanstalk.com/'
           }
         }
       },
