@@ -167,7 +167,8 @@ module.exports = function(grunt) {
       local: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
+          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
         },
         options: {
           context: {
@@ -179,7 +180,8 @@ module.exports = function(grunt) {
       development: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
+          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
         },
         options: {
           context: {
@@ -191,7 +193,8 @@ module.exports = function(grunt) {
       production: {
         files : {
           'public/index.html' : 'public/index.template.html',
-          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js'
+          '.ebextensions/securelistener.config'   : '.ebextensions/securelistener.template.config.js',
+          '.ebextensions/redirecthttp.config'   : '.ebextensions/redirecthttp.template.config.js'
         },
         options: {
           context: {
