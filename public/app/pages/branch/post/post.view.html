@@ -46,8 +46,6 @@
   <write-comment id="write-root-comment" postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
   <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
   <dropdown title="'SORT BY'" items="sortItems" selected="selectedSortItemIdx"></dropdown>
-  <!-- #fill-height (table row) takes the remaining height left by the #post-header (also table row)
-       by setting height: 100% -->
   <div id="post-comments-wrapper" scroll-to-top-when="add-comment">
     <div id="post-comments">
       <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
