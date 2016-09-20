@@ -1,13 +1,14 @@
 div#branch-wall {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(100% - @nav-bar-height);
+  height: 100%;
   box-sizing: border-box;
   padding: 20px;
 
   div#wall-header {
     width: 100%;
-    height: 45px;
 
     h1 {
       display: inline-block;
@@ -17,8 +18,10 @@ div#branch-wall {
     }
 
     div#stat-type-selector {
-      height: 100%;
-      float: right;
+      display: inline-block;
+      vertical-align: middle;
+      height: 45px;
+      margin-left: 10px;
 
       div {
         position: relative;
@@ -51,18 +54,19 @@ div#branch-wall {
   }
 
   div#post-list-container {
+    flex: 1;
     position: relative;
     width: 100%;
-    height: 100%;
     overflow-y: scroll;
 
     ul#post-list {
       li {
-        height: 65px;
+        position: relative;
+        min-height: 85px;
         width: 100%;
+        box-sizing: border-box;
         padding: 10px 0;
         border-bottom: solid 1px @light-grey;
-        position: relative;
 
         span.index {
           float: left;
@@ -75,7 +79,7 @@ div#branch-wall {
         div.votes {
           position: relative;
           float: left;
-          height: 100%;
+          height: 65px;
           min-width: 50px;
           text-align: center;
           margin-left: 5px;
@@ -127,8 +131,6 @@ div#branch-wall {
 
         div.data {
           display: inline-block;
-          position: relative;
-          height: 100%;
           // set max width to faciltate ellipsis on long text.
           // 200px is ~ the space taken by the content to the left of the data div
           max-width: calc(~'100% - 200px');
@@ -177,9 +179,7 @@ div#branch-wall {
           }
 
           div.controls {
-            position: absolute;
-            bottom: 0;
-
+            margin-top: 2px;
             img.control {
               height: 16px;
               width: auto;

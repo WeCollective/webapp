@@ -1,250 +1,245 @@
 div#branch-post {
-  display: table;
-  border-spacing: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px 10px;
   position: relative;
 
-  .table-row {
-    display: table-row;
+  div#post-header {
+    min-height: 80px;
+    padding-bottom: 10px;
 
-    div#post-header {
-      min-height: 80px;
-      padding-bottom: 10px;
-
-      div.votes {
-        position: relative;
-        float: left;
-        height: 100%;
-        width: 30px;
-        text-align: center;
-        margin-left: 5px;
-        margin-right: 10px;
-
-        img {
-          display: block;
-          position: absolute;
-          width: 20px;
-          height: auto;
-          left: 5px;
-          opacity: 0.3;
-
-          &:first-child {
-            top: 0;
-          }
-
-          &:last-child {
-            bottom: 0;
-          }
-
-          &:hover {
-            cursor: pointer;
-            opacity: 0.7;
-          }
-        }
-
-        p {
-          margin: 0;
-          font-size: 14px;
-          padding: 30px 0;
-        }
-      }
-
-      a div.post-picture {
-        float: left;
-        height: 80px;
-        width: 80px;
-        border-radius: 3px;
-        margin-right: 10px;
-        background-size: cover;
-        background-position: center;
-
-        &:hover {
-          box-shadow: @shadow2;
-        }
-      }
-
-      div.data {
-        overflow: hidden;
-
-        a p.title {
-          font-size: 18px;
-          font-weight: 500;
-          margin: 0;
-
-          &:hover {
-            cursor: pointer;
-          }
-        }
-
-        span.post-type-marker {
-          display: inline-block;
-          width: 10px;
-          height: 10px;
-          margin-right: 5px;
-          border-radius: 50%;
-
-          &.image { background-color: @post-type-image; }
-          &.video { background-color: @post-type-video; }
-          &.audio { background-color: @post-type-audio; }
-          &.text { background-color: @post-type-text; }
-          &.page { background-color: @post-type-page; }
-          &.poll { background-color: @post-type-poll; }
-        }
-
-        span.description {
-          font-size: 14px;
-          font-weight: 400;
-
-          a {
-            color: @button-focus;
-            font-weight: 500;
-
-            &:hover {
-              cursor: pointer;
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-
-      div#preview-controls {
-        img {
-          float: right;
-          height: 30px;
-          width: auto;
-          padding-left: 5px;
-          opacity: 0.3;
-
-          &:hover {
-            cursor: pointer;
-            opacity: 0.8;
-          }
-        }
-      }
-    }
-
-    div.post-content {
-      width: 100%;
-      box-sizing: border-box;
-
-      &.maximised {
-        &#image-post div {
-          transition: height 0.3s ease-out;
-          height: 350px;
-          width: auto;
-        }
-        &#video-post {
-          transition: width 0.3s ease-out;
-          width: 100%;
-        }
-      }
-
-      &#image-post {
-        &:not(.ng-hide) div {
-          transition: height 0.3s ease-out;
-        }
-        div {
-          width: auto;
-          height: 200px;
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-      }
-
-      &#video-post {
-        width: 43.75%;
-        margin-left: auto;
-        margin-right: auto;
-
-        &:not(.ng-hide) {
-          transition: width 0.3s ease-out;
-        }
-
-        div#video-wrapper {
-          position: relative;
-          padding-bottom: 56.25%; /* 16:9 */
-          padding-top: 25px;
-          height: 0;
-
-          iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-
-      &#text-post {
-        max-height: 350px;
-        overflow-y: scroll;
-      }
-    }
-
-    .write-comment#write-root-comment {
-      margin-top: 10px;
-
-      textarea {
-        float: left;
-        width: calc(~'100% - 90px');
-        height: 45px;
-      }
-
-      div.button-container {
-        float: left;
-        width: 90px;
-      }
-
-      .button.cancel {
-        display: none;
-      }
-    }
-
-    p#permalink-notice {
-      font-size: 14px;
-      background-color: @light-grey;
-      border-radius: 3px;
-      border: 1px solid @dark-grey;
-      padding: 5px 10px;
-
-      a {
-        color: @button-focus;
-        padding-left: 5px;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .dropdown {
-      display: block;
-      border-bottom: solid 1px @light-grey;
-    }
-
-    &#fill-height {
+    div.votes {
+      position: relative;
+      float: left;
       height: 100%;
-      div#post-comments-wrapper {
-        position: relative;
-        height: 100%;
-        width: 100%;
+      width: 30px;
+      text-align: center;
+      margin-left: 5px;
+      margin-right: 10px;
 
-        div#post-comments {
+      img {
+        display: block;
+        position: absolute;
+        width: 20px;
+        height: auto;
+        left: 5px;
+        opacity: 0.3;
+
+        &:first-child {
+          top: 0;
+        }
+
+        &:last-child {
+          bottom: 0;
+        }
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.7;
+        }
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        padding: 30px 0;
+      }
+    }
+
+    a div.post-picture {
+      float: left;
+      height: 80px;
+      width: 80px;
+      border-radius: 3px;
+      margin-right: 10px;
+      background-size: cover;
+      background-position: center;
+
+      &:hover {
+        box-shadow: @shadow2;
+      }
+    }
+
+    div.data {
+      overflow: hidden;
+
+      a p.title {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      span.post-type-marker {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+        border-radius: 50%;
+
+        &.image { background-color: @post-type-image; }
+        &.video { background-color: @post-type-video; }
+        &.audio { background-color: @post-type-audio; }
+        &.text { background-color: @post-type-text; }
+        &.page { background-color: @post-type-page; }
+        &.poll { background-color: @post-type-poll; }
+      }
+
+      span.description {
+        font-size: 14px;
+        font-weight: 400;
+
+        a {
+          color: @button-focus;
+          font-weight: 500;
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    div#preview-controls {
+      img {
+        float: right;
+        height: 30px;
+        width: auto;
+        padding-left: 5px;
+        opacity: 0.3;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  div.post-content {
+    width: 100%;
+    box-sizing: border-box;
+
+    &.maximised {
+      &#image-post div {
+        transition: height 0.3s ease-out;
+        height: 350px;
+        width: auto;
+      }
+      &#video-post {
+        transition: width 0.3s ease-out;
+        width: 100%;
+      }
+    }
+
+    &#image-post {
+      &:not(.ng-hide) div {
+        transition: height 0.3s ease-out;
+      }
+      div {
+        width: auto;
+        height: 200px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &#video-post {
+      width: 43.75%;
+      margin-left: auto;
+      margin-right: auto;
+
+      &:not(.ng-hide) {
+        transition: width 0.3s ease-out;
+      }
+
+      div#video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+
+        iframe {
           position: absolute;
           top: 0;
-          bottom: 0;
           left: 0;
-          right: 0;
-          overflow: auto;
-          p#no-comments {
-            font-style: italic;
-          }
-
-          div#comment-thread {
-            width: 100%;
-          }
+          width: 100%;
+          height: 100%;
         }
+      }
+    }
+
+    &#text-post {
+      max-height: 350px;
+      overflow-y: scroll;
+    }
+  }
+
+  .write-comment#write-root-comment {
+    margin-top: 10px;
+
+    textarea {
+      float: left;
+      width: calc(~'100% - 90px');
+      height: 45px;
+    }
+
+    div.button-container {
+      float: left;
+      width: 90px;
+    }
+
+    .button.cancel {
+      display: none;
+    }
+  }
+
+  p#permalink-notice {
+    font-size: 14px;
+    background-color: @light-grey;
+    border-radius: 3px;
+    border: 1px solid @dark-grey;
+    padding: 5px 10px;
+
+    a {
+      color: @button-focus;
+      padding-left: 5px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .dropdown {
+    display: block;
+    border-bottom: solid 1px @light-grey;
+  }
+
+  div#post-comments-wrapper {
+    position: relative;
+    width: 100%;
+    flex: 1;
+
+    div#post-comments {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: auto;
+      p#no-comments {
+        font-style: italic;
+      }
+
+      div#comment-thread {
+        width: 100%;
       }
     }
   }
