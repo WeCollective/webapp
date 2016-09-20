@@ -10,7 +10,13 @@ nav#nav-bar {
 
   div:first-child {
     position: relative;
-    width: calc(100% - @page-margin - @page-margin);
+    width: calc(100% - @page-margin-thick - @page-margin-thick);
+    .responsive(@screen-large, {
+      width: calc(100% - @page-margin-thin - @page-margin-thin);
+    });
+    .responsive(@screen-small, {
+      width: calc(100% - @page-margin-none - @page-margin-none);
+    });
     height: 100%;
     margin: auto;
 

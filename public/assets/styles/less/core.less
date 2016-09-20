@@ -67,13 +67,22 @@ div.frame {
   z-index: 100;
 
   div.content {
-    width: calc(100% - @page-margin - @page-margin);
+    width: calc(100% - @page-margin-thick - @page-margin-thick);
+    .responsive(@screen-large, {
+      width: calc(100% - @page-margin-thin - @page-margin-thin);
+    });
+    .responsive(@screen-small, {
+      width: calc(100% - @page-margin-none - @page-margin-none);
+    });
     height: 100%;
     margin: auto;
     background-color: #fff;
 
     div.nav-column {
-      width: @nav-column-width;
+      width: @nav-column-width-thick;
+      .responsive(@screen-large, {
+        width: @nav-column-width-thin;
+      });
       height: 100%;
       float: left;
       box-sizing: border-box;
@@ -91,7 +100,10 @@ div.frame {
     }
 
     div.content-column {
-      width: calc(100% - @nav-column-width);
+      width: calc(100% - @nav-column-width-thick);
+      .responsive(@screen-large, {
+        width: calc(100% - @nav-column-width-thin);
+      });
       height: 100%;
       float: left;
 

@@ -35,8 +35,12 @@ div#profile-frame {
       div#profile-info {
         div#profile-picture {
           position: relative;
-          width: @nav-column-width;
-          height: @nav-column-width;
+          width: @nav-column-width-thick;
+          height: @nav-column-width-thick;
+          .responsive(@screen-large, {
+            width: @nav-column-width-thin;
+            height: @nav-column-width-thin;
+          });
           margin: 20px 0 20px -20px;
           background-position: center;
           background-size: cover;

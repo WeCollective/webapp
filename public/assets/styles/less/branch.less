@@ -45,8 +45,12 @@ div#branch-frame {
 
         div#branch-picture {
           position: relative;
-          width: @nav-column-width;
-          height: @nav-column-width;
+          width: @nav-column-width-thick;
+          height: @nav-column-width-thick;
+          .responsive(@screen-large, {
+            width: @nav-column-width-thin;
+            height: @nav-column-width-thin;
+          });
           margin: 20px 0 0 -20px;
           background-position: center;
           background-size: cover;
@@ -70,15 +74,24 @@ div#branch-frame {
         ul#branch-controls {
           position: relative;
           text-align: center;
-          width: @nav-column-width;
-          height: calc(@nav-column-width / 4);
+          width: @nav-column-width-thick;
+          height: calc(@nav-column-width-thick / 4);
+
+          .responsive(@screen-large, {
+            width: @nav-column-width-thin;
+            height: calc(@nav-column-width-thin / 4);
+          });
+
           margin: 0 -20px;
           border-bottom: solid 1px @light-grey;
 
           li {
             float: left;
             height: 100%;
-            width: calc(@nav-column-width / 4);
+            width: calc(@nav-column-width-thick / 4);
+            .responsive(@screen-large, {
+              width: calc(@nav-column-width-thin / 4);
+            });
             margin: 0;
             padding: 0;
             box-sizing: border-box;
