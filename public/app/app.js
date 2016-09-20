@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'hc.marked', 'api']);
+var app = angular.module('wecoApp', ['config', 'ui.router', 'ngAnimate', 'ngSanitize', 'ngFileUpload', 'hc.marked', 'angular-google-analytics', 'api']);
 // configure notification type constants (matches server)
 app.constant('NotificationTypes', {
   'NEW_CHILD_BRANCH_REQUEST': 0,
@@ -42,7 +42,18 @@ app.filter('capitalize', function() {
   };
 });
 // configure the router
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'AnalyticsProvider', 'ENV', function($stateProvider, $urlRouterProvider, $locationProvider, AnalyticsProvider, ENV) {
+  // configure Google Analytics
+  AnalyticsProvider.setAccount('UA-84400255-1');
+  if(ENV.name === 'production') {
+    AnalyticsProvider.setDomainName('weco.io');
+  } else {
+    AnalyticsProvider.setDomainName('none');
+  }
+  // Using ui-router, which fires $stateChangeSuccess instead of $routeChangeSuccess
+  AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+  AnalyticsProvider.logAllCalls(true);
+
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 
@@ -109,7 +120,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     // Homepage state
     .state('weco.home', {
       url: '/',
-      templateUrl: '/app/pages/home/home.view.html'
+      templateUrl: '/app/pages/home/home.view.html',
+      pageTrack: '/'
     })
     // Profile page
     .state('weco.profile', {
@@ -120,23 +132,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('weco.profile.about', {
       url: '/about',
-      templateUrl: '/app/pages/profile/about/about.view.html'
+      templateUrl: '/app/pages/profile/about/about.view.html',
+      pageTrack: '/u/:username/about'
     })
     .state('weco.profile.timeline', {
       url: '/timeline',
-      templateUrl: '/app/pages/profile/timeline/timeline.view.html'
+      templateUrl: '/app/pages/profile/timeline/timeline.view.html',
+      pageTrack: '/u/:username/timeline'
     })
     .state('weco.profile.settings', {
       url: '/settings',
       templateUrl: '/app/pages/profile/settings/settings.view.html',
       selfOnly: true,
-      redirectTo: 'auth.login'
+      redirectTo: 'auth.login',
+      pageTrack: '/u/:username/settings'
     })
     .state('weco.profile.notifications', {
       url: '/notifications',
       templateUrl: '/app/pages/profile/notifications/notifications.view.html',
       selfOnly: true,
-      redirectTo: 'auth.login'
+      redirectTo: 'auth.login',
+      pageTrack: '/u/:username/notifications'
     })
     // Branches
     .state('weco.branch', {
@@ -150,7 +166,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/nucleus',
       abstract: true,
       templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
-      controller: 'nucleusController'
+      controller: 'nucleusController',
+      pageTrack: '/b/:branchid/nucleus'
     })
     .state('weco.branch.nucleus.about', {
       url: '/about',
@@ -186,23 +203,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('weco.branch.subbranches', {
       url: '/subbranches',
       templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
-      controller: 'subbranchesController'
+      controller: 'subbranchesController',
+      pageTrack: '/b/:branchid/subbranches'
     })
     // Branch wall
     .state('weco.branch.wall', {
       url: '/wall',
       templateUrl: '/app/pages/branch/wall/wall.view.html',
-      controller: 'wallController'
+      controller: 'wallController',
+      pageTrack: '/b/:branchid/wall'
     })
     // Posts
     .state('weco.branch.post', {
       url: '/p/:postid',
       templateUrl: '/app/pages/branch/post/post.view.html',
-      controller: 'postController'
+      controller: 'postController',
+      pageTrack: '/p/:postid'
     })
     // Comment Permalink
     .state('weco.branch.post.comment', {
-      url: '/c/:commentid'
+      url: '/c/:commentid',
+      pageTrack: '/p/:postid/c/:commentid'
     });
 
     // default child states
@@ -215,9 +236,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       state.go('weco.notfound');
       return $location.path();
     });
-});
+}]);
 
-app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket', 'Modal', 'Alerts', function($rootScope, $state, $timeout, $window, User, Mod, socket, Modal, Alerts) {
+app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket', 'Modal', 'Alerts', 'Analytics', function($rootScope, $state, $timeout, $window, User, Mod, socket, Modal, Alerts, Analytics) {
+  // NB: Analytics must be injected at least once to work properly, even if unused.
+
   $rootScope.tooltip = {};
   $rootScope.modalOpen = Modal.isOpen;
 
