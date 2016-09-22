@@ -66,14 +66,23 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
           postid: postid
         },{
           vote: vote
-        }, function() {
-          resolve();
-        }, function(response) {
+        }, resolve, function(response) {
           reject({
             status: response.status,
             message: response.data.message
           });
         });
+    });
+  };
+
+  Post.delete = function(postid) {
+    return new Promise(function(resolve, reject) {
+      PostAPI.remove({ postid: postid }, resolve, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
     });
   };
 

@@ -6,6 +6,7 @@ div#branch-post {
   position: relative;
 
   div#post-header {
+    position: relative;
     min-height: 80px;
     padding-bottom: 10px;
 
@@ -101,6 +102,20 @@ div#branch-post {
             cursor: pointer;
             text-decoration: underline;
           }
+        }
+      }
+
+      img#delete-post {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        height: 16px;
+        width: auto;
+        opacity: 0.3;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
         }
       }
     }

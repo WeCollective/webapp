@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -9,6 +9,22 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
+
+  $scope.deletePost = function() {
+    $scope.isLoadingPost = true;
+    Post.delete($scope.post.id).then(function() {
+      Alerts.push('success', 'Your post was deleted.');
+      $scope.isLoadingPost = false;
+      $state.go('weco.home');
+    }, function(err) {
+      $scope.isLoadingPost = false;
+      Alerts.push('error', 'Error deleting your post!');
+    });
+  };
+
+  $scope.isOwnPost = function() {
+    return User.me().username == $scope.post.data.creator;
+  };
 
   // Time filter dropdown configuration
   $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];

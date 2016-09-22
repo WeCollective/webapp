@@ -1976,7 +1976,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2707,14 +2707,23 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
           postid: postid
         },{
           vote: vote
-        }, function() {
-          resolve();
-        }, function(response) {
+        }, resolve, function(response) {
           reject({
             status: response.status,
             message: response.data.message
           });
         });
+    });
+  };
+
+  Post.delete = function(postid) {
+    return new Promise(function(resolve, reject) {
+      PostAPI.remove({ postid: postid }, resolve, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
     });
   };
 
@@ -3659,7 +3668,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -3667,6 +3676,22 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
+
+  $scope.deletePost = function() {
+    $scope.isLoadingPost = true;
+    Post.delete($scope.post.id).then(function() {
+      Alerts.push('success', 'Your post was deleted.');
+      $scope.isLoadingPost = false;
+      $state.go('weco.home');
+    }, function(err) {
+      $scope.isLoadingPost = false;
+      Alerts.push('error', 'Error deleting your post!');
+    });
+  };
+
+  $scope.isOwnPost = function() {
+    return User.me().username == $scope.post.data.creator;
+  };
 
   // Time filter dropdown configuration
   $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
