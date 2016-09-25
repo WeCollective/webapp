@@ -6,6 +6,21 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.posts = [];
   $scope.stat = 'global';
 
+  $scope.getOriginalBranchesTooltipString = function(post) {
+    if(!post.data || !post.data.original_branches) return '';
+    var tooltip = '';
+    var original_branches = JSON.parse(post.data.original_branches);
+    for(var i = 1; i < original_branches.length; i++) {
+      tooltip += (original_branches[i] + (i < original_branches.length ? '\n' : ''));
+    }
+    return tooltip;
+  };
+
+  $scope.getOriginalBranches = function(post) {
+    if(!post.data || !post.data.original_branches) return '';
+    return JSON.parse(post.data.original_branches);
+  };
+
   $scope.vote = function(post, direction) {
     Post.vote($scope.branchid, post.id, direction).then(function() {
       var inc = (direction == 'up') ? 1 : -1;
