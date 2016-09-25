@@ -26,7 +26,7 @@
       </a>
       <span ng-class="post.type" class="post-type-marker" tooltip-text="(post.type | capitalize) + ' Post'" offset-y="20"></span>
       <span ng-class="post.type" class="description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> on {{ post.date | date:'dd MMMM yyyy' }}</span>
-      <img ng-show="isOwnPost()" ng-click="deletePost()" id="delete-post" src="/assets/images/icons/black/delete.png">
+      <img ng-show="isOwnPost()" ng-click="openDeletePostModal()" id="delete-post" src="/assets/images/icons/black/delete.png">
     </div>
     <div id="preview-controls" class="clearfix" ng-show="post.type != 'page' && post.type != 'audio'">
       <img src="/assets/images/icons/black/hide.png" ng-click="setPreviewState('hide')" ng-show="previewState == 'show' || previewState == 'maximise'" tooltip-text="'Hide'" offset-y="30">

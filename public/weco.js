@@ -1355,6 +1355,34 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalDeletePostController', ['$scope', '$timeout', 'Modal', 'Post', 'Alerts', function($scope, $timeout, Modal, Post, Alerts) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = false;
+
+  $scope.$on('OK', function() {
+    $scope.isLoading = true;
+    Post.delete(Modal.getInputArgs().postid).then(function() {
+      Alerts.push('success', 'Your post was deleted.');
+      $scope.isLoading = false;
+      Modal.OK();
+    }, function(err) {
+      $scope.isLoading = false;
+      Alerts.push('error', 'Error deleting your post!');
+      Modal.Cancel();
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post', 'Alerts', function($scope, $timeout, Modal, Post, Alerts) {
   $scope.errorMessage = '';
   $scope.isLoading = false;
@@ -3668,7 +3696,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User, Modal) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -3677,20 +3705,21 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
 
-  $scope.deletePost = function() {
-    $scope.isLoadingPost = true;
-    Post.delete($scope.post.id).then(function() {
-      Alerts.push('success', 'Your post was deleted.');
-      $scope.isLoadingPost = false;
-      $state.go('weco.home');
-    }, function(err) {
-      $scope.isLoadingPost = false;
-      Alerts.push('error', 'Error deleting your post!');
-    });
+  $scope.isOwnPost = function() {
+    if(!$scope.post || !$scope.post.data) return false;
+    return User.me().username == $scope.post.data.creator;
   };
 
-  $scope.isOwnPost = function() {
-    return User.me().username == $scope.post.data.creator;
+  $scope.openDeletePostModal = function() {
+    Modal.open('/app/components/modals/post/delete/delete-post.modal.view.html', { postid: $scope.post.id })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go('weco.home');
+        }
+      }, function() {
+        Alerts.push('error', 'Unable to delete post.');
+      });
   };
 
   // Time filter dropdown configuration
