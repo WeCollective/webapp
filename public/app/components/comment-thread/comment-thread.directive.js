@@ -132,8 +132,13 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
           $timeout(function() {
             comment.individual += inc;
           });
+          Alerts.push('success', 'Thanks for voting!');
         }, function(err) {
-          Alerts.push('error', 'Unable to vote on comment!');
+          if(err.status === 400) {
+            Alerts.push('error', 'You have already voted on this comment.');
+          } else {
+            Alerts.push('error', 'Error voting on comment.');
+          }
         });
       };
 
