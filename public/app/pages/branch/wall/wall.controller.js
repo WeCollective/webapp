@@ -29,8 +29,13 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         post.local += inc;
         post.global += inc;
       });
+      Alerts.push('success', 'Thanks for voting!');
     }, function(err) {
-      Alerts.push('error', 'Error voting on post.');
+      if(err.status === 400) {
+        Alerts.push('error', 'You have already voted on this post.');
+      } else {
+        Alerts.push('error', 'Error voting on post.');
+      }
     });
   };
 

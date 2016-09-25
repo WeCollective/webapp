@@ -28,12 +28,14 @@ app.factory('Alerts', ['$timeout', function($timeout) {
       text: text,
       alive: true
     };
-    queue = [alert].concat(queue);
-    if(!persist) {
-      $timeout(function() {
-        close(alert);
-      }, duration);
-    }
+    $timeout(function() {
+      queue = [alert].concat(queue);
+      if(!persist) {
+        $timeout(function() {
+          close(alert);
+        }, duration);
+      }
+    });
   };
 
   Alerts.close = function(idx) {
