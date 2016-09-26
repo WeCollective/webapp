@@ -136,7 +136,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/'
+            apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'
           }
         }
       },
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'https://wecoapi.com/'
+            apiEndpoint: 'https://wecoapi.com/v1/'
           }
         }
       },
@@ -158,7 +158,7 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'local',
-            apiEndpoint: 'http://localhost:8080/'
+            apiEndpoint: 'http://localhost:8080/v1/'
           }
         }
       }
