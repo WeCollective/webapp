@@ -35,10 +35,9 @@
     <script src="/dependencies/node/ng-file-upload/dist/ng-file-upload.min.js"></script>
     <script src="/dependencies/node/angular-marked/dist/angular-marked.min.js"></script>
     <script src="/dependencies/node/marked/marked.min.js"></script>
-    <!-- Make sure you rename this GA module from angular-google-analytics.min.js to angular-ga.min.js
-         to avoid problems with AdBlock -->
-    <!-- <script src="/dependencies/node/angular-google-analytics/dist/angular-google-analytics.min.js"></script> -->
-    <script src="/dependencies/node/angular-ga/dist/angular-ga.min.js"></script>
+    <!-- NOTE: The google analytics script is concatenated and minified with weco.min.js.
+         This is so that AdBlock and other plugins dont block the script which prevents
+         Angular from bootstrapping -->
     <!-- POLYFILLS -->
     <script src="/dependencies/node/es6-promise-polyfill/promise.min.js"></script>
 

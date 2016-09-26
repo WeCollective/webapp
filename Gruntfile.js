@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     // file concatenation
     concat: {
       dist: {
-        src: ['public/**/*.js'],
+        src: ['public/**/*.js', 'node_modules/angular-google-analytics/dist/angular-google-analytics.js'],
         dest: 'public/weco.js',
       }
     },
