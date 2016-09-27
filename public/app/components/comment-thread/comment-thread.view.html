@@ -9,11 +9,11 @@
       <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ timeSince(comment.date) }}{{ comment.data.edited ? '*' : '' }}</span>
       <p class="comment-text">{{ comment.data.text }}</p>
       <ul class="comment-controls">
-           <li ng-click="openReply(comment, false)">REPLY</li><!--
-        --><li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)">EDIT</li><!--
-        --><li>SAVE</li><!--
-        --><li ng-click="openCommentPermalink(comment)">PERMALINK</li><!--
-        --><li>FLAG</li>
+           <li ng-click="openReply(comment, false)" tooltip-text="'Reply'" offset-y="25"><img src="/assets/images/icons/black/reply.png"></li><!--
+        --><li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)" tooltip-text="'Edit'" offset-y="25"><img src="/assets/images/icons/black/edit.png"></li><!--
+        --><li><img src="/assets/images/icons/black/save.png" tooltip-text="'Save'" offset-y="25"></li><!--
+        --><li ng-click="openCommentPermalink(comment)" tooltip-text="'Permalink'" offset-y="25"><img src="/assets/images/icons/black/permalink.png"></li><!--
+        --><li><img src="/assets/images/icons/black/flag.png" tooltip-text="'Flag'" offset-y="25"></li>
       </ul>
       <write-comment ng-show="comment.openReply" postid="comment.postid" parentid="comment.id"
                      update="comment.update" on-cancel="onCancelComment" on-submit="onSubmitComment"
