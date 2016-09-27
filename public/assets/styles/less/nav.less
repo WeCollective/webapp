@@ -119,14 +119,14 @@ nav#nav-bar {
           display: inline-block;
           height: @nav-bar-height;
           width: 1px;
-          background-color: @dark-grey;
+          background-color: @nav-lines;
           vertical-align: middle;
         }
 
         img {
           height: calc(@nav-bar-height / 2);
           width: auto;
-          margin-right: 20px;
+          margin-right: 10px;
           vertical-align: middle;
           opacity: 0.7;
 
@@ -148,7 +148,7 @@ nav#nav-bar {
         width: auto;
         vertical-align: middle;
         opacity: 0.7;
-        margin-right: 10px;
+        margin-right: 5px;
 
         &:hover {
           cursor: pointer;
@@ -163,7 +163,7 @@ nav#nav-bar {
         div#notification-count {
           position: absolute;
           top: -4px;
-          right: 0;
+          right: -3px;
           min-width: 18px;
           height: 18px;
           border-radius: 50%;
@@ -178,9 +178,6 @@ nav#nav-bar {
       }
 
       a {
-        img {
-          margin: 0 5px;
-        }
         &#profile {
           // left divider
           &::before {
@@ -188,7 +185,7 @@ nav#nav-bar {
             display: inline-block;
             height: @nav-bar-height;
             width: 1px;
-            background-color: @dark-grey;
+            background-color: @nav-lines;
             vertical-align: middle;
           }
 
@@ -199,8 +196,7 @@ nav#nav-bar {
             display: inline-block;
             height: @nav-bar-height;
             width: @nav-bar-height;
-            margin-left: 5px;
-            margin-right: 15px;
+            margin-right: 5px;
             vertical-align: middle;
             background-position: center;
             background-size: cover;
@@ -213,7 +209,7 @@ nav#nav-bar {
 
         span.text {
           vertical-align: middle;
-          padding: 3px 10px;
+          padding: 3px 5px;
           border-radius: 2px;
           font-size: 14px;
           font-weight: 500;
@@ -228,7 +224,7 @@ nav#nav-bar {
       ul#nav-menu-items {
         position: absolute;
         top: calc(@nav-bar-height + 10px);
-        right: 10px;
+        right: 0;
         min-width: 150px;
         border-radius: 3px;
         box-shadow: @shadow2;

@@ -18,7 +18,7 @@
         <div class="title" ng-if="notification.type == NotificationTypes.POST_REMOVED"><a ng-click="setUnread(notification, false)" ui-sref="weco.profile.about({ username: notification.data.username })">{{ notification.data.username == me().username ? 'you' : notification.data.username }}</a> removed your <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">post</a> from <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">b/{{ notification.data.branchid }}</a> {{ reasonString(notification.data.reason) }}, stating:<p class="message">{{ notification.data.message }}<p></div>
 
         <div class="title" ng-if="notification.type == NotificationTypes.POST_TYPE_CHANGED"><a ng-click="setUnread(notification, false)" ui-sref="weco.profile.about({ username: notification.data.username })">{{ notification.data.username == me().username ? 'you' : notification.data.username }}</a> changed the post type of your <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">post</a> on <a ng-click="setUnread(notification, false)" ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">b/{{ notification.data.branchid }}</a> to &#39;{{ notification.data.type }}&#39;</div>
-        <div class="description">received at {{ notification.date | date:'hh:mm on dd of MMMM yyyy' }}</div>
+        <div class="description">received at {{ notification.date | date:'HH:mm on dd of MMMM yyyy' }}</div>
       </div>
     </li>
   </u>
