@@ -105,11 +105,11 @@ div#branch-frame {
                 opacity: 0.2;
               }
 
-              &:hover {
+              &:not(.disabled):hover {
                 cursor: pointer;
               }
 
-              &:hover img, &.selected img {
+              &:not(.disabled):hover img, &.selected img {
                 opacity: 0.7;
               }
             }

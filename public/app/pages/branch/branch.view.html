@@ -29,8 +29,8 @@
             </a>
           </li>
           <li>
-            <a id="add-content" ng-click="addContent()">
-              <img src="/assets/images/icons/black/add.png" tooltip-text="'Add New Content'" offset-y="60" offset-x="-15">
+            <a id="add-content" ng-click="addContent()" ng-class="{ 'disabled': !canAddContent() }">
+              <img src="/assets/images/icons/black/add.png" tooltip-text="getAddContentTooltip()" offset-y="60" offset-x="-15">
             </a>
           </li>
         </ul>

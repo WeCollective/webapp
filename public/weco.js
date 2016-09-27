@@ -2011,7 +2011,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3310,9 +3310,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         createBranch();
         break;
       case 'weco.branch.wall':
-        //if($scope.branchid != 'root') {
-          createPost();
-        //}
+        createPost();
         break;
       case 'weco.branch.post':
         // broadcast add comment clicked so that the comment section is scrolled
@@ -3321,6 +3319,34 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         break;
       default:
         console.error("Unable to add content in state " + $state.current.name);
+    }
+  };
+
+  // dynamic tooltip text for add content button, whose behaviour
+  // is dependent on the current state
+  $scope.getAddContentTooltip = function() {
+    switch ($state.current.name) {
+      case 'weco.branch.subbranches':
+        return 'Create New Branch';
+      case 'weco.branch.wall':
+        return 'Add New Post';
+      case 'weco.branch.post':
+        return 'Write a Comment';
+      default:
+        return '';
+    }
+  };
+
+  // returns boolean indicating whether the add content behaviour has any defined
+  // behaviour in the current state
+  $scope.canAddContent = function() {
+    switch ($state.current.name) {
+      case 'weco.branch.subbranches':
+      case 'weco.branch.wall':
+      case 'weco.branch.post':
+        return true;
+      default:
+        return false;
     }
   };
 
