@@ -277,54 +277,68 @@ app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket',
 
   // state access controls
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-    var mods = [];
-    // check if the state we are transitioning to has access restrictions,
-    // performing checks if needed
-    if(toState.modOnly) {
-      getMods(doChecks);
-    } else if(toState.selfOnly) {
-      doChecks();
-    }
 
-    function getMods(cb) {
-      Mod.getByBranch(toParams.branchid).then(function(branchMods) {
-        mods = branchMods;
-        cb();
-      }, cb);
-    }
+    // TEMPORARY FOR BETA: ensure logged in before viewing site
+    User.get().then(function() {
+      carryOn();
+    }, function() {
+      if(toState.name.indexOf('weco') > -1) {
+        $state.go('auth.login');
+      } else {
+        carryOn();
+      }
+    });
 
-    function doChecks() {
-      // If state requires authenticated user to be the user specified in the URL,
-      // transition to the specified redirection state
-      User.get().then(function(me) {
-        if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
-          console.log(Object.keys(me).length);
-          $state.transitionTo(toState.redirectTo);
-          event.preventDefault();
-        }
+    function carryOn() {
+      var mods = [];
+      // check if the state we are transitioning to has access restrictions,
+      // performing checks if needed
+      if(toState.modOnly) {
+        getMods(doChecks);
+      } else if(toState.selfOnly) {
+        doChecks();
+      }
 
-        // If state requires authenticated user to be a mod of the branch specified in the URL,
+      function getMods(cb) {
+        Mod.getByBranch(toParams.branchid).then(function(branchMods) {
+          mods = branchMods;
+          cb();
+        }, cb);
+      }
+
+      function doChecks() {
+        // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
-        if(toState.modOnly) {
-          var isMod = false;
-          for(var i = 0; i < mods.length; i++) {
-            if(mods[i].username == me.username) {
-              isMod = true;
-            }
-          }
-
-          if(!isMod) {
+        User.get().then(function(me) {
+          if(toState.selfOnly && (Object.keys(me).length === 0 || toParams.username != me.username)) {
+            console.log(Object.keys(me).length);
             $state.transitionTo(toState.redirectTo);
             event.preventDefault();
           }
-        }
-      }, function(err) {
-        if(err) {
-          console.error("Unable to fetch self: ", err);
-          $state.transitionTo(toState.redirectTo);
-          event.preventDefault();
-        }
-      });
+
+          // If state requires authenticated user to be a mod of the branch specified in the URL,
+          // transition to the specified redirection state
+          if(toState.modOnly) {
+            var isMod = false;
+            for(var i = 0; i < mods.length; i++) {
+              if(mods[i].username == me.username) {
+                isMod = true;
+              }
+            }
+
+            if(!isMod) {
+              $state.transitionTo(toState.redirectTo);
+              event.preventDefault();
+            }
+          }
+        }, function(err) {
+          if(err) {
+            console.error("Unable to fetch self: ", err);
+            $state.transitionTo(toState.redirectTo);
+            event.preventDefault();
+          }
+        });
+      }
     }
   });
 }]);
