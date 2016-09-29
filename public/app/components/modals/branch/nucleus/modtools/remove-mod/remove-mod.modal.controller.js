@@ -38,7 +38,9 @@ app.controller('modalNucleusRemoveModController', ['$scope', '$timeout', 'Modal'
     var branchid = Modal.getInputArgs().branchid;
     Mod.delete(branchid, $scope.selectedMod.username).then(function() {
       $timeout(function() {
-        Modal.OK();
+        Modal.OK({
+          removedMod: $scope.selectedMod.username
+        });
         $scope.selectedMod = {};
         $scope.errorMessage = '';
         $scope.isLoading = false;

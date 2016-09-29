@@ -39,10 +39,14 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
       }
     }
 
-    // a list of mods to be removed; not self, and must be added after self
+    // a list of mods to be removed
+    // can include self if other mods are present, and
+    // removeable others must be added after self
     var removableMods = [];
     for(var i = 0; i < $scope.branch.mods.length; i++) {
-      if($scope.branch.mods[i].date > me.date && $scope.branch.mods[i].username !== me.username) {
+      if($scope.branch.mods[i].username === me.username && $scope.branch.mods.length > 1) {
+        removableMods.push($scope.branch.mods[i]);
+      } else if($scope.branch.mods[i].date > me.date) {
         removableMods.push($scope.branch.mods[i]);
       }
     }
@@ -52,8 +56,11 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         branchid: $scope.branchid,
         mods: removableMods
       }).then(function(result) {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
+        // if removed self
+        if(Modal.getOutputArgs().removedMod == me.username) {
+          $state.go('weco.branch.nucleus.about', {}, {reload:true});
+        } else if(result) {
+          // reload state to force profile reload if OK was pressed
           $state.go($state.current, {}, {reload: true});
         }
       }, function() {
