@@ -1280,7 +1280,12 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   };
 
   $scope.getProxyUrl = function(url) {
-    return ENV.apiEndpoint + 'proxy?url=' + url;
+    // only proxy http requests, not https
+    if(url.substring(0, 5) === 'http:') {
+      return ENV.apiEndpoint + 'proxy?url=' + url;
+    } else {
+      return url;
+    }
   };
 
   $scope.postType = {
@@ -2031,7 +2036,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3766,7 +3771,12 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
 
   $scope.getProxyUrl = function(url) {
-    return ENV.apiEndpoint + 'proxy?url=' + url;
+    // only proxy http requests, not https
+    if(url.substring(0, 5) === 'http:') {
+      return ENV.apiEndpoint + 'proxy?url=' + url;
+    } else {
+      return url;
+    }
   };
 
   $scope.isOwnPost = function() {
@@ -4031,7 +4041,12 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.stat = 'global';
 
   $scope.getProxyUrl = function(url) {
-    return ENV.apiEndpoint + 'proxy?url=' + url;
+    // only proxy http requests, not https
+    if(url.substring(0, 5) === 'http:') {
+      return ENV.apiEndpoint + 'proxy?url=' + url;
+    } else {
+      return url;
+    }
   };
 
   $scope.getOriginalBranchesTooltipString = function(post) {

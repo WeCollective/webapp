@@ -7,7 +7,12 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.stat = 'global';
 
   $scope.getProxyUrl = function(url) {
-    return ENV.apiEndpoint + 'proxy?url=' + url;
+    // only proxy http requests, not https
+    if(url.substring(0, 5) === 'http:') {
+      return ENV.apiEndpoint + 'proxy?url=' + url;
+    } else {
+      return url;
+    }
   };
 
   $scope.getOriginalBranchesTooltipString = function(post) {
