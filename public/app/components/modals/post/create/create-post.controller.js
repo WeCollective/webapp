@@ -14,7 +14,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
 
   $scope.getProxyUrl = function(url) {
     // only proxy http requests, not https
-    if(url.substring(0, 5) === 'http:') {
+    if(url && url.substring(0, 5) === 'http:') {
       return ENV.apiEndpoint + 'proxy?url=' + url;
     } else {
       return url;
