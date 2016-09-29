@@ -62,27 +62,6 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     return post.text;
   };
 
-  // Asynchronously load the post's data one by one
-  function loadPostData(posts, idx) {
-    var target = posts.shift();
-    if(target) {
-      Post.get($scope.posts[idx].id).then(function(response) {
-        if(response) {
-          $timeout(function() {
-            var global_stat = $scope.posts[idx].global;
-            $scope.posts[idx] = response;
-            $scope.posts[idx].global = global_stat;
-            $scope.posts[idx].isLoading = false;
-          });
-        }
-        loadPostData(posts, idx + 1);
-      }).catch(function () {
-        // Unable to fetch this post data - continue
-        loadPostData(posts, idx + 1);
-      });
-    }
-  }
-
   function getPosts() {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
@@ -107,12 +86,6 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       $timeout(function() {
         $scope.posts = posts;
         $scope.isLoading = false;
-        // set all posts to loading until their content is retrieved
-        for(var i = 0; i < $scope.posts.length; i++) {
-          $scope.posts[i].isLoading = true;
-        }
-        // slice() provides a clone of the posts array
-        loadPostData($scope.posts.slice(), 0);
       });
     }, function() {
       Alerts.push('error', 'Error fetching posts.');

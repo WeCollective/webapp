@@ -75,7 +75,9 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
     });
   }, function(response) {
     // No parent exists (in root)
-    $scope.isLoading = false;
+    $timeout(function () {
+      $scope.isLoading = false;
+    });
   });
 
   $scope.openProfilePictureModal = function() {
