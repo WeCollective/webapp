@@ -1279,6 +1279,10 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     branchids: [Modal.getInputArgs().branchid]
   };
 
+  $scope.getProxyUrl = function(url) {
+    return ENV.apiEndpoint + 'proxy?url=' + url;
+  };
+
   $scope.postType = {
     items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
     idx: 0,
@@ -2027,7 +2031,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3752,7 +3756,7 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', 'Modal', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User, Modal) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', 'Modal', 'ENV', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User, Modal, ENV) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.post = {};
@@ -3760,6 +3764,10 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
+
+  $scope.getProxyUrl = function(url) {
+    return ENV.apiEndpoint + 'proxy?url=' + url;
+  };
 
   $scope.isOwnPost = function() {
     if(!$scope.post || !$scope.post.data) return false;
@@ -4017,10 +4025,14 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', function($scope, $state, $timeout, Branch, Post, Alerts, Modal) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', 'ENV', function($scope, $state, $timeout, Branch, Post, Alerts, Modal, ENV) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
+
+  $scope.getProxyUrl = function(url) {
+    return ENV.apiEndpoint + 'proxy?url=' + url;
+  };
 
   $scope.getOriginalBranchesTooltipString = function(post) {
     if(!post.data || !post.data.original_branches) return '';

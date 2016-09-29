@@ -1,10 +1,14 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', function($scope, $state, $timeout, Branch, Post, Alerts, Modal) {
+app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', 'ENV', function($scope, $state, $timeout, Branch, Post, Alerts, Modal, ENV) {
   $scope.isLoading = false;
   $scope.posts = [];
   $scope.stat = 'global';
+
+  $scope.getProxyUrl = function(url) {
+    return ENV.apiEndpoint + 'proxy?url=' + url;
+  };
 
   $scope.getOriginalBranchesTooltipString = function(post) {
     if(!post.data || !post.data.original_branches) return '';

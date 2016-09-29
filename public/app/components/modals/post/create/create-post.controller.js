@@ -12,6 +12,10 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     branchids: [Modal.getInputArgs().branchid]
   };
 
+  $scope.getProxyUrl = function(url) {
+    return ENV.apiEndpoint + 'proxy?url=' + url;
+  };
+
   $scope.postType = {
     items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
     idx: 0,
