@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-  <div id="post-list-container" loading when="isLoading">
+  <div id="post-list-container" loading when="isLoading" on-scroll-to-bottom="loadMore">
     <ul id="post-list">
       <li ng-repeat="post in posts | filter: { type: (postTypeItems[selectedPostTypeItemIdx] == 'ALL') ? '' : postTypeItems[selectedPostTypeItemIdx] }" loading when="post.isLoading">
         <span class="index">{{ $index + 1 }}</span>

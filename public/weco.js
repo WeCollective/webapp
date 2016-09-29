@@ -1780,6 +1780,21 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', funct
 }]);
 
 var app = angular.module('wecoApp');
+app.directive('onScrollToBottom', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var fn = scope.$eval(attrs.onScrollToBottom);
+      element.on('scroll', function(e) {
+        if(element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
+          scope.$apply(fn);
+        }
+      });
+    }
+  };
+});
+
+var app = angular.module('wecoApp');
 app.directive("scrollToTopWhen", ['$rootScope', '$timeout', function ($rootScope, $timeout) {
   return {
     link: function($scope, element, attrs) {
@@ -2036,7 +2051,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2490,9 +2505,16 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   };
 
   // Get all the posts on a given branch submitted after a given time
-  Branch.getPosts = function(branchid, timeafter, sortBy, stat) {
+  Branch.getPosts = function(branchid, timeafter, sortBy, stat, lastPostId) {
     return new Promise(function(resolve, reject) {
-      BranchPostsAPI.get({ branchid: branchid, timeafter: timeafter, sortBy: sortBy, stat: stat }, function(posts) {
+      var params = {
+        branchid: branchid,
+        timeafter: timeafter,
+        sortBy: sortBy,
+        stat: stat
+      };
+      if(lastPostId) params.lastPostId = lastPostId;
+      BranchPostsAPI.get(params, function(posts) {
         if(posts && posts.data) {
           resolve(posts.data);
         } else {
@@ -4014,6 +4036,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
 var app = angular.module('wecoApp');
 app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', 'ENV', function($scope, $state, $timeout, Branch, Post, Alerts, Modal, ENV) {
   $scope.isLoading = false;
+  $scope.isLoadingMore = false;
   $scope.posts = [];
   $scope.stat = 'global';
 
@@ -4062,6 +4085,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.setStat = function(stat) {
     $scope.isLoading = true;
     $scope.stat = stat;
+    $scope.posts = [];
     getPosts();
   };
 
@@ -4073,7 +4097,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     return post.text;
   };
 
-  function getPosts() {
+  function getPosts(lastPostId) {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
     var sortBy;
@@ -4093,16 +4117,29 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     }
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, lastPostId).then(function(posts) {
       $timeout(function() {
-        $scope.posts = posts;
+        // if lastPostId was specified we are fetching _more_ posts, so append them
+        if(lastPostId) {
+          $scope.posts = $scope.posts.concat(posts);
+        } else {
+          $scope.posts = posts;
+        }
         $scope.isLoading = false;
+        $scope.isLoadingMore = false;
       });
     }, function() {
       Alerts.push('error', 'Error fetching posts.');
       $scope.isLoading = false;
     });
   }
+
+  $scope.loadMore = function() {
+    if(!$scope.isLoadingMore) {
+      $scope.isLoadingMore = true;
+      if($scope.posts.length > 0) getPosts($scope.posts[$scope.posts.length - 1].id);
+    }
+  };
 
   $scope.openFlagPostModal = function(post) {
     Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post, branchid: $scope.branchid })

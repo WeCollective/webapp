@@ -3,6 +3,7 @@
 var app = angular.module('wecoApp');
 app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Post', 'Alerts', 'Modal', 'ENV', function($scope, $state, $timeout, Branch, Post, Alerts, Modal, ENV) {
   $scope.isLoading = false;
+  $scope.isLoadingMore = false;
   $scope.posts = [];
   $scope.stat = 'global';
 
@@ -51,6 +52,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   $scope.setStat = function(stat) {
     $scope.isLoading = true;
     $scope.stat = stat;
+    $scope.posts = [];
     getPosts();
   };
 
@@ -62,7 +64,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     return post.text;
   };
 
-  function getPosts() {
+  function getPosts(lastPostId) {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
     var sortBy;
@@ -82,16 +84,29 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     }
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, lastPostId).then(function(posts) {
       $timeout(function() {
-        $scope.posts = posts;
+        // if lastPostId was specified we are fetching _more_ posts, so append them
+        if(lastPostId) {
+          $scope.posts = $scope.posts.concat(posts);
+        } else {
+          $scope.posts = posts;
+        }
         $scope.isLoading = false;
+        $scope.isLoadingMore = false;
       });
     }, function() {
       Alerts.push('error', 'Error fetching posts.');
       $scope.isLoading = false;
     });
   }
+
+  $scope.loadMore = function() {
+    if(!$scope.isLoadingMore) {
+      $scope.isLoadingMore = true;
+      if($scope.posts.length > 0) getPosts($scope.posts[$scope.posts.length - 1].id);
+    }
+  };
 
   $scope.openFlagPostModal = function(post) {
     Modal.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post, branchid: $scope.branchid })
