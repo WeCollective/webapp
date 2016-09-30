@@ -50,10 +50,12 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   $scope.setStat = function(stat) {
-    $scope.isLoading = true;
-    $scope.stat = stat;
-    $scope.posts = [];
-    getPosts();
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.stat = stat;
+      $scope.posts = [];
+      getPosts();
+    });
   };
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -82,9 +84,10 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         sortBy = 'points';
         break;
     }
+    var postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, lastPostId).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, postType, lastPostId).then(function(posts) {
       $timeout(function() {
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if(lastPostId) {
@@ -122,19 +125,35 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;
   $scope.$watch('selectedTimeItemIdx', function () {
-    getPosts();
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
   });
 
   $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
 
+  $scope.$watch('selectedPostTypeItemIdx', function () {
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
+  });
+
   $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'DATE'];
   $scope.selectedSortByItemIdx = 0;
 
   $scope.$watch('selectedSortByItemIdx', function () {
-    if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
-      $scope.setStat('individual');
-    }
-    getPosts();
+    $timeout(function () {
+      if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
+        $scope.setStat('individual');
+      }
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
   });
 }]);

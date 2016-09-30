@@ -2051,7 +2051,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2505,13 +2505,14 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
   };
 
   // Get all the posts on a given branch submitted after a given time
-  Branch.getPosts = function(branchid, timeafter, sortBy, stat, lastPostId) {
+  Branch.getPosts = function(branchid, timeafter, sortBy, stat, postType, lastPostId) {
     return new Promise(function(resolve, reject) {
       var params = {
         branchid: branchid,
         timeafter: timeafter,
         sortBy: sortBy,
-        stat: stat
+        stat: stat,
+        postType: postType
       };
       if(lastPostId) params.lastPostId = lastPostId;
       BranchPostsAPI.get(params, function(posts) {
@@ -4083,10 +4084,12 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   $scope.setStat = function(stat) {
-    $scope.isLoading = true;
-    $scope.stat = stat;
-    $scope.posts = [];
-    getPosts();
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.stat = stat;
+      $scope.posts = [];
+      getPosts();
+    });
   };
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -4115,9 +4118,10 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         sortBy = 'points';
         break;
     }
+    var postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
 
     // fetch the posts for this branch and timefilter
-    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, lastPostId).then(function(posts) {
+    Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, postType, lastPostId).then(function(posts) {
       $timeout(function() {
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if(lastPostId) {
@@ -4155,20 +4159,36 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;
   $scope.$watch('selectedTimeItemIdx', function () {
-    getPosts();
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
   });
 
   $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
 
+  $scope.$watch('selectedPostTypeItemIdx', function () {
+    $timeout(function () {
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
+  });
+
   $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'DATE'];
   $scope.selectedSortByItemIdx = 0;
 
   $scope.$watch('selectedSortByItemIdx', function () {
-    if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
-      $scope.setStat('individual');
-    }
-    getPosts();
+    $timeout(function () {
+      if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
+        $scope.setStat('individual');
+      }
+      $scope.isLoading = true;
+      $scope.posts = [];
+      getPosts();
+    });
   });
 }]);
 
