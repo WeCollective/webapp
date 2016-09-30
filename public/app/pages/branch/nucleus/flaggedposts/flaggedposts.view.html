@@ -4,9 +4,9 @@
     <dropdown title="'POST TYPE'" items="postTypeItems" selected="selectedPostTypeItemIdx"></dropdown>
     <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
   </div>
-  <div id="post-list-container" loading when="isLoading">
+  <div id="post-list-container" loading when="isLoading" on-scroll-to-bottom="loadMore">
     <ul id="post-list">
-      <li ng-repeat="post in posts | filter: { type: (postTypeItems[selectedPostTypeItemIdx] == 'ALL') ? '' : postTypeItems[selectedPostTypeItemIdx] }" loading when="post.isLoading">
+      <li ng-repeat="post in posts" loading when="post.isLoading">
         <span class="index">{{ $index + 1 }}</span>
         <div class="flags" ng-click="openResolveFlagPostModal(post)">
           <img src="/assets/images/icons/white/flag.png">
