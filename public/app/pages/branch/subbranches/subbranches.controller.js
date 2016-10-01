@@ -3,34 +3,10 @@
 var app = angular.module('wecoApp');
 app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch', 'Alerts', function($scope, $state, $timeout, Branch, Alerts) {
   $scope.isLoading = true;
+  $scope.isLoadingMore = false;
   $scope.branches = [];
 
-  // Asynchronously load the branch images one by one
-  function loadBranchPictures(branches, idx) {
-    var target = branches.shift();
-    if(target) {
-      Branch.getPictureUrl($scope.branches[idx].id, 'picture', false).then(function(response) {
-        if(response && response.data && response.data.data) {
-          $timeout(function() {
-            $scope.branches[idx].profileUrl = response.data.data;
-          });
-        }
-        return Branch.getPictureUrl($scope.branches[idx].id, 'picture', true);
-      }).then(function(response) {
-        if(response && response.data && response.data.data) {
-          $timeout(function() {
-            $scope.branches[idx].profileUrlThumb = response.data.data;
-          });
-        }
-        loadBranchPictures(branches, idx + 1);
-      }).catch(function () {
-        // Unable to fetch this picture - continue
-        loadBranchPictures(branches, idx + 1);
-      });
-    }
-  }
-
-  function getSubbranches() {
+  function getSubbranches(lastBranchId) {
     // compute the appropriate timeafter for the selected time filter
     var timeafter = $scope.getTimeafter($scope.timeItems[$scope.selectedTimeItemIdx]);
     var sortBy;
@@ -53,18 +29,29 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     }
 
     // fetch the subbranches for this branch and timefilter
-    Branch.getSubbranches($scope.branchid, timeafter, sortBy).then(function(branches) {
+    Branch.getSubbranches($scope.branchid, timeafter, sortBy, lastBranchId).then(function(branches) {
       $timeout(function() {
-        $scope.branches = branches;
+        // if lastBranchId was specified we are fetching _more_ branches, so append them
+        if(lastBranchId) {
+          $scope.branches = $scope.branches.concat(branches);
+        } else {
+          $scope.branches = branches;
+        }
         $scope.isLoading = false;
-        // slice() provides a clone of the branches array
-        loadBranchPictures($scope.branches.slice(), 0);
+        $scope.isLoadingMore = false;
       });
     }, function() {
       Alerts.push('error', 'Error fetching branches.');
       $scope.isLoading = false;
     });
   }
+
+  $scope.loadMore = function() {
+    if(!$scope.isLoadingMore) {
+      $scope.isLoadingMore = true;
+      if($scope.branches.length > 0) getSubbranches($scope.branches[$scope.branches.length - 1].id);
+    }
+  };
 
   // watch for change in drop down menu time filter selection
   $scope.selectedTimeItemIdx = 0;

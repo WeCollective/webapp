@@ -4,7 +4,7 @@
     <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
     <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
   </div>
-  <div id="subbranch-list-container" loading when="isLoading">
+  <div id="subbranch-list-container" loading when="isLoading" on-scroll-to-bottom="loadMore">
     <ul id="subbranch-list">
       <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index + 1 }}</span>
