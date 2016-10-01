@@ -145,11 +145,12 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
-  User.getNotifications = function(username, unreadCount) {
+  User.getNotifications = function(username, unreadCount, lastNotificationId) {
     return new Promise(function(resolve, reject) {
       UserNotificationsAPI.get({
         username: username,
-        unreadCount: unreadCount
+        unreadCount: unreadCount,
+        lastNotificationId: lastNotificationId
       }, function(response) {
         if(!response || !response.data) {
           if(unreadCount) return resolve(0);

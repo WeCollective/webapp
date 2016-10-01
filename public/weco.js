@@ -2051,7 +2051,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2989,11 +2989,12 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
-  User.getNotifications = function(username, unreadCount) {
+  User.getNotifications = function(username, unreadCount, lastNotificationId) {
     return new Promise(function(resolve, reject) {
       UserNotificationsAPI.get({
         username: username,
-        unreadCount: unreadCount
+        unreadCount: unreadCount,
+        lastNotificationId: lastNotificationId
       }, function(response) {
         if(!response || !response.data) {
           if(unreadCount) return resolve(0);
@@ -4228,6 +4229,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 var app = angular.module('wecoApp');
 app.controller('profileNotificationsController', ['$scope', '$state', '$timeout', 'User', 'NotificationTypes', 'Alerts', function($scope, $state, $timeout, User, NotificationTypes, Alerts) {
   $scope.isLoading = false;
+  $scope.isLoadingMore = false;
   $scope.NotificationTypes = NotificationTypes;
   $scope.me = User.me;
   $scope.notifications = [];
@@ -4251,13 +4253,18 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
     }
   };
 
-  function getNotifications() {
+  function getNotifications(lastNotificationId) {
     $scope.isLoading = true;
 
-    User.getNotifications($state.params.username).then(function(notifications) {
+    User.getNotifications($state.params.username, false, lastNotificationId).then(function(notifications) {
       $timeout(function() {
-        $scope.notifications = notifications;
+        if(lastNotificationId) {
+          $scope.notifications = $scope.notifications.concat(notifications);
+        } else {
+          $scope.notifications = notifications;
+        }
         $scope.isLoading = false;
+        $scope.isLoadingMore = false;
       });
     }, function() {
       Alerts.push('error', 'Unable to fetch notifications.');
@@ -4272,6 +4279,13 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
     }, function(err) {
       Alerts.push('error', 'Unable to mark notification.');
     });
+  };
+
+  $scope.loadMore = function() {
+    if(!$scope.isLoadingMore) {
+      $scope.isLoadingMore = true;
+      if($scope.notifications.length > 0) getNotifications($scope.notifications[$scope.notifications.length - 1].id);
+    }
   };
 
   // initial fetch of notifications
