@@ -19,9 +19,16 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
   };
 
   // get the comments on a post or replies to another comment
-  Comment.getMany = function(postid, parentid, sortBy) {
+  Comment.getMany = function(postid, parentid, sortBy, lastCommentId) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid, sort: sortBy }, function(comments) {
+      var params = {
+        postid: postid,
+        parentid: parentid,
+        sort: sortBy
+      };
+      if(lastCommentId) params.lastCommentId = lastCommentId;
+      
+      CommentAPI.get(params, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {

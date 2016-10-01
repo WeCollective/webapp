@@ -555,39 +555,16 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
         return Math.round(elapsed/msPerYear ) + ' years ago';
       };
 
-
-      // Asynchronously load the comments's data one by one
-      // The 'scope' is the bound comment object onto which the data should be attached
-      function loadCommentData(scope, comments, idx) {
-        var target = comments.shift();
-        if(target) {
-          Comment.get(scope.postid, scope.comments[idx].id).then(function(response) {
-            if(response) {
-              $timeout(function() {
-                scope.comments[idx].data = response.data;
-                scope.comments[idx].isLoading = false;
-              });
-            }
-            // continue
-            loadCommentData(scope, comments, idx + 1);
-          }).catch(function () {
-            // Unable to fetch this comment data - continue
-            loadCommentData(scope, comments, idx + 1);
-          });
-        }
-      }
-
-      function getReplies(comment) {
+      function getReplies(comment, lastCommentId) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase()).then(function(response) {
+        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase(), lastCommentId).then(function(comments) {
           $timeout(function() {
-            comment.comments = response;
-            // set all comments to loading until their content is retrieved
-            for(var i = 0; i < comment.comments.length; i++) {
-              comment.comments[i].isLoading = true;
+            // if lastCommentId was specified we are fetching _more_ comments, so append them
+            if(lastCommentId) {
+              comment.comments = comment.comments.concat(comments);
+            } else {
+              comment.comments = comments;
             }
-            // slice() provides a clone of the comments array
-            loadCommentData(comment, response.slice(), 0);
           });
         }, function() {
           Alerts.push('error', 'Unable to get replies!');
@@ -595,7 +572,9 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
       }
 
       $scope.loadMore = function(comment) {
-        getReplies(comment);
+        var lastCommentId = null;
+        if(comment.comments && comment.comments.length > 0) lastCommentId = comment.comments[comment.comments.length - 1].id;
+        getReplies(comment, lastCommentId);
       };
 
       $scope.vote = function(comment, direction) {
@@ -2600,9 +2579,16 @@ app.factory('Comment', ['CommentAPI', '$http', '$state', 'ENV', function(Comment
   };
 
   // get the comments on a post or replies to another comment
-  Comment.getMany = function(postid, parentid, sortBy) {
+  Comment.getMany = function(postid, parentid, sortBy, lastCommentId) {
     return new Promise(function(resolve, reject) {
-      CommentAPI.get({ postid: postid, parentid: parentid, sort: sortBy }, function(comments) {
+      var params = {
+        postid: postid,
+        parentid: parentid,
+        sort: sortBy
+      };
+      if(lastCommentId) params.lastCommentId = lastCommentId;
+      
+      CommentAPI.get(params, function(comments) {
         if(!comments || !comments.data) { return reject(); }
         resolve(comments.data);
       }, function(response) {
@@ -3804,6 +3790,7 @@ var app = angular.module('wecoApp');
 app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', 'Modal', 'ENV', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User, Modal, ENV) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
+  $scope.isLoadingMore = false;
   $scope.post = {};
   $scope.comments = [];
   $scope.markdownRaw = '';
@@ -3836,19 +3823,25 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       });
   };
 
-  // Time filter dropdown configuration
   $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
-  $scope.selectedSortItemIdx = 0;
 
   // watch for change in drop down menu sort by selection
   $scope.selectedSortItemIdx = 0;
   $scope.$watch('selectedSortItemIdx', function () {
-    getComments();
+    $timeout(function () {
+      $scope.isLoadingComments = true;
+      $scope.comments = [];
+      getComments();
+    });
   });
 
   // when a new comment is posted, reload the comments
   $scope.onSubmitComment = function() {
-    getComments();
+    $timeout(function () {
+      $scope.isLoadingComments = true;
+      $scope.comments = [];
+      getComments();
+    });
   };
 
   $scope.isCommentPermalink = function() {
@@ -3921,38 +3914,13 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     $scope.isLoadingPost = false;
   });
 
-  // Asynchronously load the comments's data one by one
-  function loadCommentData(comments, idx) {
-    var target = comments.shift();
-    if(target) {
-      Comment.get($state.params.postid, $scope.comments[idx].id).then(function(response) {
-        if(response) {
-          $timeout(function() {
-            $scope.comments[idx].data = response.data;
-            $scope.comments[idx].isLoading = false;
-          });
-        }
-        loadCommentData(comments, idx + 1);
-      }).catch(function () {
-        // Unable to fetch this comment data - continue
-        loadCommentData(comments, idx + 1);
-      });
-    }
-  }
-
-  function getComments() {
+  function getComments(lastCommentId) {
     if($scope.isCommentPermalink()) {
       // fetch the permalinked comment
       Comment.get($state.params.postid, $state.params.commentid).then(function(comment) {
         $timeout(function() {
           $scope.comments = [comment];
           $scope.isLoadingComments = false;
-          // set all comments to loading until their content is retrieved
-          for(var i = 0; i < $scope.comments.length; i++) {
-            $scope.comments[i].isLoading = true;
-          }
-          // slice() provides a clone of the comments array
-          loadCommentData($scope.comments.slice(), 0);
         });
       }, function(err) {
         if(err.status != 404) {
@@ -3963,16 +3931,16 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     } else {
       // fetch all the comments for this post
       var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
-      Comment.getMany($state.params.postid, undefined, sortBy).then(function(comments) {
+      Comment.getMany($state.params.postid, undefined, sortBy, lastCommentId).then(function(comments) {
         $timeout(function() {
-          $scope.comments = comments;
-          $scope.isLoadingComments = false;
-          // set all comments to loading until their content is retrieved
-          for(var i = 0; i < $scope.comments.length; i++) {
-            $scope.comments[i].isLoading = true;
+          // if lastCommentId was specified we are fetching _more_ comments, so append them
+          if(lastCommentId) {
+            $scope.comments = $scope.comments.concat(comments);
+          } else {
+            $scope.comments = comments;
           }
-          // slice() provides a clone of the comments array
-          loadCommentData($scope.comments.slice(), 0);
+          $scope.isLoadingMore = false;
+          $scope.isLoadingComments = false;
         });
       }, function(err) {
         if(err.status != 404) {
@@ -3983,10 +3951,21 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     }
   }
 
+  $scope.loadMore = function() {
+    if(!$scope.isLoadingMore) {
+      $scope.isLoadingMore = true;
+      if($scope.comments.length > 0) getComments($scope.comments[$scope.comments.length - 1].id);
+    }
+  };
+
   // reload the comments on any state change
   // (when first navigated to AND when going to/from comment permalink state)
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options) {
-    getComments();
+    $timeout(function () {
+      $scope.isLoadingComments = true;
+      $scope.comments = [];
+      getComments();
+    });
   });
 }]);
 

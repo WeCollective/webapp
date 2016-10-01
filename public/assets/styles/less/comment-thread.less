@@ -3,92 +3,88 @@ div.comment {
   width: 100%;
   padding: 5px 0;
 
-  div[loading] {
-    min-height: 50px;
+  div.votes {
+    position: relative;
+    float: left;
+    width: 30px;
+    text-align: center;
 
-    div.votes {
-      position: relative;
-      float: left;
-      width: 30px;
-      text-align: center;
+    img {
+      display: block;
+      position: absolute;
+      width: 16px;
+      height: auto;
+      left: 6px;
+      opacity: 0.3;
 
-      img {
-        display: block;
-        position: absolute;
-        width: 16px;
-        height: auto;
-        left: 6px;
-        opacity: 0.3;
-
-        &:first-child {
-          top: 0;
-        }
-
-        &:last-child {
-          bottom: 0;
-        }
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.7;
-        }
+      &:first-child {
+        top: 0;
       }
 
-      p {
-        margin: 0;
-        font-size: 14px;
-        padding: 20px 0;
+      &:last-child {
+        bottom: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
       }
     }
 
-    div.data {
-      display: inline-block;
-      width: calc(~"100% - 55px");
+    p {
+      margin: 0;
+      font-size: 14px;
+      padding: 20px 0;
+    }
+  }
 
-      span.comment-title {
-        font-size: 14px;
-        font-weight: 300;
+  div.data {
+    display: inline-block;
+    width: calc(~"100% - 55px");
 
-        a {
-          color: @button-focus;
-          font-weight: 600;
+    span.comment-title {
+      font-size: 14px;
+      font-weight: 300;
 
-          &:hover {
-            text-decoration: underline;
-          }
+      a {
+        color: @button-focus;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
         }
       }
+    }
 
-      p.comment-text {
-        margin: 0;
-        font-size: 14px;
-      }
+    p.comment-text {
+      margin: 0;
+      font-size: 14px;
+    }
 
-      ul.comment-controls {
-        margin: 10px 0;
-        a li, li {
-          display: inline-block;
-          font-size: 12px;
-          color: @dark-grey;
+    ul.comment-controls {
+      margin: 10px 0;
+      a li, li {
+        display: inline-block;
+        font-size: 12px;
+        color: @dark-grey;
 
-          padding-right: 10px;
-          &:not(:last-of-type) {
-            border-right: solid 1px @dark-grey;
-          }
-          &:not(:first-of-type) {
-            padding: 0 10px;
-          }
+        padding-right: 10px;
+        &:not(:last-of-type) {
+          border-right: solid 1px @dark-grey;
+        }
+        &:not(:first-of-type) {
+          padding: 0 10px;
+        }
 
 
-          img {
-            height: 16px;
-            width: auto;
-            opacity: 0.3;
-          }
-          &:hover img {
-            cursor: pointer;
-            opacity: 0.8;
-          }
+        img {
+          height: 16px;
+          width: auto;
+          opacity: 0.3;
+        }
+        &:hover img {
+          cursor: pointer;
+          opacity: 0.8;
         }
       }
     }

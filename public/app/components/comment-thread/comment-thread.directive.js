@@ -83,39 +83,16 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
         return Math.round(elapsed/msPerYear ) + ' years ago';
       };
 
-
-      // Asynchronously load the comments's data one by one
-      // The 'scope' is the bound comment object onto which the data should be attached
-      function loadCommentData(scope, comments, idx) {
-        var target = comments.shift();
-        if(target) {
-          Comment.get(scope.postid, scope.comments[idx].id).then(function(response) {
-            if(response) {
-              $timeout(function() {
-                scope.comments[idx].data = response.data;
-                scope.comments[idx].isLoading = false;
-              });
-            }
-            // continue
-            loadCommentData(scope, comments, idx + 1);
-          }).catch(function () {
-            // Unable to fetch this comment data - continue
-            loadCommentData(scope, comments, idx + 1);
-          });
-        }
-      }
-
-      function getReplies(comment) {
+      function getReplies(comment, lastCommentId) {
         // fetch the replies to this comment, or just the number of replies
-        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase()).then(function(response) {
+        Comment.getMany(comment.postid, comment.id, $scope.sortBy.toLowerCase(), lastCommentId).then(function(comments) {
           $timeout(function() {
-            comment.comments = response;
-            // set all comments to loading until their content is retrieved
-            for(var i = 0; i < comment.comments.length; i++) {
-              comment.comments[i].isLoading = true;
+            // if lastCommentId was specified we are fetching _more_ comments, so append them
+            if(lastCommentId) {
+              comment.comments = comment.comments.concat(comments);
+            } else {
+              comment.comments = comments;
             }
-            // slice() provides a clone of the comments array
-            loadCommentData(comment, response.slice(), 0);
           });
         }, function() {
           Alerts.push('error', 'Unable to get replies!');
@@ -123,7 +100,9 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
       }
 
       $scope.loadMore = function(comment) {
-        getReplies(comment);
+        var lastCommentId = null;
+        if(comment.comments && comment.comments.length > 0) lastCommentId = comment.comments[comment.comments.length - 1].id;
+        getReplies(comment, lastCommentId);
       };
 
       $scope.vote = function(comment, direction) {
