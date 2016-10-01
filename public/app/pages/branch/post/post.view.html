@@ -48,9 +48,9 @@
   <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
   <dropdown title="'SORT BY'" items="sortItems" selected="selectedSortItemIdx"></dropdown>
   <div id="post-comments-wrapper" scroll-to-top-when="add-comment">
-    <div id="post-comments" on-scroll-to-bottom="loadMore">
+    <div id="post-comments" on-scroll-to-bottom="loadMore" loading when="isLoadingComments">
       <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
-      <div id="comment-thread" loading when="isLoadingComments" ng-show="comments.length > 0">
+      <div id="comment-thread" ng-show="comments.length > 0">
         <comment-thread comments="comments" sort-by="sortItems[selectedSortItemIdx]"></comment-thread>
       </div>
     </div>
