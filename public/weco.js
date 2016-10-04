@@ -1255,7 +1255,8 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   $scope.progress = 0;
   $scope.preview = false;
   $scope.newPost = {
-    branchids: [Modal.getInputArgs().branchid]
+    branchids: [Modal.getInputArgs().branchid],
+    nsfw: false
   };
 
   $scope.getProxyUrl = function(url) {
@@ -1321,7 +1322,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
     if(!$scope.newPost || !$scope.newPost.title || !$scope.newPost.branchids ||
-       $scope.newPost.branchids.length === 0 || !$scope.newPost.text) {
+       $scope.newPost.branchids.length === 0 || !$scope.newPost.text || $scope.newPost.nsfw === undefined) {
       $timeout(function() {
         $scope.errorMessage = 'Please fill in all fields';
       });
@@ -2030,7 +2031,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);

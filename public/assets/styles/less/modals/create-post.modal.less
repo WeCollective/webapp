@@ -84,8 +84,18 @@ div#create-post-modal {
     }
     div#create-post-inputs {
       float: left;
+
+      label#nsfw-checkbox {
+        font-size: 12px;
+        color: @dark-grey;
+
+        input {
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+      }
     }
-    div#create-post-inputs input, input, textarea {
+    div#create-post-inputs input[type="text"], input[type="text"], textarea {
       display: block;
       width: 100%;
       min-width: 400px;

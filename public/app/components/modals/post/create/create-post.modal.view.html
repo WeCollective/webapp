@@ -19,6 +19,7 @@
     </div>
     <div id="create-post-inputs" ng-show="!isUploading">
       <dropdown title="postType.title" items="postType.items" selected="postType.idx"></dropdown>
+      <label id="nsfw-checkbox">NSFW<input type="checkbox" ng-model="newPost.nsfw"></input></label>
       <input ng-model="newPost.title" placeholder="Title" type="text"></input>
       <tag-editor items="newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
     </div>
