@@ -10,7 +10,8 @@ app.constant('NotificationTypes', {
   'COMMENT': 4,
   'POST_FLAGGED': 5,
   'POST_REMOVED': 6,
-  'POST_TYPE_CHANGED': 7
+  'POST_TYPE_CHANGED': 7,
+  'POST_MARKED_NSFW': 8
 });
 
 // configure the markdown parser for Githib Flavoured Markdown
@@ -2040,7 +2041,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
