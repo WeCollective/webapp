@@ -1401,6 +1401,9 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
   $scope.branchid = Modal.getInputArgs().branchid;
 
   $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
+  if(!Modal.getInputArgs().post.nsfw) {
+    $scope.flagItems.push('NSFW');
+  }
   $scope.selectedFlagItemIdx = 0;
 
   $scope.$on('OK', function() {
@@ -1416,6 +1419,9 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
         break;
       case 2:
         type = 'wrong_type';
+        break;
+      case 3:
+        type = 'nsfw';
         break;
       default:
         $scope.errorMessage = 'Unknown flag type.';
@@ -1466,7 +1472,7 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
   $scope.postTypeItems = ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
 
-  $scope.resolveItems = ['CHANGE POST TYPE', 'REMOVE POST', 'APPROVE POST'];
+  $scope.resolveItems = ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST'];
   $scope.selectedResolveItemIdx = 0;
 
   $scope.reasonItems = ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES'];
@@ -1492,7 +1498,10 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
           return;
         }
         break;
-      case 2: // approve post
+      case 2: // mark as nsfw
+        action = 'mark_nsfw';
+        break;
+      case 3: // approve post
         action = 'approve';
         break;
       default:
@@ -2031,7 +2040,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3425,7 +3434,7 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
     });
   });
 
-  $scope.sortByItems = ['DATE', 'BRANCH RULES FLAGS', 'SITE RULES FLAGS', 'WRONG TYPE FLAGS'];
+  $scope.sortByItems = ['DATE', 'BRANCH RULES FLAGS', 'SITE RULES FLAGS', 'WRONG TYPE FLAGS', 'NSFW FLAGS'];
   $scope.selectedSortByItemIdx = 0;
   $scope.$watch('selectedSortByItemIdx', function () {
     $timeout(function () {
@@ -3492,6 +3501,9 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
         break;
       case 'WRONG TYPE FLAGS':
         sortBy = 'wrong_type';
+        break;
+      case 'NSFW FLAGS':
+        sortBy = 'nsfw';
         break;
       default:
         sortBy = 'date';
@@ -4272,6 +4284,8 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         return 'for violating the site rules';
       case 'wrong_type':
         return 'for being tagged with an incorrect post type';
+      case 'nsfw':
+        return 'as NSFW';
       default:
         return '';
     }
@@ -4353,13 +4367,14 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', function($scope, $state, Modal, Alerts) {
+app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', 'User', function($scope, $state, Modal, Alerts, User) {
   function openModal(args) {
     Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
           $state.go($state.current, {}, {reload: true});
+          Alerts.push('success', 'Successfully updated profile settings!');
         }
       }, function() {
         Alerts.push('error', 'Unable to update profile settings.');
@@ -4401,6 +4416,16 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alert
         type: 'date',
         fieldname: 'dob'
       }]
+    });
+  };
+
+  $scope.updateNSFW = function() {
+    User.update({
+      show_nsfw: $scope.user.show_nsfw
+    }).then(function() {
+      Alerts.push('success', 'Successfully updated profile settings!');
+    }, function() {
+      Alerts.push('error', 'Unable to update profile settings.');
     });
   };
 }]);

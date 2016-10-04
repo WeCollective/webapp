@@ -1,11 +1,12 @@
 var app = angular.module('wecoApp');
-app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', function($scope, $state, Modal, Alerts) {
+app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alerts', 'User', function($scope, $state, Modal, Alerts, User) {
   function openModal(args) {
     Modal.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
       .then(function(result) {
         // reload state to force profile reload if OK was pressed
         if(result) {
           $state.go($state.current, {}, {reload: true});
+          Alerts.push('success', 'Successfully updated profile settings!');
         }
       }, function() {
         Alerts.push('error', 'Unable to update profile settings.');
@@ -47,6 +48,16 @@ app.controller('profileSettingsController', ['$scope', '$state', 'Modal', 'Alert
         type: 'date',
         fieldname: 'dob'
       }]
+    });
+  };
+
+  $scope.updateNSFW = function() {
+    User.update({
+      show_nsfw: $scope.user.show_nsfw
+    }).then(function() {
+      Alerts.push('success', 'Successfully updated profile settings!');
+    }, function() {
+      Alerts.push('error', 'Unable to update profile settings.');
     });
   };
 }]);

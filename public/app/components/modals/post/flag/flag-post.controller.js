@@ -5,6 +5,9 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
   $scope.branchid = Modal.getInputArgs().branchid;
 
   $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
+  if(!Modal.getInputArgs().post.nsfw) {
+    $scope.flagItems.push('NSFW');
+  }
   $scope.selectedFlagItemIdx = 0;
 
   $scope.$on('OK', function() {
@@ -20,6 +23,9 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
         break;
       case 2:
         type = 'wrong_type';
+        break;
+      case 3:
+        type = 'nsfw';
         break;
       default:
         $scope.errorMessage = 'Unknown flag type.';

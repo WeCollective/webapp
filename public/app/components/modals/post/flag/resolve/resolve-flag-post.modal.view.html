@@ -7,6 +7,7 @@
       <li>{{ post.wrong_type_count }} flag{{ post.wrong_type_count != 1 ? 's' : '' }} for an incorrect content tag</li>
       <li>{{ post.branch_rules_count }} flag{{ post.branch_rules_count != 1 ? 's' : '' }} for violating branch rules</li>
       <li>{{ post.site_rules_count }} flag{{ post.site_rules_count != 1 ? 's' : '' }} for violating site rules</li>
+      <li>{{ post.nsfw_count }} flag{{ post.nsfw_count != 1 ? 's' : '' }} for being NSFW</li>
     </ul>
     <p>Available actions:</p>
     <dropdown title="''" items="resolveItems" selected="selectedResolveItemIdx"></dropdown>

@@ -10,7 +10,7 @@
         <span class="index">{{ $index + 1 }}</span>
         <div class="flags" ng-click="openResolveFlagPostModal(post)">
           <img src="/assets/images/icons/white/flag.png">
-          <span>{{ post.branch_rules_count + post.site_rules_count + post.wrong_type_count }}</span>
+          <span>{{ post.branch_rules_count + post.site_rules_count + post.wrong_type_count + post.nsfw_count }}</span>
         </div>
         <!-- Two DOM elements conditionally displayed if the post is a text type.
              One is to perform internal state transition with uisref. (Text posts)

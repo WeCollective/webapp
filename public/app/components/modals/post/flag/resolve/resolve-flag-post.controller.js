@@ -10,7 +10,7 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
   $scope.postTypeItems = ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
   $scope.selectedPostTypeItemIdx = 0;
 
-  $scope.resolveItems = ['CHANGE POST TYPE', 'REMOVE POST', 'APPROVE POST'];
+  $scope.resolveItems = ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST'];
   $scope.selectedResolveItemIdx = 0;
 
   $scope.reasonItems = ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES'];
@@ -36,7 +36,10 @@ app.controller('modalResolveFlagPostController', ['$scope', '$timeout', 'Modal',
           return;
         }
         break;
-      case 2: // approve post
+      case 2: // mark as nsfw
+        action = 'mark_nsfw';
+        break;
+      case 3: // approve post
         action = 'approve';
         break;
       default:

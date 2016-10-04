@@ -71,6 +71,8 @@ app.controller('profileNotificationsController', ['$scope', '$state', '$timeout'
         return 'for violating the site rules';
       case 'wrong_type':
         return 'for being tagged with an incorrect post type';
+      case 'nsfw':
+        return 'as NSFW';
       default:
         return '';
     }
