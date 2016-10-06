@@ -280,17 +280,17 @@ app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket',
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
 
     // TEMPORARY FOR BETA: ensure logged in before viewing site
-    User.get().then(function() {
-      carryOn();
-    }, function() {
-      if(toState.name.indexOf('weco') > -1) {
-        $state.go('auth.login');
-      } else {
-        carryOn();
-      }
-    });
+    // User.get().then(function() {
+    //   carryOn();
+    // }, function() {
+    //   if(toState.name.indexOf('weco') > -1) {
+    //     $state.go('auth.login');
+    //   } else {
+    //     carryOn();
+    //   }
+    // });
 
-    function carryOn() {
+    // function carryOn() {
       var mods = [];
       // check if the state we are transitioning to has access restrictions,
       // performing checks if needed
@@ -340,7 +340,7 @@ app.run(['$rootScope', '$state', '$timeout', '$window', 'User', 'Mod', 'socket',
           }
         });
       }
-    }
+    // }
   });
 }]);
 
@@ -2041,7 +2041,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
