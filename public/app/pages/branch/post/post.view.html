@@ -16,6 +16,7 @@
        ng-show="post.profileUrlThumb || (post.type == 'image' && post.data.text)" target="_blank">
       <div class="post-picture" style="background-image: url('{{ post.type == 'image' ? getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
     </a>
+    <div class="nsfw-label" ng-show="post.nsfw"><span>NSFW</span></div>
     <div class="data">
       <!-- Two DOM elements conditionally displayed again - see above. -->
       <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })">

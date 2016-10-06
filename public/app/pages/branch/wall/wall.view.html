@@ -36,12 +36,7 @@
            ng-show="post.type == 'image' ? post.data.text : post.profileUrlThumb" target="_blank">
           <div style="background-image: url('{{ post.type == 'image' ? getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
         </a>
-        <div class="nsfw-label" ng-show="post.nsfw">
-          <div>N</div>
-          <div>S</div>
-          <div>F</div>
-          <div>W</div>
-        </div>
+        <div class="nsfw-label" ng-show="post.nsfw"><span>NSFW</span></div>
 
         <div class="data">
           <!-- Two DOM elements conditionally displayed again - see above. -->
