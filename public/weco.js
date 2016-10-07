@@ -1095,6 +1095,83 @@ app.controller('modalNucleusSubmitSubbranchRequestController', ['$scope', '$time
 }]);
 
 var app = angular.module('wecoApp');
+app.controller('modalNucleusUpdateHomepageStatsController', ['$scope', '$timeout', 'Modal', 'Alerts', '$http', 'ENV', function($scope, $timeout, Modal, Alerts, $http, ENV) {
+  $scope.Modal = Modal;
+  $scope.errorMessage = '';
+  $scope.isLoading = true;
+  $scope.stats = {
+    donation_total: 0,
+    raised_total: 0
+  };
+
+  // fetch current values
+  $http({
+    method: 'GET',
+    url: ENV.apiEndpoint + 'constant/donation_total'
+  }).then(function(result) {
+    $scope.stats.donation_total = result.data.data.data;
+    return $http({
+      method: 'GET',
+      url: ENV.apiEndpoint + 'constant/raised_total'
+    });
+  }).then(function(result) {
+    $timeout(function() {
+      $scope.stats.raised_total = result.data.data.data;
+      $scope.isLoading = false;
+    });
+  }).catch(function() {
+    Alerts.push('error', 'Error updating homepage stats.');
+    Modal.Cancel();
+  });
+
+  $scope.$on('OK', function() {
+    $scope.isLoading = true;
+    
+    if(isNaN($scope.stats.donation_total) || isNaN($scope.stats.raised_total)) {
+      $timeout(function () {
+        $scope.errorMessage = 'Invalid amount';
+        $scope.isLoading = false;
+      });
+      return;
+    }
+
+    // update donation_total
+    $http({
+      method: 'PUT',
+      url: ENV.apiEndpoint + 'constant/donation_total',
+      data: {
+        data: Number($scope.stats.donation_total)
+      }
+    }).then(function() {
+      // update donation_total
+      return $http({
+        method: 'PUT',
+        url: ENV.apiEndpoint + 'constant/raised_total',
+        data: {
+          data: Number($scope.stats.raised_total)
+        }
+      });
+    }).then(function () {
+      $timeout(function() {
+        $scope.isLoading = false;
+        Modal.OK();
+      });
+    }).catch(function() {
+      Alerts.push('error', 'Error updating homepage stats.');
+      Modal.Cancel();
+    });
+  });
+
+  $scope.$on('Cancel', function() {
+    $timeout(function() {
+      $scope.errorMessage = '';
+      $scope.isLoading = false;
+      Modal.Cancel();
+    });
+  });
+}]);
+
+var app = angular.module('wecoApp');
 app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal', 'Branch', function($scope, $timeout, Modal, Branch) {
   $scope.Modal = Modal;
   $scope.inputValues = [];
@@ -2041,7 +2118,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3695,6 +3772,20 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         Alerts.push('error', 'Error deleting branch.');
       });
   };
+
+  $scope.openUpdateHomepageStatsModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html', {})
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+          Alerts.push('success', 'Successfully updated homepage stats.');
+        }
+      }, function() {
+        Alerts.push('error', 'Error updating homepage stats.');
+      });
+  };
+
 }]);
 
 'use strict';

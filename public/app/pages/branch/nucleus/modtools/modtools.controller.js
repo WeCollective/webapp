@@ -107,4 +107,18 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         Alerts.push('error', 'Error deleting branch.');
       });
   };
+
+  $scope.openUpdateHomepageStatsModal = function() {
+    Modal.open('/app/components/modals/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html', {})
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+          Alerts.push('success', 'Successfully updated homepage stats.');
+        }
+      }, function() {
+        Alerts.push('error', 'Error updating homepage stats.');
+      });
+  };
+
 }]);
