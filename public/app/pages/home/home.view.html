@@ -5,7 +5,7 @@
     <img src="/assets/images/icons/black/search.png">
   </form>
 </div>
-<div id="home-footer" ng-show="false">
+<div id="home-footer" ng-controller="homeController">
   <ul id="footer-links">
     <a href=""><li><span>About</span></li></a>
     <a href=""><li><span>Non-profit</span></li></a>
@@ -19,10 +19,10 @@
       <li><span>Raised And Waiting To Be Given</span></li>
     </ul>
     <ul id="values">
-      <li><span>45,890</span></li>
-      <li><span>8,518</span></li>
-      <li><span>£10,500</span></li>
-      <li><span>£2,034</span></li>
+      <li><span>{{ stats.user_count }}</span></li>
+      <li><span>{{ stats.branch_count }}</span></li>
+      <li><span>£{{ stats.donation_total }}</span></li>
+      <li><span>£{{ stats.raised_total }}</span></li>
     </ul>
   </div>
 </div>
