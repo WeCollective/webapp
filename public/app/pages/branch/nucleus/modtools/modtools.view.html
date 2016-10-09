@@ -1,6 +1,6 @@
 <ul id="nucleus-modtools-properties">
-  <li ng-show="branchid == 'root'"><span class="danger" ng-click="openDeleteBranchModal()">Delete a Root Branch</span></li>
-  <li ng-show="branchid == 'root'"><span class="danger" ng-click="openUpdateHomepageStatsModal()">Edit the Homepage Stats</span></li>
+  <li><span class="danger" ng-click="openDeleteBranchModal()">Delete a {{ branchid === 'root' ? 'Root' : 'Child' }} Branch</span></li>
+  <li ng-show="branchid === 'root'"><span class="danger" ng-click="openUpdateHomepageStatsModal()">Edit the Homepage Stats</span></li>
   <li><span ng-click="openAddModModal()">Add a Moderator</span></li>
   <li><span ng-click="openRemoveModModal()">Remove a Moderator</span></li>
   <li ng-hide="branchid == 'root'"><span ng-click="openSubmitSubbranchRequestModal()">Submit Parent Branch Request</span></li>
