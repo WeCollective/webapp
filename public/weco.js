@@ -202,10 +202,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
     })
     // Subbranches
     .state('weco.branch.subbranches', {
-      url: '/subbranches',
+      url: '/childbranches',
       templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
       controller: 'subbranchesController',
-      pageTrack: '/b/:branchid/subbranches'
+      pageTrack: '/b/:branchid/childbranches'
     })
     // Branch wall
     .state('weco.branch.wall', {
