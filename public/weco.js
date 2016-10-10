@@ -4317,9 +4317,6 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   $scope.$watch('selectedSortByItemIdx', function () {
     $timeout(function () {
-      if($scope.sortByItems[$scope.selectedSortByItemIdx] != 'TOTAL POINTS') {
-        $scope.setStat('individual');
-      }
       $scope.isLoading = true;
       $scope.posts = [];
       getPosts();
