@@ -14,7 +14,7 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
     });
   });
 
-  $scope.sortByItems = ['DATE', 'BRANCH RULES FLAGS', 'SITE RULES FLAGS', 'WRONG TYPE FLAGS', 'NSFW FLAGS'];
+  $scope.sortByItems = ['DATE', 'AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'WRONG POST TYPE', 'NSFW FLAGS'];
   $scope.selectedSortByItemIdx = 0;
   $scope.$watch('selectedSortByItemIdx', function () {
     $timeout(function () {
@@ -73,13 +73,13 @@ app.controller('nucleusFlaggedPostsController', ['$scope', '$state', '$timeout',
       case 'DATE':
         sortBy = 'date';
         break;
-      case 'BRANCH RULES FLAGS':
+      case 'AGAINST BRANCH RULES':
         sortBy = 'branch_rules';
         break;
-      case 'SITE RULES FLAGS':
+      case 'AGAINST SITE RULES':
         sortBy = 'site_rules';
         break;
-      case 'WRONG TYPE FLAGS':
+      case 'WRONG POST TYPE':
         sortBy = 'wrong_type';
         break;
       case 'NSFW FLAGS':
