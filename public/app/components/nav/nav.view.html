@@ -37,8 +37,8 @@
       <ul id="nav-menu-items" ng-show="isNavExpanded()">
         <li ng-click="logout()"><span>Log Out</span></li>
       </ul>
-      <a ui-sref="auth.login" ng-show="user().username === undefined"><span class="text">Log In</span></a>
-      <a ui-sref="auth.signup" ng-show="user().username === undefined"><span class="text">Sign Up</span></a>
+      <a id="login" ui-sref="auth.login" ng-show="user().username === undefined"><span class="text">Log In</span></a>
+      <a id="signup" ui-sref="auth.signup" ng-show="user().username === undefined"><span class="text">Create New Account</span></a>
     </div>
   </div>
 </nav>

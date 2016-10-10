@@ -2,7 +2,7 @@
   <a ui-sref="weco.home" id="logo">
     <img id="animation" ng-src="{{ getAnimationSrc() }}">
   </a>
-  <h1>{{ isLoginForm() ? 'Login to' : 'Sign up for'}} WECO</h1>
+  <h1>{{ isLoginForm() ? 'Log In' : 'Create New Account'}}</h1>
   <p id="auth-error-message">{{ errorMessage }}</p>
   <p id="resend-verification" ng-show="showResendVerification" ng-click="resendVerification()">Resend verification email.</p>
   <form ng-submit="submit()">
@@ -15,6 +15,6 @@
     <input type="submit" value="{{ isLoginForm() ? 'LOGIN' : 'SIGN UP' }}" ng-disabled="isLoading"></input>
   </form>
   <p ng-show="isLoginForm()"><a ui-sref="reset-password.request">Forgot your password?</a></p>
-  <p ng-show="isLoginForm()">New Here? <a ui-sref="auth.signup">Sign Up.</a></p>
+  <p ng-show="isLoginForm()">New Here? <a ui-sref="auth.signup">Create a new account.</a></p>
   <p ng-show="!isLoginForm()">Already have an account? <a ui-sref="auth.login">Log in.</a></p>
 </div>

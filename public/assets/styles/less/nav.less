@@ -209,6 +209,34 @@ nav#nav-bar {
           color: #fff;
         }
 
+        &#login {
+          // left divider
+          margin-left: 5px;
+          &::before {
+            content: '';
+            display: inline-block;
+            height: @nav-bar-height;
+            width: 1px;
+            background-color: @nav-lines;
+            vertical-align: middle;
+            margin-right: 8px;
+            margin-left: 5px;
+          }
+        }
+
+        &#signup {
+          // left divider
+          &::before, &::after {
+            content: '';
+            display: inline-block;
+            height: @nav-bar-height;
+            width: 1px;
+            background-color: @nav-lines;
+            vertical-align: middle;
+            margin: 0 5px;
+          }
+        }
+
         span.text {
           vertical-align: middle;
           padding: 3px 5px;
