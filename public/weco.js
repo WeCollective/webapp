@@ -1478,7 +1478,7 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
   $scope.isLoading = false;
   $scope.branchid = Modal.getInputArgs().branchid;
 
-  $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
+  $scope.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
   if(!Modal.getInputArgs().post.nsfw) {
     $scope.flagItems.push('NSFW');
   }
@@ -4243,10 +4243,10 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
       case 'TOTAL POINTS':
         sortBy = 'points';
         break;
-      case 'DATE':
+      case 'DATE POSTED':
         sortBy = 'date';
         break;
-      case 'NUMBER OF COMMENTS':
+      case '# OF COMMENTS':
         sortBy = 'comment_count';
         break;
       default:
@@ -4326,7 +4326,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     });
   });
 
-  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF COMMENTS', 'DATE'];
+  $scope.sortByItems = ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED'];
   $scope.selectedSortByItemIdx = 0;
 
   $scope.$watch('selectedSortByItemIdx', function () {

@@ -4,7 +4,7 @@ app.controller('modalFlagPostController', ['$scope', '$timeout', 'Modal', 'Post'
   $scope.isLoading = false;
   $scope.branchid = Modal.getInputArgs().branchid;
 
-  $scope.flagItems = ['AGAINST THE BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
+  $scope.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + Modal.getInputArgs().post.type.toUpperCase() + ' POST'];
   if(!Modal.getInputArgs().post.nsfw) {
     $scope.flagItems.push('NSFW');
   }
