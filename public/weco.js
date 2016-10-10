@@ -4253,7 +4253,21 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         sortBy = 'points';
         break;
     }
-    var postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
+    var postType;
+    switch($scope.postTypeItems[$scope.selectedPostTypeItemIdx]) {
+      case 'IMAGES':
+        postType = 'image';
+        break;
+      case 'VIDEOS':
+        postType = 'video';
+        break;
+      case 'PAGES':
+        postType = 'page';
+        break;
+      default:
+        postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
+        break;
+    }
 
     // fetch the posts for this branch and timefilter
     Branch.getPosts($scope.branchid, timeafter, sortBy, $scope.stat, postType, lastPostId).then(function(posts) {
@@ -4301,7 +4315,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     });
   });
 
-  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE'];
+  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES'];
   $scope.selectedPostTypeItemIdx = 0;
 
   $scope.$watch('selectedPostTypeItemIdx', function () {
