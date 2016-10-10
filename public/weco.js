@@ -4114,13 +4114,13 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
       case 'TOTAL POINTS':
         sortBy = 'post_points';
         break;
-      case 'DATE':
+      case 'DATE CREATED':
         sortBy = 'date';
         break;
-      case 'NUMBER OF POSTS':
+      case '# OF POSTS':
         sortBy = 'post_count';
         break;
-      case 'NUMBER OF COMMENTS':
+      case '# OF COMMENTS':
         sortBy = 'post_comments';
         break;
       default:
@@ -4159,7 +4159,7 @@ app.controller('subbranchesController', ['$scope', '$state', '$timeout', 'Branch
     getSubbranches();
   });
 
-  $scope.sortByItems = ['TOTAL POINTS', 'NUMBER OF POSTS', 'NUMBER OF COMMENTS', 'DATE'];
+  $scope.sortByItems = ['TOTAL POINTS', '# OF POSTS', '# OF COMMENTS', 'DATE CREATED'];
   $scope.selectedSortByItemIdx = 0;
   $scope.$watch('selectedSortByItemIdx', function () {
     getSubbranches();
