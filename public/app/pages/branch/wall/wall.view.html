@@ -5,7 +5,7 @@
     <dropdown title="'POST TYPE'" items="postTypeItems" selected="selectedPostTypeItemIdx"></dropdown>
     <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
     <div id="stat-type-selector" ng-show="sortByItems[selectedSortByItemIdx] == 'TOTAL POINTS'">
-      <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')" tooltip-text="'Individual Stats'" offset-y="50">
+      <div id="individual-stat" ng-class="{ selected: stat == 'individual' }" ng-click="setStat('individual')" tooltip-text="'Branch Stats'" offset-y="50">
         <img src="/assets/images/icons/black/individual.png">
       </div>
       <div id="local-stat" ng-class="{ selected: stat == 'local' }" ng-click="setStat('local')" tooltip-text="'Local Stats'" offset-y="50">
