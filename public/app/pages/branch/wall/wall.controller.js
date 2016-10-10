@@ -43,6 +43,8 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     }, function(err) {
       if(err.status === 400) {
         Alerts.push('error', 'You have already voted on this post.');
+      } else if(err.status === 403) {
+        Alerts.push('error', 'Please log in or create an account to vote.');
       } else {
         Alerts.push('error', 'Error voting on post.');
       }
@@ -51,10 +53,12 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   $scope.setStat = function(stat) {
     $timeout(function () {
-      $scope.isLoading = true;
       $scope.stat = stat;
-      $scope.posts = [];
-      getPosts();
+      if($scope.sortByItems[$scope.selectedSortByItemIdx] === 'TOTAL POINTS') {
+        $scope.isLoading = true;
+        $scope.posts = [];
+        getPosts();
+      }
     });
   };
 

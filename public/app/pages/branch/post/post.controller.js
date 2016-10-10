@@ -95,6 +95,8 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     }, function(err) {
       if(err.status === 400) {
         Alerts.push('error', 'You have already voted on this post.');
+      } else if(err.status === 403) {
+        Alerts.push('error', 'Please log in or create an account to vote.');
       } else {
         Alerts.push('error', 'Error voting on post.');
       }
