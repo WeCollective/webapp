@@ -11,6 +11,7 @@
     <input type="text" name="username" ng-model="credentials.username" placeholder="Username" required></input>
     <input type="email" name="email" ng-model="credentials.email" placeholder="Email" ng-show="!isLoginForm()" ng-required="!isLoginForm()"></input>
     <input type="password" name="password" ng-model="credentials.password" placeholder="Password" required></input>
+    <input ng-show="!isLoginForm()" type="password" name="password" ng-model="credentials.confirmPassword" placeholder="Confirm Password" ng-required="!isLoginForm()"></input>
     <input type="submit" value="{{ isLoginForm() ? 'LOGIN' : 'SIGN UP' }}" ng-disabled="isLoading"></input>
   </form>
   <p ng-show="isLoginForm()"><a ui-sref="reset-password.request">Forgot your password?</a></p>

@@ -2118,7 +2118,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3224,6 +3224,15 @@ app.controller('authController', ['$scope', '$state', '$timeout', 'User', 'Alert
   }
 
   function signup() {
+    if($scope.credentials.password !== $scope.credentials.confirmPassword) {
+      $timeout(function() {
+        $scope.errorMessage = 'Inconsistent password!';
+        $scope.isLoading = false;
+        $scope.loopAnimation = false;
+      });
+      return;
+    }
+
     User.signup($scope.credentials).then(function() {
       // successful signup; redirect to home page
       $scope.isLoading = false;
