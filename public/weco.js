@@ -3920,6 +3920,21 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     }
   };
 
+  $scope.getOriginalBranchesTooltipString = function(post) {
+    if(!post.data || !post.data.original_branches) return '';
+    var tooltip = '';
+    var original_branches = JSON.parse(post.data.original_branches);
+    for(var i = 1; i < original_branches.length; i++) {
+      tooltip += (original_branches[i] + (i < original_branches.length ? '\n' : ''));
+    }
+    return tooltip;
+  };
+
+  $scope.getOriginalBranches = function(post) {
+    if(!post.data || !post.data.original_branches) return '';
+    return JSON.parse(post.data.original_branches);
+  };
+
   $scope.isOwnPost = function() {
     if(!$scope.post || !$scope.post.data) return false;
     return User.me().username == $scope.post.data.creator;
