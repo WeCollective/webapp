@@ -9,7 +9,8 @@ app.directive('writeComment', function() {
       onSubmit: '=',
       onCancel: '=',
       update: '=',
-      placeholder: '&'
+      placeholder: '&',
+      originalCommentText: '&'
     },
     templateUrl: '/app/components/write-comment/write-comment.view.html',
     controller: 'writeCommentController'

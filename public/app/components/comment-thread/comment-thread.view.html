@@ -14,7 +14,7 @@
       --><li ng-click="openCommentPermalink(comment)" tooltip-text="'Permalink'" offset-y="25"><img src="/assets/images/icons/black/permalink.png"></li><!--
       --><li><img src="/assets/images/icons/black/flag.png" tooltip-text="'Flag'" offset-y="25"></li>
     </ul>
-    <write-comment ng-show="comment.openReply" postid="comment.postid" parentid="comment.id"
+    <write-comment ng-show="comment.openReply" postid="comment.postid" parentid="comment.id" original-comment-text="comment.data.text"
                    update="comment.update" on-cancel="onCancelComment" on-submit="onSubmitComment"
                    placeholder="comment.update ? 'Edit your comment...' : 'Write a reply...'"></write-comment>
   </div>

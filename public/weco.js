@@ -2040,6 +2040,14 @@ app.controller('writeCommentController', ['$scope', '$timeout', 'Comment', 'Aler
     text: ''
   };
 
+  $scope.$watch('update', function () {
+    if($scope.update) {
+      $scope.comment.text = $scope.originalCommentText();
+    } else {
+      $scope.comment.text = '';
+    }
+  });
+
   $scope.postComment = function() {
     $timeout(function() {
       $scope.isLoading = true;
@@ -2107,7 +2115,8 @@ app.directive('writeComment', function() {
       onSubmit: '=',
       onCancel: '=',
       update: '=',
-      placeholder: '&'
+      placeholder: '&',
+      originalCommentText: '&'
     },
     templateUrl: '/app/components/write-comment/write-comment.view.html',
     controller: 'writeCommentController'
