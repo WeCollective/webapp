@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $timeout, $http, ENV, socket) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', 'FollowedBranchAPI', '$timeout', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, FollowedBranchAPI, $timeout, $http, ENV, socket) {
   var User = {};
   var me = {};
 
@@ -257,6 +257,46 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     return new Promise(function(resolve, reject) {
       $http.post(ENV.apiEndpoint + 'user/' + username + '/reset-password/' + token, { password: password }).then(resolve, function(response) {
         reject(response.data);
+      });
+    });
+  };
+
+  User.getFollowedBranches = function(username) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.get({ username: username }, function(response) {
+        console.log("response", response.data);
+        resolve(response.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  User.followBranch = function(username, branchid) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.follow({ username: username, branchid: branchid }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  User.unfollowBranch = function(username, branchid) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.unfollow({ username: username, branchid: branchid }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
       });
     });
   };

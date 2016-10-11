@@ -5,3 +5,4 @@
   <li ng-show="branch.description"><span class="field">Description: </span> <div class="value" ng-bind-html="addHTMLLineBreaks(branch.description) || 'Not Set'"></div></li>
   <li ng-show="branch.rules"><span class="field">Rules &amp; Etiquette: </span> <div class="value" ng-bind-html="addHTMLLineBreaks(branch.rules) || 'Not Set'"></div></li>
 </ul>
+<div ng-show="User.me().username" id="follow-branch-button" class="button" ng-class="{ 'ok': !isFollowingBranch(), 'cancel': isFollowingBranch() }" ng-click="toggleFollowBranch()"><span>{{ isFollowingBranch() ? 'UN' : '' }}FOLLOW BRANCH</span></div>

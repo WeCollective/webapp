@@ -35,7 +35,13 @@
       </a>
       <div id="expand" ng-show="user().username !== undefined"><img src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }"></div>
       <ul id="nav-menu-items" ng-show="isNavExpanded()">
-        <li ng-click="logout()"><span>Log Out</span></li>
+        <li id="logout" ng-click="logout()"><span>Log Out</span></li>
+        <li ng-show="followedBranches.length > 0" id="followed-branch-title" class="followed-branch"><span>Following:</span></li>
+        <li ng-show="followedBranches.length > 0" class="followed-branch" ng-repeat="branch in followedBranches">
+          <a ui-sref="weco.branch.wall({ branchid: branch })">
+            <span>b/{{ branch }}</span>
+          </a>
+        </li>
       </ul>
       <a id="login" ui-sref="auth.login" ng-show="user().username === undefined"><span class="text">Log In</span></a>
       <a id="signup" ui-sref="auth.signup" ng-show="user().username === undefined"><span class="text">Create New Account</span></a>

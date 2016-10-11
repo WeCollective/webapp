@@ -5,6 +5,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.branchid = $state.params.branchid;
   $scope.showCover = true;
   $scope.isLoading = true;
+  $scope.User = User;
 
   $scope.showCoverPicture = function() { $scope.showCover = true; };
   $scope.hideCoverPicture = function() { $scope.showCover = false; };
@@ -198,5 +199,58 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
       }
     }
     return false;
+  };
+
+
+  $scope.followedBranches = [];
+  $scope.$watch(function() {
+    return User.me().username;
+  }, function () {
+    if(User.me().username) {
+      User.getFollowedBranches(User.me().username).then(function(branches) {
+        $scope.followedBranches = branches;
+      }, function(err) {
+        $scope.followedBranches = [];
+      });
+    }
+  });
+
+  $scope.isFollowingBranch = function() {
+    return $scope.followedBranches.indexOf($scope.branch.id) > -1;
+  };
+
+  $scope.toggleFollowBranch = function() {
+    $scope.isLoading = true;
+    var promise, messageSuccess, messageError;
+    if($scope.isFollowingBranch()) {
+      promise = User.unfollowBranch(User.me().username, $scope.branch.id);
+      messageSuccess = 'You\'re no longer following this branch!';
+      messageError = 'Error unfollowing branch.';
+    } else {
+      promise = User.followBranch(User.me().username, $scope.branch.id);
+      messageSuccess = 'You\'re now following this branch!';
+      messageError = 'Error following branch.';
+    }
+
+    promise.then(function() {
+      User.getFollowedBranches(User.me().username).then(function(branches) {
+        $timeout(function () {
+          $scope.followedBranches = branches;
+          $scope.isLoading = false;
+        });
+        Alerts.push('success', messageSuccess);
+      }, function(err) {
+        $timeout(function () {
+          $scope.followedBranches = [];
+          $scope.isLoading = false;
+        });
+        Alerts.push('error', 'Error fetching followed branches.');
+      });
+    }, function(err) {
+      $timeout(function () {
+        $scope.isLoading = false;
+      });
+      Alerts.push('error', messageError);
+    });
   };
 }]);

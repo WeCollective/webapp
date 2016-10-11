@@ -260,8 +260,11 @@ nav#nav-bar {
         top: calc(@nav-bar-height + 10px);
         right: 3px;
         min-width: 150px;
+        max-height: 400px;
+        overflow-y: scroll;
         border-radius: 3px;
         box-shadow: @shadow2;
+        background-color: @primary-dark;
 
         &::before {
           content: '';
@@ -278,14 +281,13 @@ nav#nav-bar {
           background-color: @primary-dark;
         }
 
-        li {
+        li#logout {
           position: relative;
           height: @nav-bar-height;
           border-radius: 3px;
           padding: 0 10px;
           z-index: 900;
           background-color: @primary-dark;
-
 
           &:hover {
             cursor: pointer;
@@ -298,6 +300,33 @@ nav#nav-bar {
             text-transform: uppercase;
             font-weight: 500;
             color: #fff;
+          }
+        }
+
+        li.followed-branch {
+          width: calc(~'100% - 20px');
+          margin: auto;
+          padding: 5px 0;
+
+          &#followed-branch-title {
+            border-top: 1px solid #fff;
+
+            span {
+              color: #fff;
+              font-size: 12px;
+              text-transform: uppercase;
+              font-weight: 500;
+            }
+          }
+
+          a {
+            &:hover span {
+              text-decoration: underline;
+            }
+            span {
+              color: #fff;
+              font-size: 14px;
+            }
           }
         }
       }

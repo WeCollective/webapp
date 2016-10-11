@@ -1799,6 +1799,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', funct
       };
 
       $scope.toggleNav = function() {
+        getFollowedBranches();
         $scope.expanded = !$scope.expanded;
       };
 
@@ -1814,10 +1815,20 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', funct
         });
       }
 
+      $scope.followedBranches = [];
+      function getFollowedBranches() {
+        User.getFollowedBranches(User.me().username).then(function(branches) {
+          $scope.followedBranches = branches;
+        }, function(err) {
+          $scope.followedBranches = [];
+        });
+      }
+
       $scope.$watch(function() {
         return User.me().username;
       }, function() {
         getUnreadNotificationCount();
+        getFollowedBranches();
       });
 
       $scope.$on('$stateChangeSuccess', getUnreadNotificationCount);
@@ -2127,7 +2138,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2211,6 +2222,40 @@ api.factory('CommentAPI', ['$resource', 'ENV', function($resource, ENV) {
     },
     update: {
       method: 'PUT',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    }
+  });
+}]);
+
+var api = angular.module('api');
+api.factory('FollowedBranchAPI', ['$resource', 'ENV', function($resource, ENV) {
+
+  function makeFormEncoded(data, headersGetter) {
+    var str = [];
+    for (var d in data)
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+
+  return $resource(ENV.apiEndpoint + 'user/:username/branches/followed', {
+    username: '@username'
+  }, {
+    follow: {
+      method: 'POST',
+      // indicate that the data is x-www-form-urlencoded
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      // transform the request to use x-www-form-urlencoded
+      transformRequest: makeFormEncoded
+    },
+    unfollow: {
+      method: 'DELETE',
       // indicate that the data is x-www-form-urlencoded
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -2934,7 +2979,7 @@ app.factory('Post', ['PostAPI', 'BranchPostsAPI', 'CommentAPI', '$http', '$state
 'use strict';
 
 var app = angular.module('wecoApp');
-app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, $timeout, $http, ENV, socket) {
+app.factory('User', ['UserAPI', 'UserNotificationsAPI', 'FollowedBranchAPI', '$timeout', '$http', 'ENV', 'socket', function(UserAPI, UserNotificationsAPI, FollowedBranchAPI, $timeout, $http, ENV, socket) {
   var User = {};
   var me = {};
 
@@ -3194,6 +3239,46 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', '$timeout', '$http', 'EN
     });
   };
 
+  User.getFollowedBranches = function(username) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.get({ username: username }, function(response) {
+        console.log("response", response.data);
+        resolve(response.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  User.followBranch = function(username, branchid) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.follow({ username: username, branchid: branchid }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  User.unfollowBranch = function(username, branchid) {
+    return new Promise(function(resolve, reject) {
+      FollowedBranchAPI.unfollow({ username: username, branchid: branchid }, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
   return User;
 }]);
 
@@ -3318,6 +3403,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.branchid = $state.params.branchid;
   $scope.showCover = true;
   $scope.isLoading = true;
+  $scope.User = User;
 
   $scope.showCoverPicture = function() { $scope.showCover = true; };
   $scope.hideCoverPicture = function() { $scope.showCover = false; };
@@ -3511,6 +3597,59 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
       }
     }
     return false;
+  };
+
+
+  $scope.followedBranches = [];
+  $scope.$watch(function() {
+    return User.me().username;
+  }, function () {
+    if(User.me().username) {
+      User.getFollowedBranches(User.me().username).then(function(branches) {
+        $scope.followedBranches = branches;
+      }, function(err) {
+        $scope.followedBranches = [];
+      });
+    }
+  });
+
+  $scope.isFollowingBranch = function() {
+    return $scope.followedBranches.indexOf($scope.branch.id) > -1;
+  };
+
+  $scope.toggleFollowBranch = function() {
+    $scope.isLoading = true;
+    var promise, messageSuccess, messageError;
+    if($scope.isFollowingBranch()) {
+      promise = User.unfollowBranch(User.me().username, $scope.branch.id);
+      messageSuccess = 'You\'re no longer following this branch!';
+      messageError = 'Error unfollowing branch.';
+    } else {
+      promise = User.followBranch(User.me().username, $scope.branch.id);
+      messageSuccess = 'You\'re now following this branch!';
+      messageError = 'Error following branch.';
+    }
+
+    promise.then(function() {
+      User.getFollowedBranches(User.me().username).then(function(branches) {
+        $timeout(function () {
+          $scope.followedBranches = branches;
+          $scope.isLoading = false;
+        });
+        Alerts.push('success', messageSuccess);
+      }, function(err) {
+        $timeout(function () {
+          $scope.followedBranches = [];
+          $scope.isLoading = false;
+        });
+        Alerts.push('error', 'Error fetching followed branches.');
+      });
+    }, function(err) {
+      $timeout(function () {
+        $scope.isLoading = false;
+      });
+      Alerts.push('error', messageError);
+    });
   };
 }]);
 
@@ -3809,7 +3948,7 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', 'User', function($scope, $state, $timeout, Branch, User) {
+app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', 'User', 'Alerts', function($scope, $state, $timeout, Branch, User, Alerts) {
   $scope.tabItems = ['about', 'moderators'];
   $scope.tabStates =
     ['weco.branch.nucleus.about({ "branchid": "' + $scope.branchid + '"})',
@@ -3843,9 +3982,9 @@ app.controller('nucleusController', ['$scope', '$state', '$timeout', 'Branch', '
 
   // modify newlines of \n form to HTML <br> tag form for proper display
   $scope.addHTMLLineBreaks = function(str) {
-   if(str) {
-     return str.split('\n').join('<br>');
-   }
+    if(str) {
+      return str.split('\n').join('<br>');
+    }
   };
 }]);
 

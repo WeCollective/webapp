@@ -33,6 +33,7 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', funct
       };
 
       $scope.toggleNav = function() {
+        getFollowedBranches();
         $scope.expanded = !$scope.expanded;
       };
 
@@ -48,10 +49,20 @@ app.directive('navBar', ['User', '$state', '$timeout', 'socket', 'Alerts', funct
         });
       }
 
+      $scope.followedBranches = [];
+      function getFollowedBranches() {
+        User.getFollowedBranches(User.me().username).then(function(branches) {
+          $scope.followedBranches = branches;
+        }, function(err) {
+          $scope.followedBranches = [];
+        });
+      }
+
       $scope.$watch(function() {
         return User.me().username;
       }, function() {
         getUnreadNotificationCount();
+        getFollowedBranches();
       });
 
       $scope.$on('$stateChangeSuccess', getUnreadNotificationCount);
