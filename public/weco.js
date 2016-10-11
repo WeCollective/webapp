@@ -2138,7 +2138,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
+.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
