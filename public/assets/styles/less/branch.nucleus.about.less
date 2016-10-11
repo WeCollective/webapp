@@ -1,6 +1,6 @@
 ul#nucleus-about-properties {
   margin-bottom: 20px;
-  
+
   li {
     text-align: center;
     padding: 5px 0;
@@ -10,6 +10,10 @@ ul#nucleus-about-properties {
 
       &.field {
         color: @dark-grey;
+      }
+
+      &.marked-title {
+        display: block;
       }
 
       a {
@@ -25,6 +29,11 @@ ul#nucleus-about-properties {
       font-size: 14px;
       max-width: 100%;
       margin: auto;
+
+      &[marked] {
+        display: inline-block;
+        text-align: left;
+      }
     }
   }
 }

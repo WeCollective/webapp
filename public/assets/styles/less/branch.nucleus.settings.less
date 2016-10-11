@@ -16,6 +16,11 @@ ul#nucleus-settings-properties {
       font-size: 14px;
       max-width: 100%;
       margin: auto;
+
+      &[marked] {
+        display: inline-block;
+        text-align: left;
+      }
     }
 
     span {
@@ -26,6 +31,10 @@ ul#nucleus-settings-properties {
         color: @dark-grey;
       }
 
+      &.marked-title {
+        display: block;
+      }
+
       &.change-value {
         span {
           font-weight: 500;
@@ -33,6 +42,10 @@ ul#nucleus-settings-properties {
             cursor: pointer;
             text-decoration: underline;
           }
+        }
+
+        &.marked-title {
+          display: block;
         }
       }
     }

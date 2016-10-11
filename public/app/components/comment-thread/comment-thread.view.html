@@ -6,7 +6,7 @@
   </div>
   <div class="data">
     <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ timeSince(comment.date) }}{{ comment.data.edited ? '*' : '' }}</span>
-    <p class="comment-text">{{ comment.data.text }}</p>
+    <p class="comment-text" marked="comment.data.text"></p>
     <ul class="comment-controls">
          <li ng-click="openReply(comment, false)" tooltip-text="'Reply'" offset-y="25"><img src="/assets/images/icons/black/reply.png"></li><!--
       --><li ng-show="isOwnComment(comment)" ng-click="openReply(comment, true)" tooltip-text="'Edit'" offset-y="25"><img src="/assets/images/icons/black/edit.png"></li><!--
