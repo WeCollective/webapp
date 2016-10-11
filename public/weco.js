@@ -2138,7 +2138,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -3242,7 +3242,6 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', 'FollowedBranchAPI', '$t
   User.getFollowedBranches = function(username) {
     return new Promise(function(resolve, reject) {
       FollowedBranchAPI.get({ username: username }, function(response) {
-        console.log("response", response.data);
         resolve(response.data);
       }, function(response) {
         reject({
@@ -3409,7 +3408,7 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.hideCoverPicture = function() { $scope.showCover = false; };
 
   // Time filter dropdown configuration
-  $scope.timeItems = ['ALL TIME', 'THIS YEAR', 'THIS MONTH', 'THIS WEEK', 'LAST 24 HRS', 'THIS HOUR'];
+  $scope.timeItems = ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR'];
   $scope.getTimeafter = function(timeItem) {
     // compute the appropriate timeafter for the selected time filter
     var timeafter;
@@ -3418,24 +3417,24 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
       case 'ALL TIME':
         timeafter = 0;
         break;
-      case 'THIS YEAR':
-        timeafter = new Date(date.getFullYear(), 0, 1, 0, 0, 0, 0).getTime();
+      case 'PAST YEAR':
+        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
         break;
-      case 'THIS MONTH':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0).getTime();
+      case 'PAST MONTH':
+        timeafter = new Date().setMonth(new Date().getMonth() - 1);
         break;
-      case 'THIS WEEK':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1, 0, 0, 0, 0).getTime();
+      case 'PAST WEEK':
+        timeafter = new Date().setDate(new Date().getDate() - 7);
         break;
-      case 'LAST 24 HRS':
-        var yesterday = new Date(date);
-        yesterday.setDate(date.getDate() - 1);
-        timeafter = new Date(date.getFullYear(), date.getMonth(), yesterday.getDate(), date.getHours(), 0, 0, 0).getTime();
+      case 'PAST 24 HRS':
+        timeafter = new Date().setDate(new Date().getDate() - 1);
         break;
-      case 'THIS HOUR':
-        timeafter = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), 0, 0, 0).getTime();
+      case 'PAST HOUR':
+        timeafter = new Date().setHours(new Date().getHours() - 1);
         break;
       default:
+        timeafter = 0;
+        break;
     }
     return timeafter;
   };
@@ -4460,7 +4459,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   // watch for change in drop down menu time filter selection
-  $scope.selectedTimeItemIdx = 0;
+  $scope.selectedTimeItemIdx = 3; // default is week
   $scope.$watch('selectedTimeItemIdx', function () {
     $timeout(function () {
       $scope.isLoading = true;

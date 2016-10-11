@@ -264,7 +264,6 @@ app.factory('User', ['UserAPI', 'UserNotificationsAPI', 'FollowedBranchAPI', '$t
   User.getFollowedBranches = function(username) {
     return new Promise(function(resolve, reject) {
       FollowedBranchAPI.get({ username: username }, function(response) {
-        console.log("response", response.data);
         resolve(response.data);
       }, function(response) {
         reject({
