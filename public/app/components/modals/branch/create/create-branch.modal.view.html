@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="create-branch-inputs">
     <div loading when="isLoading">
-      <p class="explanatory" ng-show="newBranch.parentid != 'root'">A Parent Branch request will be sent to this branch. For now, your new branch will be a Root branch.</p>
+      <p class="explanatory" ng-show="newBranch.parentid != 'root'">A parent branch request will be sent to the moderators of this branch. Until they accept it, your new branch will be a Root branch.</p>
       <input id="id" ng-model="newBranch.id" placeholder="Unique Name" type="text" ng-change="newBranch.id = newBranch.id.split(' ').join('')"></input>
       <input ng-model="newBranch.name" placeholder="Visible Name" type="text"></input>
     </div>
