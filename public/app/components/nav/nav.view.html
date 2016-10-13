@@ -24,7 +24,7 @@
     <div id="user-controls">
       <!--<a><img src="assets/images/icons/white/message.png"></a>-->
       <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="user().username !== undefined">
-        <div id="notifications" ng-show="user().username !== undefined">
+        <div id="notifications" ng-show="user().username !== undefined" ng-class="{ 'opaque': notificationCount > 0 }">
           <img src="assets/images/icons/white/notification.png">
           <div id="notification-count" ng-show="showNotificationCount()"><span>{{ notificationCount > 9 ? '9+' : notificationCount }}</span></div>
         </div>
