@@ -6,6 +6,14 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
   $scope.errorMessage = '';
   $scope.isLoading = false;
 
+  /* jshint shadow:true */
+  for(var i = 0; i < Modal.getInputArgs().textareas.length; i++) {
+    $scope.textareaValues[i] = Modal.getInputArgs().textareas[i].value;
+  }
+  for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
+    $scope.inputValues[i] = Modal.getInputArgs().inputs[i].value;
+  }
+
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
     if($scope.inputValues.length < Modal.getInputArgs().inputs.length || $scope.inputValues.indexOf('') > -1 ||

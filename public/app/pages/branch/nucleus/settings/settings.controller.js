@@ -36,7 +36,8 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
       textareas: [
         {
           placeholder: 'Rules & Etiquette Text',
-          fieldname: 'rules'
+          fieldname: 'rules',
+          value: $scope.branch.rules
         }
       ]
     });
@@ -49,7 +50,8 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
       textareas: [
         {
           placeholder: 'Description',
-          fieldname: 'description'
+          fieldname: 'description',
+          value: $scope.branch.description
         }
       ]
     });

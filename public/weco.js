@@ -1179,6 +1179,14 @@ app.controller('modalNucleusSettingsController', ['$scope', '$timeout', 'Modal',
   $scope.errorMessage = '';
   $scope.isLoading = false;
 
+  /* jshint shadow:true */
+  for(var i = 0; i < Modal.getInputArgs().textareas.length; i++) {
+    $scope.textareaValues[i] = Modal.getInputArgs().textareas[i].value;
+  }
+  for(var i = 0; i < Modal.getInputArgs().inputs.length; i++) {
+    $scope.inputValues[i] = Modal.getInputArgs().inputs[i].value;
+  }
+
   $scope.$on('OK', function() {
     // if not all fields are filled, display message
     if($scope.inputValues.length < Modal.getInputArgs().inputs.length || $scope.inputValues.indexOf('') > -1 ||
@@ -2138,7 +2146,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -4025,7 +4033,8 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
       textareas: [
         {
           placeholder: 'Rules & Etiquette Text',
-          fieldname: 'rules'
+          fieldname: 'rules',
+          value: $scope.branch.rules
         }
       ]
     });
@@ -4038,7 +4047,8 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
       textareas: [
         {
           placeholder: 'Description',
-          fieldname: 'description'
+          fieldname: 'description',
+          value: $scope.branch.description
         }
       ]
     });
@@ -4495,7 +4505,6 @@ var app = angular.module('wecoApp');
 app.controller('homeController', ['$scope', '$http', 'ENV', '$timeout', function($scope, $http, ENV, $timeout) {
 
   $scope.getHomepageImageURL = function() {
-    console.log("CALLED");
     if(ENV.name === 'production') {
       return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
     } else {
