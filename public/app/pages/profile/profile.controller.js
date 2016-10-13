@@ -23,8 +23,8 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
     $scope.isLoading = false;
   });
 
-  $scope.tabItems = ['about', 'timeline'];
-  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
+  $scope.tabItems = ['about'];
+  $scope.tabStates = ['weco.profile.about'];
 
   // Watch for changes in the auth'd user's username
   // When set, if this is the auth'd user's profile page, add the 'settings' tab

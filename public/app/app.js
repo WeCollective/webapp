@@ -136,11 +136,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
       templateUrl: '/app/pages/profile/about/about.view.html',
       pageTrack: '/u/:username/about'
     })
-    .state('weco.profile.timeline', {
-      url: '/timeline',
-      templateUrl: '/app/pages/profile/timeline/timeline.view.html',
-      pageTrack: '/u/:username/timeline'
-    })
+    // .state('weco.profile.timeline', {
+    //   url: '/timeline',
+    //   templateUrl: '/app/pages/profile/timeline/timeline.view.html',
+    //   pageTrack: '/u/:username/timeline'
+    // })
     .state('weco.profile.settings', {
       url: '/settings',
       templateUrl: '/app/pages/profile/settings/settings.view.html',

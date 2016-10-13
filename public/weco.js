@@ -136,11 +136,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
       templateUrl: '/app/pages/profile/about/about.view.html',
       pageTrack: '/u/:username/about'
     })
-    .state('weco.profile.timeline', {
-      url: '/timeline',
-      templateUrl: '/app/pages/profile/timeline/timeline.view.html',
-      pageTrack: '/u/:username/timeline'
-    })
+    // .state('weco.profile.timeline', {
+    //   url: '/timeline',
+    //   templateUrl: '/app/pages/profile/timeline/timeline.view.html',
+    //   pageTrack: '/u/:username/timeline'
+    // })
     .state('weco.profile.settings', {
       url: '/settings',
       templateUrl: '/app/pages/profile/settings/settings.view.html',
@@ -4647,8 +4647,8 @@ app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Mo
     $scope.isLoading = false;
   });
 
-  $scope.tabItems = ['about', 'timeline'];
-  $scope.tabStates = ['weco.profile.about', 'weco.profile.timeline'];
+  $scope.tabItems = ['about'];
+  $scope.tabStates = ['weco.profile.about'];
 
   // Watch for changes in the auth'd user's username
   // When set, if this is the auth'd user's profile page, add the 'settings' tab
