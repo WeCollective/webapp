@@ -141,7 +141,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   // watch for change in drop down menu time filter selection
-  $scope.selectedTimeItemIdx = 3; // default is week
+  $scope.selectedTimeItemIdx = 0; // default is all time
   $scope.$watch('selectedTimeItemIdx', function () {
     $timeout(function () {
       $scope.isLoading = true;

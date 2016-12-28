@@ -2146,7 +2146,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -4469,7 +4469,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
   };
 
   // watch for change in drop down menu time filter selection
-  $scope.selectedTimeItemIdx = 3; // default is week
+  $scope.selectedTimeItemIdx = 0; // default is all time
   $scope.$watch('selectedTimeItemIdx', function () {
     $timeout(function () {
       $scope.isLoading = true;
