@@ -8,11 +8,11 @@
     <ul id="subbranch-list">
       <li ng-repeat="subbranch in branches">
         <span class="index">{{ $index + 1 }}</span>
-        <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id })">
+        <a ui-sref="weco.branch.wall({ branchid: subbranch.id })">
           <div style="background-image: url('{{ subbranch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>
         <div>
-          <a ui-sref="weco.branch.subbranches({ branchid: subbranch.id })">
+          <a ui-sref="weco.branch.wall({ branchid: subbranch.id })">
             <span class="title">{{ subbranch.name }}</span>
           </a>
           <span class="description">Created by <a ui-sref="weco.profile.about({ username: subbranch.creator })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>
