@@ -12,6 +12,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     branchids: [Modal.getInputArgs().branchid],
     nsfw: false
   };
+  $scope.pollAnswers = [];
 
   $scope.getProxyUrl = function(url) {
     // only proxy http requests, not https

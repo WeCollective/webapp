@@ -29,6 +29,8 @@
     <div id="preview-content" marked="newPost.text" ng-show="!isUploading && preview && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')"></div>
     <p id="preview-post" ng-click="togglePreview()" ng-show="!isUploading && newPost.text.length > 0 && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')">{{ preview ? 'Edit...' : 'Preview...' }}</p>
 
+    <poll-answer-editor ng-show="!isUploading && postType.items[postType.idx] == 'POLL'" answers="pollAnswers" title="'Create a new Answer'"></poll-answer-editor>
+
     <div id="progress-container" ng-show="isUploading">
       <div id="progress" style="width:{{ progress }}%"></div>
     </div>
