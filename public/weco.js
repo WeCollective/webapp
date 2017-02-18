@@ -1355,7 +1355,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   };
 
   $scope.postType = {
-    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
+    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
     idx: 0,
     title: 'POST TYPE'
   };
@@ -2146,7 +2146,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://wecoapi.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2652,6 +2652,7 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
       if(lastPostId) params.lastPostId = lastPostId;
       BranchPostsAPI.get(params, function(posts) {
         if(posts && posts.data) {
+          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({
@@ -4392,7 +4393,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   // return the correct ui-sref string for when the specified post is clicked
   $scope.getLink = function(post) {
-    if(post.type == 'text') {
+    if(post.type == 'text' || post.type == 'poll') {
       return $state.href('weco.branch.post', { postid: post.id });
     }
     return post.text;
@@ -4426,6 +4427,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         break;
       case 'PAGES':
         postType = 'page';
+        break;
+      case 'POLLS':
+        postType = 'poll';
         break;
       default:
         postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
@@ -4478,7 +4482,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     });
   });
 
-  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES'];
+  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS'];
   $scope.selectedPostTypeItemIdx = 0;
 
   $scope.$watch('selectedPostTypeItemIdx', function () {

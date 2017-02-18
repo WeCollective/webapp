@@ -23,7 +23,7 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
   };
 
   $scope.postType = {
-    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO'],
+    items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
     idx: 0,
     title: 'POST TYPE'
   };

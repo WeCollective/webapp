@@ -28,11 +28,11 @@
         <!-- Two DOM elements conditionally displayed if the post is a text type.
              One is to perform internal state transition with uisref. (Text posts)
              One is to link to an external site. (Non-text posts) -->
-        <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })"
+        <a ng-if="post.type == 'text' || post.type == 'poll'" ui-sref="weco.branch.post({ postid: post.id })"
            ng-show="post.profileUrlThumb">
           <div style="background-image: url('{{ post.profileUrlThumb }}')"></div>
         </a>
-        <a ng-if="post.type != 'text'" href="{{ post.data.text }}"
+        <a ng-if="post.type != 'text' && post.type != 'poll'" href="{{ post.data.text }}"
            ng-show="post.type == 'image' ? post.data.text : post.profileUrlThumb" target="_blank">
           <div style="background-image: url('{{ post.type == 'image' ? getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
         </a>
@@ -40,10 +40,10 @@
 
         <div class="data">
           <!-- Two DOM elements conditionally displayed again - see above. -->
-          <a ng-if="post.type == 'text'" ui-sref="weco.branch.post({ postid: post.id })">
+          <a ng-if="post.type == 'text' || post.type == 'poll'" ui-sref="weco.branch.post({ postid: post.id })">
             <p class="title">{{ post.data.title }}</p>
           </a>
-          <a ng-if="post.type != 'text'" href="{{ post.data.text }}" target="_blank">
+          <a ng-if="post.type != 'text' && post.type != 'poll'" href="{{ post.data.text }}" target="_blank">
             <p class="title">{{ post.data.title }}</p>
           </a>
           <span ng-class="post.type" class="post-type-marker" tooltip-text="(post.type | capitalize) + ' Post'" offset-y="20"></span>

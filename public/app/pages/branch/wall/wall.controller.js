@@ -64,7 +64,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
 
   // return the correct ui-sref string for when the specified post is clicked
   $scope.getLink = function(post) {
-    if(post.type == 'text') {
+    if(post.type == 'text' || post.type == 'poll') {
       return $state.href('weco.branch.post', { postid: post.id });
     }
     return post.text;
@@ -98,6 +98,9 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
         break;
       case 'PAGES':
         postType = 'page';
+        break;
+      case 'POLLS':
+        postType = 'poll';
         break;
       default:
         postType = $scope.postTypeItems[$scope.selectedPostTypeItemIdx].toLowerCase();
@@ -150,7 +153,7 @@ app.controller('wallController', ['$scope', '$state', '$timeout', 'Branch', 'Pos
     });
   });
 
-  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES'];
+  $scope.postTypeItems = ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS'];
   $scope.selectedPostTypeItemIdx = 0;
 
   $scope.$watch('selectedPostTypeItemIdx', function () {
