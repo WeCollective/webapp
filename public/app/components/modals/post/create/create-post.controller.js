@@ -1,5 +1,5 @@
 var app = angular.module('wecoApp');
-app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV', 'Upload', 'Modal', 'Post', function($scope, $timeout, $http, ENV, Upload, Modal, Post) {
+app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV', 'Upload', 'Modal', 'Post', 'PollAnswer', function($scope, $timeout, $http, ENV, Upload, Modal, Post, PollAnswer) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.file = null;
@@ -93,16 +93,35 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     post.branchids = JSON.stringify($scope.newPost.branchids);
     // save the post to the db
     Post.create(post).then(function(postid) {
-      $timeout(function() {
-        $scope.errorMessage = '';
-        $scope.isLoading = false;
-        $scope.progress = 0;
-        if($scope.file && $scope.newPost.type != 'image') {
-          $scope.isUploading = true;
-          $scope.upload(postid);
-        } else {
-          Modal.OK();
+      // if it's a poll, add the poll answers
+      new Promise(function(resolve, reject) {
+        var answerPromises = [];
+        if($scope.newPost.type == 'poll') {
+          for(var i = 0; i < $scope.pollAnswers.length; i++) {
+            answerPromises.push(PollAnswer.createAnswer({
+              postid: postid,
+              text: $scope.pollAnswers[i]
+            }));
+          }
         }
+        Promise.all(answerPromises).then(resolve, reject);
+      }).then(function() {
+        $timeout(function() {
+          $scope.errorMessage = '';
+          $scope.isLoading = false;
+          $scope.progress = 0;
+          if($scope.file && $scope.newPost.type != 'image') {
+            $scope.isUploading = true;
+            $scope.upload(postid);
+          } else {
+            Modal.OK();
+          }
+        });
+      }, function(response) {
+        $timeout(function() {
+          $scope.errorMessage = response.message;
+          $scope.isLoading = false;
+        });
       });
     }, function(response) {
       $timeout(function() {

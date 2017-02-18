@@ -1331,7 +1331,7 @@ app.factory('Modal', ['$timeout', function($timeout) {
 }]);
 
 var app = angular.module('wecoApp');
-app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV', 'Upload', 'Modal', 'Post', function($scope, $timeout, $http, ENV, Upload, Modal, Post) {
+app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV', 'Upload', 'Modal', 'Post', 'PollAnswer', function($scope, $timeout, $http, ENV, Upload, Modal, Post, PollAnswer) {
   $scope.Modal = Modal;
   $scope.errorMessage = '';
   $scope.file = null;
@@ -1425,16 +1425,35 @@ app.controller('modalCreatePostController', ['$scope', '$timeout', '$http', 'ENV
     post.branchids = JSON.stringify($scope.newPost.branchids);
     // save the post to the db
     Post.create(post).then(function(postid) {
-      $timeout(function() {
-        $scope.errorMessage = '';
-        $scope.isLoading = false;
-        $scope.progress = 0;
-        if($scope.file && $scope.newPost.type != 'image') {
-          $scope.isUploading = true;
-          $scope.upload(postid);
-        } else {
-          Modal.OK();
+      // if it's a poll, add the poll answers
+      new Promise(function(resolve, reject) {
+        var answerPromises = [];
+        if($scope.newPost.type == 'poll') {
+          for(var i = 0; i < $scope.pollAnswers.length; i++) {
+            answerPromises.push(PollAnswer.createAnswer({
+              postid: postid,
+              text: $scope.pollAnswers[i]
+            }));
+          }
         }
+        Promise.all(answerPromises).then(resolve, reject);
+      }).then(function() {
+        $timeout(function() {
+          $scope.errorMessage = '';
+          $scope.isLoading = false;
+          $scope.progress = 0;
+          if($scope.file && $scope.newPost.type != 'image') {
+            $scope.isUploading = true;
+            $scope.upload(postid);
+          } else {
+            Modal.OK();
+          }
+        });
+      }, function(response) {
+        $timeout(function() {
+          $scope.errorMessage = response.message;
+          $scope.isLoading = false;
+        });
       });
     }, function(response) {
       $timeout(function() {
@@ -1900,6 +1919,7 @@ app.directive('pollAnswerEditor', ['$timeout', function($timeout) {
           return;
         }
         $scope.answers.push($scope.newAnswer);
+        $scope.newAnswer = '';
       };
 
       $scope.removeItem = function(answer) {
@@ -2179,7 +2199,7 @@ app.directive('writeComment', function() {
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'})
+.constant('ENV', {name:'local',apiEndpoint:'http://localhost:8080/v1/'})
 
 ;
 var api = angular.module('api', ['ngResource']);
@@ -2315,6 +2335,13 @@ api.factory('ModLogAPI', ['$resource', 'ENV', function($resource, ENV) {
 var api = angular.module('api');
 api.factory('ModsAPI', ['$resource', 'ENV', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + 'branch/:branchid/mods/:username', {}, {});
+}]);
+
+var api = angular.module('api');
+api.factory('PollAnswerAPI', ['$resource', 'ENV', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + 'poll/:postid/answer',{
+    postid: '@postid'
+  }, {});
 }]);
 
 var api = angular.module('api');
@@ -2896,6 +2923,28 @@ app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http
   };
 
   return Mod;
+}]);
+
+'use strict';
+
+var app = angular.module('wecoApp');
+app.factory('PollAnswer', ['PollAnswerAPI', '$http', '$state', 'ENV', function(PollAnswerAPI, $http, $state, ENV) {
+  var PollAnswer = {};
+
+  PollAnswer.createAnswer = function(data) {
+    return new Promise(function(resolve, reject) {
+      PollAnswerAPI.save(data, function() {
+        resolve();
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
+
+  return PollAnswer;
 }]);
 
 'use strict';

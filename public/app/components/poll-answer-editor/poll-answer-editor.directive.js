@@ -17,6 +17,7 @@ app.directive('pollAnswerEditor', ['$timeout', function($timeout) {
           return;
         }
         $scope.answers.push($scope.newAnswer);
+        $scope.newAnswer = '';
       };
 
       $scope.removeItem = function(answer) {
