@@ -225,6 +225,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
     .state('weco.branch.post.comment', {
       url: '/c/:commentid',
       pageTrack: '/p/:postid/c/:commentid'
+    })
+    // Poll Tabs
+    .state('weco.branch.post.vote', {
+      url: '/vote',
+      templateUrl: '/app/pages/branch/post/poll/vote/vote.view.html',
+      pageTrack: '/p/:postid/vote'
+    })
+    .state('weco.branch.post.results', {
+      url: '/results',
+      templateUrl: '/app/pages/branch/post/poll/results/results.view.html',
+      pageTrack: '/p/:postid/results'
+    })
+    .state('weco.branch.post.discussion', {
+      url: '/discussion',
+      templateUrl: '/app/pages/branch/post/poll/discussion/discussion.view.html',
+      pageTrack: '/p/:postid/discussion'
     });
 
     // default child states

@@ -44,15 +44,20 @@
       <iframe width="854" height="480" ng-src="{{ videoEmbedURL }}" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
-  <div id="text-post" class="post-content" ng-show="post.type == 'text' && previewState != 'hide'" marked="markdownRaw"></div>
-  <write-comment id="write-root-comment" postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
-  <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
-  <dropdown title="'SORT BY'" items="sortItems" selected="selectedSortItemIdx"></dropdown>
-  <div id="post-comments-wrapper" scroll-to-top-when="add-comment">
-    <div id="post-comments" on-scroll-to-bottom="loadMore" loading when="isLoadingComments">
-      <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
-      <div id="comment-thread" ng-show="comments.length > 0">
-        <comment-thread comments="comments" sort-by="sortItems[selectedSortItemIdx]"></comment-thread>
+  <div id="text-post" class="post-content" ng-show="(post.type == 'text' || post.type == 'poll') && previewState != 'hide'" marked="markdownRaw"></div>
+
+  <tabs ng-if="post.type == 'poll'" items="tabItems" states="tabStates"></tabs>
+  <div class="post-page-content" ng-if="post.type == 'poll'" ui-view></div>
+  <div class="post-page-content" ng-if="post.type != 'poll'">
+    <write-comment id="write-root-comment" postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
+    <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
+    <dropdown title="'SORT BY'" items="sortItems" selected="selectedSortItemIdx"></dropdown>
+    <div id="post-comments-wrapper" scroll-to-top-when="add-comment">
+      <div id="post-comments" on-scroll-to-bottom="loadMore" loading when="isLoadingComments">
+        <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
+        <div id="comment-thread" ng-show="comments.length > 0">
+          <comment-thread comments="comments" sort-by="sortItems[selectedSortItemIdx]"></comment-thread>
+        </div>
       </div>
     </div>
   </div>

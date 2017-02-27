@@ -225,6 +225,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
     .state('weco.branch.post.comment', {
       url: '/c/:commentid',
       pageTrack: '/p/:postid/c/:commentid'
+    })
+    // Poll Tabs
+    .state('weco.branch.post.vote', {
+      url: '/vote',
+      templateUrl: '/app/pages/branch/post/poll/vote/vote.view.html',
+      pageTrack: '/p/:postid/vote'
+    })
+    .state('weco.branch.post.results', {
+      url: '/results',
+      templateUrl: '/app/pages/branch/post/poll/results/results.view.html',
+      pageTrack: '/p/:postid/results'
+    })
+    .state('weco.branch.post.discussion', {
+      url: '/discussion',
+      templateUrl: '/app/pages/branch/post/poll/discussion/discussion.view.html',
+      pageTrack: '/p/:postid/discussion'
     });
 
     // default child states
@@ -4150,6 +4166,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
+  $scope.tabItems = ['vote', 'results', 'discussion'];
+  $scope.tabStates =
+    ['weco.branch.post.vote({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
+     'weco.branch.post.results({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
+     'weco.branch.post.discussion({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})'];
 
   $scope.getProxyUrl = function(url) {
     // only proxy http requests, not https
@@ -4273,6 +4294,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           video_id = video_id.substring(0, video_id.indexOf('&'));
         }
         $scope.videoEmbedURL = '//www.youtube.com/embed/' + video_id + '?rel=0';
+      }
+
+      // go to the vote tab if this is a poll post
+      if($scope.post.type == 'poll') {
+        $state.go('weco.branch.post.vote', { branchid: $scope.branchid, postid: $state.params.postid });
       }
     });
   }, function(response) {

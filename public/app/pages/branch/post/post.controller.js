@@ -10,6 +10,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
   $scope.previewState = 'show'; // other states: 'show', 'maximise'
+  $scope.tabItems = ['vote', 'results', 'discussion'];
+  $scope.tabStates =
+    ['weco.branch.post.vote({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
+     'weco.branch.post.results({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
+     'weco.branch.post.discussion({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})'];
 
   $scope.getProxyUrl = function(url) {
     // only proxy http requests, not https
@@ -133,6 +138,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
           video_id = video_id.substring(0, video_id.indexOf('&'));
         }
         $scope.videoEmbedURL = '//www.youtube.com/embed/' + video_id + '?rel=0';
+      }
+
+      // go to the vote tab if this is a poll post
+      if($scope.post.type == 'poll') {
+        $state.go('weco.branch.post.vote', { branchid: $scope.branchid, postid: $state.params.postid });
       }
     });
   }, function(response) {
