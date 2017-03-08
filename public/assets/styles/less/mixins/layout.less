@@ -1,0 +1,41 @@
+// TODO: use below mixins and mobile first dev with override for larger screens
+.responsive(@minWidth; @rules) {
+  @media only screen and (min-width: @minWidth) {
+    @rules();
+  }
+}
+
+// Responsive screen sizes
+// < 576px is screen-xs (default)
+@screen-sm: 576px;
+@screen-md: 768px;
+@screen-lg: 992px;
+@screen-xl: 1200px;
+
+// Component specific mixins
+@nav-bar-height-xs: 35px;
+@nav-bar-height-sm: 45px;
+@nav-bar-height-md: 45px;
+@nav-bar-height-lg: 45px;
+@nav-bar-height-xl: 45px;
+
+@page-margin-xs: 0%;
+@page-margin-sm: 0%;
+@page-margin-md: 10%;
+@page-margin-lg: 18%;
+@page-margin-xl: 18%;
+
+// ALIASES
+@nav-bar-height: @nav-bar-height-lg;
+@page-margin-thick: @page-margin-lg;
+@page-margin-thin: @page-margin-md;
+@page-margin-none: @page-margin-sm;
+
+// TODO: replace the below
+@screen-small: 992px;
+@screen-medium: 1200px;
+@screen-large: 1600px;
+@screen-xlarge: 1920px;
+
+@nav-column-width-thick: 250px;
+@nav-column-width-thin: 200px;
