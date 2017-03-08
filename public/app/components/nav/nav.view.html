@@ -1,35 +1,59 @@
 <nav id="nav-bar">
-  <div>
-    <a ui-sref="weco.home" ng-click="triggerAnimation()">
-      <img id="animation" ng-src="{{ getAnimationSrc() }}">
-      <img src="/assets/images/nav-logo.png">
-    </a>
+    <div>
+        <a id="wecube" ui-sref="weco.home" ng-click="triggerAnimation()">
+            <img id="animation" ng-src="{{ getAnimationSrc() }}">
+            <img src="/assets/images/nav-logo.png">
+        </a>
 
-    <div id="nav-controls">
-      <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
-        <img src="/assets/images/icons/white/nucleus.png" tooltip-text="'Global Nucleus'" offset-y="40">
-      </a>
-      <a ui-sref="weco.branch.subbranches({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-        <img src="/assets/images/icons/white/branch.png" tooltip-text="'Root Branches'" offset-y="40">
-      </a>
-      <a ui-sref="weco.branch.wall({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('wall') }">
-        <img src="/assets/images/icons/white/wall.png" tooltip-text="'Global Wall'" offset-y="40">
-      </a>
-    </div>
+        <div id="nav-controls">
+            <a ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('nucleus') }">
+                <img src="/assets/images/icons/white/nucleus.png" tooltip-text="'Global Nucleus'" offset-y="40">
+            </a>
+            <a ui-sref="weco.branch.subbranches({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
+                <img src="/assets/images/icons/white/branch.png" tooltip-text="'Root Branches'" offset-y="40">
+            </a>
+            <a ui-sref="weco.branch.wall({ branchid: 'root' })" ng-class="{ 'selected' : isControlSelected('wall') }">
+                <img src="/assets/images/icons/white/wall.png" tooltip-text="'Global Wall'" offset-y="40">
+            </a>
+        </div>
 
-    <div id="user-controls">
-      <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="user().username">
-        <div id="notifications" ng-show="user().username" ng-class="{ 'opaque': notificationCount > 0 }">
-          <img src="assets/images/icons/white/notification.png">
-          <div id="notification-count" ng-show="showNotificationCount()"><span>{{ notificationCount > 9 ? '9+' : notificationCount }}</span></div>
+        <div id="user-controls">
+            <a id="login" ui-sref="auth.login" ng-show="!user().username">
+                <span class="text">Log In</span>
+            </a>
+            <a id="signup" ui-sref="auth.signup" ng-show="!user().username">
+                <span class="text">Create New Account</span>
+            </a>
+            <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="user().username">
+                <div id="notifications" ng-show="user().username" ng-class="{ 'opaque': notificationCount > 0 }">
+                    <img src="assets/images/icons/white/notification.png">
+                    <div id="notification-count" ng-show="showNotificationCount()">
+                        <span>{{ notificationCount > 9 ? '9+' : notificationCount }}</span>
+                    </div>
+                </div>
+            </a>
+            <a ui-sref="weco.profile.about({ username: user().username })" ng-show="user().username">
+                <div id="profile" ng-class="{ 'selected' : isControlSelected('profile') }">
+                    <span class="text">{{ user().username }}</span>
+                    <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
+                </div>
+            </a>
+            <div id="expand" ng-show="user().username">
+                <img src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }">
+            </div>
         </div>
-      </a>
-      <a ui-sref="weco.profile.about({ username: user().username })" ng-show="user().username">
-        <div id="profile" ng-class="{ 'selected' : isControlSelected('profile') }">
-            <span class="text">{{ user().username }}</span>
-            <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
-        </div>
-      </a>
+        <ul id="nav-menu-items" ng-show="isNavExpanded()">
+            <li id="logout" ng-click="logout()">
+                <span>Log Out</span>
+            </li>
+            <li ng-show="followedBranches.length > 0" id="followed-branch-title" class="followed-branch">
+                <span>Following:</span>
+            </li>
+            <a ui-sref="weco.branch.wall({ branchid: branch })">
+                <li ng-show="followedBranches.length > 0" class="followed-branch" ng-repeat="branch in followedBranches">
+                    <span>b/{{ branch }}</span>
+                </li>
+            </a>
+        </ul>
     </div>
-  </div>
 </nav>
