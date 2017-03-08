@@ -2728,7 +2728,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
       if(lastPostId) params.lastPostId = lastPostId;
       BranchPostsAPI.get(params, function(posts) {
         if(posts && posts.data) {
-          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({
@@ -2946,6 +2945,30 @@ app.factory('Mod', ['ModsAPI', '$http', '$state', 'ENV', function(ModsAPI, $http
 var app = angular.module('wecoApp');
 app.factory('PollAnswer', ['PollAnswerAPI', '$http', '$state', 'ENV', function(PollAnswerAPI, $http, $state, ENV) {
   var PollAnswer = {};
+
+  PollAnswer.get = function(postid, sortBy, lastAnswerId) {
+    return new Promise(function(resolve, reject) {
+      var params = {
+        postid: postid,
+        sortBy: sortBy
+      };
+      if(lastAnswerId) params.lastAnswerId = lastAnswerId;
+      PollAnswerAPI.get(params, function(answers) {
+        if(!answers || !answers.data) {
+          return reject({
+            status: 500,
+            message: 'Something went wrong'
+          });
+        }
+        resolve(answers.data);
+      }, function(response) {
+        reject({
+          status: response.status,
+          message: response.data.message
+        });
+      });
+    });
+  };
 
   PollAnswer.createAnswer = function(data) {
     return new Promise(function(resolve, reject) {
@@ -4157,11 +4180,12 @@ app.controller('nucleusSettingsController', ['$scope', '$state', '$timeout', 'Mo
 'use strict';
 
 var app = angular.module('wecoApp');
-app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'Comment', 'Alerts', 'User', 'Modal', 'ENV', function($scope, $rootScope, $state, $timeout, Post, Comment, Alerts, User, Modal, ENV) {
+app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 'Post', 'PollAnswer', 'Comment', 'Alerts', 'User', 'Modal', 'ENV', function($scope, $rootScope, $state, $timeout, Post, PollAnswer, Comment, Alerts, User, Modal, ENV) {
   $scope.isLoadingPost = true;
   $scope.isLoadingComments = true;
   $scope.isLoadingMore = false;
   $scope.post = {};
+  $scope.answers = [];
   $scope.comments = [];
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
@@ -4171,6 +4195,26 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     ['weco.branch.post.vote({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
      'weco.branch.post.results({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
      'weco.branch.post.discussion({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})'];
+
+  $scope.sortAnswersByItems = ['DATE POSTED', 'VOTES'];
+  $scope.selectedAnswerSortByItemIdx = 0;
+  $scope.$watch('selectedAnswerSortByItemIdx', function () {
+    $timeout(function () {
+      $scope.answers = [];
+      getPollAnswers();
+    });
+  });
+
+  // watch for change in drop down menu sort by selection
+  $scope.sortCommentsByItems = ['POINTS', 'REPLIES', 'DATE'];
+  $scope.selectedCommentsSortByItemIdx = 0;
+  $scope.$watch('selectedCommentsSortByItemIdx', function () {
+    $timeout(function () {
+      $scope.isLoadingComments = true;
+      $scope.comments = [];
+      getComments();
+    });
+  });
 
   $scope.getProxyUrl = function(url) {
     // only proxy http requests, not https
@@ -4212,18 +4256,6 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
         Alerts.push('error', 'Unable to delete post.');
       });
   };
-
-  $scope.sortItems = ['POINTS', 'REPLIES', 'DATE'];
-
-  // watch for change in drop down menu sort by selection
-  $scope.selectedSortItemIdx = 0;
-  $scope.$watch('selectedSortItemIdx', function () {
-    $timeout(function () {
-      $scope.isLoadingComments = true;
-      $scope.comments = [];
-      getComments();
-    });
-  });
 
   // when a new comment is posted, reload the comments
   $scope.onSubmitComment = function() {
@@ -4275,6 +4307,37 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
     return false;
   }
 
+  function getPollAnswers(lastAnswerId) {
+    var sortBy;
+    switch($scope.sortAnswersByItems[$scope.selectedAnswerSortByItemIdx]) {
+      case 'DATE':
+        sortBy = 'date';
+        break;
+      case 'VOTES':
+        sortBy = 'votes';
+        break;
+      default:
+        sortBy = 'date';
+        break;
+    }
+
+    // fetch the poll answers
+    PollAnswer.get($state.params.postid, sortBy, lastAnswerId).then(function(answers) {
+      $timeout(function() {
+        // if lastPostId was specified we are fetching _more_ posts, so append them
+        if(lastAnswerId) {
+          $scope.answers = $scope.answers.concat(answers);
+        } else {
+          $scope.answers = answers;
+        }
+      });
+    }, function(err) {
+      if(err.status !== 404) {
+        Alerts.push('error', 'Error fetching poll answers.');
+      }
+    });
+  }
+
   // ensure the post exists on the specified branch
   Post.getPostOnBranch($state.params.postid, $scope.branchid).then(function() {
     return Post.get($state.params.postid);
@@ -4296,9 +4359,11 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
         $scope.videoEmbedURL = '//www.youtube.com/embed/' + video_id + '?rel=0';
       }
 
-      // go to the vote tab if this is a poll post
+      // if this is a poll post
       if($scope.post.type == 'poll') {
+        // go to the vote tab
         $state.go('weco.branch.post.vote', { branchid: $scope.branchid, postid: $state.params.postid });
+        getPollAnswers();
       }
     });
   }, function(response) {
@@ -4327,7 +4392,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       });
     } else {
       // fetch all the comments for this post
-      var sortBy = $scope.sortItems[$scope.selectedSortItemIdx].toLowerCase();
+      var sortBy = $scope.sortCommentsByItems[$scope.selectedCommentsSortByItemIdx].toLowerCase();
       Comment.getMany($state.params.postid, undefined, sortBy, lastCommentId).then(function(comments) {
         $timeout(function() {
           // if lastCommentId was specified we are fetching _more_ comments, so append them

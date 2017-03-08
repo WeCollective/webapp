@@ -230,7 +230,6 @@ app.factory('Branch', ['BranchAPI', 'SubbranchesAPI', 'ModLogAPI', 'SubbranchReq
       if(lastPostId) params.lastPostId = lastPostId;
       BranchPostsAPI.get(params, function(posts) {
         if(posts && posts.data) {
-          console.log(posts.data);
           resolve(posts.data);
         } else {
           reject({
