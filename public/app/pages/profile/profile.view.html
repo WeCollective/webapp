@@ -1,4 +1,3 @@
-<div class="cover-photo" style="height: {{ user.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ user.coverUrl }}'), url('{{ user.coverUrlThumb }}')"></div>
 <div class="frame" id="profile-frame">
   <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl" tooltip-text="'Upload New Cover'" offset-y="30" offset-x="-100">
   <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="user.coverUrl && showCover" tooltip-text="'Hide Cover'" offset-y="30" offset-x="-60">

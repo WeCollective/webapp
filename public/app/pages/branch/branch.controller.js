@@ -7,9 +7,6 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.isLoading = true;
   $scope.User = User;
 
-  $scope.showCoverPicture = function() { $scope.showCover = true; };
-  $scope.hideCoverPicture = function() { $scope.showCover = false; };
-
   // Time filter dropdown configuration
   $scope.timeItems = ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR'];
   $scope.getTimeafter = function(timeItem) {
@@ -90,18 +87,6 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         }
       }, function() {
         Alerts.push('error', 'Unable to update profile picture.');
-      });
-  };
-
-  $scope.openCoverPictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
-      .then(function(result) {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          $state.go($state.current, {}, {reload: true});
-        }
-      }, function() {
-        Alerts.push('error', 'Unable to update cover picture.');
       });
   };
 

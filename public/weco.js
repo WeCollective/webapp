@@ -112,7 +112,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
           console.log("This code is ran before any state is reached...");
         }
       },
-      template: '<nav-bar></nav-bar><div class="full-page" ui-view></div>'
+      template: '<nav-bar></nav-bar><div ng-class="{ \'full-page-nav\': hasNavBar(), \'full-page\': !hasNavBar() }" ui-view></div>'
     })
     // 404 Not Found
     .state('weco.notfound', {
@@ -619,6 +619,37 @@ app.directive('commentThread', ['$state', 'Comment', 'User', '$timeout', 'Alerts
 
       $scope.openCommentPermalink = function(comment) {
         $state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
+      };
+    }
+  };
+}]);
+
+var app = angular.module('wecoApp');
+app.directive('coverPhoto', ['$state', 'Modal', function($state, Modal) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      imageUrl: '&',
+      thumbUrl: '&',
+      canEdit: '&',
+      isOpen: '=',
+    },
+    templateUrl: '/app/components/cover-photo/cover-photo.view.html',
+    link: function ($scope) {
+      $scope.showCoverPicture = function() { $scope.isOpen = true; };
+      $scope.hideCoverPicture = function() { $scope.isOpen = false; };
+
+      $scope.openCoverPictureModal = function() {
+        Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
+          .then(function(result) {
+            // reload state to force profile reload if OK was pressed
+            if(result) {
+              $state.go($state.current, {}, {reload: true});
+            }
+          }, function() {
+            Alerts.push('error', 'Unable to update cover picture.');
+          });
       };
     }
   };
@@ -3534,9 +3565,6 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.isLoading = true;
   $scope.User = User;
 
-  $scope.showCoverPicture = function() { $scope.showCover = true; };
-  $scope.hideCoverPicture = function() { $scope.showCover = false; };
-
   // Time filter dropdown configuration
   $scope.timeItems = ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR'];
   $scope.getTimeafter = function(timeItem) {
@@ -3617,18 +3645,6 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
         }
       }, function() {
         Alerts.push('error', 'Unable to update profile picture.');
-      });
-  };
-
-  $scope.openCoverPictureModal = function() {
-    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
-      .then(function(result) {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          $state.go($state.current, {}, {reload: true});
-        }
-      }, function() {
-        Alerts.push('error', 'Unable to update cover picture.');
       });
   };
 

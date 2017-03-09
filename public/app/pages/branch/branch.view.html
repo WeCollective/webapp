@@ -1,8 +1,6 @@
-<div class="cover-photo" style="height: {{ branch.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ branch.coverUrl }}'), url('{{ branch.coverUrlThumb }}')"></div>
-<div id="branch-frame" class="frame">
-  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl" tooltip-text="'Upload New Cover'" offset-y="30" offset-x="-100">
-  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="branch.coverUrl && showCover" tooltip-text="'Hide Cover'" offset-y="30" offset-x="-60">
-  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="branch.coverUrl && !showCover" tooltip-text="'Show Cover'" offset-y="30" offset-x="-60">
+<cover-photo image-url="branch.coverUrl" thumb-url="branch.coverUrlThumb" is-open="showCover" can-edit="isModerator()"></cover-photo>
+<div class="cover-frame" ng-class="{ 'coverOpen': showCover }"></div>
+<!--<div id="branch-frame" class="frame">
   <div class="content">
     <div loading when="isLoading">
       <div id="branch-info" class="nav-column">
@@ -40,3 +38,4 @@
     </div>
   </div>
 </div>
+-->
