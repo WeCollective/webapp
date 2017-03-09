@@ -217,9 +217,9 @@ div#branch-post {
   }
 
   .post-page-content {
+    flex: 1;
     &#poll-post-page-content {
       div#answer-list-container {
-        flex: 1;
         position: relative;
         width: 100%;
         overflow-y: scroll;
@@ -322,6 +322,8 @@ div#branch-post {
     div#post-comments-wrapper {
       position: relative;
       width: 100%;
+      height: calc(~'100% - 100px');
+      overflow-y: scroll;
       flex: 1;
 
       div#post-comments {

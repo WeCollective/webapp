@@ -48,7 +48,7 @@
 
   <tabs ng-if="post.type == 'poll'" items="tabItems" states="tabStates"></tabs>
 
-  <div id="poll-post-page-content" class="post-page-content" ng-if="post.type == 'poll'">
+  <div id="poll-post-page-content" class="post-page-content" ng-if="post.type == 'poll' && $state.current.name !== 'weco.branch.post.discussion'">
     <div class="content-header" id="poll-vote-header" ng-if="$state.current.name === 'weco.branch.post.vote'">
       <dropdown title="'SORT BY'" items="poll.sortAnswersByItems" selected="poll.selectedAnswerSortByItemIdx"></dropdown>
     </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div class="post-page-content" ng-if="post.type != 'poll'">
+  <div class="post-page-content" ng-if="post.type != 'poll' || $state.current.name === 'weco.branch.post.discussion'">
     <write-comment id="write-root-comment" postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
     <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>
     <dropdown title="'SORT BY'" items="sortCommentsByItems" selected="selectedCommentsSortByItemIdx"></dropdown>
@@ -73,7 +73,7 @@
       <div id="post-comments" on-scroll-to-bottom="loadMore" loading when="isLoadingComments">
         <p id="no-comments" ng-show="comments.length == 0">No comments yet!</p>
         <div id="comment-thread" ng-show="comments.length > 0">
-          <comment-thread comments="comments" sort-by="sortItems[selectedSortItemIdx]"></comment-thread>
+          <comment-thread comments="comments" sort-by="sortCommentsByItems[selectedCommentsSortByItemIdx]"></comment-thread><!--selectedSortItemIdx sortItems-->
         </div>
       </div>
     </div>
