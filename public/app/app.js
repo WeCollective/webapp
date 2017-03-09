@@ -112,7 +112,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
           console.log("This code is ran before any state is reached...");
         }
       },
-      template: '<nav-bar></nav-bar><div class="full-page" ui-view></div>'
+      template: '<nav-bar></nav-bar><div ng-class="{ \'full-page-nav\': hasNavBar(), \'full-page\': !hasNavBar() }" ui-view></div>'
     })
     // 404 Not Found
     .state('weco.notfound', {
