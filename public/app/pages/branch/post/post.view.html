@@ -47,7 +47,24 @@
   <div id="text-post" class="post-content" ng-show="(post.type == 'text' || post.type == 'poll') && previewState != 'hide'" marked="markdownRaw"></div>
 
   <tabs ng-if="post.type == 'poll'" items="tabItems" states="tabStates"></tabs>
-  <div class="post-page-content" ng-if="post.type == 'poll'" ui-view></div>
+
+  <div id="poll-post-page-content" class="post-page-content" ng-if="post.type == 'poll'">
+    <div class="content-header" id="poll-vote-header" ng-if="$state.current.name === 'weco.branch.post.vote'">
+      <dropdown title="'SORT BY'" items="poll.sortAnswersByItems" selected="poll.selectedAnswerSortByItemIdx"></dropdown>
+    </div>
+    <div id="answer-list-container" ng-if="$state.current.name === 'weco.branch.post.vote'">
+      <ul id="answer-list">
+        <li ng-repeat="answer in poll.answers">
+          <span class="index">{{ $index + 1 }}</span>
+          <div class="data">
+            <p class="title">{{ answer.text }}</p>
+            <span class="description">Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <div class="post-page-content" ng-if="post.type != 'poll'">
     <write-comment id="write-root-comment" postid="post.id" parentid="'none'" on-submit="onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
     <p id="permalink-notice" ng-show="isCommentPermalink()">You are viewing a single comment's thread.<a ui-sref="weco.branch.post({ postid: post.id })">(View all comments)</a></p>

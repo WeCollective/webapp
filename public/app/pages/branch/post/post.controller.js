@@ -6,7 +6,9 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
   $scope.isLoadingComments = true;
   $scope.isLoadingMore = false;
   $scope.post = {};
-  $scope.answers = [];
+  $scope.poll = {
+    answers: []
+  };
   $scope.comments = [];
   $scope.markdownRaw = '';
   $scope.videoEmbedURL = '';
@@ -17,11 +19,14 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
      'weco.branch.post.results({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})',
      'weco.branch.post.discussion({ "branchid": "' + $scope.branchid + '", "postid": "' + $state.params.postid + '"})'];
 
-  $scope.sortAnswersByItems = ['DATE POSTED', 'VOTES'];
-  $scope.selectedAnswerSortByItemIdx = 0;
-  $scope.$watch('selectedAnswerSortByItemIdx', function () {
-    $timeout(function () {
-      $scope.answers = [];
+  $scope.$state = $state;
+  $scope.poll.sortAnswersByItems = ['DATE POSTED', 'VOTES'];
+  $scope.poll.selectedAnswerSortByItemIdx = 0;
+  $scope.$watch(function() {
+    return $scope.poll.selectedAnswerSortByItemIdx;
+  }, function() {
+    $timeout(function(poll) {
+      $scope.poll.answers = [];
       getPollAnswers();
     });
   });
@@ -130,7 +135,7 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
 
   function getPollAnswers(lastAnswerId) {
     var sortBy;
-    switch($scope.sortAnswersByItems[$scope.selectedAnswerSortByItemIdx]) {
+    switch($scope.poll.sortAnswersByItems[$scope.poll.selectedAnswerSortByItemIdx]) {
       case 'DATE':
         sortBy = 'date';
         break;
@@ -147,9 +152,9 @@ app.controller('postController', ['$scope', '$rootScope', '$state', '$timeout', 
       $timeout(function() {
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if(lastAnswerId) {
-          $scope.answers = $scope.answers.concat(answers);
+          $scope.poll.answers = $scope.poll.answers.concat(answers);
         } else {
-          $scope.answers = answers;
+          $scope.poll.answers = answers;
         }
       });
     }, function(err) {
