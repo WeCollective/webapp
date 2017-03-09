@@ -47,7 +47,7 @@ nav#nav-bar {
         margin: auto;
         .responsive(@screen-md, { width: calc(100% - (2 * @page-margin-md)); });
         .responsive(@screen-lg, { width: calc(100% - (2 * @page-margin-lg)); });
-        font-size: @font-size-sm;
+        font-size: @font-size-xs;
         font-weight: @font-weight-heavy;
 
         // WE Cube
@@ -98,6 +98,7 @@ nav#nav-bar {
                   color: white;
               }
             }
+            a#signup { margin-right: 10px; }
 
             a div#notifications {
                 position: relative;
@@ -199,7 +200,7 @@ nav#nav-bar {
 
         ul#nav-menu-items {
             width: 100%;
-            box-shadow: @shadow2;
+            box-shadow: @shadow-2;
             background-color: @primary-0;
             padding: 20px 10px 10px 10px;
             z-index: 1000;
