@@ -3,8 +3,7 @@ nav#nav-bar {
     top: 0;
     left: 0;
     width: 100%;
-    height: @nav-bar-height-xs;
-    .responsive(@screen-sm, { height: @nav-bar-height-sm; });
+    .set-responsively(height, nav-bar-height);
     z-index: 1000;
     overflow-y: visible;
     background: linear-gradient(to bottom, @primary-2, @primary-0);
@@ -162,12 +161,8 @@ nav#nav-bar {
 
                 div#profile-picture {
                     float: right;
-                    height: @nav-bar-height-xs;
-                    width: @nav-bar-height-xs;
-                    .responsive(@screen-sm, {
-                        height: @nav-bar-height-sm;
-                        width: @nav-bar-height-sm;
-                    });
+                    .set-responsively(height, nav-bar-height);
+                    .set-responsively(width, nav-bar-height);
                     margin-left: 5px;
                     background-position: center;
                     background-size: cover;

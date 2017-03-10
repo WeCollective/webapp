@@ -40,6 +40,24 @@ input, textarea {
     clear: both;
 }
 
+// set a CSS property to the value given by the appropriate responsive
+// Less mixin without having to supply the screen size suffix
+.set-responsively(@prop, @value-name) {
+    // intermediate values required for correct Less compilation
+    @xs: "@{value-name}-xs";
+    @sm: "@{value-name}-sm";
+    @md: "@{value-name}-md";
+    @lg: "@{value-name}-lg";
+    @xl: "@{value-name}-xl";
+
+    // set the property responsively
+    @{prop}: @@xs;
+    .responsive(@screen-sm, { @{prop}: @@sm; });
+    .responsive(@screen-md, { @{prop}: @@md; });
+    .responsive(@screen-lg, { @{prop}: @@lg; });
+    .responsive(@screen-xl, { @{prop}: @@xl; });
+}
+
 #weco-root {
     width: 100%;
     height: 100%;
@@ -53,7 +71,11 @@ input, textarea {
     .full-page-nav {
         position: relative;
         width: 100%;
-        height: calc(100% - @nav-bar-height);
-        padding-top: @nav-bar-height;
+        height: calc(100% - @nav-bar-height-xs);
+        .responsive(@screen-sm, { height: calc(100% - @nav-bar-height-sm); });
+        .responsive(@screen-md, { height: calc(100% - @nav-bar-height-md); });
+        .responsive(@screen-lg, { height: calc(100% - @nav-bar-height-lg); });
+        .responsive(@screen-xl, { height: calc(100% - @nav-bar-height-xl); });
+        .set-responsively(padding-top, nav-bar-height);
     }
 }
