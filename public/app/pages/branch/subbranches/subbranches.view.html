@@ -1,21 +1,23 @@
 <div id="branch-subbranches">
-  <div class="content-header" id="subbranches-header">
+  <div class="content-header">
     <h1>{{ branch.id == 'root' ? 'Root Branches' : 'Child Branches' }}</h1>
-    <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
-    <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
+    <div class="content-controls">
+      <dropdown title="'TIME RANGE'" items="timeItems" selected="selectedTimeItemIdx"></dropdown>
+      <dropdown title="'SORT BY'" items="sortByItems" selected="selectedSortByItemIdx"></dropdown>
+    </div>
   </div>
-  <div id="subbranch-list-container" loading when="isLoading" on-scroll-to-bottom="loadMore">
+  <div class="content-body" loading when="isLoading" on-scroll-to-bottom="loadMore">
     <ul id="subbranch-list">
-      <li ng-repeat="subbranch in branches">
-        <span class="index">{{ $index + 1 }}</span>
-        <a ui-sref="weco.branch.wall({ branchid: subbranch.id })">
+      <li class="list-item" ng-repeat="subbranch in branches">
+        <span class="list-item-index">{{ $index + 1 }}</span>
+        <a class="list-item-image" ui-sref="weco.branch.wall({ branchid: subbranch.id })">
           <div style="background-image: url('{{ subbranch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
         </a>
-        <div>
+        <div class="list-item-info">
           <a ui-sref="weco.branch.wall({ branchid: subbranch.id })">
-            <span class="title">{{ subbranch.name }}</span>
+            <span class="list-item-title">{{ subbranch.name }}</span>
           </a>
-          <span class="description">Created by <a ui-sref="weco.profile.about({ username: subbranch.creator })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>
+          <span class="list-item-description">Created by <a ui-sref="weco.profile.about({ username: subbranch.creator })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>
         </div>
       </li>
     </ul>
