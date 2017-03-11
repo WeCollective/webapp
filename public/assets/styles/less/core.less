@@ -90,6 +90,10 @@ input, textarea {
       height: 100%;
       background-color: @primary-7;
 
+      &.cover-page.cover-open {
+        height: 65%;
+      }
+
       > div.frame {
         position: relative;
         height: 100%;
@@ -156,6 +160,7 @@ input, textarea {
             display: flex;
             flex-direction: column;
             height: 100%;
+            box-sizing: border-box;
             padding: 20px 20px 0 20px;
 
             div.content-header {
@@ -196,4 +201,27 @@ input, textarea {
         });
       }
     }
+}
+
+ul.field-value-list {
+  > li {
+    padding: 5px 0;
+    span {
+      font-size: @font-size-sm;
+      &.field {
+        color: @dark-grey;
+      }
+
+      &.value a {
+        color: @accent-0;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    div.value {
+      font-size: @font-size-sm;
+      width: 100%;
+    }
+  }
 }

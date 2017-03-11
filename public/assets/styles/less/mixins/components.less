@@ -1,3 +1,25 @@
+// Buttons
+.button(@color, @background-color, @hover-rules) {
+  display: inline-block;
+  text-align: center;
+  border-radius: 3px;
+  background-color: @background-color;
+  color: @color;
+
+  transition: all 0.3s ease-out;
+  &:hover {
+    cursor: pointer;
+    @hover-rules();
+    transition: all 0.3s ease-out;
+  }
+
+  span {
+    font-size: @font-size-sm;
+    font-weight: @font-weight-heavy;
+  }
+}
+
+// List Items
 .list-item(@height) {
   display: flex;
   flex-direction: row;

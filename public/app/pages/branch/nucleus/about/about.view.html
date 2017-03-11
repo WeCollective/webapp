@@ -1,8 +1,8 @@
-<ul id="nucleus-about-properties">
+<ul id="nucleus-about-properties" class="field-value-list">
   <li ng-show="branch.name"><span class="field">Visible Name: </span> <span class="value">{{ branch.name }}</span></li>
   <li ng-show="branch.date"><span class="field">Created on: </span> <span class="value">{{ branch.date | date: 'dd MMMM yyyy' }}</span></li>
   <li ng-show="branch.creator"><span class="field" ng-click="alert(branch.creator)">Created by: </span> <span class="value"><a ui-sref="weco.profile.about({ username: branch.creator })">{{ branch.creator }}</a></span></li>
   <li ng-show="branch.description"><span class="field marked-title">Description: </span> <div class="value" marked="branch.description || 'Not Set'"></div></li>
   <li ng-show="branch.rules"><span class="field marked-title">Rules &amp; Etiquette: </span> <div class="value" marked="branch.rules || 'Not Set'"></div></li>
 </ul>
-<div ng-show="User.me().username" id="follow-branch-button" class="button" ng-class="{ 'ok': !isFollowingBranch(), 'cancel': isFollowingBranch() }" ng-click="toggleFollowBranch()"><span>{{ isFollowingBranch() ? 'UN' : '' }}FOLLOW BRANCH</span></div>
+<div ng-show="User.me().username" class="button" ng-class="{ 'ok': !isFollowingBranch(), 'cancel': isFollowingBranch() }" ng-click="toggleFollowBranch()"><span>{{ isFollowingBranch() ? 'UN' : '' }}FOLLOW BRANCH</span></div>

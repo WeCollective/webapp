@@ -1,0 +1,26 @@
+ul#nucleus-about-properties {
+  margin-bottom: 20px;
+
+  > li {
+    span.marked-title {
+      display: block;
+    }
+    div.value[marked] {
+      margin-top: 10px;
+      box-sizing: border-box;
+      padding-left: 20px;
+    }
+  }
+}
+
+> div.button {
+  display: block;
+  margin: auto;
+  padding: 10px;
+  max-width: 150px;
+
+  .button(white, @button, {
+    background-color: @button-focus;
+    box-shadow: @shadow-2;
+  });
+}
