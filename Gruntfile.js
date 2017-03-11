@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         },
         files: {
           // destination file and source file
-          "public/assets/styles/css/app.css": "public/assets/styles/less/app.v2.less"
+          "public/assets/styles/css/app.css": "public/assets/styles/less/app.less"
         }
       }
     },
