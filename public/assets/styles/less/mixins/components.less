@@ -79,3 +79,36 @@
     }
   }
 }
+
+// List styles as they appear in e.g. branch nucleus or profile tabs
+.field-value-list() {
+  > li {
+    padding: 5px 0;
+    span {
+      font-size: @font-size-sm;
+      &.field {
+        color: @dark-grey;
+      }
+
+      &.value a {
+        color: @accent-0;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.marked-title {
+        display: block;
+      }
+    }
+    div.value {
+      font-size: @font-size-sm;
+      width: 100%;
+      &[marked] {
+        margin-top: 10px;
+        box-sizing: border-box;
+        padding-left: 20px;
+      }
+    }
+  }
+}
