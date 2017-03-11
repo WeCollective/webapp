@@ -1,4 +1,3 @@
-// TODO: use below mixins and mobile first dev with override for larger screens
 .responsive(@minWidth; @rules) {
   @media only screen and (min-width: @minWidth) {
     @rules();
@@ -15,9 +14,9 @@
 // fonts
 @font-size-xs: 12px;
 @font-size-sm: 14px;
-@font-size-md: 16px;
-@font-size-lg: 20px;
-@font-size-xl: 24px;
+@font-size-md: 18px;
+@font-size-lg: 22px;
+@font-size-xl: 26px;
 @font-weight-extra-light: 200;
 @font-weight-light: 300;
 @font-weight-normal: 400;
@@ -31,23 +30,14 @@
 @nav-bar-height-lg: 45px;
 @nav-bar-height-xl: 45px;
 
+@frame-column-width-xs: 150px;
+@frame-column-width-sm: 200px;
+@frame-column-width-md: 200px;
+@frame-column-width-lg: 250px;
+@frame-column-width-xl: 250px;
+
 @page-margin-xs: 0%;
 @page-margin-sm: 0%;
 @page-margin-md: 10%;
 @page-margin-lg: 18%;
 @page-margin-xl: 18%;
-
-// ALIASES
-@nav-bar-height: @nav-bar-height-lg;
-@page-margin-thick: @page-margin-lg;
-@page-margin-thin: @page-margin-md;
-@page-margin-none: @page-margin-sm;
-
-// TODO: replace the below
-@screen-small: 992px;
-@screen-medium: 1200px;
-@screen-large: 1600px;
-@screen-xlarge: 1920px;
-
-@nav-column-width-thick: 250px;
-@nav-column-width-thin: 200px;
