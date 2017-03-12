@@ -151,6 +151,85 @@
   }
 }
 
+// Notifications
+.notification(@height) {
+  position: relative;
+  display: flex;
+  padding: 10px 20px 10px 10px;
+  .responsive(@screen-sm, { padding: 10px 20px; });
+  border-bottom: solid 1px @light-grey;
+  overflow: hidden;
+
+  &.unread {
+    background-color: @notification-unread;
+    div.toggle-unread {
+      background-color: @notification-unread-dark;
+    }
+  }
+  &:not(.unread) {
+    background-color: transparent;
+    div.toggle-unread {
+      background-color: transparent;
+    }
+  }
+
+  div.toggle-unread {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    right: 10px;
+    border: 1px solid @dark-grey;
+    border-radius: 50%;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  div.notification-image {
+    img {
+      height: @height;
+      width: @height;
+      margin-right: 10px;
+    }
+  }
+
+  div.notification-entry {
+    div {
+      display: block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+
+      &.title {
+        font-size: @font-size-xs;
+        .responsive(@screen-sm, { font-size: @font-size-sm; });
+        margin-bottom: 5px;
+      }
+
+      &.description {
+        font-size: @font-size-xs;
+        .responsive(@screen-sm, { font-size: @font-size-sm; });
+        font-weight: @font-weight-light;
+      }
+
+      a {
+        font-weight: @font-weight-heavy;
+        color: @accent-0;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    p.message {
+      font-style: italic;
+      font-weight: @font-weight-light;
+    }
+  }
+}
+
 // List styles as they appear in e.g. branch nucleus or profile tabs
 .field-value-list() {
   > li {
