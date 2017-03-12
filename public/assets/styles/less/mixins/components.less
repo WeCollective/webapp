@@ -1,6 +1,7 @@
 // Buttons
-.button(@color, @background-color, @hover-rules) {
+.button(@color, @background-color, @height, @hover-rules) {
   display: inline-block;
+  height: @height;
   text-align: center;
   border-radius: 3px;
   background-color: @background-color;
@@ -16,6 +17,7 @@
   span {
     font-size: @font-size-sm;
     font-weight: @font-weight-heavy;
+    line-height: @height;
   }
 }
 
