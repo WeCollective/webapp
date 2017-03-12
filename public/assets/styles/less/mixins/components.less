@@ -35,6 +35,36 @@
     color: @dark-grey;
     line-height: @height;
   }
+  div.list-item-flags {
+    position: relative;
+    align-self: center;
+    height: 30px;
+    min-width: 50px;
+    margin: 0 10px;
+    text-align: center;
+    background-color: @caution-1;
+    border-radius: 5px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: @caution-0;
+    }
+
+    img {
+      width: 16px;
+      height: auto;
+      top: 0;
+      left: 12px;
+      opacity: 1;
+      vertical-align: middle;
+    }
+
+    span {
+      color: #fff;
+      font-size: @font-size-sm;
+      line-height: 30px;
+    }
+  }
   div.list-item-votes {
     display: flex;
     flex-direction: column;
