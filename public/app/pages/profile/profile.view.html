@@ -14,12 +14,16 @@
         <li>Moderator Positions: <span>{{ user.num_mod_positions }}</span></li>
       </ul>
     </div>
-    <!-- <div id="profile-content" class="content-column">
-      <div id="content-header">
-        <h1>Profile</h1>
-        <tabs items="tabItems" states="tabStates"></tabs>
+    <div class="frame-content">
+      <div id="profile-content">
+        <div class="content-header">
+          <h1>Profile</h1>
+          <div class="content-controls">
+            <tabs items="tabItems" states="tabStates"></tabs>
+          </div>
+        </div>
+        <div class="content-body" ui-view></div>
       </div>
-      <div ui-view></div>
-    </div> -->
+    </div>
   </div>
 </div>

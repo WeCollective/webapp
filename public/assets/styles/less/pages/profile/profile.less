@@ -1,0 +1,24 @@
+div#profile-frame {
+  div#profile-info.frame-column {
+    ul {
+      margin-top: 15px;
+      li {
+        font-size: @font-size-sm;
+        font-weight: @font-weight-light;
+        padding-bottom: 5px;
+        span {
+          font-weight: @font-weight-heavy;
+        }
+      }
+    }
+  }
+
+  div.frame-content {
+    div#profile-content {
+      div.content-body {
+        @import './profile.about.less';
+        @import './profile.settings.less';
+      }
+    }
+  }
+}

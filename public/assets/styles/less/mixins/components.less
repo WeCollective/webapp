@@ -155,21 +155,35 @@
 .field-value-list() {
   > li {
     padding: 5px 0;
+    &#change-cover span, &#change-picture span {
+      font-weight: @font-weight-heavy;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
     span {
       font-size: @font-size-sm;
       &.field {
         color: @dark-grey;
       }
-
       &.value a {
         color: @accent-0;
         &:hover {
           text-decoration: underline;
         }
       }
-
       &.marked-title {
         display: block;
+      }
+      &.change-value {
+        span {
+          font-weight: @font-weight-heavy;
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
       }
     }
     div.value {
