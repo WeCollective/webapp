@@ -3,7 +3,7 @@
   <p>{{ errorMessage }}</p>
   <div id="nucleus-reviewsubbranchrequests-inputs">
     <div loading when="isLoading">
-      <p ng-show="(!requests || requests.length == 0) && !isLoading">There are currently no Child Branch requests.</p>
+      <p ng-show="(!requests || requests.length === 0) && !isLoading">There are currently no Child Branch requests.</p>
       <ul>
         <li ng-repeat="request in requests">
           <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">
