@@ -1,5 +1,5 @@
-<div id="nucleus-moderators-list-container">
-  <ul loading when="isLoading">
+<div id="nucleus-moderators-list-container" loading when="isLoading">
+  <ul>
     <a ng-repeat="mod in mods" ui-sref="weco.profile.about({ username: mod.username })">
       <li>
         <div class="mod-picture" style="background-image: url('{{ mod.profileUrl }}'), url('{{ mod.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"></div>

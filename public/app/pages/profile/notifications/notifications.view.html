@@ -1,6 +1,6 @@
-<div id="profile-notifications" ng-controller="profileNotificationsController" on-scroll-to-bottom="loadMore">
+<div id="profile-notifications" ng-controller="profileNotificationsController"  loading when="isLoading" on-scroll-to-bottom="loadMore">
   <div id="empty" ng-show="!notifications || notifications.length === 0">No notifications.</div>
-  <ul loading when="isLoading">
+  <ul>
     <li ng-repeat="notification in notifications" ng-class="{ 'unread': notification.unread === true }">
       <div class="toggle-unread" ng-click="setUnread(notification, !notification.unread)"></div>
       <div class="notification-image">
