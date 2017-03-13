@@ -1,6 +1,6 @@
 <div id="nucleus-removemod-modal" ng-controller="modalNucleusRemoveModController">
   <h1>Remove a Moderator</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="nucleus-removemod-inputs">
     <div loading when="isLoading">
       <p ng-show="(!mods || mods.length === 0) && !isLoading">There are no moderators available for removal.<br>Note that you can only remove moderators who became mods after you did.</p>

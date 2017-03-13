@@ -1,6 +1,6 @@
 <div id="nucleus-reviewsubbranchrequests-modal" ng-controller="modalNucleusReviewSubbranchRequestsController">
   <h1>Review Child Branch Requests</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="nucleus-reviewsubbranchrequests-inputs">
     <div loading when="isLoading">
       <p ng-show="(!requests || requests.length === 0) && !isLoading">There are currently no Child Branch requests.</p>

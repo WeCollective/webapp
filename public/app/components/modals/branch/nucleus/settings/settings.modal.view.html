@@ -1,6 +1,6 @@
 <div id="nucleus-settings-modal" ng-controller="modalNucleusSettingsController">
   <h1>Change the Branch {{ Modal.getInputArgs().title }}</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="nucleus-settings-inputs">
     <div loading when="isLoading">
       <input ng-repeat="item in Modal.getInputArgs().inputs" ng-model="inputValues[$index]" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>

@@ -1,6 +1,6 @@
 <div id="nucleus-addmod-modal" ng-controller="modalNucleusAddModController">
   <h1>Add a Moderator</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="nucleus-addmod-inputs">
     <div loading when="isLoading">
       <input ng-model="data.username" placeholder="Username of new Moderator" type="text" ng-change="data.username = data.username.split(' ').join('')"></input>

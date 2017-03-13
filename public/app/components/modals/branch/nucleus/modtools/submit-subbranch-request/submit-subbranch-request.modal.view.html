@@ -1,6 +1,6 @@
 <div id="nucleus-submitsubbranchrequest-modal" ng-controller="modalNucleusSubmitSubbranchRequestController">
   <h1>Submit a Parent Branch Request</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="nucleus-submitsubbranchrequest-inputs">
     <div loading when="isLoading">
       <input ng-model="data.parentid" placeholder="Unique Name of New Parent Branch" type="text" ng-change="data.parentid = data.parentid.split(' ').join('')"></input>

@@ -1,6 +1,6 @@
 <div id="create-branch-modal" ng-controller="modalCreateBranchController">
   <h1>Create a new {{ newBranch.parentid == 'root' ? 'Root' : 'Child' }} Branch</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="create-branch-inputs">
     <div loading when="isLoading">
       <p class="explanatory" ng-show="newBranch.parentid != 'root'">A parent branch request will be sent to the moderators of this branch. Until they accept it, your new branch will be a Root branch.</p>
