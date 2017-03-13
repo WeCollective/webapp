@@ -1,7 +1,7 @@
 <div id="create-post-modal" ng-controller="modalCreatePostController">
-  <h1>Submit a Post</h1>
-  <p class="error-message">{{ errorMessage }}</p>
   <div loading when="isLoading" class="clearfix">
+    <h1>Submit a Post</h1>
+    <p class="error-message">{{ errorMessage }}</p>
     <div id="create-post-picture" ng-show="!isUploading">
       <div id="dragdrop"
            ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"

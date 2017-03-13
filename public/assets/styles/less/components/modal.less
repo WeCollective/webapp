@@ -66,31 +66,35 @@ div#modal-container {
         padding: 20px;
         overflow-y: scroll;
 
-        h1 {
-          font-weight: @font-weight-heavy;
-          margin-bottom: 15px;
-        }
-        p.error-message {
-            color: @caution-0;
-        }
+        > div, & {
+          position: relative;
 
-        input, textarea {
-          &:not([type="checkbox"]) {
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px 15px;
-            margin: 10px 0;
-            max-height: 500px;
-            max-width: 100%;
-            border-radius: 3px;
-            border: 1px solid @light-grey;
-            font-size: @font-size-sm;
-            font-weight: @font-weight-light;
+          h1 {
+            font-weight: @font-weight-heavy;
+            margin-bottom: 15px;
+          }
+          p.error-message {
+              color: @caution-0;
           }
 
-          &:focus {
-            outline: none;
+          input, textarea {
+            &:not([type="checkbox"]) {
+              display: block;
+              width: 100%;
+              box-sizing: border-box;
+              padding: 10px 15px;
+              margin: 10px 0;
+              max-height: 500px;
+              max-width: 100%;
+              border-radius: 3px;
+              border: 1px solid @light-grey;
+              font-size: @font-size-sm;
+              font-weight: @font-weight-light;
+            }
+
+            &:focus {
+              outline: none;
+            }
           }
         }
       }

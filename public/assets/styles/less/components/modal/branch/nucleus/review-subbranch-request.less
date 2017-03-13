@@ -1,79 +1,77 @@
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs {
   position: relative;
-  div[loading] {
-    ul {
-      li {
-        display: flex;
+  ul {
+    li {
+      display: flex;
+      height: 80px;
+      width: 100%;
+      padding: 10px 0;
+      border-bottom: solid 1px @light-grey;
+
+      a div {
         height: 80px;
-        width: 100%;
-        padding: 10px 0;
-        border-bottom: solid 1px @light-grey;
+        width: 80px;
+        border-radius: 3px;
+        margin: 0 10px;
+        background-size: cover;
+        background-position: center;
 
-        a div {
-          height: 80px;
-          width: 80px;
-          border-radius: 3px;
-          margin: 0 10px;
-          background-size: cover;
-          background-position: center;
-
-          &:hover {
-            box-shadow: @shadow-2;
-          }
+        &:hover {
+          box-shadow: @shadow-2;
         }
-        div {
-          flex: 1;
-          &#branch-info {
-            padding-right: 15px;
+      }
+      div {
+        flex: 1;
+        &#branch-info {
+          padding-right: 15px;
 
-            a span.title {
-              display: block;
-              font-size: @font-size-md;
+          a span.title {
+            display: block;
+            font-size: @font-size-md;
+            font-weight: @font-weight-heavy;
+            white-space: nowrap;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          div.description {
+            float: none;
+            font-size: @font-size-sm;
+            font-weight: @font-weight-normal;
+            white-space: nowrap;
+
+            a {
+              color: @accent-0;
               font-weight: @font-weight-heavy;
-              white-space: nowrap;
 
               &:hover {
                 cursor: pointer;
+                text-decoration: underline;
               }
             }
+          }
 
-            div.description {
-              float: none;
-              font-size: @font-size-sm;
-              font-weight: @font-weight-normal;
-              white-space: nowrap;
 
-              a {
-                color: @accent-0;
-                font-weight: @font-weight-heavy;
+          div.request-actions {
+            display: block;
+            float: none;
+            div {
+              display: inline-block;
+              width: 60px;
+              margin: 5px 10px 0 0;
 
-                &:hover {
-                  cursor: pointer;
-                  text-decoration: underline;
-                }
+              &.request-accept {
+                .button(white, @accent-1, 25px, {
+                  background-color: @accent-0;
+                });
               }
-            }
 
-
-            div.request-actions {
-              display: block;
-              float: none;
-              div {
-                display: inline-block;
-                width: 60px;
-                margin: 5px 10px 0 0;
-
-                &.request-accept {
-                  .button(white, @accent-1, 25px, {
-                    background-color: @accent-0;
-                  });
-                }
-
-                &.request-reject {
-                  .button(white, @caution-1, 25px, {
-                    background-color: @caution-0;
-                  });
-                }
+              &.request-reject {
+                .button(white, @caution-1, 25px, {
+                  background-color: @caution-0;
+                });
               }
             }
           }

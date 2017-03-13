@@ -90,8 +90,11 @@ input, textarea {
       height: 100%;
       background-color: @primary-7;
 
-      &.cover-page.cover-open {
-        height: 65%;
+      &.cover-page {
+        position: relative;
+        &.cover-open {
+          height: 65%;
+        }
       }
 
       > div.frame {
@@ -104,7 +107,6 @@ input, textarea {
         .responsive(@screen-xl, { width: calc(100% - 2 * @page-margin-xl); });
         margin: auto;
         background-color: white;
-
 
         > div.frame-column {
           position: absolute;
@@ -183,7 +185,7 @@ input, textarea {
 
         .responsive(@screen-md, {
           > div.frame-column {
-            position: initial;
+            position: static;
             float: left;
           }
           > div.frame-content {

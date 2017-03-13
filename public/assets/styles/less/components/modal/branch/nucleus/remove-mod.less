@@ -1,44 +1,42 @@
 div#nucleus-removemod-modal div#nucleus-removemod-inputs {
   position: relative;
-  div[loading] {
-    ul {
-      li {
-        padding: 10px;
-        border-bottom: 1px solid @light-grey;
+  ul {
+    li {
+      padding: 10px;
+      border-bottom: 1px solid @light-grey;
 
-        &:hover {
-          cursor: pointer;
-          background-color: @light-grey;
+      &:hover {
+        cursor: pointer;
+        background-color: @light-grey;
+      }
+
+      &.selected {
+        background-color: @light-grey;
+      }
+
+      div {
+        display: inline-block;
+        vertical-align: middle;
+
+        &.profile-picture {
+          width: 60px;
+          height: 60px;
+          background-size: cover;
+          background-position: center;
+          border-radius: 3px;
+          margin-right: 10px;
         }
 
-        &.selected {
-          background-color: @light-grey;
-        }
+        &.details {
+          h2 {
+            &.name {
+              font-weight: @font-weight-heavy;
+              font-size: @font-size-sm;
+            }
 
-        div {
-          display: inline-block;
-          vertical-align: middle;
-
-          &.profile-picture {
-            width: 60px;
-            height: 60px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 3px;
-            margin-right: 10px;
-          }
-
-          &.details {
-            h2 {
-              &.name {
-                font-weight: @font-weight-heavy;
-                font-size: @font-size-sm;
-              }
-
-              &.username {
-                font-weight: @font-weight-normal;
-                font-size: @font-size-sm;
-              }
+            &.username {
+              font-weight: @font-weight-normal;
+              font-size: @font-size-sm;
             }
           }
         }

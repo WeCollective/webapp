@@ -1,8 +1,8 @@
 <div id="nucleus-update-homepage-stats-modal" ng-controller="modalNucleusUpdateHomepageStatsController">
-  <h1>Update Homepage Stats</h1>
-  <p class="error-message">{{ errorMessage }}</p>
-  <div id="nucleus-update-homepage-stats-inputs">
-    <div loading when="isLoading">
+  <div loading when="isLoading">
+    <h1>Update Homepage Stats</h1>
+    <p class="error-message">{{ errorMessage }}</p>
+    <div id="nucleus-update-homepage-stats-inputs">
       <p>Amount Given to Charity (£)</p>
       <input ng-model="stats.donation_total" type="text"></input>
       <p>Amount Raised (£)</p>
