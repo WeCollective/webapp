@@ -84,23 +84,23 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'Analyt
     })
     .state('verify', {
       url: '/:username/verify/:token',
-      templateUrl: '/app/pages/verify/verify.view.html',
+      templateUrl: '/app/pages/auth/verify/verify.view.html',
       controller: 'verifyController'
     })
     .state('reset-password', {
       url: '/reset-password',
       abstract: true,
-      templateUrl: '/app/pages/reset-password/reset-password.view.html',
+      templateUrl: '/app/pages/auth/reset-password/reset-password.view.html',
       controller: 'resetPasswordController'
     })
     .state('reset-password.request', {
       url: '/request',
-      templateUrl: '/app/pages/reset-password/request/request.view.html',
+      templateUrl: '/app/pages/auth/reset-password/request/request.view.html',
       controller: 'requestResetPasswordController'
     })
     .state('reset-password.confirm', {
       url: '/:username/:token',
-      templateUrl: '/app/pages/reset-password/confirm/confirm.view.html',
+      templateUrl: '/app/pages/auth/reset-password/confirm/confirm.view.html',
       controller: 'confirmResetPasswordController'
     })
     // Abstract root state contains nav-bar
