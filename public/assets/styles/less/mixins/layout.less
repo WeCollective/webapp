@@ -1,0 +1,43 @@
+.responsive(@minWidth; @rules) {
+  @media only screen and (min-width: @minWidth) {
+    @rules();
+  }
+}
+
+// Responsive screen sizes
+// < 576px is screen-xs (default)
+@screen-sm: 576px;
+@screen-md: 768px;
+@screen-lg: 992px;
+@screen-xl: 1200px;
+
+// fonts
+@font-size-xs: 12px;
+@font-size-sm: 14px;
+@font-size-md: 18px;
+@font-size-lg: 22px;
+@font-size-xl: 26px;
+@font-weight-extra-light: 200;
+@font-weight-light: 300;
+@font-weight-normal: 400;
+@font-weight-heavy: 500;
+@font-weight-extra-heavy: 600;
+
+// Component specific mixins
+@nav-bar-height-xs: 35px;
+@nav-bar-height-sm: 45px;
+@nav-bar-height-md: 45px;
+@nav-bar-height-lg: 45px;
+@nav-bar-height-xl: 45px;
+
+@frame-column-width-xs: 100px;
+@frame-column-width-sm: 150px;
+@frame-column-width-md: 200px;
+@frame-column-width-lg: 200px;
+@frame-column-width-xl: 250px;
+
+@page-margin-xs: 0%;
+@page-margin-sm: 0%;
+@page-margin-md: 10%;
+@page-margin-lg: 18%;
+@page-margin-xl: 18%;

@@ -1,0 +1,18 @@
+div#profile-notifications {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  div#empty {
+    margin: 10px;
+    font-style: italic;
+  }
+
+  ul {
+    li {
+      .notification(40px);
+      .responsive(@screen-sm, { .notification(50px); });
+      .responsive(@screen-md, { .notification(65px); });
+    }
+  }
+}

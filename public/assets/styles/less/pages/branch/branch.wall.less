@@ -1,0 +1,51 @@
+div#branch-wall {
+  position: relative;
+  box-sizing: border-box;
+  div.content-header {
+    div.content-controls div#stat-type-selector {
+      display: inline-block;
+      vertical-align: middle;
+      height: 45px;
+      margin-left: 10px;
+
+      div {
+        position: relative;
+        display: inline-block;
+        height: 100%;
+        width: 30px;
+
+        &.selected img {
+          opacity: 0.7;
+        }
+
+        &:hover {
+          cursor: pointer;
+          img {
+            opacity: 0.7;
+          }
+        }
+
+        img {
+          position: absolute;
+          height: 40%;
+          width: auto;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+  div.content-body {
+    ul#post-list {
+      overflow-x: hidden;
+      li.list-item {
+        .list-item(70px);
+        .responsive(@screen-md, {
+          .list-item(80px);
+        });
+      }
+    }
+  }
+}

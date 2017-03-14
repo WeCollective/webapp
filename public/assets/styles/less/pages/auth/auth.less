@@ -1,19 +1,21 @@
-div#auth-background {
-  width: 100%;
-  height: 100%;
+div#auth-background, div#reset-password-background, div#verify-background {
+  overflow-y: scroll;
   background: @primary-light;
-  background: -webkit-radial-gradient(@primary-light, @primary-dark);
-  background: -o-radial-gradient(@primary-light, @primary-dark);
-  background: -moz-radial-gradient(@primary-light, @primary-dark);
   background: radial-gradient(@primary-light, @primary-dark);
   text-align: center;
 
-  a#logo {
+  a#logo, div#logo {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
+    padding: 30px 0 20px 0;
     margin: auto;
-    padding: 60px 0 40px 0;
+    .responsive(@screen-md, {
+      width: 100px;
+      height: 100px;
+      padding: 60px 0 40px 0;
+    });
+
     img {
       width: 100%;
       height: 100%;
@@ -21,26 +23,35 @@ div#auth-background {
   }
 
   h1 {
-    font-size: 30px;
-    font-weight: 300;
-    color: #fff;
+    font-size: @font-size-md;
+    font-weight: @font-weight-light;
+    color: white;
     text-transform: uppercase;
     letter-spacing: 8px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    .responsive(@screen-md, {
+      font-size: @font-size-lg;
+      margin-bottom: 40px;
+    });
   }
 
   form {
+    padding: 0 15px;
     input {
       display: block;
       margin: 10px auto;
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
-      padding: 15px;
+      padding: 10px;
       border: none;
       border-radius: 3px;
-      font-weight: 400;
-      font-size: 16px;
+      font-weight: @font-weight-normal;
+      font-size: @font-size-sm;
+      .responsive(@screen-md, {
+        font-size: @font-size-md;
+        padding: 15px;
+      });
 
       &[name="username"] {
         text-transform: lowercase;
@@ -52,17 +63,17 @@ div#auth-background {
       }
 
       &[type="submit"] {
-        background-color: @button;
-        color: #fff;
+        background-color: @accent-1;
+        color: white;
         font-weight: 500;
         transition: all 0.3s ease-out;
 
         &:hover {
           cursor: pointer;
-          box-shadow: @shadow2;
+          box-shadow: @shadow-2;
           letter-spacing: 3px;
           transition: all 0.3s ease-out;
-          background-color: @button-focus;
+          background-color: @accent-0;
         }
       }
 
@@ -83,9 +94,13 @@ div#auth-background {
     }
   }
   p {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 300;
+    color: white;
+    font-weight: @font-weight-light;
+    font-size: @font-size-sm;
+    .responsive(@screen-md, {
+      font-size: @font-size-md;
+    });
+
     a, &#resend-verification {
       cursor: pointer;
       text-decoration: underline;

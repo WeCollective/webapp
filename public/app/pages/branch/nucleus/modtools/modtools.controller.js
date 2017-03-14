@@ -1,11 +1,6 @@
 var app = angular.module('wecoApp');
 app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Modal', 'User', 'Branch', 'Alerts', function($scope, $state, $timeout, Modal, User, Branch, Alerts) {
   $scope.isLoading = true;
-  $scope.isModLogOpen = false;
-
-  $scope.toggleIsModLogOpen = function () {
-    $scope.isModLogOpen = !$scope.isModLogOpen;
-  };
 
   $scope.modLog = [];
   Branch.getModLog($scope.branchid).then(function(log) {
@@ -120,5 +115,4 @@ app.controller('nucleusModToolsController', ['$scope', '$state', '$timeout', 'Mo
         Alerts.push('error', 'Error updating homepage stats.');
       });
   };
-
 }]);

@@ -1,6 +1,6 @@
 <div id="upload-image-modal" ng-controller="modalUploadImageController">
   <h1>Upload Image</h1>
-  <p>{{ errorMessage }}</p>
+  <p class="error-message">{{ errorMessage }}</p>
   <div id="dragdrop" ng-show="!isUploading"
        ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
        ngf-hide-on-drop-not-available="true" ngf-fix-orientation="true" ngf-max-size="20MB">

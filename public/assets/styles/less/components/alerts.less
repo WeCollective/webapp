@@ -1,19 +1,27 @@
 ul#alerts {
-  position: absolute;
-  left: 50%;
+  position: fixed;
   top: 60px;
-  transform: translateX(-50%);
+  left: 15px;
+  right: 15px;
   z-index: 1000;
+  .responsive(@screen-sm, {
+    left: 50%;
+    right: auto;
+    min-width: 300px;
+    transform: translateX(-50%);
+  });
 
   li {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 10px;
-    min-width: 300px;
+    margin: 0 auto 10px auto;
+    max-width: calc(~'100% - 30px');
 
     transition: all 0.5s ease-out;
-    box-shadow: @shadow3;
+    box-shadow: @shadow-3;
     opacity: 1;
     &.ng-hide {
       transition: all 0.5s ease-out;
@@ -22,8 +30,8 @@ ul#alerts {
     }
 
     &.error {
-      background-color: @caution;
-      border: 1px solid @caution-focus;
+      background-color: @caution-1;
+      border: 1px solid @caution-0;
 
       span {
         color: #6a0f06;
@@ -31,8 +39,8 @@ ul#alerts {
     }
 
     &.success {
-      background-color: @success;
-      border: 1px solid @success-focus;
+      background-color: @success-1;
+      border: 1px solid @success-0;
 
       span {
         color: #0d532a;
@@ -40,15 +48,13 @@ ul#alerts {
     }
 
     span {
-      font-size: 14px;
+      flex: 1;
+      font-size: @font-size-sm;
       padding-right: 20px;
+      white-space: normal;
     }
 
     img {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
       height: 10px;
       width: auto;
       opacity: 0.3;

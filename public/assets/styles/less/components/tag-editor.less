@@ -10,15 +10,15 @@ div.tag-editor {
     margin: 10px 0;
     border-radius: 3px;
     border: 1px solid @light-grey;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: @font-size-sm;
+    font-weight: @font-weight-light;
     text-transform: lowercase;
   }
 
   p {
-    font-size: 14px;
+    font-size: @font-size-sm;
     font-style: italic;
-    color: @caution;
+    color: @caution-0;
     margin: 0;
   }
 
@@ -29,7 +29,7 @@ div.tag-editor {
 
     img {
       position: absolute;
-      top: calc(~'50% - 10px');
+      top: calc(~'50% - 15px');
       right: 10px;
       height: 20px;
       width: auto;
@@ -54,8 +54,8 @@ div.tag-editor {
       margin-bottom: 5px;
 
       span {
-        font-size: 14px;
-        color: #fff;
+        font-size: @font-size-sm;
+        color: white;
         padding-right: 10px;
       }
 

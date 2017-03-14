@@ -1,42 +1,37 @@
-<div class="cover-photo" style="height: {{ branch.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ branch.coverUrl }}'), url('{{ branch.coverUrlThumb }}')"></div>
-<div id="branch-frame" class="frame">
-  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isModerator() && branch.coverUrl" tooltip-text="'Upload New Cover'" offset-y="30" offset-x="-100">
-  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="branch.coverUrl && showCover" tooltip-text="'Hide Cover'" offset-y="30" offset-x="-60">
-  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="branch.coverUrl && !showCover" tooltip-text="'Show Cover'" offset-y="30" offset-x="-60">
-  <div class="content">
-    <div loading when="isLoading">
-      <div id="branch-info" class="nav-column">
-        <h1 tooltip-text="branch.id" offset-y="40">{{ branch.name }}</h1>
-        <h2 id="inf-symbol" ng-show="branch.parentid == 'none'">&infin;</h2>
-        <h2 ng-show="branch.parentid != 'none'"><span ng-show="parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: branch.parentid })" tooltip-text="parent.id" offset-y="20">{{ parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: branch.id })" tooltip-text="branch.id" offset-y="20">{{ branch.name }}</a></h2>
-        <div id="branch-picture" style="background-image: url('{{ branch.profileUrl }}'), url('{{ branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
-          <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isModerator()" tooltip-text="'Upload New Image'" offset-y="30">
-        </div>
-        <ul id="branch-controls">
-          <li>
-            <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }" >
-              <img src="/assets/images/icons/black/nucleus.png" tooltip-text="'Nucleus'" offset-y="60" offset-x="-15">
-            </a>
-          </li>
-          <li>
-            <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
-              <img src="/assets/images/icons/black/branch.png" tooltip-text="'Child Branches'" offset-y="60" offset-x="-15">
-            </a>
-          </li>
-          <li>
-            <a ui-sref="weco.branch.wall({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('wall') }">
-              <img src="/assets/images/icons/black/wall.png" tooltip-text="'Wall'" offset-y="60" offset-x="-15">
-            </a>
-          </li>
-          <li>
-            <a id="add-content" ng-click="addContent()" ng-class="{ 'disabled': !canAddContent() }">
-              <img src="/assets/images/icons/black/add.png" tooltip-text="getAddContentTooltip()" offset-y="60" offset-x="-15">
-            </a>
-          </li>
-        </ul>
+<cover-photo image-url="branch.coverUrl" thumb-url="branch.coverUrlThumb" is-open="showCover" can-edit="isModerator()"></cover-photo>
+<div class="cover-page page">
+  <div id="branch-frame" class="frame" loading when="isLoading">
+    <div id="branch-info" class="frame-column">
+      <h1>{{ branch.name }}</h1>
+      <h2 id="inf-symbol" ng-show="branch.parentid === 'none'">&infin;</h2>
+      <h2 ng-show="branch.parentid !== 'none'"><span ng-show="parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: branch.parentid })">{{ parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: branch.id })">{{ branch.name }}</a></h2>
+      <div class="frame-column-picture" style="background-image: url('{{ branch.profileUrl }}'), url('{{ branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isModerator()">
       </div>
-      <div id="branch-content" class="content-column" ui-view>
-      </div>
+      <ul id="branch-controls">
+        <li>
+          <a ui-sref="weco.branch.nucleus.about({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('nucleus') }" >
+            <img src="/assets/images/icons/black/nucleus.png">
+          </a>
+        </li>
+        <li>
+          <a ui-sref="weco.branch.subbranches({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('subbranches') }">
+            <img src="/assets/images/icons/black/branch.png">
+          </a>
+        </li>
+        <li>
+          <a ui-sref="weco.branch.wall({ branchid: branchid })" ng-class="{ 'selected' : isControlSelected('wall') }">
+            <img src="/assets/images/icons/black/wall.png">
+          </a>
+        </li>
+        <li>
+          <a id="add-content" ng-click="addContent()" ng-class="{ 'disabled': !canAddContent() }">
+            <img src="/assets/images/icons/black/add.png">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="frame-content" ui-view>
     </div>
   </div>
 </div>

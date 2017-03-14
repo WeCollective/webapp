@@ -1,7 +1,7 @@
 <div id="resolve-flag-post-modal" ng-controller="modalResolveFlagPostController">
   <div id="resolve-flag-post-modal-content" loading when="isLoading">
     <h1>Review Post</h1>
-    <p>{{ errorMessage }}</p>
+    <p class="error-message">{{ errorMessage }}</p>
     <p>This post has:</p>
     <ul id="flag-list">
       <li>{{ post.wrong_type_count }} flag{{ post.wrong_type_count != 1 ? 's' : '' }} for an incorrect content tag</li>

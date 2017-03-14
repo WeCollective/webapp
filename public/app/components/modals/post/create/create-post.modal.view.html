@@ -1,7 +1,7 @@
 <div id="create-post-modal" ng-controller="modalCreatePostController">
-  <h1>Submit a Post</h1>
-  <p>{{ errorMessage }}</p>
   <div loading when="isLoading" class="clearfix">
+    <h1>Submit a Post</h1>
+    <p class="error-message">{{ errorMessage }}</p>
     <div id="create-post-picture" ng-show="!isUploading">
       <div id="dragdrop"
            ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
@@ -24,7 +24,7 @@
       <tag-editor items="newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
     </div>
     <!-- detach textarea from create-post-inputs so it flows below profile image -->
-    <textarea ng-show="!isUploading && !preview && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')" ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
+    <textarea id="post-description" ng-show="!isUploading && !preview && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')" ng-model="newPost.text" placeholder="Describe this post..." type="text"></textarea>
     <input ng-show="!isUploading && (postType.items[postType.idx] != 'TEXT' && postType.items[postType.idx] != 'POLL')" ng-model="newPost.text" placeholder="URL" type="text"></input>
     <div id="preview-content" marked="newPost.text" ng-show="!isUploading && preview && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')"></div>
     <p id="preview-post" ng-click="togglePreview()" ng-show="!isUploading && newPost.text.length > 0 && (postType.items[postType.idx] == 'TEXT' || postType.items[postType.idx] == 'POLL')">{{ preview ? 'Edit...' : 'Preview...' }}</p>

@@ -1,29 +1,28 @@
-<div class="cover-photo" style="height: {{ user.coverUrl && !isLoading && showCover ? '35%' : '0' }}; background-image: url('{{ user.coverUrl }}'), url('{{ user.coverUrlThumb }}')"></div>
-<div class="frame" id="profile-frame">
-  <img class="cover-control" id="edit-cover" src="/assets/images/icons/black/edit.png" ng-click="openCoverPictureModal()" ng-show="isMyProfile() && user.coverUrl" tooltip-text="'Upload New Cover'" offset-y="30" offset-x="-100">
-  <img class="cover-control" id="hide-cover" src="/assets/images/icons/black/hide.png" ng-click="hideCoverPicture()" ng-show="user.coverUrl && showCover" tooltip-text="'Hide Cover'" offset-y="30" offset-x="-60">
-  <img class="cover-control" id="show-cover" src="/assets/images/icons/black/show.png" ng-click="showCoverPicture()" ng-show="user.coverUrl && !showCover" tooltip-text="'Show Cover'" offset-y="30" offset-x="-60">
-  <div class="content">
-    <div loading when="isLoading">
-      <div id="profile-info" class="nav-column">
-        <h1>{{ user.firstname }} {{ user.lastname }}</h1>
-        <h2>{{ user.username }}</h2>
-        <div id="profile-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-          <img id="edit-profile" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()" tooltip-text="'Upload New Image'" offset-y="30">
-        </div>
-        <ul>
-          <li># of Posts: <span>{{ user.num_posts }}</span></li>
-          <li># of Comments: <span>{{ user.num_comments }}</span></li>
-          <li>Branches Created: <span>{{ user.num_branches }}</span></li>
-          <li>Moderator Positions: <span>{{ user.num_mod_positions }}</span></li>
-        </ul>
+<cover-photo image-url="user.coverUrl" thumb-url="user.coverUrlThumb" is-open="showCover" can-edit="isModerator()"></cover-photo>
+<div class="cover-page page">
+  <div id="profile-frame" class="frame" loading when="isLoading">
+    <div id="profile-info" class="frame-column">
+      <h1>{{ user.firstname }} {{ user.lastname }}</h1>
+      <h2>{{ user.username }}</h2>
+      <div class="frame-column-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()" tooltip-text="'Upload New Image'" offset-y="30">
       </div>
-      <div id="profile-content" class="content-column">
-        <div id="content-header">
+      <ul>
+        <li># of Posts: <span>{{ user.num_posts }}</span></li>
+        <li># of Comments: <span>{{ user.num_comments }}</span></li>
+        <li>Branches Created: <span>{{ user.num_branches }}</span></li>
+        <li>Moderator Positions: <span>{{ user.num_mod_positions }}</span></li>
+      </ul>
+    </div>
+    <div class="frame-content">
+      <div id="profile-content">
+        <div class="content-header">
           <h1>Profile</h1>
-          <tabs items="tabItems" states="tabStates"></tabs>
+          <div class="content-controls">
+            <tabs items="tabItems" states="tabStates"></tabs>
+          </div>
         </div>
-        <div ui-view></div>
+        <div class="content-body" ui-view></div>
       </div>
     </div>
   </div>

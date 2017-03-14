@@ -1,0 +1,40 @@
+div#nucleus-moderators-list-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  ul {
+    a {
+      li {
+        display: inline-block;
+        text-align: center;
+        margin-right: 5px;
+
+        div.mod-picture {
+          width: 80px;
+          .responsive(@screen-sm, { width: 120px; });
+          .responsive(@screen-md, { width: 150px; });
+          height: 80px;
+          .responsive(@screen-sm, { height: 120px; });
+          .responsive(@screen-md, { height: 150px; });
+          margin: 0 auto 5px auto;
+          border-radius: 3px;
+          background-position: center;
+          background-size: cover;
+        }
+        span {
+          font-size: @font-size-xs;
+          .responsive(@screen-sm, { font-size: @font-size-sm; });
+          font-weight: @font-weight-heavy;
+        }
+
+        &:hover {
+          cursor: pointer;
+          div.mod-picture {
+            box-shadow: @shadow-2;
+          }
+        }
+      }
+    }
+  }
+}

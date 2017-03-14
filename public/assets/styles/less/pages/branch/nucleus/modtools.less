@@ -1,0 +1,70 @@
+div#nucleus-modtools-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  ul#nucleus-modtools-properties {
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    li {
+      padding: 5px 0;
+
+      span {
+        font-size: @font-size-sm;
+        font-weight: @font-weight-heavy;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+
+        &.danger {
+          color: @caution-0;
+        }
+      }
+    }
+  }
+
+  ul#nucleus-modtools-log {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1;
+
+    div {
+      h2 {
+        font-size: @font-size-md;
+      }
+      h3 {
+        margin-top: 10px;
+        font-size: @font-size-sm;
+        font-style: italic;
+        font-weight: @font-weight-normal;
+        color: @dark-grey;
+      }
+
+      li {
+        padding: 10px 0;
+        div {
+          font-size: @font-size-sm;
+          &.time {
+            float: left;
+            width: 150px;
+            color: @dark-grey;
+          }
+          &.entry {
+            float: left;
+            width: calc(~'100% - 150px');
+          }
+          a {
+            color: @accent-0;
+            font-weight: @font-weight-heavy;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+}

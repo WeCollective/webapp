@@ -1,7 +1,8 @@
 // MIXINS
 @import './mixins/colours.less';
 @import './mixins/shadows.less';
-@import './mixins/responsive.less';
+@import './mixins/layout.less';
+@import './mixins/components.less';
 
 // CORE
 @import './fonts.less';
@@ -10,50 +11,33 @@
 
 // COMPONENTS
 @import './components/nav.less';
-@import './components/tabs.less';
+@import './components/cover-photo.less';
 @import './components/dropdown.less';
-@import './components/loading.less';
+@import './components/tabs.less';
 @import './components/tag-editor.less';
-@import './components/write-comment.less';
-@import './components/comment-thread.less';
+@import './components/loading.less';
 @import './components/alerts.less';
-@import './components/tooltip.less';
-@import './components/poll-answer-editor.less';
-
-// PAGES
-@import './pages/notfound/notfound.less';
-@import './pages/home/home.less';
-@import './pages/auth/auth.less';
-@import './pages/verify/verify.less';
-@import './pages/reset-password/reset-password.less';
-@import './pages/profile/profile.less';
-@import './pages/profile/about.less';
-@import './pages/profile/settings.less';
-@import './pages/profile/notifications.less';
-@import './pages/branch/branch.less';
-@import './pages/branch/subbranches.less';
-@import './pages/branch/wall.less';
-@import './pages/branch/post.less';
-@import './pages/branch/nucleus.less';
-@import './pages/branch/nucleus.about.less';
-@import './pages/branch/nucleus.settings.less';
-@import './pages/branch/nucleus.moderators.less';
-@import './pages/branch/nucleus.modtools.less';
-@import './pages/branch/nucleus.flaggedposts.less';
 
 // MODALS
-@import './modals/modal.less';
-@import './modals/profile-settings.modal.less';
-@import './modals/nucleus-settings.modal.less';
-@import './modals/nucleus-update-homepage-stats.modal.less';
-@import './modals/upload-image.modal.less';
-@import './modals/create-branch.modal.less';
-@import './modals/add-mod.modal.less';
-@import './modals/remove-mod.modal.less';
-@import './modals/submit-subbranch-request.modal.less';
-@import './modals/review-subbranch-requests.modal.less';
-@import './modals/delete-branch.modal.less';
-@import './modals/create-post.modal.less';
-@import './modals/delete-post.modal.less';
-@import './modals/flag-post.modal.less';
-@import './modals/resolve-flag-post.modal.less';
+@import './components/modal.less';
+@import './components/modal/upload-image.less';
+@import './components/modal/branch/create.less';
+@import './components/modal/branch/nucleus/remove-mod.less';
+@import './components/modal/branch/nucleus/review-subbranch-request.less';
+@import './components/modal/post/create-post.less';
+@import './components/modal/post/flag-post.less';
+@import './components/modal/post/resolve-flag-post.less';
+
+// PAGES
+@import './pages/auth/auth.less';
+@import './pages/home/home.less';
+@import './pages/not-found/not-found.less';
+@import './pages/branch/branch.less';
+@import './pages/branch/branch.subbranches.less';
+@import './pages/branch/branch.nucleus.less';
+@import './pages/branch/branch.wall.less';
+@import './pages/profile/profile.less';
+
+
+// TODO: remove these old styles and refactor
+@import './pages/branch/branch.post.less';

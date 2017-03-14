@@ -7,9 +7,6 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
   $scope.isLoading = true;
   $scope.User = User;
 
-  $scope.showCoverPicture = function() { $scope.showCover = true; };
-  $scope.hideCoverPicture = function() { $scope.showCover = false; };
-
   // Time filter dropdown configuration
   $scope.timeItems = ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR'];
   $scope.getTimeafter = function(timeItem) {
