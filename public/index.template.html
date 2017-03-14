@@ -46,31 +46,9 @@
     <!-- PRERENDER IO WILL CACHE WHEN prerenderReady SET TO TRUE -->
     <script>window.prerenderReady = false;</script>
     <!-- DEPENDENCIES -->
-    <!-- @if ENV='local' -->
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
-    <!-- @endif -->
-    <!-- @if ENV='development' -->
-    <script src="http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/socket.io/socket.io.js"></script>
-    <!-- @endif -->
-    <!-- @if ENV='production' -->
-    <script src="https://wecoapi.com/socket.io/socket.io.js"></script>
-    <!-- @endif -->
-    <script src="/dependencies/node/angular/angular.min.js"></script>
-    <script src="/dependencies/node/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/dependencies/node/angular-resource/angular-resource.min.js"></script>
-    <script src="/dependencies/node/angular-animate/angular-animate.min.js"></script>
-    <script src="/dependencies/node/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="/dependencies/node/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
-    <script src="/dependencies/node/ng-file-upload/dist/ng-file-upload.min.js"></script>
-    <script src="/dependencies/node/angular-marked/dist/angular-marked.min.js"></script>
-    <script src="/dependencies/node/marked/marked.min.js"></script>
-    <!-- NOTE: The google analytics script is concatenated and minified with weco.min.js.
-         This is so that AdBlock and other plugins dont block the script which prevents
-         Angular from bootstrapping -->
-    <!-- POLYFILLS -->
-    <script src="/dependencies/node/es6-promise-polyfill/promise.min.js"></script>
+    <script src="%SOCKET_IO_ENDPOINT%"></script>
 
     <!-- ROOT -->
-    <script src="/weco.min.js"></script>
+    <script src="/dist/weco.min.js"></script>
   </body>
 </html>

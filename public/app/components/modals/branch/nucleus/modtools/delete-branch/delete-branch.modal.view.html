@@ -1,9 +1,0 @@
-<div id="nucleus-deletebranch-modal" ng-controller="modalNucleusDeleteBranchController">
-  <div loading when="isLoading">
-    <h1>Remove a Child Branch</h1>
-    <p class="error-message">{{ errorMessage }}</p>
-    <div id="nucleus-deletebranch-inputs">
-      <input ng-model="data.branchid" placeholder="Unique Name of the Branch to be Deleted" type="text" ng-change="data.branchid = data.branchid.split(' ').join('')"></input>
-    </div>
-  </div>
-</div>
