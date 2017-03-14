@@ -14,6 +14,10 @@ app.directive('coverPhoto', ['$state', 'Modal', function($state, Modal) {
       $scope.showCoverPicture = function() { $scope.isOpen = true; };
       $scope.hideCoverPicture = function() { $scope.isOpen = false; };
 
+      $scope.hasUrls = function() {
+          return Boolean($scope.imageUrl()) && Boolean($scope.thumbUrl());
+      };
+
       $scope.openCoverPictureModal = function() {
         Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
           .then(function(result) {
