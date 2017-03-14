@@ -11,6 +11,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-babel');
 
   // Configure tasks
   grunt.initConfig({
@@ -22,8 +23,9 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'server.js', 'public/**/*.js'],
       options: {
-        node: true, // tell jshint we are using nodejs to avoid incorrect errors
-        globals: {  // list of global variables and whether they are assignable
+        esversion: 6, // using es6
+        node: true,   // tell jshint we are using nodejs to avoid incorrect errors
+        globals: {    // list of global variables and whether they are assignable
           "angular": false,
           "Promise": false,
           "alert": false
@@ -34,6 +36,17 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['public/**/*.js', 'node_modules/angular-google-analytics/dist/angular-google-analytics.js'],
+        dest: 'public/weco.js',
+      }
+    },
+    // transpilation
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['es2015']
+      },
+      dist: {
+        src: ['public/weco.js'],
         dest: 'public/weco.js',
       }
     },
@@ -212,7 +225,7 @@ module.exports = function(grunt) {
   **                          (either "development" or "production"), merging into production if needed.
   */
   grunt.registerTask('js', ['clean', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'preprocess:development', 'jshint', 'concat', 'uglify', 'less']);
+  grunt.registerTask('build:development', ['clean', 'ngconstant:development', 'preprocess:development', 'jshint', 'concat', 'babel', 'uglify', 'less']);
   grunt.registerTask('build:production', ['clean', 'ngconstant:production', 'preprocess:production', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('build:local', ['clean', 'ngconstant:local', 'preprocess:local', 'jshint', 'concat', 'uglify', 'less']);
   grunt.registerTask('serve:local', ['build:local', 'concurrent:serve']);
