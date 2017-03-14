@@ -51,7 +51,8 @@ nav#nav-bar {
 
         // WE Cube
         a#wecube:first-child img {
-            height: calc(~'100% + 17px');
+            height: calc(~'100% + 14px');
+            .responsive(@screen-sm, { height: calc(~'100% + 17px'); });
             width: auto;
 
             &#animation {
@@ -139,11 +140,11 @@ nav#nav-bar {
             }
 
             a div#profile {
-                .nav-divider-left();
                 position: relative;
                 display: inline-block;
                 height: 100%;
                 .pseudo-vert-center();
+                .responsive(@screen-sm, { .nav-divider-left(); });
 
                 &.selected {
                     color: white;
@@ -153,6 +154,8 @@ nav#nav-bar {
                     vertical-align: middle;
                     color: @primary-6;
                     margin-right: 5px;
+                    display: none;
+                    .responsive(@screen-sm, { display: inline-block; });
 
                     &:hover {
                         color: white;
