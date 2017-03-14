@@ -6,12 +6,14 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var jshint = require('gulp-jshint');
+var less = require('gulp-less');
 var del = require('del');
 var replace = require('gulp-replace');
 var rename = require("gulp-rename");
 
 var environment = process.env.NODE_ENV || 'development';
 var APP_DIR = path.join(__dirname, 'public/app');
+var ASSETS_DIR = path.join(__dirname, 'public/assets');
 var DEST_DIR = path.join(__dirname, 'public/dist');
 
 gulp.task('webpack', function(done) {
@@ -85,10 +87,17 @@ gulp.task('template:index', function() {
     .pipe(gulp.dest(path.join(__dirname, 'public')));
 });
 
+gulp.task('less', function () {
+  return gulp.src(path.join(ASSETS_DIR, 'styles/app.less'))
+    .pipe(less())
+    .pipe(rename('app.css'))
+    .pipe(gulp.dest(DEST_DIR));
+});
+
 gulp.task('build', function(done) {
   if(argv.production) { environment = 'production'; }
   if(argv.development) { environment = 'development'; }
   if(argv.local) { environment = 'local'; }
 
-  runSequence('template:config', 'lint', 'template:config', 'clean', 'webpack', done);
+  runSequence('clean', 'template:config', 'less', 'lint', 'template:config', 'webpack', done);
 });
