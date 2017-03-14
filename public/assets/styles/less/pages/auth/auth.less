@@ -1,0 +1,112 @@
+div#auth-background {
+  overflow-y: scroll;
+  background: @primary-light;
+  background: -webkit-radial-gradient(@primary-light, @primary-dark);
+  background: -o-radial-gradient(@primary-light, @primary-dark);
+  background: -moz-radial-gradient(@primary-light, @primary-dark);
+  background: radial-gradient(@primary-light, @primary-dark);
+  text-align: center;
+
+  a#logo {
+    display: block;
+    width: 60px;
+    height: 60px;
+    padding: 30px 0 20px 0;
+    margin: auto;
+    .responsive(@screen-md, {
+      width: 100px;
+      height: 100px;
+      padding: 60px 0 40px 0;
+    });
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  h1 {
+    font-size: @font-size-md;
+    font-weight: @font-weight-light;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    .responsive(@screen-md, {
+      font-size: @font-size-lg;
+      margin-bottom: 40px;
+    });
+  }
+
+  form {
+    padding: 0 15px;
+    input {
+      display: block;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      font-weight: @font-weight-normal;
+      font-size: @font-size-sm;
+      .responsive(@screen-md, {
+        font-size: @font-size-md;
+        padding: 15px;
+      });
+
+      &[name="username"] {
+        text-transform: lowercase;
+      }
+
+      &[type="text"], &[type="email"], &[type="password"] {
+        background-color: @light-grey;
+        color: @text-dark;
+      }
+
+      &[type="submit"] {
+        background-color: @accent-1;
+        color: white;
+        font-weight: 500;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: @shadow-2;
+          letter-spacing: 3px;
+          transition: all 0.3s ease-out;
+          background-color: @accent-0;
+        }
+      }
+
+      &[disabled] {
+        background-color: @dark-grey;
+
+        &:hover {
+          background-color: @dark-grey;
+          box-shadow: none;
+          letter-spacing: normal;
+          cursor: auto;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  p {
+    color: white;
+    font-weight: @font-weight-light;
+    font-size: @font-size-sm;
+    .responsive(@screen-md, {
+      font-size: @font-size-md;
+    });
+
+    a, &#resend-verification {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
