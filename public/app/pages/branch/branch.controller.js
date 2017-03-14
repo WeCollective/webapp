@@ -90,6 +90,18 @@ app.controller('branchController', ['$scope', '$rootScope', '$state', '$timeout'
       });
   };
 
+  $scope.openCoverPictureModal = function() {
+    Modal.open('/app/components/modals/upload/upload-image.modal.view.html', { route: 'branch/' + $scope.branchid + '/', type: 'cover' })
+      .then(function(result) {
+        // reload state to force profile reload if OK was pressed
+        if(result) {
+          $state.go($state.current, {}, {reload: true});
+        }
+      }, function() {
+        Alerts.push('error', 'Unable to update cover picture.');
+      });
+  };
+
   function createBranch() {
     Modal.open('/app/components/modals/branch/create/create-branch.modal.view.html', {
         branchid: $scope.branchid
