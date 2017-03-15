@@ -9,14 +9,12 @@ class UserService extends Injectable {
   }
   fetch(username) {
     return new Promise(function(resolve, reject) {
-      Generator.run(function* () {
-        let user = yield this.API.fetch('/user/:username', {
+      Generator.run(function* (self) {
+        let user = yield self.API.fetch('/user/:username', {
           username: username
-        });
-        if(user) return resolve(user);
-        return reject();
-      });
-    });
+        });        
+      }, this);
+    }.bind(this));
   }
 }
 UserService.$inject = ['API', 'ENV'];

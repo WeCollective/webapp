@@ -1,8 +1,8 @@
 class Generator {
-  static run(g) {
+  // run an es6 generator function through to completion
+  static run(g, ...args) {
     const isPromise = (obj) => obj instanceof Promise;
-    var iterator = g(), result;
-
+    var iterator = g(...args), result;
     // asynchronously iterate over generator
     (function iterate(val) {
       result = iterator.next(val);

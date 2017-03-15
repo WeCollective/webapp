@@ -5,11 +5,6 @@ class AppController extends Injectable {
     super(AppController.$inject, injections);
 
     this.socketioURL = this.ENV.apiEndpoint + 'socket.io/socket.io.js';
-    this.UserService.fetch('me').then(function(me) {
-      console.log("RESOLVE", me);
-    }).catch(function() {
-      console.log("ERROR");
-    });
   }
   hasNavBar() {
     if(this.$state.current.name.indexOf('auth') > -1 ||
@@ -21,6 +16,6 @@ class AppController extends Injectable {
     }
   }
 }
-AppController.$inject = ['$state', 'ENV', 'UserService'];
+AppController.$inject = ['$state', 'ENV'];
 
 export default AppController;

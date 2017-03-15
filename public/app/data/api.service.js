@@ -11,11 +11,10 @@ class API extends Injectable {
     return str.join("&");
   }
   request(method, url, params, data) {
-    console.log("REQ");
     return new Promise(function(resolve, reject) {
       if(url[0] !== '/') url = '/' + url;
       for(let paramName of Object.keys(params)) {
-        url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
+        url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
       }
       let req = {
         method: method,
@@ -27,9 +26,9 @@ class API extends Injectable {
       };
       if(method === 'PUT' || method === 'POST') req.data = data;
       this.$http(req).then(resolve, reject);
-    });
+    }.bind(this));
   }
-  fetch(url, params) { console.log("!!!"); return this.request('GET', url, params); }
+  fetch(url, params) { return this.request('GET', url, params); }
   save(url, params) { return this.request('POST', url, params); }
   update(url, params) { return this.request('PUT', url, params); }
   delete(url, params) { return this.request('DELETE', url, params); }
