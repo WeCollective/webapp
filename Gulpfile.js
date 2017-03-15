@@ -23,7 +23,11 @@ var WEBPACK_CONFIG = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
+    modules: [
+      path.resolve(APP_DIR),
+      path.resolve('./node_modules')
+    ]
   },
   module : {
     loaders : [{
@@ -79,13 +83,17 @@ gulp.task('template:config', function() {
 });
 
 gulp.task('template:index', function() {
-  var socketIOEndpoint;
+  var socketIOEndpoint, wecoAppScript = 'bundle.js';
   if(environment === 'local') socketIOEndpoint = 'http://localhost:8080/socket.io/socket.io.js';
   if(environment === 'development') socketIOEndpoint = 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/socket.io/socket.io.js';
-  if(environment === 'production') socketIOEndpoint = 'https://wecoapi.com/socket.io/socket.io.js';
+  if(environment === 'production') {
+    socketIOEndpoint = 'https://wecoapi.com/socket.io/socket.io.js';
+    wecoAppScript = 'bundle.min.js';
+  }
 
   return gulp.src([path.join(__dirname, 'public/index.template.html')])
     .pipe(replace(/%SOCKET_IO_ENDPOINT%/g, socketIOEndpoint))
+    .pipe(replace(/%WECO_APP_SCRIPT%/g, wecoAppScript))
     .pipe(rename('index.html'))
     .pipe(gulp.dest(path.join(__dirname, 'public')));
 });
@@ -102,14 +110,14 @@ gulp.task('build', function(done) {
   if(argv.development) { environment = 'development'; }
   if(argv.local) { environment = 'local'; }
 
-  runSequence('clean', 'template:config', 'less', 'lint', 'template:config', 'webpack', done);
+  runSequence('clean', 'template:config', 'template:index', 'less', 'lint', 'webpack', done);
 });
 
 gulp.task('nodemon', function() {
   nodemon({
     ext: 'js html less',
     watch: 'public',
-    ignore: ['public/dist/*', 'public/app/env.config.js'],
+    ignore: ['public/dist/*', 'public/app/env.config.js', 'public/index.html'],
     script: 'server.js',
     verbose: true,
     tasks: ['build']

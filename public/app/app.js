@@ -1,15 +1,10 @@
+// APP DEPENDENCIES
 import angular from 'angular';
-import ENV from './env.config.js';
-import AppConfig from './app.config.js';
-import AppFilters from './app.filters.js';
-import NotificationTypes from './components/notification/notification-types.config.js';
-
-// app dependency modules
 import UIRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import ngSanitize from 'angular-sanitize';
 import ngFileUpload from 'ng-file-upload';
-import marked from 'marked';
+import ngMarked from 'angular-marked';
 import ngGoogleAnalytics from 'angular-google-analytics';
 
 let app = angular.module(
@@ -18,21 +13,34 @@ let app = angular.module(
     ngAnimate,
     ngSanitize,
     ngFileUpload,
-    marked,
+    ngMarked,
     ngGoogleAnalytics
-    // ,'api'
   ]
 );
 
 // CONSTANTS
+import ENV from 'env.config.js';
+app.constant('ENV', ENV);
+
+import NotificationTypes from 'components/notification/notification-types.config.js';
 app.constant('NotificationTypes', NotificationTypes);
 
+// FILTERS
+import AppFilters from 'app.filters.js';
+app.filter('reverse', AppFilters.reverse);
+app.filter('capitalize', AppFilters.capitalize);
+
 // CONFIG
-app.config('ENV', ENV);
+import AppConfig from 'app.config.js';
+import AppRoutes from 'app.routes.js';
 app.config(['markedProvider', AppConfig.markdown]);
 app.config(['$sceDelegateProvider', AppConfig.urlWhitelist]);
 app.config(['AnalyticsProvider', 'ENV', AppConfig.analytics]);
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', AppRoutes]);
 
-// FILTERS
-app.filter('reverse', AppFilters.reverse);
-app.filter('capitalize', AppFilters.capitalize);
+// CONTROLLERS
+import AppController from 'app.controller.js';
+app.controller('AppController', AppController);
+
+import HomeController from 'pages/home/home.controller.js';
+app.controller('HomeController', HomeController);

@@ -37,7 +37,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/dist/app.css" />
   </head>
-  <body ng-app="wecoApp" ng-controller="rootController" ng-class="{ 'modalOpen': modalOpen() }">
+  <body ng-app="wecoApp" ng-controller="AppController as app" ng-class="{ 'modalOpen': app.modalOpen() }">
     <tooltip></tooltip>
     <alerts></alerts>
     <div modal></div>
@@ -47,8 +47,17 @@
     <script>window.prerenderReady = false;</script>
     <!-- DEPENDENCIES -->
     <script src="%SOCKET_IO_ENDPOINT%"></script>
+    <script src="/dependencies/node/angular/angular.min.js"></script>
+    <script src="/dependencies/node/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/dependencies/node/angular-resource/angular-resource.min.js"></script>
+    <script src="/dependencies/node/angular-animate/angular-animate.min.js"></script>
+    <script src="/dependencies/node/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/dependencies/node/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+    <script src="/dependencies/node/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <script src="/dependencies/node/angular-marked/dist/angular-marked.min.js"></script>
+    <script src="/dependencies/node/marked/marked.min.js"></script>
 
     <!-- ROOT -->
-    <script src="/dist/weco.min.js"></script>
+    <script src="/dist/%WECO_APP_SCRIPT%"></script>
   </body>
 </html>
