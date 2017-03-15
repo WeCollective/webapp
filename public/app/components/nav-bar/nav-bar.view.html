@@ -18,27 +18,27 @@
     </div>
 
     <div id="user-controls">
-      <a id="login" ui-sref="auth.login" ng-show="!user().username">
+      <a id="login" ui-sref="auth.login" ng-show="!NavBar.UserService.isAuthenticated()">
         <span class="text">Log In</span>
       </a>
-      <a id="signup" ui-sref="auth.signup" ng-show="!user().username">
+      <a id="signup" ui-sref="auth.signup" ng-show="!NavBar.UserService.isAuthenticated()">
         <span class="text">Sign up</span>
       </a>
-      <a ui-sref="weco.profile.notifications({ username: user().username })" ng-show="user().username">
-        <div id="notifications" ng-show="user().username" ng-class="{ 'opaque': notificationCount > 0 }">
+      <a ui-sref="weco.profile.notifications({ username: NavBar.UserService.isAuthenticated() })" ng-show="NavBar.UserService.isAuthenticated()">
+        <div id="notifications" ng-show="NavBar.UserService.isAuthenticated()" ng-class="{ 'opaque': notificationCount > 0 }">
           <img src="assets/images/icons/white/notification.png">
           <div id="notification-count" ng-show="showNotificationCount()">
             <span>{{ notificationCount > 9 ? '9+' : notificationCount }}</span>
           </div>
         </div>
       </a>
-      <a ui-sref="weco.profile.about({ username: user().username })" ng-show="user().username">
+      <a ui-sref="weco.profile.about({ username: NavBar.UserService.isAuthenticated() })" ng-show="NavBar.UserService.isAuthenticated()">
         <div id="profile" ng-class="{ 'selected' : isControlSelected('profile') }">
-          <span class="text">{{ user().username }}</span>
+          <span class="text">{{ UserService.user.username }}</span>
           <div id="profile-picture" style="background-image: url('{{ user().profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
         </div>
       </a>
-      <div id="expand" ng-show="user().username">
+      <div id="expand" ng-show="NavBar.UserService.isAuthenticated()">
         <img src="assets/images/icons/white/nav-expand.png" ng-click="toggleNav()" ng-class="{ 'expanded': isNavExpanded() }">
       </div>
     </div>

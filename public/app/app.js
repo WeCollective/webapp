@@ -53,3 +53,9 @@ import AppController from 'app.controller';
 registrar.controller('AppController', AppController);
 import HomeController from 'pages/home/home.controller';
 registrar.controller('HomeController', HomeController);
+
+// Components
+import NavBarComponent from 'components/nav-bar/nav-bar.directive';
+import NavBarController from 'components/nav-bar/nav-bar.controller';
+registrar.directive('navBar', NavBarComponent);
+registrar.controller('NavBarController', NavBarComponent);

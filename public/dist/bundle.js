@@ -63,19 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(20);
-module.exports = angular;
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96,10 +88,18 @@ class Injectable {
 /* harmony default export */ __webpack_exports__["a"] = Injectable;
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(23);
+module.exports = angular;
+
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(17);
+__webpack_require__(20);
 module.exports = 'ngAnimate';
 
 
@@ -112,13 +112,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   if (typeof module !== 'undefined' && module.exports) {
     if (typeof angular === 'undefined') {
-      factory(__webpack_require__(0));
+      factory(__webpack_require__(1));
     } else {
       factory(angular);
     }
     module.exports = 'angular-google-analytics';
   } else if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1418,7 +1418,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 
-var unindent = __webpack_require__(18);
+var unindent = __webpack_require__(21);
 
   /**
    * @ngdoc overview
@@ -1598,7 +1598,7 @@ function markedProvider() {
     var m;
 
     try {
-      m = __webpack_require__(22);
+      m = __webpack_require__(25);
     } catch (err) {
       m = $window.marked || marked;
     }
@@ -1762,7 +1762,7 @@ module.exports =
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(19);
+__webpack_require__(22);
 module.exports = 'ngSanitize';
 
 
@@ -6415,7 +6415,7 @@ let AppConfig = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(0);
 
 
 class AppController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
@@ -6441,7 +6441,7 @@ AppController.$inject = ['$state', 'ENV'];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
 
@@ -6648,6 +6648,131 @@ let AppRoutes = function ($stateProvider, $urlRouterProvider, $locationProvider)
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(0);
+
+
+class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NavBarController.$inject, injections);
+  }
+}
+NavBarController.$inject = ['UserService'];
+
+/* unused harmony default export */ var _unused_webpack_default_export = NavBarController;
+
+//   link: function($scope, element, attrs) {
+//     $scope.user = User.me;
+//
+//     $scope.logout = function() {
+//       $scope.expanded = false;
+//       User.logout().then(function() {
+//         // successful logout; go to login page
+//         $state.go('auth.login');
+//       }, function() {
+//         Alerts.push('error', 'Unable to log out.');
+//       });
+//     };
+//
+//     // return true if the given branch control is selected,
+//     // i.e. if the current state contains the control name
+//     $scope.isControlSelected = function(control) {
+//       return $state.current.name.indexOf(control) > -1 && $state.params.branchid == 'root';
+//     };
+//
+//     $scope.onHomePage = function() {
+//       return $state.current.name == 'weco.home';
+//     };
+//
+//     $scope.expanded = false;
+//     $scope.isNavExpanded = function() {
+//       return $scope.expanded;
+//     };
+//
+//     $scope.toggleNav = function() {
+//       getFollowedBranches();
+//       $scope.expanded = !$scope.expanded;
+//     };
+//
+//     $scope.notificationCount = 0;
+//     function getUnreadNotificationCount() {
+//       if(!User.me().username) { return; }
+//       User.getNotifications(User.me().username, true).then(function(count) {
+//         $timeout(function () {
+//           $scope.notificationCount = count;
+//         });
+//       }, function(err) {
+//         Alerts.push('error', 'Error fetching notifications.');
+//       });
+//     }
+//
+//     $scope.followedBranches = [];
+//     function getFollowedBranches() {
+//       User.getFollowedBranches(User.me().username).then(function(branches) {
+//         $scope.followedBranches = branches;
+//       }, function(err) {
+//         $scope.followedBranches = [];
+//       });
+//     }
+//
+//     $scope.$watch(function() {
+//       return User.me().username;
+//     }, function() {
+//       getUnreadNotificationCount();
+//       getFollowedBranches();
+//     });
+//
+//     $scope.$on('$stateChangeSuccess', getUnreadNotificationCount);
+//     socket.on('notification', 'notifications', getUnreadNotificationCount);
+//
+//     $scope.showNotificationCount = function() {
+//       return $scope.notificationCount > 0;
+//     };
+//
+//     var animationSrc = '';
+//     $scope.triggerAnimation = function () {
+//       // set animation src to the animated gif
+//       $timeout(function () {
+//         animationSrc = '/assets/images/logo-animation.gif';
+//       });
+//       // cancel after 1 sec
+//       $timeout(function () {
+//         animationSrc = '';
+//       }, 1000);
+//     };
+//
+//     $scope.getAnimationSrc = function () {
+//       return animationSrc;
+//     };
+//   }
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(0);
+
+
+class NavBarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NavBarComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.templateUrl = '/app/components/nav-bar/nav-bar.view.html';
+    this.controller = 'NavBarController';
+    this.controllerAs = 'NavBar';
+  }
+}
+NavBarComponent.$inject = ['UserService', '$state'];
+
+/* harmony default export */ __webpack_exports__["a"] = NavBarComponent;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 // configure notification type constants (matches server)
 const NotificationTypes = {
   'NEW_CHILD_BRANCH_REQUEST': 0,
@@ -6663,11 +6788,11 @@ const NotificationTypes = {
 /* harmony default export */ __webpack_exports__["a"] = NotificationTypes;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(0);
 
 
 class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
@@ -6715,12 +6840,12 @@ API.$inject = ['$http', 'ENV'];
 /* harmony default export */ __webpack_exports__["a"] = API;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(24);
 
 
 
@@ -6729,6 +6854,9 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     super(UserService.$inject, injections);
 
     this.user = {};
+  }
+  isAuthenticated() {
+    return !!this.user && Object.keys(this.user).length > 0;
   }
   fetch(username) {
     return new Promise(function (resolve, reject) {
@@ -6745,7 +6873,7 @@ UserService.$inject = ['API', 'ENV'];
 /* harmony default export */ __webpack_exports__["a"] = UserService;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6758,11 +6886,11 @@ let ENV = {
 /* harmony default export */ __webpack_exports__["a"] = ENV;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(0);
 
 
 class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
@@ -6789,14 +6917,138 @@ HomeController.$inject = ['$http', 'ENV', '$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = HomeController;
 
 /***/ }),
-/* 16 */
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+
+
+class ComponentRegistrar {
+  constructor(appName) {
+    this.app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(appName);
+  }
+
+  directive(name, constructorFn) {
+    constructorFn = this._normalizeConstructor(constructorFn);
+    if (!constructorFn.prototype.compile) {
+      // create an empty compile function if none was defined.
+      constructorFn.prototype.compile = () => {};
+    }
+
+    let originalCompileFn = this._cloneFunction(constructorFn.prototype.compile);
+
+    // Decorate the compile method to automatically return the link method (if it exists)
+    // and bind it to the context of the constructor (so `this` works correctly).
+    // This gets around the problem of a non-lexical "this" which occurs when the directive class itself
+    // returns `this.link` from within the compile function.
+    this._override(constructorFn.prototype, 'compile', function () {
+      return function () {
+        originalCompileFn.apply(this, arguments);
+        if (constructorFn.prototype.link) {
+          return constructorFn.prototype.link.bind(this);
+        }
+      };
+    });
+
+    var factoryArray = this._createFactoryArray(constructorFn);
+
+    this.app.directive(name, factoryArray);
+    return this;
+  }
+
+  controller(name, contructorFn) {
+    this.app.controller(name, contructorFn);
+    return this;
+  }
+
+  service(name, contructorFn) {
+    this.app.service(name, contructorFn);
+    return this;
+  }
+
+  provider(name, constructorFn) {
+    this.app.provider(name, constructorFn);
+    return this;
+  }
+
+  factory(name, constructorFn) {
+    constructorFn = this._normalizeConstructor(constructorFn);
+    var factoryArray = this._createFactoryArray(constructorFn);
+    this.app.factory(name, factoryArray);
+    return this;
+  }
+
+  /*
+   * If the constructorFn is an array of type ['dep1', 'dep2', ..., constructor() {}]
+   * we need to pull out the array of dependencies and add it as an $inject property of the
+   * actual constructor function.
+   */
+  _normalizeConstructor(input) {
+    let constructorFn;
+    if (input.constructor === Array) {
+      var injected = input.slice(0, input.length - 1);
+      constructorFn = input[input.length - 1];
+      constructorFn.$inject = injected;
+    } else {
+      constructorFn = input;
+    }
+    return constructorFn;
+  }
+
+  /*
+   * Convert a constructor function into a factory function which returns a new instance of that
+   * constructor, with the correct dependencies automatically injected as arguments.
+   *
+   * In order to inject the dependencies, they must be attached to the constructor function with the
+   * `$inject` property annotation.
+   */
+  _createFactoryArray(constructorFn) {
+    // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
+    let args = constructorFn.$inject || [];
+    let factoryArray = args.slice(); // create a copy of the array
+    // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
+    // dependency, and the final item is the factory function itself.
+    factoryArray.push((...args) => {
+      //return new constructorFn(...args);
+      var instance = new constructorFn(...args);
+      for (var key in instance) {
+        instance[key] = instance[key];
+      }
+      return instance;
+    });
+    return factoryArray;
+  }
+
+  /*
+   * Clone a function
+   */
+  _cloneFunction(original) {
+    return function () {
+      return original.apply(this, arguments);
+    };
+  }
+
+  /**
+   * Override an object's method with a new one specified by `callback`.
+   */
+  _override(object, methodName, callback) {
+    object[methodName] = callback(object[methodName]);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ComponentRegistrar;
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(23);
+__webpack_require__(26);
 module.exports = 'ngFileUpload';
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports) {
 
 /**
@@ -10957,7 +11209,7 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = function unindent(text) {
@@ -10992,7 +11244,7 @@ module.exports = function unindent(text) {
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /**
@@ -11754,7 +12006,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /**
@@ -45104,7 +45356,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45140,7 +45392,7 @@ class Generator {
 /* harmony default export */ __webpack_exports__["a"] = Generator;
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -46430,10 +46682,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /**!
@@ -49337,7 +49589,7 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
 
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports) {
 
 var g;
@@ -49364,12 +49616,12 @@ module.exports = g;
 
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_ui_router__);
@@ -49377,21 +49629,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_animate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_sanitize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_file_upload__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular_marked__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_env_config__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_notification_notification_types_config_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_env_config__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_notification_notification_types_config_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_filters__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_config__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_routes__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_data_api_service__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_data_user_service__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_controller__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_pages_home_home_controller__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_data_api_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_data_user_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_app_controller__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_pages_home_home_controller__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_components_nav_bar_nav_bar_directive__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_components_nav_bar_nav_bar_controller__ = __webpack_require__(11);
 // APP DEPENDENCIES
 
 
@@ -49423,19 +49678,27 @@ app.config(['$sceDelegateProvider', __WEBPACK_IMPORTED_MODULE_10_app_config__["a
 app.config(['AnalyticsProvider', 'ENV', __WEBPACK_IMPORTED_MODULE_10_app_config__["a" /* default */].analytics]);
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', __WEBPACK_IMPORTED_MODULE_11_app_routes__["a" /* default */]]);
 
-// SERVICES
+// REGISTER COMPONENTS
 
-app.service('API', __WEBPACK_IMPORTED_MODULE_12_data_api_service__["a" /* default */]);
+let registrar = new __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__["a" /* default */]('wecoApp');
+
+// Services
+
+registrar.service('API', __WEBPACK_IMPORTED_MODULE_13_data_api_service__["a" /* default */]);
+
+registrar.service('UserService', __WEBPACK_IMPORTED_MODULE_14_data_user_service__["a" /* default */]);
+
+// Controllers
+
+registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_15_app_controller__["a" /* default */]);
+
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_16_pages_home_home_controller__["a" /* default */]);
+
+// Components
 
 
-app.service('UserService', __WEBPACK_IMPORTED_MODULE_13_data_user_service__["a" /* default */]);
-
-// CONTROLLERS
-
-app.controller('AppController', __WEBPACK_IMPORTED_MODULE_14_app_controller__["a" /* default */]);
-
-
-app.controller('HomeController', __WEBPACK_IMPORTED_MODULE_15_pages_home_home_controller__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_17_components_nav_bar_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavBarController', __WEBPACK_IMPORTED_MODULE_17_components_nav_bar_nav_bar_directive__["a" /* default */]);
 
 /***/ })
 /******/ ]);

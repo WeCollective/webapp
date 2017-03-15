@@ -1,11 +1,11 @@
-<div id="home-content" ng-controller="HomeController as home">
-  <img ng-src="{{ home.getHomepageImageURL() }}">
+<div id="home-content" ng-controller="HomeController as Home">
+  <img ng-src="{{ Home.getHomepageImageURL() }}">
   <form action="/search" ng-hide="true"> <!-- Temporarily hiding search bar -->
     <input type="text" placeholder="Search all..."></input>
     <img src="/assets/images/icons/black/search.png">
   </form>
 </div>
-<div id="home-footer" ng-controller="HomeController as home">
+<div id="home-footer" ng-controller="HomeController as Home">
   <div id="footer-stats">
     <ul id="fields">
       <li><span>USERS</span></li>
@@ -14,10 +14,10 @@
       <li><span>WAITING TO BE GIVEN</span></li>
     </ul>
     <ul id="values">
-      <li><span>{{ home.stats.user_count }}</span></li>
-      <li><span>{{ home.stats.branch_count }}</span></li>
-      <li><span>£{{ home.stats.donation_total }}</span></li>
-      <li><span>£{{ home.stats.raised_total }}</span></li>
+      <li><span>{{ Home.stats.user_count }}</span></li>
+      <li><span>{{ Home.stats.branch_count }}</span></li>
+      <li><span>£{{ Home.stats.donation_total }}</span></li>
+      <li><span>£{{ Home.stats.raised_total }}</span></li>
     </ul>
   </div>
   <ul id="footer-links">
