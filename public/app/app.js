@@ -38,16 +38,18 @@ app.config(['$sceDelegateProvider', AppConfig.urlWhitelist]);
 app.config(['AnalyticsProvider', 'ENV', AppConfig.analytics]);
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', AppRoutes]);
 
-// SERVICES
+// REGISTER COMPONENTS
+import ComponentRegistrar from 'utils/component-registrar';
+let registrar = new ComponentRegistrar('wecoApp');
+
+// Services
 import API from 'data/api.service';
-app.service('API', API);
-
+registrar.service('API', API);
 import UserService from 'data/user.service';
-app.service('UserService', UserService);
+registrar.service('UserService', UserService);
 
-// CONTROLLERS
+// Controllers
 import AppController from 'app.controller';
-app.controller('AppController', AppController);
-
+registrar.controller('AppController', AppController);
 import HomeController from 'pages/home/home.controller';
-app.controller('HomeController', HomeController);
+registrar.controller('HomeController', HomeController);
