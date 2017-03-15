@@ -19,28 +19,35 @@ let app = angular.module(
 );
 
 // CONSTANTS
-import ENV from 'env.config.js';
+import ENV from 'env.config';
 app.constant('ENV', ENV);
 
 import NotificationTypes from 'components/notification/notification-types.config.js';
 app.constant('NotificationTypes', NotificationTypes);
 
 // FILTERS
-import AppFilters from 'app.filters.js';
+import AppFilters from 'app.filters';
 app.filter('reverse', AppFilters.reverse);
 app.filter('capitalize', AppFilters.capitalize);
 
 // CONFIG
-import AppConfig from 'app.config.js';
-import AppRoutes from 'app.routes.js';
+import AppConfig from 'app.config';
+import AppRoutes from 'app.routes';
 app.config(['markedProvider', AppConfig.markdown]);
 app.config(['$sceDelegateProvider', AppConfig.urlWhitelist]);
 app.config(['AnalyticsProvider', 'ENV', AppConfig.analytics]);
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', AppRoutes]);
 
+// SERVICES
+import API from 'data/api.service';
+app.service('API', API);
+
+import UserService from 'data/user.service';
+app.service('UserService', UserService);
+
 // CONTROLLERS
-import AppController from 'app.controller.js';
+import AppController from 'app.controller';
 app.controller('AppController', AppController);
 
-import HomeController from 'pages/home/home.controller.js';
+import HomeController from 'pages/home/home.controller';
 app.controller('HomeController', HomeController);

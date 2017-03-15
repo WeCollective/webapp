@@ -71,9 +71,9 @@ gulp.task('template', function(done) {
 
 gulp.task('template:config', function() {
   var apiEndpoint;
-  if(environment === 'local') apiEndpoint = 'http://localhost:8080/v1/';
-  if(environment === 'development') apiEndpoint = 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/';
-  if(environment === 'production') apiEndpoint = 'https://wecoapi.com/v1/';
+  if(environment === 'local') apiEndpoint = 'http://localhost:8080/v1';
+  if(environment === 'development') apiEndpoint = 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1';
+  if(environment === 'production') apiEndpoint = 'https://wecoapi.com/v1';
 
   return gulp.src([path.join(APP_DIR, 'env.config.template.js')])
     .pipe(replace(/%ENV_NAME%/g, environment))
@@ -120,6 +120,7 @@ gulp.task('nodemon', function() {
     ignore: ['public/dist/*', 'public/app/env.config.js', 'public/index.html'],
     script: 'server.js',
     verbose: true,
+    delay: 500,
     tasks: ['build']
   });
 });

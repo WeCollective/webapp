@@ -1,4 +1,4 @@
-import Injectable from 'injectable';
+import Injectable from 'utils/injectable';
 
 class HomeController extends Injectable {
   constructor(...injections) {

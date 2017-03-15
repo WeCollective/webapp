@@ -63,14 +63,14 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(18);
+__webpack_require__(20);
 module.exports = angular;
 
 
@@ -99,7 +99,7 @@ class Injectable {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(15);
+__webpack_require__(17);
 module.exports = 'ngAnimate';
 
 
@@ -1418,7 +1418,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 
-var unindent = __webpack_require__(16);
+var unindent = __webpack_require__(18);
 
   /**
    * @ngdoc overview
@@ -1598,7 +1598,7 @@ function markedProvider() {
     var m;
 
     try {
-      m = __webpack_require__(19);
+      m = __webpack_require__(22);
     } catch (err) {
       m = $window.marked || marked;
     }
@@ -1762,7 +1762,7 @@ module.exports =
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(17);
+__webpack_require__(19);
 module.exports = 'ngSanitize';
 
 
@@ -6415,14 +6415,19 @@ let AppConfig = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
 
 
-class AppController extends __WEBPACK_IMPORTED_MODULE_0_injectable_js__["a" /* default */] {
+class AppController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
   constructor(...injections) {
     super(AppController.$inject, injections);
 
     this.socketioURL = this.ENV.apiEndpoint + 'socket.io/socket.io.js';
+    this.UserService.fetch('me').then(function (me) {
+      console.log("RESOLVE", me);
+    }).catch(function () {
+      console.log("ERROR");
+    });
   }
   hasNavBar() {
     if (this.$state.current.name.indexOf('auth') > -1 || this.$state.current.name.indexOf('verify') > -1 || this.$state.current.name.indexOf('reset-password') > -1) {
@@ -6432,7 +6437,7 @@ class AppController extends __WEBPACK_IMPORTED_MODULE_0_injectable_js__["a" /* d
     }
   }
 }
-AppController.$inject = ['$state', 'ENV'];
+AppController.$inject = ['$state', 'ENV', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = AppController;
 
@@ -6667,23 +6672,108 @@ const NotificationTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* Template file from which env.config.js is generated */
-let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1/'
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
-/* harmony default export */ __webpack_exports__["a"] = ENV;
+
+class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(API.$inject, injections);
+  }
+  makeFormEncoded(data, headersGetter) {
+    let str = [];
+    for (let d in data) str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return str.join("&");
+  }
+  request(method, url, params, data) {
+    console.log("REQ");
+    return new Promise(function (resolve, reject) {
+      if (url[0] !== '/') url = '/' + url;
+      for (let paramName of Object.keys(params)) {
+        url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
+      }
+      let req = {
+        method: method,
+        url: this.ENV.apiEndpoint + url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        transformRequest: this.makeFormEncoded
+      };
+      if (method === 'PUT' || method === 'POST') req.data = data;
+      this.$http(req).then(resolve, reject);
+    });
+  }
+  fetch(url, params) {
+    console.log("!!!");return this.request('GET', url, params);
+  }
+  save(url, params) {
+    return this.request('POST', url, params);
+  }
+  update(url, params) {
+    return this.request('PUT', url, params);
+  }
+  delete(url, params) {
+    return this.request('DELETE', url, params);
+  }
+}
+API.$inject = ['$http', 'ENV'];
+
+/* harmony default export */ __webpack_exports__["a"] = API;
 
 /***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(21);
 
 
-class HomeController extends __WEBPACK_IMPORTED_MODULE_0_injectable__["a" /* default */] {
+
+class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(UserService.$inject, injections);
+
+    this.user = {};
+  }
+  fetch(username) {
+    return new Promise(function (resolve, reject) {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        let user = yield this.API.fetch('/user/:username', {
+          username: username
+        });
+        if (user) return resolve(user);
+        return reject();
+      });
+    });
+  }
+}
+UserService.$inject = ['API', 'ENV'];
+
+/* harmony default export */ __webpack_exports__["a"] = UserService;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* Template file from which env.config.js is generated */
+let ENV = {
+   name: 'development',
+   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ENV;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(HomeController.$inject, injections);
 
@@ -6707,14 +6797,14 @@ HomeController.$inject = ['$http', 'ENV', '$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = HomeController;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(20);
+__webpack_require__(23);
 module.exports = 'ngFileUpload';
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /**
@@ -10870,7 +10960,7 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = function unindent(text) {
@@ -10905,7 +10995,7 @@ module.exports = function unindent(text) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 /**
@@ -11650,7 +11740,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 /**
@@ -44789,7 +44879,43 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 19 */
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Generator {
+  static run(g) {
+    const isPromise = obj => obj instanceof Promise;
+    var iterator = g(),
+        result;
+
+    // asynchronously iterate over generator
+    (function iterate(val) {
+      result = iterator.next(val);
+
+      if (!result.done) {
+        // yielded a native ES6 promise
+        if (isPromise(result.value)) {
+          // invoke iterate with the arguments of the promise result
+          result.value.then(iterate);
+        }
+        // yielded an immediate value
+        else {
+            // wrap in setTimeout to avoid synchronous recursion
+            setTimeout(function () {
+              // invoke iterate with the argument which is immediately available
+              iterate(result.value);
+            }, 0);
+          }
+      }
+    })();
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = Generator;
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -46079,10 +46205,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /**!
@@ -48986,7 +49112,7 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports) {
 
 var g;
@@ -49013,7 +49139,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49026,19 +49152,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_animate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_sanitize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_file_upload__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular_marked__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_env_config_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_env_config__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_notification_notification_types_config_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_filters_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_config_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_routes_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_app_controller_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_pages_home_home_controller_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_filters__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_routes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_data_api_service__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_data_user_service__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_controller__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_pages_home_home_controller__ = __webpack_require__(15);
 // APP DEPENDENCIES
 
 
@@ -49052,30 +49180,37 @@ let app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('wecoApp', [__W
 
 // CONSTANTS
 
-app.constant('ENV', __WEBPACK_IMPORTED_MODULE_7_env_config_js__["a" /* default */]);
+app.constant('ENV', __WEBPACK_IMPORTED_MODULE_7_env_config__["a" /* default */]);
 
 
 app.constant('NotificationTypes', __WEBPACK_IMPORTED_MODULE_8_components_notification_notification_types_config_js__["a" /* default */]);
 
 // FILTERS
 
-app.filter('reverse', __WEBPACK_IMPORTED_MODULE_9_app_filters_js__["a" /* default */].reverse);
-app.filter('capitalize', __WEBPACK_IMPORTED_MODULE_9_app_filters_js__["a" /* default */].capitalize);
+app.filter('reverse', __WEBPACK_IMPORTED_MODULE_9_app_filters__["a" /* default */].reverse);
+app.filter('capitalize', __WEBPACK_IMPORTED_MODULE_9_app_filters__["a" /* default */].capitalize);
 
 // CONFIG
 
 
-app.config(['markedProvider', __WEBPACK_IMPORTED_MODULE_10_app_config_js__["a" /* default */].markdown]);
-app.config(['$sceDelegateProvider', __WEBPACK_IMPORTED_MODULE_10_app_config_js__["a" /* default */].urlWhitelist]);
-app.config(['AnalyticsProvider', 'ENV', __WEBPACK_IMPORTED_MODULE_10_app_config_js__["a" /* default */].analytics]);
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', __WEBPACK_IMPORTED_MODULE_11_app_routes_js__["a" /* default */]]);
+app.config(['markedProvider', __WEBPACK_IMPORTED_MODULE_10_app_config__["a" /* default */].markdown]);
+app.config(['$sceDelegateProvider', __WEBPACK_IMPORTED_MODULE_10_app_config__["a" /* default */].urlWhitelist]);
+app.config(['AnalyticsProvider', 'ENV', __WEBPACK_IMPORTED_MODULE_10_app_config__["a" /* default */].analytics]);
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', __WEBPACK_IMPORTED_MODULE_11_app_routes__["a" /* default */]]);
+
+// SERVICES
+
+app.service('API', __WEBPACK_IMPORTED_MODULE_12_data_api_service__["a" /* default */]);
+
+
+app.service('UserService', __WEBPACK_IMPORTED_MODULE_13_data_user_service__["a" /* default */]);
 
 // CONTROLLERS
 
-app.controller('AppController', __WEBPACK_IMPORTED_MODULE_12_app_controller_js__["a" /* default */]);
+app.controller('AppController', __WEBPACK_IMPORTED_MODULE_14_app_controller__["a" /* default */]);
 
 
-app.controller('HomeController', __WEBPACK_IMPORTED_MODULE_13_pages_home_home_controller_js__["a" /* default */]);
+app.controller('HomeController', __WEBPACK_IMPORTED_MODULE_15_pages_home_home_controller__["a" /* default */]);
 
 /***/ })
 /******/ ]);
