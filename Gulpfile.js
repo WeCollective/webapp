@@ -4,42 +4,44 @@ var runSequence = require('run-sequence');
 var gutil = require('gulp-util');
 var path = require('path');
 var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
 var del = require('del');
 var replace = require('gulp-replace');
 var rename = require("gulp-rename");
+var nodemon = require("gulp-nodemon");
 
 var environment = process.env.NODE_ENV || 'development';
 var APP_DIR = path.join(__dirname, 'public/app');
 var ASSETS_DIR = path.join(__dirname, 'public/assets');
 var DEST_DIR = path.join(__dirname, 'public/dist');
+var WEBPACK_CONFIG = {
+  entry: path.join(APP_DIR, 'app.js'),
+  output: {
+    filename: environment === 'production' ? 'bundle.min.js' : 'bundle.js',
+    path: DEST_DIR
+  },
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['.js']
+  },
+  module : {
+    loaders : [{
+      test : /\.js$/,
+      include : APP_DIR,
+      loader : 'babel-loader'
+    }]
+  },
+  plugins: environment === 'production' ? [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ] : []
+};
 
 gulp.task('webpack', function(done) {
-  webpack({
-    entry: path.join(APP_DIR, 'app.js'),
-    output: {
-      filename: environment === 'production' ? 'bundle.min.js' : 'bundle.js',
-      path: DEST_DIR
-    },
-    devtool: 'source-map',
-    resolve: {
-      extensions: ['.js']
-    },
-    module : {
-      loaders : [{
-        test : /\.js$/,
-        include : APP_DIR,
-        loader : 'babel-loader'
-      }]
-    },
-    plugins: environment === 'production' ? [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false }
-      })
-    ] : []
-  }, function(err, stats) {
+  WEBPACK_CONFIG.output.filename = environment === 'production' ? 'bundle.min.js' : 'bundle.js';
+  webpack(WEBPACK_CONFIG, function(err, stats) {
       if(err) throw new gutil.PluginError('webpack', err);
       gutil.log('[webpack]', stats.toString());
       done();
@@ -49,7 +51,8 @@ gulp.task('webpack', function(done) {
 gulp.task('lint', function() {
   return gulp.src([path.join(APP_DIR, '**/*.js'), path.join('!', APP_DIR, '**/*.template.js')])
     .pipe(jshint({
-      esversion: 6
+      esversion: 6,
+      strict: 'implied'
     }))
     .pipe(jshint.reporter('default'));
 });
@@ -100,4 +103,19 @@ gulp.task('build', function(done) {
   if(argv.local) { environment = 'local'; }
 
   runSequence('clean', 'template:config', 'less', 'lint', 'template:config', 'webpack', done);
+});
+
+gulp.task('nodemon', function() {
+  nodemon({
+    ext: 'js html less',
+    watch: 'public',
+    ignore: ['public/dist/*', 'public/app/env.config.js'],
+    script: 'server.js',
+    verbose: true,
+    tasks: ['build']
+  });
+});
+
+gulp.task('serve', function(done) {
+  runSequence('build', 'nodemon', done);
 });

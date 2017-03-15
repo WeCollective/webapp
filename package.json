@@ -38,14 +38,13 @@
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.4",
     "gulp-less": "^3.3.0",
+    "gulp-nodemon": "^2.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.8",
     "jshint": "^2.9.4",
     "run-sequence": "^1.2.2",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2",
-    "webpack-stream": "^3.2.0",
     "yargs": "^7.0.2"
   }
 }
