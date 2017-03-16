@@ -6,6 +6,7 @@ import ngSanitize from 'angular-sanitize';
 import ngFileUpload from 'ng-file-upload';
 import ngMarked from 'angular-marked';
 import ngGoogleAnalytics from 'angular-google-analytics';
+import CacheFactory from 'angular-cache';
 
 let app = angular.module(
   'wecoApp', [
@@ -14,7 +15,8 @@ let app = angular.module(
     ngSanitize,
     ngFileUpload,
     ngMarked,
-    ngGoogleAnalytics
+    ngGoogleAnalytics,
+    CacheFactory
   ]
 );
 

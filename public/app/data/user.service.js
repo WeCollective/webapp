@@ -6,14 +6,16 @@ class UserService extends Injectable {
     super(UserService.$inject, injections);
 
     this.user = {};
-    this.fetch('me').then((response) => {
-      this.user = response.data;
+    this.fetch('me').then((user) => {
+      this.user = user;
     }).catch(() => {});
   }
-  
+
   isAuthenticated() {
     return !!this.user && Object.keys(this.user).length > 0;
   }
+
+  test() { console.log(this.user); }
 
   login(credentials) {
     return new Promise(function(resolve, reject) {

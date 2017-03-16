@@ -1,4 +1,5 @@
 import Injectable from 'utils/injectable.js';
+import angular from 'angular';
 
 class AppConfig extends Injectable {
   constructor(...injections) {
@@ -25,8 +26,19 @@ class AppConfig extends Injectable {
     }
     this.AnalyticsProvider.setPageEvent('$stateChangeSuccess');
     this.AnalyticsProvider.logAllCalls(true);
+
+    // cache
+    angular.extend(this.CacheFactoryProvider.defaults, {
+      maxAge: 3600000,
+      deleteOnExpire: 'aggressive',
+      onExpire: function (key, value) {
+        angular.injector(['ng']).get('$http').get(key).success(function (data) {
+          this.put(key, data);
+        }.bind(this));
+      }
+    });
   }
 }
-AppConfig.$inject = ['markedProvider', '$sceDelegateProvider', 'AnalyticsProvider', 'ENV'];
+AppConfig.$inject = ['markedProvider', '$sceDelegateProvider', 'AnalyticsProvider', 'ENV', 'CacheFactoryProvider'];
 
 export default AppConfig;

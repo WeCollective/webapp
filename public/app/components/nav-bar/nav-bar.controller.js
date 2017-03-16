@@ -9,6 +9,10 @@ class NavBarController extends Injectable {
     this.animationSrc = '';
   }
 
+  test() {
+    this.UserService.test();
+  }
+
   logout() {
     this.expanded = false;
     this.UserService.logout().then(() => {
