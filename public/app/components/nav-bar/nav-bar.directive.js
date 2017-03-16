@@ -1,4 +1,5 @@
 import Injectable from 'utils/injectable';
+import NavBarController from 'components/nav-bar/nav-bar.controller';
 
 class NavBarComponent extends Injectable {
   constructor(...injections) {
@@ -7,10 +8,10 @@ class NavBarComponent extends Injectable {
     this.restrict = 'E';
     this.replace = true;
     this.templateUrl = '/app/components/nav-bar/nav-bar.view.html';
-    this.controller = 'NavBarController';
     this.controllerAs = 'NavBar';
+    this.controller = 'NavBarController';
   }
 }
-NavBarComponent.$inject = ['UserService', '$state'];
+NavBarComponent.$inject = [];
 
 export default NavBarComponent;
