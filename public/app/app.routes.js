@@ -17,8 +17,7 @@ let AppRoutes = function($stateProvider, $urlRouterProvider, $locationProvider) 
     // Log In/Sign Up state
     .state('auth', {
       abstract: true,
-      templateUrl: '/app/pages/auth/auth.view.html',
-      controller: 'authController'
+      templateUrl: '/app/pages/auth/auth.view.html'
     })
     .state('auth.login', {
       url: '/login'

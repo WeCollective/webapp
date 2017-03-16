@@ -11,12 +11,12 @@ class Generator {
         // yielded a native ES6 promise
         if (isPromise(result.value)) {
           // invoke iterate with the arguments of the promise result
-          result.value.then(iterate);
+          result.value.then(iterate).catch((err) => { iterator.throw(err); });
         }
         // yielded an immediate value
         else {
           // wrap in setTimeout to avoid synchronous recursion
-          setTimeout( function(){
+          setTimeout(() => {
             // invoke iterate with the argument which is immediately available
             iterate(result.value);
           }, 0);

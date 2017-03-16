@@ -1,0 +1,20 @@
+<div id="auth-background" class="full-page" ng-controller="AuthController as Auth">
+  <a ui-sref="weco.home" id="logo">
+    <img id="animation" ng-src="{{ Auth.getAnimationSrc() }}">
+  </a>
+  <h1>{{ Auth.isLoginForm() ? 'Log In' : 'Create New Account'}}</h1>
+  <p id="auth-error-message">{{ Auth.errorMessage }}</p>
+  <p id="resend-verification" ng-show="Auth.showResendVerification" ng-click="Auth.resendVerification()">Resend verification email.</p>
+  <form ng-submit="Auth.submit()">
+    <input type="text" name="firstname" ng-model="Auth.credentials.firstname" placeholder="First name" ng-show="!Auth.isLoginForm()" ng-required="!Auth.isLoginForm()"></input>
+    <input type="text" name="lastname" ng-model="Auth.credentials.lastname" placeholder="Last name" ng-show="!Auth.isLoginForm()" ng-required="!Auth.isLoginForm()"></input>
+    <input type="text" name="username" ng-model="Auth.credentials.username" placeholder="Username" required></input>
+    <input type="email" name="email" ng-model="Auth.credentials.email" placeholder="Email" ng-show="!Auth.isLoginForm()" ng-required="!Auth.isLoginForm()"></input>
+    <input type="password" name="password" ng-model="Auth.credentials.password" placeholder="Password" required></input>
+    <input ng-show="!Auth.isLoginForm()" type="password" name="password" ng-model="Auth.credentials.confirmPassword" placeholder="Confirm Password" ng-required="!Auth.isLoginForm()"></input>
+    <input type="submit" value="{{ Auth.isLoginForm() ? 'LOGIN' : 'SIGN UP' }}" ng-disabled="Auth.isLoading"></input>
+  </form>
+  <p ng-show="Auth.isLoginForm()"><a ui-sref="reset-password.request">Forgot your password?</a></p>
+  <p ng-show="Auth.isLoginForm()">New Here? <a ui-sref="auth.signup">Create a new account.</a></p>
+  <p ng-show="!Auth.isLoginForm()">Already have an account? <a ui-sref="auth.login">Log in.</a></p>
+</div>
