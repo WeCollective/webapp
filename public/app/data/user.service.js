@@ -4,18 +4,17 @@ import Generator from 'utils/generator';
 class UserService extends Injectable {
   constructor(...injections) {
     super(UserService.$inject, injections);
-
     this.user = {};
     this.fetch('me').then((user) => {
       this.user = user;
-    }).catch(() => {});
+    })
+    .catch(() => {})
+    .then(this.$timeout);
   }
 
   isAuthenticated() {
     return !!this.user && Object.keys(this.user).length > 0;
   }
-
-  test() { console.log(this.user); }
 
   login(credentials) {
     return new Promise(function(resolve, reject) {
@@ -39,18 +38,16 @@ class UserService extends Injectable {
     }.bind(this));
   }
 
-  // User.signup = function(credentials) {
-  //   return new Promise(function(resolve, reject) {
-  //     UserAPI.signup(credentials, function() {
-  //       resolve();
-  //     }, function(response) {
-  //       reject({
-  //         status: response.status,
-  //         message: response.data.message
-  //       });
-  //     });
-  //   });
-  // };
+  signup(credentials) {
+    return new Promise(function(resolve, reject) {
+      this.API.request('POST', '/user', {}, credentials)
+        .then(resolve)
+        .catch((response) => {
+          return reject(response.data || response);
+        }
+      );
+    }.bind(this));
+  }
 
   fetch(username) {
     return new Promise(function(resolve, reject) {
@@ -60,15 +57,17 @@ class UserService extends Injectable {
           let response = yield self.API.fetch('/user/:username', { username: username });
           let user = response.data;
 
-          // attach url for the user's profile and cover pictures (inc. thumbnails)
-          response = yield self.API.fetch('/user/me/:picture', { picture: 'picture' });
-          user.profileUrl = response.data;
-          response = yield self.API.fetch('/user/me/:picture', { picture: 'picture-thumb' });
-          user.profileUrlThumb = response.data;
-          response = yield self.API.fetch('/user/me/:picture', { picture: 'cover' });
-          user.coverUrl = response.data;
-          response = yield self.API.fetch('/user/me/:picture', { picture: 'cover-thumb' });
-          user.coverUrlThumb = response.data;
+          try {
+            // attach urls for the user's profile and cover pictures (inc. thumbnails)
+            response = yield self.API.fetch('/user/me/:picture', { picture: 'picture' });
+            user.profileUrl = response.data;
+            response = yield self.API.fetch('/user/me/:picture', { picture: 'picture-thumb' });
+            user.profileUrlThumb = response.data;
+            response = yield self.API.fetch('/user/me/:picture', { picture: 'cover' });
+            user.coverUrl = response.data;
+            response = yield self.API.fetch('/user/me/:picture', { picture: 'cover-thumb' });
+            user.coverUrlThumb = response.data;
+          } catch(err) { /* It's okay if we don't have any photos */ }
 
           return resolve(user);
         } catch(response) { return reject(response.data || response); }
@@ -76,6 +75,6 @@ class UserService extends Injectable {
     }.bind(this));
   }
 }
-UserService.$inject = ['API', 'ENV'];
+UserService.$inject = ['API', 'ENV', '$timeout'];
 
 export default UserService;

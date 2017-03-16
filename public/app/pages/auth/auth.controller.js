@@ -56,11 +56,11 @@ class AuthController extends Injectable {
       this.loopAnimation = false;
       this.$state.go('weco.home');
       // Alerts.push('success', 'Check your inbox to verify your account!', true);
-    }, function(response) {
+    }.bind(this), function(response) {
       this.errorMessage = response.message;
       this.isLoading = false;
       this.loopAnimation = false;
-    });
+    }.bind(this));
   }
 
   resendVerification() {
