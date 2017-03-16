@@ -33,6 +33,11 @@ class ComponentRegistrar {
     return this;
   }
 
+  config(contructorFn) {
+    this.app.config(contructorFn);
+    return this;
+  }
+
   controller(name, contructorFn) {
     this.app.controller(name, contructorFn);
     return this;

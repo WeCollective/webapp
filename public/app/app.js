@@ -30,17 +30,15 @@ import AppFilters from 'app.filters';
 app.filter('reverse', AppFilters.reverse);
 app.filter('capitalize', AppFilters.capitalize);
 
-// CONFIG
-import AppConfig from 'app.config';
-import AppRoutes from 'app.routes';
-app.config(['markedProvider', AppConfig.markdown]);
-app.config(['$sceDelegateProvider', AppConfig.urlWhitelist]);
-app.config(['AnalyticsProvider', 'ENV', AppConfig.analytics]);
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', AppRoutes]);
-
 // REGISTER COMPONENTS
 import ComponentRegistrar from 'utils/component-registrar';
 let registrar = new ComponentRegistrar('wecoApp');
+
+// Config
+import AppConfig from 'app.config';
+registrar.config(AppConfig);
+import AppRoutes from 'app.routes';
+registrar.config(AppRoutes);
 
 // Services
 import API from 'data/api.service';
@@ -60,4 +58,4 @@ registrar.controller('AuthController', AuthController);
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
 import NavBarController from 'components/nav-bar/nav-bar.controller';
 registrar.directive('navBar', NavBarComponent);
-registrar.controller('NavBarController', NavBarComponent);
+registrar.controller('NavBarController', NavBarController);

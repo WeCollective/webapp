@@ -1,27 +1,32 @@
-let AppConfig = {
-  markdown: (markedProvider) => {
-    markedProvider.setOptions({
-      gfm: true,      // GitHub flavoured markdown
+import Injectable from 'utils/injectable.js';
+
+class AppConfig extends Injectable {
+  constructor(...injections) {
+    super(AppConfig.$inject, injections);
+
+    // GitHub flavoured markdown
+    this.markedProvider.setOptions({
+      gfm: true,
       sanitize: true
     });
-  },
-  urlWhitelist: ($sceDelegateProvider) => {
+
     // whitelist YouTube urls with Angular's sanitizer to allow video embedding
-    $sceDelegateProvider.resourceUrlWhitelist([
+    this.$sceDelegateProvider.resourceUrlWhitelist([
       'self',
       '*://www.youtube.com/**'
     ]);
-  },
-  analytics: (AnalyticsProvider, ENV) => {
-    AnalyticsProvider.setAccount('UA-84400255-1');
-    if(ENV.name === 'production') {
-      AnalyticsProvider.setDomainName('weco.io');
+
+    // analytics
+    this.AnalyticsProvider.setAccount('UA-84400255-1');
+    if(this.ENV.name === 'production') {
+      this.AnalyticsProvider.setDomainName('weco.io');
     } else {
-      AnalyticsProvider.setDomainName('none');
+      this.AnalyticsProvider.setDomainName('none');
     }
-    // Using ui-router, which fires $stateChangeSuccess instead of $routeChangeSuccess
-    AnalyticsProvider.setPageEvent('$stateChangeSuccess');
-    AnalyticsProvider.logAllCalls(true);
+    this.AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+    this.AnalyticsProvider.logAllCalls(true);
   }
-};
+}
+AppConfig.$inject = ['markedProvider', '$sceDelegateProvider', 'AnalyticsProvider', 'ENV'];
+
 export default AppConfig;
