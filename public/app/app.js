@@ -47,6 +47,8 @@ import API from 'data/api.service';
 registrar.service('API', API);
 import UserService from 'data/user.service';
 registrar.service('UserService', UserService);
+import AlertsService from 'components/alerts/alerts.service';
+registrar.service('AlertsService', AlertsService);
 
 // Controllers
 import AppController from 'app.controller';
@@ -61,3 +63,6 @@ import NavBarComponent from 'components/nav-bar/nav-bar.directive';
 import NavBarController from 'components/nav-bar/nav-bar.controller';
 registrar.directive('navBar', NavBarComponent);
 registrar.controller('NavBarController', NavBarController);
+
+import Alerts from 'components/alerts/alerts.directive';
+registrar.directive('alerts', Alerts);

@@ -14,7 +14,7 @@ class NavBarController extends Injectable {
     this.UserService.logout().then(() => {
       this.$state.go('auth.login');
     }).catch(() => {
-      // Alerts.push('error', 'Unable to log out.');
+      this.AlertsService.push('error', 'Unable to log out.');
     });
   }
 
@@ -42,6 +42,6 @@ class NavBarController extends Injectable {
     this.$timeout(() => { this.animationSrc = ''; }, 1000);
   }
 }
-NavBarController.$inject = ['$timeout', 'UserService', '$state'];
+NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService'];
 
 export default NavBarController;

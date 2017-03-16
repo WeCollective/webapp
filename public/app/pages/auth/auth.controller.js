@@ -55,7 +55,7 @@ class AuthController extends Injectable {
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
-      // Alerts.push('success', 'Check your inbox to verify your account!', true);
+      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
     }.bind(this), function(response) {
       this.errorMessage = response.message;
       this.isLoading = false;
@@ -66,12 +66,12 @@ class AuthController extends Injectable {
   resendVerification() {
     this.isLoading = true;
     this.UserService.resendVerification(this.credentials.username).then(function() {
-      // Alerts.push('success', 'Verification email sent. Keep an eye on your inbox!', true);
+      this.AlertsService.push('success', 'Verification email sent. Keep an eye on your inbox!', true);
       this.errorMessage = '';
       this.isLoading = false;
       this.showResendVerification = false;
     }, function() {
-      // Alerts.push('error', 'Unable to resend verification email!', true);
+      this.AlertsService.push('error', 'Unable to resend verification email!', true);
       this.errorMessage = '';
       this.isLoading = false;
       this.showResendVerification = false;
@@ -97,6 +97,6 @@ class AuthController extends Injectable {
     return this.animationSrc;
   }
 }
-AuthController.$inject = ['$state', '$timeout', 'UserService'];
+AuthController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
 
 export default AuthController;
