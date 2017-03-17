@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable';
 
-class Tooltip extends Injectable {
+class TooltipComponent extends Injectable {
   constructor(...injections) {
-    super(Tooltip.$inject, injections);
+    super(TooltipComponent.$inject, injections);
 
     this.restrict = 'A';
     this.replace = true;
@@ -39,6 +39,6 @@ class Tooltip extends Injectable {
     scope.TooltipService = this.TooltipService;
   }
 }
-Tooltip.$inject = ['$timeout', '$window', 'TooltipService'];
+TooltipComponent.$inject = ['$timeout', '$window', 'TooltipService'];
 
-export default Tooltip;
+export default TooltipComponent;

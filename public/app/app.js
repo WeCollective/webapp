@@ -70,8 +70,8 @@ import NavBarController from 'components/nav-bar/nav-bar.controller';
 registrar.directive('navBar', NavBarComponent);
 registrar.controller('NavBarController', NavBarController);
 
-import Alerts from 'components/alerts/alerts.directive';
-registrar.directive('alerts', Alerts);
+import AlertsComponent from 'components/alerts/alerts.directive';
+registrar.directive('alerts', AlertsComponent);
 
-import Tooltip from 'components/tooltip/tooltip.directive';
-registrar.directive('tooltip', Tooltip);
+import TooltipComponent from 'components/tooltip/tooltip.directive';
+registrar.directive('tooltip', TooltipComponent);

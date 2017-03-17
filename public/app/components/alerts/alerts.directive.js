@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable';
 
-class Alerts extends Injectable {
+class AlertsComponent extends Injectable {
   constructor(...injections) {
-    super(Alerts.$inject, injections);
+    super(AlertsComponent.$inject, injections);
 
     this.restrict = 'E';
     this.replace = true;
@@ -13,6 +13,6 @@ class Alerts extends Injectable {
     scope.AlertsService = this.AlertsService;
   }
 }
-Alerts.$inject = ['AlertsService'];
+AlertsComponent.$inject = ['AlertsService'];
 
-export default Alerts;
+export default AlertsComponent;
