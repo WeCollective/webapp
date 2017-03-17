@@ -76,11 +76,11 @@ input, textarea {
     .full-page-nav {
       position: relative;
       width: 100%;
-      height: calc(100% - @nav-bar-height-xs);
-      .responsive(@screen-sm, { height: calc(100% - @nav-bar-height-sm); });
-      .responsive(@screen-md, { height: calc(100% - @nav-bar-height-md); });
-      .responsive(@screen-lg, { height: calc(100% - @nav-bar-height-lg); });
-      .responsive(@screen-xl, { height: calc(100% - @nav-bar-height-xl); });
+      height: calc(~'100% - @{nav-bar-height-xs}');
+      .responsive(@screen-sm, { height: calc(~'100% - @{nav-bar-height-sm}'); });
+      .responsive(@screen-md, { height: calc(~'100% - @{nav-bar-height-md}'); });
+      .responsive(@screen-lg, { height: calc(~'100% - @{nav-bar-height-lg}'); });
+      .responsive(@screen-xl, { height: calc(~'100% - @{nav-bar-height-xl}'); });
       .set-responsively(padding-top, nav-bar-height);
     }
 
@@ -100,10 +100,10 @@ input, textarea {
         position: relative;
         height: 100%;
         width: calc(100% - 2 * @page-margin-xs);
-        .responsive(@screen-sm, { width: calc(100% - 2 * @page-margin-sm); });
-        .responsive(@screen-md, { width: calc(100% - 2 * @page-margin-md); });
-        .responsive(@screen-lg, { width: calc(100% - 2 * @page-margin-lg); });
-        .responsive(@screen-xl, { width: calc(100% - 2 * @page-margin-xl); });
+        .responsive(@screen-sm, { width: calc(~'100% - 2 * @{page-margin-sm}'); });
+        .responsive(@screen-md, { width: calc(~'100% - 2 * @{page-margin-md}'); });
+        .responsive(@screen-lg, { width: calc(~'100% - 2 * @{page-margin-lg}'); });
+        .responsive(@screen-xl, { width: calc(~'100% - 2 * @{page-margin-xl}'); });
         margin: auto;
         background-color: white;
 
