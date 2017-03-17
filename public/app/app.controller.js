@@ -16,6 +16,6 @@ class AppController extends Injectable {
     }
   }
 }
-AppController.$inject = ['$state', 'ENV'];
+AppController.$inject = ['$state', 'ENV', 'TooltipService'];
 
 export default AppController;

@@ -38,7 +38,9 @@
     <link rel="stylesheet" href="/dist/app.css" />
   </head>
   <body ng-app="wecoApp" ng-controller="AppController as App" ng-class="{ 'modalOpen': App.modalOpen() }">
-    <tooltip></tooltip>
+    <div class="tooltip" ng-show="App.TooltipService.visible" ng-style="{ 'top': App.TooltipService.y + 'px', 'left': App.TooltipService.x + 'px' }">
+      <span class="tooltip-text" ng-bind-html="App.TooltipService.text.split('\n').join('<br>')"></span>
+    </div>
     <alerts></alerts>
     <div modal></div>
     <div id="weco-root" ui-view></div>

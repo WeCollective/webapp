@@ -51,7 +51,7 @@ class AppRoutes extends Injectable {
       // Abstract root state contains nav-bar
       .state('weco', {
         abstract: true,
-        template: '<nav-bar></nav-bar><div ng-class="{ \'full-page-nav\': hasNavBar(), \'full-page\': !hasNavBar() }" ui-view></div>'
+        template: '<nav-bar></nav-bar><div ng-class="{ \'full-page-nav\': App.hasNavBar(), \'full-page\': !App.hasNavBar() }" ui-view></div>'
       })
       // 404 Not Found
       .state('weco.notfound', {
@@ -67,8 +67,7 @@ class AppRoutes extends Injectable {
       .state('weco.profile', {
         url: '/u/:username',
         abstract: true,
-        templateUrl: '/app/pages/profile/profile.view.html',
-        controller: 'profileController'
+        templateUrl: '/app/pages/profile/profile.view.html'
       })
       .state('weco.profile.about', {
         url: '/about',
@@ -93,15 +92,13 @@ class AppRoutes extends Injectable {
       .state('weco.branch', {
         url: '/b/:branchid',
         abstract: true,
-        templateUrl: '/app/pages/branch/branch.view.html',
-        controller: 'branchController'
+        templateUrl: '/app/pages/branch/branch.view.html'
       })
       // Branch Nucleus
       .state('weco.branch.nucleus', {
         url: '/nucleus',
         abstract: true,
         templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
-        controller: 'nucleusController',
         pageTrack: '/b/:branchid/nucleus'
       })
       .state('weco.branch.nucleus.about', {
@@ -111,26 +108,22 @@ class AppRoutes extends Injectable {
       .state('weco.branch.nucleus.settings', {
         url: '/settings',
         templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
-        controller: 'nucleusSettingsController',
         modOnly: true,
         redirectTo: 'auth.login'
       })
       .state('weco.branch.nucleus.moderators', {
         url: '/moderators',
-        templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
-        controller: 'nucleusModeratorsController'
+        templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html'
       })
       .state('weco.branch.nucleus.modtools', {
         url: '/modtools',
         templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
-        controller: 'nucleusModToolsController',
         modOnly: true,
         redirectTo: 'auth.login'
       })
       .state('weco.branch.nucleus.flaggedposts', {
         url: '/flaggedposts',
         templateUrl: '/app/pages/branch/nucleus/flaggedposts/flaggedposts.view.html',
-        controller: 'nucleusFlaggedPostsController',
         modOnly: true,
         redirectTo: 'auth.login'
       })
@@ -138,21 +131,18 @@ class AppRoutes extends Injectable {
       .state('weco.branch.subbranches', {
         url: '/childbranches',
         templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
-        controller: 'subbranchesController',
         pageTrack: '/b/:branchid/childbranches'
       })
       // Branch wall
       .state('weco.branch.wall', {
         url: '/wall',
         templateUrl: '/app/pages/branch/wall/wall.view.html',
-        controller: 'wallController',
         pageTrack: '/b/:branchid/wall'
       })
       // Posts
       .state('weco.branch.post', {
         url: '/p/:postid',
         templateUrl: '/app/pages/branch/post/post.view.html',
-        controller: 'postController',
         pageTrack: '/p/:postid'
       })
       // Comment Permalink

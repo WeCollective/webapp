@@ -49,6 +49,8 @@ import UserService from 'data/user.service';
 registrar.service('UserService', UserService);
 import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
+import TooltipService from 'components/tooltip/tooltip.service';
+registrar.service('TooltipService', TooltipService);
 
 // Controllers
 import AppController from 'app.controller';
@@ -70,3 +72,6 @@ registrar.controller('NavBarController', NavBarController);
 
 import Alerts from 'components/alerts/alerts.directive';
 registrar.directive('alerts', Alerts);
+
+import Tooltip from 'components/tooltip/tooltip.directive';
+registrar.directive('tooltip', Tooltip);
