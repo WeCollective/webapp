@@ -30,9 +30,10 @@ class Tooltip extends Injectable {
     }, false);
 
     el.addEventListener('mouseout', () => {
-      this.$timeout(() => {
-        this.TooltipService.visible = false;
-      });
+      this.$timeout(() => { this.TooltipService.visible = false; });
+    });
+    el.addEventListener('click', () => {
+      this.$timeout(() => { this.TooltipService.visible = false; });
     });
 
     scope.TooltipService = this.TooltipService;
