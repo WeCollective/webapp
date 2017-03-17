@@ -63,12 +63,19 @@ import VerifyController from 'pages/auth/verify/verify.controller';
 registrar.controller('VerifyController', VerifyController);
 import ResetPasswordController from 'pages/auth/reset-password/reset-password.controller';
 registrar.controller('ResetPasswordController', ResetPasswordController);
+import ProfileController from 'pages/profile/profile.controller';
+registrar.controller('ProfileController', ProfileController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
 import NavBarController from 'components/nav-bar/nav-bar.controller';
 registrar.directive('navBar', NavBarComponent);
 registrar.controller('NavBarController', NavBarController);
+
+import CoverPhotoComponent from 'components/cover-photo/cover-photo.directive';
+import CoverPhotoController from 'components/cover-photo/cover-photo.controller';
+registrar.directive('coverPhoto', CoverPhotoComponent);
+registrar.controller('CoverPhotoController', CoverPhotoController);
 
 import AlertsComponent from 'components/alerts/alerts.directive';
 registrar.directive('alerts', AlertsComponent);

@@ -1,0 +1,5 @@
+<div class="cover-photo" ng-class="{ 'open': CoverPhoto.isOpen && CoverPhoto.hasUrls() }" style="background-image: url('{{ CoverPhoto.imageUrl() }}'), url('{{ CoverPhoto.thumbUrl() }}')">
+  <img id="cover-photo-edit" src="/assets/images/icons/black/edit.png" ng-click="CoverPhoto.openCoverPictureModal()" ng-show="CoverPhoto.canEdit() && CoverPhoto.imageUrl()">
+  <img id="cover-photo-hide" src="/assets/images/icons/black/hide.png" ng-click="CoverPhoto.hideCoverPicture()" ng-show="CoverPhoto.imageUrl() && CoverPhoto.isOpen">
+  <img id="cover-photo-show" src="/assets/images/icons/black/show.png" ng-click="CoverPhoto.showCoverPicture()" ng-show="CoverPhoto.imageUrl() && !CoverPhoto.isOpen">
+</div>

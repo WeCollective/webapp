@@ -23,7 +23,9 @@ class AppRoutes extends Injectable {
       // Log In/Sign Up state
       .state('auth', {
         abstract: true,
-        templateUrl: '/app/pages/auth/auth.view.html'
+        templateUrl: '/app/pages/auth/auth.view.html',
+        controller: 'AuthController',
+        controllerAs: 'Auth'
       })
       .state('auth.login', {
         url: '/login'
@@ -33,12 +35,16 @@ class AppRoutes extends Injectable {
       })
       .state('verify', {
         url: '/:username/verify/:token',
-        templateUrl: '/app/pages/auth/verify/verify.view.html'
+        templateUrl: '/app/pages/auth/verify/verify.view.html',
+        controller: 'VerifyController',
+        controllerAs: 'Verify'
       })
       .state('reset-password', {
         url: '/reset-password',
         abstract: true,
-        templateUrl: '/app/pages/auth/reset-password/reset-password.view.html'
+        templateUrl: '/app/pages/auth/reset-password/reset-password.view.html',
+        controller: 'ResetPasswordController',
+        controllerAs: 'ResetPassword'
       })
       .state('reset-password.request', {
         url: '/request',
@@ -61,13 +67,17 @@ class AppRoutes extends Injectable {
       .state('weco.home', {
         url: '/',
         templateUrl: '/app/pages/home/home.view.html',
+        controller: 'HomeController',
+        controllerAs: 'Home',
         pageTrack: '/'
       })
       // Profile page
       .state('weco.profile', {
         url: '/u/:username',
         abstract: true,
-        templateUrl: '/app/pages/profile/profile.view.html'
+        templateUrl: '/app/pages/profile/profile.view.html',
+        controller: 'ProfileController',
+        controllerAs: 'Profile'
       })
       .state('weco.profile.about', {
         url: '/about',
