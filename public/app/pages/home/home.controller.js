@@ -10,6 +10,17 @@ class HomeController extends Injectable {
       user_count: '...',
       branch_count: '...'
     };
+
+    for(let stat of Object.keys(this.stats)) {
+      console.log(stat);
+      this.API.fetch('/constant/:stat', {
+        stat: stat
+      }).then((response) => {
+        this.stats[stat] = response.data.data;
+      }).catch((err) => {
+        this.AlertsService.push('error', 'Having trouble connecting...');
+      }).then(this.$timeout);
+    }
   }
   getHomepageImageURL() {
     if(this.ENV.name === 'production') {
@@ -19,6 +30,6 @@ class HomeController extends Injectable {
     }
   }
 }
-HomeController.$inject = ['$http', 'ENV', '$timeout'];
+HomeController.$inject = ['API', 'ENV', '$timeout', 'AlertsService'];
 
 export default HomeController;
