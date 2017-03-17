@@ -17,7 +17,7 @@ class UserService extends Injectable {
   }
 
   login(credentials) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       Generator.run(function* (self) {
         try {
           yield self.API.request('POST', '/user/login', {}, credentials);
@@ -26,31 +26,87 @@ class UserService extends Injectable {
           resolve();
         } catch(response) { return reject(response.data || response); }
       }, this);
-    }.bind(this));
+    });
   }
 
   logout() {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/logout', {}).then(() => {
         this.user = {};
         resolve();
       }).catch((response) => { reject(response); });
-    }.bind(this));
+    });
   }
 
   signup(credentials) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       this.API.request('POST', '/user', {}, credentials)
         .then(resolve)
         .catch((response) => {
           return reject(response.data || response);
         }
       );
-    }.bind(this));
+    });
+  }
+
+  // verify user account
+  verify(username, token) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/verify/:token', {
+        username: username,
+        token: token
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
+  // resend the user verification email
+  resendVerification(username) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/reverify', {
+        username: username
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
+  // send a reset password link to the users inbox
+  requestResetPassword(username) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/reset-password', {
+        username: username
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
+  // send a reset password link to the users inbox
+  resetPassword(username, password, token) {
+    return new Promise((resolve, reject) => {
+      this.API.request('POST', '/user/:username/reset-password/:token', {
+        username: username,
+        token: token
+      }, {
+        password: password
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
   }
 
   fetch(username) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       Generator.run(function* (self) {
         try {
           // fetch the user
@@ -72,7 +128,7 @@ class UserService extends Injectable {
           return resolve(user);
         } catch(response) { return reject(response.data || response); }
       }, this);
-    }.bind(this));
+    });
   }
 }
 UserService.$inject = ['API', 'ENV', '$timeout'];

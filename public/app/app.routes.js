@@ -33,24 +33,20 @@ class AppRoutes extends Injectable {
       })
       .state('verify', {
         url: '/:username/verify/:token',
-        templateUrl: '/app/pages/auth/verify/verify.view.html',
-        controller: 'verifyController'
+        templateUrl: '/app/pages/auth/verify/verify.view.html'
       })
       .state('reset-password', {
         url: '/reset-password',
         abstract: true,
-        templateUrl: '/app/pages/auth/reset-password/reset-password.view.html',
-        controller: 'resetPasswordController'
+        templateUrl: '/app/pages/auth/reset-password/reset-password.view.html'
       })
       .state('reset-password.request', {
         url: '/request',
-        templateUrl: '/app/pages/auth/reset-password/request/request.view.html',
-        controller: 'requestResetPasswordController'
+        templateUrl: '/app/pages/auth/reset-password/request/request.view.html'
       })
       .state('reset-password.confirm', {
         url: '/:username/:token',
-        templateUrl: '/app/pages/auth/reset-password/confirm/confirm.view.html',
-        controller: 'confirmResetPasswordController'
+        templateUrl: '/app/pages/auth/reset-password/confirm/confirm.view.html'
       })
       // Abstract root state contains nav-bar
       .state('weco', {

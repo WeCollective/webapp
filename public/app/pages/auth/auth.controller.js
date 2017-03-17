@@ -27,11 +27,11 @@ class AuthController extends Injectable {
   }
 
   login() {
-    this.UserService.login(this.credentials).then(function() {
+    this.UserService.login(this.credentials).then(() => {
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
-    }.bind(this)).catch(function(response) {
+    }).catch((response) => {
       this.errorMessage = response.message;
       this.isLoading = false;
       this.loopAnimation = false;
@@ -40,7 +40,7 @@ class AuthController extends Injectable {
       if(response.status === 403) {
         this.showResendVerification = true;
       }
-    }.bind(this));
+    });
   }
 
   signup() {
@@ -51,26 +51,26 @@ class AuthController extends Injectable {
       return;
     }
 
-    this.UserService.signup(this.credentials).then(function() {
+    this.UserService.signup(this.credentials).then(() => {
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
       this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-    }.bind(this), function(response) {
+    }).catch((response) => {
       this.errorMessage = response.message;
       this.isLoading = false;
       this.loopAnimation = false;
-    }.bind(this));
+    });
   }
 
   resendVerification() {
     this.isLoading = true;
-    this.UserService.resendVerification(this.credentials.username).then(function() {
+    this.UserService.resendVerification(this.credentials.username).then(() => {
       this.AlertsService.push('success', 'Verification email sent. Keep an eye on your inbox!', true);
       this.errorMessage = '';
       this.isLoading = false;
       this.showResendVerification = false;
-    }, function() {
+    }).catch(() => {
       this.AlertsService.push('error', 'Unable to resend verification email!', true);
       this.errorMessage = '';
       this.isLoading = false;

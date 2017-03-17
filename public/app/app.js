@@ -57,6 +57,10 @@ import HomeController from 'pages/home/home.controller';
 registrar.controller('HomeController', HomeController);
 import AuthController from 'pages/auth/auth.controller';
 registrar.controller('AuthController', AuthController);
+import VerifyController from 'pages/auth/verify/verify.controller';
+registrar.controller('VerifyController', VerifyController);
+import ResetPasswordController from 'pages/auth/reset-password/reset-password.controller';
+registrar.controller('ResetPasswordController', ResetPasswordController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';

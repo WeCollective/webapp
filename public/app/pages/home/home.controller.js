@@ -12,7 +12,6 @@ class HomeController extends Injectable {
     };
 
     for(let stat of Object.keys(this.stats)) {
-      console.log(stat);
       this.API.fetch('/constant/:stat', {
         stat: stat
       }).then((response) => {

@@ -24,7 +24,7 @@ class API extends Injectable {
   }
 
   request(method, url, params, data) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       // ensure url has a leading slash
       if(url[0] !== '/') url = '/' + url;
 
@@ -47,38 +47,10 @@ class API extends Injectable {
       this.$http(req).then((response) => {
         resolve(response.data || response);
       }, reject);
-    }.bind(this));
+    });
   }
 
-
-  request1(method, url, params, data) {
-    return new Promise(function(resolve, reject) {
-      // ensure url has a leading slash
-      if(url[0] !== '/') url = '/' + url;
-
-      // replace :params in the url with their specified values
-      for(let paramName of Object.keys(params)) {
-        url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
-      }
-
-      // make the request
-      let req = {
-        method: method,
-        url: this.ENV.apiEndpoint + url,
-        // headers: {
-        //   'Content-Type': 'application/x-www-form-urlencoded'
-        // },
-        //transformRequest: this.makeFormEncoded,
-        transformResponse: this.normaliseResponse
-      };
-      if(method === 'PUT' || method === 'POST') req.data = data;
-      this.$http(req).then((response) => {
-        resolve(response.data || response);
-      }, reject);
-    }.bind(this));
-  }
-
-  fetch(url, params) { return this.request1('GET', url, params); }
+  fetch(url, params) { return this.request('GET', url, params); }
   save(url, params) { return this.request('POST', url, params); }
   update(url, params) { return this.request('PUT', url, params); }
   delete(url, params) { return this.request('DELETE', url, params); }
