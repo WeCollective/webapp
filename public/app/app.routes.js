@@ -87,6 +87,8 @@ class AppRoutes extends Injectable {
       .state('weco.profile.settings', {
         url: '/settings',
         templateUrl: '/app/pages/profile/settings/settings.view.html',
+        controller: 'ProfileSettingsController',
+        controllerAs: 'ProfileSettings',
         selfOnly: true,
         redirectTo: 'auth.login',
         pageTrack: '/u/:username/settings'

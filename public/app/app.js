@@ -69,6 +69,8 @@ import ResetPasswordController from 'pages/auth/reset-password/reset-password.co
 registrar.controller('ResetPasswordController', ResetPasswordController);
 import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
+import ProfileSettingsController from 'pages/profile/settings/settings.controller';
+registrar.controller('ProfileSettingsController', ProfileSettingsController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
