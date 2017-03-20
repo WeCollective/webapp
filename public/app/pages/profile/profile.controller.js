@@ -6,12 +6,14 @@ class ProfileController extends Injectable {
 
     this.showCover = true;
     this.isLoading = true;
+    this.tabItems = ['about'];
+    this.tabStates = ['weco.profile.about'];
   }
 }
 ProfileController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService'];
 
 export default ProfileController;
-// 
+//
 // var app = angular.module('wecoApp');
 // app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', 'Alerts', function($scope, $timeout, $state, User, Modal, Alerts) {
 //   $scope.user = {};

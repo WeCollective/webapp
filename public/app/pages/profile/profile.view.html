@@ -1,17 +1,17 @@
 <cover-photo image-url="Profile.UserService.user.coverUrl" thumb-url="Profile.UserService.user.coverUrlThumb" is-open="Profile.showCover" can-edit="true"></cover-photo>
-<!-- <div class="cover-page page">
-  <div id="profile-frame" class="frame" loading when="isLoading">
+<div class="cover-page page">
+  <div id="profile-frame" class="frame" loading when="Profile.isLoading">
     <div id="profile-info" class="frame-column">
-      <h1>{{ user.firstname }} {{ user.lastname }}</h1>
-      <h2>{{ user.username }}</h2>
-      <div class="frame-column-picture" style="background-image: url('{{ user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="openProfilePictureModal()" ng-show="isMyProfile()" tooltip-text="'Upload New Image'" offset-y="30">
+      <h1>{{ Profile.UserService.user.firstname }} {{ Profile.UserService.user.lastname }}</h1>
+      <h2>{{ Profile.UserService.user.username }}</h2>
+      <div class="frame-column-picture" style="background-image: url('{{ Profile.UserService.user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.$state.params.username === Profile.UserService.user.username" tooltip text="'Upload New Image'" offset-y="30">
       </div>
       <ul>
-        <li># of Posts: <span>{{ user.num_posts }}</span></li>
-        <li># of Comments: <span>{{ user.num_comments }}</span></li>
-        <li>Branches Created: <span>{{ user.num_branches }}</span></li>
-        <li>Moderator Positions: <span>{{ user.num_mod_positions }}</span></li>
+        <li># of Posts: <span>{{ Profile.UserService.user.num_posts }}</span></li>
+        <li># of Comments: <span>{{ Profile.UserService.user.num_comments }}</span></li>
+        <li>Branches Created: <span>{{ Profile.UserService.user.num_branches }}</span></li>
+        <li>Moderator Positions: <span>{{ Profile.UserService.user.num_mod_positions }}</span></li>
       </ul>
     </div>
     <div class="frame-content">
@@ -19,11 +19,11 @@
         <div class="content-header">
           <h1>Profile</h1>
           <div class="content-controls">
-            <tabs items="tabItems" states="tabStates"></tabs>
+            <tabs items="Profile.tabItems" states="Profile.tabStates"></tabs>
           </div>
         </div>
         <div class="content-body" ui-view></div>
       </div>
     </div>
   </div>
-</div> -->
+</div>
