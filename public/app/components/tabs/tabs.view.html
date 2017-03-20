@@ -1,0 +1,8 @@
+<ul class="tabs">
+  <a ui-sref="{{ Tabs.states()[$index] }}"
+     ng-repeat="item in Tabs.items()">
+     <li ng-class="{ selected: Tabs.isSelected($index) }">
+       <span>{{ item }}</span>
+     </li>
+  </a>
+</ul>
