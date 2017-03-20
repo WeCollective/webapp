@@ -1,0 +1,7 @@
+<ul id="profile-about-properties">
+  <li ng-show="Profile.UserService.user.name"><span class="field">Name: </span> <span class="value">{{ Profile.UserService.user.firstname }} {{ Profile.UserService.user.lastname }}</span></li>
+  <li ng-show="Profile.UserService.user.username"><span class="field">Username: </span> <span class="value">{{ Profile.UserService.user.username }}</span></li>
+  <li ng-show="Profile.UserService.user.datejoined"><span class="field">Member since: </span> <span class="value">{{ Profile.UserService.user.datejoined | date:'dd MMMM yyyy' }}</span></li>
+  <li ng-show="Profile.UserService.user.gender"><span class="field">Gender: </span> <span class="value">{{ Profile.UserService.user.gender }}</span></li>
+  <li ng-show="Profile.UserService.user.dob"><span class="field">DOB: </span> <span class="value">{{ Profile.UserService.user.dob | date:'dd MMMM yyyy' }}</span></li>
+</ul>
