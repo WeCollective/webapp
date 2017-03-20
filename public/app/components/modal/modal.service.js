@@ -20,8 +20,7 @@ class ModalService extends Injectable {
 
     this.isOpen = true;
     this.modalInputArgs = args;
-
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       this.modalResolve = resolve;
       this.modalReject = reject;
     });
