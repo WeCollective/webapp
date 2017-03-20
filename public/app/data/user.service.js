@@ -9,7 +9,10 @@ class UserService extends Injectable {
       this.user = user;
     })
     .catch(() => {})
-    .then(this.$timeout);
+    .then(this.$timeout)
+    .then(() => {
+      this.EventService.emit(this.EventService.events.CHANGE_USER);
+    });
   }
 
   isAuthenticated() {
@@ -23,6 +26,7 @@ class UserService extends Injectable {
           yield self.API.request('POST', '/user/login', {}, credentials);
           let user = yield self.fetch('me');
           self.user = user;
+          this.EventService.emit(this.EventService.events.CHANGE_USER);
           resolve();
         } catch(response) { return reject(response.data || response); }
       }, this);
@@ -33,6 +37,7 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/logout', {}).then(() => {
         this.user = {};
+        this.EventService.emit(this.EventService.events.CHANGE_USER);
         resolve();
       }).catch((response) => { reject(response); });
     });
@@ -131,6 +136,6 @@ class UserService extends Injectable {
     });
   }
 }
-UserService.$inject = ['API', 'ENV', '$timeout'];
+UserService.$inject = ['API', 'ENV', '$timeout', 'EventService'];
 
 export default UserService;
