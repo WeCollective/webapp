@@ -8,53 +8,21 @@ class ProfileController extends Injectable {
     this.isLoading = true;
     this.tabItems = ['about'];
     this.tabStates = ['weco.profile.about'];
+
+    this.EventService.on(this.EventService.events.CHANGE_USER, () => {
+      if(this.UserService.user.username === this.$state.params.username) {
+        if(this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
+          this.tabItems.push('settings');
+          this.tabStates.push('weco.profile.settings');
+        }
+        if(this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
+          this.tabItems.push('notifications');
+          this.tabStates.push('weco.profile.notifications');
+        }
+      }
+    });
   }
 }
-ProfileController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService'];
+ProfileController.$inject = ['$timeout', '$state', 'EventService', 'UserService'];
 
 export default ProfileController;
-//
-// var app = angular.module('wecoApp');
-// app.controller('profileController', ['$scope', '$timeout', '$state', 'User', 'Modal', 'Alerts', function($scope, $timeout, $state, User, Modal, Alerts) {
-//   $scope.user = {};
-//   $scope.showCover = true;
-//   $scope.isLoading = true;
-//
-//   User.get($state.params.username).then(function(user) {
-//     $timeout(function() {
-//       $scope.user = user;
-//       $scope.isLoading = false;
-//     });
-//   }, function(response) {
-//     if(response.status == 404) {
-//       $state.go('weco.notfound');
-//     } else {
-//       Alerts.push('error', 'Unable to fetch user.');
-//     }
-//     $scope.isLoading = false;
-//   });
-//
-//   $scope.tabItems = ['about'];
-//   $scope.tabStates = ['weco.profile.about'];
-//
-//   // Watch for changes in the auth'd user's username
-//   // When set, if this is the auth'd user's profile page, add the 'settings' tab
-//   $scope.$watch(function() {
-//     return User.me().username;
-//   }, function(username) {
-//     if(username == $state.params.username) {
-//       if($scope.tabItems.indexOf('settings') == -1 && $scope.tabStates.indexOf('weco.profile.settings') == -1) {
-//         $scope.tabItems.push('settings');
-//         $scope.tabStates.push('weco.profile.settings');
-//       }
-//       if($scope.tabItems.indexOf('notifications') == -1 && $scope.tabStates.indexOf('weco.profile.notifications') == -1) {
-//         $scope.tabItems.push('notifications');
-//         $scope.tabStates.push('weco.profile.notifications');
-//       }
-//     }
-//   });
-//
-//   $scope.isMyProfile = function() {
-//     return User.me().username == $state.params.username;
-//   };
-// }]);
