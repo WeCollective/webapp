@@ -53,6 +53,8 @@ import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
 import TooltipService from 'components/tooltip/tooltip.service';
 registrar.service('TooltipService', TooltipService);
+import ModalService from 'components/modal/modal.service';
+registrar.service('ModalService', ModalService);
 
 // Controllers
 import AppController from 'app.controller';
@@ -89,3 +91,6 @@ import TabsComponent from 'components/tabs/tabs.directive';
 import TabsController from 'components/tabs/tabs.controller';
 registrar.directive('tabs', TabsComponent);
 registrar.controller('TabsController', TabsController);
+
+import ModalComponent from 'components/modal/modal.directive';
+registrar.directive('modal', ModalComponent);
