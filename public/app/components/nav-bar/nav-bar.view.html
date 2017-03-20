@@ -24,7 +24,7 @@
       <a id="signup" ui-sref="auth.signup" ng-show="!NavBar.UserService.isAuthenticated()">
         <span class="text">Sign up</span>
       </a>
-      <a ui-sref="weco.profile.notifications({ username: NavBar.UserService.isAuthenticated() })" ng-show="NavBar.UserService.isAuthenticated()">
+      <a ui-sref="weco.profile.notifications({ username: NavBar.UserService.user.username })" ng-show="NavBar.UserService.isAuthenticated()">
         <div id="notifications" ng-show="NavBar.UserService.isAuthenticated()" ng-class="{ 'opaque': NavBar.notificationCount > 0 }">
           <img src="assets/images/icons/white/notification.png">
           <div id="notification-count" ng-show="NavBar.showNotificationCount()">
