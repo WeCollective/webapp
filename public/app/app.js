@@ -45,6 +45,8 @@ registrar.config(AppRoutes);
 // Services
 import API from 'data/api.service';
 registrar.service('API', API);
+import EventService from 'data/event.service';
+registrar.service('EventService', EventService);
 import UserService from 'data/user.service';
 registrar.service('UserService', UserService);
 import AlertsService from 'components/alerts/alerts.service';
