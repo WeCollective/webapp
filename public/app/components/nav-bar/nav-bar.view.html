@@ -32,7 +32,7 @@
           </div>
         </div>
       </a>
-      <a ui-sref="weco.profile.about({ username: NavBar.UserService.isAuthenticated() })" ng-show="NavBar.UserService.isAuthenticated()">
+      <a ui-sref="weco.profile.about({ username: NavBar.UserService.user.username })" ng-show="NavBar.UserService.isAuthenticated()">
         <div id="profile" ng-class="{ 'selected' : NavBar.isControlSelected('profile') }">
           <span class="text">{{ NavBar.UserService.user.username }}</span>
           <div id="profile-picture" style="background-image: url('{{ NavBar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"></div>
