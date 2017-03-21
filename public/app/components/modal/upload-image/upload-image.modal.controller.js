@@ -10,16 +10,21 @@ class UploadImageModalController extends Injectable {
     this.isUploading = false;
     this.progress = 0;
 
-    // fetch a presigned URL to which we can upload an image
-    this.API.fetch('/:route', {
-      route: this.ModalService.inputArgs.route + this.ModalService.inputArgs.type + '-upload-url'
-    }).then((response) => {
-      if(!response.data) throw new Error();
-      this.uploadUrl = response.data;
-    }).catch((response) => {
-      this.AlertsService.push('error', 'Unable to upload photo!');
-      this.ModalService.Cancel();
-    });
+    let fetchUploadUrl = () => {
+      // fetch a presigned URL to which we can upload an image
+      this.API.fetch('/:route', {
+        route: this.ModalService.inputArgs.route + this.ModalService.inputArgs.type + '-upload-url'
+      }).then((response) => {
+        if(!response.data) throw new Error();
+        this.uploadUrl = response.data;
+      }).catch((response) => {
+        this.AlertsService.push('error', 'Unable to upload photo!');
+        this.ModalService.Cancel();
+      });
+    };
+
+    fetchUploadUrl();
+    this.EventService.on(this.EventService.events.MODAL_OPEN, fetchUploadUrl);
 
     this.EventService.on(this.EventService.events.MODAL_OK, () => {
       if(!this.file) {

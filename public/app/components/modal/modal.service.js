@@ -17,9 +17,10 @@ class ModalService extends Injectable {
     // the template are reloaded
     this.templateUrl = url;
     this.$timeout(() => { this.templateUrl = url; });
-
     this.isOpen = true;
     this.inputArgs = args;
+    this.EventService.emit(this.EventService.events.MODAL_OPEN);
+
     return new Promise((resolve, reject) => {
       this.resolve = resolve;
       this.reject = reject;
@@ -50,6 +51,6 @@ class ModalService extends Injectable {
     this.reject();
   }
 }
-ModalService.$inject = ['$timeout'];
+ModalService.$inject = ['$timeout', 'EventService'];
 
 export default ModalService;

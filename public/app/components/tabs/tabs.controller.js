@@ -20,7 +20,8 @@ class TabsController extends Injectable {
         // parse the state name from the text up to the opening parenthesis
         parsedStateName = this.states()[index].substr(0, openIdx);
       } catch(err) {
-        console.error("Unable to parse JSON!");
+        this.AlertsService.push('error', 'Something went wrong.');
+        this.$state.go('weco.home');
       }
     }
 
@@ -33,6 +34,6 @@ class TabsController extends Injectable {
     }
   }
 }
-TabsController.$inject = ['$state'];
+TabsController.$inject = ['$state', 'AlertsService'];
 
 export default TabsController;

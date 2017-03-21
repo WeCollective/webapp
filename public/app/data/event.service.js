@@ -7,7 +7,8 @@ class EventService extends Injectable {
     this.events = {
       CHANGE_USER: 'CHANGE_USER',
       MODAL_OK: 'MODAL_OK',
-      MODAL_CANCEL: 'MODAL_CANCEL'
+      MODAL_CANCEL: 'MODAL_CANCEL',
+      MODAL_OPEN: 'MODAL_OPEN'
     };
   }
 
