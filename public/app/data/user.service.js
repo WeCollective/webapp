@@ -135,6 +135,18 @@ class UserService extends Injectable {
       }, this);
     });
   }
+
+  update(data) {
+    console.log("updating", data);
+    return new Promise((resolve, reject) => {
+      this.API.update('/user/me', {}, data)
+        .then((response) => {
+          console.log("DONE", response);
+          resolve();
+        })
+        .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 UserService.$inject = ['API', 'ENV', '$timeout', 'EventService'];
 
