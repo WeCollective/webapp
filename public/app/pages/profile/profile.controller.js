@@ -5,7 +5,7 @@ class ProfileController extends Injectable {
     super(ProfileController.$inject, injections);
 
     this.showCover = true;
-    this.isLoading = true;
+    this.isLoading = false;
     this.tabItems = ['about'];
     this.tabStates = ['weco.profile.about'];
     this.profileUser = {};
@@ -31,15 +31,16 @@ class ProfileController extends Injectable {
     // initial fetch of the viewed user
     if(this.UserService.user.username === this.$state.params.username) {
       // viewing own profile
-      this.isLoading = false;
       update();
     } else {  // viewing another user's profile
       // ensure we are in the 'about' state
       if(this.$state.current.name !== 'weco.profile.about') {
         this.$state.go('weco.profile.about', { username: this.$state.params.username });
       } else {
+        this.isLoading = true;
         this.UserService.fetch(this.$state.params.username).then((user) => {
           this.profileUser = user;
+          this.isLoading = false;
         })
         .catch((err) => {
           if(err.status === 404) {

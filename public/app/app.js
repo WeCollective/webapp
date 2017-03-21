@@ -89,6 +89,9 @@ registrar.directive('alerts', AlertsComponent);
 import TooltipComponent from 'components/tooltip/tooltip.directive';
 registrar.directive('tooltip', TooltipComponent);
 
+import LoadingComponent from 'components/loading/loading.directive';
+registrar.directive('loading', LoadingComponent);
+
 import TabsComponent from 'components/tabs/tabs.directive';
 import TabsController from 'components/tabs/tabs.controller';
 registrar.directive('tabs', TabsComponent);
