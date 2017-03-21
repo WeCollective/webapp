@@ -1,4 +1,9 @@
-<cover-photo image-url="Profile.profileUser.coverUrl" thumb-url="Profile.profileUser.coverUrlThumb" is-open="Profile.showCover" can-edit="Profile.profileUser.username === Profile.UserService.user.username"></cover-photo>
+<cover-photo image-url="Profile.profileUser.coverUrl"
+             thumb-url="Profile.profileUser.coverUrlThumb"
+             is-open="Profile.showCover"
+             can-edit="Profile.profileUser.username === Profile.UserService.user.username"
+             open-upload-cover-modal="Profile.openCoverPictureModal">
+</cover-photo>
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
     <div id="profile-info" class="frame-column">

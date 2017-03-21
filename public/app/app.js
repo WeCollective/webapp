@@ -98,3 +98,5 @@ import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
 import ProfileSettingsModalController from 'components/modal/profile/settings/settings.controller';
 registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
+import UploadImageModalController from 'components/modal/upload-image/upload-image.modal.controller';
+registrar.controller('UploadImageModalController', UploadImageModalController);

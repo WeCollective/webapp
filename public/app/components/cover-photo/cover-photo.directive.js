@@ -11,7 +11,8 @@ class CoverPhotoComponent extends Injectable {
       imageUrl: '&',
       thumbUrl: '&',
       canEdit: '&',
-      isOpen: '='
+      isOpen: '=',
+      openUploadCoverModal: '='
     };
     this.templateUrl = '/app/components/cover-photo/cover-photo.view.html';
     this.controllerAs = 'CoverPhoto';
