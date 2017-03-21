@@ -26,7 +26,7 @@ class UserService extends Injectable {
           yield self.API.request('POST', '/user/login', {}, credentials);
           let user = yield self.fetch('me');
           self.user = user;
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
+          self.EventService.emit(self.EventService.events.CHANGE_USER);
           resolve();
         } catch(response) { return reject(response.data || response); }
       }, this);
