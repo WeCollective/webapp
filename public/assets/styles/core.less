@@ -188,17 +188,17 @@ input, textarea {
             float: left;
           }
           > div.frame-content {
-            width: calc(100% - @frame-column-width-md);
+            width: calc(~'100% - @{frame-column-width-md}');
           }
         });
         .responsive(@screen-lg, {
           > div.frame-content {
-            width: calc(100% - @frame-column-width-lg);
+            width: calc(~'100% - @{frame-column-width-lg}');
           }
         });
         .responsive(@screen-xl, {
           > div.frame-content {
-            width: calc(100% - @frame-column-width-xl);
+            width: calc(~'100% - @{frame-column-width-xl}');
           }
         });
       }
