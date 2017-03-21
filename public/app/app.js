@@ -71,6 +71,8 @@ import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
 import ProfileSettingsController from 'pages/profile/settings/settings.controller';
 registrar.controller('ProfileSettingsController', ProfileSettingsController);
+import BranchController from 'pages/branch/branch.controller';
+registrar.controller('BranchController', BranchController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
