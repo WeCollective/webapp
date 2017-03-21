@@ -137,14 +137,17 @@ class UserService extends Injectable {
   }
 
   update(data) {
-    console.log("updating", data);
     return new Promise((resolve, reject) => {
-      this.API.update('/user/me', {}, data)
-        .then((response) => {
-          console.log("DONE", response);
-          resolve();
-        })
-        .catch((response) => { return reject(response.data || response); });
+      Generator.run(function* (self) {
+        try {
+          // update self
+          yield self.API.update('/user/me', {}, data);
+          // fetch the updated self
+          self.user = yield self.fetch('me');
+          self.EventService.emit(self.EventService.events.CHANGE_USER);
+          return resolve();
+        } catch(response) { return reject(response.data || response); }
+      }, this);
     });
   }
 }

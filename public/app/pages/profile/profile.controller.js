@@ -11,28 +11,28 @@ class ProfileController extends Injectable {
     this.profileUser = {};
 
     // add settings and notifications tab iff. viewing own profile
-    let updateTabs = () => {
-      if(this.UserService.user.username === this.$state.params.username) {
-        if(this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
-          this.tabItems.push('settings');
-          this.tabStates.push('weco.profile.settings');
+    let update = () => {
+      this.$timeout(() => {
+        this.profileUser = this.UserService.user;
+        if(this.UserService.user.username === this.$state.params.username) {
+          if(this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
+            this.tabItems.push('settings');
+            this.tabStates.push('weco.profile.settings');
+          }
+          if(this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
+            this.tabItems.push('notifications');
+            this.tabStates.push('weco.profile.notifications');
+          }
         }
-        if(this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
-          this.tabItems.push('notifications');
-          this.tabStates.push('weco.profile.notifications');
-        }
-      }
+      });
     };
-    this.EventService.on(this.EventService.events.CHANGE_USER, updateTabs);
+    this.EventService.on(this.EventService.events.CHANGE_USER, update);
 
     // initial fetch of the viewed user
     if(this.UserService.user.username === this.$state.params.username) {
       // viewing own profile
-      this.$timeout(() => {
-        this.profileUser = this.UserService.user;
-        this.isLoading = false;
-        updateTabs();
-      });
+      this.isLoading = false;
+      update();
     } else {  // viewing another user's profile
       // ensure we are in the 'about' state
       if(this.$state.current.name !== 'weco.profile.about') {

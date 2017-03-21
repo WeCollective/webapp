@@ -15,7 +15,9 @@ class AlertsService extends Injectable {
   }
 
   close(idx) {
-    this.queue[idx].alive = false;
+    if(this.queue[idx]) {
+      this.queue[idx].alive = false;
+    }
     this.$timeout(() => { this.purge(); }, 600);
   }
 
