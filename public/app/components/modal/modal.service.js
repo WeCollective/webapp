@@ -6,23 +6,23 @@ class ModalService extends Injectable {
 
     this.templateUrl = '';
     this.isOpen = false;
-    this.modalInputArgs = {};
-    this.modalOutputArgs = {};
-    this.modalResolve = () => {};
-    this.modalReject = () => {};
+    this.inputArgs = {};
+    this.outputArgs = {};
+    this.resolve = () => {};
+    this.reject = () => {};
   }
 
   open(url, args) {
     // force change the template url so that controllers included on
     // the template are reloaded
-    this.templateUrl = '';
+    this.templateUrl = url;
     this.$timeout(() => { this.templateUrl = url; });
 
     this.isOpen = true;
-    this.modalInputArgs = args;
+    this.inputArgs = args;
     return new Promise((resolve, reject) => {
-      this.modalResolve = resolve;
-      this.modalReject = reject;
+      this.resolve = resolve;
+      this.reject = reject;
     });
   }
 
@@ -30,9 +30,9 @@ class ModalService extends Injectable {
     this.$timeout(() => {
       this.isOpen = false;
       if(args) {
-        this.modalOutputArgs = args;
+        this.outputArgs = args;
       }
-      this.modalResolve(true);
+      this.resolve(true);
     });
   }
 
@@ -40,14 +40,14 @@ class ModalService extends Injectable {
     this.$timeout(() => {
       this.isOpen = false;
       if(args) {
-        this.modalOutputArgs = args;
+        this.outputArgs = args;
       }
-      this.modalResolve(false);
+      this.resolve(false);
     });
   }
 
   Error() {
-    this.modalReject();
+    this.reject();
   }
 }
 ModalService.$inject = ['$timeout'];

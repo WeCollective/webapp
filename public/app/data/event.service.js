@@ -5,7 +5,9 @@ class EventService extends Injectable {
     super(EventService.$inject, injections);
 
     this.events = {
-      CHANGE_USER: 'CHANGE_USER'
+      CHANGE_USER: 'CHANGE_USER',
+      MODAL_OK: 'MODAL_OK',
+      MODAL_CANCEL: 'MODAL_CANCEL'
     };
   }
 

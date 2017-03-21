@@ -96,3 +96,5 @@ registrar.controller('TabsController', TabsController);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
+import ProfileSettingsModalController from 'components/modal/profile/settings/settings.controller';
+registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);

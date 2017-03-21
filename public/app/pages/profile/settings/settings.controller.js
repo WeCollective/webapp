@@ -6,7 +6,7 @@ class ProfileSettingsController extends Injectable {
   }
 
   openModal(args) {
-    this.ModalService.open('/app/components/modals/profile/settings/settings.modal.view.html', args)
+    this.ModalService.open('/app/components/modal/profile/settings/settings.modal.view.html', args)
       .then((result) => {
         // reload state to force profile reload if OK was pressed
         if(result) {
