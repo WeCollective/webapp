@@ -120,13 +120,13 @@ class UserService extends Injectable {
 
           try {
             // attach urls for the user's profile and cover pictures (inc. thumbnails)
-            response = yield self.API.fetch('/user/me/:picture', { picture: 'picture' });
+            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'picture' });
             user.profileUrl = response.data;
-            response = yield self.API.fetch('/user/me/:picture', { picture: 'picture-thumb' });
+            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'picture-thumb' });
             user.profileUrlThumb = response.data;
-            response = yield self.API.fetch('/user/me/:picture', { picture: 'cover' });
+            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'cover' });
             user.coverUrl = response.data;
-            response = yield self.API.fetch('/user/me/:picture', { picture: 'cover-thumb' });
+            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'cover-thumb' });
             user.coverUrlThumb = response.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
 
