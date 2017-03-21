@@ -1,17 +1,17 @@
-<cover-photo image-url="Profile.UserService.user.coverUrl" thumb-url="Profile.UserService.user.coverUrlThumb" is-open="Profile.showCover" can-edit="true"></cover-photo>
+<cover-photo image-url="Profile.profileUser.coverUrl" thumb-url="Profile.profileUser.coverUrlThumb" is-open="Profile.showCover" can-edit="Profile.profileUser.username === Profile.UserService.user.username"></cover-photo>
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
     <div id="profile-info" class="frame-column">
-      <h1>{{ Profile.UserService.user.firstname }} {{ Profile.UserService.user.lastname }}</h1>
-      <h2>{{ Profile.UserService.user.username }}</h2>
-      <div class="frame-column-picture" style="background-image: url('{{ Profile.UserService.user.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.$state.params.username === Profile.UserService.user.username" tooltip text="'Upload New Image'" offset-y="30">
+      <h1>{{ Profile.profileUser.firstname }} {{ Profile.profileUser.lastname }}</h1>
+      <h2>{{ Profile.profileUser.username }}</h2>
+      <div class="frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.profileUser.username === Profile.UserService.user.username" tooltip text="'Upload New Image'" offset-y="30">
       </div>
       <ul>
-        <li># of Posts: <span>{{ Profile.UserService.user.num_posts }}</span></li>
-        <li># of Comments: <span>{{ Profile.UserService.user.num_comments }}</span></li>
-        <li>Branches Created: <span>{{ Profile.UserService.user.num_branches }}</span></li>
-        <li>Moderator Positions: <span>{{ Profile.UserService.user.num_mod_positions }}</span></li>
+        <li># of Posts: <span>{{ Profile.profileUser.num_posts }}</span></li>
+        <li># of Comments: <span>{{ Profile.profileUser.num_comments }}</span></li>
+        <li>Branches Created: <span>{{ Profile.profileUser.num_branches }}</span></li>
+        <li>Moderator Positions: <span>{{ Profile.profileUser.num_mod_positions }}</span></li>
       </ul>
     </div>
     <div class="frame-content">
