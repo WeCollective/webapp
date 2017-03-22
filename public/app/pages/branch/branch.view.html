@@ -13,28 +13,28 @@
       <div class="frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
         <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Branch.openProfilePictureModal()" ng-show="Branch.isModerator()">
       </div>
-      <!-- <ul id="branch-controls">
+      <ul id="branch-controls">
         <li>
-          <a ui-sref="weco.branch.nucleus.about({ branchid: Branch.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }" >
-            <img src="/assets/images/icons/black/nucleus.png">
+          <a ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }" >
+            <img src="/assets/images/icons/black/nucleus.png" tooltip text="'Nucleus'" offset-y="60">
           </a>
         </li>
         <li>
-          <a ui-sref="weco.branch.subbranches({ branchid: Branch.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }">
-            <img src="/assets/images/icons/black/branch.png">
+          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }">
+            <img src="/assets/images/icons/black/branch.png" tooltip text="'Subbranches'" offset-y="60">
           </a>
         </li>
         <li>
-          <a ui-sref="weco.branch.wall({ branchid: Branch.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('wall') }">
-            <img src="/assets/images/icons/black/wall.png">
+          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('wall') }">
+            <img src="/assets/images/icons/black/wall.png" tooltip text="'Wall'" offset-y="60">
           </a>
         </li>
         <li>
           <a id="add-content" ng-click="Branch.addContent()" ng-class="{ 'disabled': !Branch.canAddContent() }">
-            <img src="/assets/images/icons/black/add.png">
+            <img src="/assets/images/icons/black/add.png" tooltip text="Branch.getAddContentTooltip()" offset-y="60">
           </a>
         </li>
-      </ul> -->
+      </ul>
     </div>
     <div class="frame-content" ui-view>
     </div>

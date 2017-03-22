@@ -14,10 +14,10 @@ div#branch-frame {
       position: relative;
       text-align: center;
       height: calc(~'@{frame-column-width-xs} / 4');
-      .responsive(@screen-sm, { height: calc('@{frame-column-width-sm} / 4'); });
-      .responsive(@screen-md, { height: calc('@{frame-column-width-md} / 4'); });
-      .responsive(@screen-lg, { height: calc('@{frame-column-width-lg} / 4'); });
-      .responsive(@screen-xl, { height: calc('@{frame-column-width-xl} / 4'); });
+      .responsive(@screen-sm, { height: calc(~'@{frame-column-width-sm} / 4'); });
+      .responsive(@screen-md, { height: calc(~'@{frame-column-width-md} / 4'); });
+      .responsive(@screen-lg, { height: calc(~'@{frame-column-width-lg} / 4'); });
+      .responsive(@screen-xl, { height: calc(~'@{frame-column-width-xl} / 4'); });
       .set-responsively(width, frame-column-width);
 
       margin: 0 -20px;
@@ -27,11 +27,11 @@ div#branch-frame {
       li {
         float: left;
         height: 100%;
-        width: calc('@{frame-column-width-xs} / 4');
-        .responsive(@screen-sm, { width: calc('@{frame-column-width-sm} / 4'); });
-        .responsive(@screen-md, { width: calc('@{frame-column-width-md} / 4'); });
-        .responsive(@screen-lg, { width: calc('@{frame-column-width-lg} / 4'); });
-        .responsive(@screen-xl, { width: calc('@{frame-column-width-xl} / 4'); });
+        width: calc(~'@{frame-column-width-xs} / 4');
+        .responsive(@screen-sm, { width: calc(~'@{frame-column-width-sm} / 4'); });
+        .responsive(@screen-md, { width: calc(~'@{frame-column-width-md} / 4'); });
+        .responsive(@screen-lg, { width: calc(~'@{frame-column-width-lg} / 4'); });
+        .responsive(@screen-xl, { width: calc(~'@{frame-column-width-xl} / 4'); });
         margin: 0;
         padding: 0;
         box-sizing: border-box;

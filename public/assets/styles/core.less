@@ -99,7 +99,7 @@ input, textarea {
       > div.frame {
         position: relative;
         height: 100%;
-        width: calc(100% - 2 * @page-margin-xs);
+        width: calc(~'100% - 2 * @{page-margin-xs}');
         .responsive(@screen-sm, { width: calc(~'100% - 2 * @{page-margin-sm}'); });
         .responsive(@screen-md, { width: calc(~'100% - 2 * @{page-margin-md}'); });
         .responsive(@screen-lg, { width: calc(~'100% - 2 * @{page-margin-lg}'); });

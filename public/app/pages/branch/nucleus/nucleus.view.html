@@ -1,0 +1,9 @@
+<div id="branch-nucleus">
+  <div class="content-header">
+    <h1>{{ Branch.BranchService.branch.id === 'root' ? 'Global Nucleus' : 'Nucleus' }}</h1>
+    <div class="content-controls">
+      <tabs items="BranchNucleus.tabItems" states="BranchNucleus.tabStates"></tabs>
+    </div>
+  </div>
+  <div class="content-body" ui-view></div>
+</div>

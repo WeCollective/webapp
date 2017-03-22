@@ -83,7 +83,35 @@ class BranchController extends Injectable {
     }
     return false;
   }
+
+  // dynamic tooltip text for add content button, whose behaviour
+  // is dependent on the current state
+  getAddContentTooltip() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        return 'Create New Branch';
+      case 'weco.branch.wall':
+        return 'Add New Post';
+      case 'weco.branch.post':
+        return 'Write a Comment';
+      default:
+        return '';
+    }
+  }
+
+  // returns boolean indicating whether the add content behaviour has any defined
+  // behaviour in the current state
+  canAddContent() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+      case 'weco.branch.wall':
+      case 'weco.branch.post':
+        return true;
+      default:
+        return false;
+    }
+  }
 }
-BranchController.$inject = ['$timeout', 'ModalService', 'UserService', 'BranchService', 'EventService'];
+BranchController.$inject = ['$timeout', '$state', 'ModalService', 'UserService', 'BranchService', 'EventService'];
 
 export default BranchController;
