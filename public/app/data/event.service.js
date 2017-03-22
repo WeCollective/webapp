@@ -8,7 +8,9 @@ class EventService extends Injectable {
       CHANGE_USER: 'CHANGE_USER',
       MODAL_OK: 'MODAL_OK',
       MODAL_CANCEL: 'MODAL_CANCEL',
-      MODAL_OPEN: 'MODAL_OPEN'
+      MODAL_OPEN: 'MODAL_OPEN',
+      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
+      CHANGE_BRANCH: 'CHANGE_BRANCH'
     };
   }
 

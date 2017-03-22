@@ -49,6 +49,8 @@ import EventService from 'data/event.service';
 registrar.service('EventService', EventService);
 import UserService from 'data/user.service';
 registrar.service('UserService', UserService);
+import BranchService from 'data/branch.service';
+registrar.service('BranchService', BranchService);
 import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
 import TooltipService from 'components/tooltip/tooltip.service';

@@ -104,7 +104,9 @@ class AppRoutes extends Injectable {
       .state('weco.branch', {
         url: '/b/:branchid',
         abstract: true,
-        templateUrl: '/app/pages/branch/branch.view.html'
+        templateUrl: '/app/pages/branch/branch.view.html',
+        controller: 'BranchController',
+        controllerAs: 'Branch'
       })
       // Branch Nucleus
       .state('weco.branch.nucleus', {

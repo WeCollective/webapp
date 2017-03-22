@@ -4,44 +4,14 @@ class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
 
-    this.branch = {};
-    this.parent = {};
     this.showCover = false;
     this.isLoading = false;
     this.filters = {
       time: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
     };
-    //
-    // fetch branch object
-    // Branch.get($state.params.branchid).then(function(branch) {
-    //   $timeout(function () {
-    //     $scope.branch = branch;
-    //   });
-    //   // now fetch branch mods
-    //   return Mod.getByBranch($scope.branchid);
-    // }, function(response) {
-    //   // TODO: handle other error codes
-    //   // branch not found - 404
-    //   if(response.status == 404) {
-    //     $state.go('weco.notfound');
-    //   }
-    // }).then(function(mods) {
-    //   $timeout(function () {
-    //     $scope.branch.mods = mods;
-    //     $scope.isLoading = false;
-    //   });
-    //   // now fetch branch parent
-    //   return Branch.get($scope.branch.parentid);
-    // }).then(function(parent) {
-    //   $timeout(function() {
-    //     $scope.parent = parent;
-    //   });
-    // }, function(response) {
-    //   // No parent exists (in root)
-    //   $timeout(function () {
-    //     $scope.isLoading = false;
-    //   });
-    // });
+
+    // update the view when the branch changes
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.$timeout);
   }
 
   getTimeafter(timeItem) {
@@ -79,7 +49,7 @@ class BranchController extends Injectable {
   }
 
   openProfilePictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.branch.id + '/', type: 'picture' })
+    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.BranchService.branch.id + '/', type: 'picture' })
       .then((result) => {
         // reload state to force profile reload if OK was pressed
         if(result) {
@@ -91,7 +61,7 @@ class BranchController extends Injectable {
   }
 
   openCoverPictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.branch.id + '/', type: 'cover' })
+    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.BranchService.branch.id + '/', type: 'cover' })
       .then((result) => {
         // reload state to force profile reload if OK was pressed
         if(result) {
@@ -103,17 +73,17 @@ class BranchController extends Injectable {
   }
 
   isModerator() {
-    if(!this.branch.mods) {
+    if(!this.BranchService.branch.mods) {
       return false;
     }
-    for(let i = 0; i < this.branch.mods.length; i++) {
-      if(this.branch.mods[i].username === this.UserService.user.username) {
+    for(let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if(this.BranchService.branch.mods[i].username === this.UserService.user.username) {
         return true;
       }
     }
     return false;
   }
 }
-BranchController.$inject = ['$timeout', 'ModalService', 'UserService'];
+BranchController.$inject = ['$timeout', 'ModalService', 'UserService', 'BranchService', 'EventService'];
 
 export default BranchController;
