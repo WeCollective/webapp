@@ -51,27 +51,27 @@ class BranchController extends Injectable {
   }
 
   openProfilePictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.BranchService.branch.id + '/', type: 'picture' })
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, {reload: true});
-        }
-      }).catch(() => {
-        this.AlertsService.push('error', 'Unable to update profile picture.');
-      });
+    this.ModalService.open(
+      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      {
+        route: 'branch/' + this.BranchService.branch.id + '/',
+        type: 'picture'
+      },
+      'Successfully updated profile picture.',
+      'Unable to update profile picture.'
+    );
   }
 
   openCoverPictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'branch/' + this.BranchService.branch.id + '/', type: 'cover' })
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, {reload: true});
-        }
-      }).catch(() => {
-        this.AlertsService.push('error', 'Unable to update cover picture.');
-      });
+    this.ModalService.open(
+      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      {
+        route: 'branch/' + this.BranchService.branch.id + '/',
+        type: 'cover'
+      },
+      'Successfully updated cover picture.',
+      'Unable to update cover picture.'
+    );
   }
 
   isModerator() {

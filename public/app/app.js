@@ -83,6 +83,8 @@ import BranchNucleusModeratorsController from 'pages/branch/nucleus/moderators/m
 registrar.controller('BranchNucleusModeratorsController', BranchNucleusModeratorsController);
 import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/settings.controller';
 registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsController);
+import BranchNucleusModtoolsController from 'pages/branch/nucleus/modtools/modtools.controller';
+registrar.controller('BranchNucleusModtoolsController', BranchNucleusModtoolsController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
@@ -113,7 +115,9 @@ import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
 import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
 registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
-import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';
-registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
 import UploadImageModalController from 'components/modal/upload-image/upload-image.modal.controller';
 registrar.controller('UploadImageModalController', UploadImageModalController);
+import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';
+registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
+import BranchNucleusModtoolsAddModController from 'components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.controller';
+registrar.controller('BranchNucleusModtoolsAddModController', BranchNucleusModtoolsAddModController);

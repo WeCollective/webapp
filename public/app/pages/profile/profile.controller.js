@@ -57,27 +57,27 @@ class ProfileController extends Injectable {
   }
 
   openProfilePictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'user/me/', type: 'picture' })
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-        }
-      }).catch(() => {
-        this.AlertsService.push('error', 'Unable to change profile picture.');
-      });
+    this.ModalService.open(
+      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      {
+        route: 'user/me/',
+        type: 'picture'
+      },
+      'Successfully updated profile picture.',
+      'Unable to update profile picture.'
+    );
   }
 
   openCoverPictureModal() {
-    this.ModalService.open('/app/components/modal/upload-image/upload-image.modal.view.html', { route: 'user/me/', type: 'cover' })
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-        }
-      }).catch(() => {
-        this.AlertsService.push('error', 'Unable to change cover picture.');
-      });
+    this.ModalService.open(
+      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      {
+        route: 'user/me/',
+        type: 'cover'
+      },
+      'Successfully updated cover picture.',
+      'Unable to update cover picture.'
+    );
   }
 }
 ProfileController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'AlertsService'];

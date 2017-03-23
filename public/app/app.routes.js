@@ -138,6 +138,8 @@ class AppRoutes extends Injectable {
       .state('weco.branch.nucleus.modtools', {
         url: '/modtools',
         templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
+        controller: 'BranchNucleusModtoolsController',
+        controllerAs: 'BranchNucleusModtools',
         modOnly: true,
         redirectTo: 'auth.login'
       })
