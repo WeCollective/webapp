@@ -129,7 +129,9 @@ class AppRoutes extends Injectable {
       })
       .state('weco.branch.nucleus.moderators', {
         url: '/moderators',
-        templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html'
+        templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
+        controller: 'BranchNucleusModeratorsController',
+        controllerAs: 'BranchNucleusModerators'
       })
       .state('weco.branch.nucleus.modtools', {
         url: '/modtools',

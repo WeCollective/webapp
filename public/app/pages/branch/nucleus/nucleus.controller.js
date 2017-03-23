@@ -4,13 +4,14 @@ class BranchNucleusController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusController.$inject, injections);
 
-    this.tabItems = ['about', 'moderators'];
-    this.tabStates =
-      ['weco.branch.nucleus.about({ "branchid": "' + this.BranchService.branch.id + '"})',
-       'weco.branch.nucleus.moderators({ "branchid": "' + this.BranchService.branch.id + '"})'];
-       
+    this.tabItems = [];
+    this.tabStates = [];
+
     let updateTabs = () => {
       this.$timeout(() => {
+        if(Object.keys(this.BranchService.branch) === 0) return;
+
+        this.tabItems = ['about', 'moderators'];
         this.tabStates =
           ['weco.branch.nucleus.about({ "branchid": "' + this.BranchService.branch.id + '"})',
            'weco.branch.nucleus.moderators({ "branchid": "' + this.BranchService.branch.id + '"})'];
@@ -39,8 +40,8 @@ class BranchNucleusController extends Injectable {
         }
       });
     };
-    updateTabs();
 
+    updateTabs();
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, updateTabs);
     this.EventService.on(this.EventService.events.CHANGE_USER, updateTabs);
   }
@@ -51,6 +52,6 @@ class BranchNucleusController extends Injectable {
     }
   }
 }
-BranchNucleusController.$inject = ['$timeout', 'BranchService', 'EventService'];
+BranchNucleusController.$inject = ['$timeout', 'BranchService', 'UserService', 'EventService'];
 
 export default BranchNucleusController;

@@ -59,12 +59,15 @@ class BranchService extends Injectable {
           }
           delete branch.parentid;
 
+          // attach moderator list
+          branch.mods = yield self.ModService.fetchByBranch(branch.id);
+
           return resolve(branch);
         } catch(response) { return reject(response.data || response); }
       }, this);
     });
   }
 }
-BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService'];
+BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
 
 export default BranchService;

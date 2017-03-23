@@ -51,6 +51,8 @@ import UserService from 'data/user.service';
 registrar.service('UserService', UserService);
 import BranchService from 'data/branch.service';
 registrar.service('BranchService', BranchService);
+import ModService from 'data/mod.service';
+registrar.service('ModService', ModService);
 import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
 import TooltipService from 'components/tooltip/tooltip.service';
@@ -77,6 +79,8 @@ import BranchController from 'pages/branch/branch.controller';
 registrar.controller('BranchController', BranchController);
 import BranchNucleusController from 'pages/branch/nucleus/nucleus.controller';
 registrar.controller('BranchNucleusController', BranchNucleusController);
+import BranchNucleusModeratorsController from 'pages/branch/nucleus/moderators/moderators.controller';
+registrar.controller('BranchNucleusModeratorsController', BranchNucleusModeratorsController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
