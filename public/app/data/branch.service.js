@@ -67,6 +67,14 @@ class BranchService extends Injectable {
       }, this);
     });
   }
+
+  update(branchid, data) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/branch/:branchid', { branchid: branchid }, data)
+        .then(resolve)
+        .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
 

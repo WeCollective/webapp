@@ -81,6 +81,8 @@ import BranchNucleusController from 'pages/branch/nucleus/nucleus.controller';
 registrar.controller('BranchNucleusController', BranchNucleusController);
 import BranchNucleusModeratorsController from 'pages/branch/nucleus/moderators/moderators.controller';
 registrar.controller('BranchNucleusModeratorsController', BranchNucleusModeratorsController);
+import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/settings.controller';
+registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
@@ -109,7 +111,9 @@ registrar.controller('TabsController', TabsController);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
-import ProfileSettingsModalController from 'components/modal/profile/settings/settings.controller';
+import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
 registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
+import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';
+registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
 import UploadImageModalController from 'components/modal/upload-image/upload-image.modal.controller';
 registrar.controller('UploadImageModalController', UploadImageModalController);

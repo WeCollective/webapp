@@ -23,17 +23,20 @@ class BranchNucleusController extends Injectable {
               // add settings tab
               if(this.tabItems.indexOf('settings') === -1) {
                 this.tabItems.push('settings');
-                this.tabStates.push('weco.branch.nucleus.settings({ "branchid": "' + this.BranchService.branch.id + '"})');
+                this.tabStates.push('weco.branch.nucleus.settings');
+                this.tabStateParams.push({ branchid: this.BranchService.branch.id });
               }
               // add mod tools tab
               if(this.tabItems.indexOf('mod tools') === -1) {
                 this.tabItems.push('mod tools');
-                this.tabStates.push('weco.branch.nucleus.modtools({ "branchid": "' + this.BranchService.branch.id + '"})');
+                this.tabStates.push('weco.branch.nucleus.modtools');
+                this.tabStateParams.push({ branchid: this.BranchService.branch.id });
               }
               // add flagged posts tab
               if(this.tabItems.indexOf('flagged posts') === -1) {
                 this.tabItems.push('flagged posts');
-                this.tabStates.push('weco.branch.nucleus.flaggedposts({ "branchid": "' + this.BranchService.branch.id + '"})');
+                this.tabStates.push('weco.branch.nucleus.flaggedposts');
+                this.tabStateParams.push({ branchid: this.BranchService.branch.id });
               }
             }
           }

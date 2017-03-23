@@ -124,6 +124,8 @@ class AppRoutes extends Injectable {
       .state('weco.branch.nucleus.settings', {
         url: '/settings',
         templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
+        controller: 'BranchNucleusSettingsController',
+        controllerAs: 'BranchNucleusSettings',
         modOnly: true,
         redirectTo: 'auth.login'
       })
