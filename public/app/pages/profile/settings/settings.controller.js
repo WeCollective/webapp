@@ -5,55 +5,57 @@ class ProfileSettingsController extends Injectable {
     super(ProfileSettingsController.$inject, injections);
   }
 
-  openModal(args) {
-    this.ModalService.open('/app/components/modal/profile/settings/settings.modal.view.html', args)
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-          this.AlertsService.push('success', 'Successfully updated profile settings!');
-        }
-      }).catch((err) => {
-        this.AlertsService.push('error', 'Unable to update profile settings.');
-      });
-  }
-
   openNameModal() {
-    this.openModal({
-      title: 'Name',
-      inputs: [{
-          placeholder: 'First name',
-          type: 'text',
-          fieldname: 'firstname'
-        }, {
-          placeholder: 'Last name',
-          type: 'text',
-          fieldname: 'lastname'
-        }
-      ]
-    });
+    this.ModalService.open(
+      '/app/components/modal/profile/settings/settings.modal.view.html',
+      {
+        title: 'Name',
+        inputs: [{
+            placeholder: 'First name',
+            type: 'text',
+            fieldname: 'firstname'
+          }, {
+            placeholder: 'Last name',
+            type: 'text',
+            fieldname: 'lastname'
+          }
+        ]
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.'
+    );
   }
 
   openEmailModal() {
-    this.openModal({
-      title: 'Email',
-      inputs: [{
-        placeholder: 'Email',
-        type: 'email',
-        fieldname: 'email'
-      }]
-    });
+    this.ModalService.open(
+      '/app/components/modal/profile/settings/settings.modal.view.html',
+      {
+        title: 'Email',
+        inputs: [{
+          placeholder: 'Email',
+          type: 'email',
+          fieldname: 'email'
+        }]
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.'
+    );
   }
 
   openDOBModal() {
-    this.openModal({
-      title: 'Date of Birth',
-      inputs: [{
-        placeholder: 'Date of Birth',
-        type: 'date',
-        fieldname: 'dob'
-      }]
-    });
+    this.ModalService.open(
+      '/app/components/modal/profile/settings/settings.modal.view.html',
+      {
+        title: 'Date of Birth',
+        inputs: [{
+          placeholder: 'Date of Birth',
+          type: 'date',
+          fieldname: 'dob'
+        }]
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.'
+    );
   }
 
   updateNSFW() {

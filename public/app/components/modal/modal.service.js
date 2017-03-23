@@ -12,7 +12,7 @@ class ModalService extends Injectable {
     this.reject = () => {};
   }
 
-  open(url, args) {
+  open(url, args, successMessage, errorMessage) {
     // force change the template url so that controllers included on
     // the template are reloaded
     this.templateUrl = url;
@@ -21,9 +21,17 @@ class ModalService extends Injectable {
     this.inputArgs = args;
     this.EventService.emit(this.EventService.events.MODAL_OPEN);
 
-    return new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       this.resolve = resolve;
       this.reject = reject;
+    }).then((result) => {
+      // force reload if OK was pressed
+      if(result) {
+        this.$state.go(this.$state.current, {}, { reload: true });
+        this.AlertsService.push('success', successMessage);
+      }
+    }).catch((err) => {
+      this.AlertsService.push('error', errorMessage);
     });
   }
 
@@ -51,6 +59,6 @@ class ModalService extends Injectable {
     this.reject();
   }
 }
-ModalService.$inject = ['$timeout', 'EventService'];
+ModalService.$inject = ['$timeout', '$state', 'EventService', 'AlertsService'];
 
 export default ModalService;

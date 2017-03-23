@@ -5,59 +5,61 @@ class BranchNucleusSettingsController extends Injectable {
     super(BranchNucleusSettingsController.$inject, injections);
   }
 
-  openModal(args) {
-    this.ModalService.open('/app/components/modal/branch/nucleus/settings/settings.modal.view.html', args)
-      .then((result) => {
-        // reload state to force profile reload if OK was pressed
-        if(result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-          this.AlertsService.push('success', 'Successfully updated branch settings!');
-        }
-      }).catch((err) => {
-        this.AlertsService.push('error', 'Unable to update branch settings.');
-      });
-  }
-
   openVisibleNameModal() {
-    this.openModal({
-      title: 'Visible Name',
-      inputs: [
-        {
-          placeholder: 'Visible name',
-          type: 'text',
-          fieldname: 'name'
-        }
-      ],
-      textareas: []
-    });
+    this.ModalService.open(
+      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      {
+        title: 'Visible Name',
+        inputs: [
+          {
+            placeholder: 'Visible name',
+            type: 'text',
+            fieldname: 'name'
+          }
+        ],
+        textareas: []
+      },
+      'Successfully updated branch settings!',
+      'Unable to update branch settings.'
+    );
   }
 
   openRulesModal() {
-    this.openModal({
-      title: 'Rules & Etiquette',
-      inputs: [],
-      textareas: [
-        {
-          placeholder: 'Rules & Etiquette Text',
-          fieldname: 'rules',
-          value: this.BranchService.branch.rules
-        }
-      ]
-    });
+    this.ModalService.open(
+      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      {
+        title: 'Rules & Etiquette',
+        inputs: [],
+        textareas: [
+          {
+            placeholder: 'Rules & Etiquette Text',
+            fieldname: 'rules',
+            value: this.BranchService.branch.rules
+          }
+        ]
+      },
+      'Successfully updated branch settings!',
+      'Unable to update branch settings.'
+    );
   }
 
   openDescriptionModal() {
-    this.openModal({
-      title: 'Description',
-      inputs: [],
-      textareas: [
-        {
-          placeholder: 'Description',
-          fieldname: 'description',
-          value: this.BranchService.branch.description
-        }
-      ]
-    });
+    this.ModalService.open(
+      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      {
+        title: 'Description',
+        inputs: [],
+        textareas: [
+          {
+            placeholder: 'Description',
+            fieldname: 'description',
+            value: this.BranchService.branch.description
+          }
+        ]
+      },
+      'Successfully updated branch settings!',
+      'Unable to update branch settings.'
+    );
   }
 }
 BranchNucleusSettingsController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'ModalService'];
