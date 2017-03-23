@@ -5,7 +5,7 @@
              open-upload-cover-modal="Branch.openCoverPictureModal">
 </cover-photo>
 <div class="cover-page page">
-  <div id="branch-frame" class="frame" loading when="isLoading">
+  <div id="branch-frame" class="frame" loading when="Branch.isLoading">
     <div id="branch-info" class="frame-column">
       <h1>{{ Branch.BranchService.branch.name }}</h1>
       <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>

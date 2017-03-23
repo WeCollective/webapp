@@ -15,8 +15,9 @@ class TabsComponent extends Injectable {
     **     format, i.e. with double quotes around property names and values.
     */
     this.bindToController = {
-        items: '&',
-        states: '&',
+        items: '=',
+        states: '=',
+        stateParams: '=',
         callbacks: '='
     };
     this.templateUrl = '/app/components/tabs/tabs.view.html';

@@ -5,13 +5,15 @@ class BranchController extends Injectable {
     super(BranchController.$inject, injections);
 
     this.showCover = false;
-    this.isLoading = false;
+    this.isLoading = Object.keys(this.BranchService.branch).length === 0 ? true : false;
     this.filters = {
       time: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
     };
 
     // update the view when the branch changes
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.$timeout);
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.$timeout(() => { this.isLoading = false; });
+    });
   }
 
   getTimeafter(timeItem) {

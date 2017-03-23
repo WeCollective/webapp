@@ -5,7 +5,7 @@ class BranchNucleusModeratorsController extends Injectable {
     super(BranchNucleusModeratorsController.$inject, injections);
 
     this.mods = [];
-    this.isLoading = false;
+    this.isLoading = true;
 
     let getMod = (username, index) => {
       return this.UserService.fetch(username).then((user) => {
@@ -17,8 +17,9 @@ class BranchNucleusModeratorsController extends Injectable {
 
     let getAllMods = () => {
       if(Object.keys(this.BranchService.branch).length === 0) return;
-      
+
       let promises = [];
+      this.$timeout(() => { this.isLoading = true; });
       for(let i = 0; i < this.BranchService.branch.mods.length; i++) {
         promises.push(getMod(this.BranchService.branch.mods[i].username, i));
       }

@@ -1,6 +1,6 @@
 <ul class="tabs">
-  <a ui-sref="{{ Tabs.states()[$index] }}"
-     ng-repeat="item in Tabs.items()">
+  <a ng-href="{{ Tabs.$state.href(Tabs.states[$index], Tabs.stateParams[$index]) }}"
+     ng-repeat="item in Tabs.items">
      <li ng-class="{ selected: Tabs.isSelected($index) }">
        <span>{{ item }}</span>
      </li>

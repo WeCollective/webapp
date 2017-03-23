@@ -6,15 +6,15 @@ class BranchNucleusController extends Injectable {
 
     this.tabItems = [];
     this.tabStates = [];
+    this.tabStateParams = [];
 
     let updateTabs = () => {
       this.$timeout(() => {
         if(Object.keys(this.BranchService.branch) === 0) return;
 
         this.tabItems = ['about', 'moderators'];
-        this.tabStates =
-          ['weco.branch.nucleus.about({ "branchid": "' + this.BranchService.branch.id + '"})',
-           'weco.branch.nucleus.moderators({ "branchid": "' + this.BranchService.branch.id + '"})'];
+        this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
+        this.tabStateParams = [{ branchid: this.BranchService.branch.id }, { branchid: this.BranchService.branch.id }];
 
         if(this.BranchService.branch.mods) {
           for(let i = 0; i < this.BranchService.branch.mods.length; i++) {
