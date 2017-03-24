@@ -1,17 +1,23 @@
 import Injectable from 'utils/injectable.js';
 
-class BranchNucleusModtoolsAddModController extends Injectable {
+class BranchNucleusModtoolsDeleteBranchController extends Injectable {
   constructor(...injections) {
-    super(BranchNucleusModtoolsAddModController.$inject, injections);
+    super(BranchNucleusModtoolsDeleteBranchController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
     this.data = {};
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'ADD_MOD') return;
+      if(name !== 'DELETE_BRANCH') return;
+      // if not all fields are filled, display message
+      if(!this.data || !this.data.branchid) {
+        this.$timeout(() => { this.errorMessage = 'Please fill in all fields'; });
+        return;
+      }
+
       this.isLoading = true;
-      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
+      this.BranchService.remove(this.data.branchid).then(() => {
         this.$timeout(() => {
           this.data = {};
           this.errorMessage = '';
@@ -20,18 +26,14 @@ class BranchNucleusModtoolsAddModController extends Injectable {
         });
       }).catch((response) => {
         this.$timeout(() => {
-          this.data = {};
           this.errorMessage = response.message;
-          if(response.status == 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
           this.isLoading = false;
         });
       });
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
-      if(name !== 'ADD_MOD') return;
+      if(name !== 'DELETE_BRANCH') return;
       this.$timeout(() => {
         this.data = {};
         this.errorMessage = '';
@@ -41,6 +43,6 @@ class BranchNucleusModtoolsAddModController extends Injectable {
     });
   }
 }
-BranchNucleusModtoolsAddModController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+BranchNucleusModtoolsDeleteBranchController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
 
-export default BranchNucleusModtoolsAddModController;
+export default BranchNucleusModtoolsDeleteBranchController;

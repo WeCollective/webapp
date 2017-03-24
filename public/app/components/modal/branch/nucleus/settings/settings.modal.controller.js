@@ -16,7 +16,8 @@ class BranchNucleusSettingsModalController extends Injectable {
       this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
     }
 
-    this.EventService.on(this.EventService.events.MODAL_OK, () => {
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'BRANCH_NUCLEUS_SETTINGS') return;
       // if not all fields are filled, display message
       if(this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.indexOf('') > -1 ||
          this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.indexOf('') > -1) {
@@ -56,7 +57,8 @@ class BranchNucleusSettingsModalController extends Injectable {
       });
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, () => {
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
+      if(name !== 'BRANCH_NUCLEUS_SETTINGS') return;
       this.$timeout(() => {
         this.inputValues = [];
         this.textareaValues = [];

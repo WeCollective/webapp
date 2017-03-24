@@ -24,9 +24,13 @@ class UploadImageModalController extends Injectable {
     };
 
     fetchUploadUrl();
-    this.EventService.on(this.EventService.events.MODAL_OPEN, fetchUploadUrl);
+    this.EventService.on(this.EventService.events.MODAL_OPEN, (name) => {
+      if(name !== 'UPLOAD_IMAGE') return;
+      fetchUploadUrl();
+    });
 
-    this.EventService.on(this.EventService.events.MODAL_OK, () => {
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'UPLOAD_IMAGE') return;
       if(!this.file) {
         this.errorMessage = 'No file selected!';
         return;
@@ -37,7 +41,8 @@ class UploadImageModalController extends Injectable {
       this.upload();
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, () => {
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
+      if(name !== 'UPLOAD_IMAGE') return;
       this.file = null;
       this.errorMessage = '';
       this.ModalService.Cancel();

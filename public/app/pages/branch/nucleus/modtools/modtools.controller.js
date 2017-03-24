@@ -20,7 +20,7 @@ class BranchNucleusModtoolsController extends Injectable {
 
   openAddModModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.view.html',
+      'ADD_MOD',
       {
         branchid: this.BranchService.branch.id
       },
@@ -50,7 +50,7 @@ class BranchNucleusModtoolsController extends Injectable {
     }
 
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
+      'REMOVE_MOD',
       {
         branchid: this.BranchService.branch.id,
         mods: removableMods
@@ -62,7 +62,7 @@ class BranchNucleusModtoolsController extends Injectable {
 
   openReviewSubbranchRequestsModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
+      'REVIEW_SUBBRANCH_REQUESTS',
       {
         branchid: this.BranchService.branch.id
       },
@@ -73,7 +73,7 @@ class BranchNucleusModtoolsController extends Injectable {
 
   openDeleteBranchModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
+      'DELETE_BRANCH',
       {},
       'Successfully deleted branch.',
       'Error deleting branch.'
@@ -82,7 +82,7 @@ class BranchNucleusModtoolsController extends Injectable {
 
   openUpdateHomepageStatsModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
+      'UPDATE_HOMEPAGE_STATS',
       {},
       'Successfully updated homepage stats.',
       'Error updating homepage stats.'

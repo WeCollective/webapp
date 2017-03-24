@@ -7,7 +7,7 @@ class BranchNucleusSettingsController extends Injectable {
 
   openVisibleNameModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      'BRANCH_NUCLEUS_SETTINGS',
       {
         title: 'Visible Name',
         inputs: [
@@ -26,7 +26,7 @@ class BranchNucleusSettingsController extends Injectable {
 
   openRulesModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      'BRANCH_NUCLEUS_SETTINGS',
       {
         title: 'Rules & Etiquette',
         inputs: [],
@@ -45,7 +45,7 @@ class BranchNucleusSettingsController extends Injectable {
 
   openDescriptionModal() {
     this.ModalService.open(
-      '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
+      'BRANCH_NUCLEUS_SETTINGS',
       {
         title: 'Description',
         inputs: [],

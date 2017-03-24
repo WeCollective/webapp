@@ -53,7 +53,7 @@ class API extends Injectable {
   fetch(url, params) { return this.request('GET', url, params); }
   save(url, params, data) { return this.request('POST', url, params, data); }
   update(url, params, data) { return this.request('PUT', url, params, data); }
-  delete(url, params) { return this.request('DELETE', url, params); }
+  remove(url, params) { return this.request('DELETE', url, params); }
 }
 API.$inject = ['$http', 'ENV'];
 

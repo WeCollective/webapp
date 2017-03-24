@@ -8,7 +8,8 @@ class ProfileSettingsModalController extends Injectable {
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, () => {
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'PROFILE_SETTINGS') return;
       // if not all fields are filled, display message
       if(this.values.length < this.ModalService.inputArgs.inputs.length ||
          this.values.indexOf('') > -1) {
@@ -39,7 +40,8 @@ class ProfileSettingsModalController extends Injectable {
       }).then(this.$timeout);
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, () => {
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
+      if(name !== 'PROFILE_SETTINGS') return;
       this.$timeout(() => {
         this.values = [];
         this.errorMessage = '';

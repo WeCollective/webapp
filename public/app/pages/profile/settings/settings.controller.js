@@ -7,7 +7,7 @@ class ProfileSettingsController extends Injectable {
 
   openNameModal() {
     this.ModalService.open(
-      '/app/components/modal/profile/settings/settings.modal.view.html',
+      'PROFILE_SETTINGS',
       {
         title: 'Name',
         inputs: [{
@@ -28,7 +28,7 @@ class ProfileSettingsController extends Injectable {
 
   openEmailModal() {
     this.ModalService.open(
-      '/app/components/modal/profile/settings/settings.modal.view.html',
+      'PROFILE_SETTINGS',
       {
         title: 'Email',
         inputs: [{
@@ -44,7 +44,7 @@ class ProfileSettingsController extends Injectable {
 
   openDOBModal() {
     this.ModalService.open(
-      '/app/components/modal/profile/settings/settings.modal.view.html',
+      'PROFILE_SETTINGS',
       {
         title: 'Date of Birth',
         inputs: [{

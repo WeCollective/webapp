@@ -121,3 +121,5 @@ import BranchNucleusSettingsModalController from 'components/modal/branch/nucleu
 registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
 import BranchNucleusModtoolsAddModController from 'components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.controller';
 registrar.controller('BranchNucleusModtoolsAddModController', BranchNucleusModtoolsAddModController);
+import BranchNucleusModtoolsDeleteBranchController from 'components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.controller';
+registrar.controller('BranchNucleusModtoolsDeleteBranchController', BranchNucleusModtoolsDeleteBranchController);

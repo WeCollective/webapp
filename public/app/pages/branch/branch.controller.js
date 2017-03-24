@@ -52,7 +52,7 @@ class BranchController extends Injectable {
 
   openProfilePictureModal() {
     this.ModalService.open(
-      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      'UPLOAD_IMAGE',
       {
         route: 'branch/' + this.BranchService.branch.id + '/',
         type: 'picture'
@@ -64,7 +64,7 @@ class BranchController extends Injectable {
 
   openCoverPictureModal() {
     this.ModalService.open(
-      '/app/components/modal/upload-image/upload-image.modal.view.html',
+      'UPLOAD_IMAGE',
       {
         route: 'branch/' + this.BranchService.branch.id + '/',
         type: 'cover'

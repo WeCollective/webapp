@@ -14,7 +14,7 @@ class EventService extends Injectable {
     };
   }
 
-  emit(event) {
+  emit(event, args) {
     let eventExists = false;
     for(let idx in this.events) {
       if(this.events[idx] === event) {
@@ -23,12 +23,14 @@ class EventService extends Injectable {
       }
     }
     if(eventExists) {
-      this.$rootScope.$broadcast(event);
+      this.$rootScope.$broadcast(event, args);
     }
   }
 
   on(event, callback) {
-    this.$rootScope.$on(event, () => { return this.$timeout(callback); });
+    this.$rootScope.$on(event, (evt, args) => { return this.$timeout(() => {
+      callback(args);
+    }); });
   }
 }
 EventService.$inject = ['$rootScope', '$timeout'];

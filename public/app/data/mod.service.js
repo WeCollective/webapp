@@ -15,6 +15,18 @@ class ModService extends Injectable {
       .catch((response) => { return reject(response.data || response); });
     });
   }
+
+  create(branchid, username) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch/:branchid/mods', {
+        branchid: branchid
+      }, {
+        username: username
+      })
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 ModService.$inject = ['API', '$state', 'EventService', 'AlertsService'];
 

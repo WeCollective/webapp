@@ -11,8 +11,8 @@ class ModalComponent extends Injectable {
   }
   link(scope) {
     scope.ModalService = this.ModalService;
-    scope.OK = () => { this.EventService.emit(this.EventService.events.MODAL_OK); };
-    scope.Cancel = () => { this.EventService.emit(this.EventService.events.MODAL_CANCEL); };
+    scope.OK = () => { this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name); };
+    scope.Cancel = () => { this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name); };
   }
 }
 ModalComponent.$inject = ['ModalService', 'EventService'];
