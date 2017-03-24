@@ -11,7 +11,7 @@ class Generator {
         // yielded a native ES6 promise
         if (isPromise(result.value)) {
           // invoke iterate with the arguments of the promise result
-          result.value.then(iterate).catch((err) => { iterator.throw(err); });
+          result.value.then(iterate).catch((err) => { let { value } = iterator.throw(err); iterate(value); });
         }
         // yielded an immediate value
         else {
