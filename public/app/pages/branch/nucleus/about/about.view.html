@@ -5,4 +5,4 @@
   <li ng-show="Branch.BranchService.branch.description"><span class="field marked-title">Description: </span> <div class="value" marked="Branch.BranchService.branch.description || 'Not Set'"></div></li>
   <li ng-show="Branch.BranchService.branch.rules"><span class="field marked-title">Rules &amp; Etiquette: </span> <div class="value" marked="Branch.BranchService.branch.rules || 'Not Set'"></div></li>
 </ul>
-<!-- <div ng-show="Branch.UserService.user.username" class="button" ng-class="{ 'ok': !isFollowingBranch(), 'cancel': isFollowingBranch() }" ng-click="toggleFollowBranch()"><span>{{ isFollowingBranch() ? 'UN' : '' }}FOLLOW BRANCH</span></div> -->
+<div ng-show="BranchNucleusAbout.UserService.isAuthenticated()" class="button" ng-class="{ 'ok': !BranchNucleusAbout.isFollowingBranch(), 'cancel': BranchNucleusAbout.isFollowingBranch() }" ng-click="BranchNucleusAbout.toggleFollowBranch()"><span>{{ BranchNucleusAbout.isFollowingBranch() ? 'UN' : '' }}FOLLOW BRANCH</span></div>

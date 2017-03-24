@@ -79,6 +79,8 @@ import BranchController from 'pages/branch/branch.controller';
 registrar.controller('BranchController', BranchController);
 import BranchNucleusController from 'pages/branch/nucleus/nucleus.controller';
 registrar.controller('BranchNucleusController', BranchNucleusController);
+import BranchNucleusAboutController from 'pages/branch/nucleus/about/about.controller';
+registrar.controller('BranchNucleusAboutController', BranchNucleusAboutController);
 import BranchNucleusModeratorsController from 'pages/branch/nucleus/moderators/moderators.controller';
 registrar.controller('BranchNucleusModeratorsController', BranchNucleusModeratorsController);
 import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/settings.controller';
@@ -123,3 +125,5 @@ import BranchNucleusModtoolsAddModController from 'components/modal/branch/nucle
 registrar.controller('BranchNucleusModtoolsAddModController', BranchNucleusModtoolsAddModController);
 import BranchNucleusModtoolsDeleteBranchController from 'components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.controller';
 registrar.controller('BranchNucleusModtoolsDeleteBranchController', BranchNucleusModtoolsDeleteBranchController);
+import BranchNucleusModtoolsRemoveModController from 'components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.controller';
+registrar.controller('BranchNucleusModtoolsRemoveModController', BranchNucleusModtoolsRemoveModController);

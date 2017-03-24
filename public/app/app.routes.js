@@ -119,7 +119,9 @@ class AppRoutes extends Injectable {
       })
       .state('weco.branch.nucleus.about', {
         url: '/about',
-        templateUrl: '/app/pages/branch/nucleus/about/about.view.html'
+        templateUrl: '/app/pages/branch/nucleus/about/about.view.html',
+        controller: 'BranchNucleusAboutController',
+        controllerAs: 'BranchNucleusAbout'
       })
       .state('weco.branch.nucleus.settings', {
         url: '/settings',

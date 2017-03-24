@@ -44,16 +44,17 @@ class API extends Injectable {
         transformResponse: this.normaliseResponse
       };
       if(method === 'PUT' || method === 'POST') req.data = data;
+      if(method === 'GET' || method === 'DELETE') req.params = data;
       this.$http(req).then((response) => {
         resolve(response.data || response);
       }, reject);
     });
   }
 
-  fetch(url, params) { return this.request('GET', url, params); }
+  fetch(url, params, data) { return this.request('GET', url, params, data); }
   save(url, params, data) { return this.request('POST', url, params, data); }
   update(url, params, data) { return this.request('PUT', url, params, data); }
-  remove(url, params) { return this.request('DELETE', url, params); }
+  remove(url, params, data) { return this.request('DELETE', url, params, data); }
 }
 API.$inject = ['$http', 'ENV'];
 

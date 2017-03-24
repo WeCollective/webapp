@@ -10,7 +10,7 @@ class BranchNucleusController extends Injectable {
 
     let updateTabs = () => {
       this.$timeout(() => {
-        if(Object.keys(this.BranchService.branch) === 0) return;
+        if(Object.keys(this.BranchService.branch).length === 0) return;
 
         this.tabItems = ['about', 'moderators'];
         this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];

@@ -5,6 +5,7 @@ class UserService extends Injectable {
   constructor(...injections) {
     super(UserService.$inject, injections);
     this.user = {};
+
     this.fetch('me').then((user) => {
       this.user = user;
     })
@@ -110,6 +111,34 @@ class UserService extends Injectable {
     });
   }
 
+  followBranch(username, branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/user/:username/branches/followed', {
+        username: username
+      }, {
+        branchid: branchid
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
+  unfollowBranch(username, branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.delete('/user/:username/branches/followed', {
+        username: username
+      }, {
+        branchid: branchid
+      })
+      .then(resolve)
+      .catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
   fetch(username) {
     return new Promise((resolve, reject) => {
       Generator.run(function* (self) {
@@ -129,6 +158,10 @@ class UserService extends Injectable {
             response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'cover-thumb' });
             user.coverUrlThumb = response.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
+
+          // attach user's followed branches
+          response = yield self.API.fetch('/user/:username/branches/followed', { username: username });
+          user.followed_branches = response.data;
 
           return resolve(user);
         } catch(response) { return reject(response.data || response); }

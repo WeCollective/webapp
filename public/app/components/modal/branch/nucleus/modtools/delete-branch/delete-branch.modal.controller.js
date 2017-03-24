@@ -43,6 +43,6 @@ class BranchNucleusModtoolsDeleteBranchController extends Injectable {
     });
   }
 }
-BranchNucleusModtoolsDeleteBranchController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+BranchNucleusModtoolsDeleteBranchController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
 
 export default BranchNucleusModtoolsDeleteBranchController;

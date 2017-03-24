@@ -5,17 +5,23 @@ class BranchNucleusModtoolsController extends Injectable {
     super(BranchNucleusModtoolsController.$inject, injections);
 
     this.isLoading = true;
+    this.modLog = [];
 
-    // $scope.modLog = [];
-    // Branch.getModLog($scope.branchid).then(function(log) {
-    //   $timeout(function () {
-    //     $scope.modLog = log;
-    //     $scope.isLoading = false;
-    //   });
-    // }, function() {
-    //   Alerts.push('error', 'Error fetching moderator action log.');
-    //   $scope.isLoading = false;
-    // });
+    let getModLog = () => {
+      if(Object.keys(this.BranchService.branch).length === 0) return;
+      this.BranchService.getModLog(this.BranchService.branch.id).then((log) => {
+        this.$timeout(() => {
+          this.modLog = log;
+          this.isLoading = false;
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Error fetching moderator action log.');
+        this.isLoading = false;
+      });
+    };
+
+    getModLog();
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog);
   }
 
   openAddModModal() {
@@ -90,6 +96,6 @@ class BranchNucleusModtoolsController extends Injectable {
   }
 
 }
-BranchNucleusModtoolsController.$inject = ['$timeout', 'BranchService', 'UserService', 'EventService', 'ModalService'];
+BranchNucleusModtoolsController.$inject = ['$timeout', 'BranchService', 'UserService', 'EventService', 'ModalService', 'AlertsService'];
 
 export default BranchNucleusModtoolsController;
