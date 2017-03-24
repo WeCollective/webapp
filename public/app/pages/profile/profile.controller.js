@@ -10,32 +10,10 @@ class ProfileController extends Injectable {
     this.tabStates = ['weco.profile.about'];
     this.profileUser = {};
 
-    // add settings and notifications tab iff. viewing own profile
-    let update = () => {
-      this.$timeout(() => {
-        this.profileUser = this.UserService.user;
-        if(this.UserService.user.username === this.$state.params.username) {
-          if(this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
-            this.tabItems.push('settings');
-            this.tabStates.push('weco.profile.settings');
-          }
-          if(this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
-            this.tabItems.push('notifications');
-            this.tabStates.push('weco.profile.notifications');
-          }
-        }
-      });
-    };
-    this.EventService.on(this.EventService.events.CHANGE_USER, update);
-
-    // initial fetch of the viewed user
-    if(this.UserService.user.username === this.$state.params.username) {
-      // viewing own profile
-      update();
-    } else {  // viewing another user's profile
+    let loadOtherUser = () => {
       // ensure we are in the 'about' state
       if(this.$state.current.name !== 'weco.profile.about') {
-        this.$state.go('weco.profile.about', { username: this.$state.params.username });
+        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
       } else {
         this.isLoading = true;
         this.UserService.fetch(this.$state.params.username).then((user) => {
@@ -43,8 +21,9 @@ class ProfileController extends Injectable {
           this.isLoading = false;
         })
         .catch((err) => {
+          console.log(err);
           if(err.status === 404) {
-            this.$state.go('weco.notfound');
+            return this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch user.');
             this.$state.go('weco.home');
@@ -53,7 +32,31 @@ class ProfileController extends Injectable {
         })
         .then(this.$timeout);
       }
-    }
+    };
+
+    let init = () => {
+      if(this.$state.current.name.indexOf('weco.profile') === -1) return;
+      if(this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(() => {
+          this.profileUser = this.UserService.user;
+          if(this.UserService.user.username === this.$state.params.username) {
+            if(this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
+              this.tabItems.push('settings');
+              this.tabStates.push('weco.profile.settings');
+            }
+            if(this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
+              this.tabItems.push('notifications');
+              this.tabStates.push('weco.profile.notifications');
+            }
+          }
+        });
+      } else {
+        loadOtherUser();
+      }
+    };
+
+    init();
+    this.EventService.on(this.EventService.events.CHANGE_USER, init);
   }
 
   openProfilePictureModal() {
@@ -80,6 +83,6 @@ class ProfileController extends Injectable {
     );
   }
 }
-ProfileController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'AlertsService'];
+ProfileController.$inject = ['$timeout', '$state', 'UserService', 'ModalService', 'AlertsService', 'EventService'];
 
 export default ProfileController;
