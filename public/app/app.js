@@ -129,3 +129,5 @@ import RemoveModModalController from 'components/modal/branch/nucleus/modtools/r
 registrar.controller('RemoveModModalController', RemoveModModalController);
 import ReviewSubbranchRequestsModalController from 'components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.controller';
 registrar.controller('ReviewSubbranchRequestsModalController', ReviewSubbranchRequestsModalController);
+import SubmitSubbranchRequestModalController from 'components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.controller';
+registrar.controller('SubmitSubbranchRequestModalController', SubmitSubbranchRequestModalController);

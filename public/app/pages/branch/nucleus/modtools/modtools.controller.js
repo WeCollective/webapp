@@ -77,6 +77,17 @@ class BranchNucleusModtoolsController extends Injectable {
     );
   }
 
+  openSubmitSubbranchRequestModal() {
+    this.ModalService.open(
+      'SUBMIT_SUBBRANCH_REQUEST',
+      {
+        branchid: this.BranchService.branch.id
+      },
+      'Successfully submitted child branch request.',
+      'Error submitting child branch request.'
+    );
+  }
+
   openDeleteBranchModal() {
     this.ModalService.open(
       'DELETE_BRANCH',

@@ -122,6 +122,17 @@ class BranchService extends Injectable {
       }).then(resolve).catch(error);
     });
   }
+
+  submitSubbranchRequest(parentid, childid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', {
+        branchid: parentid,
+        childid: childid
+      })
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
 
