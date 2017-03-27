@@ -1,4 +1,5 @@
 import Injectable from 'utils/injectable.js';
+import Generator from 'utils/generator.js';
 
 class RemoveModModalController extends Injectable {
   constructor(...injections) {
@@ -17,14 +18,23 @@ class RemoveModModalController extends Injectable {
       });
     };
 
-    // populate mods array with full mod user data based on the usernames
-    // given as an argument to the modal
-    let promises = [];
-    for(let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
-      promises.push(getMod(this.ModalService.inputArgs.mods[i].username, i));
-    }
-    // when all mods fetched, loading finished
-    Promise.all(promises).then(() => { this.isLoading = false; });
+    let init = () => {
+      this.isLoading = true;
+      Generator.run(function* () {
+        try {
+          for(let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
+            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
+          }
+
+          this.$timeout(() => { this.isLoading = false; });
+        } catch(err) {
+          this.$timeout(() => {
+            this.AlertsService.push('error', 'Unable to fetch moderators!');
+            this.ModalService.Cancel();
+          });
+        }
+      }, this);
+    };
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'REMOVE_MOD') return;
@@ -59,6 +69,8 @@ class RemoveModModalController extends Injectable {
         this.isLoading = false;
       });
     });
+
+    init();
   }
 
   select(mod) {

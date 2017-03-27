@@ -33,7 +33,7 @@ class ModalService extends Injectable {
     this.$timeout(() => { this.templateUrl = this.templateUrls[name]; });
     this.isOpen = true;
     this.inputArgs = args;
-    this.EventService.emit(this.EventService.events.MODAL_OPEN);
+    this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
 
     new Promise((resolve, reject) => {
       this.resolve = resolve;

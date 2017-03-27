@@ -12,7 +12,7 @@ class UpdateHomepageStatsModalController extends Injectable {
       raised_total: 0
     };
 
-    let getStats = () => {
+    let init = () => {
       Generator.run(function* () {
         try {
           let response = yield this.API.fetch('/constant/donation_total', {});
@@ -28,8 +28,6 @@ class UpdateHomepageStatsModalController extends Injectable {
         this.$timeout(() => { this.isLoading = false; });
       }, this);
     };
-    getStats();
-
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'UPDATE_HOMEPAGE_STATS') return;
@@ -74,6 +72,8 @@ class UpdateHomepageStatsModalController extends Injectable {
         this.ModalService.Cancel();
       });
     });
+
+    init();
   }
 }
 

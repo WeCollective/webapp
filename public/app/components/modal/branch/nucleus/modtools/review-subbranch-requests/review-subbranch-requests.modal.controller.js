@@ -1,4 +1,5 @@
 import Injectable from 'utils/injectable.js';
+import Generator from 'utils/generator.js';
 
 class RemoveModModalController extends Injectable {
   constructor(...injections) {
@@ -8,41 +9,36 @@ class RemoveModModalController extends Injectable {
     this.requests = [];
     this.isLoading = true;
 
-    // Get the list of requests
-    this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid).then((requests) => {
-      // get a specific branch object and insert into requests array on branch attribute
-      let getBranch = (branchid, index) => {
-        return this.BranchService.fetch(branchid)
-          .then((data) => {
-            requests[index].branch = data;
-          }).catch(() => {
-            this.errorMessage = 'Unable to get branch!';
+    let init = () => {
+      // Get the list of requests
+      this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid).then((requests) => {
+        // get a specific branch object and insert into requests array on branch attribute
+        let getBranch = (request) => {
+          return this.BranchService.fetch(request.childid)
+            .then((data) => {
+              request.branch = data;
+            }).catch(() => {
+              this.errorMessage = 'Unable to get branch!';
+            });
+        };
+
+        Generator.run(function* () {
+          for(let i = 0; i < requests.length; i++) {
+            yield getBranch(requests[i]);
+          }
+
+          this.$timeout(() => {
+            this.requests = requests;
+            this.isLoading = false;
           });
-      };
-
-      // populate requests array with full branch data based on the childids
-      let promises = [];
-      for(var i = 0; i < requests.length; i++) {
-        promises.push(getBranch(requests[i].childid, i));
-      }
-
-      // when all branches fetched, loading finished
-      Promise.all(promises).then(() => {
-        this.$timeout(() => {
-          this.requests = requests;
-          this.isLoading = false;
-        });
+        }, this);
       }).catch(() => {
         this.$timeout(() => {
-          this.errorMessage = 'Unable to fetch child branch requests!';
-          this.isLoading = false;
+          this.AlertsService.push('error', 'Unable to fetch child branch requests!');
+          this.ModalService.Cancel();
         });
       });
-    }).catch(() => {
-      this.$timeout(() => {
-        this.errorMessage = 'Unable to fetch child branch requests!';
-      });
-    });
+    };
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
@@ -61,6 +57,8 @@ class RemoveModModalController extends Injectable {
         this.ModalService.Cancel();
       });
     });
+
+    init();
   }
 
   action(index, action) {
