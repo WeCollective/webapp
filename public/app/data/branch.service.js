@@ -144,7 +144,6 @@ class BranchService extends Injectable {
       this.API.fetch('/branch/:branchid/subbranches', {
         branchid: branchid
       }, params).then((response) => {
-        console.log(response);
         resolve(response.data);
       }).catch((response) => { return reject(response.data || response); });
     });

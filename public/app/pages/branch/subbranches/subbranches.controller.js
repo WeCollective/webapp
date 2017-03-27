@@ -18,6 +18,9 @@ class BranchSubbranchesController extends Injectable {
       }
     };
 
+    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.getSubbranches);
+    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.getSubbranches);
+
     let init = () => {
       if(this.$state.current.name.indexOf('weco.branch') === -1) return;
       if(Object.keys(this.BranchService.branch).length === 0) return;
@@ -70,7 +73,7 @@ class BranchSubbranchesController extends Injectable {
 
   getSubbranches(lastBranchId) {
     this.isLoading = true;
-    
+
     let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
     let sortBy;
     switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
@@ -109,6 +112,6 @@ class BranchSubbranchesController extends Injectable {
     });
   }
 }
-BranchSubbranchesController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'EventService'];
+BranchSubbranchesController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'EventService'];
 
 export default BranchSubbranchesController;
