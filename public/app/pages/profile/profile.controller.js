@@ -21,7 +21,6 @@ class ProfileController extends Injectable {
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
           if(err.status === 404) {
             return this.$state.go('weco.notfound');
           } else {

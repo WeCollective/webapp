@@ -22,12 +22,12 @@ class UserService extends Injectable {
 
   login(credentials) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* (self) {
+      Generator.run(function* () {
         try {
-          yield self.API.request('POST', '/user/login', {}, credentials);
-          let user = yield self.fetch('me');
-          self.user = user;
-          self.EventService.emit(self.EventService.events.CHANGE_USER);
+          yield this.API.request('POST', '/user/login', {}, credentials);
+          let user = yield this.fetch('me');
+          this.user = user;
+          this.EventService.emit(this.EventService.events.CHANGE_USER);
           resolve();
         } catch(response) { return reject(response.data || response); }
       }, this);
@@ -141,26 +141,32 @@ class UserService extends Injectable {
 
   fetch(username) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* (self) {
+      Generator.run(function* () {
         try {
           // fetch the user
-          let response = yield self.API.fetch('/user/:username', { username: username });
+          let response = yield this.API.fetch('/user/:username', { username: username });
           let user = response.data;
 
           try {
             // attach urls for the user's profile and cover pictures (inc. thumbnails)
-            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'picture' });
+            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'picture' });
             user.profileUrl = response.data;
-            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'picture-thumb' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'picture-thumb' });
             user.profileUrlThumb = response.data;
-            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'cover' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'cover' });
             user.coverUrl = response.data;
-            response = yield self.API.fetch('/user/:username/:picture', { username: username, picture: 'cover-thumb' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'cover-thumb' });
             user.coverUrlThumb = response.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
 
           // attach user's followed branches
-          response = yield self.API.fetch('/user/:username/branches/followed', { username: username });
+          response = yield this.API.fetch('/user/:username/branches/followed', { username: username });
           user.followed_branches = response.data;
 
           return resolve(user);
@@ -171,13 +177,13 @@ class UserService extends Injectable {
 
   update(data) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* (self) {
+      Generator.run(function* () {
         try {
           // update self
-          yield self.API.update('/user/me', {}, data);
+          yield this.API.update('/user/me', {}, data);
           // fetch the updated self
-          self.user = yield self.fetch('me');
-          self.EventService.emit(self.EventService.events.CHANGE_USER);
+          this.user = yield this.fetch('me');
+          this.EventService.emit(this.EventService.events.CHANGE_USER);
           return resolve();
         } catch(response) { return reject(response.data || response); }
       }, this);

@@ -1,17 +1,17 @@
 class Generator {
   // run an es6 generator function through to completion
-  static run(g, ...args) {
+  static run(g, context, ...args) {
     const isPromise = (obj) => obj instanceof Promise;
-    var iterator = g(...args), result;
+    let iterator = g.apply(context, ...args), result;
     // asynchronously iterate over generator
-    (function iterate(val) {
-      result = iterator.next(val);
+    (function iterate(val, err) {
+      result = err ? iterator.throw(err) : iterator.next(val);
 
       if (!result.done) {
         // yielded a native ES6 promise
         if (isPromise(result.value)) {
           // invoke iterate with the arguments of the promise result
-          result.value.then(iterate).catch((err) => { let { value } = iterator.throw(err); iterate(value); });
+          result.value.then(iterate).catch((err) => { iterate(null, err); });
         }
         // yielded an immediate value
         else {

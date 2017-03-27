@@ -31,20 +31,26 @@ class BranchService extends Injectable {
 
   fetch(branchid) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* (self) {
+      Generator.run(function* () {
         try {
-          let response = yield self.API.fetch('/branch/:branchid', { branchid: branchid });
+          let response = yield this.API.fetch('/branch/:branchid', { branchid: branchid });
           let branch = response.data;
 
           try {
             // attach urls for the branch's profile and cover pictures (inc. thumbnails)
-            response = yield self.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture' });
+            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture' });
             branch.profileUrl = response.data;
-            response = yield self.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture-thumb' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture-thumb' });
             branch.profileUrlThumb = response.data;
-            response = yield self.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover' });
             branch.coverUrl = response.data;
-            response = yield self.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover-thumb' });
+          } catch(err) { /* It's okay if we don't have any photos */ }
+          try {
+            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover-thumb' });
             branch.coverUrlThumb = response.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
 
@@ -54,13 +60,13 @@ class BranchService extends Injectable {
               id: branch.parentid
             };
           } else {
-            response = yield self.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            response = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
             branch.parent = response.data;
           }
           delete branch.parentid;
 
           // attach moderator list
-          branch.mods = yield self.ModService.fetchByBranch(branch.id);
+          branch.mods = yield this.ModService.fetchByBranch(branch.id);
 
           return resolve(branch);
         } catch(response) { return reject(response.data || response); }
