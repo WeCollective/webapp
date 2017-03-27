@@ -155,6 +155,8 @@ class AppRoutes extends Injectable {
       .state('weco.branch.subbranches', {
         url: '/childbranches',
         templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
+        controller: 'BranchSubbranchesController',
+        controllerAs: 'BranchSubbranches',
         pageTrack: '/b/:branchid/childbranches'
       })
       // Branch wall

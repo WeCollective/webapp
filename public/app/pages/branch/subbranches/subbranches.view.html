@@ -1,0 +1,25 @@
+<div id="branch-subbranches">
+  <div class="content-header">
+    <h1>{{ BranchSubbranches.BranchService.branch.id === 'root' ? 'Root Branches' : 'Child Branches' }}</h1>
+    <div class="content-controls">
+      <dropdown title="'TIME RANGE'" items="BranchSubbranches.controls.timeRange.items" selected="BranchSubbranches.controls.timeRange.selectedIndex"></dropdown>
+      <dropdown title="'SORT BY'" items="BranchSubbranches.controls.sortBy.items" selected="BranchSubbranches.controls.sortBy.selectedIndex"></dropdown>
+    </div>
+  </div>
+  <div class="content-body" loading when="BranchSubbranches.isLoading" on-scroll-to-bottom="BranchSubbranches.loadMore">
+    <ul id="subbranch-list">
+      <li class="list-item" ng-repeat="subbranch in BranchSubbranches.branches">
+        <span class="list-item-index">{{ $index + 1 }}</span>
+        <a class="list-item-image" ui-sref="weco.branch.wall({ branchid: subbranch.id })">
+          <div style="background-image: url('{{ subbranch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
+        </a>
+        <div class="list-item-info">
+          <a ui-sref="weco.branch.wall({ branchid: subbranch.id })">
+            <span class="list-item-title">{{ subbranch.name }}</span>
+          </a>
+          <span class="list-item-description">Created by <a ui-sref="weco.profile.about({ username: subbranch.creator })">{{ subbranch.creator }}</a> on {{ subbranch.date | date:'dd MMMM yyyy' }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

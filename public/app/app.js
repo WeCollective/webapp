@@ -87,6 +87,8 @@ import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/setti
 registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsController);
 import BranchNucleusModtoolsController from 'pages/branch/nucleus/modtools/modtools.controller';
 registrar.controller('BranchNucleusModtoolsController', BranchNucleusModtoolsController);
+import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
+registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
