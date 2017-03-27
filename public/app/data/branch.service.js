@@ -94,9 +94,32 @@ class BranchService extends Injectable {
     return new Promise((resolve, reject) => {
       this.API.fetch('/branch/:branchid/modlog', {
         branchid: branchid
-      }).then((log) => {
-        resolve(log.data);
+      }).then((response) => {
+        resolve(response.data);
       }).catch((response) => { return reject(response.data || response); });
+    });
+  }
+
+  getSubbranchRequests(parentid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/branch/:branchid/requests/subbranches', {
+        branchid: parentid
+      }).then((response) => {
+        resolve(response.data);
+      }).catch((response) => { return reject(response.data || response); });
+    });
+  }
+
+  actionSubbranchRequest(action, parentid, childid) {
+    return new Promise((resolve, reject) => {
+      let error = (response) => { return reject(response.data || response); };
+
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', {
+        branchid: parentid,
+        childid: childid
+      }, {
+        action: action
+      }).then(resolve).catch(error);
     });
   }
 }
