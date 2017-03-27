@@ -131,3 +131,5 @@ import ReviewSubbranchRequestsModalController from 'components/modal/branch/nucl
 registrar.controller('ReviewSubbranchRequestsModalController', ReviewSubbranchRequestsModalController);
 import SubmitSubbranchRequestModalController from 'components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.controller';
 registrar.controller('SubmitSubbranchRequestModalController', SubmitSubbranchRequestModalController);
+import UpdateHomepageStatsModalController from 'components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.controller';
+registrar.controller('UpdateHomepageStatsModalController', UpdateHomepageStatsModalController);
