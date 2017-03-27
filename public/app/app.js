@@ -113,6 +113,9 @@ import TabsController from 'components/tabs/tabs.controller';
 registrar.directive('tabs', TabsComponent);
 registrar.controller('TabsController', TabsController);
 
+import ModLogEntryComponent from 'components/mod-log-entry/mod-log-entry.directive';
+registrar.directive('modLogEntry', ModLogEntryComponent);
+
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
 import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
