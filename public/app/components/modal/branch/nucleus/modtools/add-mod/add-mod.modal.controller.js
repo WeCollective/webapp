@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable.js';
 
-class BranchNucleusModtoolsAddModController extends Injectable {
+class AddModModalController extends Injectable {
   constructor(...injections) {
-    super(BranchNucleusModtoolsAddModController.$inject, injections);
+    super(AddModModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
@@ -41,6 +41,6 @@ class BranchNucleusModtoolsAddModController extends Injectable {
     });
   }
 }
-BranchNucleusModtoolsAddModController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
 
-export default BranchNucleusModtoolsAddModController;
+export default AddModModalController;

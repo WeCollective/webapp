@@ -121,9 +121,9 @@ import UploadImageModalController from 'components/modal/upload-image/upload-ima
 registrar.controller('UploadImageModalController', UploadImageModalController);
 import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';
 registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
-import BranchNucleusModtoolsAddModController from 'components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.controller';
-registrar.controller('BranchNucleusModtoolsAddModController', BranchNucleusModtoolsAddModController);
-import BranchNucleusModtoolsDeleteBranchController from 'components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.controller';
-registrar.controller('BranchNucleusModtoolsDeleteBranchController', BranchNucleusModtoolsDeleteBranchController);
-import BranchNucleusModtoolsRemoveModController from 'components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.controller';
-registrar.controller('BranchNucleusModtoolsRemoveModController', BranchNucleusModtoolsRemoveModController);
+import AddModModalController from 'components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.controller';
+registrar.controller('AddModModalController', AddModModalController);
+import DeleteBranchModalController from 'components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.controller';
+registrar.controller('DeleteBranchModalController', DeleteBranchModalController);
+import RemoveModModalController from 'components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.controller';
+registrar.controller('RemoveModModalController', RemoveModModalController);

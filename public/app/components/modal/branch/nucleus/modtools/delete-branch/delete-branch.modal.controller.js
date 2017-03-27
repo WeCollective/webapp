@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable.js';
 
-class BranchNucleusModtoolsDeleteBranchController extends Injectable {
+class DeleteBranchModalController extends Injectable {
   constructor(...injections) {
-    super(BranchNucleusModtoolsDeleteBranchController.$inject, injections);
+    super(DeleteBranchModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
@@ -43,6 +43,6 @@ class BranchNucleusModtoolsDeleteBranchController extends Injectable {
     });
   }
 }
-BranchNucleusModtoolsDeleteBranchController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
+DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
 
-export default BranchNucleusModtoolsDeleteBranchController;
+export default DeleteBranchModalController;

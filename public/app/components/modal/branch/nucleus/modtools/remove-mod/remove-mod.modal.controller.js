@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable.js';
 
-class BranchNucleusModtoolsRemoveModController extends Injectable {
+class RemoveModModalController extends Injectable {
   constructor(...injections) {
-    super(BranchNucleusModtoolsRemoveModController.$inject, injections);
+    super(RemoveModModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
@@ -65,6 +65,6 @@ class BranchNucleusModtoolsRemoveModController extends Injectable {
     this.selectedMod = mod;
   }
 }
-BranchNucleusModtoolsRemoveModController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
+RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
 
-export default BranchNucleusModtoolsRemoveModController;
+export default RemoveModModalController;

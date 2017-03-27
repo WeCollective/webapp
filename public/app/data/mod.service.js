@@ -27,7 +27,18 @@ class ModService extends Injectable {
       .catch((response) => { return reject(response.data || response); });
     });
   }
+
+  remove(branchid, username) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/branch/:branchid/mods/:username', {
+        branchid: branchid,
+        username: username
+      })
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
-ModService.$inject = ['API', '$state', 'EventService', 'AlertsService'];
+ModService.$inject = ['API'];
 
 export default ModService;
