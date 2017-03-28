@@ -1,9 +1,9 @@
 <li class="post-entry">
   <span class="list-item-index">{{ index + 1 }}</span>
   <div class="list-item-votes">
-    <img src="/assets/images/icons/black/arrow-up.png" ng-click="BranchWall.vote(post, 'up')">
-    <p>{{ post[BranchWall.stat] }}</p>
-    <img src="/assets/images/icons/black/arrow-down.png" ng-click="BranchWall.vote(post, 'down')">
+    <img src="/assets/images/icons/black/arrow-up.png" ng-click="vote(post, 'up')">
+    <p>{{ post[stat] }}</p>
+    <img src="/assets/images/icons/black/arrow-down.png" ng-click="vote(post, 'down')">
   </div>
   <!-- Two DOM elements conditionally displayed if the post is a text type.
        One is to perform internal state transition with uisref. (Text posts)
@@ -14,7 +14,7 @@
   </a>
   <a class="list-item-image" ng-if="post.type !== 'text' && post.type !== 'poll'" href="{{ post.data.text }}"
      ng-show="post.type === 'image' ? post.data.text : post.profileUrlThumb" target="_blank">
-    <div style="background-image: url('{{ post.type === 'image' ? BranchWall.getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
+    <div style="background-image: url('{{ post.type === 'image' ? getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
   </a>
   <div class="list-item-nsfw-label" ng-show="post.nsfw"><span>NSFW</span></div>
 
@@ -27,10 +27,10 @@
       <span class="list-item-title">{{ post.data.title }}</span>
     </a>
     <span ng-class="post.type" class="list-item-post-type-marker"></span>
-    <span ng-class="post.type" class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> to <a ui-sref="weco.branch.subbranches({ branchid: BranchWall.getOriginalBranches(post)[0] })">b/{{ BranchWall.getOriginalBranches(post)[0] }}</a><span ng-show="BranchWall.getOriginalBranches(post).length > 1"> and {{ BranchWall.getOriginalBranches(post).length - 1 }} others</span> at {{ post.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+    <span ng-class="post.type" class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> to <a ui-sref="weco.branch.subbranches({ branchid: getOriginalBranches(post)[0] })">b/{{ getOriginalBranches(post)[0] }}</a><span ng-show="getOriginalBranches(post).length > 1"> and {{ getOriginalBranches(post).length - 1 }} others</span> at {{ post.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
     <div class="list-item-controls">
       <a ui-sref="weco.branch.post({ postid: post.id })"><img class="control" src="/assets/images/icons/black/comment.png"></a>
-      <img class="control" src="/assets/images/icons/black/flag.png" ng-click="BranchWall.openFlagPostModal(post)">
+      <img class="control" src="/assets/images/icons/black/flag.png" ng-click="openFlagPostModal(post)">
     </div>
   </div>
 </li>

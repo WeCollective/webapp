@@ -10,7 +10,7 @@ class PostService extends Injectable {
     return new Promise((resolve, reject) => {
       if(vote !== 'up' && vote !== 'down') { return reject(); }
 
-      this.API.put('/branch/:branchid/posts/:postid', {
+      this.API.update('/branch/:branchid/posts/:postid', {
         branchid: branchid,
         postid: postid
       }, {

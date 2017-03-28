@@ -5,7 +5,7 @@
       <dropdown title="'TIME RANGE'" items="BranchWall.controls.timeRange.items" selected="BranchWall.controls.timeRange.selectedIndex"></dropdown>
       <dropdown title="'POST TYPE'" items="BranchWall.controls.postType.items" selected="BranchWall.controls.postType.selectedIndex"></dropdown>
       <dropdown title="'SORT BY'" items="BranchWall.controls.sortBy.items" selected="BranchWall.controls.sortBy.selectedIndex"></dropdown>
-      <div id="stat-type-selector" >
+      <div id="stat-type-selector">
         <div id="individual-stat" ng-class="{ selected: BranchWall.stat === 'individual' }" ng-click="BranchWall.setStat('individual')">
           <img src="/assets/images/icons/black/individual.png">
         </div>
@@ -20,7 +20,7 @@
   </div>
   <div class="content-body" loading when="BranchWall.isLoading" on-scroll-to-bottom="BranchWall.loadMore">
     <ul id="post-list">
-      <li class="list-item" ng-repeat="post in BranchWall.posts" list-item post="post" index="$index"></li>
+      <li class="list-item" ng-repeat="post in BranchWall.posts" list-item post="post" index="$index" stat="BranchWall.stat"></li>
     </ul>
   </div>
 </div>

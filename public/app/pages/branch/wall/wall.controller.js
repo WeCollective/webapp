@@ -67,50 +67,6 @@ class BranchWallController extends Injectable {
     return timeafter;
   }
 
-  getProxyUrl(url) {
-    // only proxy http requests, not https
-    if(url && url.substring(0, 5) === 'http:') {
-      return this.ENV.apiEndpoint + 'proxy?url=' + url;
-    } else {
-      return url;
-    }
-  }
-
-  getOriginalBranchesTooltipString(post) {
-    if(!post.data || !post.data.original_branches) return '';
-    let tooltip = '';
-    let original_branches = JSON.parse(post.data.original_branches);
-    for(let i = 1; i < original_branches.length; i++) {
-      tooltip += (original_branches[i] + (i < original_branches.length ? '\n' : ''));
-    }
-    return tooltip;
-  }
-
-  getOriginalBranches(post) {
-    if(!post.data || !post.data.original_branches) return '';
-    return JSON.parse(post.data.original_branches);
-  }
-
-  vote(post, direction) {
-    this.PostService.vote(this.BranchService.branch.id, post.id, direction).then(() => {
-      let inc = (direction === 'up') ? 1 : -1;
-      this.$timeout(() => {
-        post.individual += inc;
-        post.local += inc;
-        post.global += inc;
-      });
-      this.AlertsService.push('success', 'Thanks for voting!');
-    }).catch((err) => {
-      if(err.status === 400) {
-        this.AlertsService.push('error', 'You have already voted on this post.');
-      } else if(err.status === 403) {
-        this.AlertsService.push('error', 'Please log in or create an account to vote.');
-      } else {
-        this.AlertsService.push('error', 'Error voting on post.');
-      }
-    });
-  }
-
   setStat(stat) {
     this.$timeout(() => {
       this.stat = stat;
@@ -191,17 +147,6 @@ class BranchWallController extends Injectable {
       this.isLoadingMore = true;
       if(this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
     }
-  }
-
-  openFlagPostModal(post) {
-    // this.ModalService.open('/app/components/modals/post/flag/flag-post.modal.view.html', { post: post, branchid: $scope.branchid })
-    //   .then(function(result) {
-    //     if(result) {
-    //       Alerts.push('success', 'Post flagged. The branch moderators will be informed.');
-    //     }
-    //   }, function() {
-    //     Alerts.push('error', 'Unable to flag post.');
-    //   });
   }
 }
 BranchWallController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'ENV', 'EventService'];

@@ -53,6 +53,8 @@ import BranchService from 'data/branch.service';
 registrar.service('BranchService', BranchService);
 import ModService from 'data/mod.service';
 registrar.service('ModService', ModService);
+import PostService from 'data/post.service';
+registrar.service('PostService', PostService);
 import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
 import TooltipService from 'components/tooltip/tooltip.service';
