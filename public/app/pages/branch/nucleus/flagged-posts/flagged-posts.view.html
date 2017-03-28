@@ -1,0 +1,14 @@
+<div id="nucleus-flagged-posts">
+  <div class="content-header">
+    <div class="content-controls">
+      <dropdown title="'TIME RANGE'" items="BranchNucleusFlaggedPosts.WallService.controls.timeRange.items" selected="BranchNucleusFlaggedPosts.WallService.controls.timeRange.selectedIndex"></dropdown>
+      <dropdown title="'POST TYPE'" items="BranchNucleusFlaggedPosts.WallService.controls.postType.items" selected="BranchNucleusFlaggedPosts.WallService.controls.postType.selectedIndex"></dropdown>
+      <dropdown title="'SORT BY'" items="BranchNucleusFlaggedPosts.WallService.controls.sortBy.items" selected="BranchNucleusFlaggedPosts.WallService.controls.sortBy.selectedIndex"></dropdown>
+    </div>
+  </div>
+  <div class="content-body" on-scroll-to-bottom="WallScrollToBottom" loading when="BranchNucleusFlaggedPosts.WallService.isLoading">
+    <ul id="post-list">
+      <li class="list-item" ng-repeat="post in BranchNucleusFlaggedPosts.WallService.posts" list-item post="post" index="$index"></li>
+    </ul>
+  </div>
+</div>

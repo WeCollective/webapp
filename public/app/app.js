@@ -55,6 +55,8 @@ import ModService from 'data/mod.service';
 registrar.service('ModService', ModService);
 import PostService from 'data/post.service';
 registrar.service('PostService', PostService);
+import WallService from 'pages/branch/wall.service';
+registrar.service('WallService', WallService);
 import AlertsService from 'components/alerts/alerts.service';
 registrar.service('AlertsService', AlertsService);
 import TooltipService from 'components/tooltip/tooltip.service';
@@ -89,6 +91,8 @@ import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/setti
 registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsController);
 import BranchNucleusModtoolsController from 'pages/branch/nucleus/modtools/modtools.controller';
 registrar.controller('BranchNucleusModtoolsController', BranchNucleusModtoolsController);
+import BranchNucleusFlaggedPostsController from 'pages/branch/nucleus/flagged-posts/flagged-posts.controller';
+registrar.controller('BranchNucleusFlaggedPostsController', BranchNucleusFlaggedPostsController);
 import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 import BranchWallController from 'pages/branch/wall/wall.controller';

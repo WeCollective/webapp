@@ -2,9 +2,9 @@
   <div class="content-header">
     <h1>{{ BranchWall.BranchService.branch.id === 'root' ? 'Global Wall' : 'Wall' }}</h1>
     <div class="content-controls">
-      <dropdown title="'TIME RANGE'" items="BranchWall.controls.timeRange.items" selected="BranchWall.controls.timeRange.selectedIndex"></dropdown>
-      <dropdown title="'POST TYPE'" items="BranchWall.controls.postType.items" selected="BranchWall.controls.postType.selectedIndex"></dropdown>
-      <dropdown title="'SORT BY'" items="BranchWall.controls.sortBy.items" selected="BranchWall.controls.sortBy.selectedIndex"></dropdown>
+      <dropdown title="'TIME RANGE'" items="BranchWall.WallService.controls.timeRange.items" selected="BranchWall.WallService.controls.timeRange.selectedIndex"></dropdown>
+      <dropdown title="'POST TYPE'" items="BranchWall.WallService.controls.postType.items" selected="BranchWall.WallService.controls.postType.selectedIndex"></dropdown>
+      <dropdown title="'SORT BY'" items="BranchWall.WallService.controls.sortBy.items" selected="BranchWall.WallService.controls.sortBy.selectedIndex"></dropdown>
       <div id="stat-type-selector">
         <div id="individual-stat" ng-class="{ selected: BranchWall.stat === 'individual' }" ng-click="BranchWall.setStat('individual')">
           <img src="/assets/images/icons/black/individual.png">
@@ -18,9 +18,9 @@
       </div>
     </div>
   </div>
-  <div class="content-body" on-scroll-to-bottom="BranchWallScrollToBottom" loading when="BranchWall.isLoading">
+  <div class="content-body" on-scroll-to-bottom="WallScrollToBottom" loading when="BranchWall.WallService.isLoading">
     <ul id="post-list">
-      <li class="list-item" ng-repeat="post in BranchWall.posts" list-item post="post" index="$index" stat="BranchWall.stat"></li>
+      <li class="list-item" ng-repeat="post in BranchWall.WallService.posts" list-item post="post" index="$index" stat="BranchWall.stat"></li>
     </ul>
   </div>
 </div>

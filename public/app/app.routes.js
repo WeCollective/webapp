@@ -147,7 +147,9 @@ class AppRoutes extends Injectable {
       })
       .state('weco.branch.nucleus.flaggedposts', {
         url: '/flaggedposts',
-        templateUrl: '/app/pages/branch/nucleus/flaggedposts/flaggedposts.view.html',
+        templateUrl: '/app/pages/branch/nucleus/flagged-posts/flagged-posts.view.html',
+        controller: 'BranchNucleusFlaggedPostsController',
+        controllerAs: 'BranchNucleusFlaggedPosts',
         modOnly: true,
         redirectTo: 'auth.login'
       })

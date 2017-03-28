@@ -1,5 +1,9 @@
 <li class="post-entry">
   <span class="list-item-index">{{ index + 1 }}</span>
+  <div class="list-item-flags" ng-click="openResolveFlagPostModal(post)">
+    <img src="/assets/images/icons/white/flag.png">
+    <span>{{ post.branch_rules_count + post.site_rules_count + post.wrong_type_count + post.nsfw_count }}</span>
+  </div>
   <div class="list-item-votes">
     <img src="/assets/images/icons/black/arrow-up.png" ng-click="vote(post, 'up')">
     <p>{{ post[stat] }}</p>

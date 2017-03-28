@@ -68,6 +68,22 @@ class ListItemComponent extends Injectable {
         'Unable to flag post.'
       );
     };
+
+    // openResolveFlagPostModal(post) {
+      // Modal.open('/app/components/modals/post/flag/resolve/resolve-flag-post.modal.view.html', { post: post })
+      //   .then(function(result) {
+      //     if(result) {
+      //       Alerts.push('success', 'Done.');
+      //       $timeout(function () {
+      //         $scope.isLoading = true;
+      //         $scope.posts = [];
+      //         getPosts();
+      //       });
+      //     }
+      //   }, function() {
+      //     Alerts.push('error', 'Error resolving flags on post.');
+      //   });
+    // }
   }
 }
 ListItemComponent.$inject = ['$timeout', 'PostService', 'BranchService', 'AlertsService', 'ModalService', 'ENV'];
