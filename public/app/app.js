@@ -152,3 +152,5 @@ import SubmitSubbranchRequestModalController from 'components/modal/branch/nucle
 registrar.controller('SubmitSubbranchRequestModalController', SubmitSubbranchRequestModalController);
 import UpdateHomepageStatsModalController from 'components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.controller';
 registrar.controller('UpdateHomepageStatsModalController', UpdateHomepageStatsModalController);
+import FlagPostModalController from 'components/modal/post/flag/flag-post.modal.controller';
+registrar.controller('FlagPostModalController', FlagPostModalController);

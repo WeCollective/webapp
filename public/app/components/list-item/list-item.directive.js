@@ -70,6 +70,6 @@ class ListItemComponent extends Injectable {
     };
   }
 }
-ListItemComponent.$inject = ['$timeout', 'PostService', 'BranchService', 'AlertsService', 'ENV'];
+ListItemComponent.$inject = ['$timeout', 'PostService', 'BranchService', 'AlertsService', 'ModalService', 'ENV'];
 
 export default ListItemComponent;

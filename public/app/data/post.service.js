@@ -20,6 +20,19 @@ class PostService extends Injectable {
       .catch((response) => { return reject(response.data || response); });
     });
   }
+
+  flag(postid, branchid, flag_type) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/post/:postid/flag', {
+        postid: postid
+      }, {
+        flag_type: flag_type,
+        branchid: branchid
+      })
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 PostService.$inject = ['API'];
 
