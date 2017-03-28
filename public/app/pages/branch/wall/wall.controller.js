@@ -35,6 +35,13 @@ class BranchWallController extends Injectable {
     this.$scope.$watch(() => this.controls.postType.selectedIndex, () => { init(); });
     this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => { init(); });
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, (name) => {
+      if(name !== 'BranchWallScrollToBottom') return;
+      if(!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if(this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
+      }
+    });
   }
 
   // compute the appropriate timeafter for the selected time filter
@@ -140,13 +147,6 @@ class BranchWallController extends Injectable {
       this.AlertsService.push('error', 'Error fetching posts.');
       this.isLoading = false;
     });
-  }
-
-  loadMore() {
-    if(!this.isLoadingMore) {
-      this.isLoadingMore = true;
-      if(this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
-    }
   }
 }
 BranchWallController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'ENV', 'EventService'];

@@ -20,8 +20,9 @@ class TooltipComponent extends Injectable {
 
     el.addEventListener('mouseover', () => {
       this.$timeout(() => {
-        this.TooltipService.visible = true;
+        if(scope.text() === '') return;
         this.TooltipService.text = scope.text();
+        this.TooltipService.visible = true;
         this.TooltipService.x = el.getBoundingClientRect().left + this.$window.pageXOffset + offsetX;
         this.TooltipService.y = el.getBoundingClientRect().top + this.$window.pageYOffset + offsetY;
 

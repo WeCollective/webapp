@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div class="content-body" loading when="BranchWall.isLoading" on-scroll-to-bottom="BranchWall.loadMore">
+  <div class="content-body" on-scroll-to-bottom="BranchWallScrollToBottom" loading when="BranchWall.isLoading">
     <ul id="post-list">
       <li class="list-item" ng-repeat="post in BranchWall.posts" list-item post="post" index="$index" stat="BranchWall.stat"></li>
     </ul>

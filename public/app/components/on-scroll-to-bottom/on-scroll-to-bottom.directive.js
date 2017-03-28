@@ -8,14 +8,13 @@ class OnScrollToBottomComponent extends Injectable {
   }
 
   link(scope, element, attrs) {
-    let fn = scope.$eval(attrs.onScrollToBottom);
     element.on('scroll', (e) => {
       if(element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
-        scope.$apply(fn);
+        this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
       }
     });
   }
 }
-OnScrollToBottomComponent.$inject = ['$timeout'];
+OnScrollToBottomComponent.$inject = ['$timeout', 'EventService'];
 
 export default OnScrollToBottomComponent;
