@@ -121,6 +121,9 @@ registrar.directive('modLogEntry', ModLogEntryComponent);
 import DropdownComponent from 'components/dropdown/dropdown.directive';
 registrar.directive('dropdown', DropdownComponent);
 
+import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/on-scroll-to-bottom.directive';
+registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
+
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
 import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
