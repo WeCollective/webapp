@@ -163,6 +163,8 @@ class AppRoutes extends Injectable {
       .state('weco.branch.wall', {
         url: '/wall',
         templateUrl: '/app/pages/branch/wall/wall.view.html',
+        controller: 'BranchWallController',
+        controllerAs: 'BranchWall',
         pageTrack: '/b/:branchid/wall'
       })
       // Posts

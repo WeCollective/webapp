@@ -148,6 +148,23 @@ class BranchService extends Injectable {
       }).catch((response) => { return reject(response.data || response); });
     });
   }
+
+  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId) {
+    return new Promise((resolve, reject) => {
+      let params = {
+        timeafter: timeafter,
+        sortBy: sortBy,
+        stat: stat,
+        postType: postType
+      };
+      if(lastPostId) params.lastPostId = lastPostId;
+      this.API.fetch('/branch/:branchid/posts', {
+        branchid: branchid
+      }, params).then((response) => {
+        resolve(response.data);
+      }).catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
 

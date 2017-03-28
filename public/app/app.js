@@ -89,6 +89,9 @@ import BranchNucleusModtoolsController from 'pages/branch/nucleus/modtools/modto
 registrar.controller('BranchNucleusModtoolsController', BranchNucleusModtoolsController);
 import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
+import BranchWallController from 'pages/branch/wall/wall.controller';
+registrar.controller('BranchWallController', BranchWallController);
+
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
