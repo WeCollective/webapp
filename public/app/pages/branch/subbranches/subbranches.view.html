@@ -6,7 +6,7 @@
       <dropdown title="'SORT BY'" items="BranchSubbranches.controls.sortBy.items" selected="BranchSubbranches.controls.sortBy.selectedIndex"></dropdown>
     </div>
   </div>
-  <div class="content-body" loading when="BranchSubbranches.isLoading" on-scroll-to-bottom="BranchSubbranches.loadMore">
+  <div class="content-body" loading when="BranchSubbranches.isLoading" on-scroll-to-bottom="BranchSubbranchesScrollToBottom">
     <ul id="subbranch-list">
       <li class="list-item" ng-repeat="subbranch in BranchSubbranches.branches">
         <span class="list-item-index">{{ $index + 1 }}</span>

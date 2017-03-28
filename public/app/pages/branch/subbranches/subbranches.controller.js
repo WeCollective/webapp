@@ -30,15 +30,15 @@ class BranchSubbranchesController extends Injectable {
 
     init();
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-  }
-
-  loadMore() {
-    if(!this.isLoadingMore) {
-      this.isLoadingMore = true;
-      if(this.branches.length > 0) {
-        this.getSubbranches(this.branches[this.branches.length - 1].id);
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, (name) => {
+      if(name !== 'BranchSubbranchesScrollToBottom') return;
+      if(!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if(this.branches.length > 0) {
+          this.getSubbranches(this.branches[this.branches.length - 1].id);
+        }
       }
-    }
+    });
   }
 
   // compute the appropriate timeafter for the selected time filter
