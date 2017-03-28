@@ -18,11 +18,11 @@ class BranchSubbranchesController extends Injectable {
       }
     };
 
-    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.getSubbranches);
-    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.getSubbranches);
+    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, () => { this.getSubbranches(); });
+    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.getSubbranches(); });
 
     let init = () => {
-      if(this.$state.current.name.indexOf('weco.branch') === -1) return;
+      if(this.$state.current.name.indexOf('weco.branch.subbranches') === -1) return;
       if(Object.keys(this.BranchService.branch).length === 0) return;
 
       this.getSubbranches();

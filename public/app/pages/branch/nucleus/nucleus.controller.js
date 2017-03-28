@@ -18,7 +18,7 @@ class BranchNucleusController extends Injectable {
     };
 
     let init = () => {
-      if(this.$state.current.name.indexOf('weco.branch') === -1) return;
+      if(this.$state.current.name.indexOf('weco.branch.nucleus') === -1) return;
       if(Object.keys(this.BranchService.branch).length === 0) return;
 
       this.tabItems = ['about', 'moderators'];
