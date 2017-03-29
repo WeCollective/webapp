@@ -134,7 +134,9 @@ import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/on-scroll-
 registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
 
 import ListItemComponent from 'components/list-item/list-item.directive';
+import ListItemController from 'components/list-item/list-item.controller';
 registrar.directive('listItem', ListItemComponent);
+registrar.controller('ListItemController', ListItemController);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);

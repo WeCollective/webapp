@@ -149,13 +149,14 @@ class BranchService extends Injectable {
     });
   }
 
-  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId) {
+  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
     return new Promise((resolve, reject) => {
       let params = {
         timeafter: timeafter,
         sortBy: sortBy,
         stat: stat,
-        postType: postType
+        postType: postType,
+        flag: !!flag
       };
       if(lastPostId) params.lastPostId = lastPostId;
       this.API.fetch('/branch/:branchid/posts', {

@@ -7,6 +7,7 @@ class WallService extends Injectable {
     this.isLoading = false;
     this.isLoadingMore = false;
     this.posts = [];
+    this.flaggedOnly = false;
     this.controls = {
       timeRange: {
         selectedIndex: 0,
@@ -31,10 +32,12 @@ class WallService extends Injectable {
     });
   }
 
-  init(allowedState) {
+  init(allowedState, flaggedOnly) {
     if(this.$state.current.name.indexOf(allowedState) === -1) return;
     if(Object.keys(this.BranchService.branch).length === 0) return;
 
+    this.flaggedOnly = !!flaggedOnly;
+    if(this.flaggedOnly) this.controls.sortBy.selectedIndex = 2;
     this.getPosts();
   }
 
@@ -107,9 +110,8 @@ class WallService extends Injectable {
     }
 
     // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, this.stat, postType, lastPostId).then((posts) => {
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, this.stat, postType, lastPostId, this.flaggedOnly).then((posts) => {
       this.$timeout(() => {
-        console.log("FETCHED", posts);
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if(lastPostId) {
           this.posts = this.posts.concat(posts);

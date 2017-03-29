@@ -1,40 +1,40 @@
 <li class="post-entry">
-  <span class="list-item-index">{{ index + 1 }}</span>
-  <div class="list-item-flags" ng-click="openResolveFlagPostModal(post)">
+  <span class="list-item-index">{{ ListItem.index + 1 }}</span>
+  <div class="list-item-flags" ng-show="ListItem.showFlags()" ng-click="ListItem.openResolveFlagPostModal()">
     <img src="/assets/images/icons/white/flag.png">
-    <span>{{ post.branch_rules_count + post.site_rules_count + post.wrong_type_count + post.nsfw_count }}</span>
+    <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
-  <div class="list-item-votes">
-    <img src="/assets/images/icons/black/arrow-up.png" ng-click="vote(post, 'up')">
-    <p>{{ post[stat] }}</p>
-    <img src="/assets/images/icons/black/arrow-down.png" ng-click="vote(post, 'down')">
+  <div class="list-item-votes" ng-show="ListItem.showVotes()">
+    <img src="/assets/images/icons/black/arrow-up.png" ng-click="ListItem.vote('up')">
+    <p>{{ ListItem.post[ListItem.stat] }}</p>
+    <img src="/assets/images/icons/black/arrow-down.png" ng-click="ListItem.vote('down')">
   </div>
   <!-- Two DOM elements conditionally displayed if the post is a text type.
        One is to perform internal state transition with uisref. (Text posts)
        One is to link to an external site. (Non-text posts) -->
-  <a class="list-item-image" ng-if="post.type === 'text' || post.type === 'poll'" ui-sref="weco.branch.post({ postid: post.id })"
+  <a class="list-item-image" ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'" ui-sref="weco.branch.post({ postid: ListItem.post.id })"
      ng-show="post.profileUrlThumb">
-    <div style="background-image: url('{{ post.profileUrlThumb }}')"></div>
+    <div style="background-image: url('{{ ListItem.post.profileUrlThumb }}')"></div>
   </a>
-  <a class="list-item-image" ng-if="post.type !== 'text' && post.type !== 'poll'" href="{{ post.data.text }}"
-     ng-show="post.type === 'image' ? post.data.text : post.profileUrlThumb" target="_blank">
-    <div style="background-image: url('{{ post.type === 'image' ? getProxyUrl(post.data.text) : post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
+  <a class="list-item-image" ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'" href="{{ ListItem.post.data.text }}"
+     ng-show="ListItem.post.type === 'image' ? ListItem.post.data.text : ListItem.post.profileUrlThumb" target="_blank">
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.getProxyUrl(post.data.text) : ListItem.post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
   </a>
-  <div class="list-item-nsfw-label" ng-show="post.nsfw"><span>NSFW</span></div>
+  <div class="list-item-nsfw-label" ng-show="ListItem.post.nsfw"><span>NSFW</span></div>
 
   <div class="list-item-info">
     <!-- Two DOM elements conditionally displayed again - see above. -->
-    <a ng-if="post.type === 'text' || post.type === 'poll'" ui-sref="weco.branch.post({ postid: post.id })">
-      <span class="list-item-title">{{ post.data.title }}</span>
+    <a ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'" ui-sref="weco.branch.post({ postid: ListItem.post.id })">
+      <span class="list-item-title">{{ ListItem.post.data.title }}</span>
     </a>
-    <a ng-if="post.type !== 'text' && post.type !== 'poll'" href="{{ post.data.text }}" target="_blank">
-      <span class="list-item-title">{{ post.data.title }}</span>
+    <a ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'" href="{{ ListItem.post.data.text }}" target="_blank">
+      <span class="list-item-title">{{ ListItem.post.data.title }}</span>
     </a>
-    <span ng-class="post.type" class="list-item-post-type-marker"></span>
-    <span ng-class="post.type" class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: post.data.creator })">{{ post.data.creator }}</a> to <a ui-sref="weco.branch.subbranches({ branchid: getOriginalBranches(post)[0] })">b/{{ getOriginalBranches(post)[0] }}</a><span ng-show="getOriginalBranches(post).length > 1" tooltip text="getOriginalBranchesTooltipString(post)" offset-y="60"> and {{ getOriginalBranches(post).length - 1 }} others</span> at {{ post.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+    <span ng-class="ListItem.post.type" class="list-item-post-type-marker"></span>
+    <span ng-class="ListItem.post.type" class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">{{ ListItem.post.data.creator }}</a> to <a ui-sref="weco.branch.subbranches({ branchid: getOriginalBranches()[0] })">b/{{ getOriginalBranches()[0] }}</a><span ng-show="getOriginalBranches().length > 1" tooltip text="ListItem.getOriginalBranchesTooltipString()" offset-y="60"> and {{ ListItem.getOriginalBranches().length - 1 }} others</span> at {{ ListItem.post.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
     <div class="list-item-controls">
-      <a ui-sref="weco.branch.post({ postid: post.id })"><img class="control" src="/assets/images/icons/black/comment.png"></a>
-      <img class="control" src="/assets/images/icons/black/flag.png" ng-click="openFlagPostModal(post)">
+      <a ui-sref="weco.branch.post({ postid: ListItem.post.id })"><img class="control" src="/assets/images/icons/black/comment.png"></a>
+      <img class="control" src="/assets/images/icons/black/flag.png" ng-click="ListItem.openFlagPostModal()">
     </div>
   </div>
 </li>
