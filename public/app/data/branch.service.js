@@ -166,6 +166,21 @@ class BranchService extends Injectable {
       }).catch((response) => { return reject(response.data || response); });
     });
   }
+
+  resolveFlaggedPost(branchid, postid, action, data, message) {
+    return new Promise((resolve, reject) => {
+      let body = {};
+      body.action = action;
+      body[(action === 'change_type') ? 'type' : 'reason'] = data;
+      body.message = message;
+      this.API.save('/branch/:branchid/posts/:postid/resolve', {
+        branchid: branchid,
+        postid: postid
+      }, body)
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
 

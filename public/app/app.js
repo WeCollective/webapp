@@ -160,3 +160,5 @@ import UpdateHomepageStatsModalController from 'components/modal/branch/nucleus/
 registrar.controller('UpdateHomepageStatsModalController', UpdateHomepageStatsModalController);
 import FlagPostModalController from 'components/modal/post/flag/flag-post.modal.controller';
 registrar.controller('FlagPostModalController', FlagPostModalController);
+import ResolveFlagPostModalController from 'components/modal/post/flag/resolve/resolve-flag-post.modal.controller';
+registrar.controller('ResolveFlagPostModalController', ResolveFlagPostModalController);

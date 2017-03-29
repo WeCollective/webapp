@@ -1,0 +1,22 @@
+<div id="resolve-flag-post-modal" ng-controller="ResolveFlagPostModalController as ResolveFlagPostModal">
+  <div id="resolve-flag-post-modal-content" loading when="ResolveFlagPostModal.isLoading">
+    <h1>Review Post</h1>
+    <p class="error-message">{{ ResolveFlagPostModal.errorMessage }}</p>
+    <p>This post has:</p>
+    <ul id="flag-list">
+      <li>{{ ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count != 1 ? 's' : '' }} for an incorrect content tag</li>
+      <li>{{ ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count != 1 ? 's' : '' }} for violating branch rules</li>
+      <li>{{ ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count != 1 ? 's' : '' }} for violating site rules</li>
+      <li>{{ ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count != 1 ? 's' : '' }} for being NSFW</li>
+    </ul>
+    <p>Available actions:</p>
+    <dropdown title="''" items="ResolveFlagPostModal.controls.resolve.items" selected="ResolveFlagPostModal.controls.resolve.selectedIndex"></dropdown>
+    {{ ResolveFlagPostModal.controls.resolve.selectedIndex === 0 ? 'to' : (ResolveFlagPostModal.controls.resolve.selectedIndex === 1 ? 'for' : '') }}
+    <dropdown ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 0" title="''" items="ResolveFlagPostModal.controls.postType.items" selected="ResolveFlagPostModal.controls.postType.selectedIndex"></dropdown>
+    <dropdown ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 1" title="''" items="ResolveFlagPostModal.controls.reason.items" selected="ResolveFlagPostModal.controls.reason.selectedIndex"></dropdown>
+    <textarea ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 1" type="text" ng-model="text.reason" placeholder="Explanation for removal (sent to OP)..."></textarea>
+    <p class="info" ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 1 && ResolveFlagPostModal.controls.reason.selectedIndex === 0">Note: Please check the <a ui-sref="weco.branch.nucleus.about({ branchid: post.branchid })" ng-click="close()">branch rules</a> first.</p>
+    <p class="info" ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 1 && ResolveFlagPostModal.controls.reason.selectedIndex === 1">Note: Please check the <a>site rules</a> first.</p>
+    <p ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 2">This will remove all flags from this post.</p>
+  </div>
+</div>

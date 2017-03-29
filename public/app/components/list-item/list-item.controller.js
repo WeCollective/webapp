@@ -50,8 +50,6 @@ class ListItemController extends Injectable {
   }
 
   getTotalFlagCount() {
-    console.log(this.post);
-    console.log(this.post.branch_rules_count , this.post.site_rules_count , this.post.wrong_type_count , this.post.nsfw_count);
     return this.post.branch_rules_count + this.post.site_rules_count + this.post.wrong_type_count + this.post.nsfw_count;
   }
 
@@ -74,7 +72,15 @@ class ListItemController extends Injectable {
     );
   }
 
-  // open resolve-flag-post ?
+  openResolveFlagPostModal() {
+    this.ModalService.open(
+      'RESOLVE_FLAG_POST_MODAL', {
+        post: this.post
+      },
+      'Done.',
+      'Error resolving flags on post.'
+    );
+  }
 }
 ListItemController.$inject = ['$timeout', '$state', 'PostService', 'BranchService', 'AlertsService', 'ModalService', 'ENV'];
 
