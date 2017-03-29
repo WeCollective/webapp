@@ -80,6 +80,33 @@ class BranchController extends Injectable {
         return false;
     }
   }
+
+  addContent() {
+    let modalName;
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        modalName = 'CREATE_BRANCH';
+        break;
+      case 'weco.branch.wall':
+        modalName = 'CREATE_POST';
+        break;
+      // case 'weco.branch.post':
+      //   // broadcast add comment clicked so that the comment section is scrolled
+      //   // to the top, where the comment box is visible
+      //   $rootScope.$broadcast('add-comment');
+        break;
+    }
+    if(!!modalName) {
+      this.ModalService.open(
+        modalName,
+        {
+          branchid: this.BranchService.branch.id
+        },
+        'Successfully created new branch!',
+        'Unable to create new branch.'
+      );
+    }
+  }
 }
 BranchController.$inject = ['$timeout', '$state', 'ModalService', 'UserService', 'BranchService', 'EventService'];
 

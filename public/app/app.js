@@ -167,3 +167,5 @@ import FlagPostModalController from 'components/modal/post/flag/flag-post.modal.
 registrar.controller('FlagPostModalController', FlagPostModalController);
 import ResolveFlagPostModalController from 'components/modal/post/flag/resolve/resolve-flag-post.modal.controller';
 registrar.controller('ResolveFlagPostModalController', ResolveFlagPostModalController);
+import CreateBranchModalController from 'components/modal/branch/create/create-branch.modal.controller';
+registrar.controller('CreateBranchModalController', CreateBranchModalController);

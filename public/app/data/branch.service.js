@@ -90,6 +90,14 @@ class BranchService extends Injectable {
     });
   }
 
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch', {}, data)
+        .then(resolve)
+        .catch((response) => { return reject(response.data || response); });
+    });
+  }
+
   getModLog(branchid) {
     return new Promise((resolve, reject) => {
       this.API.fetch('/branch/:branchid/modlog', {

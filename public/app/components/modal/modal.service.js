@@ -18,6 +18,7 @@ class ModalService extends Injectable {
       REVIEW_SUBBRANCH_REQUESTS:  '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
       SUBMIT_SUBBRANCH_REQUEST:   '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
       DELETE_BRANCH:              '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
+      CREATE_BRANCH:              '/app/components/modal/branch/create/create-branch.modal.view.html',
       UPDATE_HOMEPAGE_STATS:      '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
       BRANCH_NUCLEUS_SETTINGS:    '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
       PROFILE_SETTINGS:           '/app/components/modal/profile/settings/settings.modal.view.html',
