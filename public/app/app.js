@@ -79,6 +79,8 @@ import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
 import ProfileSettingsController from 'pages/profile/settings/settings.controller';
 registrar.controller('ProfileSettingsController', ProfileSettingsController);
+import ProfileNotificationsController from 'pages/profile/notifications/notifications.controller';
+registrar.controller('ProfileNotificationsController', ProfileNotificationsController);
 import BranchController from 'pages/branch/branch.controller';
 registrar.controller('BranchController', BranchController);
 import BranchNucleusController from 'pages/branch/nucleus/nucleus.controller';
@@ -132,6 +134,9 @@ registrar.directive('dropdown', DropdownComponent);
 
 import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/on-scroll-to-bottom.directive';
 registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
+
+import NotificationComponent from 'components/notification/notification-item.directive';
+registrar.directive('notification', NotificationComponent);
 
 import ListItemComponent from 'components/list-item/list-item.directive';
 import ListItemController from 'components/list-item/list-item.controller';

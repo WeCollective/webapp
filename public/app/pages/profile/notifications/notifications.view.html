@@ -1,0 +1,15 @@
+<div id="profile-notifications" loading when="ProfileNotifications.isLoading" on-scroll-to-bottom="NotificationsScrollToBottom">
+  <div id="empty" ng-show="!ProfileNotifications.notifications || ProfileNotifications.notifications.length === 0">No notifications.</div>
+  <ul>
+    <li ng-repeat="notification in ProfileNotifications.notifications" ng-class="{ 'unread': notification.unread === true }">
+      <div class="toggle-unread" ng-click="ProfileNotifications.setUnread(notification, !notification.unread)"></div>
+      <div class="notification-image">
+        <img ng-src="assets/images/notifications/{{ ProfileNotifications.getNotificationImageType(notification) }}.png">
+      </div>
+      <div class="notification-entry">
+        <notification notification="notification"></notification>        
+        <div class="description">received at {{ notification.date | date:'HH:mm on dd of MMMM yyyy' }}</div>
+      </div>
+    </li>
+  </u>
+</div>

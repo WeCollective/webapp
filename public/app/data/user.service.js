@@ -139,6 +139,21 @@ class UserService extends Injectable {
     });
   }
 
+  getNotifications(username, unreadCount, lastNotificationId) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/user/:username/notifications', {
+        username: username
+      }, {
+        unreadCount: unreadCount,
+        lastNotificationId: lastNotificationId
+      }).then((response) => {
+        return resolve(response.data);
+      }).catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
   fetch(username) {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
