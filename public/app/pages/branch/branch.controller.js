@@ -94,7 +94,6 @@ class BranchController extends Injectable {
       //   // broadcast add comment clicked so that the comment section is scrolled
       //   // to the top, where the comment box is visible
       //   $rootScope.$broadcast('add-comment');
-        break;
     }
     if(!!modalName) {
       this.ModalService.open(
