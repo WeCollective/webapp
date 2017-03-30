@@ -55,6 +55,8 @@ import ModService from 'data/mod.service';
 registrar.service('ModService', ModService);
 import PostService from 'data/post.service';
 registrar.service('PostService', PostService);
+import UploadService from 'data/upload.service';
+registrar.service('UploadService', UploadService);
 import WallService from 'pages/branch/wall.service';
 registrar.service('WallService', WallService);
 import AlertsService from 'components/alerts/alerts.service';

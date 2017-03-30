@@ -4,29 +4,24 @@ class UploadImageModalController extends Injectable {
   constructor(...injections) {
     super(UploadImageModalController.$inject, injections);
 
-    this.errorMessage = '';
     this.uploadUrl = '';
+    this.errorMessage = '';
     this.file = null;
-    this.isUploading = false;
-    this.progress = 0;
 
-    let fetchUploadUrl = () => {
-      // fetch a presigned URL to which we can upload an image
-      this.API.fetch('/:route', {
-        route: this.ModalService.inputArgs.route + this.ModalService.inputArgs.type + '-upload-url'
-      }).then((response) => {
-        if(!response.data) throw new Error();
-        this.uploadUrl = response.data;
-      }).catch((response) => {
+    let getUploadUrl = () => {
+      let uploadUrlRoute = this.ModalService.inputArgs.route + this.ModalService.inputArgs.type;
+      this.UploadService.fetchUploadUrl(uploadUrlRoute).then((uploadUrl) => {
+        this.uploadUrl = uploadUrl;
+      }).catch(() => {
         this.AlertsService.push('error', 'Unable to upload photo!');
         this.ModalService.Cancel();
       });
     };
 
-    fetchUploadUrl();
+    getUploadUrl();
     this.EventService.on(this.EventService.events.MODAL_OPEN, (name) => {
       if(name !== 'UPLOAD_IMAGE') return;
-      fetchUploadUrl();
+      getUploadUrl();
     });
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
@@ -36,9 +31,15 @@ class UploadImageModalController extends Injectable {
         return;
       }
       this.errorMessage = '';
-      this.isUploading = true;
-      this.progress = 0;
-      this.upload();
+      this.UploadService.uploadImage(this.file, this.uploadUrl).then(() => {
+        this.file = null;
+        this.ModalService.OK();
+      }).catch(() => {
+        this.$timeout(() => {
+          this.file = null;
+          this.errorMessage = 'Unable to upload photo!';
+        });
+      });
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
@@ -52,34 +53,7 @@ class UploadImageModalController extends Injectable {
   setFile(file) {
     this.file = file;
   }
-
-  upload() {
-    if(!this.file) {
-      this.errorMessage = 'No file selected!';
-      return;
-    }
-    this.Upload.http({
-      url: this.uploadUrl,
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'image/*'
-      },
-      data: this.file
-    }).then(() => { // success
-      this.file = null;
-      this.isUploading = false;
-      this.progress = 0;
-      this.ModalService.OK();
-    }, () => {  // error
-      this.file = null;
-      this.isUploading = false;
-      this.progress = 0;
-      this.errorMessage = 'Unable to upload photo!';
-    }, (evt) => {  // progress
-      this.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-    });
-  }
 }
-UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventService', 'Upload'];
+UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventService', 'UploadService'];
 
 export default UploadImageModalController;
