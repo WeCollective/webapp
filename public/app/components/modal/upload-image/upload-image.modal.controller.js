@@ -54,6 +54,6 @@ class UploadImageModalController extends Injectable {
     this.file = file;
   }
 }
-UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventService', 'UploadService'];
+UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventService', 'UploadService', 'AlertsService'];
 
 export default UploadImageModalController;

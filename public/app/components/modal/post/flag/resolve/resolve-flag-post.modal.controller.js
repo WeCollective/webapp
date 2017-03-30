@@ -23,7 +23,7 @@ class ResolveFlagPostModalController extends Injectable {
     };
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'RESOLVE_FLAG_POST_MODAL') return;
+      if(name !== 'RESOLVE_FLAG_POST') return;
 
       this.isLoading = true;
       let action, data;
@@ -76,7 +76,7 @@ class ResolveFlagPostModalController extends Injectable {
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
-      if(name !== 'RESOLVE_FLAG_POST_MODAL') return;
+      if(name !== 'RESOLVE_FLAG_POST') return;
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;

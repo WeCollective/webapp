@@ -167,6 +167,8 @@ import UpdateHomepageStatsModalController from 'components/modal/branch/nucleus/
 registrar.controller('UpdateHomepageStatsModalController', UpdateHomepageStatsModalController);
 import FlagPostModalController from 'components/modal/post/flag/flag-post.modal.controller';
 registrar.controller('FlagPostModalController', FlagPostModalController);
+import CreatePostModalController from 'components/modal/post/create/create-post.modal.controller';
+registrar.controller('CreatePostModalController', CreatePostModalController);
 import ResolveFlagPostModalController from 'components/modal/post/flag/resolve/resolve-flag-post.modal.controller';
 registrar.controller('ResolveFlagPostModalController', ResolveFlagPostModalController);
 import CreateBranchModalController from 'components/modal/branch/create/create-branch.modal.controller';

@@ -13,7 +13,7 @@ class FlagPostModalController extends Injectable {
     }
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'FLAG_POST_MODAL') return;
+      if(name !== 'FLAG_POST') return;
 
       this.isLoading = true;
       let post = this.ModalService.inputArgs.post;
@@ -52,7 +52,7 @@ class FlagPostModalController extends Injectable {
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
-      if(name !== 'FLAG_POST_MODAL') return;
+      if(name !== 'FLAG_POST') return;
 
       this.$timeout(() => {
         this.errorMessage = '';

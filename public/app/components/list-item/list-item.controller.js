@@ -63,7 +63,7 @@ class ListItemController extends Injectable {
 
   openFlagPostModal() {
     this.ModalService.open(
-      'FLAG_POST_MODAL', {
+      'FLAG_POST', {
         post: this.post,
         branchid: this.BranchService.branch.id
       },
@@ -74,7 +74,7 @@ class ListItemController extends Injectable {
 
   openResolveFlagPostModal() {
     this.ModalService.open(
-      'RESOLVE_FLAG_POST_MODAL', {
+      'RESOLVE_FLAG_POST', {
         post: this.post
       },
       'Done.',

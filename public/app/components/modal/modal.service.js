@@ -22,8 +22,9 @@ class ModalService extends Injectable {
       UPDATE_HOMEPAGE_STATS:      '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
       BRANCH_NUCLEUS_SETTINGS:    '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
       PROFILE_SETTINGS:           '/app/components/modal/profile/settings/settings.modal.view.html',
-      FLAG_POST_MODAL:            '/app/components/modal/post/flag/flag-post.modal.view.html',
-      RESOLVE_FLAG_POST_MODAL:    '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html'
+      FLAG_POST:            '/app/components/modal/post/flag/flag-post.modal.view.html',
+      CREATE_POST:          '/app/components/modal/post/create/create-post.modal.view.html',
+      RESOLVE_FLAG_POST:    '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html'
     };
     this.names = Object.keys(this.templateUrls);
   }
