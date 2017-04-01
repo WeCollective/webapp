@@ -46,11 +46,15 @@ class CreatePostModalController extends Injectable {
       post.branchids = JSON.stringify(this.newPost.branchids);
 
       Generator.run(function* () {
-        let success = true, postid;
+        let postid;
         try {
           postid = yield this.PostService.create(post);
-        } catch(err) { success = false; }
-
+        } catch(err) {
+          return this.$timeout(() => {
+            this.isLoading = false;
+            this.errorMessage = err.message || 'Error creating post!';
+          });
+        }
         // if it's a poll, add the poll answers
         if(this.newPost.type === 'poll') {
           for(let i = 0; i < this.pollAnswers.length; i++) {
@@ -59,39 +63,38 @@ class CreatePostModalController extends Injectable {
                 postid: postid,
                 text: this.pollAnswers[i]
               });
-            } catch(err) { success = false; break; }
+            } catch(err) {
+              return this.$timeout(() => {
+                this.isLoading = false;
+                this.errorMessage = err.message || 'Error creating poll answers!';
+              });
+            }
           }
         }
 
-        if(success) {
-          this.$timeout(() => {
-            this.errorMessage = '';
-            this.isLoading = false;
-          });
-          if(this.file && this.newPost.type !== 'image') {
-            let uploadUrl;
-            try {
-              uploadUrl = yield this.getUploadUrl(postid);
-            } catch(err) {
-              this.AlertsService.push('error', 'Unable to upload photo!');
-              this.ModalService.OK();
-            }
-            try {
-              yield this.UploadService.uploadImage(this.file, uploadUrl);
-              this.file = null;
-              this.ModalService.OK();
-            } catch(err) {
-              this.AlertsService.push('error', 'Unable to upload photo!');
-              this.ModalService.OK();
-            }
-          } else {
+        this.$timeout(() => {
+          this.errorMessage = '';
+          this.isLoading = false;
+        });
+        if(this.file && this.newPost.type !== 'image') {
+          let uploadUrl;
+          try {
+            uploadUrl = yield this.getUploadUrl(postid);
+          } catch(err) {
+            this.AlertsService.push('error', 'Unable to upload photo!');
+            this.ModalService.OK();
+          }
+          try {
+            yield this.UploadService.uploadImage(this.file, uploadUrl);
+            this.file = null;
+            this.ModalService.OK();
+          } catch(err) {
             this.AlertsService.push('error', 'Unable to upload photo!');
             this.ModalService.OK();
           }
         } else {
-          this.$timeout(() => {
-            this.isLoading = false;
-          });
+          this.AlertsService.push('error', 'Unable to upload photo!');
+          this.ModalService.OK();
         }
       }, this);
     });
@@ -123,6 +126,6 @@ class CreatePostModalController extends Injectable {
     this.file = file;
   }
 }
-CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService'];
+CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService'];
 
 export default CreatePostModalController;
