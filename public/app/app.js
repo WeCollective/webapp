@@ -32,6 +32,10 @@ import AppFilters from 'app.filters';
 app.filter('reverse', AppFilters.reverse);
 app.filter('capitalize', AppFilters.capitalize);
 
+// RUN
+import AppRun from 'app.run';
+app.run(AppRun);
+
 // REGISTER COMPONENTS
 import ComponentRegistrar from 'utils/component-registrar';
 let registrar = new ComponentRegistrar('wecoApp');
