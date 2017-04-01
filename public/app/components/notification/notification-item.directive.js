@@ -16,14 +16,6 @@ class NotificationComponent extends Injectable {
     scope.UserService = this.UserService;
     scope.NotificationTypes = NotificationTypes;
 
-    scope.setUnread = (unread) => {
-      this.UserService.markNotification(this.UserService.user.username, scope.notification.id, unread).then(() => {
-        this.$timeout(() => { scope.notification.unread = unread; });
-      }).catch((err) => {
-        this.AlertsService.push('error', 'Unable to mark notification.');
-      });
-    };
-
     scope.reasonString = () => {
       switch(scope.notification.reason) {
         case 'branch_rules':

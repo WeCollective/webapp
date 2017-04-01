@@ -63,6 +63,14 @@ class ProfileNotificationsController extends Injectable {
       this.AlertsService.push('error', 'Unable to fetch notifications.');
     });
   }
+
+  setUnread(notification, unread) {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, unread).then(() => {
+      this.$timeout(() => { notification.unread = unread; });
+    }).catch((err) => {
+      this.AlertsService.push('error', 'Unable to mark notification.');
+    });
+  }
 }
 ProfileNotificationsController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService', 'EventService'];
 

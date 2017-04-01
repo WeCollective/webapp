@@ -154,6 +154,19 @@ class UserService extends Injectable {
     });
   }
 
+  markNotification(username, notificationid, unread) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/user/:username/notifications/:notificationid', {
+        username: username,
+        notificationid: notificationid
+      }, {
+        unread: unread
+      }).then(resolve).catch((response) => {
+        return reject(response.data || response);
+      });
+    });
+  }
+
   fetch(username) {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
