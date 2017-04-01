@@ -43,6 +43,8 @@ import AppRoutes from 'app.routes';
 registrar.config(AppRoutes);
 
 // Services
+import AppService from 'app.service';
+registrar.service('AppService', AppService);
 import API from 'data/api.service';
 registrar.service('API', API);
 import EventService from 'data/event.service';

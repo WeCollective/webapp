@@ -6,7 +6,7 @@
 </cover-photo>
 <div class="cover-page page">
   <div id="branch-frame" class="frame" loading when="Branch.isLoading">
-    <div id="branch-info" class="frame-column">
+    <div id="branch-info" class="frame-column" ng-class="{ 'open': Branch.AppService.frameColumnOpen }">
       <h1>{{ Branch.BranchService.branch.name }}</h1>
       <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>
       <h2 ng-show="Branch.BranchService.branch.parent.id !== 'none'"><span ng-show="Branch.BranchService.branch.parent.id !== 'root'">... / </span><a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">{{ Branch.BranchService.branch.parent.name }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">{{ Branch.BranchService.branch.name }}</a></h2>

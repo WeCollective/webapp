@@ -6,7 +6,7 @@
 </cover-photo>
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
-    <div id="profile-info" class="frame-column">
+    <div id="profile-info" class="frame-column" ng-class="{ 'open': Profile.AppService.frameColumnOpen }">
       <h1>{{ Profile.profileUser.firstname }} {{ Profile.profileUser.lastname }}</h1>
       <h2>{{ Profile.profileUser.username }}</h2>
       <div class="frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">

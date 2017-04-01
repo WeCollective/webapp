@@ -51,15 +51,31 @@ nav#nav-bar {
         font-size: @font-size-xs;
         font-weight: @font-weight-heavy;
 
-        // WE Cube
-        a#wecube:first-child img {
-            height: calc(~'100% + 14px');
-            .responsive(@screen-sm, { height: calc(~'100% + 17px'); });
-            width: auto;
+        div#menu {
+          display: inline-block;
+          height: 100%;
+          vertical-align: top;
+          transform: translateX(-5px);
+          .pseudo-vert-center();
+          .responsive(@screen-md, { display: none; });
 
-            &#animation {
-                position: absolute;
-            }
+          img {
+            height: 50%;
+            width: auto;
+            vertical-align: middle;
+            opacity: 0.8;
+          }
+        }
+
+        // WE Cube
+        a#wecube img {
+          height: calc(~'100% + 14px');
+          .responsive(@screen-sm, { height: calc(~'100% + 17px'); });
+          width: auto;
+
+          &#animation {
+            position: absolute;
+          }
         }
 
         div#nav-controls {

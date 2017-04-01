@@ -109,13 +109,24 @@ input, textarea {
 
         > div.frame-column {
           position: absolute;
+          overflow: hidden;
+          z-index: 700;
 
           // hide column left offscreen
           left: -@frame-column-width-xs;
-          .responsive(@screen-sm, { left: -@frame-column-width-sm });
-          .responsive(@screen-md, { left: -@frame-column-width-md });
-          .responsive(@screen-lg, { left: -@frame-column-width-lg });
-          .responsive(@screen-xl, { left: -@frame-column-width-xl });
+          box-shadow: none;
+          .responsive(@screen-sm, { left: -@frame-column-width-sm; });
+          .responsive(@screen-md, { left: -@frame-column-width-md; });
+          .responsive(@screen-lg, { left: -@frame-column-width-lg; });
+          .responsive(@screen-xl, { left: -@frame-column-width-xl; });
+          transition: left 0.3s ease-out;
+
+          &.open {
+            left: 0;
+            box-shadow: @shadow-2;
+            transition: left 0.3s ease-out;
+          }
+          .responsive(@screen-md, { &, &.open { box-shadow: none; } });
 
           height: 100%;
           .set-responsively(width, frame-column-width);

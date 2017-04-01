@@ -1,5 +1,6 @@
 <nav id="nav-bar">
   <div>
+    <div id="menu" ng-click="NavBar.AppService.toggleOpenFrameColumn()"><img src="/assets/images/icons/white/menu.png"></div>
     <a id="wecube" ui-sref="weco.home" ng-click="NavBar.triggerAnimation()">
       <img id="animation" ng-src="{{ NavBar.animationSrc }}">
       <img src="/assets/images/nav-logo.png">

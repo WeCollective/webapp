@@ -41,6 +41,6 @@ class NavBarController extends Injectable {
     this.$timeout(() => { this.animationSrc = ''; }, 1000);
   }
 }
-NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService'];
+NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService', 'AppService'];
 
 export default NavBarController;
