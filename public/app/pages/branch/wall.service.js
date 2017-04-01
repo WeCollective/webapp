@@ -72,6 +72,7 @@ class WallService extends Injectable {
   }
 
   getPosts(lastPostId) {
+    this.isLoading = true;
     // compute the appropriate timeafter for the selected time filter
     let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
     let sortBy;
