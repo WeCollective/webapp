@@ -140,6 +140,9 @@ registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
 import NotificationComponent from 'components/notification/notification-item.directive';
 registrar.directive('notification', NotificationComponent);
 
+import TagEditorComponent from 'components/tag-editor/tag-editor.directive';
+registrar.directive('tagEditor', TagEditorComponent);
+
 import ListItemComponent from 'components/list-item/list-item.directive';
 import ListItemController from 'components/list-item/list-item.controller';
 registrar.directive('listItem', ListItemComponent);
