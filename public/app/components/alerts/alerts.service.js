@@ -30,7 +30,7 @@ class AlertsService extends Injectable {
     this.$timeout(() => {
       this.queue = [alert].concat(this.queue);
       if(!persist) {
-        this.$timeout(() => { this.close(alert); }, this.duration);
+        this.$timeout(() => { this.close(0); }, this.duration);
       }
     });
   }
