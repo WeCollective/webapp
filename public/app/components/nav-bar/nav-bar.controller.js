@@ -27,7 +27,6 @@ class NavBarController extends Injectable {
   }
 
   toggleNav() {
-    // getFollowedBranches();
     this.expanded = !this.expanded;
   }
 
