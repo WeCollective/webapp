@@ -16,7 +16,7 @@ class AppRun extends Injectable {
           mods = branchMods;
           cb();
         }, cb);
-      }
+      };
 
       let doChecks = () => {
         // If state requires authenticated user to be the user specified in the URL,
@@ -48,7 +48,7 @@ class AppRun extends Injectable {
             event.preventDefault();
           }
         });
-      }
+      };
 
       // check if the state we are transitioning to has access restrictions,
       // performing checks if needed

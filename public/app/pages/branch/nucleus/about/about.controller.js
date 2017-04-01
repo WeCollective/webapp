@@ -16,11 +16,11 @@ class BranchNucleusAboutController extends Injectable {
   toggleFollowBranch() {
      let toggle, successMessage, errorMessage;
      if(this.isFollowingBranch()) {
-       toggle = this.UserService.unfollowBranch(this.BranchService.branch.id);
+       toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
        successMessage = 'You\'re no longer following this branch!';
        errorMessage = 'Error unfollowing branch.';
      } else {
-       toggle = this.UserService.followBranch(this.BranchService.branch.id);
+       toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
        successMessage = 'You\'re now following this branch!';
        errorMessage = 'Error following branch.';
      }

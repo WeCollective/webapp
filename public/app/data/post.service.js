@@ -24,7 +24,7 @@ class PostService extends Injectable {
         postid: postid
       }, {
         vote: vote
-      })
+      }, true)
       .then(resolve)
       .catch((response) => { return reject(response.data || response); });
     });

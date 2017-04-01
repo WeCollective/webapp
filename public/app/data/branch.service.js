@@ -76,7 +76,7 @@ class BranchService extends Injectable {
 
   update(branchid, data) {
     return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid', { branchid: branchid }, data)
+      this.API.update('/branch/:branchid', { branchid: branchid }, data, true)
         .then(resolve)
         .catch((response) => { return reject(response.data || response); });
     });
@@ -127,7 +127,7 @@ class BranchService extends Injectable {
         childid: childid
       }, {
         action: action
-      }).then(resolve).catch(error);
+      }, true).then(resolve).catch(error);
     });
   }
 
@@ -153,7 +153,7 @@ class BranchService extends Injectable {
         branchid: branchid
       }, params).then((response) => {
         resolve(response.data);
-      }).catch((response) => { return reject(response.data || response); });
+      }, true).catch((response) => { return reject(response.data || response); });
     });
   }
 

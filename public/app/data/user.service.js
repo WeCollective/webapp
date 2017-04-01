@@ -24,7 +24,7 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
-          yield this.API.request('POST', '/user/login', {}, credentials);
+          yield this.API.request('POST', '/user/login', {}, credentials, true);
           let user = yield this.fetch('me');
           this.user = user;
           this.EventService.emit(this.EventService.events.CHANGE_USER);
@@ -117,7 +117,7 @@ class UserService extends Injectable {
         username: username
       }, {
         branchid: branchid
-      })
+      }, true)
       .then(resolve)
       .catch((response) => {
         return reject(response.data || response);
@@ -131,7 +131,7 @@ class UserService extends Injectable {
         username: username
       }, {
         branchid: branchid
-      })
+      }, true)
       .then(resolve)
       .catch((response) => {
         return reject(response.data || response);
@@ -161,7 +161,7 @@ class UserService extends Injectable {
         notificationid: notificationid
       }, {
         unread: unread
-      }).then(resolve).catch((response) => {
+      }, true).then(resolve).catch((response) => {
         return reject(response.data || response);
       });
     });
@@ -208,7 +208,7 @@ class UserService extends Injectable {
       Generator.run(function* () {
         try {
           // update self
-          yield this.API.update('/user/me', {}, data);
+          yield this.API.update('/user/me', {}, data, true);
           // fetch the updated self
           this.user = yield this.fetch('me');
           this.EventService.emit(this.EventService.events.CHANGE_USER);

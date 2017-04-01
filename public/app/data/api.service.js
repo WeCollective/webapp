@@ -5,6 +5,14 @@ class API extends Injectable {
     super(API.$inject, injections);
   }
 
+  makeFormEncoded(data, headersGetter) {
+    let str = [];
+    for(let d in data) {
+      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    }
+    return str.join("&");
+  }
+
   normaliseResponse(data, headersGetter, status) {
     try {
       data = JSON.parse(data);
@@ -15,7 +23,7 @@ class API extends Injectable {
     }
   }
 
-  request(method, url, params, data) {
+  request(method, url, params, data, urlFormEncode) {
     return new Promise((resolve, reject) => {
       // ensure url has a leading slash
       if(url[0] !== '/') url = '/' + url;
@@ -29,11 +37,19 @@ class API extends Injectable {
       let req = {
         method: method,
         url: this.ENV.apiEndpoint + url,
-        headers: {
-          'Content-Type': 'application/json'
-        },
         transformResponse: this.normaliseResponse
       };
+
+      if(!!urlFormEncode) {
+        req.headers = {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        req.transformRequest = this.makeFormEncoded;
+      } else {
+        req.headers = {
+          'Content-Type': 'application/json'
+        };
+      }
       if(method === 'PUT' || method === 'POST') req.data = data;
       if(method === 'GET' || method === 'DELETE') req.params = data;
       this.$http(req).then((response) => {
@@ -42,10 +58,10 @@ class API extends Injectable {
     });
   }
 
-  fetch(url, params, data) { return this.request('GET', url, params, data); }
-  save(url, params, data) { return this.request('POST', url, params, data); }
-  update(url, params, data) { return this.request('PUT', url, params, data); }
-  remove(url, params, data) { return this.request('DELETE', url, params, data); }
+  fetch(url, params, data, urlFormEncode) { return this.request('GET', url, params, data, urlFormEncode); }
+  save(url, params, data, urlFormEncode) { return this.request('POST', url, params, data, urlFormEncode); }
+  update(url, params, data, urlFormEncode) { return this.request('PUT', url, params, data, urlFormEncode); }
+  remove(url, params, data, urlFormEncode) { return this.request('DELETE', url, params, data, urlFormEncode); }
 }
 API.$inject = ['$http', 'ENV'];
 
