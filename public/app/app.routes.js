@@ -175,6 +175,8 @@ class AppRoutes extends Injectable {
       .state('weco.branch.post', {
         url: '/p/:postid',
         templateUrl: '/app/pages/branch/post/post.view.html',
+        controller: 'BranchPostController',
+        controllerAs: 'BranchPost',
         pageTrack: '/p/:postid'
       })
       // Comment Permalink

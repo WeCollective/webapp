@@ -18,7 +18,7 @@
   </a>
   <a class="list-item-image" ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'" href="{{ ListItem.post.data.text }}"
      ng-show="ListItem.post.type === 'image' ? ListItem.post.data.text : ListItem.post.profileUrlThumb" target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.getProxyUrl(post.data.text) : ListItem.post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(post.data.text) : ListItem.post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
   </a>
   <div class="list-item-nsfw-label" ng-show="ListItem.post.nsfw"><span>NSFW</span></div>
 

@@ -11,7 +11,8 @@ class EventService extends Injectable {
       MODAL_OPEN: 'MODAL_OPEN',
       STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
       CHANGE_BRANCH: 'CHANGE_BRANCH',
-      SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM'
+      SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
+      CHANGE_POST: 'CHANGE_POST'
     };
   }
 

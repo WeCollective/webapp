@@ -1,0 +1,5 @@
+<div id="video-post" ng-show="BranchPost.PostService.post.type === 'video' && BranchPost.getVideoEmbedUrl() !== '' && BranchPost.previewState !== 'hide'" ng-class="{ 'maximised': BranchPost.previewState === 'maximise' }">
+  <div id="video-wrapper">
+    <iframe width="854" height="480" ng-src="{{ BranchPost.getVideoEmbedUrl() }}" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>

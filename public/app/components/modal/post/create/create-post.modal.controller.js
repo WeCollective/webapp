@@ -126,6 +126,6 @@ class CreatePostModalController extends Injectable {
     this.file = file;
   }
 }
-CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService'];
+CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService', 'AppService'];
 
 export default CreatePostModalController;

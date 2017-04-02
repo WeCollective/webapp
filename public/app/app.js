@@ -107,6 +107,8 @@ import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.co
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 import BranchWallController from 'pages/branch/wall/wall.controller';
 registrar.controller('BranchWallController', BranchWallController);
+import BranchPostController from 'pages/branch/post/post.controller';
+registrar.controller('BranchPostController', BranchPostController);
 
 
 // Components

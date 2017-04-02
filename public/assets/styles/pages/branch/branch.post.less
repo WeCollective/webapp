@@ -5,174 +5,41 @@ div#branch-post {
   padding: 20px 10px;
   position: relative;
 
-  div#post-header {
-    position: relative;
-    min-height: 80px;
-    padding-bottom: 10px;
-
-    div.votes {
-      position: relative;
-      float: left;
-      height: 100%;
-      height: 65px;
-      min-width: 50px;
-      text-align: center;
-
-      img {
-        display: block;
-        position: absolute;
-        width: 26px;
-        height: auto;
-        left: 12px;
-        opacity: 0.3;
-
-        &:first-child {
-          top: 0;
-        }
-
-        &:last-child {
-          bottom: 0;
-        }
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.7;
-        }
-      }
-
-      p {
-        margin: 0;
-        font-size: 14px;
-        padding: 22px 0;
-      }
+  > .list-item {
+    .list-item(80px);
+    span.list-item-index {
+      display: none;
     }
+    div.list-item-controls {
+      display: none;
+    }
+  }
 
-    a div.post-picture {
-      float: left;
-      height: 80px;
-      width: 80px;
-      border-radius: 3px;
-      margin-right: 10px;
-      background-size: cover;
-      background-position: center;
+  div#preview-controls {
+    margin: 5px 0;
+    img {
+      float: right;
+      height: 30px;
+      width: auto;
+      padding-left: 5px;
+      opacity: 0.3;
 
       &:hover {
-        box-shadow: @shadow-2;
-      }
-    }
-
-    div.nsfw-label {
-      float: left;
-      height: 80px;
-      box-sizing: border-box;
-      padding: 2px;
-      background-color: #ffecee;
-      border: 2px solid #ff8095;
-      border-radius: 5px;
-      margin-right: 10px;
-      text-align: center;
-
-      span {
-        color: #ff8095;
-        font-size: 12px;
-        font-weight: 600;
-        writing-mode: tb;
-        text-orientation: upright;
-      }
-    }
-
-    div.data {
-      overflow: hidden;
-
-      a p.title {
-        font-size: 18px;
-        font-weight: 500;
-        margin: 0;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      span.post-type-marker {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        margin-right: 5px;
-        border-radius: 50%;
-
-        &.image { background-color: @post-type-image; }
-        &.video { background-color: @post-type-video; }
-        &.audio { background-color: @post-type-audio; }
-        &.text { background-color: @post-type-text; }
-        &.page { background-color: @post-type-page; }
-        &.poll { background-color: @post-type-poll; }
-      }
-
-      span.description {
-        font-size: 14px;
-        font-weight: 400;
-        color: @dark-grey;
-
-        a {
-          color: @accent-0;
-          font-weight: 500;
-
-          &:hover {
-            cursor: pointer;
-            text-decoration: underline;
-          }
-        }
-      }
-
-      img#delete-post {
-        display: block;
-        position: absolute;
-        bottom: 10px;
-        height: 16px;
-        width: auto;
-        opacity: 0.3;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.8;
-        }
-      }
-    }
-
-    div#preview-controls {
-      img {
-        float: right;
-        height: 30px;
-        width: auto;
-        padding-left: 5px;
-        opacity: 0.3;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.8;
-        }
+        cursor: pointer;
+        opacity: 0.8;
       }
     }
   }
 
-  div.post-content {
+  ng-include#post-preview {
     width: 100%;
-    box-sizing: border-box;
 
-    &.maximised {
-      &#image-post div {
-        transition: height 0.3s ease-out;
-        height: 350px;
-        width: auto;
-      }
-      &#video-post {
-        transition: width 0.3s ease-out;
-        width: 100%;
-      }
+    #text-post {
+      max-height: 350px;
+      overflow-y: scroll;
     }
 
-    &#image-post {
+    #image-post {
       &:not(.ng-hide) div {
         transition: height 0.3s ease-out;
       }
@@ -183,9 +50,15 @@ div#branch-post {
         background-size: contain;
         background-repeat: no-repeat;
       }
+
+      &.maximised {
+        transition: height 0.3s ease-out;
+        height: 350px;
+        width: auto;
+      }
     }
 
-    &#video-post {
+    #video-post {
       width: 43.75%;
       margin-left: auto;
       margin-right: auto;
@@ -208,13 +81,19 @@ div#branch-post {
           height: 100%;
         }
       }
-    }
 
-    &#text-post {
-      max-height: 350px;
-      overflow-y: scroll;
+      &.maximised {
+        transition: width 0.3s ease-out;
+        width: 100%;
+      }
     }
   }
+
+
+
+
+
+
 
   .post-page-content {
     flex: 1;
