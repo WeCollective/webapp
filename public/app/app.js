@@ -63,6 +63,8 @@ import PostService from 'data/post.service';
 registrar.service('PostService', PostService);
 import UploadService from 'data/upload.service';
 registrar.service('UploadService', UploadService);
+import CommentService from 'data/comment.service';
+registrar.service('CommentService', CommentService);
 import WallService from 'pages/branch/wall.service';
 registrar.service('WallService', WallService);
 import AlertsService from 'components/alerts/alerts.service';
@@ -155,6 +157,21 @@ import ListItemComponent from 'components/list-item/list-item.directive';
 import ListItemController from 'components/list-item/list-item.controller';
 registrar.directive('listItem', ListItemComponent);
 registrar.controller('ListItemController', ListItemController);
+
+import CommentsComponent from 'components/comments/comments.directive';
+import CommentsController from 'components/comments/comments.controller';
+registrar.directive('comments', CommentsComponent);
+registrar.controller('CommentsController', CommentsController);
+
+import WriteCommentComponent from 'components/comments/write-comment/write-comment.directive';
+import WriteCommentController from 'components/comments/write-comment/write-comment.controller';
+registrar.directive('writeComment', WriteCommentComponent);
+registrar.controller('WriteCommentController', WriteCommentController);
+
+import CommentThreadComponent from 'components/comments/comment-thread/comment-thread.directive';
+import CommentThreadController from 'components/comments/comment-thread/comment-thread.controller';
+registrar.directive('commentThread', CommentThreadComponent);
+registrar.controller('CommentThreadController', CommentThreadController);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
