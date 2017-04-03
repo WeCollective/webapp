@@ -29,7 +29,7 @@ class WriteCommentController extends Injectable {
         this.$timeout(() => {
           this.isLoading = false;
           this.comment = { text: '' };
-          this.onSubmit(this.comment.id);
+          this.onSubmit()(this.comment.id);
         });
       }).catch((err) => {
         this.AlertsService.push('error', 'Error editing comment.');

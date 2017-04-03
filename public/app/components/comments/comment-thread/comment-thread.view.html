@@ -3,7 +3,7 @@
     <div class="comment-votes">
       <img src="/assets/images/icons/black/arrow-up.png" ng-click="CommentThread.vote(comment, 'up')">
       <p>{{ comment.individual }}</p>
-      <img src="/assets/images/icons/black/arrow-down.png" ng-click="vote(comment, 'down')">
+      <img src="/assets/images/icons/black/arrow-down.png" ng-click="CommentThread.vote(comment, 'down')">
     </div>
     <div class="comment-info">
       <span class="comment-title"><a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ CommentThread.timeSince(comment.date) }}{{ comment.data.edited ? '*' : '' }}</span>
@@ -15,9 +15,9 @@
         --><li ng-click="CommentThread.openCommentPermalink(comment)" tooltip-text="'Permalink'" offset-y="25"><img src="/assets/images/icons/black/permalink.png"></li><!--
         --><li><img src="/assets/images/icons/black/flag.png" tooltip-text="'Flag'" offset-y="25"></li>
       </ul>
-      <write-comment ng-show="comment.openReply" postid="comment.postid" parentid="comment.id" original-comment-text="comment.data.text"
-                     update="comment.update" on-cancel="CommentThread.closeReply.bind(CommentThread)" on-submit="CommentThread.onSubmitComment.bind(CommentThread)"
-                     placeholder="comment.update ? 'Edit your comment...' : 'Write a reply...'"></write-comment>
+      <write-comment ng-show="comment.meta.openReply" postid="comment.postid" parentid="comment.id" original-comment-text="comment.data.text"
+                     update="comment.meta.update" on-cancel="CommentThread.closeReply.bind(CommentThread)" on-submit="CommentThread.onSubmitComment.bind(CommentThread)"
+                     placeholder="comment.meta.update ? 'Edit your comment...' : 'Write a reply...'"></write-comment>
     </div>
   </div>
   <div class="comment-replies">

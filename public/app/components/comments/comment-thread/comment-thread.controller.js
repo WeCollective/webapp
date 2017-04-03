@@ -9,33 +9,33 @@ class CommentThreadController extends Injectable {
 
   openReply(comment, isEdit) {
     this.$timeout(() => {
-      if(this.openComment) {
-        this.openComment.openReply = false;
+      if(this.openComment && this.openComment.meta) {
+        this.openComment.meta.openReply = false;
       }
       this.openComment = comment;
-      this.openComment.openReply = true;
-      this.openComment.update = isEdit;
+      this.openComment.meta = {
+        openReply: true,
+        update: isEdit
+      };
     });
   }
 
   closeReply() {
     this.$timeout(() => {
-      this.openComment.openReply = false;
-      this.openComment = undefined;
+      this.openComment.meta = {
+        openReply: false,
+        update: false
+      };
     });
   }
 
-  onSubmitComment() {
-    if(this.openComment.update) { // if the comment was edited
-      this.$timeout(() => {
-        this.openComment.isLoading = true;
-      });
-
+  onSubmitComment(comment) {
+    if(this.openComment.meta.update) { // if the comment was edited
       // reload the comment data
       this.CommentService.fetch(this.openComment.postid, this.openComment.id).then((response) => {
         this.$timeout(() => {
-          this.openComment.data = response;
-          this.openComment.isLoading = false;
+          // copy keys over so not to destroy 'openComment' object reference to 'comment' in the comments array
+          for(let key in response) this.openComment[key] = response[key];
           this.closeReply();
         });
       }).catch(() => {
@@ -97,7 +97,7 @@ class CommentThreadController extends Injectable {
 
   vote(comment, direction) {
     this.CommentService.vote(comment.postid, comment.id, direction).then(() => {
-      let inc = (direction == 'up') ? 1 : -1;
+      let inc = (direction === 'up') ? 1 : -1;
       this.$timeout(() => {
         comment.individual += inc;
       });
