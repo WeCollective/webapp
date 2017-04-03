@@ -21,20 +21,8 @@ class CommentsController extends Injectable {
         if(this.comments.length > 0) this.getComments(this.comments[this.comments.length - 1].id);
       }
     });
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.init(); });
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => { this.init(); });
-  }
-
-  init() {
-    this.$timeout(() => {
-      this.isLoadingComments = true;
-      this.comments = [];
-      this.getComments();
-    });
-  }
-
-  onSubmitComment() {
-    this.init();
+    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.reloadComments(); });
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => { this.reloadComments(); });
   }
 
   isCommentPermalink() {
@@ -76,6 +64,12 @@ class CommentsController extends Injectable {
         this.isLoading = false;
       });
     }
+  }
+
+  reloadComments() {
+    this.isLoading = true;
+    this.comments = [];
+    this.getComments();
   }
 }
 CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService', 'EventService', 'CommentService'];

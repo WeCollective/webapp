@@ -1,5 +1,5 @@
 <div class="comments">
-  <write-comment id="write-root-comment" postid="Comments.PostService.post.id" parentid="'none'" on-submit="Comments.onSubmitComment" update="false" placeholder="'Write a comment...'"></write-comment>
+  <write-comment id="write-root-comment" postid="Comments.PostService.post.id" parentid="'none'" on-submit="Comments.reloadComments.bind(Comments)" update="false" placeholder="'Write a comment...'"></write-comment>
   <p id="permalink-notice" ng-show="Comments.isCommentPermalink()">You are viewing a single comment's thread. <a ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })">View all comments</a></p>
   <dropdown title="'SORT BY'" items="Comments.controls.sortBy.items" selected="Comments.controls.sortBy.selectedIndex"></dropdown>
   <p id="no-comments" ng-show="Comments.comments.length === 0">No comments yet!</p>

@@ -10,8 +10,8 @@ class WriteCommentComponent extends Injectable {
     this.bindToController = {
       parentid: '&',
       postid: '&',
-      onSubmit: '=',
-      onCancel: '=',
+      onSubmit: '&',
+      onCancel: '&',
       update: '=',
       placeholder: '&',
       originalCommentText: '&'

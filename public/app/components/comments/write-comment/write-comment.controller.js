@@ -41,7 +41,7 @@ class WriteCommentController extends Injectable {
         this.$timeout(() => {
           this.isLoading = false;
           this.comment = { text: '' };
-          this.onSubmit(id);
+          this.onSubmit()(id);
         });
       }).catch((err) => {
         this.AlertsService.push('error', 'Error posting comment.');
@@ -54,7 +54,7 @@ class WriteCommentController extends Injectable {
     this.$timeout(() => {
       this.isLoading = false;
       this.comment = { text: '' };
-      this.onCancel();
+      this.onCancel()();
     });
   }
 }
