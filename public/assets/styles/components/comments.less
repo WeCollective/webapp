@@ -4,19 +4,46 @@ div.comments {
 
     &#write-root-comment {
       margin-top: 10px;
+      [loading] {
+        display: flex;
+        align-items: center;
 
-      textarea {
-        height: 50px;
-      }
+        textarea {
+          height: 50px;
+        }
 
-      .button.cancel {
-        display: none;
-      }
-      .button.ok {
-        float: right;
+        .button.cancel {
+          display: none;
+        }
+        .button.ok {
+          margin-left: 10px;
+        }
       }
     }
   }
+
+  p {
+    &#permalink-notice {
+      padding: 5px 10px;
+      border-radius: 3px;
+      border: 1px solid @dark-grey;
+      background-color: @light-grey;
+
+      a {
+        font-weight: @font-weight-heavy;
+        color: @accent-0;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+    &#no-comments {
+      font-style: italic;
+    }
+  }
+
 
   div.comment {
     .comment(80px);

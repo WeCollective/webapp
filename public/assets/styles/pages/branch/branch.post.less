@@ -7,7 +7,8 @@ div#branch-post {
 
   > .list-item {
     .list-item(80px);
-    padding-top: 0;
+    padding-top: 15px;
+    .responsive(@screen-md, { padding-top: 0; });
     span.list-item-index {
       display: none;
     }
@@ -52,7 +53,7 @@ div#branch-post {
         background-repeat: no-repeat;
       }
 
-      &.maximised {
+      &.maximised div {
         transition: height 0.3s ease-out;
         height: 350px;
         width: auto;
@@ -60,7 +61,8 @@ div#branch-post {
     }
 
     #video-post {
-      width: 43.75%;
+      width: 100%;
+      .responsive(@screen-md, { width: 43.75%; });
       margin-left: auto;
       margin-right: auto;
 
