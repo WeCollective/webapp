@@ -6,9 +6,12 @@
     <img src="/assets/images/icons/black/maximise.png" ng-click="BranchPost.setPreviewState('maximise')" ng-show="BranchPost.previewState === 'show' && BranchPost.PostService.post.type !== 'text'" tooltip text="'Expand'" offset-y="40">
     <img src="/assets/images/icons/black/minimise.png" ng-click="BranchPost.setPreviewState('show')" ng-show="BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text'" tooltip text="'Shrink'" offset-y="40">
   </div>
-
   <ng-include id="post-preview" ng-if="BranchPost.showPreview()" src="BranchPost.getPreviewTemplate()"></ng-include>
-  <div id="comments-wrapper">
+
+  <tabs ng-if="BranchPost.shouldShowTabs()" items="BranchPost.tabItems" states="BranchPost.tabStates" state-params="BranchPost.tabStateParams"></tabs>
+  <div ng-if="BranchPost.shouldShowTabs()" class="post-body" ui-view></div>
+
+  <div ng-if="!BranchPost.shouldShowTabs()" id="comments-wrapper">
     <comments></comments>
   </div>
 </div>

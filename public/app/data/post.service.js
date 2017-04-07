@@ -96,6 +96,6 @@ class PostService extends Injectable {
     });
   }
 }
-PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventService'];
+PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventService', 'BranchService'];
 
 export default PostService;

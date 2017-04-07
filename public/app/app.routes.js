@@ -182,6 +182,7 @@ class AppRoutes extends Injectable {
       // Comment Permalink
       .state('weco.branch.post.comment', {
         url: '/c/:commentid',
+        templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
         pageTrack: '/p/:postid/c/:commentid'
       })
       // Poll Tabs
@@ -195,6 +196,7 @@ class AppRoutes extends Injectable {
       })
       .state('weco.branch.post.discussion', {
         url: '/discussion',
+        templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
         pageTrack: '/p/:postid/discussion'
       });
 

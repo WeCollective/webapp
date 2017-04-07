@@ -10,11 +10,32 @@ class BranchPostController extends Injectable {
     this.previewState = 'show'; // other states: 'show', 'maximise'
 
     this.tabItems = ['vote', 'results', 'discussion'];
-    this.tabStates = [
-      `weco.branch.post.vote({ "branchid": "${this.branchid}", "postid": "${this.$state.params.postid}"})`,
-      `weco.branch.post.results({ "branchid": "${this.branchid}", "postid": "${this.$state.params.postid}"})`,
-      `weco.branch.post.discussion({ "branchid": "${this.branchid}", "postid": "${this.$state.params.postid}"})`
-    ];
+    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
+    this.tabStateParams = [{
+        branchid: this.BranchService.branch.id,
+        postid: this.$state.params.postid
+    }, {
+        branchid: this.BranchService.branch.id,
+        postid: this.$state.params.postid
+    }, {
+        branchid: this.BranchService.branch.id,
+        postid: this.$state.params.postid
+    }];
+
+    let redirect = () => {
+      if(this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
+        this.$state.go('weco.branch.post.vote', {
+          branchid: this.BranchService.branch.id,
+          postid: this.$state.params.postid
+        });
+      }
+    };
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
+    this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
+  }
+
+  shouldShowTabs() {
+      return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
   isOwnPost() {
@@ -68,6 +89,6 @@ class BranchPostController extends Injectable {
     return '';
   }
 }
-BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'AppService'];
+BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'BranchService', 'AppService'];
 
 export default BranchPostController;
