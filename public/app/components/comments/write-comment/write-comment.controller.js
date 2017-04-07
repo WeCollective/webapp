@@ -44,7 +44,11 @@ class WriteCommentController extends Injectable {
           this.onSubmit()(id);
         });
       }).catch((err) => {
-        this.AlertsService.push('error', 'Error posting comment.');
+        if(err.status === 403) {
+          this.AlertsService.push('error', 'Please log in or create an account to comment.');
+        } else {
+          this.AlertsService.push('error', 'Error posting comment.');
+        }
         this.$timeout(() => { this.isLoading = false; });
       });
     }

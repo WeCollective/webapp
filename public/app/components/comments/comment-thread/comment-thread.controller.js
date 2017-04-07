@@ -105,6 +105,8 @@ class CommentThreadController extends Injectable {
     }).catch((err) => {
       if(err.status === 400) {
         this.AlertsService.push('error', 'You have already voted on this comment.');
+      } else if(err.status === 403) {
+        this.AlertsService.push('error', 'Please log in or create an account to vote.');
       } else {
         this.AlertsService.push('error', 'Error voting on comment.');
       }
