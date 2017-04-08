@@ -5,6 +5,7 @@ class BranchPostVoteController extends Injectable {
     super(BranchPostVoteController.$inject, injections);
 
     this.answers = [];
+    this.selectedAnswerIndex = -1;
     this.controls = {
       sortBy: {
         items: ['DATE POSTED', 'VOTES'],
@@ -15,7 +16,12 @@ class BranchPostVoteController extends Injectable {
     this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.getPollAnswers(); });
   }
 
+  selectAnswer(index) {
+    this.selectedAnswerIndex = index;
+  }
+
   getPollAnswers(lastAnswerId) {
+    this.selectedAnswerIndex = -1;
     let sortBy;
     switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
       case 'DATE':

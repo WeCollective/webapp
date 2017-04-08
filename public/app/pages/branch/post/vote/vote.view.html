@@ -1,10 +1,11 @@
 <div class="content-header" id="poll-vote-header">
   <dropdown title="'SORT BY'" items="BranchPostVote.controls.sortBy.items" selected="BranchPostVote.controls.sortBy.selectedIndex"></dropdown>
+  <div class="button ok" ng-show="BranchPostVote.selectedAnswerIndex > -1"><span>CAST VOTE</span></div>
 </div>
 <div id="answer-list-container">
   <ul id="answer-list">
-    <p id="no-answers">No answers yet!</p>
-    <li ng-repeat="answer in BranchPostVote.answers">
+    <p id="no-answers" ng-show="BranchPostVote.answers.length === 0">No answers yet!</p>
+    <li ng-repeat="answer in BranchPostVote.answers" ng-click="BranchPostVote.selectAnswer($index)" ng-class="{ 'selected': $index === BranchPostVote.selectedAnswerIndex }">
       <span class="list-item-index">{{ $index + 1 }}</span>
       <div class="list-item-info">
         <p class="list-item-title">{{ answer.text }}</p>

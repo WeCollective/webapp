@@ -97,6 +97,20 @@ div#branch-post {
     display: flex;
     flex-direction: column;
 
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .button.ok {
+        .button(white, @accent-1, 26px, {
+          background-color: @accent-0;
+          box-shadow: @shadow-2;
+        });
+        padding: 0 5px;
+      }
+    }
+
     #answer-list-container {
       flex: 1;
 
@@ -108,11 +122,15 @@ div#branch-post {
           .list-item(70px);
 
           .list-item-index {
-            margin-right: 15px;
+            margin: 0 15px 0 5px;
           }
 
           .list-item-title {
             margin: 0;
+          }
+
+          &.selected {
+            background-color: @light-grey;
           }
         }
       }
