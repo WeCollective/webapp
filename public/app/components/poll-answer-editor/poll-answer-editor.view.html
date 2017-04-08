@@ -6,6 +6,7 @@
   <div class="answers">
     <h2>Answers</h2>
     <ul>
+      <p ng-show="answers.length === 0">No answers yet.</p>
       <li ng-repeat="answer in answers">
         <h3>{{ answer }}</h3>
         <img src="/assets/images/icons/black/close.png" ng-click="removeItem(answer)">
