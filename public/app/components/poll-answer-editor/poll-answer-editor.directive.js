@@ -17,8 +17,8 @@ class PollAnswerEditorComponent extends Injectable {
     scope.newAnswer = '';
 
     scope.addItem = () => {
-      // ensure answer doesnt already exist
-      if(scope.answers.indexOf(scope.newAnswer) > -1) {
+      // ensure answer doesnt already exist and isn't blank
+      if(scope.answers.indexOf(scope.newAnswer) > -1 || scope.newAnswer === '') {
         return;
       }
       scope.answers.push(scope.newAnswer);
