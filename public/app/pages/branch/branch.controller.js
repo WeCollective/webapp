@@ -82,13 +82,17 @@ class BranchController extends Injectable {
   }
 
   addContent() {
-    let modalName;
+    let modalName, successMessage, errorMessage;
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
         modalName = 'CREATE_BRANCH';
+        successMessage = 'Successfully created new branch!';
+        errorMessage = 'Error creating new branch.';
         break;
       case 'weco.branch.wall':
         modalName = 'CREATE_POST';
+        successMessage = 'Successfully created post!';
+        errorMessage = 'Error creating post.';
         break;
       // case 'weco.branch.post':
       //   // broadcast add comment clicked so that the comment section is scrolled
@@ -101,8 +105,8 @@ class BranchController extends Injectable {
         {
           branchid: this.BranchService.branch.id
         },
-        'Successfully created new branch!',
-        'Unable to create new branch.'
+        successMessage,
+        errorMessage
       );
     }
   }

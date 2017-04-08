@@ -76,6 +76,7 @@ class CreatePostModalController extends Injectable {
           this.isLoading = false;
         });
         if(this.file && this.newPost.type !== 'image') {
+          console.log("FILE", this.file);
           let uploadUrl;
           try {
             uploadUrl = yield this.getUploadUrl(postid);
@@ -92,7 +93,6 @@ class CreatePostModalController extends Injectable {
             this.ModalService.OK();
           }
         } else {
-          this.AlertsService.push('error', 'Unable to upload photo!');
           this.ModalService.OK();
         }
       }, this);
