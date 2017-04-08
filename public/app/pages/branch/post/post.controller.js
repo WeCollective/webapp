@@ -23,11 +23,16 @@ class BranchPostController extends Injectable {
     }];
 
     let redirect = () => {
+      for(let idx in this.tabStateParams) {
+        this.tabStateParams[idx].branchid = this.PostService.post.branchid;
+        this.tabStateParams[idx].postid = this.PostService.post.id;
+      }
+
       if(this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
         this.$state.go('weco.branch.post.vote', {
-          branchid: this.BranchService.branch.id,
-          postid: this.$state.params.postid
-        });
+          branchid: this.PostService.post.branchid,
+          postid: this.PostService.post.id
+        }, { location: 'replace' });
       }
     };
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);

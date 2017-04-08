@@ -1,0 +1,15 @@
+<div class="content-header" id="poll-vote-header">
+  <dropdown title="'SORT BY'" items="BranchPostVote.controls.sortBy.items" selected="BranchPostVote.controls.sortBy.selectedIndex"></dropdown>
+</div>
+<div id="answer-list-container">
+  <ul id="answer-list">
+    <p id="no-answers">No answers yet!</p>
+    <li ng-repeat="answer in BranchPostVote.answers">
+      <span class="list-item-index">{{ $index + 1 }}</span>
+      <div class="list-item-info">
+        <p class="list-item-title">{{ answer.text }}</p>
+        <span class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -111,7 +111,8 @@ import BranchWallController from 'pages/branch/wall/wall.controller';
 registrar.controller('BranchWallController', BranchWallController);
 import BranchPostController from 'pages/branch/post/post.controller';
 registrar.controller('BranchPostController', BranchPostController);
-
+import BranchPostVoteController from 'pages/branch/post/vote/vote.controller';
+registrar.controller('BranchPostVoteController', BranchPostVoteController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';

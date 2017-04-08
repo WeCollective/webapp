@@ -188,6 +188,9 @@ class AppRoutes extends Injectable {
       // Poll Tabs
       .state('weco.branch.post.vote', {
         url: '/vote',
+        templateUrl: '/app/pages/branch/post/vote/vote.view.html',
+        controller: 'BranchPostVoteController',
+        controllerAs: 'BranchPostVote',
         pageTrack: '/p/:postid/vote'
       })
       .state('weco.branch.post.results', {

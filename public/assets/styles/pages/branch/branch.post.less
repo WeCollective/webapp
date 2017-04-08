@@ -92,6 +92,33 @@ div#branch-post {
     }
   }
 
+  .post-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    #answer-list-container {
+      flex: 1;
+
+      #answer-list {
+        p#no-answers {
+          font-style: italic;
+        }
+        li {
+          .list-item(70px);
+
+          .list-item-index {
+            margin-right: 15px;
+          }
+
+          .list-item-title {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
   #comments-wrapper {
     flex: 1;
     overflow: hidden;

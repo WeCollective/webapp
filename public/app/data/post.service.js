@@ -95,6 +95,20 @@ class PostService extends Injectable {
       .catch((response) => { return reject(response.data || response); });
     });
   }
+
+  getPollAnswers(postid, sortBy, lastAnswerId) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/poll/:postid/answer', {
+        postid: postid
+      }, {
+        sortBy: sortBy,
+        lastAnswerId: lastAnswerId
+      })
+      .then((response) => {
+        resolve(response.data);
+      }).catch((response) => { return reject(response.data || response); });
+    });
+  }
 }
 PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventService', 'BranchService'];
 
