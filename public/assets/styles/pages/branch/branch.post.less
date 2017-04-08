@@ -5,6 +5,13 @@ div#branch-post {
   padding: 20px 10px;
   position: relative;
 
+  .responsive(@screen-md, {
+    .loading-container {
+      width: calc(~'100% - 20px');
+      height: calc(~'100% - 20px');
+    }
+  });
+
   > .list-item {
     .list-item(80px);
     padding-top: 15px;

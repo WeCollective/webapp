@@ -1,4 +1,4 @@
-<div id="branch-post" loading when="isLoadingPost">
+<div id="branch-post" loading when="BranchPost.isLoadingPost">
   <div class="list-item" list-item post="BranchPost.PostService.post" index="0" stat="'local'"></div>
   <div id="preview-controls" class="clearfix" ng-show="BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio'">
     <img src="/assets/images/icons/black/hide.png" ng-click="BranchPost.setPreviewState('hide')" ng-show="BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise'" tooltip text="'Hide'" offset-y="40">
