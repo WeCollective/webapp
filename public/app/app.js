@@ -174,6 +174,9 @@ import CommentThreadController from 'components/comments/comment-thread/comment-
 registrar.directive('commentThread', CommentThreadComponent);
 registrar.controller('CommentThreadController', CommentThreadController);
 
+import PollAnswerEditorComponent from 'components/poll-answer-editor/poll-answer-editor.directive';
+registrar.directive('pollAnswerEditor', PollAnswerEditorComponent);
+
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
 import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
