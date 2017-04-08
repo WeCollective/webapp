@@ -16,6 +16,21 @@ class BranchPostVoteController extends Injectable {
     this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.getPollAnswers(); });
   }
 
+  vote() {
+    let answer = this.answers[this.selectedAnswerIndex];
+    if(!answer) return;
+    this.PostService.votePollAnswer(answer.postid, answer.id).then(() => {
+      this.AlertsService.push('success', 'Your vote has been cast!');
+    }).catch((err) => {
+      console.log(err);
+      if(err.message) {
+        this.AlertsService.push('error', err.message);
+      } else {
+        this.AlertsService.push('error', 'Error casting your vote!');
+      }
+    });
+  }
+
   selectAnswer(index) {
     this.selectedAnswerIndex = index;
   }

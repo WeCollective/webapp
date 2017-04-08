@@ -119,6 +119,19 @@ class PostService extends Injectable {
       .catch((response) => { return reject(response.data || response); });
     });
   }
+
+  votePollAnswer(postid, answerid) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/poll/:postid/answer/:answerid/vote', {
+        postid: postid,
+        answerid: answerid
+      }, {
+        vote: 'up'
+      }, true)
+      .then(resolve)
+      .catch((response) => { console.log(response); return reject(response.data || response); });
+    });
+  }
 }
 PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventService', 'BranchService'];
 
