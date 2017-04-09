@@ -76,7 +76,6 @@ class CreatePostModalController extends Injectable {
           this.isLoading = false;
         });
         if(this.file && this.newPost.type !== 'image') {
-          console.log("FILE", this.file);
           let uploadUrl;
           try {
             uploadUrl = yield this.getUploadUrl(postid);
@@ -114,7 +113,7 @@ class CreatePostModalController extends Injectable {
 
   getUploadUrl(postid) {
     return new Promise((resolve, reject) => {
-      let uploadUrlRoute = `post/${postid}/picture-upload-url`;
+      let uploadUrlRoute = `post/${postid}/picture`;
       this.UploadService.fetchUploadUrl(uploadUrlRoute)
         .then(resolve)
         .catch(reject);

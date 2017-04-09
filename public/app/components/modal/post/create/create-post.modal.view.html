@@ -8,9 +8,9 @@
            ngf-hide-on-drop-not-available="false" ngf-fix-orientation="true">
         <img id="graphic" src="/assets/images/image.png" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'">
         <div id="image-preview" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'IMAGE'"
-             style="background-image: url('{{ CreatePostModal.AppService.getProxyUrl(newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')"></div>
+             style="background-image: url('{{ CreatePostModal.AppService.getProxyUrl(CreatePostModal.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')"></div>
         <h2 ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'">Drop an image here!</h2>
-        <div id="preview" ngf-background="file"></div>
+        <div id="preview" ngf-background="CreatePostModal.file"></div>
       </div>
       <div id="choose-file" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'" ngf-select="CreatePostModal.setFile($file)"
            ngf-fix-orientation="true" ngf-accept="'image/*'">
