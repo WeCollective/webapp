@@ -112,6 +112,15 @@ input, textarea {
           overflow: hidden;
           z-index: 1000;
 
+          h1 {
+            font-size: @font-size-lg;
+            font-weight: @font-weight-heavy;
+          }
+          h2 {
+            font-size: @font-size-md;
+            font-weight: @font-weight-heavy;
+          }
+
           // hide column left offscreen
           left: -@frame-column-width-xs;
           box-shadow: none;
@@ -178,6 +187,11 @@ input, textarea {
 
             div.content-header {
               border-bottom: solid 1px @light-grey;
+
+              h1 {
+                font-size: @font-size-lg;
+                font-weight: @font-weight-heavy;
+              }
 
               > div.content-controls {
                 * > {
