@@ -6,13 +6,13 @@
       <dropdown title="'POST TYPE'" items="BranchWall.WallService.controls.postType.items" selected="BranchWall.WallService.controls.postType.selectedIndex"></dropdown>
       <dropdown title="'SORT BY'" items="BranchWall.WallService.controls.sortBy.items" selected="BranchWall.WallService.controls.sortBy.selectedIndex"></dropdown>
       <div id="stat-type-selector">
-        <div id="individual-stat" ng-class="{ selected: BranchWall.stat === 'individual' }" ng-click="BranchWall.setStat('individual')">
+        <div id="individual-stat" ng-class="{ selected: BranchWall.stat === 'individual' }" ng-click="BranchWall.setStat('individual')" tooltip text="'Branch Stats'" offset-y="40">
           <img src="/assets/images/icons/black/individual.png">
         </div>
-        <div id="local-stat" ng-class="{ selected: BranchWall.stat === 'local' }" ng-click="BranchWall.setStat('local')">
+        <div id="local-stat" ng-class="{ selected: BranchWall.stat === 'local' }" ng-click="BranchWall.setStat('local')" tooltip text="'Local Stats'" offset-y="40">
           <img src="/assets/images/icons/black/local.png">
         </div>
-        <div id="global-stat" ng-class="{ selected: BranchWall.stat === 'global' }" ng-click="BranchWall.setStat('global')">
+        <div id="global-stat" ng-class="{ selected: BranchWall.stat === 'global' }" ng-click="BranchWall.setStat('global')" tooltip text="'Global Stats'" offset-y="40">
           <img src="/assets/images/icons/black/global.png">
         </div>
       </div>
