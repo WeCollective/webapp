@@ -27,6 +27,7 @@ class NavBarController extends Injectable {
   }
 
   toggleNav() {
+    console.log(this.UserService.user);
     this.expanded = !this.expanded;
   }
 

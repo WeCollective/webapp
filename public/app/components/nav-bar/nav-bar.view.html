@@ -50,8 +50,8 @@
       <li ng-show="NavBar.UserService.user.followed_branches.length > 0" id="followed-branch-title" class="followed-branch">
         <span>Following:</span>
       </li>
-      <a ui-sref="weco.branch.wall({ branchid: branch })">
-        <li ng-show="NavBar.UserService.user.followed_branches.length > 0" class="followed-branch" ng-repeat="branch in NavBar.UserService.user.followed_branches">
+      <a ui-sref="weco.branch.wall({ branchid: branch })" ng-repeat="branch in NavBar.UserService.user.followed_branches">
+        <li ng-show="NavBar.UserService.user.followed_branches.length > 0" class="followed-branch">
           <span>b/{{ branch }}</span>
         </li>
       </a>

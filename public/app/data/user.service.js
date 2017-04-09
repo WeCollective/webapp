@@ -195,6 +195,7 @@ class UserService extends Injectable {
 
           // attach user's followed branches
           response = yield this.API.fetch('/user/:username/branches/followed', { username: username });
+          console.log(response);
           user.followed_branches = response.data;
 
           return resolve(user);
