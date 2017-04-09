@@ -195,6 +195,9 @@ class AppRoutes extends Injectable {
       })
       .state('weco.branch.post.results', {
         url: '/results',
+        templateUrl: '/app/pages/branch/post/results/results.view.html',
+        controller: 'BranchPostResultsController',
+        controllerAs: 'BranchPostResults',
         pageTrack: '/p/:postid/results'
       })
       .state('weco.branch.post.discussion', {

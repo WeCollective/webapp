@@ -113,6 +113,8 @@ import BranchPostController from 'pages/branch/post/post.controller';
 registrar.controller('BranchPostController', BranchPostController);
 import BranchPostVoteController from 'pages/branch/post/vote/vote.controller';
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
+import BranchPostResultsController from 'pages/branch/post/results/results.controller';
+registrar.controller('BranchPostResultsController', BranchPostResultsController);
 
 // Components
 import NavBarComponent from 'components/nav-bar/nav-bar.directive';
@@ -176,6 +178,9 @@ registrar.controller('CommentThreadController', CommentThreadController);
 
 import PollAnswerEditorComponent from 'components/poll-answer-editor/poll-answer-editor.directive';
 registrar.directive('pollAnswerEditor', PollAnswerEditorComponent);
+
+import ChartComponent from 'components/chart/chart.directive';
+registrar.directive('chart', ChartComponent);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);

@@ -1,0 +1,15 @@
+<h1>Results</h1>
+<p id="no-results" ng-show="!BranchPostResults.hasSomeVotes()">No results to show yet!</p>
+<chart ng-show="BranchPostResults.hasSomeVotes()" type="BranchPostResults.chart.type" chart-data="BranchPostResults.chart.data" labels="BranchPostResults.chart.labels" options="BranchPostResults.chart.options"></chart>
+<div id="answer-list-container">
+  <ul id="answer-list">
+    <p id="no-answers" ng-show="BranchPostResults.answers.length === 0">No answers yet!</p>
+    <li ng-repeat="answer in BranchPostResults.answers">
+      <span class="list-item-index">{{ $index + 1 }}</span>
+      <div class="list-item-info">
+        <p class="list-item-title">{{ answer.text }}</p>
+        <span class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+      </div>
+    </li>
+  </ul>
+</div>
