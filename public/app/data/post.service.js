@@ -139,7 +139,7 @@ class PostService extends Injectable {
         vote: 'up'
       }, true)
       .then(resolve)
-      .catch((response) => { console.log(response); return reject(response.data || response); });
+      .catch((response) => { return reject(response.data || response); });
     });
   }
 }
