@@ -77,7 +77,7 @@ class BranchPostController extends Injectable {
   }
 
   showPreview() {
-    return ['image', 'text', 'video'].indexOf(this.PostService.post.type) > -1;
+    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) > -1;
   }
 
   getVideoEmbedUrl() {
