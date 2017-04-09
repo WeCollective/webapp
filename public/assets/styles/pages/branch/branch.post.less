@@ -138,9 +138,28 @@ div#branch-post {
         }
         li {
           .list-item(70px);
+          align-items: center;
 
           .list-item-index {
-            margin: 0 15px 0 5px;
+            &.colour-coded {
+              width: 40px;
+              height: 40px;
+              border-radius: 3px;
+              text-align: center;
+            }
+            
+            margin-right: 15px;
+            margin-left: 10px;
+
+            span {
+              color: #fff;
+              line-height: 40px;
+              opacity: 1;
+            }
+
+            .responsive(@screen-sm, {
+              margin-left: 0;
+            });
           }
 
           .list-item-title {

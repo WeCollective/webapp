@@ -5,7 +5,11 @@
   <ul id="answer-list">
     <p id="no-answers" ng-show="BranchPostResults.answers.length === 0">No answers yet!</p>
     <li ng-repeat="answer in BranchPostResults.answers">
-      <span class="list-item-index">{{ $index + 1 }}</span>
+      <div class="list-item-index colour-coded" ng-style="{ 'background-color': BranchPostResults.getAnswerColor($index) }">
+        <span>
+          {{ $index + 1 }}
+        </span>
+      </div>
       <div class="list-item-info">
         <p class="list-item-title">{{ answer.text }}</p>
         <span class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}</span>

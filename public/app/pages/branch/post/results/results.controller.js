@@ -45,7 +45,12 @@ class BranchPostResultsController extends Injectable {
       }
     });
   }
+
+  getAnswerColor(index) {
+    if(index > this.ChartColours.length) return '#d3d3d3';
+    return this.ChartColours[index];
+  }
 }
-BranchPostResultsController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'EventService'];
+BranchPostResultsController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'EventService', 'ChartColours'];
 
 export default BranchPostResultsController;

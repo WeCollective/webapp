@@ -17,17 +17,6 @@ class ChartComponent extends Injectable {
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
   link(scope, element) {
-    let defaultColors = [
-      '#9ac2e5',
-      '#4684c1',
-      '#96c483',
-      '#389978',
-      '#70cdd4',
-      '#227692',
-      '#7174ab',
-      '#2c4a6e'
-    ];
-
     let redrawChart = () => {
       if(scope.chart) scope.chart.destroy();
       scope.chart = new Chart(element[0].querySelector('canvas'), {
@@ -36,8 +25,8 @@ class ChartComponent extends Injectable {
           labels: scope.labels,
           datasets: [{
             data: scope.chartData,
-            backgroundColor: scope.colors || defaultColors,
-            hoverBackgroundColor: scope.colors || defaultColors
+            backgroundColor: scope.colors || this.ChartColours,
+            hoverBackgroundColor: scope.colors || this.ChartColours
           }]
         },
         options: scope.options
@@ -52,6 +41,6 @@ class ChartComponent extends Injectable {
     redrawChart();
   }
 }
-ChartComponent.$inject = ['$compile'];
+ChartComponent.$inject = ['$compile', 'ChartColours'];
 
 export default ChartComponent;

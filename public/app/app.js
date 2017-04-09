@@ -27,6 +27,17 @@ app.constant('ENV', ENV);
 import NotificationTypes from 'components/notification/notification-types.config.js';
 app.constant('NotificationTypes', NotificationTypes);
 
+app.constant('ChartColours', [
+  '#9ac2e5',
+  '#4684c1',
+  '#96c483',
+  '#389978',
+  '#70cdd4',
+  '#227692',
+  '#7174ab',
+  '#2c4a6e'
+]);
+
 // FILTERS
 import AppFilters from 'app.filters';
 app.filter('reverse', AppFilters.reverse);
