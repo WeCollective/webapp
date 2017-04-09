@@ -53,7 +53,7 @@ class BranchPostController extends Injectable {
 
   isOwnPost() {
     if(!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username == this.PostService.post.data.creator;
+    return this.UserService.user.username === this.PostService.post.data.creator;
   }
 
   setPreviewState(state) {
@@ -69,7 +69,10 @@ class BranchPostController extends Injectable {
       'Post deleted.',
       'Unable to delete post.'
     );
-    this.$state.go('weco.home');
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'DELETE_POST') return;
+      this.$state.go('weco.home');
+    });
   }
 
   getPreviewTemplate() {
@@ -102,6 +105,6 @@ class BranchPostController extends Injectable {
     return '';
   }
 }
-BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'BranchService', 'AppService'];
+BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'UserService', 'BranchService', 'AppService', 'ModalService'];
 
 export default BranchPostController;

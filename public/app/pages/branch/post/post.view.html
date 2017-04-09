@@ -1,10 +1,11 @@
 <div id="branch-post" loading when="BranchPost.isLoadingPost">
   <div class="list-item" list-item post="BranchPost.PostService.post" index="0" stat="'local'"></div>
-  <div id="preview-controls" class="clearfix" ng-show="BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio'">
-    <img src="/assets/images/icons/black/hide.png" ng-click="BranchPost.setPreviewState('hide')" ng-show="BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise'" tooltip text="'Hide'" offset-y="40">
-    <img src="/assets/images/icons/black/show.png" ng-click="BranchPost.setPreviewState('show')" ng-show="BranchPost.previewState === 'hide'" tooltip text="'Reveal'" offset-y="40">
-    <img src="/assets/images/icons/black/maximise.png" ng-click="BranchPost.setPreviewState('maximise')" ng-show="BranchPost.previewState === 'show' && BranchPost.PostService.post.type !== 'text'" tooltip text="'Expand'" offset-y="40">
-    <img src="/assets/images/icons/black/minimise.png" ng-click="BranchPost.setPreviewState('show')" ng-show="BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text'" tooltip text="'Shrink'" offset-y="40">
+  <div id="preview-controls" class="clearfix">
+    <img ng-show="BranchPost.isOwnPost()" ng-click="BranchPost.openDeletePostModal()" src="/assets/images/icons/black/delete.png">
+    <img ng-show="(BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/hide.png" ng-click="BranchPost.setPreviewState('hide')" tooltip text="'Hide'" offset-y="40">
+    <img ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/show.png" ng-click="BranchPost.setPreviewState('show')" tooltip text="'Reveal'" offset-y="40">
+    <img ng-show="(BranchPost.previewState === 'show' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/maximise.png" ng-click="BranchPost.setPreviewState('maximise')" tooltip text="'Expand'" offset-y="40">
+    <img ng-show="(BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/minimise.png" ng-click="BranchPost.setPreviewState('show')" tooltip text="'Shrink'" offset-y="40">
   </div>
   <ng-include id="post-preview" ng-if="BranchPost.showPreview()" src="BranchPost.getPreviewTemplate()"></ng-include>
 

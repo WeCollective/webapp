@@ -68,6 +68,16 @@ class PostService extends Injectable {
     });
   }
 
+  delete(postid) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/post/:postid', {
+        postid: postid
+      })
+      .then(resolve)
+      .catch((response) => { return reject(response.data || response); });
+    });
+  }
+
   vote(branchid, postid, vote) {
     return new Promise((resolve, reject) => {
       if(vote !== 'up' && vote !== 'down') { return reject(); }
