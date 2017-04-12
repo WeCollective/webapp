@@ -197,7 +197,7 @@ textarea {
   font-weight: 500;
 }
 #weco-root div.page > div.frame > div.frame-column h2 {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
 }
 @media only screen and (min-width: 576px) {
@@ -325,18 +325,26 @@ textarea {
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
+}
+#weco-root div.page > div.frame > div.frame-content > div:not(div#branch-post) {
   padding: 10px 0 0 0;
 }
 @media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-content > div {
-    padding: 20px 20px 0 20px;
+  #weco-root div.page > div.frame > div.frame-content > div:not(div#branch-post) {
+    padding: 20px 0 0 0;
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header {
   border-bottom: solid 1px #e7e7e7;
+  padding: 10px;
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-content > div div.content-header {
+    padding: 10px 20px 0 20px;
+  }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 500;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls * {
@@ -345,6 +353,14 @@ textarea {
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
   overflow-y: scroll;
+}
+#weco-root div.page > div.frame > div.frame-content > div div.content-body > ul {
+  padding: 0 10px;
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-content > div div.content-body > ul {
+    padding: 0 20px;
+  }
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column {
@@ -787,7 +803,27 @@ div.cover-photo {
   height: 0;
 }
 div.cover-photo.open {
-  height: 35%;
+  height: 150px;
+}
+@media only screen and (min-width: 576px) {
+  div.cover-photo.open {
+    height: 150px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  div.cover-photo.open {
+    height: 150px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  div.cover-photo.open {
+    height: 200px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  div.cover-photo.open {
+    height: 200px;
+  }
 }
 div.cover-photo img {
   position: absolute;
@@ -1038,7 +1074,7 @@ ul#alerts li img:hover {
   position: absolute;
   z-index: 1000;
   background-color: #222222;
-  padding: 5px 10px;
+  padding: 2px 10px 6px 10px;
   border-radius: 3px;
   border: 1px solid #131313;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -1050,7 +1086,7 @@ ul#alerts li img:hover {
 }
 @media only screen and (min-width: 576px) {
   .tooltip span {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 div.comments > .write-comment textarea {
@@ -2030,6 +2066,14 @@ div#verify-background form input[type="submit"] {
   color: white;
   font-weight: 500;
   transition: all 0.3s ease-out;
+  font-size: 18px;
+}
+@media only screen and (min-width: 768px) {
+  div#auth-background form input[type="submit"],
+  div#reset-password-background form input[type="submit"],
+  div#verify-background form input[type="submit"] {
+    font-size: 22px;
+  }
 }
 div#auth-background form input[type="submit"]:hover,
 div#reset-password-background form input[type="submit"]:hover,
@@ -3568,17 +3612,18 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   white-space: pre-wrap;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 5px;
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
   font-size: 12px;
   font-weight: 300;
+  color: #494949;
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
@@ -3639,12 +3684,13 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     white-space: pre-wrap;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     font-size: 12px;
     font-weight: 300;
+    color: #494949;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
     font-weight: 500;
@@ -3665,7 +3711,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
@@ -3716,12 +3762,13 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     white-space: pre-wrap;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     font-size: 12px;
     font-weight: 300;
+    color: #494949;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
     font-weight: 500;
@@ -3742,7 +3789,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
@@ -3754,10 +3801,13 @@ div#branch-post {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 20px 10px;
   position: relative;
+  padding: 10px 20px 0 20px;
 }
 @media only screen and (min-width: 768px) {
+  div#branch-post {
+    padding: 10px 10px 0 10px;
+  }
   div#branch-post .loading-container {
     width: calc(100% - 20px);
     height: calc(100% - 20px);

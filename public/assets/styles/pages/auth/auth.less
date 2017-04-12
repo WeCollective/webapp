@@ -67,6 +67,10 @@ div#auth-background, div#reset-password-background, div#verify-background {
         color: white;
         font-weight: 500;
         transition: all 0.3s ease-out;
+        font-size: @font-size-md;
+        .responsive(@screen-md, {
+          font-size: @font-size-lg;
+        });
 
         &:hover {
           cursor: pointer;

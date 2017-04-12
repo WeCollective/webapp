@@ -117,7 +117,7 @@ input, textarea {
             font-weight: @font-weight-heavy;
           }
           h2 {
-            font-size: @font-size-md;
+            font-size: @font-size-sm;
             font-weight: @font-weight-heavy;
           }
 
@@ -182,14 +182,19 @@ input, textarea {
             flex-direction: column;
             height: 100%;
             box-sizing: border-box;
-            padding: 10px 0 0 0;
-            .responsive(@screen-md, { padding: 20px 20px 0 20px; });
+
+            &:not(div#branch-post) {
+              padding: 10px 0 0 0;
+              .responsive(@screen-md, { padding: 20px 0 0 0; });
+            }
 
             div.content-header {
               border-bottom: solid 1px @light-grey;
+              padding: 10px;
+              .responsive(@screen-md, { padding: 10px 20px 0 20px; });
 
               h1 {
-                font-size: @font-size-lg;
+                font-size: @font-size-xl;
                 font-weight: @font-weight-heavy;
               }
 
@@ -203,6 +208,10 @@ input, textarea {
             div.content-body {
               flex: 1;
               overflow-y: scroll;
+              > ul {
+                padding: 0 10px;
+                .responsive(@screen-md, { padding: 0 20px; });
+              }
             }
           }
         }
