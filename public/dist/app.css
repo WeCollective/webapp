@@ -577,7 +577,7 @@ nav#nav-bar > div div#user-controls::before {
 }
 nav#nav-bar > div div#user-controls a#login,
 nav#nav-bar > div div#user-controls a#signup {
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 nav#nav-bar > div div#user-controls a#login::before,
 nav#nav-bar > div div#user-controls a#signup::before {
@@ -657,7 +657,7 @@ nav#nav-bar > div div#user-controls a div#profile.selected {
 }
 nav#nav-bar > div div#user-controls a div#profile span.text {
   vertical-align: middle;
-  color: #b5b3b4;
+  color: #d9d9d9;
   margin: 0 10px;
   font-weight: 600;
   display: none;
@@ -822,7 +822,7 @@ div.dropdown div.dropdown-title {
 }
 div.dropdown div.dropdown-title span {
   font-size: 12px;
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div.dropdown div.dropdown-item,
 div.dropdown li.dropdown-item {
@@ -1085,7 +1085,7 @@ div.comments > .write-comment .button-container .button.cancel {
   height: 30px;
   text-align: center;
   border-radius: 3px;
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
   color: white;
   transition: all 0.3s ease-out;
 }
@@ -1139,7 +1139,7 @@ div.comments > .write-comment#write-root-comment [loading] .button.ok {
 div.comments p#permalink-notice {
   padding: 5px 10px;
   border-radius: 3px;
-  border: 1px solid #b5b3b4;
+  border: 1px solid #d9d9d9;
   background-color: #e7e7e7;
 }
 div.comments p#permalink-notice a {
@@ -1215,7 +1215,7 @@ div.comments div.comment div.comment-content div.comment-info ul.comment-control
   height: 16px;
   width: 16px;
   padding: 0 10px;
-  border-right: solid 1px #b5b3b4;
+  border-right: solid 1px #d9d9d9;
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:first-child {
   padding-left: 0;
@@ -1266,7 +1266,7 @@ div.comments div.comment div.comment-content div.comment-info .button-container 
   height: 30px;
   text-align: center;
   border-radius: 3px;
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
   color: white;
   transition: all 0.3s ease-out;
 }
@@ -1503,7 +1503,7 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
   height: 26px;
   text-align: center;
   border-radius: 3px;
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
   color: white;
   transition: all 0.3s ease-out;
 }
@@ -1544,7 +1544,7 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
     height: 30px;
     text-align: center;
     border-radius: 3px;
-    background-color: #b5b3b4;
+    background-color: #d9d9d9;
     color: white;
     transition: all 0.3s ease-out;
   }
@@ -1631,7 +1631,7 @@ div#upload-image-modal div#progress-container {
   min-width: 300px;
   width: 100%;
   height: 40px;
-  border: 1px solid #b5b3b4;
+  border: 1px solid #d9d9d9;
   border-radius: 3px;
 }
 div#upload-image-modal div#progress-container div#progress {
@@ -1859,7 +1859,7 @@ div#create-post-modal div[loading] div#create-post-inputs {
 }
 div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
   font-size: 14px;
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input {
   vertical-align: middle;
@@ -1885,7 +1885,7 @@ div#create-post-modal div[loading] div#progress-container {
   min-width: 300px;
   width: 100%;
   height: 40px;
-  border: 1px solid #b5b3b4;
+  border: 1px solid #d9d9d9;
   border-radius: 3px;
 }
 div#create-post-modal div[loading] div#progress-container div#progress {
@@ -2043,12 +2043,12 @@ div#verify-background form input[type="submit"]:hover {
 div#auth-background form input[disabled],
 div#reset-password-background form input[disabled],
 div#verify-background form input[disabled] {
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
 }
 div#auth-background form input[disabled]:hover,
 div#reset-password-background form input[disabled]:hover,
 div#verify-background form input[disabled]:hover {
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
   box-shadow: none;
   letter-spacing: normal;
   cursor: auto;
@@ -2155,7 +2155,7 @@ div#home-footer div#footer-stats ul {
 div#home-footer div#footer-stats ul#fields {
   text-align: right;
   padding-right: 5px;
-  color: #b5b3b4;
+  color: #494949;
 }
 div#home-footer div#footer-stats ul#values {
   padding-left: 5px;
@@ -2163,7 +2163,7 @@ div#home-footer div#footer-stats ul#values {
 div#home-footer ul#footer-links {
   box-sizing: border-box;
   padding: 10px 0;
-  background-color: #b5b3b4;
+  background-color: #d9d9d9;
   text-align: center;
 }
 div#home-footer ul#footer-links a:after {
@@ -2323,7 +2323,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
   font-size: 18px;
   font-weight: 500;
-  color: #b5b3b4;
+  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
@@ -2489,7 +2489,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
     font-size: 18px;
     font-weight: 500;
-    color: #b5b3b4;
+    color: #d9d9d9;
     line-height: 80px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
@@ -2665,7 +2665,7 @@ div#branch-nucleus div.content-body ul#nucleus-about-properties > li span {
   font-size: 14px;
 }
 div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.field {
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.value a {
   color: #3498db;
@@ -2785,7 +2785,7 @@ div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span {
   font-size: 14px;
 }
 div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.field {
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.value a {
   color: #3498db;
@@ -2849,7 +2849,7 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
   font-size: 14px;
   font-style: italic;
   font-weight: 400;
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li {
   padding: 10px 0;
@@ -2860,7 +2860,7 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
   float: left;
   width: 150px;
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
   float: left;
@@ -2893,7 +2893,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
   font-size: 18px;
   font-weight: 500;
-  color: #b5b3b4;
+  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags {
@@ -3095,7 +3095,7 @@ div#branch-wall div.content-body ul#post-list li.list-item {
 div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
   font-size: 18px;
   font-weight: 500;
-  color: #b5b3b4;
+  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
@@ -3261,7 +3261,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
     font-size: 18px;
     font-weight: 500;
-    color: #b5b3b4;
+    color: #d9d9d9;
     line-height: 80px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
@@ -3442,7 +3442,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   font-size: 14px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.field {
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
   color: #3498db;
@@ -3485,7 +3485,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   font-size: 14px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
-  color: #b5b3b4;
+  color: #d9d9d9;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
   color: #3498db;
@@ -3551,7 +3551,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   height: 15px;
   top: 10px;
   right: 10px;
-  border: 1px solid #b5b3b4;
+  border: 1px solid #d9d9d9;
   border-radius: 50%;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
@@ -3622,7 +3622,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     height: 15px;
     top: 10px;
     right: 10px;
-    border: 1px solid #b5b3b4;
+    border: 1px solid #d9d9d9;
     border-radius: 50%;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
@@ -3699,7 +3699,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     height: 15px;
     top: 10px;
     right: 10px;
-    border: 1px solid #b5b3b4;
+    border: 1px solid #d9d9d9;
     border-radius: 50%;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
@@ -3776,7 +3776,7 @@ div#branch-post > .list-item {
 div#branch-post > .list-item span.list-item-index {
   font-size: 18px;
   font-weight: 500;
-  color: #b5b3b4;
+  color: #d9d9d9;
   line-height: 80px;
 }
 div#branch-post > .list-item div.list-item-flags {
@@ -4066,7 +4066,7 @@ div#branch-post .post-body #answer-list-container #answer-list li {
 div#branch-post .post-body #answer-list-container #answer-list li span.list-item-index {
   font-size: 18px;
   font-weight: 500;
-  color: #b5b3b4;
+  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags {
