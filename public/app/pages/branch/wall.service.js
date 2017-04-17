@@ -14,12 +14,16 @@ class WallService extends Injectable {
         items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
       },
       sortBy: {
-        selectedIndex: 0,
+        selectedIndex: 2,
         items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
       },
       postType: {
         selectedIndex: 0,
         items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+      },
+      statType: {
+        selectedIndex: 0,
+        items: ['GLOBAL', 'LOCAL', 'BRANCH']
       }
     };
 
@@ -110,8 +114,24 @@ class WallService extends Injectable {
         break;
     }
 
+    let statType;
+    switch(this.controls.statType.items[this.controls.statType.selectedIndex]) {
+      case 'GLOBAL':
+        statType = 'global';
+        break;
+      case 'LOCAL':
+        statType = 'local';
+        break;
+      case 'BRANCH':
+        statType = 'individual';
+        break;
+      default:
+        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        break;
+    }
+
     // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, this.stat, postType, lastPostId, this.flaggedOnly).then((posts) => {
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then((posts) => {
       this.$timeout(() => {
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if(lastPostId) {

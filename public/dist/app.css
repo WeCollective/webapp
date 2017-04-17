@@ -335,6 +335,9 @@ textarea {
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   border-bottom: solid 1px #e7e7e7;
   padding: 10px;
 }
@@ -346,9 +349,17 @@ textarea {
 #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
   font-size: 26px;
   font-weight: 500;
+  padding-right: 10px;
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls * {
-  display: inline-block;
+@media only screen and (min-width: 576px) {
+  #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
+    padding-right: 20px;
+  }
+}
+#weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
@@ -850,11 +861,14 @@ div.cover-frame.coverOpen {
   height: 65%;
 }
 div.dropdown {
-  display: inline-block;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 5px;
 }
 div.dropdown div.dropdown-title {
   display: inline-block;
+  padding-left: 10px;
 }
 div.dropdown div.dropdown-title span {
   font-size: 12px;
@@ -876,7 +890,7 @@ div.dropdown li.dropdown-item img {
   top: 8px;
   height: 10px;
   width: auto;
-  z-index: 600;
+  z-index: 1100;
 }
 div.dropdown div.dropdown-item span.selected,
 div.dropdown li.dropdown-item span.selected {
@@ -2369,6 +2383,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list
   font-weight: 500;
   color: #d9d9d9;
   line-height: 70px;
+  margin-right: 10px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
   position: relative;
@@ -2535,6 +2550,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     font-weight: 500;
     color: #d9d9d9;
     line-height: 80px;
+    margin-right: 10px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
     position: relative;
@@ -2939,6 +2955,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   font-weight: 500;
   color: #d9d9d9;
   line-height: 70px;
+  margin-right: 10px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags {
   position: relative;
@@ -3094,36 +3111,6 @@ div#branch-wall {
   position: relative;
   box-sizing: border-box;
 }
-div#branch-wall div.content-header div.content-controls div#stat-type-selector {
-  display: inline-block;
-  vertical-align: middle;
-  height: 45px;
-  margin-left: 10px;
-}
-div#branch-wall div.content-header div.content-controls div#stat-type-selector div {
-  position: relative;
-  display: inline-block;
-  height: 100%;
-  width: 30px;
-}
-div#branch-wall div.content-header div.content-controls div#stat-type-selector div.selected img {
-  opacity: 0.7;
-}
-div#branch-wall div.content-header div.content-controls div#stat-type-selector div:hover {
-  cursor: pointer;
-}
-div#branch-wall div.content-header div.content-controls div#stat-type-selector div:hover img {
-  opacity: 0.7;
-}
-div#branch-wall div.content-header div.content-controls div#stat-type-selector div img {
-  position: absolute;
-  height: 40%;
-  width: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.2;
-}
 div#branch-wall div.content-body ul#post-list {
   overflow-x: hidden;
 }
@@ -3141,6 +3128,7 @@ div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index 
   font-weight: 500;
   color: #d9d9d9;
   line-height: 70px;
+  margin-right: 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
   position: relative;
@@ -3307,6 +3295,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     font-weight: 500;
     color: #d9d9d9;
     line-height: 80px;
+    margin-right: 10px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
     position: relative;
@@ -3828,6 +3817,7 @@ div#branch-post > .list-item span.list-item-index {
   font-weight: 500;
   color: #d9d9d9;
   line-height: 80px;
+  margin-right: 10px;
 }
 div#branch-post > .list-item div.list-item-flags {
   position: relative;
@@ -4118,6 +4108,7 @@ div#branch-post .post-body #answer-list-container #answer-list li span.list-item
   font-weight: 500;
   color: #d9d9d9;
   line-height: 70px;
+  margin-right: 10px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags {
   position: relative;

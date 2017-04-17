@@ -28026,12 +28026,16 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
       },
       sortBy: {
-        selectedIndex: 0,
+        selectedIndex: 2,
         items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
       },
       postType: {
         selectedIndex: 0,
         items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+      },
+      statType: {
+        selectedIndex: 0,
+        items: ['GLOBAL', 'LOCAL', 'BRANCH']
       }
     };
 
@@ -28122,8 +28126,24 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         break;
     }
 
+    let statType;
+    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
+      case 'GLOBAL':
+        statType = 'global';
+        break;
+      case 'LOCAL':
+        statType = 'local';
+        break;
+      case 'BRANCH':
+        statType = 'individual';
+        break;
+      default:
+        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        break;
+    }
+
     // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, this.stat, postType, lastPostId, this.flaggedOnly).then(posts => {
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
       this.$timeout(() => {
         // if lastPostId was specified we are fetching _more_ posts, so append them
         if (lastPostId) {
@@ -28156,8 +28176,6 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.stat = 'global';
-
     this.WallService.init('weco.branch.wall');
     this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
       this.WallService.init('weco.branch.wall');
@@ -28168,19 +28186,11 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
       this.WallService.init('weco.branch.wall');
     });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+    this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, () => {
       this.WallService.init('weco.branch.wall');
     });
-  }
-
-  setStat(stat) {
-    this.$timeout(() => {
-      this.stat = stat;
-      if (this.WallService.controls.sortBy.items[this.WallService.controls.sortBy.selectedIndex] === 'TOTAL POINTS') {
-        this.WallService.isLoading = true;
-        this.WallService.posts = [];
-        this.WallService.getPosts();
-      }
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.WallService.init('weco.branch.wall');
     });
   }
 

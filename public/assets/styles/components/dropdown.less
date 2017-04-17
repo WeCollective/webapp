@@ -1,9 +1,12 @@
 div.dropdown {
-  display: inline-block;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 5px;
 
   div.dropdown-title {
     display: inline-block;
+    padding-left: 10px;
 
     span {
       font-size: 12px;
@@ -25,7 +28,7 @@ div.dropdown {
       top: 8px;
       height: 10px;
       width: auto;
-      z-index: 600;
+      z-index: 1100;
     }
 
     span.selected {

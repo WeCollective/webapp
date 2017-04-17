@@ -189,6 +189,9 @@ input, textarea {
             }
 
             div.content-header {
+              display: flex;
+              flex-flow: row wrap;
+              align-items: center;
               border-bottom: solid 1px @light-grey;
               padding: 10px;
               .responsive(@screen-md, { padding: 10px 20px 0 20px; });
@@ -196,12 +199,14 @@ input, textarea {
               h1 {
                 font-size: @font-size-xl;
                 font-weight: @font-weight-heavy;
+                padding-right: 10px;
+                .responsive(@screen-sm, { padding-right: 20px; });
               }
 
               > div.content-controls {
-                * > {
-                  display: inline-block;
-                }
+                display: flex;
+                flex-direction: row;
+                align-items: center;
               }
             }
 
