@@ -165,28 +165,28 @@ textarea {
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame {
-    width: calc(100% - (2 * 0%));
+    width: calc(100% - (2 * 10%));
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame {
-    width: calc(100% - (2 * 10%));
+    width: calc(100% - (2 * 14%));
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame {
-    width: calc(100% - (2 * 14%));
+    width: calc(100% - (2 * 17%));
   }
 }
 #weco-root div.page > div.frame > div.frame-column {
   position: absolute;
   overflow: hidden;
-  z-index: 1000;
-  left: -150px;
+  z-index: 1300;
+  left: -200px;
   box-shadow: none;
   transition: left 0.3s ease-out;
   height: 100%;
-  width: 150px;
+  width: 200px;
   box-sizing: border-box;
   padding: 20px;
   background-color: white;
@@ -202,22 +202,22 @@ textarea {
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column {
-    left: -150px;
+    left: -200px;
   }
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column {
-    left: -150px;
+    left: -200px;
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame > div.frame-column {
-    left: -200px;
+    left: -250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-column {
-    left: -200px;
+    left: -250px;
   }
 }
 #weco-root div.page > div.frame > div.frame-column.open {
@@ -233,28 +233,28 @@ textarea {
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame > div.frame-column {
-    width: 200px;
+    width: 250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-column {
-    width: 200px;
+    width: 250px;
   }
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   margin: 20px 0 0 -20px;
   background-position: center;
   background-size: cover;
@@ -265,42 +265,42 @@ textarea {
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 200px;
+    width: 250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 200px;
+    width: 250px;
   }
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    height: 150px;
+    height: 200px;
   }
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    height: 150px;
+    height: 200px;
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    height: 200px;
+    height: 250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    height: 200px;
+    height: 250px;
   }
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture img#edit {
@@ -379,17 +379,17 @@ textarea {
     float: left;
   }
   #weco-root div.page > div.frame > div.frame-content {
-    width: calc(100% - 150px);
+    width: calc(100% - 200px);
   }
 }
 @media only screen and (min-width: 992px) {
   #weco-root div.page > div.frame > div.frame-content {
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
   }
 }
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-content {
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
   }
 }
 div[marked] {
@@ -468,7 +468,7 @@ nav#nav-bar {
   left: 0;
   width: 100%;
   height: 35px;
-  z-index: 1100;
+  z-index: 1400;
   overflow-y: visible;
   background: linear-gradient(to bottom, #2a2a2a, #131313);
 }
@@ -507,17 +507,17 @@ nav#nav-bar > div {
 }
 @media only screen and (min-width: 768px) {
   nav#nav-bar > div {
-    width: calc(100% - (2 * 0%));
+    width: calc(100% - (2 * 10%));
   }
 }
 @media only screen and (min-width: 992px) {
   nav#nav-bar > div {
-    width: calc(100% - (2 * 10%));
+    width: calc(100% - (2 * 14%));
   }
 }
 @media only screen and (min-width: 1200px) {
   nav#nav-bar > div {
-    width: calc(100% - (2 * 14%));
+    width: calc(100% - (2 * 17%));
   }
 }
 nav#nav-bar > div div#menu {
@@ -814,26 +814,26 @@ div.cover-photo {
   height: 0;
 }
 div.cover-photo.open {
-  height: 150px;
+  height: 200px;
 }
 @media only screen and (min-width: 576px) {
   div.cover-photo.open {
-    height: 150px;
+    height: 200px;
   }
 }
 @media only screen and (min-width: 768px) {
   div.cover-photo.open {
-    height: 150px;
+    height: 200px;
   }
 }
 @media only screen and (min-width: 992px) {
   div.cover-photo.open {
-    height: 200px;
+    height: 250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   div.cover-photo.open {
-    height: 200px;
+    height: 250px;
   }
 }
 div.cover-photo img {
@@ -1482,12 +1482,12 @@ div#modal-container div#modal-content {
   div#modal-container div#modal-content {
     width: auto;
     height: auto;
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }
@@ -1509,6 +1509,7 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-inject
 }
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div h1,
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content h1 {
+  font-size: 18px;
   font-weight: 500;
   margin-bottom: 15px;
 }
@@ -1906,6 +1907,13 @@ div#create-post-modal div[loading] div#create-post-picture div#choose-file.ng-hi
 }
 div#create-post-modal div[loading] div#create-post-inputs {
   float: left;
+  width: calc(100% - 165px);
+}
+div#create-post-modal div[loading] div#create-post-inputs .dropdown {
+  display: inline-block;
+}
+div#create-post-modal div[loading] div#create-post-inputs .dropdown .dropdown-title {
+  padding-left: 0;
 }
 div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
   font-size: 14px;
@@ -2270,56 +2278,56 @@ div#branch-frame div#branch-info.frame-column h2a:hover {
 div#branch-frame div#branch-info.frame-column ul#branch-controls {
   position: relative;
   text-align: center;
-  height: calc(150px / 4);
-  width: 150px;
+  height: calc(200px / 4);
+  width: 200px;
   margin: 0 -20px;
   border-bottom: solid 1px #e7e7e7;
   border-top: solid 1px #e7e7e7;
 }
 @media only screen and (min-width: 576px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    height: calc(150px / 4);
+    height: calc(200px / 4);
   }
 }
 @media only screen and (min-width: 768px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    height: calc(150px / 4);
+    height: calc(200px / 4);
   }
 }
 @media only screen and (min-width: 992px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    height: calc(200px / 4);
+    height: calc(250px / 4);
   }
 }
 @media only screen and (min-width: 1200px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    height: calc(200px / 4);
+    height: calc(250px / 4);
   }
 }
 @media only screen and (min-width: 576px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 768px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    width: 150px;
+    width: 200px;
   }
 }
 @media only screen and (min-width: 992px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    width: 200px;
+    width: 250px;
   }
 }
 @media only screen and (min-width: 1200px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
-    width: 200px;
+    width: 250px;
   }
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li {
   float: left;
   height: 100%;
-  width: calc(150px / 4);
+  width: calc(200px / 4);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -2327,22 +2335,22 @@ div#branch-frame div#branch-info.frame-column ul#branch-controls li {
 }
 @media only screen and (min-width: 576px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li {
-    width: calc(150px / 4);
+    width: calc(200px / 4);
   }
 }
 @media only screen and (min-width: 768px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li {
-    width: calc(150px / 4);
+    width: calc(200px / 4);
   }
 }
 @media only screen and (min-width: 992px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li {
-    width: calc(200px / 4);
+    width: calc(250px / 4);
   }
 }
 @media only screen and (min-width: 1200px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li {
-    width: calc(200px / 4);
+    width: calc(250px / 4);
   }
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li a img {
@@ -2708,6 +2716,20 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
   font-size: 18px;
+}
+div#branch-nucleus div.content-header div.content-controls {
+  overflow-x: scroll;
+}
+div#branch-nucleus div.content-header div.content-controls ul.tabs {
+  white-space: nowrap;
+}
+@media only screen and (min-width: 576px) {
+  div#branch-nucleus div.content-header div.content-controls {
+    overflow-x: auto;
+  }
+  div#branch-nucleus div.content-header div.content-controls ul.tabs {
+    white-space: normal;
+  }
 }
 div#branch-nucleus div.content-body {
   padding: 10px 20px;

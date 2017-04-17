@@ -1,4 +1,18 @@
 div#branch-nucleus {
+  div.content-header {
+    div.content-controls {
+      overflow-x: scroll;
+      ul.tabs {
+        white-space: nowrap;
+      }
+      .responsive(@screen-sm, {
+        overflow-x: auto;
+        ul.tabs {
+          white-space: normal;
+        }
+      });
+    }
+  }
   div.content-body {
     padding: 10px 20px;
     @import './nucleus/about.less';

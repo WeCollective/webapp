@@ -79,6 +79,14 @@ div#create-post-modal {
     }
     div#create-post-inputs {
       float: left;
+      width: calc(~"100% - 165px");
+
+      .dropdown {
+        display: inline-block;
+        .dropdown-title {
+          padding-left: 0;
+        }
+      }
 
       label#nsfw-checkbox {
         font-size: @font-size-sm;
