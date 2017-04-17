@@ -5,6 +5,25 @@ class ListItemController extends Injectable {
     super(ListItemController.$inject, injections);
   }
 
+  isOwnPost() {
+    return this.UserService.user.username === this.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open(
+      'DELETE_POST',
+      {
+        postid: this.post.id
+      },
+      'Post deleted.',
+      'Unable to delete post.'
+    );
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'DELETE_POST') return;
+      this.$state.go(this.$state.current.name, { reload: true });
+    });
+  }
+
   vote(direction) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(() => {
       let inc = (direction === 'up') ? 1 : -1;
@@ -73,6 +92,6 @@ class ListItemController extends Injectable {
     );
   }
 }
-ListItemController.$inject = ['$timeout', '$state', 'PostService', 'BranchService', 'AlertsService', 'ModalService', 'AppService'];
+ListItemController.$inject = ['$timeout', '$state', 'PostService', 'EventService', 'UserService', 'BranchService', 'AlertsService', 'ModalService', 'AppService'];
 
 export default ListItemController;

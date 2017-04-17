@@ -35,6 +35,7 @@
     <div class="list-item-controls">
       <a ui-sref="weco.branch.post({ postid: ListItem.post.id })"><img class="control" src="/assets/images/icons/black/comment.png"></a>
       <img class="control" src="/assets/images/icons/black/flag.png" ng-click="ListItem.openFlagPostModal()">
+      <img class="control" ng-show="ListItem.isOwnPost()" src="/assets/images/icons/black/delete.png" ng-click="ListItem.openDeletePostModal()">
     </div>
   </div>
 </li>
