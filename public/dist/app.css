@@ -934,7 +934,7 @@ ul.tabs a li.selected {
   border-bottom: solid 2px black;
 }
 ul.tabs a li.selected span {
-  font-weight: 500;
+  font-weight: 600;
 }
 ul.tabs a li span {
   font-size: 12px;
@@ -2691,6 +2691,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     cursor: pointer;
     opacity: 1;
   }
+  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
+    font-size: 18px;
+  }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title,
@@ -2703,11 +2706,16 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     font-size: 14px;
   }
 }
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
+  font-size: 18px;
+}
 div#branch-nucleus div.content-body {
-  padding: 10px 0;
+  padding: 10px 20px;
 }
 div#branch-nucleus div.content-body ul#nucleus-about-properties {
   margin-bottom: 20px;
+  padding: 0;
+  text-align: center;
 }
 div#branch-nucleus div.content-body ul#nucleus-about-properties > li {
   padding: 5px 0;
@@ -2829,6 +2837,10 @@ div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a l
 div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li:hover div.mod-picture {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
+div#branch-nucleus div.content-body ul#nucleus-settings-properties {
+  padding: 0;
+  text-align: center;
+}
 div#branch-nucleus div.content-body ul#nucleus-settings-properties > li {
   padding: 5px 0;
 }
@@ -2881,6 +2893,7 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container {
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties {
   box-sizing: border-box;
   margin-bottom: 10px;
+  text-align: center;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li {
   padding: 5px 0;
@@ -2940,6 +2953,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts {
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body {
   overflow-y: visible;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list {
+  padding: 0;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item {
   display: flex;
@@ -3106,6 +3122,12 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;
   opacity: 1;
+}
+div#branch-nucleus div.content-body.moderators {
+  padding: 10px;
+}
+div#branch-nucleus div.content-body.flaggedposts {
+  padding: 0px;
 }
 div#branch-wall {
   position: relative;

@@ -1,10 +1,23 @@
 div#branch-nucleus {
   div.content-body {
-    padding: 10px 0;
+    padding: 10px 20px;
     @import './nucleus/about.less';
     @import './nucleus/moderators.less';
     @import './nucleus/settings.less';
     @import './nucleus/modtools.less';
     @import './nucleus/flagged-posts.less';
+
+    &.about {
+    }
+    &.moderators {
+      padding: 10px;
+    }
+    &.settings {
+    }
+    &.modtools {
+    }
+    &.flaggedposts {
+      padding: 0px;
+    }
   }
 }
