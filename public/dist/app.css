@@ -359,7 +359,7 @@ textarea {
 #weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
@@ -3117,7 +3117,7 @@ div#branch-wall div.content-body ul#post-list {
 div#branch-wall div.content-body ul#post-list li.list-item {
   display: flex;
   flex-direction: row;
-  height: 70px;
+  height: 60px;
   width: 100%;
   padding: 10px 0;
   border-bottom: solid 1px #e7e7e7;
@@ -3127,7 +3127,7 @@ div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index 
   font-size: 18px;
   font-weight: 500;
   color: #d9d9d9;
-  line-height: 70px;
+  line-height: 60px;
   margin-right: 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
@@ -3162,7 +3162,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 60px;
   margin: 0 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img {
@@ -3178,8 +3178,8 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes p
   margin: 0;
 }
 div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div {
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   border-radius: 3px;
   margin: 0 10px;
   background-size: cover;
@@ -3189,7 +3189,7 @@ div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-  height: 70px;
+  height: 60px;
   box-sizing: border-box;
   padding: 2px;
   background-color: #ffecee;
@@ -3284,7 +3284,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item {
     display: flex;
     flex-direction: row;
-    height: 80px;
+    height: 60px;
     width: 100%;
     padding: 10px 0;
     border-bottom: solid 1px #e7e7e7;
@@ -3294,7 +3294,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     font-size: 18px;
     font-weight: 500;
     color: #d9d9d9;
-    line-height: 80px;
+    line-height: 60px;
     margin-right: 10px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
@@ -3329,7 +3329,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 60px;
     margin: 0 10px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img {
@@ -3345,8 +3345,8 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     margin: 0;
   }
   div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div {
-    height: 80px;
-    width: 80px;
+    height: 60px;
+    width: 60px;
     border-radius: 3px;
     margin: 0 10px;
     background-size: cover;
@@ -3356,7 +3356,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-    height: 80px;
+    height: 60px;
     box-sizing: border-box;
     padding: 2px;
     background-color: #ffecee;

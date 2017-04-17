@@ -10,7 +10,7 @@
   </div>
   <div class="content-body" on-scroll-to-bottom="WallScrollToBottom" loading when="BranchWall.WallService.isLoading">
     <ul id="post-list">
-      <li class="list-item" ng-repeat="post in BranchWall.WallService.posts" list-item post="post" index="$index" stat="BranchWall.stat"></li>
+      <li class="list-item" ng-repeat="post in BranchWall.WallService.posts" list-item post="post" index="$index" stat="BranchWall.WallService.getStatType()"></li>
     </ul>
   </div>
 </div>

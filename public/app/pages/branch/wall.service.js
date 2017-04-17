@@ -75,6 +75,25 @@ class WallService extends Injectable {
     return timeafter;
   }
 
+  getStatType() {
+    let statType;
+    switch(this.controls.statType.items[this.controls.statType.selectedIndex]) {
+      case 'GLOBAL':
+        statType = 'global';
+        break;
+      case 'LOCAL':
+        statType = 'local';
+        break;
+      case 'BRANCH':
+        statType = 'individual';
+        break;
+      default:
+        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        break;
+    }
+    return statType;
+  }
+
   getPosts(lastPostId) {
     this.isLoading = true;
     // compute the appropriate timeafter for the selected time filter
@@ -114,21 +133,7 @@ class WallService extends Injectable {
         break;
     }
 
-    let statType;
-    switch(this.controls.statType.items[this.controls.statType.selectedIndex]) {
-      case 'GLOBAL':
-        statType = 'global';
-        break;
-      case 'LOCAL':
-        statType = 'local';
-        break;
-      case 'BRANCH':
-        statType = 'individual';
-        break;
-      default:
-        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
-        break;
-    }
+    let statType = this.getStatType();
 
     // fetch the posts for this branch and timefilter
     this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then((posts) => {
