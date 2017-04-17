@@ -2783,7 +2783,6 @@ div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value[m
   padding-left: 20px;
 }
 div#branch-nucleus div.content-body > div.button {
-  display: block;
   margin: auto;
   padding: 10px;
   max-width: 150px;
@@ -2794,6 +2793,7 @@ div#branch-nucleus div.content-body > div.button {
   background-color: #92bedb;
   color: white;
   transition: all 0.3s ease-out;
+  display: block;
 }
 div#branch-nucleus div.content-body > div.button:hover {
   cursor: pointer;
