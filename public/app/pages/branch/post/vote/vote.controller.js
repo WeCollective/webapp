@@ -65,7 +65,34 @@ class BranchPostVoteController extends Injectable {
       }
     });
   }
+
+  canSubmitNewAnswer() {
+    if(this.PostService.post.locked) {
+      if(this.PostService.post.data.creator === this.UserService.user.username) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  openSubmitPollAnswerModal() {
+    this.ModalService.open(
+      'SUBMIT_POLL_ANSWER',
+      {
+        postid: this.PostService.post.id
+      },
+      'Answer submitted.',
+      'Unable to submit answer.'
+    );
+    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+      if(name !== 'SUBMIT_POLL_ANSWER') return;
+      this.$state.go('weco.branch.post.vote', { reload: true });
+    });
+  }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService'];
+BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
 
 export default BranchPostVoteController;

@@ -223,3 +223,5 @@ import ResolveFlagPostModalController from 'components/modal/post/flag/resolve/r
 registrar.controller('ResolveFlagPostModalController', ResolveFlagPostModalController);
 import CreateBranchModalController from 'components/modal/branch/create/create-branch.modal.controller';
 registrar.controller('CreateBranchModalController', CreateBranchModalController);
+import SubmitPollAnswerModalController from 'components/modal/post/submit-poll-answer/submit-poll-answer.modal.controller';
+registrar.controller('SubmitPollAnswerModalController', SubmitPollAnswerModalController);

@@ -1915,11 +1915,13 @@ div#create-post-modal div[loading] div#create-post-inputs .dropdown {
 div#create-post-modal div[loading] div#create-post-inputs .dropdown .dropdown-title {
   padding-left: 0;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox,
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox {
   font-size: 14px;
   color: #d9d9d9;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input {
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input,
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox input {
   vertical-align: middle;
   margin-left: 10px;
 }
@@ -4113,7 +4115,7 @@ div#branch-post .post-body {
 div#branch-post .post-body .content-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 div#branch-post .post-body .content-header .button.ok {
   display: inline-block;
@@ -4124,6 +4126,7 @@ div#branch-post .post-body .content-header .button.ok {
   color: white;
   transition: all 0.3s ease-out;
   padding: 0 5px;
+  margin: 0 5px;
 }
 div#branch-post .post-body .content-header .button.ok:hover {
   cursor: pointer;

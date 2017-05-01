@@ -20,6 +20,7 @@
     <div id="create-post-inputs" ng-show="!CreatePostModal.UploadService.isUploading">
       <dropdown title="CreatePostModal.postType.title" items="CreatePostModal.postType.items" selected="CreatePostModal.postType.idx"></dropdown>
       <label id="nsfw-checkbox">NSFW<input type="checkbox" ng-model="CreatePostModal.newPost.nsfw"></input></label>
+      <label id="locked-checkbox" ng-show="CreatePostModal.postType.idx === 5">LOCK ANSWERS<input type="checkbox" ng-model="CreatePostModal.newPost.locked"></input></label>
       <input ng-model="CreatePostModal.newPost.title" placeholder="Title" type="text"></input>
       <tag-editor items="CreatePostModal.newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
     </div>
