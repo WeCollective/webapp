@@ -1,5 +1,6 @@
 <div class="content-header" id="poll-vote-header">
   <dropdown title="'SORT BY'" items="BranchPostVote.controls.sortBy.items" selected="BranchPostVote.controls.sortBy.selectedIndex"></dropdown>
+  <div class="button ok" ng-click="BranchPostVote.openSubmitPollAnswerModal()"><span>SUBMIT NEW ANSWER</span></div>
   <div class="button ok" ng-show="BranchPostVote.selectedAnswerIndex > -1" ng-click="BranchPostVote.vote()"><span>CAST VOTE</span></div>
 </div>
 <div id="answer-list-container">

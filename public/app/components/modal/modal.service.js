@@ -25,7 +25,8 @@ class ModalService extends Injectable {
       FLAG_POST:                  '/app/components/modal/post/flag/flag-post.modal.view.html',
       CREATE_POST:                '/app/components/modal/post/create/create-post.modal.view.html',
       DELETE_POST:                '/app/components/modal/post/delete/delete-post.modal.view.html',
-      RESOLVE_FLAG_POST:          '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html'
+      RESOLVE_FLAG_POST:          '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html',
+      SUBMIT_POLL_ANSWER:         '/app/components/modal/post/submit-poll-answer/submit-poll-answer.modal.view.html'
     };
     this.names = Object.keys(this.templateUrls);
   }

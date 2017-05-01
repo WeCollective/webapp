@@ -6,7 +6,7 @@ class ListItemController extends Injectable {
   }
 
   isOwnPost() {
-    return this.UserService.user.username === this.post.data.creator;
+    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
   }
 
   openDeletePostModal() {

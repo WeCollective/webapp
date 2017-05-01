@@ -4113,7 +4113,7 @@ div#branch-post .post-body {
 div#branch-post .post-body .content-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 div#branch-post .post-body .content-header .button.ok {
   display: inline-block;
@@ -4124,6 +4124,7 @@ div#branch-post .post-body .content-header .button.ok {
   color: white;
   transition: all 0.3s ease-out;
   padding: 0 5px;
+  margin: 0 5px;
 }
 div#branch-post .post-body .content-header .button.ok:hover {
   cursor: pointer;
