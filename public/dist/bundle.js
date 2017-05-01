@@ -25154,7 +25154,8 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     this.preview = false;
     this.newPost = {
       branchids: [this.ModalService.inputArgs.branchid],
-      nsfw: false
+      nsfw: false,
+      locked: false
     };
     this.pollAnswers = [];
     this.postType = {
@@ -27929,7 +27930,7 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     });
   }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService'];
+BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = BranchPostVoteController;
 

@@ -11,7 +11,8 @@ class CreatePostModalController extends Injectable {
     this.preview = false;
     this.newPost = {
       branchids: [this.ModalService.inputArgs.branchid],
-      nsfw: false
+      nsfw: false,
+      locked: false
     };
     this.pollAnswers = [];
     this.postType = {

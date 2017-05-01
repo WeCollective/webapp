@@ -82,6 +82,6 @@ class BranchPostVoteController extends Injectable {
     });
   }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService'];
+BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService', 'EventService'];
 
 export default BranchPostVoteController;

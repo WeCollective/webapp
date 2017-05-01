@@ -1915,11 +1915,13 @@ div#create-post-modal div[loading] div#create-post-inputs .dropdown {
 div#create-post-modal div[loading] div#create-post-inputs .dropdown .dropdown-title {
   padding-left: 0;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox,
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox {
   font-size: 14px;
   color: #d9d9d9;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input {
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input,
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox input {
   vertical-align: middle;
   margin-left: 10px;
 }
