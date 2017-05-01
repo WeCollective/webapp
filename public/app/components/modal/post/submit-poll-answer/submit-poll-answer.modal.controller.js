@@ -11,6 +11,16 @@ class SubmitPollAnswerModalController extends Injectable {
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'SUBMIT_POLL_ANSWER') return;
 
+      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, {
+        text: this.newAnswer
+      }).then(() => {
+        this.ModalService.OK();
+      }).catch((err) => {
+        return this.$timeout(() => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Error creating poll answer!';
+        });
+      });
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
@@ -23,6 +33,6 @@ class SubmitPollAnswerModalController extends Injectable {
     });
   }
 }
-SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService'];
+SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
 
 export default SubmitPollAnswerModalController;

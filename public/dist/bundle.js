@@ -25168,7 +25168,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
       if (name !== 'CREATE_POST') return;
 
       // if not all fields are filled, display message
-      if (!this.newPost || !this.newPost.title || !this.newPost.branchids || this.newPost.branchids.length === 0 || !this.newPost.text || this.newPost.nsfw === undefined) {
+      if (!this.newPost || !this.newPost.title || !this.newPost.branchids || this.newPost.branchids.length === 0 || !this.newPost.text || this.newPost.nsfw === undefined || this.newPost.locked === undefined) {
         return this.$timeout(() => {
           this.errorMessage = 'Please fill in all fields';
         });
@@ -25177,6 +25177,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
       // perform the update
       this.isLoading = true;
       this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
+      if (this.newPost.type !== 'poll') this.newPost.locked = false;
 
       // create copy of post to not interfere with binding of items on tag-editor
       let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
@@ -25515,6 +25516,17 @@ class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'SUBMIT_POLL_ANSWER') return;
+
+      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, {
+        text: this.newAnswer
+      }).then(() => {
+        this.ModalService.OK();
+      }).catch(err => {
+        return this.$timeout(() => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Error creating poll answer!';
+        });
+      });
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
@@ -25527,7 +25539,7 @@ class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_
     });
   }
 }
-SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService'];
+SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = SubmitPollAnswerModalController;
 
@@ -26960,8 +26972,8 @@ UserService.$inject = ['API', 'ENV', '$timeout', 'EventService'];
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ENV;
@@ -27920,6 +27932,18 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     });
   }
 
+  canSubmitNewAnswer() {
+    if (this.PostService.post.locked) {
+      if (this.PostService.post.data.creator === this.UserService.user.username) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
   openSubmitPollAnswerModal() {
     this.ModalService.open('SUBMIT_POLL_ANSWER', {
       postid: this.PostService.post.id
@@ -27930,7 +27954,7 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     });
   }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService', 'EventService'];
+BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = BranchPostVoteController;
 

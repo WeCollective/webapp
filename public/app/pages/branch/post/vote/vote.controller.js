@@ -66,6 +66,17 @@ class BranchPostVoteController extends Injectable {
     });
   }
 
+  canSubmitNewAnswer() {
+    if(this.PostService.post.locked) {
+      if(this.PostService.post.data.creator === this.UserService.user.username) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 
   openSubmitPollAnswerModal() {
     this.ModalService.open(
@@ -82,6 +93,6 @@ class BranchPostVoteController extends Injectable {
     });
   }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'ModalService', 'EventService'];
+BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
 
 export default BranchPostVoteController;

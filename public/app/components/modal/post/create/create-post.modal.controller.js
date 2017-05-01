@@ -31,7 +31,8 @@ class CreatePostModalController extends Injectable {
         !this.newPost.branchids ||
          this.newPost.branchids.length === 0 ||
         !this.newPost.text ||
-        this.newPost.nsfw === undefined
+        this.newPost.nsfw === undefined ||
+        this.newPost.locked === undefined
       ) {
         return this.$timeout(() => {
           this.errorMessage = 'Please fill in all fields';
@@ -41,6 +42,7 @@ class CreatePostModalController extends Injectable {
       // perform the update
       this.isLoading = true;
       this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
+      if(this.newPost.type !== 'poll') this.newPost.locked = false;
 
       // create copy of post to not interfere with binding of items on tag-editor
       let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
