@@ -43,13 +43,25 @@ var WEBPACK_CONFIG = {
   ] : []
 };
 
-gulp.task('webpack', function(done) {
-  WEBPACK_CONFIG.output.filename = environment === 'production' ? 'bundle.min.js' : 'bundle.js';
-  webpack(WEBPACK_CONFIG, function(err, stats) {
-      if(err) throw new gutil.PluginError('webpack', err);
-      gutil.log('[webpack]', stats.toString());
-      done();
-  });
+gulp.task('build', function(done) {
+  if(argv.production) { environment = 'production'; }
+  if(argv.development) { environment = 'development'; }
+  if(argv.local) { environment = 'local'; }
+
+  console.log(`Environment set to ${environment}...`);
+
+  runSequence('clean', 'template:config', 'template:index', 'less', 'lint', 'webpack', done);
+});
+
+gulp.task('clean', function() {
+  return del([path.join(DEST_DIR, '/**/*')]);
+});
+
+gulp.task('less', function () {
+  return gulp.src(path.join(ASSETS_DIR, 'styles/app.less'))
+    .pipe(less())
+    .pipe(rename('app.css'))
+    .pipe(gulp.dest(DEST_DIR));
 });
 
 gulp.task('lint', function() {
@@ -61,8 +73,16 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('clean', function() {
-  return del([path.join(DEST_DIR, '/**/*')]);
+gulp.task('nodemon', function() {
+  nodemon({
+    ext: 'js html less',
+    watch: 'public',
+    ignore: ['public/dist/*', 'public/app/env.config.js', 'public/index.html'],
+    script: 'server.js',
+    verbose: true,
+    delay: 500,
+    tasks: ['build']
+  });
 });
 
 gulp.task('template', function(done) {
@@ -98,33 +118,15 @@ gulp.task('template:index', function() {
     .pipe(gulp.dest(path.join(__dirname, 'public')));
 });
 
-gulp.task('less', function () {
-  return gulp.src(path.join(ASSETS_DIR, 'styles/app.less'))
-    .pipe(less())
-    .pipe(rename('app.css'))
-    .pipe(gulp.dest(DEST_DIR));
-});
-
-gulp.task('build', function(done) {
-  if(argv.production) { environment = 'production'; }
-  if(argv.development) { environment = 'development'; }
-  if(argv.local) { environment = 'local'; }
-
-  runSequence('clean', 'template:config', 'template:index', 'less', 'lint', 'webpack', done);
-});
-
-gulp.task('nodemon', function() {
-  nodemon({
-    ext: 'js html less',
-    watch: 'public',
-    ignore: ['public/dist/*', 'public/app/env.config.js', 'public/index.html'],
-    script: 'server.js',
-    verbose: true,
-    delay: 500,
-    tasks: ['build']
+gulp.task('webpack', function(done) {
+  WEBPACK_CONFIG.output.filename = environment === 'production' ? 'bundle.min.js' : 'bundle.js';
+  webpack(WEBPACK_CONFIG, function(err, stats) {
+      if(err) throw new gutil.PluginError('webpack', err);
+      gutil.log('[webpack]', stats.toString());
+      done();
   });
 });
 
-gulp.task('serve', function(done) {
+gulp.task('default', function(done) {
   runSequence('build', 'nodemon', done);
 });
