@@ -54,24 +54,6 @@ textarea {
   visibility: hidden;
 }
 
-// set a CSS property to the value given by the appropriate responsive
-// Less mixin without having to supply the screen size suffix
-.set-responsively(@prop, @value-name) {
-  // intermediate values required for correct Less compilation
-  @xs: "@{value-name}-xs";
-  @sm: "@{value-name}-sm";
-  @md: "@{value-name}-md";
-  @lg: "@{value-name}-lg";
-  @xl: "@{value-name}-xl";
-
-  // set the property responsively
-  @{prop}: @@xs;
-  .responsive(@screen-sm, { @{prop}: @@sm; });
-  .responsive(@screen-md, { @{prop}: @@md; });
-  .responsive(@screen-lg, { @{prop}: @@lg; });
-  .responsive(@screen-xl, { @{prop}: @@xl; });
-}
-
 #weco-root {
   height: 100%;
   width: 100%;
@@ -127,17 +109,23 @@ textarea {
         z-index: 1300;
 
         > div.frame-column-picture {
+          @sidebar-picture-size: @sidebar-w;
           background-position: center;
           background-size: cover;
           border-right: solid 1px @light-grey;
           border-top: solid 1px @light-grey;
           box-sizing: border-box;
+          height: @sidebar-picture-size;
           margin: 20px 0 0 -20px;
           position: relative;
+          width: @sidebar-picture-size;
           z-index: 0;
 
-          .set-responsively(height, frame-column-width);
-          .set-responsively(width, frame-column-width);
+          .responsive(@screen-lg, {
+            @sidebar-picture-size: @sidebar-w-lg;
+            height: @sidebar-picture-size;
+            width: @sidebar-picture-size;
+          });
 
           img#edit {
             bottom: 10px;
