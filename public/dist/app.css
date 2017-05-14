@@ -100,47 +100,13 @@ textarea {
 }
 #weco-root .full-page-nav {
   height: calc(100% - 35px);
+  padding-top: 35px;
   position: relative;
   width: 100%;
-  padding-top: 35px;
 }
 @media only screen and (min-width: 576px) {
   #weco-root .full-page-nav {
     height: calc(100% - 45px);
-  }
-}
-@media only screen and (min-width: 768px) {
-  #weco-root .full-page-nav {
-    height: calc(100% - 45px);
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root .full-page-nav {
-    height: calc(100% - 45px);
-  }
-}
-@media only screen and (min-width: 1200px) {
-  #weco-root .full-page-nav {
-    height: calc(100% - 45px);
-  }
-}
-@media only screen and (min-width: 576px) {
-  #weco-root .full-page-nav {
-    padding-top: 45px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #weco-root .full-page-nav {
-    padding-top: 45px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root .full-page-nav {
-    padding-top: 45px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  #weco-root .full-page-nav {
     padding-top: 45px;
   }
 }
@@ -205,28 +171,8 @@ textarea {
   margin: 20px 0 0 -20px;
   position: relative;
   z-index: 0;
-  width: 200px;
   height: 200px;
-}
-@media only screen and (min-width: 576px) {
-  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 200px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 200px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 250px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-    width: 250px;
-  }
+  width: 200px;
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
@@ -246,6 +192,26 @@ textarea {
 @media only screen and (min-width: 1200px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
     height: 250px;
+  }
+}
+@media only screen and (min-width: 576px) {
+  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
+    width: 200px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
+    width: 200px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
+    width: 250px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
+    width: 250px;
   }
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture img#edit {

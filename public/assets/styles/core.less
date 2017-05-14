@@ -82,15 +82,15 @@ textarea {
   }
 
   .full-page-nav {
-    height: calc(~'100% - @{nav-bar-height-xs}');
+    height: calc(~'100% - @{navbar-h-sm}');
+    padding-top: @navbar-h-sm;
     position: relative;
     width: 100%;
     
-    .responsive(@screen-sm, { height: calc(~'100% - @{nav-bar-height-sm}'); });
-    .responsive(@screen-md, { height: calc(~'100% - @{nav-bar-height-md}'); });
-    .responsive(@screen-lg, { height: calc(~'100% - @{nav-bar-height-lg}'); });
-    .responsive(@screen-xl, { height: calc(~'100% - @{nav-bar-height-xl}'); });
-    .set-responsively(padding-top, nav-bar-height);
+    .responsive(@screen-sm, {
+      height: calc(~'100% - @{navbar-h}');
+      padding-top: @navbar-h;
+    });
   }
 
   div.page {
@@ -136,8 +136,8 @@ textarea {
           position: relative;
           z-index: 0;
 
-          .set-responsively(width, frame-column-width);
           .set-responsively(height, frame-column-width);
+          .set-responsively(width, frame-column-width);
 
           img#edit {
             bottom: 10px;
