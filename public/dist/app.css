@@ -238,12 +238,15 @@ textarea {
 #weco-root div.page > div.frame > div.sidebar .sidebar-info {
   padding: 20px;
 }
-#weco-root div.page > div.frame > div.sidebar .sidebar-info h1 {
+#weco-root div.page > div.frame > div.sidebar .sidebar-info #inf-symbol {
   font-size: 22px;
+}
+#weco-root div.page > div.frame > div.sidebar .sidebar-info h1 {
+  font-size: 26px;
   font-weight: 500;
 }
 #weco-root div.page > div.frame > div.sidebar .sidebar-info h2 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 #weco-root div.page > div.frame > div.sidebar .sidebar-picture {
@@ -886,7 +889,7 @@ div.dropdown li.dropdown-item img {
 }
 div.dropdown div.dropdown-item span.selected,
 div.dropdown li.dropdown-item span.selected {
-  font-weight: 600;
+  font-weight: 500;
 }
 div.dropdown div.dropdown-item:hover,
 div.dropdown li.dropdown-item:hover {
@@ -2471,7 +2474,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -2511,7 +2514,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -2641,7 +2644,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
@@ -2675,7 +2678,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
     color: #b3b3b3;
-    font-size: 12px;
+    font-size: 13px;
     white-space: nowrap;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
@@ -3059,7 +3062,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3099,7 +3102,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3252,7 +3255,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a 
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3292,7 +3295,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3419,7 +3422,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
@@ -3453,7 +3456,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
     color: #b3b3b3;
-    font-size: 12px;
+    font-size: 13px;
     white-space: nowrap;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
@@ -3655,7 +3658,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
   color: #494949;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 300;
 }
 @media only screen and (min-width: 576px) {
@@ -3722,7 +3725,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     color: #494949;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 300;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
@@ -3800,7 +3803,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     color: #494949;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 300;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
@@ -3950,7 +3953,7 @@ div#branch-post > .list-item div.list-item-info a .list-item-title,
 div#branch-post > .list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3990,7 +3993,7 @@ div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.
 }
 div#branch-post > .list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -4198,7 +4201,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -4238,7 +4241,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
