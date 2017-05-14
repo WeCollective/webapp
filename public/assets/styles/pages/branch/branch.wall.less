@@ -1,11 +1,14 @@
 div#branch-wall {
-  position: relative;
   box-sizing: border-box;
+  position: relative;
+  
   div.content-body {
     ul#post-list {
       overflow-x: hidden;
+
       li.list-item {
         .list-item(60px);
+        
         .responsive(@screen-md, {
           .list-item(60px);
         });

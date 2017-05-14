@@ -2,17 +2,25 @@ div#branch-subbranches {
   div.content-body {
     ul#subbranch-list {
       overflow-x: hidden;
+
       li.list-item {
         .list-item(70px);
+
+        div.list-item-info {
+          a {
+            .list-item-title { font-size: @font-size-md; }
+          }
+        }
+
         .responsive(@screen-md, {
           .list-item(80px);
-          div.list-item-info a .list-item-title {
-            font-size: @font-size-md;
+
+          div.list-item-info {
+            a {
+              .list-item-title { font-size: @font-size-md; }
+            }
           }
         });
-        div.list-item-info a .list-item-title {
-          font-size: @font-size-md;
-        }
       }
     }
   }

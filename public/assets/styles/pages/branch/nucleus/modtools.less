@@ -1,13 +1,14 @@
 div#nucleus-modtools-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100%;
+  width: 100%;
 
   ul#nucleus-modtools-properties {
     box-sizing: border-box;
     margin-bottom: 10px;
     text-align: center;
+
     li {
       padding: 5px 0;
 
@@ -15,54 +16,54 @@ div#nucleus-modtools-container {
         font-size: @font-size-sm;
         font-weight: @font-weight-heavy;
 
+        &.danger { color: @caution-0; }
+
         &:hover {
           cursor: pointer;
           text-decoration: underline;
-        }
-
-        &.danger {
-          color: @caution-0;
         }
       }
     }
   }
 
   ul#nucleus-modtools-log {
-    position: relative;
     box-sizing: border-box;
     flex: 1;
+    position: relative;
 
     div {
-      h2 {
-        font-size: @font-size-md;
-      }
+      h2 { font-size: @font-size-md; }
+
       h3 {
-        margin-top: 10px;
+        color: @dark-grey;
         font-size: @font-size-sm;
         font-style: italic;
         font-weight: @font-weight-normal;
-        color: @dark-grey;
+        margin-top: 10px;
       }
 
       li {
         padding: 10px 0;
+
         div {
           font-size: @font-size-sm;
-          &.time {
-            float: left;
-            width: 150px;
-            color: @dark-grey;
+
+          a {
+            color: @accent-0;
+            font-weight: @font-weight-heavy;
+            
+            &:hover { text-decoration: underline; }
           }
+
           &.entry {
             float: left;
             width: calc(~'100% - 150px');
           }
-          a {
-            color: @accent-0;
-            font-weight: @font-weight-heavy;
-            &:hover {
-              text-decoration: underline;
-            }
+
+          &.time {
+            color: @dark-grey;
+            float: left;
+            width: 150px;
           }
         }
       }

@@ -1987,9 +1987,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 div#auth-background,
 div#reset-password-background,
 div#verify-background {
-  overflow-y: scroll;
   background: #444444;
   background: radial-gradient(#444444, #222222);
+  overflow-y: scroll;
   text-align: center;
 }
 div#auth-background a#logo,
@@ -1999,10 +1999,10 @@ div#auth-background div#logo,
 div#reset-password-background div#logo,
 div#verify-background div#logo {
   display: block;
-  width: 60px;
   height: 60px;
-  padding: 30px 0 20px 0;
   margin: auto;
+  padding: 30px 0 20px;
+  width: 60px;
 }
 @media only screen and (min-width: 768px) {
   div#auth-background a#logo,
@@ -2011,9 +2011,9 @@ div#verify-background div#logo {
   div#auth-background div#logo,
   div#reset-password-background div#logo,
   div#verify-background div#logo {
-    width: 100px;
     height: 100px;
-    padding: 60px 0 40px 0;
+    padding: 60px 0 40px;
+    width: 100px;
   }
 }
 div#auth-background a#logo img,
@@ -2022,26 +2022,8 @@ div#verify-background a#logo img,
 div#auth-background div#logo img,
 div#reset-password-background div#logo img,
 div#verify-background div#logo img {
-  width: 100%;
   height: 100%;
-}
-div#auth-background h1,
-div#reset-password-background h1,
-div#verify-background h1 {
-  font-size: 18px;
-  font-weight: 300;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 8px;
-  margin-bottom: 20px;
-}
-@media only screen and (min-width: 768px) {
-  div#auth-background h1,
-  div#reset-password-background h1,
-  div#verify-background h1 {
-    font-size: 22px;
-    margin-bottom: 40px;
-  }
+  width: 100%;
 }
 div#auth-background form,
 div#reset-password-background form,
@@ -2051,16 +2033,16 @@ div#verify-background form {
 div#auth-background form input,
 div#reset-password-background form input,
 div#verify-background form input {
-  display: block;
-  margin: 10px auto;
-  width: 100%;
-  max-width: 400px;
-  box-sizing: border-box;
-  padding: 10px;
   border: none;
   border-radius: 3px;
-  font-weight: 400;
+  box-sizing: border-box;
+  display: block;
   font-size: 14px;
+  font-weight: 400;
+  margin: 10px auto;
+  max-width: 400px;
+  padding: 10px;
+  width: 100%;
 }
 @media only screen and (min-width: 768px) {
   div#auth-background form input,
@@ -2091,10 +2073,10 @@ div#auth-background form input[type="submit"],
 div#reset-password-background form input[type="submit"],
 div#verify-background form input[type="submit"] {
   background-color: #92bedb;
-  color: white;
+  color: #fff;
+  font-size: 18px;
   font-weight: 500;
   transition: all 0.3s ease-out;
-  font-size: 18px;
 }
 @media only screen and (min-width: 768px) {
   div#auth-background form input[type="submit"],
@@ -2106,11 +2088,11 @@ div#verify-background form input[type="submit"] {
 div#auth-background form input[type="submit"]:hover,
 div#reset-password-background form input[type="submit"]:hover,
 div#verify-background form input[type="submit"]:hover {
-  cursor: pointer;
+  background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
   letter-spacing: 3px;
   transition: all 0.3s ease-out;
-  background-color: #3498db;
 }
 div#auth-background form input[disabled],
 div#reset-password-background form input[disabled],
@@ -2122,20 +2104,38 @@ div#reset-password-background form input[disabled]:hover,
 div#verify-background form input[disabled]:hover {
   background-color: #d9d9d9;
   box-shadow: none;
-  letter-spacing: normal;
   cursor: auto;
+  letter-spacing: normal;
 }
 div#auth-background form input:focus,
 div#reset-password-background form input:focus,
 div#verify-background form input:focus {
   outline: none;
 }
+div#auth-background h1,
+div#reset-password-background h1,
+div#verify-background h1 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+@media only screen and (min-width: 768px) {
+  div#auth-background h1,
+  div#reset-password-background h1,
+  div#verify-background h1 {
+    font-size: 22px;
+    margin-bottom: 40px;
+  }
+}
 div#auth-background p,
 div#reset-password-background p,
 div#verify-background p {
-  color: white;
-  font-weight: 300;
+  color: #fff;
   font-size: 14px;
+  font-weight: 300;
 }
 @media only screen and (min-width: 768px) {
   div#auth-background p,
@@ -2154,55 +2154,55 @@ div#verify-background p#resend-verification {
   text-decoration: underline;
 }
 div#home-content {
-  position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 70%;
   margin-top: -60px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
 }
 @media only screen and (min-width: 576px) {
   div#home-content {
     width: 400px;
   }
 }
-div#home-content img {
-  width: 80%;
-  height: auto;
-  margin-bottom: 20px;
-}
 div#home-content form {
+  height: 40px;
   position: relative;
   width: 100%;
-  height: 40px;
+}
+div#home-content form img {
+  height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: auto;
 }
 div#home-content form input {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0 20px;
   background-color: #d9d9d9;
   border: none;
   border-radius: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  padding: 0 20px;
+  width: 100%;
 }
 div#home-content form input:focus {
   outline: none;
 }
-div#home-content form img {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  height: 20px;
-  width: auto;
-  opacity: 0.5;
+div#home-content img {
+  height: auto;
+  margin-bottom: 20px;
+  width: 80%;
 }
 div#home-footer {
-  position: fixed;
   bottom: 0;
-  width: 100%;
   font-size: 12px;
+  position: fixed;
+  width: 100%;
 }
 @media only screen and (min-width: 768px) {
   div#home-footer {
@@ -2210,40 +2210,33 @@ div#home-footer {
   }
 }
 div#home-footer div#footer-stats {
-  position: relative;
-  width: 100%;
-  white-space: nowrap;
   background-color: #d9d9d9;
   box-sizing: border-box;
   padding: 10px 0;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
 }
 div#home-footer div#footer-stats ul {
-  display: inline-block;
-  width: 50%;
-  white-space: normal;
   box-sizing: border-box;
+  display: inline-block;
   font-weight: 500;
+  white-space: normal;
+  width: 50%;
 }
 div#home-footer div#footer-stats ul#fields {
-  text-align: right;
-  padding-right: 5px;
   color: #494949;
+  padding-right: 5px;
+  text-align: right;
 }
 div#home-footer div#footer-stats ul#values {
   padding-left: 5px;
 }
 div#home-footer ul#footer-links {
+  background-color: #b3b3b3;
   box-sizing: border-box;
   padding: 10px 0;
-  background-color: #b3b3b3;
   text-align: center;
-}
-div#home-footer ul#footer-links a:after {
-  content: ' |';
-  text-decoration: none;
-}
-div#home-footer ul#footer-links a:last-child:after {
-  content: '';
 }
 div#home-footer ul#footer-links a li {
   display: inline-block;
@@ -2255,16 +2248,23 @@ div#home-footer ul#footer-links a li span {
 div#home-footer ul#footer-links a li span:hover {
   text-decoration: underline;
 }
+div#home-footer ul#footer-links a:after {
+  content: ' |';
+  text-decoration: none;
+}
+div#home-footer ul#footer-links a:last-child:after {
+  content: '';
+}
 div#notfound {
-  background: white;
+  background: #fff;
   background: radial-gradient(#fff, #e7e7e7);
   text-align: center;
 }
 div#notfound div {
-  position: absolute;
-  top: 50%;
   left: 50%;
+  position: absolute;
   transform: translate(-50%, -50%);
+  top: 50%;
 }
 div#notfound div h1 {
   font-size: 100px;
@@ -2282,13 +2282,13 @@ div#branch-frame div#branch-info.frame-column h2a:hover {
   text-decoration: underline;
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls {
-  position: relative;
-  text-align: center;
-  height: calc(200px / 4);
-  width: 200px;
-  margin: 0 -20px;
   border-bottom: solid 1px #e7e7e7;
   border-top: solid 1px #e7e7e7;
+  height: calc(200px / 4);
+  margin: 0 -20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
 }
 @media only screen and (min-width: 576px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls {
@@ -2331,13 +2331,13 @@ div#branch-frame div#branch-info.frame-column ul#branch-controls {
   }
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li {
+  border-right: solid 1px #e7e7e7;
+  box-sizing: border-box;
   float: left;
   height: 100%;
-  width: calc(200px / 4);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  border-right: solid 1px #e7e7e7;
+  width: calc(200px / 4);
 }
 @media only screen and (min-width: 576px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li {
@@ -2360,10 +2360,10 @@ div#branch-frame div#branch-info.frame-column ul#branch-controls li {
   }
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li a img {
-  width: auto;
-  opacity: 0.2;
-  padding-top: calc(50% - 11px);
   height: 22px;
+  opacity: .2;
+  padding-top: calc(50% - 11px);
+  width: auto;
 }
 @media only screen and (min-width: 768px) {
   div#branch-frame div#branch-info.frame-column ul#branch-controls li a img {
@@ -2375,7 +2375,7 @@ div#branch-frame div#branch-info.frame-column ul#branch-controls li a:not(.disab
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li a:not(.disabled):hover img,
 div#branch-frame div#branch-info.frame-column ul#branch-controls li a.selected img {
-  opacity: 0.7;
+  opacity: .7;
 }
 div#branch-frame div#branch-info.frame-column ul#branch-controls li#add-content:hover {
   cursor: pointer;
@@ -2549,6 +2549,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   cursor: pointer;
   opacity: 1;
 }
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
+  font-size: 18px;
+}
 @media only screen and (min-width: 768px) {
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
     border-bottom: solid 1px #e7e7e7;
@@ -2720,23 +2723,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     font-size: 14px;
   }
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
-  font-size: 18px;
-}
-div#branch-nucleus div.content-header div.content-controls {
-  overflow-x: scroll;
-}
-div#branch-nucleus div.content-header div.content-controls ul.tabs {
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-header div.content-controls {
-    overflow-x: auto;
-  }
-  div#branch-nucleus div.content-header div.content-controls ul.tabs {
-    white-space: normal;
-  }
-}
 div#branch-nucleus div.content-body {
   padding: 10px 20px;
 }
@@ -2789,17 +2775,17 @@ div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value[m
   padding-left: 20px;
 }
 div#branch-nucleus div.content-body > div.button {
+  display: block;
   margin: auto;
-  padding: 10px;
   max-width: 150px;
+  padding: 10px;
   background-color: #92bedb;
   border-radius: 3px;
-  color: white;
+  color: #fff;
   display: inline-block;
   height: 30px;
   text-align: center;
   transition: all 0.3s ease-out;
-  display: block;
 }
 div#branch-nucleus div.content-body > div.button:hover {
   background-color: #3498db;
@@ -2813,22 +2799,22 @@ div#branch-nucleus div.content-body > div.button span {
   line-height: 30px;
 }
 div#branch-nucleus div.content-body div#nucleus-moderators-list-container {
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li {
   display: inline-block;
-  text-align: center;
   margin-right: 5px;
+  text-align: center;
 }
 div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 5px auto;
-  border-radius: 3px;
   background-position: center;
   background-size: cover;
+  border-radius: 3px;
+  height: 80px;
+  margin: 0 auto 5px;
+  width: 80px;
 }
 @media only screen and (min-width: 576px) {
   div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
@@ -2915,8 +2901,8 @@ div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.valu
 div#branch-nucleus div.content-body div#nucleus-modtools-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties {
   box-sizing: border-box;
@@ -2930,27 +2916,27 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
   font-size: 14px;
   font-weight: 500;
 }
+div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
+  color: #c0392b;
+}
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
-  color: #c0392b;
-}
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log {
-  position: relative;
   box-sizing: border-box;
   flex: 1;
+  position: relative;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div h2 {
   font-size: 18px;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div h3 {
-  margin-top: 10px;
+  color: #d9d9d9;
   font-size: 14px;
   font-style: italic;
   font-weight: 400;
-  color: #d9d9d9;
+  margin-top: 10px;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li {
   padding: 10px 0;
@@ -2958,21 +2944,21 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div {
   font-size: 14px;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
-  float: left;
-  width: 150px;
-  color: #d9d9d9;
-}
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
-  float: left;
-  width: calc(100% - 150px);
-}
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a {
   color: #3498db;
   font-weight: 500;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a:hover {
   text-decoration: underline;
+}
+div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
+  float: left;
+  width: calc(100% - 150px);
+}
+div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
+  color: #d9d9d9;
+  float: left;
+  width: 150px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts {
   display: flex;
@@ -3151,15 +3137,29 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   cursor: pointer;
   opacity: 1;
 }
-div#branch-nucleus div.content-body.moderators {
-  padding: 10px;
-}
 div#branch-nucleus div.content-body.flaggedposts {
   padding: 0px;
 }
+div#branch-nucleus div.content-body.moderators {
+  padding: 10px;
+}
+div#branch-nucleus div.content-header div.content-controls {
+  overflow-x: scroll;
+}
+div#branch-nucleus div.content-header div.content-controls ul.tabs {
+  white-space: nowrap;
+}
+@media only screen and (min-width: 576px) {
+  div#branch-nucleus div.content-header div.content-controls {
+    overflow-x: auto;
+  }
+  div#branch-nucleus div.content-header div.content-controls ul.tabs {
+    white-space: normal;
+  }
+}
 div#branch-wall {
-  position: relative;
   box-sizing: border-box;
+  position: relative;
 }
 div#branch-wall div.content-body ul#post-list {
   overflow-x: hidden;
@@ -3610,13 +3610,13 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   padding-left: 20px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications div#empty {
-  margin: 10px;
   font-style: italic;
+  margin: 10px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
   border-bottom: solid 1px #e7e7e7;
@@ -3851,15 +3851,15 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
 }
 div#branch-post {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  padding: 10px 20px 0;
   position: relative;
-  padding: 10px 20px 0 20px;
 }
 @media only screen and (min-width: 768px) {
   div#branch-post {
-    padding: 10px 10px 0 10px;
+    padding: 10px 10px 0;
   }
   div#branch-post .loading-container {
     width: calc(100% - 20px);
@@ -3867,6 +3867,7 @@ div#branch-post {
   }
 }
 div#branch-post > .list-item {
+  padding-top: 15px;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -3874,7 +3875,12 @@ div#branch-post > .list-item {
   padding: 10px 0;
   white-space: nowrap;
   width: 100%;
-  padding-top: 15px;
+}
+div#branch-post > .list-item div.list-item-controls {
+  display: none;
+}
+div#branch-post > .list-item span.list-item-index {
+  display: none;
 }
 div#branch-post > .list-item span.list-item-index {
   color: #d9d9d9;
@@ -4038,125 +4044,81 @@ div#branch-post > .list-item div.list-item-info div.list-item-controls img.contr
     padding-top: 0;
   }
 }
-div#branch-post > .list-item span.list-item-index {
-  display: none;
-}
-div#branch-post > .list-item div.list-item-controls {
-  display: none;
-}
 div#branch-post div#preview-controls {
   margin: 5px 0;
 }
 div#branch-post div#preview-controls img {
   float: right;
   height: 30px;
-  width: auto;
+  opacity: .3;
   padding-left: 5px;
-  opacity: 0.3;
+  width: auto;
 }
 div#branch-post div#preview-controls img:hover {
   cursor: pointer;
-  opacity: 0.8;
+  opacity: .8;
 }
 div#branch-post ng-include#post-preview {
   width: 100%;
+}
+div#branch-post ng-include#post-preview #image-post div {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 200px;
+  width: auto;
+}
+div#branch-post ng-include#post-preview #image-post.maximised div {
+  height: 350px;
+  width: auto;
+  transition: height 0.3s ease-out;
+}
+div#branch-post ng-include#post-preview #image-post:not(.ng-hide) div {
+  transition: height 0.3s ease-out;
 }
 div#branch-post ng-include#post-preview #text-post {
   max-height: 350px;
   overflow-y: scroll;
 }
-div#branch-post ng-include#post-preview #image-post:not(.ng-hide) div {
-  transition: height 0.3s ease-out;
-}
-div#branch-post ng-include#post-preview #image-post div {
-  width: auto;
-  height: 200px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-div#branch-post ng-include#post-preview #image-post.maximised div {
-  transition: height 0.3s ease-out;
-  height: 350px;
-  width: auto;
-}
 div#branch-post ng-include#post-preview #video-post {
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 @media only screen and (min-width: 768px) {
   div#branch-post ng-include#post-preview #video-post {
     width: 43.75%;
   }
 }
-div#branch-post ng-include#post-preview #video-post:not(.ng-hide) {
-  transition: width 0.3s ease-out;
-}
 div#branch-post ng-include#post-preview #video-post div#video-wrapper {
+  height: 0;
   position: relative;
   padding-bottom: 56.25%;
   /* 16:9 */
   padding-top: 25px;
-  height: 0;
 }
 div#branch-post ng-include#post-preview #video-post div#video-wrapper iframe {
+  height: 100%;
+  left: 0;
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
 }
 div#branch-post ng-include#post-preview #video-post.maximised {
   transition: width 0.3s ease-out;
   width: 100%;
 }
+div#branch-post ng-include#post-preview #video-post:not(.ng-hide) {
+  transition: width 0.3s ease-out;
+}
 div#branch-post .post-body {
+  display: flex;
   flex: 1;
-  display: flex;
   flex-direction: column;
-}
-div#branch-post .post-body .content-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-div#branch-post .post-body .content-header .button.ok {
-  background-color: #92bedb;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  height: 26px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-  padding: 0 5px;
-  margin: 0 5px;
-}
-div#branch-post .post-body .content-header .button.ok:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div#branch-post .post-body .content-header .button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
-}
-div#branch-post .post-body p#no-results {
-  font-style: italic;
-}
-div#branch-post .post-body div.chart {
-  height: 250px;
-  width: 250px;
-  margin: auto;
 }
 div#branch-post .post-body #answer-list-container {
   flex: 1;
   overflow-y: scroll;
-}
-div#branch-post .post-body #answer-list-container #answer-list p#no-answers {
-  font-style: italic;
 }
 div#branch-post .post-body #answer-list-container #answer-list li {
   border-bottom: solid 1px #e7e7e7;
@@ -4326,14 +4288,8 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   opacity: 1;
 }
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-index {
-  margin-right: 15px;
   margin-left: 10px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-index.colour-coded {
-  width: 40px;
-  height: 40px;
-  border-radius: 3px;
-  text-align: center;
+  margin-right: 15px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-index span {
   color: #fff;
@@ -4345,25 +4301,69 @@ div#branch-post .post-body #answer-list-container #answer-list li .list-item-ind
     margin-left: 0;
   }
 }
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-index.colour-coded {
+  height: 40px;
+  border-radius: 3px;
+  text-align: center;
+  width: 40px;
+}
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-title {
   margin: 0;
 }
 div#branch-post .post-body #answer-list-container #answer-list li.selected {
   background-color: #e7e7e7;
 }
+div#branch-post .post-body #answer-list-container #answer-list p#no-answers {
+  font-style: italic;
+}
+div#branch-post .post-body .content-header {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+div#branch-post .post-body .content-header .button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 26px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+  margin: 0 5px;
+  padding: 0 5px;
+}
+div#branch-post .post-body .content-header .button.ok:hover {
+  background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+div#branch-post .post-body .content-header .button.ok span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+div#branch-post .post-body div.chart {
+  height: 250px;
+  width: 250px;
+  margin: auto;
+}
+div#branch-post .post-body p#no-results {
+  font-style: italic;
+}
 div#branch-post #comments-wrapper {
   flex: 1;
   overflow: hidden;
 }
 div#branch-post #comments-wrapper .comments {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 div#branch-post #comments-wrapper .comments .dropdown {
-  width: 100%;
   border-bottom: 1px solid #e7e7e7;
+  width: 100%;
 }
 div#branch-post #comments-wrapper .comments #post-comments {
   flex: 1;

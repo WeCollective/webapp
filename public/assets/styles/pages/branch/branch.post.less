@@ -1,12 +1,13 @@
 div#branch-post {
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;  
+  padding: 10px 20px 0;
   position: relative;
-  padding: 10px 20px 0 20px;
 
   .responsive(@screen-md, {
-    padding: 10px 10px 0 10px;
+    padding: 10px 10px 0;
+
     .loading-container {
       width: calc(~'100% - 20px');
       height: calc(~'100% - 20px');
@@ -14,29 +15,28 @@ div#branch-post {
   });
 
   > .list-item {
-    .list-item(80px);
     padding-top: 15px;
+    
+    div.list-item-controls { display: none; }
+    span.list-item-index { display: none; }
+
+    .list-item(80px);
     .responsive(@screen-md, { padding-top: 0; });
-    span.list-item-index {
-      display: none;
-    }
-    div.list-item-controls {
-      display: none;
-    }
   }
 
   div#preview-controls {
     margin: 5px 0;
+
     img {
       float: right;
       height: 30px;
-      width: auto;
+      opacity: .3;
       padding-left: 5px;
-      opacity: 0.3;
+      width: auto;
 
       &:hover {
         cursor: pointer;
-        opacity: 0.8;
+        opacity: .8;
       }
     }
   }
@@ -44,114 +44,77 @@ div#branch-post {
   ng-include#post-preview {
     width: 100%;
 
+    #image-post {
+      div {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 200px;
+        width: auto;
+      }
+
+      &.maximised div {
+        height: 350px;
+        width: auto;
+        transition: height .3s ease-out;
+      }
+
+      &:not(.ng-hide) div { transition: height .3s ease-out; }
+    }
+
     #text-post {
       max-height: 350px;
       overflow-y: scroll;
     }
 
-    #image-post {
-      &:not(.ng-hide) div {
-        transition: height 0.3s ease-out;
-      }
-      div {
-        width: auto;
-        height: 200px;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-
-      &.maximised div {
-        transition: height 0.3s ease-out;
-        height: 350px;
-        width: auto;
-      }
-    }
-
     #video-post {
-      width: 100%;
-      .responsive(@screen-md, { width: 43.75%; });
       margin-left: auto;
       margin-right: auto;
+      width: 100%;
 
-      &:not(.ng-hide) {
-        transition: width 0.3s ease-out;
-      }
+      .responsive(@screen-md, { width: 43.75%; });
 
       div#video-wrapper {
+        height: 0;
         position: relative;
         padding-bottom: 56.25%; /* 16:9 */
         padding-top: 25px;
-        height: 0;
 
         iframe {
+          height: 100%;
+          left: 0;
           position: absolute;
           top: 0;
-          left: 0;
           width: 100%;
-          height: 100%;
         }
       }
 
       &.maximised {
-        transition: width 0.3s ease-out;
+        transition: width .3s ease-out;
         width: 100%;
       }
+
+      &:not(.ng-hide) { transition: width .3s ease-out; }
     }
   }
 
   .post-body {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
-
-    .content-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
-      .button.ok {
-        .button(white, @accent-1, 26px, {
-          background-color: @accent-0;
-          box-shadow: @shadow-2;
-        });
-        padding: 0 5px;
-        margin: 0 5px;
-      }
-    }
-
-    p#no-results {
-      font-style: italic;
-    }
-
-    div.chart {
-      height: 250px;
-      width: 250px;
-      margin: auto;
-    }
 
     #answer-list-container {
       flex: 1;
       overflow-y: scroll;
 
       #answer-list {
-        p#no-answers {
-          font-style: italic;
-        }
         li {
           .list-item(70px);
           align-items: center;
 
           .list-item-index {
-            &.colour-coded {
-              width: 40px;
-              height: 40px;
-              border-radius: 3px;
-              text-align: center;
-            }
-
-            margin-right: 15px;
             margin-left: 10px;
+            margin-right: 15px;
 
             span {
               color: #fff;
@@ -162,18 +125,47 @@ div#branch-post {
             .responsive(@screen-sm, {
               margin-left: 0;
             });
+
+            &.colour-coded {
+              height: 40px;
+              border-radius: 3px;
+              text-align: center;
+              width: 40px;
+            }
           }
 
-          .list-item-title {
-            margin: 0;
-          }
+          .list-item-title { margin: 0; }
 
-          &.selected {
-            background-color: @light-grey;
-          }
+          &.selected { background-color: @light-grey; }
         }
+
+        p#no-answers { font-style: italic; }
       }
     }
+
+    .content-header {
+      align-items: center;
+      display: flex;
+      justify-content: flex-start;
+
+      .button.ok {
+        .button(#fff, @accent-1, 26px, {
+          background-color: @accent-0;
+          box-shadow: @shadow-2;
+        });
+
+        margin: 0 5px;
+        padding: 0 5px;
+      }
+    }
+
+    div.chart {
+      height: 250px;
+      width: 250px;
+      margin: auto;
+    }
+
+    p#no-results { font-style: italic; }
   }
 
   #comments-wrapper {
@@ -181,14 +173,14 @@ div#branch-post {
     overflow: hidden;
 
     .comments {
-      width: 100%;
-      height: 100%;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      width: 100%;
 
       .dropdown {
-        width: 100%;
         border-bottom: 1px solid @light-grey;
+        width: 100%;
       }
 
       #post-comments {

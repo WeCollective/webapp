@@ -1,53 +1,46 @@
-div#auth-background, div#reset-password-background, div#verify-background {
-  overflow-y: scroll;
+div#auth-background,
+div#reset-password-background,
+div#verify-background {
   background: @primary-light;
   background: radial-gradient(@primary-light, @primary-dark);
+  overflow-y: scroll;
   text-align: center;
 
-  a#logo, div#logo {
+  a#logo,
+  div#logo {
     display: block;
-    width: 60px;
     height: 60px;
-    padding: 30px 0 20px 0;
     margin: auto;
+    padding: 30px 0 20px;
+    width: 60px;
+
     .responsive(@screen-md, {
-      width: 100px;
       height: 100px;
-      padding: 60px 0 40px 0;
+      padding: 60px 0 40px;
+      width: 100px;
     });
 
     img {
-      width: 100%;
       height: 100%;
+      width: 100%;
     }
-  }
-
-  h1 {
-    font-size: @font-size-md;
-    font-weight: @font-weight-light;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 8px;
-    margin-bottom: 20px;
-    .responsive(@screen-md, {
-      font-size: @font-size-lg;
-      margin-bottom: 40px;
-    });
   }
 
   form {
     padding: 0 15px;
+
     input {
-      display: block;
-      margin: 10px auto;
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
-      padding: 10px;
       border: none;
       border-radius: 3px;
-      font-weight: @font-weight-normal;
+      box-sizing: border-box;
+      display: block;
       font-size: @font-size-sm;
+      font-weight: @font-weight-normal;
+      margin: 10px auto;
+      max-width: 400px;
+      padding: 10px;
+      width: 100%;
+      
       .responsive(@screen-md, {
         font-size: @font-size-md;
         padding: 15px;
@@ -64,20 +57,21 @@ div#auth-background, div#reset-password-background, div#verify-background {
 
       &[type="submit"] {
         background-color: @accent-1;
-        color: white;
-        font-weight: 500;
-        transition: all 0.3s ease-out;
+        color: #fff;
         font-size: @font-size-md;
+        font-weight: 500;
+        transition: all .3s ease-out;
+        
         .responsive(@screen-md, {
           font-size: @font-size-lg;
         });
 
         &:hover {
-          cursor: pointer;
-          box-shadow: @shadow-2;
-          letter-spacing: 3px;
-          transition: all 0.3s ease-out;
           background-color: @accent-0;
+          box-shadow: @shadow-2;
+          cursor: pointer;
+          letter-spacing: 3px;
+          transition: all .3s ease-out;
         }
       }
 
@@ -87,25 +81,40 @@ div#auth-background, div#reset-password-background, div#verify-background {
         &:hover {
           background-color: @dark-grey;
           box-shadow: none;
-          letter-spacing: normal;
           cursor: auto;
+          letter-spacing: normal;
         }
       }
 
-      &:focus {
-        outline: none;
-      }
+      &:focus { outline: none; }
     }
   }
-  p {
-    color: white;
+  
+  h1 {
+    color: #fff;
+    font-size: @font-size-md;
     font-weight: @font-weight-light;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+
+    .responsive(@screen-md, {
+      font-size: @font-size-lg;
+      margin-bottom: 40px;
+    });
+  }
+
+  p {
+    color: #fff;
     font-size: @font-size-sm;
+    font-weight: @font-weight-light;
+    
     .responsive(@screen-md, {
       font-size: @font-size-md;
     });
 
-    a, &#resend-verification {
+    a,
+    &#resend-verification {
       cursor: pointer;
       text-decoration: underline;
     }
