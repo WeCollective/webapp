@@ -1,23 +1,22 @@
 ul.tabs {
   display: inline-block;
+  
   a {
     li {
       display: inline-block;
-      padding: 4px 10px;
       min-width: 60px;
+      padding: 4px 10px;
       text-align: center;
-
-      &.selected {
-        border-bottom: solid 2px black;
-
-        span {
-          font-weight: @font-weight-extra-heavy;
-        }
-      }
 
       span {
         font-size: @font-size-xs;
         text-transform: uppercase;
+      }
+
+      &.selected {
+        border-bottom: solid 2px #000;
+
+        span { font-weight: @font-weight-extra-heavy; }
       }
     }
   }

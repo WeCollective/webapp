@@ -1,45 +1,46 @@
-div#nucleus-removemod-modal div#nucleus-removemod-inputs {
-  position: relative;
-  ul {
-    li {
-      padding: 10px;
-      border-bottom: 1px solid @light-grey;
+div#nucleus-removemod-modal {
+  div#nucleus-removemod-inputs {
+    position: relative;
+    
+    ul {
+      li {
+        border-bottom: 1px solid @light-grey;
+        padding: 10px;
 
-      &:hover {
-        cursor: pointer;
-        background-color: @light-grey;
-      }
+        div {
+          display: inline-block;
+          vertical-align: middle;
 
-      &.selected {
-        background-color: @light-grey;
-      }
+          &.details {
+            h2 {
+              &.name {
+                font-size: @font-size-sm;
+                font-weight: @font-weight-heavy;
+              }
 
-      div {
-        display: inline-block;
-        vertical-align: middle;
-
-        &.profile-picture {
-          width: 60px;
-          height: 60px;
-          background-size: cover;
-          background-position: center;
-          border-radius: 3px;
-          margin-right: 10px;
-        }
-
-        &.details {
-          h2 {
-            &.name {
-              font-weight: @font-weight-heavy;
-              font-size: @font-size-sm;
-            }
-
-            &.username {
-              font-weight: @font-weight-normal;
-              font-size: @font-size-sm;
+              &.username {
+                font-size: @font-size-sm;
+                font-weight: @font-weight-normal;
+              }
             }
           }
+
+          &.profile-picture {
+            background-position: center;
+            background-size: cover;
+            border-radius: 3px;
+            height: 60px;
+            margin-right: 10px;
+            width: 60px;
+          }
         }
+
+        &:hover {
+          background-color: @light-grey;
+          cursor: pointer;
+        }
+
+        &.selected { background-color: @light-grey; }
       }
     }
   }

@@ -1,25 +1,15 @@
 div#upload-image-modal {
   div#dragdrop {
-    width: 100%;
-    min-width: 300px;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 25px 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
     background-color: @light-grey;
-
-    transition: border 0.3s linear;
     border: 1px dashed transparent;
-    &.dragover {
-      border: 1px dashed @primary-light;
-      transition: border 0.3s linear;
-    }
-
-    // ngAnimate is slow so ensure hidden when animating for fast ng-show
-    &.ng-hide.ng-hide-animate {
-       display: none !important;
-    }
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    min-width: 300px;
+    padding: 25px 15px;
+    text-align: center;
+    width: 100%;
+    transition: border .3s linear;
 
     h2 {
       font-size: @font-size-md;
@@ -29,51 +19,53 @@ div#upload-image-modal {
 
     img {
       &#graphic {
-        width: 110px;
         height: auto;
+        width: 110px;
       }
 
       &#preview {
+        border-radius: 5px;
         display: block;
-        max-width: 50%;
-        max-height: 200px;
         height: auto;
         margin: auto;
-        border-radius: 5px;
+        max-height: 200px;
+        max-width: 50%;
       }
     }
+
+    &.dragover {
+      border: 1px dashed @primary-light;
+      transition: border .3s linear;
+    }
+
+    // ngAnimate is slow so ensure hidden when animating for fast ng-show
+    &.ng-hide.ng-hide-animate { display: none !important; }
   }
 
   div#choose-file {
-    margin-top: 10px;
     color: @accent-0;
+    margin-top: 10px;
     text-decoration: underline;
 
-    &:hover {
-      cursor: pointer;
-    }
+    &:hover { cursor: pointer; }
 
     // ngAnimate is slow so ensure hidden when animating for fast ng-show
-    &.ng-hide.ng-hide-animate {
-       display: none !important;
-    }
+    &.ng-hide.ng-hide-animate { display: none !important; }
   }
 
   div#progress-container {
-    min-width: 300px;
-    width: 100%;
-    height: 40px;
     border: 1px solid @dark-grey;
     border-radius: 3px;
+    height: 40px;
+    min-width: 300px;
+    width: 100%;
 
     div#progress {
-      height: 100%;
       background-color: @accent-0;
+      height: 100%;
     }
 
     // ngAnimate is slow so ensure hidden when animating for fast ng-show
-    &.ng-hide.ng-hide-animate {
-       display: none !important;
-    }
+    &.ng-hide.ng-hide-animate { display: none !important; }
   }
 }

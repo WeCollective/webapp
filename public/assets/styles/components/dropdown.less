@@ -1,66 +1,61 @@
 div.dropdown {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0 5px;
+
+  div.dropdown-container {
+    display: inline-block;
+    position: relative;
+
+    ul {
+      background-color: #fff;
+      border-radius: 3px;
+      box-shadow: @shadow-2;
+      left: 0;
+      position: absolute;
+      top: 0;
+      z-index: 1000;
+
+      li { width: 100%; }
+    }
+  }
+
+  div.dropdown-item,
+  li.dropdown-item {
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: @font-size-xs;
+    padding: 5px 20px 5px 10px;
+    position: relative;
+
+    img {
+      height: 10px;
+      position: absolute;
+      right: 5px;
+      top: 8px;
+      width: auto;
+      z-index: 1100;
+    }
+
+    span.selected { font-weight: @font-weight-extra-heavy; }
+
+    &:hover {
+      background-color: @light-grey;
+      cursor: pointer;
+    }
+
+    &.selected { font-weight: 500; }
+  }
 
   div.dropdown-title {
     display: inline-block;
     padding-left: 10px;
 
     span {
-      font-size: 12px;
       color: @dark-grey;
-    }
-  }
-
-  div.dropdown-item, li.dropdown-item {
-    position: relative;
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 5px 20px 5px 10px;
-    font-size: @font-size-xs;
-    border-radius: 3px;
-
-    img {
-      position: absolute;
-      right: 5px;
-      top: 8px;
-      height: 10px;
-      width: auto;
-      z-index: 1100;
-    }
-
-    span.selected {
-      font-weight: @font-weight-extra-heavy;
-    }
-
-    &:hover {
-      cursor: pointer;
-      background-color: @light-grey;
-    }
-
-    &.selected {
-      font-weight: 500;
-    }
-  }
-
-  div.dropdown-container {
-    position: relative;
-    display: inline-block;
-
-    ul {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: white;
-      box-shadow: @shadow-2;
-      border-radius: 3px;
-      z-index: 1000;
-
-      li {
-        width: 100%;
-      }
+      font-size: 12px;
     }
   }
 }

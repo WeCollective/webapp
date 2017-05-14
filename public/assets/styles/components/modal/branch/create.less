@@ -1,15 +1,19 @@
-div#create-branch-modal div#create-branch-inputs {
-  position: relative;
+div#create-branch-modal {
+  div#create-branch-inputs {
+    position: relative;
 
-  div {
-    p.explanatory {
-      font-size: @font-size-sm;
-      font-style: italic;
-    }
+    div {
+      p.explanatory {
+        font-size: @font-size-sm;
+        font-style: italic;
+      }
 
-    input, textarea {
-      &#id, &#parentid {
-        text-transform: lowercase;
+      input,
+      textarea {
+        &#id,
+        &#parentid {
+          text-transform: lowercase;
+        }
       }
     }
   }

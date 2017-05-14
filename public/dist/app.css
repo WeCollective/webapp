@@ -1,3 +1,7 @@
+/**
+ * Material shadows
+ * @link https://codepen.io/sdthornton/pen/wBZdXq
+ */
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -463,14 +467,14 @@ div[marked] table td {
   margin: 0;
 }
 nav#nav-bar {
+  background: linear-gradient(to bottom, #2a2a2a, #131313);
+  left: 0;
+  overflow-y: visible;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 35px;
   z-index: 1400;
-  overflow-y: visible;
-  background: linear-gradient(to bottom, #2a2a2a, #131313);
+  height: 35px;
 }
 @media only screen and (min-width: 576px) {
   nav#nav-bar {
@@ -493,12 +497,12 @@ nav#nav-bar {
   }
 }
 nav#nav-bar > div {
-  position: relative;
-  height: 100%;
-  width: calc(100% - (2 * 0%));
-  margin: auto;
   font-size: 12px;
   font-weight: 600;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  width: calc(100% - (2 * 0%));
 }
 @media only screen and (min-width: 576px) {
   nav#nav-bar > div {
@@ -523,8 +527,8 @@ nav#nav-bar > div {
 nav#nav-bar > div div#menu {
   display: inline-block;
   height: 100%;
-  vertical-align: top;
   transform: translateX(-5px);
+  vertical-align: top;
 }
 nav#nav-bar > div div#menu::before {
   content: '';
@@ -539,9 +543,9 @@ nav#nav-bar > div div#menu::before {
 }
 nav#nav-bar > div div#menu img {
   height: 50%;
-  width: auto;
+  opacity: .8;
   vertical-align: middle;
-  opacity: 0.8;
+  width: auto;
 }
 nav#nav-bar > div a#wecube img {
   height: calc(100% + 14px);
@@ -566,35 +570,23 @@ nav#nav-bar > div div#nav-controls::before {
   height: 100%;
   vertical-align: middle;
 }
+nav#nav-bar > div div#nav-controls a img {
+  height: 55%;
+  opacity: .5;
+  padding: 0 6px;
+  vertical-align: middle;
+  width: auto;
+}
 nav#nav-bar > div div#nav-controls a.selected img,
 nav#nav-bar > div div#nav-controls a:hover img {
   opacity: 1;
 }
-nav#nav-bar > div div#nav-controls a img {
-  height: 55%;
-  width: auto;
-  vertical-align: middle;
-  padding: 0 6px;
-  opacity: 0.5;
-}
 nav#nav-bar > div div#user-controls {
-  position: relative;
   display: inline-block;
   float: right;
+  height: 100%;
+  position: relative;
   vertical-align: top;
-  height: 100%;
-}
-nav#nav-bar > div div#user-controls::after {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  width: 1px;
-  margin: 0 5px;
-  background-color: #494949;
-  vertical-align: middle;
-}
-nav#nav-bar > div div#user-controls::after {
-  margin: 0;
 }
 nav#nav-bar > div div#user-controls::before {
   content: '';
@@ -602,34 +594,41 @@ nav#nav-bar > div div#user-controls::before {
   height: 100%;
   vertical-align: middle;
 }
-nav#nav-bar > div div#user-controls a#login,
-nav#nav-bar > div div#user-controls a#signup {
-  color: #b3b3b3;
-}
-nav#nav-bar > div div#user-controls a#login::before,
-nav#nav-bar > div div#user-controls a#signup::before {
+nav#nav-bar > div div#user-controls::after {
+  background-color: #494949;
   content: '';
   display: inline-block;
   height: 100%;
-  width: 1px;
   margin: 0 5px;
-  background-color: #494949;
   vertical-align: middle;
-}
-nav#nav-bar > div div#user-controls a#login:hover,
-nav#nav-bar > div div#user-controls a#signup:hover {
-  color: white;
-}
-nav#nav-bar > div div#user-controls a#signup {
-  margin-right: 10px;
+  width: 1px;
 }
 nav#nav-bar > div div#user-controls a div#notifications {
-  position: relative;
   display: inline-block;
   height: 50%;
-  width: auto;
+  opacity: .5;
+  position: relative;
   vertical-align: middle;
-  opacity: 0.5;
+  width: auto;
+}
+nav#nav-bar > div div#user-controls a div#notifications div#notification-count {
+  background-color: #e74c3c;
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  height: 18px;
+  min-width: 18px;
+  padding-top: 2px;
+  position: absolute;
+  right: -3px;
+  text-align: center;
+  top: -4px;
+}
+nav#nav-bar > div div#user-controls a div#notifications img {
+  height: 100%;
+  width: auto;
 }
 nav#nav-bar > div div#user-controls a div#notifications.opaque {
   opacity: 1;
@@ -638,29 +637,10 @@ nav#nav-bar > div div#user-controls a div#notifications:hover {
   cursor: pointer;
   opacity: 1;
 }
-nav#nav-bar > div div#user-controls a div#notifications img {
-  height: 100%;
-  width: auto;
-}
-nav#nav-bar > div div#user-controls a div#notifications div#notification-count {
-  position: absolute;
-  top: -4px;
-  right: -3px;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: #e74c3c;
-  text-align: center;
-  font-size: 9px;
-  color: white;
-  font-weight: 600;
-  box-sizing: border-box;
-  padding-top: 2px;
-}
 nav#nav-bar > div div#user-controls a div#profile {
-  position: relative;
   display: inline-block;
   height: 100%;
+  position: relative;
 }
 nav#nav-bar > div div#user-controls a div#profile::before {
   content: '';
@@ -670,24 +650,69 @@ nav#nav-bar > div div#user-controls a div#profile::before {
 }
 @media only screen and (min-width: 576px) {
   nav#nav-bar > div div#user-controls a div#profile::before {
+    background-color: #494949;
     content: '';
     display: inline-block;
     height: 100%;
-    width: 1px;
     margin: 0 5px;
-    background-color: #494949;
     vertical-align: middle;
+    width: 1px;
   }
 }
-nav#nav-bar > div div#user-controls a div#profile.selected {
-  color: white;
+nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+  background-position: center;
+  background-size: cover;
+  float: right;
+  margin-left: 10px;
+  height: 35px;
+  width: 35px;
+}
+@media only screen and (min-width: 576px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    height: 45px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    height: 45px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    height: 45px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    height: 45px;
+  }
+}
+@media only screen and (min-width: 576px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    width: 45px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    width: 45px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    width: 45px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
+    width: 45px;
+  }
 }
 nav#nav-bar > div div#user-controls a div#profile span.text {
-  vertical-align: middle;
   color: #b3b3b3;
-  margin: 0 10px;
-  font-weight: 600;
   display: none;
+  font-weight: 600;
+  margin: 0 10px;
+  vertical-align: middle;
 }
 @media only screen and (min-width: 576px) {
   nav#nav-bar > div div#user-controls a div#profile span.text {
@@ -695,67 +720,22 @@ nav#nav-bar > div div#user-controls a div#profile span.text {
   }
 }
 nav#nav-bar > div div#user-controls a div#profile span.text:hover {
-  color: white;
+  color: #fff;
 }
-nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-  float: right;
-  height: 35px;
-  width: 35px;
-  margin-left: 10px;
-  background-position: center;
-  background-size: cover;
-}
-@media only screen and (min-width: 576px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    height: 45px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    height: 45px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    height: 45px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    height: 45px;
-  }
-}
-@media only screen and (min-width: 576px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    width: 45px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    width: 45px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    width: 45px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  nav#nav-bar > div div#user-controls a div#profile div#profile-picture {
-    width: 45px;
-  }
+nav#nav-bar > div div#user-controls a div#profile.selected {
+  color: #fff;
 }
 nav#nav-bar > div div#user-controls div#expand {
-  position: relative;
   display: inline-block;
   height: 100%;
+  position: relative;
 }
 nav#nav-bar > div div#user-controls div#expand img {
   height: 50%;
-  width: auto;
-  vertical-align: middle;
-  opacity: 0.5;
   margin: 0 7px;
+  opacity: .5;
+  vertical-align: middle;
+  width: auto;
 }
 nav#nav-bar > div div#user-controls div#expand img.expanded {
   opacity: 1;
@@ -764,54 +744,102 @@ nav#nav-bar > div div#user-controls div#expand img:hover {
   cursor: pointer;
   opacity: 1;
 }
-nav#nav-bar > div ul#nav-menu-items {
-  width: 100%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+nav#nav-bar > div div#user-controls a#login,
+nav#nav-bar > div div#user-controls a#signup {
+  color: #b3b3b3;
+}
+nav#nav-bar > div div#user-controls a#login::before,
+nav#nav-bar > div div#user-controls a#signup::before {
+  background-color: #494949;
+  content: '';
+  display: inline-block;
+  height: 100%;
+  margin: 0 5px;
+  vertical-align: middle;
+  width: 1px;
+}
+nav#nav-bar > div div#user-controls a#login:hover,
+nav#nav-bar > div div#user-controls a#signup:hover {
+  color: #fff;
+}
+nav#nav-bar > div div#user-controls a#signup {
+  margin-right: 10px;
+}
+nav#nav-bar > div div#user-controls::after {
+  margin: 0;
+}
+nav#nav-bar ul#nav-menu-items {
   background-color: #131313;
-  padding: 20px 10px 10px 10px;
-  z-index: 1000;
-  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  color: #fff;
   margin-top: -22px;
+  padding: 20px 10px 10px 10px;
+  width: 100%;
+  z-index: 1000;
 }
 @media only screen and (min-width: 768px) {
-  nav#nav-bar > div ul#nav-menu-items {
-    position: absolute;
-    width: auto;
+  nav#nav-bar ul#nav-menu-items {
     min-width: 203px;
-    right: 0;
     padding: 10px;
+    position: absolute;
+    right: 0;
+    width: auto;
   }
 }
-nav#nav-bar > div ul#nav-menu-items li,
-nav#nav-bar > div ul#nav-menu-items a li {
+nav#nav-bar ul#nav-menu-items li,
+nav#nav-bar ul#nav-menu-items a li {
   padding: 5px 10px;
 }
-nav#nav-bar > div ul#nav-menu-items li#logout,
-nav#nav-bar > div ul#nav-menu-items a li#logout {
+nav#nav-bar ul#nav-menu-items li#logout,
+nav#nav-bar ul#nav-menu-items a li#logout {
   border-radius: 3px;
   text-transform: uppercase;
 }
-nav#nav-bar > div ul#nav-menu-items li#logout:hover,
-nav#nav-bar > div ul#nav-menu-items a li#logout:hover {
-  cursor: pointer;
+nav#nav-bar ul#nav-menu-items li#logout:hover,
+nav#nav-bar ul#nav-menu-items a li#logout:hover {
   background-color: #494949;
+  cursor: pointer;
 }
-nav#nav-bar > div ul#nav-menu-items li.followed-branch#followed-branch-title,
-nav#nav-bar > div ul#nav-menu-items a li.followed-branch#followed-branch-title {
+nav#nav-bar ul#nav-menu-items li.followed-branch#followed-branch-title,
+nav#nav-bar ul#nav-menu-items a li.followed-branch#followed-branch-title {
   font-weight: 400;
 }
-nav#nav-bar > div ul#nav-menu-items li.followed-branch:not(#followed-branch-title):hover,
-nav#nav-bar > div ul#nav-menu-items a li.followed-branch:not(#followed-branch-title):hover {
+nav#nav-bar ul#nav-menu-items li.followed-branch:not(#followed-branch-title):hover,
+nav#nav-bar ul#nav-menu-items a li.followed-branch:not(#followed-branch-title):hover {
   text-decoration: underline;
 }
+div.cover-frame {
+  height: 100%;
+}
+div.cover-frame.coverOpen {
+  height: 65%;
+}
 div.cover-photo {
-  position: relative;
-  width: 100%;
   background-position: center;
   background-size: cover;
-  z-index: 200;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   height: 0;
+  position: relative;
+  width: 100%;
+  z-index: 200;
+}
+div.cover-photo img {
+  height: auto;
+  opacity: .3;
+  position: absolute;
+  top: calc(100% + 20px);
+  width: 22px;
+}
+div.cover-photo img:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+div.cover-photo img#cover-photo-hide,
+div.cover-photo img#cover-photo-show {
+  right: 10px;
+}
+div.cover-photo img#cover-photo-edit {
+  right: 40px;
 }
 div.cover-photo.open {
   height: 200px;
@@ -836,59 +864,43 @@ div.cover-photo.open {
     height: 250px;
   }
 }
-div.cover-photo img {
-  position: absolute;
-  top: calc(100% + 20px);
-  width: 22px;
-  height: auto;
-  opacity: 0.3;
-}
-div.cover-photo img:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-div.cover-photo img#cover-photo-hide,
-div.cover-photo img#cover-photo-show {
-  right: 10px;
-}
-div.cover-photo img#cover-photo-edit {
-  right: 40px;
-}
-div.cover-frame {
-  height: 100%;
-}
-div.cover-frame.coverOpen {
-  height: 65%;
-}
 div.dropdown {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0 5px;
 }
-div.dropdown div.dropdown-title {
+div.dropdown div.dropdown-container {
   display: inline-block;
-  padding-left: 10px;
+  position: relative;
 }
-div.dropdown div.dropdown-title span {
-  font-size: 12px;
-  color: #d9d9d9;
+div.dropdown div.dropdown-container ul {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+}
+div.dropdown div.dropdown-container ul li {
+  width: 100%;
 }
 div.dropdown div.dropdown-item,
 div.dropdown li.dropdown-item {
-  position: relative;
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 5px 20px 5px 10px;
-  font-size: 12px;
   border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 20px 5px 10px;
+  position: relative;
 }
 div.dropdown div.dropdown-item img,
 div.dropdown li.dropdown-item img {
+  height: 10px;
   position: absolute;
   right: 5px;
   top: 8px;
-  height: 10px;
   width: auto;
   z-index: 1100;
 }
@@ -898,162 +910,164 @@ div.dropdown li.dropdown-item span.selected {
 }
 div.dropdown div.dropdown-item:hover,
 div.dropdown li.dropdown-item:hover {
-  cursor: pointer;
   background-color: #e7e7e7;
+  cursor: pointer;
 }
 div.dropdown div.dropdown-item.selected,
 div.dropdown li.dropdown-item.selected {
   font-weight: 500;
 }
-div.dropdown div.dropdown-container {
-  position: relative;
+div.dropdown div.dropdown-title {
   display: inline-block;
+  padding-left: 10px;
 }
-div.dropdown div.dropdown-container ul {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: white;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 3px;
-  z-index: 1000;
-}
-div.dropdown div.dropdown-container ul li {
-  width: 100%;
+div.dropdown div.dropdown-title span {
+  color: #d9d9d9;
+  font-size: 12px;
 }
 ul.tabs {
   display: inline-block;
 }
 ul.tabs a li {
   display: inline-block;
-  padding: 4px 10px;
   min-width: 60px;
+  padding: 4px 10px;
   text-align: center;
-}
-ul.tabs a li.selected {
-  border-bottom: solid 2px black;
-}
-ul.tabs a li.selected span {
-  font-weight: 600;
 }
 ul.tabs a li span {
   font-size: 12px;
   text-transform: uppercase;
 }
+ul.tabs a li.selected {
+  border-bottom: solid 2px #000;
+}
+ul.tabs a li.selected span {
+  font-weight: 600;
+}
 div.tag-editor {
+  margin-bottom: 10px;
   position: relative;
   width: 100%;
-  margin-bottom: 10px;
-}
-div.tag-editor input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 15px;
-  margin: 10px 0;
-  border-radius: 3px;
-  border: 1px solid #e7e7e7;
-  font-size: 14px;
-  font-weight: 300;
-  text-transform: lowercase;
-}
-div.tag-editor p {
-  font-size: 14px;
-  font-style: italic;
-  color: #c0392b;
-  margin: 0;
 }
 div.tag-editor div.add-item {
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
 }
 div.tag-editor div.add-item img {
-  position: absolute;
-  top: calc(50% - 15px);
-  right: 10px;
   height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 15px);
   width: auto;
-  opacity: 0.5;
 }
 div.tag-editor div.add-item img:hover {
-  opacity: 1;
   cursor: pointer;
+  opacity: 1;
 }
 div.tag-editor div.tagged-items {
   max-width: 100%;
 }
 div.tag-editor div.tagged-items div.tagged-item {
-  display: inline-block;
   background-color: #444444;
-  padding: 5px 10px;
   border-radius: 3px;
-  margin-right: 5px;
+  display: inline-block;
   margin-bottom: 5px;
-}
-div.tag-editor div.tagged-items div.tagged-item span {
-  font-size: 14px;
-  color: white;
-  padding-right: 10px;
+  margin-right: 5px;
+  padding: 5px 10px;
 }
 div.tag-editor div.tagged-items div.tagged-item img {
   height: 10px;
-  opacity: 0.6;
+  opacity: .6;
   vertical-align: middle;
 }
 div.tag-editor div.tagged-items div.tagged-item img:hover {
-  opacity: 1;
   cursor: pointer;
+  opacity: 1;
+}
+div.tag-editor div.tagged-items div.tagged-item span {
+  color: #fff;
+  font-size: 14px;
+  padding-right: 10px;
+}
+div.tag-editor input {
+  border: 1px solid #e7e7e7;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 10px 0;
+  padding: 10px 15px;
+  text-transform: lowercase;
+  width: 100%;
+}
+div.tag-editor p {
+  color: #c0392b;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0;
 }
 div[loading] {
   position: relative;
 }
 div[loading] div.loading-container {
+  background-color: #fff;
+  box-sizing: border-box;
+  height: 100%;
   position: absolute;
   width: 100%;
-  height: 100%;
-  background-color: #fff;
   z-index: 1200;
-  box-sizing: border-box;
 }
 div[loading] div.loading-container img {
+  height: auto;
+  left: 50%;
   position: absolute;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   width: 30px;
-  height: auto;
 }
 ul#alerts {
-  position: fixed;
-  top: 60px;
   left: 15px;
+  position: fixed;
   right: 15px;
+  top: 60px;
   z-index: 1200;
 }
 @media only screen and (min-width: 576px) {
   ul#alerts {
     left: 50%;
-    right: auto;
     min-width: 300px;
+    right: auto;
     transform: translateX(-50%);
   }
 }
 ul#alerts li {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   border-radius: 5px;
-  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto 10px auto;
   max-width: calc(100% - 30px);
-  transition: all 0.5s ease-out;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   opacity: 1;
-}
-ul#alerts li.ng-hide {
+  padding: 10px;
   transition: all 0.5s ease-out;
-  box-shadow: none;
-  opacity: 0;
+}
+ul#alerts li img {
+  height: 10px;
+  opacity: .3;
+  width: auto;
+}
+ul#alerts li img:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+ul#alerts li span {
+  flex: 1;
+  font-size: 14px;
+  padding-right: 20px;
+  white-space: normal;
 }
 ul#alerts li.error {
   background-color: #e74c3c;
@@ -1062,6 +1076,11 @@ ul#alerts li.error {
 ul#alerts li.error span {
   color: #6a0f06;
 }
+ul#alerts li.ng-hide {
+  box-shadow: none;
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
 ul#alerts li.success {
   background-color: #2ecc71;
   border: 1px solid #27ae60;
@@ -1069,32 +1088,17 @@ ul#alerts li.success {
 ul#alerts li.success span {
   color: #0d532a;
 }
-ul#alerts li span {
-  flex: 1;
-  font-size: 14px;
-  padding-right: 20px;
-  white-space: normal;
-}
-ul#alerts li img {
-  height: 10px;
-  width: auto;
-  opacity: 0.3;
-}
-ul#alerts li img:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
 .tooltip {
+  background-color: #222222;
+  border: 1px solid #131313;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  padding: 2px 10px 6px 10px;
   position: absolute;
   z-index: 1000;
-  background-color: #222222;
-  padding: 2px 10px 6px 10px;
-  border-radius: 3px;
-  border: 1px solid #131313;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .tooltip span {
-  color: white;
+  color: #fff;
   font-size: 12px;
   letter-spacing: 1px;
 }
@@ -1103,109 +1107,9 @@ ul#alerts li img:hover {
     font-size: 12px;
   }
 }
-div.comments > .write-comment textarea {
-  box-sizing: border-box;
-  font-family: inherit;
-  border-radius: 3px;
-  padding: 5px 10px;
-  font-size: 12px;
-  resize: vertical;
-  width: 100%;
-  max-width: 100%;
-  max-height: 150px;
-}
-@media only screen and (min-width: 576px) {
-  div.comments > .write-comment textarea {
-    font-size: 14px;
-  }
-}
-div.comments > .write-comment textarea:focus {
-  outline: none;
-}
-div.comments > .write-comment .button-container {
-  text-align: right;
-}
-div.comments > .write-comment .button-container .button {
-  padding: 0 10px;
-  font-size: 14px;
-  font-weight: 400;
-}
-div.comments > .write-comment .button-container .button.cancel {
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #b3b3b3;
-  color: white;
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.cancel:hover {
-  cursor: pointer;
-  background-color: #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.cancel span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div.comments > .write-comment .button-container .button.ok {
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.ok:hover {
-  cursor: pointer;
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div.comments > .write-comment#write-root-comment {
-  margin-top: 10px;
-}
-div.comments > .write-comment#write-root-comment [loading] {
-  display: flex;
-  align-items: center;
-}
-div.comments > .write-comment#write-root-comment [loading] textarea {
-  height: 50px;
-}
-div.comments > .write-comment#write-root-comment [loading] .button.cancel {
-  display: none;
-}
-div.comments > .write-comment#write-root-comment [loading] .button.ok {
-  margin-left: 10px;
-}
-div.comments p#permalink-notice {
-  padding: 5px 10px;
-  border-radius: 3px;
-  border: 1px solid #d9d9d9;
-  background-color: #e7e7e7;
-}
-div.comments p#permalink-notice a {
-  font-weight: 500;
-  color: #3498db;
-}
-div.comments p#permalink-notice a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div.comments p#no-comments {
-  font-style: italic;
-}
 div.comments div.comment {
-  width: 100%;
   padding: 5px 0;
+  width: 100%;
 }
 div.comments div.comment div.comment-content {
   display: flex;
@@ -1213,17 +1117,17 @@ div.comments div.comment div.comment-content {
   width: 100%;
 }
 div.comments div.comment div.comment-content div.comment-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 80px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div.comments div.comment div.comment-content div.comment-votes img {
   height: 22px;
+  opacity: .3;
   width: 22px;
-  opacity: 0.3;
 }
 div.comments div.comment div.comment-content div.comment-votes img:hover {
   cursor: pointer;
@@ -1238,8 +1142,8 @@ div.comments div.comment div.comment-content div.comment-info {
 }
 div.comments div.comment div.comment-content div.comment-info .comment-title {
   display: block;
-  font-weight: 400;
   font-size: 12px;
+  font-weight: 400;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -1261,11 +1165,11 @@ div.comments div.comment div.comment-content div.comment-info ul.comment-control
   margin-top: 2px;
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li {
+  border-right: solid 1px #d9d9d9;
   display: inline-block;
   height: 16px;
-  width: 16px;
   padding: 0 10px;
-  border-right: solid 1px #d9d9d9;
+  width: 16px;
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:first-child {
   padding-left: 0;
@@ -1280,20 +1184,20 @@ div.comments div.comment div.comment-content div.comment-info ul.comment-control
   opacity: 1;
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
-  width: 100%;
   height: 100%;
-  opacity: 0.4;
+  opacity: .4;
+  width: 100%;
 }
 div.comments div.comment div.comment-content div.comment-info textarea {
+  border-radius: 3px;
   box-sizing: border-box;
   font-family: inherit;
-  border-radius: 3px;
-  padding: 5px 10px;
   font-size: 12px;
+  max-height: 150px;
+  max-width: 100%;
+  padding: 5px 10px;
   resize: vertical;
   width: 100%;
-  max-width: 100%;
-  max-height: 150px;
 }
 @media only screen and (min-width: 576px) {
   div.comments div.comment div.comment-content div.comment-info textarea {
@@ -1307,23 +1211,23 @@ div.comments div.comment div.comment-content div.comment-info .button-container 
   text-align: right;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button {
-  padding: 0 10px;
   font-size: 14px;
   font-weight: 400;
+  padding: 0 10px;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel {
+  background-color: #b3b3b3;
+  border-radius: 3px;
+  color: white;
   display: inline-block;
   height: 30px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #b3b3b3;
-  color: white;
   transition: all 0.3s ease-out;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel:hover {
-  cursor: pointer;
   background-color: #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel span {
@@ -1332,18 +1236,18 @@ div.comments div.comment div.comment-content div.comment-info .button-container 
   line-height: 30px;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: white;
   display: inline-block;
   height: 30px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
   transition: all 0.3s ease-out;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.ok:hover {
-  cursor: pointer;
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div.comments div.comment div.comment-content div.comment-info .button-container .button.ok span {
@@ -1352,52 +1256,142 @@ div.comments div.comment div.comment-content div.comment-info .button-container 
   line-height: 30px;
 }
 div.comments div.comment div.comment-replies {
-  box-sizing: border-box;
   border-left: 1px solid #e7e7e7;
+  box-sizing: border-box;
   margin-left: 14px;
   padding-left: 15px;
 }
 div.comments div.comment div.comment-replies span.load-more {
+  color: #3498db;
   font-size: 12px;
   font-weight: 500;
-  color: #3498db;
   vertical-align: bottom;
 }
 div.comments div.comment div.comment-replies span.load-more:hover {
   cursor: pointer;
   text-decoration: underline;
 }
+div.comments p#no-comments {
+  font-style: italic;
+}
+div.comments p#permalink-notice {
+  background-color: #e7e7e7;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+div.comments p#permalink-notice a {
+  color: #3498db;
+  font-weight: 500;
+}
+div.comments p#permalink-notice a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div.comments > .write-comment textarea {
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 12px;
+  max-height: 150px;
+  max-width: 100%;
+  padding: 5px 10px;
+  resize: vertical;
+  width: 100%;
+}
+@media only screen and (min-width: 576px) {
+  div.comments > .write-comment textarea {
+    font-size: 14px;
+  }
+}
+div.comments > .write-comment textarea:focus {
+  outline: none;
+}
+div.comments > .write-comment .button-container {
+  text-align: right;
+}
+div.comments > .write-comment .button-container .button {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0 10px;
+}
+div.comments > .write-comment .button-container .button.cancel {
+  background-color: #b3b3b3;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+div.comments > .write-comment .button-container .button.cancel:hover {
+  background-color: #494949;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+div.comments > .write-comment .button-container .button.cancel span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 30px;
+}
+div.comments > .write-comment .button-container .button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+div.comments > .write-comment .button-container .button.ok:hover {
+  background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+div.comments > .write-comment .button-container .button.ok span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 30px;
+}
+div.comments > .write-comment#write-root-comment {
+  margin-top: 10px;
+}
+div.comments > .write-comment#write-root-comment [loading] {
+  align-items: center;
+  display: flex;
+}
+div.comments > .write-comment#write-root-comment [loading] .button.cancel {
+  display: none;
+}
+div.comments > .write-comment#write-root-comment [loading] .button.ok {
+  margin-left: 10px;
+}
+div.comments > .write-comment#write-root-comment [loading] textarea {
+  height: 50px;
+}
 div.poll-answer-editor {
+  margin-bottom: 10px;
   position: relative;
   width: 100%;
-  margin-bottom: 10px;
-}
-div.poll-answer-editor input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 15px;
-  margin: 10px 0;
-  border-radius: 3px;
-  border: 1px solid #e7e7e7;
-  font-size: 14px;
-  font-weight: 300;
 }
 div.poll-answer-editor div.add-item {
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
 }
 div.poll-answer-editor div.add-item img {
-  position: absolute;
-  top: calc(50% - 15px);
-  right: 10px;
   height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 15px);
   width: auto;
-  opacity: 0.5;
 }
 div.poll-answer-editor div.add-item img:hover {
-  opacity: 1;
   cursor: pointer;
+  opacity: 1;
 }
 div.poll-answer-editor div.answers h2 {
   font-size: 18px;
@@ -1405,23 +1399,20 @@ div.poll-answer-editor div.answers h2 {
   margin-bottom: 10px;
 }
 div.poll-answer-editor div.answers ul {
-  width: 100%;
   max-height: 150px;
   overflow-y: scroll;
-}
-div.poll-answer-editor div.answers ul p {
-  font-style: italic;
+  width: 100%;
 }
 div.poll-answer-editor div.answers ul li {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 3px;
   background-color: #e7e7e7;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
   word-break: break-all;
 }
 div.poll-answer-editor div.answers ul li h3 {
@@ -1430,78 +1421,183 @@ div.poll-answer-editor div.answers ul li h3 {
 }
 div.poll-answer-editor div.answers ul li img {
   height: 15px;
-  width: 15px;
-  opacity: 0.5;
   margin-left: 10px;
+  opacity: .5;
+  width: 15px;
 }
 div.poll-answer-editor div.answers ul li img:hover {
-  opacity: 1;
   cursor: pointer;
+  opacity: 1;
+}
+div.poll-answer-editor div.answers ul p {
+  font-style: italic;
+}
+div.poll-answer-editor input {
+  border: 1px solid #e7e7e7;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 10px 0;
+  padding: 10px 15px;
+  width: 100%;
 }
 body.modalOpen {
-  position: fixed;
   overflow: hidden;
+  position: fixed;
 }
 div#modal-backdrop {
+  background-color: #000;
+  height: 100%;
+  opacity: 0;
   position: fixed;
   width: 100%;
-  height: 100%;
-  background-color: #000;
   z-index: 1100;
   transition: opacity 0.5s ease-out;
-  opacity: 0;
 }
 div#modal-backdrop:not(.ng-hide) {
+  opacity: .5;
   transition: opacity 0.5s ease-out;
-  opacity: 0.5;
 }
 div#modal-container {
+  height: 100%;
   position: fixed;
   width: 100%;
-  height: 100%;
   z-index: 1200;
 }
 div#modal-container.ng-hide div#modal-content {
+  margin-top: 50px;
   opacity: 0;
   transition: all 0.5s ease-out;
-  margin-top: 50px;
 }
 div#modal-container:not(.ng-hide) div#modal-content {
+  margin-top: 0;
   opacity: 1;
   transition: all 0.5s ease-out;
-  margin-top: 0;
 }
 div#modal-container div#modal-content {
+  background-color: #fff;
   display: inline-block;
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
-  background-color: white;
 }
 @media only screen and (min-width: 768px) {
   div#modal-container div#modal-content {
-    width: auto;
-    height: auto;
-    max-width: 90%;
-    max-height: 90%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    height: auto;
+    left: 50%;
+    max-height: 90%;
+    max-width: 90%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
   }
 }
 div#modal-container div#modal-content div#modal-content-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  justify-content: flex-end;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button {
+  margin-right: 15px;
+  width: 80px;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
+  background-color: #b3b3b3;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 26px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
+  background-color: #494949;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 26px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
+  background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+@media only screen and (min-width: 768px) {
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
+    background-color: #b3b3b3;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    transition: all 0.3s ease-out;
+  }
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
+    background-color: #494949;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
+    background-color: #92bedb;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    transition: all 0.3s ease-out;
+  }
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
+    background-color: #3498db;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
 }
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content {
   flex: 1;
-  padding: 20px;
   overflow-y: scroll;
+  padding: 20px;
 }
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div,
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content {
@@ -1521,17 +1617,17 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-inject
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content input:not([type="checkbox"]),
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div textarea:not([type="checkbox"]),
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content textarea:not([type="checkbox"]) {
-  display: block;
-  width: 100%;
+  border: 1px solid #e7e7e7;
+  border-radius: 3px;
   box-sizing: border-box;
-  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 300;
+  display: block;
   margin: 10px 0;
   max-height: 500px;
   max-width: 100%;
-  border-radius: 3px;
-  border: 1px solid #e7e7e7;
-  font-size: 14px;
-  font-weight: 300;
+  padding: 10px 15px;
+  width: 100%;
 }
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div input:focus,
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content input:focus,
@@ -1539,116 +1635,17 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-inject
 div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content textarea:focus {
   outline: none;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 50px;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button {
-  width: 80px;
-  margin-right: 15px;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
-  display: inline-block;
-  height: 26px;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #b3b3b3;
-  color: white;
-  transition: all 0.3s ease-out;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
-  cursor: pointer;
-  background-color: #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: all 0.3s ease-out;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
-  display: inline-block;
-  height: 26px;
-  text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
-  transition: all 0.3s ease-out;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
-  cursor: pointer;
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: all 0.3s ease-out;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
-}
-@media only screen and (min-width: 768px) {
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
-    display: inline-block;
-    height: 30px;
-    text-align: center;
-    border-radius: 3px;
-    background-color: #b3b3b3;
-    color: white;
-    transition: all 0.3s ease-out;
-  }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
-    cursor: pointer;
-    background-color: #494949;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    transition: all 0.3s ease-out;
-  }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 30px;
-  }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
-    display: inline-block;
-    height: 30px;
-    text-align: center;
-    border-radius: 3px;
-    background-color: #92bedb;
-    color: white;
-    transition: all 0.3s ease-out;
-  }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
-    cursor: pointer;
-    background-color: #3498db;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    transition: all 0.3s ease-out;
-  }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 30px;
-  }
-}
 div#upload-image-modal div#dragdrop {
-  width: 100%;
-  min-width: 300px;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 25px 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
   background-color: #e7e7e7;
-  transition: border 0.3s linear;
   border: 1px dashed transparent;
-}
-div#upload-image-modal div#dragdrop.dragover {
-  border: 1px dashed #444444;
-  transition: border 0.3s linear;
-}
-div#upload-image-modal div#dragdrop.ng-hide.ng-hide-animate {
-  display: none !important;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  min-width: 300px;
+  padding: 25px 15px;
+  text-align: center;
+  width: 100%;
+  transition: border .3s linear;
 }
 div#upload-image-modal div#dragdrop h2 {
   font-size: 18px;
@@ -1656,20 +1653,27 @@ div#upload-image-modal div#dragdrop h2 {
   margin-bottom: 15px;
 }
 div#upload-image-modal div#dragdrop img#graphic {
-  width: 110px;
   height: auto;
+  width: 110px;
 }
 div#upload-image-modal div#dragdrop img#preview {
+  border-radius: 5px;
   display: block;
-  max-width: 50%;
-  max-height: 200px;
   height: auto;
   margin: auto;
-  border-radius: 5px;
+  max-height: 200px;
+  max-width: 50%;
+}
+div#upload-image-modal div#dragdrop.dragover {
+  border: 1px dashed #444444;
+  transition: border .3s linear;
+}
+div#upload-image-modal div#dragdrop.ng-hide.ng-hide-animate {
+  display: none !important;
 }
 div#upload-image-modal div#choose-file {
-  margin-top: 10px;
   color: #3498db;
+  margin-top: 10px;
   text-decoration: underline;
 }
 div#upload-image-modal div#choose-file:hover {
@@ -1679,15 +1683,15 @@ div#upload-image-modal div#choose-file.ng-hide.ng-hide-animate {
   display: none !important;
 }
 div#upload-image-modal div#progress-container {
-  min-width: 300px;
-  width: 100%;
-  height: 40px;
   border: 1px solid #d9d9d9;
   border-radius: 3px;
+  height: 40px;
+  min-width: 300px;
+  width: 100%;
 }
 div#upload-image-modal div#progress-container div#progress {
-  height: 100%;
   background-color: #3498db;
+  height: 100%;
 }
 div#upload-image-modal div#progress-container.ng-hide.ng-hide-animate {
   display: none !important;
@@ -1709,53 +1713,53 @@ div#nucleus-removemod-modal div#nucleus-removemod-inputs {
   position: relative;
 }
 div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li {
-  padding: 10px;
   border-bottom: 1px solid #e7e7e7;
-}
-div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li:hover {
-  cursor: pointer;
-  background-color: #e7e7e7;
-}
-div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li.selected {
-  background-color: #e7e7e7;
+  padding: 10px;
 }
 div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li div {
   display: inline-block;
   vertical-align: middle;
 }
-div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li div.profile-picture {
-  width: 60px;
-  height: 60px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 3px;
-  margin-right: 10px;
-}
 div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li div.details h2.name {
-  font-weight: 500;
   font-size: 14px;
+  font-weight: 500;
 }
 div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li div.details h2.username {
-  font-weight: 400;
   font-size: 14px;
+  font-weight: 400;
+}
+div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li div.profile-picture {
+  background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 60px;
+  margin-right: 10px;
+  width: 60px;
+}
+div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li:hover {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}
+div#nucleus-removemod-modal div#nucleus-removemod-inputs ul li.selected {
+  background-color: #e7e7e7;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs {
   position: relative;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   height: 80px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
+  width: 100%;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li a div {
-  height: 80px;
-  width: 80px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 80px;
+  margin: 0 10px;
+  width: 80px;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li a div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -1795,21 +1799,21 @@ div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-in
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div {
   display: inline-block;
-  width: 60px;
   margin: 5px 10px 0 0;
+  width: 60px;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-accept {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: #fff;
   display: inline-block;
   height: 25px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
   transition: all 0.3s ease-out;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-accept:hover {
-  cursor: pointer;
   background-color: #3498db;
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-accept span {
@@ -1818,17 +1822,17 @@ div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-in
   line-height: 25px;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-reject {
+  background-color: #e74c3c;
+  border-radius: 3px;
+  color: #fff;
   display: inline-block;
   height: 25px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #e74c3c;
-  color: white;
   transition: all 0.3s ease-out;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-reject:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-inputs ul li div#branch-info div.request-actions div.request-reject span {
@@ -1838,72 +1842,6 @@ div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-in
 }
 div#create-post-modal {
   position: relative;
-}
-div#create-post-modal div[loading] div#create-post-picture {
-  float: left;
-  width: 150px;
-  margin-right: 15px;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  text-align: center;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: #e7e7e7;
-  transition: border 0.3s linear;
-  border: 1px dashed transparent;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop.dragover {
-  border: 1px dashed #444444;
-  transition: border 0.3s linear;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
-  display: none !important;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop img#graphic {
-  display: block;
-  width: 80%;
-  height: auto;
-  margin: 5px auto 0 auto;
-  border-radius: 5px;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#image-preview {
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  border-radius: 5px;
-  background-position: center;
-  background-size: cover;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop h2 {
-  font-size: 14px;
-  font-weight: 300;
-  margin-bottom: 15px;
-}
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#preview {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center;
-  border-radius: 5px;
-}
-div#create-post-modal div[loading] div#create-post-picture div#choose-file {
-  margin: 10px 0 20px 0;
-  font-size: 14px;
-  color: #3498db;
-}
-div#create-post-modal div[loading] div#create-post-picture div#choose-file:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#create-post-modal div[loading] div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
-  display: none !important;
 }
 div#create-post-modal div[loading] div#create-post-inputs {
   float: left;
@@ -1915,26 +1853,92 @@ div#create-post-modal div[loading] div#create-post-inputs .dropdown {
 div#create-post-modal div[loading] div#create-post-inputs .dropdown .dropdown-title {
   padding-left: 0;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox,
-div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox {
-  font-size: 14px;
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox,
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
   color: #d9d9d9;
+  font-size: 14px;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input,
-div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox input {
-  vertical-align: middle;
+div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox input,
+div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input {
   margin-left: 10px;
+  vertical-align: middle;
+}
+div#create-post-modal div[loading] div#create-post-picture {
+  float: left;
+  margin-right: 15px;
+  width: 150px;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop {
+  background-color: #e7e7e7;
+  border: 1px dashed transparent;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 150px;
+  margin-bottom: 10px;
+  position: relative;
+  text-align: center;
+  width: 150px;
+  transition: border .3s linear;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#image-preview {
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+  height: 100%;
+  margin: auto;
+  width: 100%;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#preview {
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop h2 {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 15px;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop img#graphic {
+  border-radius: 5px;
+  display: block;
+  height: auto;
+  margin: 5px auto 0;
+  width: 80%;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop.dragover {
+  border: 1px dashed #444444;
+  transition: border .3s linear;
+}
+div#create-post-modal div[loading] div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
+  display: none !important;
+}
+div#create-post-modal div[loading] div#create-post-picture div#choose-file {
+  color: #3498db;
+  font-size: 14px;
+  margin: 10px 0 20px;
+}
+div#create-post-modal div[loading] div#create-post-picture div#choose-file:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#create-post-modal div[loading] div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
+  display: none !important;
 }
 div#create-post-modal div[loading] div#preview-content {
-  width: 100%;
-  max-height: 300px;
   box-sizing: border-box;
-  padding: 0 15px;
+  max-height: 300px;
   overflow-y: scroll;
+  padding: 0 15px;
+  width: 100%;
 }
 div#create-post-modal div[loading] p#preview-post {
-  font-size: 14px;
   color: #3498db;
+  font-size: 14px;
   margin: 0;
 }
 div#create-post-modal div[loading] p#preview-post:hover {
@@ -1942,15 +1946,15 @@ div#create-post-modal div[loading] p#preview-post:hover {
   text-decoration: underline;
 }
 div#create-post-modal div[loading] div#progress-container {
-  min-width: 300px;
-  width: 100%;
-  height: 40px;
   border: 1px solid #d9d9d9;
   border-radius: 3px;
+  height: 40px;
+  min-width: 300px;
+  width: 100%;
 }
 div#create-post-modal div[loading] div#progress-container div#progress {
-  height: 100%;
   background-color: #3498db;
+  height: 100%;
 }
 div#create-post-modal div[loading] div#progress-container.ng-hide.ng-hide-animate {
   display: none !important;
@@ -1959,26 +1963,26 @@ div#flag-post-modal div#flag-post-modal-content {
   min-height: 150px;
 }
 div#flag-post-modal div#flag-post-modal-content p.info a {
-  font-weight: 500;
   color: #3498db;
+  font-weight: 500;
   text-decoration: underline;
 }
 div#resolve-flag-post-modal div#resolve-flag-post-modal-content {
   min-height: 340px;
 }
-div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
-  margin-left: 30px;
-  list-style-type: disc;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
 div#resolve-flag-post-modal div#resolve-flag-post-modal-content p.info {
   font-size: 14px;
 }
 div#resolve-flag-post-modal div#resolve-flag-post-modal-content p.info a {
-  font-weight: 500;
   color: #3498db;
+  font-weight: 500;
   text-decoration: underline;
+}
+div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
+  font-size: 14px;
+  list-style-type: disc;
+  margin-bottom: 15px;
+  margin-left: 30px;
 }
 div#auth-background,
 div#reset-password-background,
@@ -2380,41 +2384,41 @@ div#branch-subbranches div.content-body ul#subbranch-list {
   overflow-x: hidden;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   height: 70px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
   white-space: nowrap;
+  width: 100%;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
+  color: #d9d9d9;
   font-size: 18px;
   font-weight: 500;
-  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
-  position: relative;
   align-self: center;
-  height: 30px;
-  min-width: 50px;
-  margin: 0 10px;
-  text-align: center;
   background-color: #e74c3c;
   border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags img {
-  width: 16px;
   height: auto;
-  top: 0;
   left: 12px;
   opacity: 1;
+  top: 0;
   vertical-align: middle;
+  width: 16px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags span {
   color: #fff;
@@ -2422,17 +2426,17 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   line-height: 30px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 70px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img {
   height: 24px;
+  opacity: .3;
   width: 24px;
-  opacity: 0.3;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img:hover {
   cursor: pointer;
@@ -2442,31 +2446,31 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   margin: 0;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div {
-  height: 70px;
-  width: 70px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 70px;
+  margin: 0 10px;
+  width: 70px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label {
-  height: 70px;
-  box-sizing: border-box;
-  padding: 2px;
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 70px;
   margin-right: 10px;
+  padding: 2px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: calc(12px - 2px);
   font-weight: 600;
-  writing-mode: tb;
   text-orientation: upright;
+  writing-mode: tb;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info {
   flex: 1;
@@ -2490,23 +2494,17 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   cursor: pointer;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker {
+  border-radius: 50%;
   display: inline-block;
-  width: 10px;
   height: 10px;
   margin-right: 5px;
-  border-radius: 50%;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
-  background-color: #C399E5;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
-  background-color: #99C4E4;
+  width: 10px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
   background-color: #9DE599;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
-  background-color: #F3E88E;
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+  background-color: #C399E5;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
   background-color: #F6C38E;
@@ -2514,10 +2512,16 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
   background-color: #FE939B;
 }
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+  background-color: #F3E88E;
+}
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+  background-color: #99C4E4;
+}
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
+  color: #b3b3b3;
   font-size: 12px;
   white-space: nowrap;
-  color: #b3b3b3;
 }
 @media only screen and (min-width: 576px) {
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
@@ -2537,9 +2541,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control {
   height: 16px;
-  width: auto;
-  opacity: 0.3;
   margin-right: 5px;
+  opacity: .3;
+  width: auto;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;
@@ -2547,41 +2551,41 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 @media only screen and (min-width: 768px) {
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
+    border-bottom: solid 1px #e7e7e7;
     display: flex;
     flex-direction: row;
     height: 80px;
-    width: 100%;
     padding: 10px 0;
-    border-bottom: solid 1px #e7e7e7;
     white-space: nowrap;
+    width: 100%;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
+    color: #d9d9d9;
     font-size: 18px;
     font-weight: 500;
-    color: #d9d9d9;
     line-height: 80px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
-    position: relative;
     align-self: center;
-    height: 30px;
-    min-width: 50px;
-    margin: 0 10px;
-    text-align: center;
     background-color: #e74c3c;
     border-radius: 5px;
+    height: 30px;
+    margin: 0 10px;
+    min-width: 50px;
+    position: relative;
+    text-align: center;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags:hover {
-    cursor: pointer;
     background-color: #c0392b;
+    cursor: pointer;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags img {
-    width: 16px;
     height: auto;
-    top: 0;
     left: 12px;
     opacity: 1;
+    top: 0;
     vertical-align: middle;
+    width: 16px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags span {
     color: #fff;
@@ -2589,17 +2593,17 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     line-height: 30px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     height: 80px;
+    justify-content: space-between;
     margin: 0 10px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img {
     height: 24px;
+    opacity: .3;
     width: 24px;
-    opacity: 0.3;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img:hover {
     cursor: pointer;
@@ -2609,31 +2613,31 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     margin: 0;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div {
-    height: 80px;
-    width: 80px;
-    border-radius: 3px;
-    margin: 0 10px;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
+    border-radius: 3px;
+    height: 80px;
+    margin: 0 10px;
+    width: 80px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label {
-    height: 80px;
-    box-sizing: border-box;
-    padding: 2px;
     background-color: #ffecee;
     border: 2px solid #ff8095;
     border-radius: 5px;
+    box-sizing: border-box;
+    height: 80px;
     margin-right: 10px;
+    padding: 2px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label span {
     color: #ff8095;
     font-size: calc(12px - 2px);
     font-weight: 600;
-    writing-mode: tb;
     text-orientation: upright;
+    writing-mode: tb;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info {
     flex: 1;
@@ -2651,23 +2655,17 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     cursor: pointer;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker {
+    border-radius: 50%;
     display: inline-block;
-    width: 10px;
     height: 10px;
     margin-right: 5px;
-    border-radius: 50%;
-  }
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
-    background-color: #C399E5;
-  }
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
-    background-color: #99C4E4;
+    width: 10px;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
     background-color: #9DE599;
   }
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
-    background-color: #F3E88E;
+  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+    background-color: #C399E5;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
     background-color: #F6C38E;
@@ -2675,10 +2673,16 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
     background-color: #FE939B;
   }
+  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+    background-color: #F3E88E;
+  }
+  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+    background-color: #99C4E4;
+  }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
+    color: #b3b3b3;
     font-size: 12px;
     white-space: nowrap;
-    color: #b3b3b3;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
@@ -2693,9 +2697,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control {
     height: 16px;
-    width: auto;
-    opacity: 0.3;
     margin-right: 5px;
+    opacity: .3;
+    width: auto;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
     cursor: pointer;
@@ -2780,27 +2784,27 @@ div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value {
   width: 100%;
 }
 div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value[marked] {
-  margin-top: 10px;
   box-sizing: border-box;
+  margin-top: 10px;
   padding-left: 20px;
 }
 div#branch-nucleus div.content-body > div.button {
   margin: auto;
   padding: 10px;
   max-width: 150px;
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: white;
   display: inline-block;
   height: 30px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
   transition: all 0.3s ease-out;
   display: block;
 }
 div#branch-nucleus div.content-body > div.button:hover {
-  cursor: pointer;
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div#branch-nucleus div.content-body > div.button span {
@@ -2904,8 +2908,8 @@ div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.valu
   width: 100%;
 }
 div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.value[marked] {
-  margin-top: 10px;
   box-sizing: border-box;
+  margin-top: 10px;
   padding-left: 20px;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container {
@@ -2982,41 +2986,41 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   padding: 0;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   height: 70px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
   white-space: nowrap;
+  width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
+  color: #d9d9d9;
   font-size: 18px;
   font-weight: 500;
-  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags {
-  position: relative;
   align-self: center;
-  height: 30px;
-  min-width: 50px;
-  margin: 0 10px;
-  text-align: center;
   background-color: #e74c3c;
   border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags img {
-  width: 16px;
   height: auto;
-  top: 0;
   left: 12px;
   opacity: 1;
+  top: 0;
   vertical-align: middle;
+  width: 16px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags span {
   color: #fff;
@@ -3024,17 +3028,17 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   line-height: 30px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 70px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes img {
   height: 24px;
+  opacity: .3;
   width: 24px;
-  opacity: 0.3;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes img:hover {
   cursor: pointer;
@@ -3044,31 +3048,31 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   margin: 0;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item a.list-item-image div {
-  height: 70px;
-  width: 70px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 70px;
+  margin: 0 10px;
+  width: 70px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item a.list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-  height: 70px;
-  box-sizing: border-box;
-  padding: 2px;
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 70px;
   margin-right: 10px;
+  padding: 2px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: calc(12px - 2px);
   font-weight: 600;
-  writing-mode: tb;
   text-orientation: upright;
+  writing-mode: tb;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
@@ -3092,23 +3096,17 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   cursor: pointer;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker {
+  border-radius: 50%;
   display: inline-block;
-  width: 10px;
   height: 10px;
   margin-right: 5px;
-  border-radius: 50%;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
-  background-color: #C399E5;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
-  background-color: #99C4E4;
+  width: 10px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
   background-color: #9DE599;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
-  background-color: #F3E88E;
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+  background-color: #C399E5;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
   background-color: #F6C38E;
@@ -3116,10 +3114,16 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
   background-color: #FE939B;
 }
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+  background-color: #F3E88E;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+  background-color: #99C4E4;
+}
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
+  color: #b3b3b3;
   font-size: 12px;
   white-space: nowrap;
-  color: #b3b3b3;
 }
 @media only screen and (min-width: 576px) {
   div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
@@ -3139,9 +3143,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control {
   height: 16px;
-  width: auto;
-  opacity: 0.3;
   margin-right: 5px;
+  opacity: .3;
+  width: auto;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;
@@ -3161,41 +3165,41 @@ div#branch-wall div.content-body ul#post-list {
   overflow-x: hidden;
 }
 div#branch-wall div.content-body ul#post-list li.list-item {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   height: 60px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
   white-space: nowrap;
+  width: 100%;
 }
 div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
+  color: #d9d9d9;
   font-size: 18px;
   font-weight: 500;
-  color: #d9d9d9;
   line-height: 60px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
-  position: relative;
   align-self: center;
-  height: 30px;
-  min-width: 50px;
-  margin: 0 10px;
-  text-align: center;
   background-color: #e74c3c;
   border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags img {
-  width: 16px;
   height: auto;
-  top: 0;
   left: 12px;
   opacity: 1;
+  top: 0;
   vertical-align: middle;
+  width: 16px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags span {
   color: #fff;
@@ -3203,17 +3207,17 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags s
   line-height: 30px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 60px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img {
   height: 24px;
+  opacity: .3;
   width: 24px;
-  opacity: 0.3;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img:hover {
   cursor: pointer;
@@ -3223,31 +3227,31 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes p
   margin: 0;
 }
 div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div {
-  height: 60px;
-  width: 60px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 60px;
+  margin: 0 10px;
+  width: 60px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-  height: 60px;
-  box-sizing: border-box;
-  padding: 2px;
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 60px;
   margin-right: 10px;
+  padding: 2px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: calc(12px - 2px);
   font-weight: 600;
-  writing-mode: tb;
   text-orientation: upright;
+  writing-mode: tb;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
@@ -3271,23 +3275,17 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   cursor: pointer;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker {
+  border-radius: 50%;
   display: inline-block;
-  width: 10px;
   height: 10px;
   margin-right: 5px;
-  border-radius: 50%;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
-  background-color: #C399E5;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
-  background-color: #99C4E4;
+  width: 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
   background-color: #9DE599;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
-  background-color: #F3E88E;
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+  background-color: #C399E5;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
   background-color: #F6C38E;
@@ -3295,10 +3293,16 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
   background-color: #FE939B;
 }
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+  background-color: #F3E88E;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+  background-color: #99C4E4;
+}
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
+  color: #b3b3b3;
   font-size: 12px;
   white-space: nowrap;
-  color: #b3b3b3;
 }
 @media only screen and (min-width: 576px) {
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
@@ -3318,9 +3322,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control {
   height: 16px;
-  width: auto;
-  opacity: 0.3;
   margin-right: 5px;
+  opacity: .3;
+  width: auto;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;
@@ -3328,41 +3332,41 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
 }
 @media only screen and (min-width: 768px) {
   div#branch-wall div.content-body ul#post-list li.list-item {
+    border-bottom: solid 1px #e7e7e7;
     display: flex;
     flex-direction: row;
     height: 60px;
-    width: 100%;
     padding: 10px 0;
-    border-bottom: solid 1px #e7e7e7;
     white-space: nowrap;
+    width: 100%;
   }
   div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
+    color: #d9d9d9;
     font-size: 18px;
     font-weight: 500;
-    color: #d9d9d9;
     line-height: 60px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
-    position: relative;
     align-self: center;
-    height: 30px;
-    min-width: 50px;
-    margin: 0 10px;
-    text-align: center;
     background-color: #e74c3c;
     border-radius: 5px;
+    height: 30px;
+    margin: 0 10px;
+    min-width: 50px;
+    position: relative;
+    text-align: center;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags:hover {
-    cursor: pointer;
     background-color: #c0392b;
+    cursor: pointer;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags img {
-    width: 16px;
     height: auto;
-    top: 0;
     left: 12px;
     opacity: 1;
+    top: 0;
     vertical-align: middle;
+    width: 16px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags span {
     color: #fff;
@@ -3370,17 +3374,17 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     line-height: 30px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     height: 60px;
+    justify-content: space-between;
     margin: 0 10px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img {
     height: 24px;
+    opacity: .3;
     width: 24px;
-    opacity: 0.3;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img:hover {
     cursor: pointer;
@@ -3390,31 +3394,31 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     margin: 0;
   }
   div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div {
-    height: 60px;
-    width: 60px;
-    border-radius: 3px;
-    margin: 0 10px;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
+    border-radius: 3px;
+    height: 60px;
+    margin: 0 10px;
+    width: 60px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-    height: 60px;
-    box-sizing: border-box;
-    padding: 2px;
     background-color: #ffecee;
     border: 2px solid #ff8095;
     border-radius: 5px;
+    box-sizing: border-box;
+    height: 60px;
     margin-right: 10px;
+    padding: 2px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
     color: #ff8095;
     font-size: calc(12px - 2px);
     font-weight: 600;
-    writing-mode: tb;
     text-orientation: upright;
+    writing-mode: tb;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
     flex: 1;
@@ -3432,23 +3436,17 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     cursor: pointer;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker {
+    border-radius: 50%;
     display: inline-block;
-    width: 10px;
     height: 10px;
     margin-right: 5px;
-    border-radius: 50%;
-  }
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
-    background-color: #C399E5;
-  }
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
-    background-color: #99C4E4;
+    width: 10px;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
     background-color: #9DE599;
   }
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
-    background-color: #F3E88E;
+  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+    background-color: #C399E5;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
     background-color: #F6C38E;
@@ -3456,10 +3454,16 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
     background-color: #FE939B;
   }
+  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+    background-color: #F3E88E;
+  }
+  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+    background-color: #99C4E4;
+  }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
+    color: #b3b3b3;
     font-size: 12px;
     white-space: nowrap;
-    color: #b3b3b3;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
@@ -3474,9 +3478,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control {
     height: 16px;
-    width: auto;
-    opacity: 0.3;
     margin-right: 5px;
+    opacity: .3;
+    width: auto;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
     cursor: pointer;
@@ -3558,8 +3562,8 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   width: 100%;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li div.value[marked] {
-  margin-top: 10px;
   box-sizing: border-box;
+  margin-top: 10px;
   padding-left: 20px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li {
@@ -3601,8 +3605,8 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   width: 100%;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value[marked] {
-  margin-top: 10px;
   box-sizing: border-box;
+  margin-top: 10px;
   padding-left: 20px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
@@ -3615,11 +3619,11 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   font-style: italic;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-  position: relative;
-  display: flex;
-  padding: 10px 20px 10px 10px;
   border-bottom: solid 1px #e7e7e7;
+  display: flex;
   overflow: hidden;
+  padding: 10px 20px 10px 10px;
+  position: relative;
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
@@ -3639,26 +3643,26 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   background-color: transparent;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 10px;
-  right: 10px;
   border: 1px solid #d9d9d9;
   border-radius: 50%;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
   cursor: pointer;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
   height: 40px;
-  width: 40px;
   margin-right: 10px;
+  width: 40px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
   display: block;
-  word-wrap: break-word;
   white-space: pre-wrap;
+  word-wrap: break-word;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
   font-size: 14px;
@@ -3670,9 +3674,9 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  color: #494949;
   font-size: 12px;
   font-weight: 300;
-  color: #494949;
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
@@ -3680,8 +3684,8 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-  font-weight: 500;
   color: #3498db;
+  font-weight: 500;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
   text-decoration: underline;
@@ -3692,11 +3696,11 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    position: relative;
-    display: flex;
-    padding: 10px 20px 10px 10px;
     border-bottom: solid 1px #e7e7e7;
+    display: flex;
     overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
@@ -3711,39 +3715,39 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     background-color: transparent;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    top: 10px;
-    right: 10px;
     border: 1px solid #d9d9d9;
     border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
     height: 50px;
-    width: 50px;
     margin-right: 10px;
+    width: 50px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
-    word-wrap: break-word;
     white-space: pre-wrap;
+    word-wrap: break-word;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    color: #494949;
     font-size: 12px;
     font-weight: 300;
-    color: #494949;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    font-weight: 500;
     color: #3498db;
+    font-weight: 500;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
@@ -3770,11 +3774,11 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 @media only screen and (min-width: 768px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    position: relative;
-    display: flex;
-    padding: 10px 20px 10px 10px;
     border-bottom: solid 1px #e7e7e7;
+    display: flex;
     overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
@@ -3789,39 +3793,39 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     background-color: transparent;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    top: 10px;
-    right: 10px;
     border: 1px solid #d9d9d9;
     border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
     height: 65px;
-    width: 65px;
     margin-right: 10px;
+    width: 65px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
-    word-wrap: break-word;
     white-space: pre-wrap;
+    word-wrap: break-word;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    color: #494949;
     font-size: 12px;
     font-weight: 300;
-    color: #494949;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    font-weight: 500;
     color: #3498db;
+    font-weight: 500;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
@@ -3863,42 +3867,42 @@ div#branch-post {
   }
 }
 div#branch-post > .list-item {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   height: 80px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
   white-space: nowrap;
+  width: 100%;
   padding-top: 15px;
 }
 div#branch-post > .list-item span.list-item-index {
+  color: #d9d9d9;
   font-size: 18px;
   font-weight: 500;
-  color: #d9d9d9;
   line-height: 80px;
 }
 div#branch-post > .list-item div.list-item-flags {
-  position: relative;
   align-self: center;
-  height: 30px;
-  min-width: 50px;
-  margin: 0 10px;
-  text-align: center;
   background-color: #e74c3c;
   border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
 }
 div#branch-post > .list-item div.list-item-flags:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
 }
 div#branch-post > .list-item div.list-item-flags img {
-  width: 16px;
   height: auto;
-  top: 0;
   left: 12px;
   opacity: 1;
+  top: 0;
   vertical-align: middle;
+  width: 16px;
 }
 div#branch-post > .list-item div.list-item-flags span {
   color: #fff;
@@ -3906,17 +3910,17 @@ div#branch-post > .list-item div.list-item-flags span {
   line-height: 30px;
 }
 div#branch-post > .list-item div.list-item-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 80px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div#branch-post > .list-item div.list-item-votes img {
   height: 24px;
+  opacity: .3;
   width: 24px;
-  opacity: 0.3;
 }
 div#branch-post > .list-item div.list-item-votes img:hover {
   cursor: pointer;
@@ -3926,31 +3930,31 @@ div#branch-post > .list-item div.list-item-votes p {
   margin: 0;
 }
 div#branch-post > .list-item a.list-item-image div {
-  height: 80px;
-  width: 80px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 80px;
+  margin: 0 10px;
+  width: 80px;
 }
 div#branch-post > .list-item a.list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-post > .list-item div.list-item-nsfw-label {
-  height: 80px;
-  box-sizing: border-box;
-  padding: 2px;
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 80px;
   margin-right: 10px;
+  padding: 2px;
 }
 div#branch-post > .list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: calc(12px - 2px);
   font-weight: 600;
-  writing-mode: tb;
   text-orientation: upright;
+  writing-mode: tb;
 }
 div#branch-post > .list-item div.list-item-info {
   flex: 1;
@@ -3974,23 +3978,17 @@ div#branch-post > .list-item div.list-item-info .list-item-title:hover {
   cursor: pointer;
 }
 div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker {
+  border-radius: 50%;
   display: inline-block;
-  width: 10px;
   height: 10px;
   margin-right: 5px;
-  border-radius: 50%;
-}
-div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.image {
-  background-color: #C399E5;
-}
-div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.video {
-  background-color: #99C4E4;
+  width: 10px;
 }
 div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.audio {
   background-color: #9DE599;
 }
-div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.text {
-  background-color: #F3E88E;
+div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.image {
+  background-color: #C399E5;
 }
 div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.page {
   background-color: #F6C38E;
@@ -3998,10 +3996,16 @@ div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.
 div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.poll {
   background-color: #FE939B;
 }
+div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.text {
+  background-color: #F3E88E;
+}
+div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.video {
+  background-color: #99C4E4;
+}
 div#branch-post > .list-item div.list-item-info span.list-item-description {
+  color: #b3b3b3;
   font-size: 12px;
   white-space: nowrap;
-  color: #b3b3b3;
 }
 @media only screen and (min-width: 576px) {
   div#branch-post > .list-item div.list-item-info span.list-item-description {
@@ -4021,9 +4025,9 @@ div#branch-post > .list-item div.list-item-info div.list-item-controls {
 }
 div#branch-post > .list-item div.list-item-info div.list-item-controls img.control {
   height: 16px;
-  width: auto;
-  opacity: 0.3;
   margin-right: 5px;
+  opacity: .3;
+  width: auto;
 }
 div#branch-post > .list-item div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;
@@ -4118,20 +4122,20 @@ div#branch-post .post-body .content-header {
   justify-content: flex-start;
 }
 div#branch-post .post-body .content-header .button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: white;
   display: inline-block;
   height: 26px;
   text-align: center;
-  border-radius: 3px;
-  background-color: #92bedb;
-  color: white;
   transition: all 0.3s ease-out;
   padding: 0 5px;
   margin: 0 5px;
 }
 div#branch-post .post-body .content-header .button.ok:hover {
-  cursor: pointer;
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 div#branch-post .post-body .content-header .button.ok span {
@@ -4155,42 +4159,42 @@ div#branch-post .post-body #answer-list-container #answer-list p#no-answers {
   font-style: italic;
 }
 div#branch-post .post-body #answer-list-container #answer-list li {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   height: 70px;
-  width: 100%;
   padding: 10px 0;
-  border-bottom: solid 1px #e7e7e7;
   white-space: nowrap;
+  width: 100%;
   align-items: center;
 }
 div#branch-post .post-body #answer-list-container #answer-list li span.list-item-index {
+  color: #d9d9d9;
   font-size: 18px;
   font-weight: 500;
-  color: #d9d9d9;
   line-height: 70px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags {
-  position: relative;
   align-self: center;
-  height: 30px;
-  min-width: 50px;
-  margin: 0 10px;
-  text-align: center;
   background-color: #e74c3c;
   border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags:hover {
-  cursor: pointer;
   background-color: #c0392b;
+  cursor: pointer;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags img {
-  width: 16px;
   height: auto;
-  top: 0;
   left: 12px;
   opacity: 1;
+  top: 0;
   vertical-align: middle;
+  width: 16px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags span {
   color: #fff;
@@ -4198,17 +4202,17 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   line-height: 30px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   height: 70px;
+  justify-content: space-between;
   margin: 0 10px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes img {
   height: 24px;
+  opacity: .3;
   width: 24px;
-  opacity: 0.3;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes img:hover {
   cursor: pointer;
@@ -4218,31 +4222,31 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   margin: 0;
 }
 div#branch-post .post-body #answer-list-container #answer-list li a.list-item-image div {
-  height: 70px;
-  width: 70px;
-  border-radius: 3px;
-  margin: 0 10px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 70px;
+  margin: 0 10px;
+  width: 70px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li a.list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label {
-  height: 70px;
-  box-sizing: border-box;
-  padding: 2px;
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 70px;
   margin-right: 10px;
+  padding: 2px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: calc(12px - 2px);
   font-weight: 600;
-  writing-mode: tb;
   text-orientation: upright;
+  writing-mode: tb;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info {
   flex: 1;
@@ -4266,23 +4270,17 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   cursor: pointer;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker {
+  border-radius: 50%;
   display: inline-block;
-  width: 10px;
   height: 10px;
   margin-right: 5px;
-  border-radius: 50%;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.image {
-  background-color: #C399E5;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video {
-  background-color: #99C4E4;
+  width: 10px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.audio {
   background-color: #9DE599;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.text {
-  background-color: #F3E88E;
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.image {
+  background-color: #C399E5;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.page {
   background-color: #F6C38E;
@@ -4290,10 +4288,16 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.poll {
   background-color: #FE939B;
 }
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.text {
+  background-color: #F3E88E;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video {
+  background-color: #99C4E4;
+}
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
+  color: #b3b3b3;
   font-size: 12px;
   white-space: nowrap;
-  color: #b3b3b3;
 }
 @media only screen and (min-width: 576px) {
   div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
@@ -4313,9 +4317,9 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control {
   height: 16px;
-  width: auto;
-  opacity: 0.3;
   margin-right: 5px;
+  opacity: .3;
+  width: auto;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control:hover {
   cursor: pointer;

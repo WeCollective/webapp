@@ -1,20 +1,22 @@
-div#resolve-flag-post-modal div#resolve-flag-post-modal-content {
-  min-height: 340px;
+div#resolve-flag-post-modal {
+  div#resolve-flag-post-modal-content {
+    min-height: 340px;
 
-  ul#flag-list {
-    margin-left: 30px;
-    list-style-type: disc;
-    font-size: @font-size-sm;
-    margin-bottom: 15px;
-  }
+    p.info {
+      font-size: @font-size-sm;
 
-  p.info {
-    font-size: @font-size-sm;
+      a {
+        color: @accent-0;
+        font-weight: @font-weight-heavy;
+        text-decoration: underline;
+      }
+    }
 
-    a {
-      font-weight: @font-weight-heavy;
-      color: @accent-0;
-      text-decoration: underline;
+    ul#flag-list {
+      font-size: @font-size-sm;
+      list-style-type: disc;
+      margin-bottom: 15px;
+      margin-left: 30px;
     }
   }
 }

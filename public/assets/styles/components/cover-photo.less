@@ -1,41 +1,37 @@
+div.cover-frame {
+  height: 100%;
+  
+  &.coverOpen { height: 65%; }
+}
+
 div.cover-photo {
-  position: relative;
-  width: 100%;
   background-position: center;
   background-size: cover;
-  z-index: 200;
   box-shadow: @shadow-1;
   height: 0;
-
-  &.open {
-    .set-responsively(height, frame-column-width);
-  }
+  position: relative;
+  width: 100%;
+  z-index: 200;
 
   img {
+    height: auto;
+    opacity: .3;
     position: absolute;
     top: calc(~'100% + 20px');
     width: 22px;
-    height: auto;
-    opacity: 0.3;
 
     &:hover {
       cursor: pointer;
-      opacity: 0.8;
+      opacity: .8;
     }
 
-    &#cover-photo-hide, &#cover-photo-show {
+    &#cover-photo-hide,
+    &#cover-photo-show {
       right: 10px;
     }
 
-    &#cover-photo-edit {
-      right: 40px;
-    }
+    &#cover-photo-edit { right: 40px; }
   }
-}
 
-div.cover-frame {
-    height: 100%;
-    &.coverOpen {
-        height: 65%;
-    }
+  &.open { .set-responsively(height, frame-column-width); }
 }
