@@ -1,22 +1,34 @@
-<cover-photo image-url="Branch.branch.coverUrl"
-             thumb-url="Branch.branch.coverUrlThumb"
-             is-open="Branch.showCover"
-             can-edit="Branch.isModerator()"
-             open-upload-cover-modal="Branch.openCoverPictureModal">
+<cover-photo
+  can-edit="Branch.isModerator()"
+  image-url="Branch.branch.coverUrl"
+  is-open="Branch.showCover"
+  open-upload-cover-modal="Branch.openCoverPictureModal"
+  thumb-url="Branch.branch.coverUrlThumb" >
 </cover-photo>
+
 <div class="cover-page page">
   <div id="branch-frame" class="frame" loading when="Branch.isLoading">
-    <div id="branch-info" class="frame-column" ng-class="{ 'open': Branch.AppService.frameColumnOpen }">
-      <h1>{{ Branch.BranchService.branch.name }}</h1>
-      <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>
-      <h2 ng-show="Branch.BranchService.branch.parent.id !== 'none'">
-        <span ng-show="Branch.BranchService.branch.parent.id !== 'root'">... / </span>
-        <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">{{ Branch.BranchService.branch.parent.name || 'All' }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">{{ Branch.BranchService.branch.name }}</a>
-      </h2>
-      <div class="frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
-        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Branch.openProfilePictureModal()" ng-show="Branch.isModerator()">
+    <div id="branch-info" class="sidebar frame-column" ng-class="{ 'open': Branch.AppService.frameColumnOpen }">
+      <div class="sidebar-info">
+        <h1>{{ Branch.BranchService.branch.name }}</h1>
+        
+        <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>
+        
+        <h2 ng-show="Branch.BranchService.branch.parent.id !== 'none'">
+          <span ng-show="Branch.BranchService.branch.parent.id !== 'root'">... / </span>
+          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">{{ Branch.BranchService.branch.parent.name || 'All' }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">{{ Branch.BranchService.branch.name }}</a>
+        </h2>
       </div>
-      <ul id="branch-controls">
+      
+      <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+        <img
+          id="edit"
+          ng-click="Branch.openProfilePictureModal()"
+          ng-show="Branch.isModerator()"
+          src="/assets/images/icons/white/edit.png" />
+      </div>
+      
+      <ul id="branch-controls" class="sidebar-controls">
         <li>
           <a ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }" >
             <img src="/assets/images/icons/black/nucleus.png" tooltip text="'Nucleus'" offset-y="60">
@@ -39,7 +51,7 @@
         </li>
       </ul>
     </div>
-    <div class="frame-content" ui-view>
-    </div>
+    
+    <div class="frame-content" ui-view></div>
   </div>
 </div>

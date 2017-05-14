@@ -1,32 +1,49 @@
-<cover-photo image-url="Profile.profileUser.coverUrl"
-             thumb-url="Profile.profileUser.coverUrlThumb"
-             is-open="Profile.showCover"
-             can-edit="Profile.profileUser.username === Profile.UserService.user.username"
-             open-upload-cover-modal="Profile.openCoverPictureModal">
+<cover-photo
+  can-edit="Profile.profileUser.username === Profile.UserService.user.username"
+  image-url="Profile.profileUser.coverUrl"
+  is-open="Profile.showCover"
+  open-upload-cover-modal="Profile.openCoverPictureModal"
+  thumb-url="Profile.profileUser.coverUrlThumb">
 </cover-photo>
+
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
-    <div id="profile-info" class="frame-column" ng-class="{ 'open': Profile.AppService.frameColumnOpen }">
-      <h1>{{ Profile.profileUser.firstname }} {{ Profile.profileUser.lastname }}</h1>
-      <h2>{{ Profile.profileUser.username }}</h2>
-      <div class="frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-        <img id="edit" src="/assets/images/icons/white/edit.png" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.profileUser.username === Profile.UserService.user.username" tooltip text="'Upload New Image'" offset-y="30">
+    <div id="profile-info" class="sidebar frame-column" ng-class="{ 'open': Profile.AppService.frameColumnOpen }">
+      <div class="sidebar-info">
+        <h1>{{ Profile.profileUser.firstname }} {{ Profile.profileUser.lastname }}</h1>
+        
+        <h2>{{ Profile.profileUser.username }}</h2>
       </div>
-      <ul>
+      
+      <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+        <img
+          id="edit"
+          ng-click="Profile.openProfilePictureModal()"
+          ng-show="Profile.profileUser.username === Profile.UserService.user.username"
+          offset-y="30"
+          src="/assets/images/icons/white/edit.png"
+          text="'Upload New Image'"
+          tooltip />
+      </div>
+      
+      <ul class="sidebar-info">
         <li># of Posts: <span>{{ Profile.profileUser.num_posts }}</span></li>
         <li># of Comments: <span>{{ Profile.profileUser.num_comments }}</span></li>
         <li>Branches Created: <span>{{ Profile.profileUser.num_branches }}</span></li>
         <li>Moderator Positions: <span>{{ Profile.profileUser.num_mod_positions }}</span></li>
       </ul>
     </div>
+    
     <div class="frame-content">
       <div id="profile-content">
         <div class="content-header">
           <h1>Profile</h1>
+          
           <div class="content-controls">
             <tabs items="Profile.tabItems" states="Profile.tabStates"></tabs>
           </div>
         </div>
+        
         <div class="content-body" ui-view></div>
       </div>
     </div>

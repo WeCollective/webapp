@@ -1,3 +1,10 @@
+.mediaQuery(@minWidth; @rules) {
+  @media only screen and (min-width: @minWidth) {
+    @rules();
+  }
+}
+
+// (Legacy) Alias of mediaQuery
 .responsive(@minWidth; @rules) {
   @media only screen and (min-width: @minWidth) {
     @rules();
@@ -41,8 +48,13 @@
 @font-weight-extra-heavy: 600;
 
 // Component specific mixins
-@sidebar-w: 200px;
-@sidebar-w-lg: 250px;
+
+// Sidebar
+// Width must be divisible by the number of
+// control buttons for pixel-perfect placement.
+// Then we add the width of the borders = 1px.
+@sidebar-w: 201px;
+@sidebar-w-lg: 249px;
 @frame-column-width-xs: @sidebar-w;
 @frame-column-width-sm: @sidebar-w;
 @frame-column-width-md: @sidebar-w;
@@ -63,3 +75,6 @@
 @page-margin-md: 10%;
 @page-margin-lg: 14%;
 @page-margin-xl: 17%;
+
+// Stacking order.
+@z-sidebar: 11;
