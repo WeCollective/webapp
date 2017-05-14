@@ -1,13 +1,19 @@
-html, body {
-  width: 100%;
+html,
+body {
+  color: @text-dark;
+  font-family: 'Open Sans', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  color: @text-dark;
+  width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
 }
@@ -18,7 +24,8 @@ h3 { font-size: @font-size-md; }
 h4 { font-size: @font-size-sm; }
 h5 { font-size: @font-size-xs; }
 
-ul, ol {
+ol,
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -30,20 +37,21 @@ li {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
 }
 
 .clearfix:after {
+  clear: both;
   content: " ";
-  visibility: hidden;
   display: block;
   height: 0;
-  clear: both;
+  visibility: hidden;
 }
 
 // set a CSS property to the value given by the appropriate responsive
@@ -65,18 +73,19 @@ input, textarea {
 }
 
 #weco-root {
-  width: 100%;
   height: 100%;
+  width: 100%;
 
   .full-page {
-    width: 100%;
     height: 100%;
+    width: 100%;
   }
 
   .full-page-nav {
+    height: calc(~'100% - @{nav-bar-height-xs}');
     position: relative;
     width: 100%;
-    height: calc(~'100% - @{nav-bar-height-xs}');
+    
     .responsive(@screen-sm, { height: calc(~'100% - @{nav-bar-height-sm}'); });
     .responsive(@screen-md, { height: calc(~'100% - @{nav-bar-height-md}'); });
     .responsive(@screen-lg, { height: calc(~'100% - @{nav-bar-height-lg}'); });
@@ -85,90 +94,92 @@ input, textarea {
   }
 
   div.page {
-    width: 100%;
-    height: 100%;
     background-color: @primary-7;
+    height: 100%;
+    width: 100%;
 
     &.cover-page {
       position: relative;
-      &.cover-open {
-        height: 65%;
-      }
+
+      &.cover-open { height: 65%; }
     }
 
     > div.frame {
-      position: relative;
+      background-color: #fff;
       height: 100%;
+      margin: auto;
+      position: relative;
       width: calc(~'100% - (2 * @{page-margin-xs})');
+
       .responsive(@screen-sm, { width: calc(~'100% - (2 * @{page-margin-sm})'); });
       .responsive(@screen-md, { width: calc(~'100% - (2 * @{page-margin-md})'); });
       .responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
       .responsive(@screen-xl, { width: calc(~'100% - (2 * @{page-margin-xl})'); });
-      margin: auto;
-      background-color: white;
 
       > div.frame-column {
-        position: absolute;
+        background-color: #fff;
+        border-right: solid 1px @light-grey;
+        box-sizing: border-box;
+        height: 100%;
         overflow: hidden;
+        padding: 20px;
+        position: absolute;
         z-index: 1300;
 
-        h1 {
-          font-size: @font-size-lg;
-          font-weight: @font-weight-heavy;
-        }
-        h2 {
-          font-size: @font-size-sm;
-          font-weight: @font-weight-heavy;
-        }
-
-        // hide column left offscreen
-        left: -@frame-column-width-xs;
-        box-shadow: none;
-        .responsive(@screen-sm, { left: -@frame-column-width-sm; });
-        .responsive(@screen-md, { left: -@frame-column-width-md; });
-        .responsive(@screen-lg, { left: -@frame-column-width-lg; });
-        .responsive(@screen-xl, { left: -@frame-column-width-xl; });
-        transition: left 0.3s ease-out;
-
-        &.open {
-          left: 0;
-          box-shadow: @shadow-2;
-          transition: left 0.3s ease-out;
-        }
-        .responsive(@screen-md, { &, &.open { box-shadow: none; } });
-
-        height: 100%;
-        .set-responsively(width, frame-column-width);
-        box-sizing: border-box;
-        padding: 20px;
-        background-color: white;
-        border-right: solid 1px @light-grey;
-
         > div.frame-column-picture {
-          position: relative;
-          .set-responsively(width, frame-column-width);
-          .set-responsively(height, frame-column-width);
-          margin: 20px 0 0 -20px;
           background-position: center;
           background-size: cover;
-          box-sizing: border-box;
-          border-top: solid 1px @light-grey;
           border-right: solid 1px @light-grey;
+          border-top: solid 1px @light-grey;
+          box-sizing: border-box;
+          margin: 20px 0 0 -20px;
+          position: relative;
           z-index: 0;
 
+          .set-responsively(width, frame-column-width);
+          .set-responsively(height, frame-column-width);
+
           img#edit {
-            position: absolute;
-            width: 20px;
-            height: auto;
             bottom: 10px;
+            height: auto;
+            opacity: .8;
+            position: absolute;
             right: 10px;
-            opacity: 0.8;
+            width: 20px;
 
             &:hover {
               cursor: pointer;
               opacity: 1;
             }
           }
+        }
+
+        h1 {
+          font-size: @font-size-lg;
+          font-weight: @font-weight-heavy;
+        }
+
+        h2 {
+          font-size: @font-size-sm;
+          font-weight: @font-weight-heavy;
+        }
+
+        // hide column left offscreen
+        box-shadow: none;
+        left: -@frame-column-width-xs;
+        transition: left .3s ease-out;
+
+        .responsive(@screen-sm, { left: -@frame-column-width-sm; });
+        .responsive(@screen-md, { left: -@frame-column-width-md; });
+        .responsive(@screen-lg, { left: -@frame-column-width-lg; });
+        .responsive(@screen-xl, { left: -@frame-column-width-xl; });
+        .responsive(@screen-md, { &, &.open { box-shadow: none; } });
+        .set-responsively(width, frame-column-width);
+
+        &.open {
+          box-shadow: @shadow-2;
+          left: 0;
+          transition: left .3s ease-out;
         }
       }
 
@@ -178,43 +189,48 @@ input, textarea {
         width: 100%;
 
         > div {
+          box-sizing: border-box;
           display: flex;
           flex-direction: column;
           height: 100%;
-          box-sizing: border-box;
 
           &:not(div#branch-post) {
-            padding: 10px 0 0 0;
-            .responsive(@screen-md, { padding: 20px 0 0 0; });
+            padding: 10px 0 0;
+
+            .responsive(@screen-md, { padding: 20px 0 0; });
           }
 
           div.content-header {
-            display: flex;
-            flex-flow: row wrap;
             align-items: center;
             border-bottom: solid 1px @light-grey;
+            display: flex;
+            flex-flow: row wrap;
             padding: 10px;
-            .responsive(@screen-md, { padding: 10px 20px 0 20px; });
+
+            .responsive(@screen-md, { padding: 10px 20px 0; });
 
             h1 {
               font-size: @font-size-xl;
               font-weight: @font-weight-heavy;
               padding-right: 10px;
+
               .responsive(@screen-sm, { padding-right: 20px; });
             }
 
             > div.content-controls {
+              align-items: flex-start;
               display: flex;
               flex-direction: row;
-              align-items: flex-start;
             }
           }
 
           div.content-body {
             flex: 1;
             overflow-y: scroll;
+
             > ul {
               padding: 0 10px;
+
               .responsive(@screen-md, { padding: 0 20px; });
             }
           }
@@ -223,18 +239,21 @@ input, textarea {
 
       .responsive(@screen-md, {
         > div.frame-column {
-          position: static;
           float: left;
+          position: static;
         }
+
         > div.frame-content {
           width: calc(~'100% - @{frame-column-width-md}');
         }
       });
+
       .responsive(@screen-lg, {
         > div.frame-content {
           width: calc(~'100% - @{frame-column-width-lg}');
         }
       });
+
       .responsive(@screen-xl, {
         > div.frame-content {
           width: calc(~'100% - @{frame-column-width-xl}');

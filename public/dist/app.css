@@ -34,12 +34,12 @@
 }
 html,
 body {
-  width: 100%;
+  color: #2c2c2c;
+  font-family: 'Open Sans', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  color: #2c2c2c;
+  width: 100%;
 }
 h1,
 h2,
@@ -65,8 +65,8 @@ h4 {
 h5 {
   font-size: 12px;
 }
-ul,
-ol {
+ol,
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -76,32 +76,32 @@ li {
   padding: 0;
 }
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 input,
 textarea {
   font-family: inherit;
 }
 .clearfix:after {
+  clear: both;
   content: " ";
-  visibility: hidden;
   display: block;
   height: 0;
-  clear: both;
+  visibility: hidden;
 }
 #weco-root {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 #weco-root .full-page {
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 #weco-root .full-page-nav {
+  height: calc(100% - 35px);
   position: relative;
   width: 100%;
-  height: calc(100% - 35px);
   padding-top: 35px;
 }
 @media only screen and (min-width: 576px) {
@@ -145,9 +145,9 @@ textarea {
   }
 }
 #weco-root div.page {
-  width: 100%;
-  height: 100%;
   background-color: #d9d9d9;
+  height: 100%;
+  width: 100%;
 }
 #weco-root div.page.cover-page {
   position: relative;
@@ -156,11 +156,11 @@ textarea {
   height: 65%;
 }
 #weco-root div.page > div.frame {
-  position: relative;
+  background-color: #fff;
   height: 100%;
-  width: calc(100% - (2 * 0%));
   margin: auto;
-  background-color: white;
+  position: relative;
+  width: calc(100% - (2 * 0%));
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame {
@@ -183,89 +183,30 @@ textarea {
   }
 }
 #weco-root div.page > div.frame > div.frame-column {
-  position: absolute;
-  overflow: hidden;
-  z-index: 1300;
-  left: -200px;
-  box-shadow: none;
-  transition: left 0.3s ease-out;
-  height: 100%;
-  width: 200px;
-  box-sizing: border-box;
-  padding: 20px;
-  background-color: white;
+  background-color: #fff;
   border-right: solid 1px #e7e7e7;
-}
-#weco-root div.page > div.frame > div.frame-column h1 {
-  font-size: 22px;
-  font-weight: 500;
-}
-#weco-root div.page > div.frame > div.frame-column h2 {
-  font-size: 14px;
-  font-weight: 500;
-}
-@media only screen and (min-width: 576px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    left: -200px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    left: -200px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    left: -250px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    left: -250px;
-  }
-}
-#weco-root div.page > div.frame > div.frame-column.open {
-  left: 0;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  padding: 20px;
+  position: absolute;
+  z-index: 1300;
+  box-shadow: none;
+  left: -200px;
   transition: left 0.3s ease-out;
-}
-@media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-column,
-  #weco-root div.page > div.frame > div.frame-column.open {
-    box-shadow: none;
-  }
-}
-@media only screen and (min-width: 576px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    width: 200px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    width: 200px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    width: 250px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  #weco-root div.page > div.frame > div.frame-column {
-    width: 250px;
-  }
+  width: 200px;
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 20px 0 0 -20px;
   background-position: center;
   background-size: cover;
-  box-sizing: border-box;
-  border-top: solid 1px #e7e7e7;
   border-right: solid 1px #e7e7e7;
+  border-top: solid 1px #e7e7e7;
+  box-sizing: border-box;
+  margin: 20px 0 0 -20px;
+  position: relative;
   z-index: 0;
+  width: 200px;
+  height: 200px;
 }
 @media only screen and (min-width: 576px) {
   #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture {
@@ -308,16 +249,75 @@ textarea {
   }
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture img#edit {
-  position: absolute;
-  width: 20px;
-  height: auto;
   bottom: 10px;
+  height: auto;
+  opacity: .8;
+  position: absolute;
   right: 10px;
-  opacity: 0.8;
+  width: 20px;
 }
 #weco-root div.page > div.frame > div.frame-column > div.frame-column-picture img#edit:hover {
   cursor: pointer;
   opacity: 1;
+}
+#weco-root div.page > div.frame > div.frame-column h1 {
+  font-size: 22px;
+  font-weight: 500;
+}
+#weco-root div.page > div.frame > div.frame-column h2 {
+  font-size: 14px;
+  font-weight: 500;
+}
+@media only screen and (min-width: 576px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    left: -200px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    left: -200px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    left: -250px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    left: -250px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-column,
+  #weco-root div.page > div.frame > div.frame-column.open {
+    box-shadow: none;
+  }
+}
+@media only screen and (min-width: 576px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    width: 200px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    width: 200px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    width: 250px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #weco-root div.page > div.frame > div.frame-column {
+    width: 250px;
+  }
+}
+#weco-root div.page > div.frame > div.frame-column.open {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  left: 0;
+  transition: left 0.3s ease-out;
 }
 #weco-root div.page > div.frame > div.frame-content {
   float: left;
@@ -325,29 +325,29 @@ textarea {
   width: 100%;
 }
 #weco-root div.page > div.frame > div.frame-content > div {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 100%;
-  box-sizing: border-box;
 }
 #weco-root div.page > div.frame > div.frame-content > div:not(div#branch-post) {
-  padding: 10px 0 0 0;
+  padding: 10px 0 0;
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-content > div:not(div#branch-post) {
-    padding: 20px 0 0 0;
+    padding: 20px 0 0;
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header {
-  display: flex;
-  flex-flow: row wrap;
   align-items: center;
   border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-flow: row wrap;
   padding: 10px;
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-content > div div.content-header {
-    padding: 10px 20px 0 20px;
+    padding: 10px 20px 0;
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
@@ -361,9 +361,9 @@ textarea {
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
@@ -379,8 +379,8 @@ textarea {
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column {
-    position: static;
     float: left;
+    position: static;
   }
   #weco-root div.page > div.frame > div.frame-content {
     width: calc(100% - 200px);
@@ -398,8 +398,8 @@ textarea {
 }
 div[marked] {
   font-family: 'Open Sans', Helvetica, sans-serif;
-  font-weight: 300;
   font-size: 14px;
+  font-weight: 300;
   line-height: 1.5;
 }
 div[marked] h1,
@@ -426,29 +426,26 @@ div[marked] a {
 div[marked] a:hover {
   text-decoration: underline;
 }
+div[marked] blockquote {
+  border-left: 5px solid #7a7a7a;
+  font-style: italic;
+  margin: 0;
+  padding: 1.33em;
+  text-align: left;
+}
 div[marked] pre {
   background-color: #fafafa;
   padding: 1rem;
   text-align: left;
 }
-div[marked] blockquote {
-  margin: 0;
-  border-left: 5px solid #7a7a7a;
-  font-style: italic;
-  padding: 1.33em;
-  text-align: left;
-}
-div[marked] ul,
-div[marked] ol {
-  padding-left: 40px;
-  margin-bottom: 15px;
-}
-div[marked] ul li,
-div[marked] ol li {
-  text-align: left;
-}
+div[marked] ol,
 div[marked] ul {
-  list-style-type: disc;
+  margin-bottom: 15px;
+  padding-left: 40px;
+}
+div[marked] ol li,
+div[marked] ul li {
+  text-align: left;
 }
 div[marked] ol {
   list-style-type: decimal;
@@ -457,14 +454,17 @@ div[marked] p {
   color: #222222;
 }
 div[marked] table {
-  border-spacing: 0;
   border-collapse: collapse;
+  border-spacing: 0;
 }
 div[marked] table th,
 div[marked] table td {
   border: 1px solid #e7e7e7;
-  padding: 6px 13px;
   margin: 0;
+  padding: 6px 13px;
+}
+div[marked] ul {
+  list-style-type: disc;
 }
 nav#nav-bar {
   background: linear-gradient(to bottom, #2a2a2a, #131313);
