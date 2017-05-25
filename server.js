@@ -12,30 +12,32 @@
 'use strict';
 
 // REQUIRE MODULES
-var express    = require('express');          // call express
-var app        = express();                   // define our app using express
-var helmet = require('helmet');               // protect against common web vulnerabilities
+const express = require('express');          // call express
+const app     = express();                   // define our app using express
+const helmet  = require('helmet');           // protect against common web vulnerabilities
 
 // SET ENVIRONMENT AND PORT
-var env = (process.env.NODE_ENV || 'development');
-var port = process.env.PORT || 8081;
+const env  = process.env.NODE_ENV || 'development';
+const port = process.env.PORT || 8081;
 
-if(process.env.NODE_ENV === 'production') {
+if ('production' === process.env.NODE_ENV) {
   // REDIRECT TRAFFIC ON HTTP TO HTTPS
-  app.use(function(req, res, next) {
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-      res.redirect('https://' + req.get('Host') + req.url);
-    } else {
+  app.use( (req, res, next) => {
+    if (!req.secure && 'https' !== req.get('X-Forwarded-Proto')) {
+      res.redirect(`https://${req.get('Host') + req.url}`);
+    }
+    else {
       next();
     }
   });
 
   // REDIRECT APEX DOMAIN TO WWW. SUBDOMAIN
-  app.use(function(req, res, next) {
-    if(req.get('Host').match(/^www\..*/i)) {
+  app.use( (req, res, next) => {
+    if (req.get('Host').match(/^www\..*/i)) {
       next();
-    } else {
-      res.redirect(301, 'https://www.'  + req.get('Host') + req.url);
+    }
+    else {
+      res.redirect(301, `https://www.${req.get('Host') + req.url}`);
     }
   });
 
@@ -47,16 +49,16 @@ if(process.env.NODE_ENV === 'production') {
 app.use(helmet());
 
 // SERVE THE NODE MODULES FOLDER
-app.use('/dependencies/node', express.static(__dirname + '/node_modules'));
+app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 
 // SERVE THE ANGULAR APPLICATION
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static(`${__dirname}/public`));
 
 // Send the index.html for other files to support HTML5Mode
-app.all('/*', function(req, res, next) {
-  res.sendFile('index.html', { root: __dirname + '/public' });
+app.all('/*', (req, res, next) => {
+  res.sendFile('index.html', { root: `${__dirname}/public` });
 });
 
 // START THE SERVER
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log(`Magic happens on port ${port}`);

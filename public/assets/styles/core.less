@@ -64,14 +64,14 @@ textarea {
   }
 
   .full-page-nav {
-    height: calc(~'100% - @{navbar-h-sm}');
-    padding-top: @navbar-h-sm;
+    height: calc(~'100% - @{navbar-h}');
+    padding-top: @navbar-h;
     position: relative;
     width: 100%;
     
     .responsive(@screen-sm, {
-      height: calc(~'100% - @{navbar-h}');
-      padding-top: @navbar-h;
+      height: calc(~'100% - @{navbar-h-lg}');
+      padding-top: @navbar-h-lg;
     });
   }
 
@@ -91,12 +91,17 @@ textarea {
       height: 100%;
       margin: auto;
       position: relative;
-      width: calc(~'100% - (2 * @{page-margin-xs})');
+      //width: calc(~'100% - (2 * @{page-margin-xs})');
 
-      .responsive(@screen-sm, { width: calc(~'100% - (2 * @{page-margin-sm})'); });
-      .responsive(@screen-md, { width: calc(~'100% - (2 * @{page-margin-md})'); });
-      .responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
-      .responsive(@screen-xl, { width: calc(~'100% - (2 * @{page-margin-xl})'); });
+      max-width: 1200px;
+      width: 100%;
+
+      //.responsive(@screen-sm, { width: calc(~'100% - (2 * @{page-margin-sm})'); });
+      //.responsive(@screen-md, { width: calc(~'100% - (2 * @{page-margin-md})'); });
+      //.responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
+      //.responsive(@screen-xl, { width: calc(~'100% - (2 * @{page-margin-xl})'); });
+
+      .responsive(@screen-md, { width: ~'calc(100% - 64px)'; });
 
       /*
       > div.frame-column {

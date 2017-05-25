@@ -1,7 +1,10 @@
-<nav id="nav-bar">
-  <div>
-    <div id="menu" ng-click="NavBar.AppService.toggleOpenFrameColumn()"><img src="/assets/images/icons/white/menu.png"></div>
-    <a id="wecube" ui-sref="weco.home" ng-click="NavBar.triggerAnimation()">
+<nav id="nav-bar" class="navbar">
+  <div class="content">
+    <div id="menu" ng-click="NavBar.AppService.toggleOpenFrameColumn()">
+      <img src="/assets/images/icons/white/menu.png">
+    </div>
+
+    <a id="wecube" class="logo" ui-sref="weco.home" ng-click="NavBar.triggerAnimation()">
       <img id="animation" ng-src="{{ NavBar.animationSrc }}">
       <img src="/assets/images/nav-logo.png">
     </a>
@@ -43,6 +46,7 @@
         <img src="assets/images/icons/white/nav-expand.png" ng-click="NavBar.toggleNav()" ng-class="{ 'expanded': NavBar.expanded }">
       </div>
     </div>
+    
     <ul id="nav-menu-items" ng-show="NavBar.expanded">
       <li id="logout" ng-click="NavBar.logout()">
         <span>Log Out</span>
