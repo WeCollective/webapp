@@ -5,11 +5,11 @@ class NavBarComponent extends Injectable {
   constructor(...injections) {
     super(NavBarComponent.$inject, injections);
 
+    this.controller = 'NavBarController';
+    this.controllerAs = 'NavBar';
     this.restrict = 'E';
     this.replace = true;
     this.templateUrl = '/app/components/nav-bar/nav-bar.view.html';
-    this.controllerAs = 'NavBar';
-    this.controller = 'NavBarController';
   }
 }
 NavBarComponent.$inject = [];

@@ -6,7 +6,9 @@ class AppService extends Injectable {
     this.frameColumnOpen = false;
   }
 
-  toggleOpenFrameColumn() { this.frameColumnOpen = !this.frameColumnOpen; }
+  toggleOpenFrameColumn() {
+    this.frameColumnOpen = !this.frameColumnOpen;
+  }
 
   getProxyUrl(url) {
     // only proxy http requests, not https

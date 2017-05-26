@@ -4,43 +4,47 @@ class NavBarController extends Injectable {
   constructor(...injections) {
     super(NavBarController.$inject, injections);
 
+    this.animationSrc = '';
     this.expanded = false;
     this.notificationCount = 0;
-    this.animationSrc = '';
-  }
-
-  logout() {
-    this.expanded = false;
-    this.UserService.logout().then(() => {
-      this.$state.go('auth.login');
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to log out.');
-    });
   }
 
   isControlSelected(control) {
     return this.$state.current.name.indexOf(control) > -1 && this.$state.params.branchid === 'root';
   }
 
-  onHomePage() {
-    return this.$state.current.name === 'weco.home';
+  logout() {
+    this.expanded = false;
+    this.UserService.logout()
+      .then( () => {
+        this.$state.go('auth.login');
+      })
+      .catch( () => {
+        this.AlertsService.push('error', 'Unable to log out.');
+      });
   }
 
-  toggleNav() {
-    this.expanded = !this.expanded;
+  onHomePage() {
+    return this.$state.current.name === 'weco.home';
   }
 
   showNotificationCount() {
     return this.notificationCount > 0;
   }
 
+  toggleNav() {
+    this.expanded = !this.expanded;
+  }
+
   triggerAnimation() {
     // set animation src to the animated gif
-    this.$timeout(() => { this.animationSrc = '/assets/images/logo-animation.gif'; });
+    this.$timeout( () => { this.animationSrc = '/assets/images/logo-animation.gif'; });
+    
     // cancel after 1 sec
-    this.$timeout(() => { this.animationSrc = ''; }, 1000);
+    this.$timeout( () => { this.animationSrc = ''; }, 1000);
   }
 }
+
 NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService', 'AppService'];
 
 export default NavBarController;

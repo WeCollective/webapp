@@ -37,6 +37,11 @@ const WEBPACK_CONFIG = {
     loaders : [{
       test : /\.js$/,
       include : APP_DIR,
+      /*
+      query: {
+        presets: ['es2015']
+      },
+      */
       loader : 'babel-loader'
     }]
   },
