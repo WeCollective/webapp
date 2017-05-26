@@ -39,6 +39,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  text-rendering: optimizeLegibility;
   width: 100%;
 }
 h1,
@@ -49,6 +50,7 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+  text-rendering: optimizeLegibility;
 }
 h1 {
   font-size: 26px;
@@ -70,18 +72,25 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  text-rendering: optimizeLegibility;
 }
 li {
   margin: 0;
   padding: 0;
+  text-rendering: optimizeLegibility;
 }
 a {
   color: inherit;
   text-decoration: none;
+  text-rendering: optimizeLegibility;
 }
 input,
 textarea {
   font-family: inherit;
+  text-rendering: optimizeLegibility;
+}
+span {
+  text-rendering: optimizeLegibility;
 }
 .clearfix:after {
   clear: both;
@@ -778,7 +787,7 @@ div.dropdown li.dropdown-item img {
 }
 div.dropdown div.dropdown-item span.selected,
 div.dropdown li.dropdown-item span.selected {
-  font-weight: 500;
+  font-weight: 600;
 }
 div.dropdown div.dropdown-item:hover,
 div.dropdown li.dropdown-item:hover {
@@ -1045,7 +1054,7 @@ div[loading] div.loading-container img {
 @media only screen and (min-width: 576px) {
   .navbar > .content > div.user-controls .navbar--item div#profile-picture {
     border-right-width: 1px;
-    margin-left: 10px;
+    margin-left: 6px;
     width: 45px;
   }
 }
@@ -2375,7 +2384,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -2545,7 +2554,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
@@ -2963,7 +2972,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3156,7 +3165,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a 
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -3323,7 +3332,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
@@ -3854,7 +3863,7 @@ div#branch-post > .list-item div.list-item-info a .list-item-title,
 div#branch-post > .list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
@@ -4102,7 +4111,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
