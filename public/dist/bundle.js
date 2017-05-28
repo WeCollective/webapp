@@ -4555,6 +4555,7 @@ class Injectable {
     }
   }
 }
+
 /* harmony default export */ __webpack_exports__["a"] = (Injectable);
 
 /***/ }),
@@ -23677,13 +23678,9 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
     // whitelist YouTube urls with Angular's sanitizer to allow video embedding
     this.$sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**']);
 
-    // analytics
+    // Google Analytics
     this.AnalyticsProvider.setAccount('UA-84400255-1');
-    if (this.ENV.name === 'production') {
-      this.AnalyticsProvider.setDomainName('weco.io');
-    } else {
-      this.AnalyticsProvider.setDomainName('none');
-    }
+    this.AnalyticsProvider.setDomainName('production' === this.ENV.name ? 'weco.io' : 'none');
     this.AnalyticsProvider.setPageEvent('$stateChangeSuccess');
     this.AnalyticsProvider.logAllCalls(true);
 
@@ -23699,7 +23696,8 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
     });
   }
 }
-AppConfig.$inject = ['markedProvider', '$sceDelegateProvider', 'AnalyticsProvider', 'ENV', 'CacheFactoryProvider'];
+
+AppConfig.$inject = ['$sceDelegateProvider', 'AnalyticsProvider', 'CacheFactoryProvider', 'ENV', 'markedProvider'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AppConfig);
 
@@ -23715,16 +23713,18 @@ class AppController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a
   constructor(...injections) {
     super(AppController.$inject, injections);
 
-    this.socketioURL = this.ENV.apiEndpoint + 'socket.io/socket.io.js';
+    this.socketioURL = `${this.ENV.apiEndpoint}socket.io/socket.io.js`;
   }
+
   hasNavBar() {
-    if (this.$state.current.name.indexOf('auth') > -1 || this.$state.current.name.indexOf('verify') > -1 || this.$state.current.name.indexOf('reset-password') > -1) {
+    if (this.$state.current.name.indexOf('auth') !== -1 || this.$state.current.name.indexOf('verify') !== -1 || this.$state.current.name.indexOf('reset-password') !== -1) {
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   }
 }
+
 AppController.$inject = ['$state', 'ENV', 'TooltipService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AppController);
@@ -23738,24 +23738,26 @@ AppController.$inject = ['$state', 'ENV', 'TooltipService'];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
 
-let AppFilters = {
-  // reverse an array
-  reverse: () => {
-    return function (items) {
-      if (!__WEBPACK_IMPORTED_MODULE_0_angular___default.a.isArray(items)) return false;
-      if (!items) {
-        return false;
-      }
-      return items.slice().reverse();
-    };
-  },
+const AppFilters = {
   // capitalize a string
   capitalize: () => {
-    return function (input) {
-      return !!input ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    return input => {
+      return !!input ? input[0].toUpperCase() + input.substr(1).toLowerCase() : '';
+    };
+  },
+
+  // reverse an array
+  reverse: () => {
+    return items => {
+      if (!items || !__WEBPACK_IMPORTED_MODULE_0_angular___default.a.isArray(items)) {
+        return false;
+      }
+
+      return items.slice().reverse();
     };
   }
 };
+
 /* harmony default export */ __webpack_exports__["a"] = (AppFilters);
 
 /***/ }),
@@ -23774,20 +23776,16 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
     this.$locationProvider.html5Mode(true);
     this.$urlRouterProvider.otherwise('/');
 
-    // remove trailing slashes from URL
-    this.$urlRouterProvider.rule(function ($injector, $location) {
-      var path = $location.path();
-      var hasTrailingSlash = path[path.length - 1] === '/';
+    // Remove trailing slashes from URLs.
+    this.$urlRouterProvider.rule(($injector, $location) => {
+      let path = $location.path();
+      const hasTrailingSlash = path[path.length - 1] === '/';
       if (hasTrailingSlash) {
-        //if last charcter is a slash, return the same url without the slash
-        var newPath = path.substr(0, path.length - 1);
-        return newPath;
+        return path.substr(0, path.length - 1);
       }
     });
 
-    this.$stateProvider
-    // Log In/Sign Up state
-    .state('auth', {
+    this.$stateProvider.state('auth', {
       abstract: true,
       templateUrl: '/app/pages/auth/auth.view.html',
       controller: 'AuthController',
@@ -23814,15 +23812,18 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       url: '/:username/:token',
       templateUrl: '/app/pages/auth/reset-password/confirm/confirm.view.html'
     })
+
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
-      template: '<nav-bar></nav-bar><div ng-class="{ \'full-page-nav\': App.hasNavBar(), \'full-page\': !App.hasNavBar() }" ui-view></div>'
+      template: `<nav-bar></nav-bar><div ng-class="{ 'full-page-nav': App.hasNavBar(), 'full-page': !App.hasNavBar() }" ui-view></div>`
     })
+
     // 404 Not Found
     .state('weco.notfound', {
       templateUrl: '/app/pages/notfound/notfound.view.html'
     })
+
     // Homepage state
     .state('weco.home', {
       url: '/',
@@ -23831,6 +23832,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       controllerAs: 'Home',
       pageTrack: '/'
     })
+
     // Profile page
     .state('weco.profile', {
       url: '/u/:username',
@@ -23859,6 +23861,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       redirectTo: 'auth.login',
       pageTrack: '/u/:username/notifications'
     })
+
     // Branches
     .state('weco.branch', {
       url: '/b/:branchid',
@@ -23867,6 +23870,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       controller: 'BranchController',
       controllerAs: 'Branch'
     })
+
     // Branch Nucleus
     .state('weco.branch.nucleus', {
       url: '/nucleus',
@@ -23907,6 +23911,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       modOnly: true,
       redirectTo: 'auth.login'
     })
+
     // Subbranches
     .state('weco.branch.subbranches', {
       url: '/childbranches',
@@ -23915,6 +23920,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       controllerAs: 'BranchSubbranches',
       pageTrack: '/b/:branchid/childbranches'
     })
+
     // Branch wall
     .state('weco.branch.wall', {
       url: '/wall',
@@ -23923,6 +23929,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       controllerAs: 'BranchWall',
       pageTrack: '/b/:branchid/wall'
     })
+
     // Posts
     .state('weco.branch.post', {
       url: '/p/:postid',
@@ -23931,12 +23938,14 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       controllerAs: 'BranchPost',
       pageTrack: '/p/:postid'
     })
+
     // Comment Permalink
     .state('weco.branch.post.comment', {
       url: '/c/:commentid',
       templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
       pageTrack: '/p/:postid/c/:commentid'
     })
+
     // Poll Tabs
     .state('weco.branch.post.vote', {
       url: '/vote',
@@ -23956,19 +23965,20 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       pageTrack: '/p/:postid/discussion'
     });
 
-    // default child states
+    // Default child states.
     this.$urlRouterProvider.when('/u/{username}', '/u/{username}/about');
     this.$urlRouterProvider.when('/b/{branchid}', '/b/{branchid}/wall');
 
-    // 404 redirect
-    this.$urlRouterProvider.otherwise(function ($injector, $location) {
-      var state = this.$injector.get('$state');
+    // 404 redirect.
+    this.$urlRouterProvider.otherwise(($injector, $location) => {
+      const state = $injector.get('$state');
       state.go('weco.notfound');
-      return this.$location.path();
+      return $location.path();
     });
   }
 }
-AppRoutes.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider'];
+
+AppRoutes.$inject = ['$httpProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AppRoutes);
 
@@ -27483,28 +27493,20 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   constructor(...injections) {
     super(AuthController.$inject, injections);
 
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
     this.credentials = {};
+    this.errorMessage = '';
     this.isLoading = false;
     this.loopAnimation = false;
-    this.errorMessage = '';
     this.showResendVerification = false;
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
+  }
+
+  getAnimationSrc() {
+    return this.animationSrc;
   }
 
   isLoginForm() {
-    return this.$state.current.name === 'auth.login';
-  }
-
-  submit() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
-    this.credentials.username = this.credentials.username.toLowerCase();
-    if (this.isLoginForm()) {
-      this.login();
-    } else {
-      this.signup();
-    }
+    return 'auth.login' === this.$state.current.name;
   }
 
   login() {
@@ -27512,16 +27514,35 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
-    }).catch(response => {
-      this.errorMessage = response.message;
+    }).catch(res => {
+      this.errorMessage = res.message;
       this.isLoading = false;
       this.loopAnimation = false;
 
-      // forbidden implies possibly unverified account
-      if (response.status === 403) {
+      // Possibly unverified account
+      if (res.status === 403) {
         this.showResendVerification = true;
       }
     });
+  }
+
+  resendVerification() {
+    this.isLoading = true;
+
+    this.UserService.resendVerification(this.credentials.username).then(() => {
+      this.resendVerificationDone(true);
+    }).catch(() => {
+      this.resendVerificationDone(false);
+    });
+  }
+
+  resendVerificationDone(success) {
+    const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
+    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.showResendVerification = false;
   }
 
   signup() {
@@ -27533,34 +27554,32 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     }
 
     this.UserService.signup(this.credentials).then(() => {
+      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
-      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-    }).catch(response => {
-      this.errorMessage = response.message;
+    }).catch(res => {
+      this.errorMessage = res.message;
       this.isLoading = false;
       this.loopAnimation = false;
     });
   }
 
-  resendVerification() {
+  submit() {
     this.isLoading = true;
-    this.UserService.resendVerification(this.credentials.username).then(() => {
-      this.AlertsService.push('success', 'Verification email sent. Keep an eye on your inbox!', true);
-      this.errorMessage = '';
-      this.isLoading = false;
-      this.showResendVerification = false;
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to resend verification email!', true);
-      this.errorMessage = '';
-      this.isLoading = false;
-      this.showResendVerification = false;
-    });
+    this.loopAnimation = true;
+    this.triggerAnimation();
+    this.credentials.username = this.credentials.username.toLowerCase();
+
+    if (this.isLoginForm()) {
+      this.login();
+    } else {
+      this.signup();
+    }
   }
 
   triggerAnimation() {
-    if (this.animationSrc !== '') {
+    if (this.animationSrc) {
       this.$timeout(() => {
         this.animationSrc = '';
       });
@@ -27574,15 +27593,15 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     // cancel after 1 sec
     this.$timeout(() => {
       this.animationSrc = '';
-      if (this.loopAnimation) this.triggerAnimation();
+
+      if (this.loopAnimation) {
+        this.triggerAnimation();
+      }
     }, 1000);
   }
-
-  getAnimationSrc() {
-    return this.animationSrc;
-  }
 }
-AuthController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
+
+AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AuthController);
 

@@ -1,14 +1,13 @@
-<div class="full-page"
-  id="auth-background">
-  
-  <a id="logo"
-    ui-sref="weco.home">
-    <img alt=""
+<div class="full-page dark-bg">
+  <a class="logo" ui-sref="weco.home">
+    <img alt="Weco logo"
       id="animation"
       ng-src="{{ Auth.getAnimationSrc() }}" />
   </a>
   
-  <h1>{{ Auth.isLoginForm() ? 'Log In' : 'Create New Account' }}</h1>
+  <h1 class="text--uppercase">
+    {{ Auth.isLoginForm() ? 'Log In' : 'Create New Account' }}
+  </h1>
   
   <p id="auth-error-message">{{ Auth.errorMessage }}</p>
   <p id="resend-verification"
@@ -22,7 +21,7 @@
       ng-model="Auth.credentials.firstname"
       ng-required="!Auth.isLoginForm()"
       ng-show="!Auth.isLoginForm()"
-      placeholder="First name"
+      placeholder="Name"
       type="text" />
 
     <!--
@@ -36,7 +35,7 @@
 
     <input name="username"
       ng-model="Auth.credentials.username"
-      placeholder="Username"
+      placeholder="Username{{ Auth.isLoginForm() ? '' : ' (must be lowercase)' }}"
       required
       type="text" />
 
@@ -60,9 +59,10 @@
       placeholder="Confirm Password"
       type="password" />
 
-    <input ng-disabled="Auth.isLoading"
+    <input class="text--uppercase" 
+      ng-disabled="Auth.isLoading"
       type="submit"
-      value="{{ Auth.isLoginForm() ? 'LOGIN' : 'SIGN UP' }}" />
+      value="{{ Auth.isLoginForm() ? 'Login' : 'Sign up' }}" />
   </form>
   
   <p ng-show="Auth.isLoginForm()">

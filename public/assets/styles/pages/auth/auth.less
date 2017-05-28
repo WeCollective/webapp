@@ -1,23 +1,24 @@
-div#auth-background,
-div#reset-password-background,
-div#verify-background {
+.full-page.dark-bg {
   background: @primary-light;
   background: radial-gradient(@primary-light, @primary-dark);
   overflow-y: scroll;
   text-align: center;
 
-  a#logo,
-  div#logo {
+  > .logo {
+    @logo-s: 60px;
+
     display: block;
-    height: 60px;
+    height: @logo-s;
     margin: auto;
     padding: 30px 0 20px;
-    width: 60px;
+    width: @logo-s;
 
     .responsive(@screen-md, {
-      height: 100px;
+      @logo-s: 100px;
+
+      height: @logo-s;
       padding: 60px 0 40px;
-      width: 100px;
+      width: @logo-s;
     });
 
     img {
@@ -47,7 +48,7 @@ div#verify-background {
       });
 
       &[name="username"] {
-        text-transform: lowercase;
+        //text-transform: lowercase;
       }
 
       &[type="text"], &[type="email"], &[type="password"] {
@@ -96,7 +97,6 @@ div#verify-background {
     font-weight: @font-weight-light;
     letter-spacing: 8px;
     margin-bottom: 20px;
-    text-transform: uppercase;
 
     .responsive(@screen-md, {
       font-size: @font-size-lg;

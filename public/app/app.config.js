@@ -17,13 +17,9 @@ class AppConfig extends Injectable {
       '*://www.youtube.com/**'
     ]);
 
-    // analytics
+    // Google Analytics
     this.AnalyticsProvider.setAccount('UA-84400255-1');
-    if(this.ENV.name === 'production') {
-      this.AnalyticsProvider.setDomainName('weco.io');
-    } else {
-      this.AnalyticsProvider.setDomainName('none');
-    }
+    this.AnalyticsProvider.setDomainName('production' === this.ENV.name ? 'weco.io' : 'none');
     this.AnalyticsProvider.setPageEvent('$stateChangeSuccess');
     this.AnalyticsProvider.logAllCalls(true);
 
@@ -32,13 +28,23 @@ class AppConfig extends Injectable {
       maxAge: 3600000,
       deleteOnExpire: 'aggressive',
       onExpire: function (key, value) {
-        angular.injector(['ng']).get('$http').get(key).success(function (data) {
-          this.put(key, data);
-        }.bind(this));
+        angular.injector(['ng'])
+          .get('$http')
+          .get(key)
+          .success(function (data) {
+            this.put(key, data);
+          }.bind(this));
       }
     });
   }
 }
-AppConfig.$inject = ['markedProvider', '$sceDelegateProvider', 'AnalyticsProvider', 'ENV', 'CacheFactoryProvider'];
+
+AppConfig.$inject = [
+  '$sceDelegateProvider',
+  'AnalyticsProvider',
+  'CacheFactoryProvider',
+  'ENV',
+  'markedProvider'
+];
 
 export default AppConfig;

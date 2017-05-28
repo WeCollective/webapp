@@ -1,3 +1,9 @@
+.text--lowercase {
+  text-transform: lowercase;
+}
+.text--uppercase {
+  text-transform: uppercase;
+}
 /**
  * Material shadows
  * @link https://codepen.io/sdthornton/pen/wBZdXq
@@ -1937,20 +1943,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-bottom: 15px;
   margin-left: 30px;
 }
-div#auth-background,
-div#reset-password-background,
-div#verify-background {
+.full-page.dark-bg {
   background: #444444;
   background: radial-gradient(#444444, #222222);
   overflow-y: scroll;
   text-align: center;
 }
-div#auth-background a#logo,
-div#reset-password-background a#logo,
-div#verify-background a#logo,
-div#auth-background div#logo,
-div#reset-password-background div#logo,
-div#verify-background div#logo {
+.full-page.dark-bg > .logo {
   display: block;
   height: 60px;
   margin: auto;
@@ -1958,34 +1957,20 @@ div#verify-background div#logo {
   width: 60px;
 }
 @media only screen and (min-width: 768px) {
-  div#auth-background a#logo,
-  div#reset-password-background a#logo,
-  div#verify-background a#logo,
-  div#auth-background div#logo,
-  div#reset-password-background div#logo,
-  div#verify-background div#logo {
+  .full-page.dark-bg > .logo {
     height: 100px;
     padding: 60px 0 40px;
     width: 100px;
   }
 }
-div#auth-background a#logo img,
-div#reset-password-background a#logo img,
-div#verify-background a#logo img,
-div#auth-background div#logo img,
-div#reset-password-background div#logo img,
-div#verify-background div#logo img {
+.full-page.dark-bg > .logo img {
   height: 100%;
   width: 100%;
 }
-div#auth-background form,
-div#reset-password-background form,
-div#verify-background form {
+.full-page.dark-bg form {
   padding: 0 15px;
 }
-div#auth-background form input,
-div#reset-password-background form input,
-div#verify-background form input {
+.full-page.dark-bg form input {
   border: none;
   border-radius: 3px;
   box-sizing: border-box;
@@ -1998,33 +1983,18 @@ div#verify-background form input {
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
-  div#auth-background form input,
-  div#reset-password-background form input,
-  div#verify-background form input {
+  .full-page.dark-bg form input {
     font-size: 18px;
     padding: 15px;
   }
 }
-div#auth-background form input[name="username"],
-div#reset-password-background form input[name="username"],
-div#verify-background form input[name="username"] {
-  text-transform: lowercase;
-}
-div#auth-background form input[type="text"],
-div#reset-password-background form input[type="text"],
-div#verify-background form input[type="text"],
-div#auth-background form input[type="email"],
-div#reset-password-background form input[type="email"],
-div#verify-background form input[type="email"],
-div#auth-background form input[type="password"],
-div#reset-password-background form input[type="password"],
-div#verify-background form input[type="password"] {
+.full-page.dark-bg form input[type="text"],
+.full-page.dark-bg form input[type="email"],
+.full-page.dark-bg form input[type="password"] {
   background-color: #e7e7e7;
   color: #2c2c2c;
 }
-div#auth-background form input[type="submit"],
-div#reset-password-background form input[type="submit"],
-div#verify-background form input[type="submit"] {
+.full-page.dark-bg form input[type="submit"] {
   background-color: #92bedb;
   color: #fff;
   font-size: 18px;
@@ -2032,77 +2002,54 @@ div#verify-background form input[type="submit"] {
   transition: all 0.3s ease-out;
 }
 @media only screen and (min-width: 768px) {
-  div#auth-background form input[type="submit"],
-  div#reset-password-background form input[type="submit"],
-  div#verify-background form input[type="submit"] {
+  .full-page.dark-bg form input[type="submit"] {
     font-size: 22px;
   }
 }
-div#auth-background form input[type="submit"]:hover,
-div#reset-password-background form input[type="submit"]:hover,
-div#verify-background form input[type="submit"]:hover {
+.full-page.dark-bg form input[type="submit"]:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   letter-spacing: 3px;
   transition: all 0.3s ease-out;
 }
-div#auth-background form input[disabled],
-div#reset-password-background form input[disabled],
-div#verify-background form input[disabled] {
+.full-page.dark-bg form input[disabled] {
   background-color: #d9d9d9;
 }
-div#auth-background form input[disabled]:hover,
-div#reset-password-background form input[disabled]:hover,
-div#verify-background form input[disabled]:hover {
+.full-page.dark-bg form input[disabled]:hover {
   background-color: #d9d9d9;
   box-shadow: none;
   cursor: auto;
   letter-spacing: normal;
 }
-div#auth-background form input:focus,
-div#reset-password-background form input:focus,
-div#verify-background form input:focus {
+.full-page.dark-bg form input:focus {
   outline: none;
 }
-div#auth-background h1,
-div#reset-password-background h1,
-div#verify-background h1 {
+.full-page.dark-bg h1 {
   color: #fff;
   font-size: 18px;
   font-weight: 300;
   letter-spacing: 8px;
   margin-bottom: 20px;
-  text-transform: uppercase;
 }
 @media only screen and (min-width: 768px) {
-  div#auth-background h1,
-  div#reset-password-background h1,
-  div#verify-background h1 {
+  .full-page.dark-bg h1 {
     font-size: 22px;
     margin-bottom: 40px;
   }
 }
-div#auth-background p,
-div#reset-password-background p,
-div#verify-background p {
+.full-page.dark-bg p {
   color: #fff;
   font-size: 14px;
   font-weight: 300;
 }
 @media only screen and (min-width: 768px) {
-  div#auth-background p,
-  div#reset-password-background p,
-  div#verify-background p {
+  .full-page.dark-bg p {
     font-size: 18px;
   }
 }
-div#auth-background p a,
-div#reset-password-background p a,
-div#verify-background p a,
-div#auth-background p#resend-verification,
-div#reset-password-background p#resend-verification,
-div#verify-background p#resend-verification {
+.full-page.dark-bg p a,
+.full-page.dark-bg p#resend-verification {
   cursor: pointer;
   text-decoration: underline;
 }
