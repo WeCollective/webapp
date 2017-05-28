@@ -915,6 +915,9 @@ div[loading] div.loading-container img {
   opacity: .5;
   padding: 0 6px;
 }
+.navbar > .content > div .navbar--item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 .navbar > .content > div .navbar--item.opaque,
 .navbar > .content > div .navbar--item:hover {
   color: #fff !important;
@@ -956,10 +959,10 @@ div[loading] div.loading-container img {
   height: 100%;
 }
 .navbar > .content > div.user-controls .navbar--item span.text {
+  font-size: 14px;
   margin: 0 8px;
 }
 .navbar > .content > div.user-controls .navbar--item.item--profile {
-  font-size: 14px;
   padding-left: 0;
   padding-right: 0;
 }

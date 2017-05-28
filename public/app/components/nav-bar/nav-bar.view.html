@@ -4,7 +4,7 @@
     <div>
       <!-- Hamburger Menu -->
       <div class="hamburger-menu" 
-        ng-click="NavBar.AppService.toggleOpenFrameColumn()" >
+        ng-click="NavBar.AppService.toggleOpenFrameColumn()">
         <span></span>
         <span></span>
         <span></span>
@@ -13,7 +13,7 @@
       <!-- Weco Cube -->
       <a class="logo"
         ng-click="NavBar.triggerAnimation()"
-        ui-sref="weco.home" >      
+        ui-sref="weco.home">      
         <img alt="Weco logo animation"
           class="animation"
           ng-src="{{ NavBar.animationSrc }}" />
@@ -62,13 +62,13 @@
     <div class="user-controls">
       <a class="navbar--item"
         ng-show="!NavBar.UserService.isAuthenticated()"
-        ui-sref="auth.login" >  
+        ui-sref="auth.login">  
         <span class="text">Log In</span>
       </a>
       
       <a class="navbar--item"
         ng-show="!NavBar.UserService.isAuthenticated()"
-        ui-sref="auth.signup" >
+        ui-sref="auth.signup">
         <span class="text">Sign up</span>
       </a>
       
@@ -81,7 +81,7 @@
             src="assets/images/icons/white/notification.png" />
 
           <div id="notification-count"
-            ng-show="NavBar.showNotificationCount()" >
+            ng-show="NavBar.showNotificationCount()">
             <span>{{ NavBar.notificationCount > 9 ? '9+' : NavBar.notificationCount }}</span>
           </div>
         </div>
@@ -90,7 +90,7 @@
       <a class="navbar--item item--profile"
         ng-class="{ 'opaque' : NavBar.isControlSelected('profile') }"
         ng-show="NavBar.UserService.isAuthenticated()"
-        ui-sref="weco.profile.about({ username: NavBar.UserService.user.username })" >
+        ui-sref="weco.profile.about({ username: NavBar.UserService.user.username })">
         <span class="text">{{ NavBar.UserService.user.username }}</span>
         <div id="profile-picture"
           style="background-image: url('{{ NavBar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
@@ -98,7 +98,7 @@
       </a>
       
       <div class="navbar--item item--expand"
-        ng-show="NavBar.UserService.isAuthenticated()" >
+        ng-show="NavBar.UserService.isAuthenticated()">
         <img alt=""
           class="navbar--icon"
           ng-class="{ 'opaque': NavBar.expanded }"
