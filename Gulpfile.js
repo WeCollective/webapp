@@ -12,7 +12,7 @@ const runSequence = require('run-sequence');
 const webpack = require('webpack');
 
 const DEFAULT_ENV = 'development';
-const environment = process.env.NODE_ENV || DEFAULT_ENV;
+let environment = process.env.NODE_ENV || DEFAULT_ENV;
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const APP_DIR    = path.join(PUBLIC_DIR, 'app');
