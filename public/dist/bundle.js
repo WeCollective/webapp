@@ -23787,7 +23787,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
 
     this.$stateProvider.state('auth', {
       abstract: true,
-      templateUrl: '/app/pages/auth/auth.view.html',
+      templateUrl: '/app/pages/auth/view.html',
       controller: 'AuthController',
       controllerAs: 'Auth'
     }).state('auth.login', {
@@ -23821,7 +23821,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
 
     // 404 Not Found
     .state('weco.notfound', {
-      templateUrl: '/app/pages/notfound/notfound.view.html'
+      templateUrl: '/app/pages/notfound/view.html'
     })
 
     // Homepage state
@@ -26535,6 +26535,1619 @@ class TooltipService {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* Template file from which env.config.js is generated */
+let ENV = {
+   name: 'development',
+   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (ENV);
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AuthController.$inject, injections);
+
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+    this.credentials = {};
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.loopAnimation = false;
+    this.showResendVerification = false;
+  }
+
+  getAnimationSrc() {
+    return this.animationSrc;
+  }
+
+  isLoginForm() {
+    return 'auth.login' === this.$state.current.name;
+  }
+
+  login() {
+    this.UserService.login(this.credentials).then(() => {
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('weco.home');
+    }).catch(res => {
+      this.errorMessage = res.message;
+      this.isLoading = false;
+      this.loopAnimation = false;
+
+      // Possibly unverified account
+      if (res.status === 403) {
+        this.showResendVerification = true;
+      }
+    });
+  }
+
+  resendVerification() {
+    this.isLoading = true;
+
+    this.UserService.resendVerification(this.credentials.username).then(() => {
+      this.resendVerificationDone(true);
+    }).catch(() => {
+      this.resendVerificationDone(false);
+    });
+  }
+
+  resendVerificationDone(success) {
+    const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
+    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.showResendVerification = false;
+  }
+
+  signup() {
+    if (this.credentials.password !== this.credentials.confirmPassword) {
+      this.errorMessage = 'Inconsistent password!';
+      this.isLoading = false;
+      this.loopAnimation = false;
+      return;
+    }
+
+    this.UserService.signup(this.credentials).then(() => {
+      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('weco.home');
+    }).catch(res => {
+      this.errorMessage = res.message;
+      this.isLoading = false;
+      this.loopAnimation = false;
+    });
+  }
+
+  submit() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+    this.credentials.username = this.credentials.username.toLowerCase();
+
+    if (this.isLoginForm()) {
+      this.login();
+    } else {
+      this.signup();
+    }
+  }
+
+  triggerAnimation() {
+    if (this.animationSrc) {
+      this.$timeout(() => {
+        this.animationSrc = '';
+      });
+    }
+
+    // set animation src to the animated gif
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+
+    // cancel after 1 sec
+    this.$timeout(() => {
+      this.animationSrc = '';
+
+      if (this.loopAnimation) {
+        this.triggerAnimation();
+      }
+    }, 1000);
+  }
+}
+
+AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AuthController);
+
+/***/ }),
+/* 178 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ResetPasswordController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ResetPasswordController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.loopAnimation = false;
+    this.credentials = {};
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+  }
+
+  resetPassword() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+
+    if (this.credentials.password !== this.credentials.confirmPassword) {
+      this.AlertsService.push('error', 'The two passwords are different.');
+      this.isLoading = false;
+      this.loopAnimation = false;
+      return;
+    }
+
+    this.UserService.resetPassword(this.$state.params.username, this.credentials.password, this.$state.params.token).then(() => {
+      this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('auth.login');
+    }).catch(response => {
+      this.$timeout(() => {
+        this.errorMessage = response.message;
+        this.isLoading = false;
+        this.loopAnimation = false;
+      });
+    });
+  }
+
+  sendLink() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+
+    this.UserService.requestResetPassword(this.credentials.username).then(() => {
+      this.$state.go('weco.home');
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
+    }).catch(response => {
+      this.isLoading = false;
+      this.errorMessage = response.message;
+      this.loopAnimation = false;
+    });
+  }
+
+  triggerAnimation() {
+    if (this.animationSrc !== '') {
+      this.$timeout(() => {
+        this.animationSrc = '';
+      });
+    }
+    // set animation src to the animated gif
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+    // cancel after 1 sec
+    this.$timeout(() => {
+      this.animationSrc = '';
+      if (this.loopAnimation) this.triggerAnimation();
+    }, 1000);
+  }
+}
+ResetPasswordController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ResetPasswordController);
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(VerifyController.$inject, injections);
+
+    this.message = 'Verifying your account';
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+
+    this.$interval(() => {
+      if (this.animationSrc !== '') {
+        this.$timeout(() => {
+          this.animationSrc = '';
+        });
+      }
+      // set animation src to the animated gif
+      this.$timeout(() => {
+        this.animationSrc = '/assets/images/logo-animation-large.gif';
+      });
+
+      if (this.message.indexOf('...') > -1) {
+        this.message = 'Verifying your account.';
+      } else {
+        this.message += '.';
+      }
+    }, 1000);
+
+    this.$timeout(() => {
+      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(() => {
+        this.$state.go('auth.login');
+        this.AlertsService.push('success', 'Account verified! You can now login.', true);
+      }).catch(err => {
+        this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
+        this.$state.go('auth.signup');
+      });
+    }, 3000);
+  }
+}
+VerifyController.$inject = ['$state', '$interval', '$timeout', 'UserService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (VerifyController);
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchController.$inject, injections);
+
+    this.showCover = false;
+    this.isLoading = Object.keys(this.BranchService.branch).length === 0 ? true : false;
+
+    // update the view when the branch changes
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.$timeout(() => {
+        this.isLoading = false;
+      });
+    });
+  }
+
+  isControlSelected(control) {
+    return this.$state.current.name.indexOf(control) > -1;
+  }
+
+  openProfilePictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'branch/' + this.BranchService.branch.id + '/',
+      type: 'picture'
+    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
+  }
+
+  openCoverPictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'branch/' + this.BranchService.branch.id + '/',
+      type: 'cover'
+    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
+  }
+
+  isModerator() {
+    if (!this.BranchService.branch.mods) {
+      return false;
+    }
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // dynamic tooltip text for add content button, whose behaviour
+  // is dependent on the current state
+  getAddContentTooltip() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        return 'Create New Branch';
+      case 'weco.branch.wall':
+        return 'Add New Post';
+      case 'weco.branch.post':
+        return 'Write a Comment';
+      default:
+        return '';
+    }
+  }
+
+  // returns boolean indicating whether the add content behaviour has any defined
+  // behaviour in the current state
+  canAddContent() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+      case 'weco.branch.wall':
+      case 'weco.branch.post':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  addContent() {
+    let modalName, successMessage, errorMessage;
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        modalName = 'CREATE_BRANCH';
+        successMessage = 'Successfully created new branch!';
+        errorMessage = 'Error creating new branch.';
+        break;
+      case 'weco.branch.wall':
+        modalName = 'CREATE_POST';
+        successMessage = 'Successfully created post!';
+        errorMessage = 'Error creating post.';
+        break;
+      // case 'weco.branch.post':
+      //   // broadcast add comment clicked so that the comment section is scrolled
+      //   // to the top, where the comment box is visible
+      //   $rootScope.$broadcast('add-comment');
+    }
+    if (!!modalName) {
+      this.ModalService.open(modalName, {
+        branchid: this.BranchService.branch.id
+      }, successMessage, errorMessage);
+    }
+  }
+}
+BranchController.$inject = ['$timeout', '$state', 'ModalService', 'UserService', 'BranchService', 'EventService', 'AppService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchController);
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusAboutController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusAboutController.$inject, injections);
+  }
+
+  isFollowingBranch() {
+    if (this.UserService.isAuthenticated()) {
+      return this.UserService.user.followed_branches.indexOf(this.BranchService.branch.id) > -1;
+    } else {
+      return false;
+    }
+  }
+
+  toggleFollowBranch() {
+    let toggle, successMessage, errorMessage;
+    if (this.isFollowingBranch()) {
+      toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+      successMessage = 'You\'re no longer following this branch!';
+      errorMessage = 'Error unfollowing branch.';
+    } else {
+      toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+      successMessage = 'You\'re now following this branch!';
+      errorMessage = 'Error following branch.';
+    }
+
+    toggle.then(() => {
+      this.AlertsService.push('success', successMessage);
+    }).catch(() => {
+      this.AlertsService.push('error', errorMessage);
+    });
+  }
+}
+BranchNucleusAboutController.$inject = ['$timeout', 'UserService', 'BranchService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusAboutController);
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusFlaggedPostsController.$inject, injections);
+
+    this.WallService.init('weco.branch.nucleus', true);
+    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
+      this.WallService.init('weco.branch.nucleus', true);
+    });
+    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
+      this.WallService.init('weco.branch.nucleus', true);
+    });
+    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
+      this.WallService.init('weco.branch.nucleus', true);
+    });
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.WallService.init('weco.branch.nucleus', true);
+    });
+  }
+}
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', 'WallService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
+
+/***/ }),
+/* 183 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusModeratorsController.$inject, injections);
+
+    this.mods = [];
+    this.isLoading = true;
+
+    let getMod = (username, index) => {
+      return this.UserService.fetch(username).then(user => {
+        this.$timeout(() => {
+          this.mods[index] = user;
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Error fetching moderator.');
+      });
+    };
+
+    let getAllMods = () => {
+      if (Object.keys(this.BranchService.branch).length === 0) return;
+
+      let promises = [];
+      this.$timeout(() => {
+        this.isLoading = true;
+      });
+      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+        promises.push(getMod(this.BranchService.branch.mods[i].username, i));
+      }
+      // when all mods fetched, loading finished
+      Promise.all(promises).then(() => {
+        this.$timeout(() => {
+          this.isLoading = false;
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Error fetching moderators.');
+        this.$timeout(() => {
+          this.isLoading = false;
+        });
+      });
+    };
+
+    getAllMods();
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods);
+  }
+}
+BranchNucleusModeratorsController.$inject = ['$timeout', 'UserService', 'BranchService', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
+
+/***/ }),
+/* 184 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusModtoolsController.$inject, injections);
+
+    this.isLoading = true;
+    this.modLog = [];
+
+    let getModLog = () => {
+      if (Object.keys(this.BranchService.branch).length === 0) return;
+      this.BranchService.getModLog(this.BranchService.branch.id).then(log => {
+        this.$timeout(() => {
+          this.modLog = log;
+          this.isLoading = false;
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Error fetching moderator action log.');
+        this.isLoading = false;
+      });
+    };
+
+    getModLog();
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog);
+  }
+
+  openAddModModal() {
+    this.ModalService.open('ADD_MOD', {
+      branchid: this.BranchService.branch.id
+    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
+  }
+
+  openRemoveModModal() {
+    let me;
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        me = this.BranchService.branch.mods[i];
+      }
+    }
+
+    // a list of mods to be removed
+    // can include self if other mods are present, and
+    // removeable others must be added after self
+    let removableMods = [];
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === me.username && this.BranchService.branch.mods.length > 1) {
+        removableMods.push(this.BranchService.branch.mods[i]);
+      } else if (this.BranchService.branch.mods[i].date > me.date) {
+        removableMods.push(this.BranchService.branch.mods[i]);
+      }
+    }
+
+    this.ModalService.open('REMOVE_MOD', {
+      branchid: this.BranchService.branch.id,
+      mods: removableMods
+    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
+  }
+
+  openReviewSubbranchRequestsModal() {
+    this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', {
+      branchid: this.BranchService.branch.id
+    }, 'Successfully responded to child branch request.', 'Error responding to child branch request.');
+  }
+
+  openSubmitSubbranchRequestModal() {
+    this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', {
+      branchid: this.BranchService.branch.id
+    }, 'Successfully submitted child branch request.', 'Error submitting child branch request.');
+  }
+
+  openDeleteBranchModal() {
+    this.ModalService.open('DELETE_BRANCH', {}, 'Successfully deleted branch.', 'Error deleting branch.');
+  }
+
+  openUpdateHomepageStatsModal() {
+    this.ModalService.open('UPDATE_HOMEPAGE_STATS', {}, 'Successfully updated homepage stats.', 'Error updating homepage stats.');
+  }
+
+}
+BranchNucleusModtoolsController.$inject = ['$timeout', 'BranchService', 'UserService', 'EventService', 'ModalService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
+
+/***/ }),
+/* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusController.$inject, injections);
+
+    this.tabItems = [];
+    this.tabStates = [];
+    this.tabStateParams = [];
+
+    let isModerator = () => {
+      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+        if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    let init = () => {
+      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) return;
+      if (Object.keys(this.BranchService.branch).length === 0) return;
+
+      this.tabItems = ['about', 'moderators'];
+      this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
+      this.tabStateParams = [{ branchid: this.BranchService.branch.id }, { branchid: this.BranchService.branch.id }];
+
+      if (this.UserService.isAuthenticated() && isModerator()) {
+        // add settings tab
+        if (this.tabItems.indexOf('settings') === -1) {
+          this.tabItems.push('settings');
+          this.tabStates.push('weco.branch.nucleus.settings');
+          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+        }
+        // add mod tools tab
+        if (this.tabItems.indexOf('mod tools') === -1) {
+          this.tabItems.push('mod tools');
+          this.tabStates.push('weco.branch.nucleus.modtools');
+          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+        }
+        // add flagged posts tab
+        if (this.tabItems.indexOf('flagged posts') === -1) {
+          this.tabItems.push('flagged posts');
+          this.tabStates.push('weco.branch.nucleus.flaggedposts');
+          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+        }
+      } else {
+        if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
+          this.$state.go('weco.branch.nucleus.about', { branchid: this.BranchService.branch.id }).then(init);
+        }
+      }
+    };
+
+    init();
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
+    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+  }
+
+  addHTMLLineBreaks(str) {
+    if (str) {
+      return str.split('\n').join('<br>');
+    }
+  }
+}
+BranchNucleusController.$inject = ['$timeout', '$state', 'BranchService', 'UserService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
+
+/***/ }),
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusSettingsController.$inject, injections);
+  }
+
+  openVisibleNameModal() {
+    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
+      title: 'Visible Name',
+      inputs: [{
+        placeholder: 'Visible name',
+        type: 'text',
+        fieldname: 'name'
+      }],
+      textareas: []
+    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
+  }
+
+  openRulesModal() {
+    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
+      title: 'Rules & Etiquette',
+      inputs: [],
+      textareas: [{
+        placeholder: 'Rules & Etiquette Text',
+        fieldname: 'rules',
+        value: this.BranchService.branch.rules
+      }]
+    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
+  }
+
+  openDescriptionModal() {
+    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
+      title: 'Description',
+      inputs: [],
+      textareas: [{
+        placeholder: 'Description',
+        fieldname: 'description',
+        value: this.BranchService.branch.description
+      }]
+    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
+  }
+}
+BranchNucleusSettingsController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostController.$inject, injections);
+
+    this.isLoadingPost = true;
+    this.isLoadingComments = true;
+    this.isLoadingMore = false;
+    this.previewState = 'show'; // other states: 'show', 'maximise'
+
+    this.tabItems = ['vote', 'results', 'discussion'];
+    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
+    this.tabStateParams = [{
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }, {
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }, {
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }];
+
+    let redirect = () => {
+      // post not updated yet, wait for CHANGE_POST event
+      if (this.$state.params.postid !== this.PostService.post.id) {
+        return;
+      }
+
+      // update state params for tabs
+      for (let idx in this.tabStateParams) {
+        this.tabStateParams[idx].branchid = this.PostService.post.branchid;
+        this.tabStateParams[idx].postid = this.PostService.post.id;
+      }
+
+      if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
+        this.$state.go('weco.branch.post.vote', {
+          branchid: this.PostService.post.branchid,
+          postid: this.$state.params.postid
+        }, { location: 'replace' });
+      } else {
+        this.isLoadingPost = false;
+      }
+    };
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
+    this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
+  }
+
+  shouldShowTabs() {
+    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+  }
+
+  isOwnPost() {
+    if (!this.PostService.post || !this.PostService.post.data) return false;
+    return this.UserService.user.username === this.PostService.post.data.creator;
+  }
+
+  setPreviewState(state) {
+    this.previewState = state;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open('DELETE_POST', {
+      postid: this.PostService.post.id
+    }, 'Post deleted.', 'Unable to delete post.');
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'DELETE_POST') return;
+      this.$state.go('weco.home');
+    });
+  }
+
+  getPreviewTemplate() {
+    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
+  }
+
+  showPreview() {
+    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) > -1;
+  }
+
+  getVideoEmbedUrl() {
+    let isYouTubeUrl = url => {
+      if (url && url !== '') {
+        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        let match = url.match(regExp);
+        if (match && match[2].length === 11) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
+      let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
+      if (video_id.indexOf('&') !== -1) {
+        video_id = video_id.substring(0, video_id.indexOf('&'));
+      }
+      return `//www.youtube.com/embed/${video_id}?rel=0`;
+    }
+    return '';
+  }
+}
+BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'UserService', 'BranchService', 'AppService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
+
+/***/ }),
+/* 188 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostResultsController.$inject, injections);
+
+    this.answers = [];
+    this.chart = {
+      type: 'pie',
+      data: [],
+      labels: [],
+      options: {}
+    };
+
+    this.getPollAnswers();
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
+      this.getPollAnswers();
+    });
+  }
+
+  // indicate whether the poll has been voted yet ie. do we have results to show
+  hasSomeVotes() {
+    let hasVotes = false;
+    for (let datum of this.chart.data) {
+      if (datum !== 0) hasVotes = true;
+    }
+    return hasVotes;
+  }
+
+  getPollAnswers(lastAnswerId) {
+    // fetch the poll answers
+    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
+      this.$timeout(() => {
+        this.answers = answers;
+        this.chart.labels = [];
+        this.chart.data = [];
+        for (let index in answers) {
+          this.chart.labels.push(Number(index) + 1);
+          this.chart.data.push(answers[index].votes);
+        }
+      });
+    }).catch(err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }
+    });
+  }
+
+  getAnswerColor(index) {
+    if (index > this.ChartColours.length) return '#d3d3d3';
+    return this.ChartColours[index];
+  }
+}
+BranchPostResultsController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'EventService', 'ChartColours'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
+
+/***/ }),
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostVoteController.$inject, injections);
+
+    this.answers = [];
+    this.selectedAnswerIndex = -1;
+    this.controls = {
+      sortBy: {
+        items: ['DATE POSTED', 'VOTES'],
+        selectedIndex: 0
+      }
+    };
+
+    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
+      this.getPollAnswers();
+    });
+  }
+
+  vote() {
+    let answer = this.answers[this.selectedAnswerIndex];
+    if (!answer) return;
+    this.PostService.votePollAnswer(answer.postid, answer.id).then(() => {
+      this.AlertsService.push('success', 'Your vote has been cast!');
+    }).catch(err => {
+      if (err.message) {
+        this.AlertsService.push('error', err.message);
+      } else {
+        this.AlertsService.push('error', 'Error casting your vote!');
+      }
+    });
+  }
+
+  selectAnswer(index) {
+    this.selectedAnswerIndex = index;
+  }
+
+  getPollAnswers(lastAnswerId) {
+    this.selectedAnswerIndex = -1;
+    let sortBy;
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
+      case 'DATE':
+        sortBy = 'date';
+        break;
+      case 'VOTES':
+        sortBy = 'votes';
+        break;
+      default:
+        sortBy = 'date';
+        break;
+    }
+
+    // fetch the poll answers
+    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => {
+      this.$timeout(() => {
+        // if lastAnswerId was specified we are fetching _more_ answers, so append them
+        if (lastAnswerId) {
+          this.answers = this.answers.concat(answers);
+        } else {
+          this.answers = answers;
+        }
+      });
+    }).catch(err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }
+    });
+  }
+
+  canSubmitNewAnswer() {
+    if (this.PostService.post.locked) {
+      if (this.PostService.post.data.creator === this.UserService.user.username) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  openSubmitPollAnswerModal() {
+    this.ModalService.open('SUBMIT_POLL_ANSWER', {
+      postid: this.PostService.post.id
+    }, 'Answer submitted.', 'Unable to submit answer.');
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'SUBMIT_POLL_ANSWER') return;
+      this.$state.go('weco.branch.post.vote', { reload: true });
+    });
+  }
+}
+BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
+
+/***/ }),
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchSubbranchesController.$inject, injections);
+
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.branches = [];
+    this.controls = {
+      timeRange: {
+        selectedIndex: 0,
+        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
+      },
+      sortBy: {
+        selectedIndex: 0,
+        items: ['TOTAL POINTS', '# OF POSTS', '# OF COMMENTS', 'DATE CREATED']
+      }
+    };
+
+    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, () => {
+      init();
+    });
+    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
+      init();
+    });
+
+    let init = () => {
+      if (this.$state.current.name.indexOf('weco.branch.subbranches') === -1) return;
+      if (Object.keys(this.BranchService.branch).length === 0) return;
+
+      this.getSubbranches();
+    };
+
+    init();
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'BranchSubbranchesScrollToBottom') return;
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if (this.branches.length > 0) {
+          this.getSubbranches(this.branches[this.branches.length - 1].id);
+        }
+      }
+    });
+  }
+
+  // compute the appropriate timeafter for the selected time filter
+  getTimeafter(timeItem) {
+    let timeafter;
+    let date = new Date();
+    switch (timeItem) {
+      case 'ALL TIME':
+        timeafter = 0;
+        break;
+      case 'PAST YEAR':
+        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
+        break;
+      case 'PAST MONTH':
+        timeafter = new Date().setMonth(new Date().getMonth() - 1);
+        break;
+      case 'PAST WEEK':
+        timeafter = new Date().setDate(new Date().getDate() - 7);
+        break;
+      case 'PAST 24 HRS':
+        timeafter = new Date().setDate(new Date().getDate() - 1);
+        break;
+      case 'PAST HOUR':
+        timeafter = new Date().setHours(new Date().getHours() - 1);
+        break;
+      default:
+        timeafter = 0;
+        break;
+    }
+    return timeafter;
+  }
+
+  getSubbranches(lastBranchId) {
+    this.isLoading = true;
+
+    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
+    let sortBy;
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
+      case 'TOTAL POINTS':
+        sortBy = 'post_points';
+        break;
+      case 'DATE CREATED':
+        sortBy = 'date';
+        break;
+      case '# OF POSTS':
+        sortBy = 'post_count';
+        break;
+      case '# OF COMMENTS':
+        sortBy = 'post_comments';
+        break;
+      default:
+        sortBy = 'date';
+        break;
+    }
+
+    // fetch the subbranches for this branch and timefilter
+    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
+      this.$timeout(() => {
+        // if lastBranchId was specified we are fetching _more_ branches, so append them
+        if (lastBranchId) {
+          this.branches = this.branches.concat(branches);
+        } else {
+          this.branches = branches;
+        }
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(() => {
+      this.AlertsService.push('error', 'Error fetching branches.');
+      this.$timeout(() => {
+        this.isLoading = false;
+      });
+    });
+  }
+}
+BranchSubbranchesController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
+
+/***/ }),
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(WallService.$inject, injections);
+
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.posts = [];
+    this.flaggedOnly = false;
+    this.controls = {
+      timeRange: {
+        selectedIndex: 0,
+        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
+      },
+      sortBy: {
+        selectedIndex: 2,
+        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
+      },
+      postType: {
+        selectedIndex: 0,
+        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+      },
+      statType: {
+        selectedIndex: 0,
+        items: ['GLOBAL', 'LOCAL', 'BRANCH']
+      }
+    };
+
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'WallScrollToBottom') return;
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if (this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
+      }
+    });
+  }
+
+  init(allowedState, flaggedOnly) {
+    if (this.$state.current.name.indexOf(allowedState) === -1) return;
+    if (Object.keys(this.BranchService.branch).length === 0) return;
+
+    this.flaggedOnly = !!flaggedOnly;
+    if (this.flaggedOnly) this.controls.sortBy.selectedIndex = 2;
+    this.getPosts();
+  }
+
+  // compute the appropriate timeafter for the selected time filter
+  getTimeafter(timeItem) {
+    let timeafter;
+    let date = new Date();
+    switch (timeItem) {
+      case 'ALL TIME':
+        timeafter = 0;
+        break;
+      case 'PAST YEAR':
+        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
+        break;
+      case 'PAST MONTH':
+        timeafter = new Date().setMonth(new Date().getMonth() - 1);
+        break;
+      case 'PAST WEEK':
+        timeafter = new Date().setDate(new Date().getDate() - 7);
+        break;
+      case 'PAST 24 HRS':
+        timeafter = new Date().setDate(new Date().getDate() - 1);
+        break;
+      case 'PAST HOUR':
+        timeafter = new Date().setHours(new Date().getHours() - 1);
+        break;
+      default:
+        timeafter = 0;
+        break;
+    }
+    return timeafter;
+  }
+
+  getStatType() {
+    let statType;
+    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
+      case 'GLOBAL':
+        statType = 'global';
+        break;
+      case 'LOCAL':
+        statType = 'local';
+        break;
+      case 'BRANCH':
+        statType = 'individual';
+        break;
+      default:
+        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        break;
+    }
+    return statType;
+  }
+
+  getPosts(lastPostId) {
+    this.isLoading = true;
+    // compute the appropriate timeafter for the selected time filter
+    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
+    let sortBy;
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
+      case 'TOTAL POINTS':
+        sortBy = 'points';
+        break;
+      case 'DATE POSTED':
+        sortBy = 'date';
+        break;
+      case '# OF COMMENTS':
+        sortBy = 'comment_count';
+        break;
+      default:
+        sortBy = 'points';
+        break;
+    }
+
+    let postType;
+    switch (this.controls.postType.items[this.controls.postType.selectedIndex]) {
+      case 'IMAGES':
+        postType = 'image';
+        break;
+      case 'VIDEOS':
+        postType = 'video';
+        break;
+      case 'PAGES':
+        postType = 'page';
+        break;
+      case 'POLLS':
+        postType = 'poll';
+        break;
+      default:
+        postType = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
+        break;
+    }
+
+    let statType = this.getStatType();
+
+    // fetch the posts for this branch and timefilter
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
+      this.$timeout(() => {
+        // if lastPostId was specified we are fetching _more_ posts, so append them
+        if (lastPostId) {
+          this.posts = this.posts.concat(posts);
+        } else {
+          this.posts = posts;
+        }
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(() => {
+      this.AlertsService.push('error', 'Error fetching posts.');
+      this.isLoading = false;
+    });
+  }
+}
+WallService.$inject = ['$state', '$rootScope', '$timeout', 'BranchService', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (WallService);
+
+/***/ }),
+/* 192 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchWallController.$inject, injections);
+
+    this.WallService.init('weco.branch.wall');
+    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
+      this.WallService.init('weco.branch.wall');
+    });
+    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
+      this.WallService.init('weco.branch.wall');
+    });
+    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
+      this.WallService.init('weco.branch.wall');
+    });
+    this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, () => {
+      this.WallService.init('weco.branch.wall');
+    });
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.WallService.init('weco.branch.wall');
+    });
+  }
+
+  // return the correct ui-sref string for when the specified post is clicked
+  getLink(post) {
+    if (post.type === 'text' || post.type === 'poll') {
+      return this.$state.href('weco.branch.post', { postid: post.id });
+    }
+    return post.text;
+  }
+}
+BranchWallController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
+
+/***/ }),
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(HomeController.$inject, injections);
+
+    this.stats = {
+      donation_total: '...',
+      raised_total: '...',
+      user_count: '...',
+      branch_count: '...'
+    };
+
+    for (let stat of Object.keys(this.stats)) {
+      this.API.fetch('/constant/:stat', {
+        stat: stat
+      }).then(response => {
+        this.stats[stat] = response.data.data;
+      }).catch(err => {
+        this.AlertsService.push('error', 'Having trouble connecting...');
+      }).then(this.$timeout);
+    }
+  }
+  getHomepageImageURL() {
+    if (this.ENV.name === 'production') {
+      return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
+    } else {
+      return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
+    }
+  }
+}
+HomeController.$inject = ['API', 'ENV', '$timeout', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (HomeController);
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__ = __webpack_require__(4);
+
+
+
+class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileNotificationsController.$inject, injections);
+
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */];
+    this.notifications = [];
+
+    let init = () => {
+      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
+
+      this.getNotifications();
+    };
+
+    init();
+    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'NotificationsScrollToBottom') return;
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if (this.notifications.length > 0) this.getNotifications(this.notifications[this.notifications.length - 1].id);
+      }
+    });
+  }
+
+  getNotificationImageType(notification) {
+    switch (notification.type) {
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].NEW_CHILD_BRANCH_REQUEST:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].CHILD_BRANCH_REQUEST_ANSWERED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].BRANCH_MOVED:
+        return 'branch';
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].MODERATOR:
+        return 'moderator';
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].COMMENT:
+        return 'comment';
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_FLAGGED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_REMOVED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_TYPE_CHANGED:
+        return 'flagged';
+      default:
+        return 'user';
+    }
+  }
+
+  getNotifications(lastNotificationId) {
+    this.isLoading = true;
+
+    this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
+      this.$timeout(() => {
+        if (lastNotificationId) {
+          this.notifications = this.notifications.concat(notifications);
+        } else {
+          this.notifications = notifications;
+        }
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(() => {
+      this.AlertsService.push('error', 'Unable to fetch notifications.');
+    });
+  }
+
+  setUnread(notification, unread) {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, unread).then(() => {
+      this.$timeout(() => {
+        notification.unread = unread;
+      });
+    }).catch(err => {
+      this.AlertsService.push('error', 'Unable to mark notification.');
+    });
+  }
+}
+ProfileNotificationsController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
+
+/***/ }),
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileController.$inject, injections);
+
+    this.showCover = true;
+    this.isLoading = false;
+    this.tabItems = ['about'];
+    this.tabStates = ['weco.profile.about'];
+    this.profileUser = {};
+
+    let loadOtherUser = () => {
+      // ensure we are in the 'about' state
+      if (this.$state.current.name !== 'weco.profile.about') {
+        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
+      } else {
+        this.isLoading = true;
+        this.UserService.fetch(this.$state.params.username).then(user => {
+          this.profileUser = user;
+          this.isLoading = false;
+        }).catch(err => {
+          if (err.status === 404) {
+            return this.$state.go('weco.notfound');
+          } else {
+            this.AlertsService.push('error', 'Unable to fetch user.');
+            this.$state.go('weco.home');
+          }
+          this.isLoading = false;
+        }).then(this.$timeout);
+      }
+    };
+
+    let init = () => {
+      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(() => {
+          this.profileUser = this.UserService.user;
+          if (this.UserService.user.username === this.$state.params.username) {
+            if (this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
+              this.tabItems.push('settings');
+              this.tabStates.push('weco.profile.settings');
+            }
+            if (this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
+              this.tabItems.push('notifications');
+              this.tabStates.push('weco.profile.notifications');
+            }
+          }
+        });
+      } else {
+        loadOtherUser();
+      }
+    };
+
+    init();
+    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+  }
+
+  openProfilePictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'picture'
+    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
+  }
+
+  openCoverPictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'cover'
+    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
+  }
+}
+ProfileController.$inject = ['$timeout', '$state', 'UserService', 'ModalService', 'AlertsService', 'EventService', 'AppService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
+
+/***/ }),
+/* 196 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileSettingsController.$inject, injections);
+  }
+
+  openNameModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Name',
+      inputs: [{
+        placeholder: 'First name',
+        type: 'text',
+        fieldname: 'firstname'
+      }, {
+        placeholder: 'Last name',
+        type: 'text',
+        fieldname: 'lastname'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  openEmailModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Email',
+      inputs: [{
+        placeholder: 'Email',
+        type: 'email',
+        fieldname: 'email'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  openDOBModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Date of Birth',
+      inputs: [{
+        placeholder: 'Date of Birth',
+        type: 'date',
+        fieldname: 'dob'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  updateNSFW() {
+    this.UserService.update({
+      show_nsfw: this.UserService.user.show_nsfw
+    }).then(() => {
+      this.AlertsService.push('success', 'Successfully updated profile settings!');
+    }).catch(() => {
+      this.AlertsService.push('error', 'Unable to update profile settings.');
+    });
+  }
+}
+ProfileSettingsController.$inject = ['$state', 'ModalService', 'AlertsService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
@@ -26614,7 +28227,7 @@ API.$inject = ['$http', 'ENV'];
 /* harmony default export */ __webpack_exports__["a"] = (API);
 
 /***/ }),
-/* 177 */
+/* 198 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26826,7 +28439,7 @@ BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModS
 /* harmony default export */ __webpack_exports__["a"] = (BranchService);
 
 /***/ }),
-/* 178 */
+/* 199 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26921,7 +28534,7 @@ CommentService.$inject = ['API'];
 /* harmony default export */ __webpack_exports__["a"] = (CommentService);
 
 /***/ }),
-/* 179 */
+/* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26970,7 +28583,7 @@ EventService.$inject = ['$rootScope', '$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (EventService);
 
 /***/ }),
-/* 180 */
+/* 201 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27024,7 +28637,7 @@ ModService.$inject = ['API'];
 /* harmony default export */ __webpack_exports__["a"] = (ModService);
 
 /***/ }),
-/* 181 */
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27184,7 +28797,7 @@ PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventServi
 /* harmony default export */ __webpack_exports__["a"] = (PostService);
 
 /***/ }),
-/* 182 */
+/* 203 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27248,7 +28861,7 @@ UploadService.$inject = ['API', 'Upload'];
 /* harmony default export */ __webpack_exports__["a"] = (UploadService);
 
 /***/ }),
-/* 183 */
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27269,6 +28882,62 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     });
   }
 
+  fetch(username) {
+    return new Promise((resolve, reject) => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        try {
+          // fetch the user
+          let res = yield this.API.fetch('/user/:username', { username });
+          let user = res.data;
+
+          try {
+            // attach urls for the user's profile and cover pictures (inc. thumbnails)
+            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture' });
+            user.profileUrl = res.data;
+          } catch (err) {/* It's okay if we don't have any photos */}
+          try {
+            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture-thumb' });
+            user.profileUrlThumb = res.data;
+          } catch (err) {/* It's okay if we don't have any photos */}
+          try {
+            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover' });
+            user.coverUrl = res.data;
+          } catch (err) {/* It's okay if we don't have any photos */}
+          try {
+            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover-thumb' });
+            user.coverUrlThumb = res.data;
+          } catch (err) {} /* It's okay if we don't have any photos */
+
+          // attach user's followed branches
+          res = yield this.API.fetch('/user/:username/branches/followed', { username });
+          user.followed_branches = res.data;
+
+          return resolve(user);
+        } catch (err) {
+          return reject(err.data || err);
+        }
+      }, this);
+    });
+  }
+
+  followBranch(username, branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+
+  getNotifications(username, unreadCount, lastNotificationId) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId }).then(res => {
+        return resolve(res.data);
+      }).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+
   isAuthenticated() {
     return !!this.user && Object.keys(this.user).length > 0;
   }
@@ -27279,11 +28948,12 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         try {
           yield this.API.request('POST', '/user/login', {}, credentials, true);
           let user = yield this.fetch('me');
+          console.log(user);
           this.user = user;
           this.EventService.emit(this.EventService.events.CHANGE_USER);
-          resolve();
-        } catch (response) {
-          return reject(response.data || response);
+          return resolve();
+        } catch (err) {
+          return reject(err.data || err);
         }
       }, this);
     });
@@ -27294,40 +28964,17 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
       this.API.request('GET', '/user/logout', {}).then(() => {
         this.user = {};
         this.EventService.emit(this.EventService.events.CHANGE_USER);
-        resolve();
-      }).catch(response => {
-        reject(response);
+        return resolve();
+      }).catch(err => {
+        return reject(err);
       });
     });
   }
 
-  signup(credentials) {
+  markNotification(username, notificationid, unread) {
     return new Promise((resolve, reject) => {
-      this.API.request('POST', '/user', {}, credentials).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  // verify user account
-  verify(username, token) {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/verify/:token', {
-        username: username,
-        token: token
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  // resend the user verification email
-  resendVerification(username) {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/reverify', {
-        username: username
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
@@ -27335,10 +28982,8 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   // send a reset password link to the users inbox
   requestResetPassword(username) {
     return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/reset-password', {
-        username: username
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.request('GET', '/user/:username/reset-password', { username }).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
@@ -27346,104 +28991,34 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   // send a reset password link to the users inbox
   resetPassword(username, password, token) {
     return new Promise((resolve, reject) => {
-      this.API.request('POST', '/user/:username/reset-password/:token', {
-        username: username,
-        token: token
-      }, {
-        password: password
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.request('POST', '/user/:username/reset-password/:token', { username, token }, { password }).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
 
-  followBranch(username, branchid) {
+  // resend the user verification email
+  resendVerification(username) {
     return new Promise((resolve, reject) => {
-      this.API.save('/user/:username/branches/followed', {
-        username: username
-      }, {
-        branchid: branchid
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.request('GET', '/user/:username/reverify', { username }).then(resolve).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+
+  signup(credentials) {
+    return new Promise((resolve, reject) => {
+      this.API.request('POST', '/user', {}, credentials).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
 
   unfollowBranch(username, branchid) {
     return new Promise((resolve, reject) => {
-      this.API.delete('/user/:username/branches/followed', {
-        username: username
-      }, {
-        branchid: branchid
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
-    });
-  }
-
-  getNotifications(username, unreadCount, lastNotificationId) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username/notifications', {
-        username: username
-      }, {
-        unreadCount: unreadCount,
-        lastNotificationId: lastNotificationId
-      }).then(response => {
-        return resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  markNotification(username, notificationid, unread) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/user/:username/notifications/:notificationid', {
-        username: username,
-        notificationid: notificationid
-      }, {
-        unread: unread
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  fetch(username) {
-    return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          // fetch the user
-          let response = yield this.API.fetch('/user/:username', { username: username });
-          let user = response.data;
-
-          try {
-            // attach urls for the user's profile and cover pictures (inc. thumbnails)
-            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'picture' });
-            user.profileUrl = response.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-          try {
-            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'picture-thumb' });
-            user.profileUrlThumb = response.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-          try {
-            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'cover' });
-            user.coverUrl = response.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-          try {
-            response = yield this.API.fetch('/user/:username/:picture', { username: username, picture: 'cover-thumb' });
-            user.coverUrlThumb = response.data;
-          } catch (err) {} /* It's okay if we don't have any photos */
-
-          // attach user's followed branches
-          response = yield this.API.fetch('/user/:username/branches/followed', { username: username });
-          user.followed_branches = response.data;
-
-          return resolve(user);
-        } catch (response) {
-          return reject(response.data || response);
-        }
-      }, this);
     });
   }
 
@@ -27457,1629 +29032,26 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
           this.user = yield this.fetch('me');
           this.EventService.emit(this.EventService.events.CHANGE_USER);
           return resolve();
-        } catch (response) {
-          return reject(response.data || response);
+        } catch (err) {
+          return reject(err.data || err);
         }
       }, this);
     });
   }
+
+  // verify user account
+  verify(username, token) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/verify/:token', { username, token }).then(resolve).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
 }
-UserService.$inject = ['API', 'ENV', '$timeout', 'EventService'];
+
+UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UserService);
-
-/***/ }),
-/* 184 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* Template file from which env.config.js is generated */
-let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (ENV);
-
-/***/ }),
-/* 185 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AuthController.$inject, injections);
-
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-    this.credentials = {};
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.loopAnimation = false;
-    this.showResendVerification = false;
-  }
-
-  getAnimationSrc() {
-    return this.animationSrc;
-  }
-
-  isLoginForm() {
-    return 'auth.login' === this.$state.current.name;
-  }
-
-  login() {
-    this.UserService.login(this.credentials).then(() => {
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('weco.home');
-    }).catch(res => {
-      this.errorMessage = res.message;
-      this.isLoading = false;
-      this.loopAnimation = false;
-
-      // Possibly unverified account
-      if (res.status === 403) {
-        this.showResendVerification = true;
-      }
-    });
-  }
-
-  resendVerification() {
-    this.isLoading = true;
-
-    this.UserService.resendVerification(this.credentials.username).then(() => {
-      this.resendVerificationDone(true);
-    }).catch(() => {
-      this.resendVerificationDone(false);
-    });
-  }
-
-  resendVerificationDone(success) {
-    const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
-    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.showResendVerification = false;
-  }
-
-  signup() {
-    if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.errorMessage = 'Inconsistent password!';
-      this.isLoading = false;
-      this.loopAnimation = false;
-      return;
-    }
-
-    this.UserService.signup(this.credentials).then(() => {
-      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('weco.home');
-    }).catch(res => {
-      this.errorMessage = res.message;
-      this.isLoading = false;
-      this.loopAnimation = false;
-    });
-  }
-
-  submit() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
-    this.credentials.username = this.credentials.username.toLowerCase();
-
-    if (this.isLoginForm()) {
-      this.login();
-    } else {
-      this.signup();
-    }
-  }
-
-  triggerAnimation() {
-    if (this.animationSrc) {
-      this.$timeout(() => {
-        this.animationSrc = '';
-      });
-    }
-
-    // set animation src to the animated gif
-    this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation-large.gif';
-    });
-
-    // cancel after 1 sec
-    this.$timeout(() => {
-      this.animationSrc = '';
-
-      if (this.loopAnimation) {
-        this.triggerAnimation();
-      }
-    }, 1000);
-  }
-}
-
-AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AuthController);
-
-/***/ }),
-/* 186 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ResetPasswordController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ResetPasswordController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.loopAnimation = false;
-    this.credentials = {};
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-  }
-
-  resetPassword() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
-
-    if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.AlertsService.push('error', 'The two passwords are different.');
-      this.isLoading = false;
-      this.loopAnimation = false;
-      return;
-    }
-
-    this.UserService.resetPassword(this.$state.params.username, this.credentials.password, this.$state.params.token).then(() => {
-      this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('auth.login');
-    }).catch(response => {
-      this.$timeout(() => {
-        this.errorMessage = response.message;
-        this.isLoading = false;
-        this.loopAnimation = false;
-      });
-    });
-  }
-
-  sendLink() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
-
-    this.UserService.requestResetPassword(this.credentials.username).then(() => {
-      this.$state.go('weco.home');
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
-    }).catch(response => {
-      this.isLoading = false;
-      this.errorMessage = response.message;
-      this.loopAnimation = false;
-    });
-  }
-
-  triggerAnimation() {
-    if (this.animationSrc !== '') {
-      this.$timeout(() => {
-        this.animationSrc = '';
-      });
-    }
-    // set animation src to the animated gif
-    this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation-large.gif';
-    });
-    // cancel after 1 sec
-    this.$timeout(() => {
-      this.animationSrc = '';
-      if (this.loopAnimation) this.triggerAnimation();
-    }, 1000);
-  }
-}
-ResetPasswordController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ResetPasswordController);
-
-/***/ }),
-/* 187 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(VerifyController.$inject, injections);
-
-    this.message = 'Verifying your account';
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-
-    this.$interval(() => {
-      if (this.animationSrc !== '') {
-        this.$timeout(() => {
-          this.animationSrc = '';
-        });
-      }
-      // set animation src to the animated gif
-      this.$timeout(() => {
-        this.animationSrc = '/assets/images/logo-animation-large.gif';
-      });
-
-      if (this.message.indexOf('...') > -1) {
-        this.message = 'Verifying your account.';
-      } else {
-        this.message += '.';
-      }
-    }, 1000);
-
-    this.$timeout(() => {
-      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(() => {
-        this.$state.go('auth.login');
-        this.AlertsService.push('success', 'Account verified! You can now login.', true);
-      }).catch(err => {
-        this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
-        this.$state.go('auth.signup');
-      });
-    }, 3000);
-  }
-}
-VerifyController.$inject = ['$state', '$interval', '$timeout', 'UserService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (VerifyController);
-
-/***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchController.$inject, injections);
-
-    this.showCover = false;
-    this.isLoading = Object.keys(this.BranchService.branch).length === 0 ? true : false;
-
-    // update the view when the branch changes
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
-      this.$timeout(() => {
-        this.isLoading = false;
-      });
-    });
-  }
-
-  isControlSelected(control) {
-    return this.$state.current.name.indexOf(control) > -1;
-  }
-
-  openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'branch/' + this.BranchService.branch.id + '/',
-      type: 'picture'
-    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
-  }
-
-  openCoverPictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'branch/' + this.BranchService.branch.id + '/',
-      type: 'cover'
-    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
-  }
-
-  isModerator() {
-    if (!this.BranchService.branch.mods) {
-      return false;
-    }
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // dynamic tooltip text for add content button, whose behaviour
-  // is dependent on the current state
-  getAddContentTooltip() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        return 'Create New Branch';
-      case 'weco.branch.wall':
-        return 'Add New Post';
-      case 'weco.branch.post':
-        return 'Write a Comment';
-      default:
-        return '';
-    }
-  }
-
-  // returns boolean indicating whether the add content behaviour has any defined
-  // behaviour in the current state
-  canAddContent() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-      case 'weco.branch.wall':
-      case 'weco.branch.post':
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  addContent() {
-    let modalName, successMessage, errorMessage;
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        modalName = 'CREATE_BRANCH';
-        successMessage = 'Successfully created new branch!';
-        errorMessage = 'Error creating new branch.';
-        break;
-      case 'weco.branch.wall':
-        modalName = 'CREATE_POST';
-        successMessage = 'Successfully created post!';
-        errorMessage = 'Error creating post.';
-        break;
-      // case 'weco.branch.post':
-      //   // broadcast add comment clicked so that the comment section is scrolled
-      //   // to the top, where the comment box is visible
-      //   $rootScope.$broadcast('add-comment');
-    }
-    if (!!modalName) {
-      this.ModalService.open(modalName, {
-        branchid: this.BranchService.branch.id
-      }, successMessage, errorMessage);
-    }
-  }
-}
-BranchController.$inject = ['$timeout', '$state', 'ModalService', 'UserService', 'BranchService', 'EventService', 'AppService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchController);
-
-/***/ }),
-/* 189 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusAboutController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusAboutController.$inject, injections);
-  }
-
-  isFollowingBranch() {
-    if (this.UserService.isAuthenticated()) {
-      return this.UserService.user.followed_branches.indexOf(this.BranchService.branch.id) > -1;
-    } else {
-      return false;
-    }
-  }
-
-  toggleFollowBranch() {
-    let toggle, successMessage, errorMessage;
-    if (this.isFollowingBranch()) {
-      toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-      successMessage = 'You\'re no longer following this branch!';
-      errorMessage = 'Error unfollowing branch.';
-    } else {
-      toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-      successMessage = 'You\'re now following this branch!';
-      errorMessage = 'Error following branch.';
-    }
-
-    toggle.then(() => {
-      this.AlertsService.push('success', successMessage);
-    }).catch(() => {
-      this.AlertsService.push('error', errorMessage);
-    });
-  }
-}
-BranchNucleusAboutController.$inject = ['$timeout', 'UserService', 'BranchService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusAboutController);
-
-/***/ }),
-/* 190 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusFlaggedPostsController.$inject, injections);
-
-    this.WallService.init('weco.branch.nucleus', true);
-    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-  }
-}
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', 'WallService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
-
-/***/ }),
-/* 191 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusModeratorsController.$inject, injections);
-
-    this.mods = [];
-    this.isLoading = true;
-
-    let getMod = (username, index) => {
-      return this.UserService.fetch(username).then(user => {
-        this.$timeout(() => {
-          this.mods[index] = user;
-        });
-      }).catch(() => {
-        this.AlertsService.push('error', 'Error fetching moderator.');
-      });
-    };
-
-    let getAllMods = () => {
-      if (Object.keys(this.BranchService.branch).length === 0) return;
-
-      let promises = [];
-      this.$timeout(() => {
-        this.isLoading = true;
-      });
-      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-        promises.push(getMod(this.BranchService.branch.mods[i].username, i));
-      }
-      // when all mods fetched, loading finished
-      Promise.all(promises).then(() => {
-        this.$timeout(() => {
-          this.isLoading = false;
-        });
-      }).catch(() => {
-        this.AlertsService.push('error', 'Error fetching moderators.');
-        this.$timeout(() => {
-          this.isLoading = false;
-        });
-      });
-    };
-
-    getAllMods();
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods);
-  }
-}
-BranchNucleusModeratorsController.$inject = ['$timeout', 'UserService', 'BranchService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
-
-/***/ }),
-/* 192 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusModtoolsController.$inject, injections);
-
-    this.isLoading = true;
-    this.modLog = [];
-
-    let getModLog = () => {
-      if (Object.keys(this.BranchService.branch).length === 0) return;
-      this.BranchService.getModLog(this.BranchService.branch.id).then(log => {
-        this.$timeout(() => {
-          this.modLog = log;
-          this.isLoading = false;
-        });
-      }).catch(() => {
-        this.AlertsService.push('error', 'Error fetching moderator action log.');
-        this.isLoading = false;
-      });
-    };
-
-    getModLog();
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog);
-  }
-
-  openAddModModal() {
-    this.ModalService.open('ADD_MOD', {
-      branchid: this.BranchService.branch.id
-    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
-  }
-
-  openRemoveModModal() {
-    let me;
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        me = this.BranchService.branch.mods[i];
-      }
-    }
-
-    // a list of mods to be removed
-    // can include self if other mods are present, and
-    // removeable others must be added after self
-    let removableMods = [];
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === me.username && this.BranchService.branch.mods.length > 1) {
-        removableMods.push(this.BranchService.branch.mods[i]);
-      } else if (this.BranchService.branch.mods[i].date > me.date) {
-        removableMods.push(this.BranchService.branch.mods[i]);
-      }
-    }
-
-    this.ModalService.open('REMOVE_MOD', {
-      branchid: this.BranchService.branch.id,
-      mods: removableMods
-    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
-  }
-
-  openReviewSubbranchRequestsModal() {
-    this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', {
-      branchid: this.BranchService.branch.id
-    }, 'Successfully responded to child branch request.', 'Error responding to child branch request.');
-  }
-
-  openSubmitSubbranchRequestModal() {
-    this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', {
-      branchid: this.BranchService.branch.id
-    }, 'Successfully submitted child branch request.', 'Error submitting child branch request.');
-  }
-
-  openDeleteBranchModal() {
-    this.ModalService.open('DELETE_BRANCH', {}, 'Successfully deleted branch.', 'Error deleting branch.');
-  }
-
-  openUpdateHomepageStatsModal() {
-    this.ModalService.open('UPDATE_HOMEPAGE_STATS', {}, 'Successfully updated homepage stats.', 'Error updating homepage stats.');
-  }
-
-}
-BranchNucleusModtoolsController.$inject = ['$timeout', 'BranchService', 'UserService', 'EventService', 'ModalService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
-
-/***/ }),
-/* 193 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusController.$inject, injections);
-
-    this.tabItems = [];
-    this.tabStates = [];
-    this.tabStateParams = [];
-
-    let isModerator = () => {
-      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-        if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) return;
-      if (Object.keys(this.BranchService.branch).length === 0) return;
-
-      this.tabItems = ['about', 'moderators'];
-      this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{ branchid: this.BranchService.branch.id }, { branchid: this.BranchService.branch.id }];
-
-      if (this.UserService.isAuthenticated() && isModerator()) {
-        // add settings tab
-        if (this.tabItems.indexOf('settings') === -1) {
-          this.tabItems.push('settings');
-          this.tabStates.push('weco.branch.nucleus.settings');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
-        }
-        // add mod tools tab
-        if (this.tabItems.indexOf('mod tools') === -1) {
-          this.tabItems.push('mod tools');
-          this.tabStates.push('weco.branch.nucleus.modtools');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
-        }
-        // add flagged posts tab
-        if (this.tabItems.indexOf('flagged posts') === -1) {
-          this.tabItems.push('flagged posts');
-          this.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
-        }
-      } else {
-        if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          this.$state.go('weco.branch.nucleus.about', { branchid: this.BranchService.branch.id }).then(init);
-        }
-      }
-    };
-
-    init();
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
-  }
-
-  addHTMLLineBreaks(str) {
-    if (str) {
-      return str.split('\n').join('<br>');
-    }
-  }
-}
-BranchNucleusController.$inject = ['$timeout', '$state', 'BranchService', 'UserService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
-
-/***/ }),
-/* 194 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusSettingsController.$inject, injections);
-  }
-
-  openVisibleNameModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Visible Name',
-      inputs: [{
-        placeholder: 'Visible name',
-        type: 'text',
-        fieldname: 'name'
-      }],
-      textareas: []
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
-
-  openRulesModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Rules & Etiquette',
-      inputs: [],
-      textareas: [{
-        placeholder: 'Rules & Etiquette Text',
-        fieldname: 'rules',
-        value: this.BranchService.branch.rules
-      }]
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
-
-  openDescriptionModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Description',
-      inputs: [],
-      textareas: [{
-        placeholder: 'Description',
-        fieldname: 'description',
-        value: this.BranchService.branch.description
-      }]
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
-}
-BranchNucleusSettingsController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
-
-/***/ }),
-/* 195 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostController.$inject, injections);
-
-    this.isLoadingPost = true;
-    this.isLoadingComments = true;
-    this.isLoadingMore = false;
-    this.previewState = 'show'; // other states: 'show', 'maximise'
-
-    this.tabItems = ['vote', 'results', 'discussion'];
-    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
-    this.tabStateParams = [{
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }];
-
-    let redirect = () => {
-      // post not updated yet, wait for CHANGE_POST event
-      if (this.$state.params.postid !== this.PostService.post.id) {
-        return;
-      }
-
-      // update state params for tabs
-      for (let idx in this.tabStateParams) {
-        this.tabStateParams[idx].branchid = this.PostService.post.branchid;
-        this.tabStateParams[idx].postid = this.PostService.post.id;
-      }
-
-      if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-        this.$state.go('weco.branch.post.vote', {
-          branchid: this.PostService.post.branchid,
-          postid: this.$state.params.postid
-        }, { location: 'replace' });
-      } else {
-        this.isLoadingPost = false;
-      }
-    };
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
-    this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
-  }
-
-  shouldShowTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
-  }
-
-  isOwnPost() {
-    if (!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  setPreviewState(state) {
-    this.previewState = state;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', {
-      postid: this.PostService.post.id
-    }, 'Post deleted.', 'Unable to delete post.');
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_POST') return;
-      this.$state.go('weco.home');
-    });
-  }
-
-  getPreviewTemplate() {
-    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
-  }
-
-  showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) > -1;
-  }
-
-  getVideoEmbedUrl() {
-    let isYouTubeUrl = url => {
-      if (url && url !== '') {
-        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        let match = url.match(regExp);
-        if (match && match[2].length === 11) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
-      let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
-      if (video_id.indexOf('&') !== -1) {
-        video_id = video_id.substring(0, video_id.indexOf('&'));
-      }
-      return `//www.youtube.com/embed/${video_id}?rel=0`;
-    }
-    return '';
-  }
-}
-BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'UserService', 'BranchService', 'AppService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
-
-/***/ }),
-/* 196 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostResultsController.$inject, injections);
-
-    this.answers = [];
-    this.chart = {
-      type: 'pie',
-      data: [],
-      labels: [],
-      options: {}
-    };
-
-    this.getPollAnswers();
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
-      this.getPollAnswers();
-    });
-  }
-
-  // indicate whether the poll has been voted yet ie. do we have results to show
-  hasSomeVotes() {
-    let hasVotes = false;
-    for (let datum of this.chart.data) {
-      if (datum !== 0) hasVotes = true;
-    }
-    return hasVotes;
-  }
-
-  getPollAnswers(lastAnswerId) {
-    // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
-      this.$timeout(() => {
-        this.answers = answers;
-        this.chart.labels = [];
-        this.chart.data = [];
-        for (let index in answers) {
-          this.chart.labels.push(Number(index) + 1);
-          this.chart.data.push(answers[index].votes);
-        }
-      });
-    }).catch(err => {
-      if (err.status !== 404) {
-        this.AlertsService.push('error', 'Error fetching poll answers.');
-      }
-    });
-  }
-
-  getAnswerColor(index) {
-    if (index > this.ChartColours.length) return '#d3d3d3';
-    return this.ChartColours[index];
-  }
-}
-BranchPostResultsController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'EventService', 'ChartColours'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
-
-/***/ }),
-/* 197 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostVoteController.$inject, injections);
-
-    this.answers = [];
-    this.selectedAnswerIndex = -1;
-    this.controls = {
-      sortBy: {
-        items: ['DATE POSTED', 'VOTES'],
-        selectedIndex: 0
-      }
-    };
-
-    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      this.getPollAnswers();
-    });
-  }
-
-  vote() {
-    let answer = this.answers[this.selectedAnswerIndex];
-    if (!answer) return;
-    this.PostService.votePollAnswer(answer.postid, answer.id).then(() => {
-      this.AlertsService.push('success', 'Your vote has been cast!');
-    }).catch(err => {
-      if (err.message) {
-        this.AlertsService.push('error', err.message);
-      } else {
-        this.AlertsService.push('error', 'Error casting your vote!');
-      }
-    });
-  }
-
-  selectAnswer(index) {
-    this.selectedAnswerIndex = index;
-  }
-
-  getPollAnswers(lastAnswerId) {
-    this.selectedAnswerIndex = -1;
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'DATE':
-        sortBy = 'date';
-        break;
-      case 'VOTES':
-        sortBy = 'votes';
-        break;
-      default:
-        sortBy = 'date';
-        break;
-    }
-
-    // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => {
-      this.$timeout(() => {
-        // if lastAnswerId was specified we are fetching _more_ answers, so append them
-        if (lastAnswerId) {
-          this.answers = this.answers.concat(answers);
-        } else {
-          this.answers = answers;
-        }
-      });
-    }).catch(err => {
-      if (err.status !== 404) {
-        this.AlertsService.push('error', 'Error fetching poll answers.');
-      }
-    });
-  }
-
-  canSubmitNewAnswer() {
-    if (this.PostService.post.locked) {
-      if (this.PostService.post.data.creator === this.UserService.user.username) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  }
-
-  openSubmitPollAnswerModal() {
-    this.ModalService.open('SUBMIT_POLL_ANSWER', {
-      postid: this.PostService.post.id
-    }, 'Answer submitted.', 'Unable to submit answer.');
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_POLL_ANSWER') return;
-      this.$state.go('weco.branch.post.vote', { reload: true });
-    });
-  }
-}
-BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
-
-/***/ }),
-/* 198 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchSubbranchesController.$inject, injections);
-
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.branches = [];
-    this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
-      },
-      sortBy: {
-        selectedIndex: 0,
-        items: ['TOTAL POINTS', '# OF POSTS', '# OF COMMENTS', 'DATE CREATED']
-      }
-    };
-
-    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, () => {
-      init();
-    });
-    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      init();
-    });
-
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.branch.subbranches') === -1) return;
-      if (Object.keys(this.BranchService.branch).length === 0) return;
-
-      this.getSubbranches();
-    };
-
-    init();
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'BranchSubbranchesScrollToBottom') return;
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        if (this.branches.length > 0) {
-          this.getSubbranches(this.branches[this.branches.length - 1].id);
-        }
-      }
-    });
-  }
-
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter(timeItem) {
-    let timeafter;
-    let date = new Date();
-    switch (timeItem) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
-      case 'PAST YEAR':
-        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
-        break;
-      case 'PAST MONTH':
-        timeafter = new Date().setMonth(new Date().getMonth() - 1);
-        break;
-      case 'PAST WEEK':
-        timeafter = new Date().setDate(new Date().getDate() - 7);
-        break;
-      case 'PAST 24 HRS':
-        timeafter = new Date().setDate(new Date().getDate() - 1);
-        break;
-      case 'PAST HOUR':
-        timeafter = new Date().setHours(new Date().getHours() - 1);
-        break;
-      default:
-        timeafter = 0;
-        break;
-    }
-    return timeafter;
-  }
-
-  getSubbranches(lastBranchId) {
-    this.isLoading = true;
-
-    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
-        sortBy = 'post_points';
-        break;
-      case 'DATE CREATED':
-        sortBy = 'date';
-        break;
-      case '# OF POSTS':
-        sortBy = 'post_count';
-        break;
-      case '# OF COMMENTS':
-        sortBy = 'post_comments';
-        break;
-      default:
-        sortBy = 'date';
-        break;
-    }
-
-    // fetch the subbranches for this branch and timefilter
-    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
-      this.$timeout(() => {
-        // if lastBranchId was specified we are fetching _more_ branches, so append them
-        if (lastBranchId) {
-          this.branches = this.branches.concat(branches);
-        } else {
-          this.branches = branches;
-        }
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Error fetching branches.');
-      this.$timeout(() => {
-        this.isLoading = false;
-      });
-    });
-  }
-}
-BranchSubbranchesController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
-
-/***/ }),
-/* 199 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(WallService.$inject, injections);
-
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.posts = [];
-    this.flaggedOnly = false;
-    this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
-      },
-      sortBy: {
-        selectedIndex: 2,
-        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
-      },
-      postType: {
-        selectedIndex: 0,
-        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
-      },
-      statType: {
-        selectedIndex: 0,
-        items: ['GLOBAL', 'LOCAL', 'BRANCH']
-      }
-    };
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'WallScrollToBottom') return;
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        if (this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
-      }
-    });
-  }
-
-  init(allowedState, flaggedOnly) {
-    if (this.$state.current.name.indexOf(allowedState) === -1) return;
-    if (Object.keys(this.BranchService.branch).length === 0) return;
-
-    this.flaggedOnly = !!flaggedOnly;
-    if (this.flaggedOnly) this.controls.sortBy.selectedIndex = 2;
-    this.getPosts();
-  }
-
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter(timeItem) {
-    let timeafter;
-    let date = new Date();
-    switch (timeItem) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
-      case 'PAST YEAR':
-        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
-        break;
-      case 'PAST MONTH':
-        timeafter = new Date().setMonth(new Date().getMonth() - 1);
-        break;
-      case 'PAST WEEK':
-        timeafter = new Date().setDate(new Date().getDate() - 7);
-        break;
-      case 'PAST 24 HRS':
-        timeafter = new Date().setDate(new Date().getDate() - 1);
-        break;
-      case 'PAST HOUR':
-        timeafter = new Date().setHours(new Date().getHours() - 1);
-        break;
-      default:
-        timeafter = 0;
-        break;
-    }
-    return timeafter;
-  }
-
-  getStatType() {
-    let statType;
-    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
-      case 'GLOBAL':
-        statType = 'global';
-        break;
-      case 'LOCAL':
-        statType = 'local';
-        break;
-      case 'BRANCH':
-        statType = 'individual';
-        break;
-      default:
-        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
-        break;
-    }
-    return statType;
-  }
-
-  getPosts(lastPostId) {
-    this.isLoading = true;
-    // compute the appropriate timeafter for the selected time filter
-    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
-        sortBy = 'points';
-        break;
-      case 'DATE POSTED':
-        sortBy = 'date';
-        break;
-      case '# OF COMMENTS':
-        sortBy = 'comment_count';
-        break;
-      default:
-        sortBy = 'points';
-        break;
-    }
-
-    let postType;
-    switch (this.controls.postType.items[this.controls.postType.selectedIndex]) {
-      case 'IMAGES':
-        postType = 'image';
-        break;
-      case 'VIDEOS':
-        postType = 'video';
-        break;
-      case 'PAGES':
-        postType = 'page';
-        break;
-      case 'POLLS':
-        postType = 'poll';
-        break;
-      default:
-        postType = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
-        break;
-    }
-
-    let statType = this.getStatType();
-
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
-      this.$timeout(() => {
-        // if lastPostId was specified we are fetching _more_ posts, so append them
-        if (lastPostId) {
-          this.posts = this.posts.concat(posts);
-        } else {
-          this.posts = posts;
-        }
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Error fetching posts.');
-      this.isLoading = false;
-    });
-  }
-}
-WallService.$inject = ['$state', '$rootScope', '$timeout', 'BranchService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (WallService);
-
-/***/ }),
-/* 200 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchWallController.$inject, injections);
-
-    this.WallService.init('weco.branch.wall');
-    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-  }
-
-  // return the correct ui-sref string for when the specified post is clicked
-  getLink(post) {
-    if (post.type === 'text' || post.type === 'poll') {
-      return this.$state.href('weco.branch.post', { postid: post.id });
-    }
-    return post.text;
-  }
-}
-BranchWallController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
-
-/***/ }),
-/* 201 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(HomeController.$inject, injections);
-
-    this.stats = {
-      donation_total: '...',
-      raised_total: '...',
-      user_count: '...',
-      branch_count: '...'
-    };
-
-    for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', {
-        stat: stat
-      }).then(response => {
-        this.stats[stat] = response.data.data;
-      }).catch(err => {
-        this.AlertsService.push('error', 'Having trouble connecting...');
-      }).then(this.$timeout);
-    }
-  }
-  getHomepageImageURL() {
-    if (this.ENV.name === 'production') {
-      return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
-    } else {
-      return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
-    }
-  }
-}
-HomeController.$inject = ['API', 'ENV', '$timeout', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (HomeController);
-
-/***/ }),
-/* 202 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__ = __webpack_require__(4);
-
-
-
-class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileNotificationsController.$inject, injections);
-
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */];
-    this.notifications = [];
-
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
-
-      this.getNotifications();
-    };
-
-    init();
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'NotificationsScrollToBottom') return;
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        if (this.notifications.length > 0) this.getNotifications(this.notifications[this.notifications.length - 1].id);
-      }
-    });
-  }
-
-  getNotificationImageType(notification) {
-    switch (notification.type) {
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].NEW_CHILD_BRANCH_REQUEST:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].CHILD_BRANCH_REQUEST_ANSWERED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].BRANCH_MOVED:
-        return 'branch';
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].MODERATOR:
-        return 'moderator';
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].COMMENT:
-        return 'comment';
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_FLAGGED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_REMOVED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_TYPE_CHANGED:
-        return 'flagged';
-      default:
-        return 'user';
-    }
-  }
-
-  getNotifications(lastNotificationId) {
-    this.isLoading = true;
-
-    this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
-      this.$timeout(() => {
-        if (lastNotificationId) {
-          this.notifications = this.notifications.concat(notifications);
-        } else {
-          this.notifications = notifications;
-        }
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to fetch notifications.');
-    });
-  }
-
-  setUnread(notification, unread) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, unread).then(() => {
-      this.$timeout(() => {
-        notification.unread = unread;
-      });
-    }).catch(err => {
-      this.AlertsService.push('error', 'Unable to mark notification.');
-    });
-  }
-}
-ProfileNotificationsController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
-
-/***/ }),
-/* 203 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileController.$inject, injections);
-
-    this.showCover = true;
-    this.isLoading = false;
-    this.tabItems = ['about'];
-    this.tabStates = ['weco.profile.about'];
-    this.profileUser = {};
-
-    let loadOtherUser = () => {
-      // ensure we are in the 'about' state
-      if (this.$state.current.name !== 'weco.profile.about') {
-        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
-      } else {
-        this.isLoading = true;
-        this.UserService.fetch(this.$state.params.username).then(user => {
-          this.profileUser = user;
-          this.isLoading = false;
-        }).catch(err => {
-          if (err.status === 404) {
-            return this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch user.');
-            this.$state.go('weco.home');
-          }
-          this.isLoading = false;
-        }).then(this.$timeout);
-      }
-    };
-
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(() => {
-          this.profileUser = this.UserService.user;
-          if (this.UserService.user.username === this.$state.params.username) {
-            if (this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
-              this.tabItems.push('settings');
-              this.tabStates.push('weco.profile.settings');
-            }
-            if (this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
-              this.tabItems.push('notifications');
-              this.tabStates.push('weco.profile.notifications');
-            }
-          }
-        });
-      } else {
-        loadOtherUser();
-      }
-    };
-
-    init();
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
-  }
-
-  openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'picture'
-    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
-  }
-
-  openCoverPictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'cover'
-    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
-  }
-}
-ProfileController.$inject = ['$timeout', '$state', 'UserService', 'ModalService', 'AlertsService', 'EventService', 'AppService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
-
-/***/ }),
-/* 204 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileSettingsController.$inject, injections);
-  }
-
-  openNameModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Name',
-      inputs: [{
-        placeholder: 'First name',
-        type: 'text',
-        fieldname: 'firstname'
-      }, {
-        placeholder: 'Last name',
-        type: 'text',
-        fieldname: 'lastname'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openEmailModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Email',
-      inputs: [{
-        placeholder: 'Email',
-        type: 'email',
-        fieldname: 'email'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openDOBModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Date of Birth',
-      inputs: [{
-        placeholder: 'Date of Birth',
-        type: 'date',
-        fieldname: 'dob'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  updateNSFW() {
-    this.UserService.update({
-      show_nsfw: this.UserService.user.show_nsfw
-    }).then(() => {
-      this.AlertsService.push('success', 'Successfully updated profile settings!');
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to update profile settings.');
-    });
-  }
-}
-ProfileSettingsController.$inject = ['$state', 'ModalService', 'AlertsService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
 
 /***/ }),
 /* 205 */
@@ -67574,46 +67546,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular_cache__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_components_notification_notification_types_config_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_filters__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_run__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_app_config__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_routes__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_app_service__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_data_api_service__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_data_event_service__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_data_user_service__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_data_branch_service__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_data_mod_service__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_data_post_service__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_data_upload_service__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_data_comment_service__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_pages_branch_wall_service__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_components_alerts_alerts_service__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_components_tooltip_tooltip_service__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_components_modal_modal_service__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_services_api__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_app_service__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_services_branch__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_services_comment__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_services_event__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_services_mod__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_components_modal_modal_service__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_services_post__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_components_tooltip_tooltip_service__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_services_upload__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_services_user__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_wall_service__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_home_home_controller__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_auth_auth_controller__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_auth_verify_verify_controller__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_profile_profile_controller__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_profile_settings_settings_controller__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_profile_notifications_notifications_controller__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_branch_branch_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_branch_nucleus_about_about_controller__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_wall_wall_controller__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_post_post_controller__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_home_home_controller__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_auth_auth_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_auth_verify_verify_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_profile_profile_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_profile_settings_settings_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_profile_notifications_notifications_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_branch_branch_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_branch_nucleus_about_about_controller__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_wall_wall_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_post_post_controller__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_nav_bar_directive__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_nav_bar_controller__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__ = __webpack_require__(144);
@@ -67690,37 +67662,39 @@ let registrar = new __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__["a"
 
 // Config
 
-registrar.config(__WEBPACK_IMPORTED_MODULE_13_app_config__["a" /* default */]);
 
+
+registrar.config(__WEBPACK_IMPORTED_MODULE_13_app_config__["a" /* default */]);
 registrar.config(__WEBPACK_IMPORTED_MODULE_14_app_routes__["a" /* default */]);
 
-// Services
+// SERVICES.
 
-registrar.service('AppService', __WEBPACK_IMPORTED_MODULE_15_app_service__["a" /* default */]);
 
-registrar.service('API', __WEBPACK_IMPORTED_MODULE_16_data_api_service__["a" /* default */]);
 
-registrar.service('EventService', __WEBPACK_IMPORTED_MODULE_17_data_event_service__["a" /* default */]);
 
-registrar.service('UserService', __WEBPACK_IMPORTED_MODULE_18_data_user_service__["a" /* default */]);
 
-registrar.service('BranchService', __WEBPACK_IMPORTED_MODULE_19_data_branch_service__["a" /* default */]);
 
-registrar.service('ModService', __WEBPACK_IMPORTED_MODULE_20_data_mod_service__["a" /* default */]);
 
-registrar.service('PostService', __WEBPACK_IMPORTED_MODULE_21_data_post_service__["a" /* default */]);
 
-registrar.service('UploadService', __WEBPACK_IMPORTED_MODULE_22_data_upload_service__["a" /* default */]);
 
-registrar.service('CommentService', __WEBPACK_IMPORTED_MODULE_23_data_comment_service__["a" /* default */]);
 
-registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_24_pages_branch_wall_service__["a" /* default */]);
 
-registrar.service('AlertsService', __WEBPACK_IMPORTED_MODULE_25_components_alerts_alerts_service__["a" /* default */]);
 
-registrar.service('TooltipService', __WEBPACK_IMPORTED_MODULE_26_components_tooltip_tooltip_service__["a" /* default */]);
 
-registrar.service('ModalService', __WEBPACK_IMPORTED_MODULE_27_components_modal_modal_service__["a" /* default */]);
+
+registrar.service('AlertsService', __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__["a" /* default */]);
+registrar.service('API', __WEBPACK_IMPORTED_MODULE_16_services_api__["a" /* default */]);
+registrar.service('AppService', __WEBPACK_IMPORTED_MODULE_17_app_service__["a" /* default */]);
+registrar.service('BranchService', __WEBPACK_IMPORTED_MODULE_18_services_branch__["a" /* default */]);
+registrar.service('CommentService', __WEBPACK_IMPORTED_MODULE_19_services_comment__["a" /* default */]);
+registrar.service('EventService', __WEBPACK_IMPORTED_MODULE_20_services_event__["a" /* default */]);
+registrar.service('ModService', __WEBPACK_IMPORTED_MODULE_21_services_mod__["a" /* default */]);
+registrar.service('ModalService', __WEBPACK_IMPORTED_MODULE_22_components_modal_modal_service__["a" /* default */]);
+registrar.service('PostService', __WEBPACK_IMPORTED_MODULE_23_services_post__["a" /* default */]);
+registrar.service('TooltipService', __WEBPACK_IMPORTED_MODULE_24_components_tooltip_tooltip_service__["a" /* default */]);
+registrar.service('UploadService', __WEBPACK_IMPORTED_MODULE_25_services_upload__["a" /* default */]);
+registrar.service('UserService', __WEBPACK_IMPORTED_MODULE_26_services_user__["a" /* default */]);
+registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_wall_service__["a" /* default */]);
 
 // Controllers
 

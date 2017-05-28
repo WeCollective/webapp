@@ -20,7 +20,7 @@ class AppRoutes extends Injectable {
     this.$stateProvider
       .state('auth', {
         abstract: true,
-        templateUrl: '/app/pages/auth/auth.view.html',
+        templateUrl: '/app/pages/auth/view.html',
         controller: 'AuthController',
         controllerAs: 'Auth'
       })
@@ -66,7 +66,7 @@ class AppRoutes extends Injectable {
       
       // 404 Not Found
       .state('weco.notfound', {
-        templateUrl: '/app/pages/notfound/notfound.view.html'
+        templateUrl: '/app/pages/notfound/view.html'
       })
       
       // Homepage state

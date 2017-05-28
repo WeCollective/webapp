@@ -53,37 +53,43 @@ let registrar = new ComponentRegistrar('wecoApp');
 
 // Config
 import AppConfig from 'app.config';
-registrar.config(AppConfig);
 import AppRoutes from 'app.routes';
+
+registrar.config(AppConfig);
 registrar.config(AppRoutes);
 
-// Services
-import AppService from 'app.service';
-registrar.service('AppService', AppService);
-import API from 'data/api.service';
-registrar.service('API', API);
-import EventService from 'data/event.service';
-registrar.service('EventService', EventService);
-import UserService from 'data/user.service';
-registrar.service('UserService', UserService);
-import BranchService from 'data/branch.service';
-registrar.service('BranchService', BranchService);
-import ModService from 'data/mod.service';
-registrar.service('ModService', ModService);
-import PostService from 'data/post.service';
-registrar.service('PostService', PostService);
-import UploadService from 'data/upload.service';
-registrar.service('UploadService', UploadService);
-import CommentService from 'data/comment.service';
-registrar.service('CommentService', CommentService);
-import WallService from 'pages/branch/wall.service';
-registrar.service('WallService', WallService);
+
+
+// SERVICES.
 import AlertsService from 'components/alerts/alerts.service';
-registrar.service('AlertsService', AlertsService);
-import TooltipService from 'components/tooltip/tooltip.service';
-registrar.service('TooltipService', TooltipService);
+import API from 'services/api';
+import AppService from 'app.service';
+import BranchService from 'services/branch';
+import CommentService from 'services/comment';
+import EventService from 'services/event';
+import ModService from 'services/mod';
 import ModalService from 'components/modal/modal.service';
+import PostService from 'services/post';
+import TooltipService from 'components/tooltip/tooltip.service';
+import UploadService from 'services/upload';
+import UserService from 'services/user';
+import WallService from 'pages/branch/wall.service';
+
+registrar.service('AlertsService', AlertsService);
+registrar.service('API', API);
+registrar.service('AppService', AppService);
+registrar.service('BranchService', BranchService);
+registrar.service('CommentService', CommentService);
+registrar.service('EventService', EventService);
+registrar.service('ModService', ModService);
 registrar.service('ModalService', ModalService);
+registrar.service('PostService', PostService);
+registrar.service('TooltipService', TooltipService);
+registrar.service('UploadService', UploadService);
+registrar.service('UserService', UserService);
+registrar.service('WallService', WallService);
+
+
 
 // Controllers
 import AppController from 'app.controller';
