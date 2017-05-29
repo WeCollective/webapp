@@ -11,7 +11,7 @@ class CommentThreadComponent extends Injectable {
       comments: '=',
       sortBy: '='
     };
-    this.templateUrl = '/app/components/comments/comment-thread/comment-thread.view.html';
+    this.templateUrl = '/app/components/comments/comment-thread/view.html';
     this.controller = 'CommentThreadController';
     this.controllerAs = 'CommentThread';
   }

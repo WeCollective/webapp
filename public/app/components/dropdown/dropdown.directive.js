@@ -6,7 +6,7 @@ class DropdownComponent extends Injectable {
 
     this.restrict = 'E';
     this.replace = 'true';
-    this.templateUrl = '/app/components/dropdown/dropdown.view.html';
+    this.templateUrl = '/app/components/dropdown/view.html';
     this.scope = {
       title: '&',
       items: '=',
@@ -17,24 +17,29 @@ class DropdownComponent extends Injectable {
   link(scope, element, attrs) {
     scope.isOpen = false;
 
-    scope.open = () => {
-      this.$timeout(() => {
-        scope.isOpen = true;
-      });
-    };
     scope.close = () => {
-      this.$timeout(() => {
+      this.$timeout( () => {
         scope.isOpen = false;
       });
     };
-    scope.select = (idx) => {
-      this.$timeout(() => {
+
+    scope.open = () => {
+      this.$timeout( () => {
+        scope.isOpen = true;
+      });
+    };
+
+    scope.select = idx => {
+      this.$timeout( () => {
         scope.selected = idx;
         scope.close();
       });
     };
   }
 }
-DropdownComponent.$inject = ['$timeout'];
+
+DropdownComponent.$inject = [
+  '$timeout'
+];
 
 export default DropdownComponent;

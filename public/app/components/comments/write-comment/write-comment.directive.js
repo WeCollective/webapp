@@ -16,7 +16,7 @@ class WriteCommentComponent extends Injectable {
       placeholder: '&',
       originalCommentText: '&'
     };
-    this.templateUrl = '/app/components/comments/write-comment/write-comment.view.html';
+    this.templateUrl = '/app/components/comments/write-comment/view.html';
     this.controller = 'WriteCommentController';
     this.controllerAs = 'WriteComment';
   }

@@ -8,11 +8,12 @@ class CommentsComponent extends Injectable {
     this.replace = true;
     this.scope = {};
     this.bindToController = {};
-    this.templateUrl = '/app/components/comments/comments.view.html';
+    this.templateUrl = '/app/components/comments/view.html';
     this.controllerAs = 'Comments';
     this.controller = 'CommentsController';
   }
 }
+
 CommentsComponent.$inject = [];
 
 export default CommentsComponent;

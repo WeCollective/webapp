@@ -7,12 +7,16 @@ class AlertsComponent extends Injectable {
     this.restrict = 'E';
     this.replace = true;
     this.scope = {};
-    this.templateUrl = '/app/components/alerts/alerts.view.html';
+    this.templateUrl = '/app/components/alerts/view.html';
   }
+  
   link(scope) {
     scope.AlertsService = this.AlertsService;
   }
 }
-AlertsComponent.$inject = ['AlertsService'];
+
+AlertsComponent.$inject = [
+  'AlertsService'
+];
 
 export default AlertsComponent;

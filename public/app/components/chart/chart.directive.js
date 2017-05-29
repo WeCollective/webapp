@@ -16,6 +16,7 @@ class ChartComponent extends Injectable {
     };
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
+
   link(scope, element) {
     let redrawChart = () => {
       if(scope.chart) scope.chart.destroy();
@@ -41,6 +42,10 @@ class ChartComponent extends Injectable {
     redrawChart();
   }
 }
-ChartComponent.$inject = ['$compile', 'ChartColours'];
+
+ChartComponent.$inject = [
+  '$compile',
+  'ChartColours'
+];
 
 export default ChartComponent;

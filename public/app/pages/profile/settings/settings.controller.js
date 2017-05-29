@@ -11,15 +11,10 @@ class ProfileSettingsController extends Injectable {
       {
         title: 'Name',
         inputs: [{
-            placeholder: 'First name',
-            type: 'text',
-            fieldname: 'firstname'
-          }, {
-            placeholder: 'Last name',
-            type: 'text',
-            fieldname: 'lastname'
-          }
-        ]
+          fieldname: 'name',
+          placeholder: 'Name',
+          type: 'text'
+        }]
       },
       'Successfully updated profile settings!',
       'Unable to update profile settings.'
@@ -59,15 +54,21 @@ class ProfileSettingsController extends Injectable {
   }
 
   updateNSFW() {
-    this.UserService.update({
-      show_nsfw: this.UserService.user.show_nsfw
-    }).then(() => {
-      this.AlertsService.push('success', 'Successfully updated profile settings!');
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to update profile settings.');
+    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw })
+      .then( () => {
+        this.AlertsService.push('success', 'Successfully updated profile settings!');
+      })
+      .catch( () => {
+        this.AlertsService.push('error', 'Unable to update profile settings.');
     });
   }
 }
-ProfileSettingsController.$inject = ['$state', 'ModalService', 'AlertsService', 'UserService'];
+
+ProfileSettingsController.$inject = [
+  '$state',
+  'AlertsService',
+  'ModalService',
+  'UserService'
+];
 
 export default ProfileSettingsController;

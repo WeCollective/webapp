@@ -9,7 +9,7 @@ class LoadingComponent extends Injectable {
     this.scope = {
       when: '&'
     };
-    this.templateUrl = '/app/components/loading/loading.view.html';
+    this.templateUrl = '/app/components/loading/view.html';
     this.transclude = true;
   }
 
@@ -40,6 +40,9 @@ class LoadingComponent extends Injectable {
     });
   }
 }
-LoadingComponent.$inject = ['$compile'];
+
+LoadingComponent.$inject = [
+  '$compile'
+];
 
 export default LoadingComponent;

@@ -9,7 +9,7 @@ class NavBarComponent extends Injectable {
     this.controllerAs = 'NavBar';
     this.restrict = 'E';
     this.replace = true;
-    this.templateUrl = '/app/components/nav-bar/nav-bar.view.html';
+    this.templateUrl = '/app/components/nav-bar/view.html';
   }
 }
 NavBarComponent.$inject = [];

@@ -1,0 +1,25 @@
+<div class="cover-photo"
+	ng-class="{ 'open': CoverPhoto.isOpen && CoverPhoto.hasUrls() }"
+	style="background-image: url('{{ CoverPhoto.imageUrl() }}'), url('{{ CoverPhoto.thumbUrl() }}')">
+  <img alt=""
+  	id="cover-photo-edit"
+  	ng-click="CoverPhoto.openUploadCoverModal()"
+  	ng-show="CoverPhoto.canEdit() && CoverPhoto.imageUrl()"
+  	offset-x="-130"
+  	offset-y="30"
+  	src="/assets/images/icons/black/edit.png"
+  	text="'Upload New Image'"
+  	tooltip />
+
+  <img alt=""
+  	id="cover-photo-hide"
+  	ng-click="CoverPhoto.hideCoverPicture()"
+  	ng-show="CoverPhoto.imageUrl() && CoverPhoto.isOpen"
+  	src="/assets/images/icons/black/hide.png" />
+
+  <img alt=""
+  	id="cover-photo-show"
+  	ng-click="CoverPhoto.showCoverPicture()"
+  	ng-show="CoverPhoto.imageUrl() && !CoverPhoto.isOpen"
+  	src="/assets/images/icons/black/show.png" />
+</div>

@@ -92,6 +92,17 @@ class ListItemController extends Injectable {
     );
   }
 }
-ListItemController.$inject = ['$timeout', '$state', 'PostService', 'EventService', 'UserService', 'BranchService', 'AlertsService', 'ModalService', 'AppService'];
+
+ListItemController.$inject = [
+  '$state',
+  '$timeout',
+  'AlertsService',
+  'AppService',
+  'BranchService',
+  'EventService',
+  'ModalService',
+  'PostService',
+  'UserService'
+];
 
 export default ListItemController;

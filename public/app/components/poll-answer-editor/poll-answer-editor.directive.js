@@ -6,7 +6,7 @@ class PollAnswerEditorComponent extends Injectable {
 
     this.restrict = 'E';
     this.replace = 'true';
-    this.templateUrl = '/app/components/poll-answer-editor/poll-answer-editor.view.html';
+    this.templateUrl = '/app/components/poll-answer-editor/view.html';
     this.scope = {
       answers: '=',
       title: '&'

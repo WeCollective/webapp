@@ -20,7 +20,7 @@ class TabsComponent extends Injectable {
         stateParams: '=',
         callbacks: '='
     };
-    this.templateUrl = '/app/components/tabs/tabs.view.html';
+    this.templateUrl = '/app/components/tabs/view.html';
     this.controllerAs = 'Tabs';
     this.controller = 'TabsController';
   }

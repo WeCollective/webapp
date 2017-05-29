@@ -45,6 +45,12 @@ class NavBarController extends Injectable {
   }
 }
 
-NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService', 'AppService'];
+NavBarController.$inject = [
+  '$state',
+  '$timeout',
+  'AlertsService',
+  'AppService',
+  'UserService'
+];
 
 export default NavBarController;

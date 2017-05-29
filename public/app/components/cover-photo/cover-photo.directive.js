@@ -14,11 +14,12 @@ class CoverPhotoComponent extends Injectable {
       isOpen: '=',
       openUploadCoverModal: '='
     };
-    this.templateUrl = '/app/components/cover-photo/cover-photo.view.html';
+    this.templateUrl = '/app/components/cover-photo/view.html';
     this.controllerAs = 'CoverPhoto';
     this.controller = 'CoverPhotoController';
   }
 }
+
 CoverPhotoComponent.$inject = [];
 
 export default CoverPhotoComponent;

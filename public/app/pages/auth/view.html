@@ -17,8 +17,8 @@
   </p>
   
   <form ng-submit="Auth.submit()">
-    <input name="firstname"
-      ng-model="Auth.credentials.firstname"
+    <input name="name"
+      ng-model="Auth.credentials.name"
       ng-required="!Auth.isLoginForm()"
       ng-show="!Auth.isLoginForm()"
       placeholder="Name"

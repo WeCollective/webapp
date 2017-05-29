@@ -12,11 +12,12 @@ class ListItemComponent extends Injectable {
       index: '=',
       stat: '='
     };
-    this.templateUrl = '/app/components/list-item/list-item.view.html';
+    this.templateUrl = '/app/components/list-item/view.html';
     this.controllerAs = 'ListItem';
     this.controller = 'ListItemController';
   }
 }
+
 ListItemComponent.$inject = [];
 
 export default ListItemComponent;

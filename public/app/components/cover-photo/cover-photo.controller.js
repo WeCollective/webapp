@@ -8,6 +8,10 @@ class CoverPhotoController extends Injectable {
   hideCoverPicture() { this.isOpen = false; }
   hasUrls() { return Boolean(this.imageUrl()) && Boolean(this.thumbUrl()); }
 }
-CoverPhotoController.$inject = ['$state', 'ModalService'];
+
+CoverPhotoController.$inject = [
+	'$state',
+	'ModalService'
+];
 
 export default CoverPhotoController;

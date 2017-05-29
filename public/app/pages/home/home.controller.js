@@ -5,30 +5,38 @@ class HomeController extends Injectable {
     super(HomeController.$inject, injections);
 
     this.stats = {
+      branch_count: '...',
       donation_total: '...',
       raised_total: '...',
-      user_count: '...',
-      branch_count: '...'
+      user_count: '...'
     };
 
-    for(let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', {
-        stat: stat
-      }).then((response) => {
-        this.stats[stat] = response.data.data;
-      }).catch((err) => {
-        this.AlertsService.push('error', 'Having trouble connecting...');
-      }).then(this.$timeout);
+    for (let stat of Object.keys(this.stats)) {
+      this.API.fetch('/constant/:stat', { stat })
+        .then( res => {
+          this.stats[stat] = res.data.data;
+        })
+        .catch( err => {
+          this.AlertsService.push('error', 'Having trouble connecting...');
+        })
+        .then(this.$timeout);
     }
   }
   getHomepageImageURL() {
-    if(this.ENV.name === 'production') {
+    if ('production' === this.ENV.name) {
       return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
-    } else {
+    }
+    else {
       return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
     }
   }
 }
-HomeController.$inject = ['API', 'ENV', '$timeout', 'AlertsService'];
+
+HomeController.$inject = [
+  '$timeout',
+  'AlertsService',
+  'API',
+  'ENV'
+];
 
 export default HomeController;

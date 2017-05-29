@@ -11,7 +11,7 @@ class TagEditorComponent extends Injectable {
       title: '&',
       max: '&'
     };
-    this.templateUrl = '/app/components/tag-editor/tag-editor.view.html';
+    this.templateUrl = '/app/components/tag-editor/view.html';
   }
   link(scope, element, attrs) {
     scope.errorMessage = '';

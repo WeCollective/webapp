@@ -4678,7 +4678,7 @@ class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
   }
 }
 
-NavBarController.$inject = ['$timeout', 'UserService', '$state', 'AlertsService', 'AppService'];
+NavBarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavBarController);
 
@@ -24102,12 +24102,14 @@ class AlertsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a"
     this.restrict = 'E';
     this.replace = true;
     this.scope = {};
-    this.templateUrl = '/app/components/alerts/alerts.view.html';
+    this.templateUrl = '/app/components/alerts/view.html';
   }
+
   link(scope) {
     scope.AlertsService = this.AlertsService;
   }
 }
+
 AlertsComponent.$inject = ['AlertsService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AlertsComponent);
@@ -24189,6 +24191,7 @@ class ChartComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     };
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
+
   link(scope, element) {
     let redrawChart = () => {
       if (scope.chart) scope.chart.destroy();
@@ -24214,6 +24217,7 @@ class ChartComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     redrawChart();
   }
 }
+
 ChartComponent.$inject = ['$compile', 'ChartColours'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
@@ -24375,7 +24379,7 @@ class CommentThreadComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
       comments: '=',
       sortBy: '='
     };
-    this.templateUrl = '/app/components/comments/comment-thread/comment-thread.view.html';
+    this.templateUrl = '/app/components/comments/comment-thread/view.html';
     this.controller = 'CommentThreadController';
     this.controllerAs = 'CommentThread';
   }
@@ -24488,11 +24492,12 @@ class CommentsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.replace = true;
     this.scope = {};
     this.bindToController = {};
-    this.templateUrl = '/app/components/comments/comments.view.html';
+    this.templateUrl = '/app/components/comments/view.html';
     this.controllerAs = 'Comments';
     this.controller = 'CommentsController';
   }
 }
+
 CommentsComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
@@ -24601,7 +24606,7 @@ class WriteCommentComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
       placeholder: '&',
       originalCommentText: '&'
     };
-    this.templateUrl = '/app/components/comments/write-comment/write-comment.view.html';
+    this.templateUrl = '/app/components/comments/write-comment/view.html';
     this.controller = 'WriteCommentController';
     this.controllerAs = 'WriteComment';
   }
@@ -24632,6 +24637,7 @@ class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
   }
 }
+
 CoverPhotoController.$inject = ['$state', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
@@ -24658,11 +24664,12 @@ class CoverPhotoComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__
       isOpen: '=',
       openUploadCoverModal: '='
     };
-    this.templateUrl = '/app/components/cover-photo/cover-photo.view.html';
+    this.templateUrl = '/app/components/cover-photo/view.html';
     this.controllerAs = 'CoverPhoto';
     this.controller = 'CoverPhotoController';
   }
 }
+
 CoverPhotoComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
@@ -24681,7 +24688,7 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
 
     this.restrict = 'E';
     this.replace = 'true';
-    this.templateUrl = '/app/components/dropdown/dropdown.view.html';
+    this.templateUrl = '/app/components/dropdown/view.html';
     this.scope = {
       title: '&',
       items: '=',
@@ -24692,16 +24699,18 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   link(scope, element, attrs) {
     scope.isOpen = false;
 
-    scope.open = () => {
-      this.$timeout(() => {
-        scope.isOpen = true;
-      });
-    };
     scope.close = () => {
       this.$timeout(() => {
         scope.isOpen = false;
       });
     };
+
+    scope.open = () => {
+      this.$timeout(() => {
+        scope.isOpen = true;
+      });
+    };
+
     scope.select = idx => {
       this.$timeout(() => {
         scope.selected = idx;
@@ -24710,6 +24719,7 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     };
   }
 }
+
 DropdownComponent.$inject = ['$timeout'];
 
 /* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
@@ -24801,7 +24811,8 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     }, 'Done.', 'Error resolving flags on post.');
   }
 }
-ListItemController.$inject = ['$timeout', '$state', 'PostService', 'EventService', 'UserService', 'BranchService', 'AlertsService', 'ModalService', 'AppService'];
+
+ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ListItemController);
 
@@ -24825,11 +24836,12 @@ class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
       index: '=',
       stat: '='
     };
-    this.templateUrl = '/app/components/list-item/list-item.view.html';
+    this.templateUrl = '/app/components/list-item/view.html';
     this.controllerAs = 'ListItem';
     this.controller = 'ListItemController';
   }
 }
+
 ListItemComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
@@ -24851,7 +24863,7 @@ class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.scope = {
       when: '&'
     };
-    this.templateUrl = '/app/components/loading/loading.view.html';
+    this.templateUrl = '/app/components/loading/view.html';
     this.transclude = true;
   }
 
@@ -24882,6 +24894,7 @@ class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     });
   }
 }
+
 LoadingComponent.$inject = ['$compile'];
 
 /* harmony default export */ __webpack_exports__["a"] = (LoadingComponent);
@@ -24915,6 +24928,7 @@ class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     });
   }
 }
+
 ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ModLogEntryComponent);
@@ -25525,7 +25539,7 @@ class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     this.restrict = 'A';
     this.replace = false;
     this.scope = {};
-    this.templateUrl = '/app/components/modal/modal.view.html';
+    this.templateUrl = '/app/components/modal/view.html';
   }
   link(scope) {
     scope.ModalService = this.ModalService;
@@ -25537,7 +25551,8 @@ class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     };
   }
 }
-ModalComponent.$inject = ['ModalService', 'EventService'];
+
+ModalComponent.$inject = ['EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ModalComponent);
 
@@ -25561,21 +25576,22 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.resolve = () => {};
     this.reject = () => {};
     this.templateUrls = {
-      UPLOAD_IMAGE: '/app/components/modal/upload-image/upload-image.modal.view.html',
+
       ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.view.html',
-      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
-      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
-      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
-      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
-      CREATE_BRANCH: '/app/components/modal/branch/create/create-branch.modal.view.html',
-      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
       BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
-      PROFILE_SETTINGS: '/app/components/modal/profile/settings/settings.modal.view.html',
-      FLAG_POST: '/app/components/modal/post/flag/flag-post.modal.view.html',
+      CREATE_BRANCH: '/app/components/modal/branch/create/create-branch.modal.view.html',
       CREATE_POST: '/app/components/modal/post/create/create-post.modal.view.html',
+      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
       DELETE_POST: '/app/components/modal/post/delete/delete-post.modal.view.html',
+      FLAG_POST: '/app/components/modal/post/flag/flag-post.modal.view.html',
+      PROFILE_SETTINGS: '/app/components/modal/profile/settings/settings.modal.view.html',
+      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
       RESOLVE_FLAG_POST: '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html',
-      SUBMIT_POLL_ANSWER: '/app/components/modal/post/submit-poll-answer/submit-poll-answer.modal.view.html'
+      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
+      SUBMIT_POLL_ANSWER: '/app/components/modal/post/submit-poll-answer/submit-poll-answer.modal.view.html',
+      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
+      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
+      UPLOAD_IMAGE: '/app/components/modal/upload-image/upload-image.modal.view.html'
     };
     this.names = Object.keys(this.templateUrls);
   }
@@ -25633,7 +25649,8 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.reject();
   }
 }
-ModalService.$inject = ['$timeout', '$state', 'EventService', 'AlertsService'];
+
+ModalService.$inject = ['$state', '$timeout', 'AlertsService', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ModalService);
 
@@ -26194,7 +26211,7 @@ class NavBarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a"
     this.controllerAs = 'NavBar';
     this.restrict = 'E';
     this.replace = true;
-    this.templateUrl = '/app/components/nav-bar/nav-bar.view.html';
+    this.templateUrl = '/app/components/nav-bar/view.html';
   }
 }
 NavBarComponent.$inject = [];
@@ -26302,7 +26319,7 @@ class PollAnswerEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
 
     this.restrict = 'E';
     this.replace = 'true';
-    this.templateUrl = '/app/components/poll-answer-editor/poll-answer-editor.view.html';
+    this.templateUrl = '/app/components/poll-answer-editor/view.html';
     this.scope = {
       answers: '=',
       title: '&'
@@ -26383,7 +26400,7 @@ class TabsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
       stateParams: '=',
       callbacks: '='
     };
-    this.templateUrl = '/app/components/tabs/tabs.view.html';
+    this.templateUrl = '/app/components/tabs/view.html';
     this.controllerAs = 'Tabs';
     this.controller = 'TabsController';
   }
@@ -26411,7 +26428,7 @@ class TagEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       title: '&',
       max: '&'
     };
-    this.templateUrl = '/app/components/tag-editor/tag-editor.view.html';
+    this.templateUrl = '/app/components/tag-editor/view.html';
   }
   link(scope, element, attrs) {
     scope.errorMessage = '';
@@ -27882,31 +27899,30 @@ class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     super(HomeController.$inject, injections);
 
     this.stats = {
+      branch_count: '...',
       donation_total: '...',
       raised_total: '...',
-      user_count: '...',
-      branch_count: '...'
+      user_count: '...'
     };
 
     for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', {
-        stat: stat
-      }).then(response => {
-        this.stats[stat] = response.data.data;
+      this.API.fetch('/constant/:stat', { stat }).then(res => {
+        this.stats[stat] = res.data.data;
       }).catch(err => {
         this.AlertsService.push('error', 'Having trouble connecting...');
       }).then(this.$timeout);
     }
   }
   getHomepageImageURL() {
-    if (this.ENV.name === 'production') {
+    if ('production' === this.ENV.name) {
       return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
     } else {
       return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
     }
   }
 }
-HomeController.$inject = ['API', 'ENV', '$timeout', 'AlertsService'];
+
+HomeController.$inject = ['$timeout', 'AlertsService', 'API', 'ENV'];
 
 /* harmony default export */ __webpack_exports__["a"] = (HomeController);
 
@@ -28096,13 +28112,9 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     this.ModalService.open('PROFILE_SETTINGS', {
       title: 'Name',
       inputs: [{
-        placeholder: 'First name',
-        type: 'text',
-        fieldname: 'firstname'
-      }, {
-        placeholder: 'Last name',
-        type: 'text',
-        fieldname: 'lastname'
+        fieldname: 'name',
+        placeholder: 'Name',
+        type: 'text'
       }]
     }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
@@ -28130,16 +28142,15 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   }
 
   updateNSFW() {
-    this.UserService.update({
-      show_nsfw: this.UserService.user.show_nsfw
-    }).then(() => {
+    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(() => {
       this.AlertsService.push('success', 'Successfully updated profile settings!');
     }).catch(() => {
       this.AlertsService.push('error', 'Unable to update profile settings.');
     });
   }
 }
-ProfileSettingsController.$inject = ['$state', 'ModalService', 'AlertsService', 'UserService'];
+
+ProfileSettingsController.$inject = ['$state', 'AlertsService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
 

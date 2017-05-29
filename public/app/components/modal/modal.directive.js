@@ -7,7 +7,7 @@ class ModalComponent extends Injectable {
     this.restrict = 'A';
     this.replace = false;
     this.scope = {};
-    this.templateUrl = '/app/components/modal/modal.view.html';
+    this.templateUrl = '/app/components/modal/view.html';
   }
   link(scope) {
     scope.ModalService = this.ModalService;
@@ -15,6 +15,10 @@ class ModalComponent extends Injectable {
     scope.Cancel = () => { this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name); };
   }
 }
-ModalComponent.$inject = ['ModalService', 'EventService'];
+
+ModalComponent.$inject = [
+  'EventService',
+  'ModalService',
+];
 
 export default ModalComponent;

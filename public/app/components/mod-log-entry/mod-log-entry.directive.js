@@ -21,6 +21,10 @@ class ModLogEntryComponent extends Injectable {
     });
   }
 }
-ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
+
+ModLogEntryComponent.$inject = [
+  '$compile',
+  '$templateRequest'
+];
 
 export default ModLogEntryComponent;

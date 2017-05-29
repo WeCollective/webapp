@@ -1,0 +1,76 @@
+<div class="comment clearfix" ng-repeat="comment in CommentThread.comments">
+  <div class="comment-content">
+    <div class="comment-votes">
+      <img alt=""
+        ng-click="CommentThread.vote(comment, 'up')"
+        src="/assets/images/icons/black/arrow-up.png" />
+      <p>{{ comment.individual }}</p>
+      <img alt=""
+        ng-click="CommentThread.vote(comment, 'down')"
+        src="/assets/images/icons/black/arrow-down.png" />
+    </div>
+
+    <div class="comment-info">
+      <span class="comment-title">
+        <a ui-sref="weco.profile.about({ username: comment.data.creator })">{{ comment.data.creator }}</a> | {{ CommentThread.timeSince(comment.date) }}{{ comment.data.edited ? '*' : '' }}
+      </span>
+      
+      <p class="comment-text" marked="comment.data.text"></p>
+      
+      <ul class="comment-controls">
+        <li ng-click="CommentThread.openReply(comment, false)"
+          offset-y="25"
+          tooltip-text="'Reply'">
+          <img alt="" src="/assets/images/icons/black/reply.png" />
+        </li>
+
+        <li ng-click="CommentThread.openReply(comment, true)"
+          ng-show="CommentThread.isOwnComment(comment)"
+          offset-y="25"
+          tooltip-text="'Edit'">
+          <img alt="" src="/assets/images/icons/black/edit.png" />
+        </li>
+
+        <li>
+          <img alt=""
+            offset-y="25"
+            src="/assets/images/icons/black/save.png"
+            tooltip-text="'Save'" />
+        </li>
+
+        <li ng-click="CommentThread.openCommentPermalink(comment)"
+          offset-y="25"
+          tooltip-text="'Permalink'">
+          <img alt="" src="/assets/images/icons/black/permalink.png" />
+        </li>
+
+        <li>
+          <img alt=""
+            offset-y="25"
+            src="/assets/images/icons/black/flag.png"
+            tooltip-text="'Flag'" />
+        </li>
+      </ul>
+      
+      <write-comment ng-show="comment.meta.openReply"
+        on-submit="CommentThread.onSubmitComment.bind(CommentThread)"
+        on-cancel="CommentThread.closeReply.bind(CommentThread)"
+        original-comment-text="comment.data.text"
+        parentid="comment.id"
+        placeholder="comment.meta.update ? 'Edit your comment...' : 'Write a reply...'"
+        postid="comment.postid"
+        update="comment.meta.update">
+      </write-comment>
+    </div>
+  </div>
+
+  <div class="comment-replies">
+    <!-- Comment replies -->
+    <comment-thread comments="comment.comments" sort-by="CommentThread.sortBy"></comment-thread>
+    <span class="load-more"
+      ng-click="CommentThread.loadMore(comment)"
+      ng-show="(comment.replies > 0 && (!comment.comments || comment.comments.length == 0)) || comment.replies > comment.comments.length">
+      LOAD {{ comment.replies - (comment.comments ? comment.comments.length : 0) }} MORE
+    </span>
+  </div>
+</div>

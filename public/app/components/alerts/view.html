@@ -1,0 +1,10 @@
+<ul id="alerts">
+  <li ng-class="alert.type"
+    ng-hide="!alert.alive"
+    ng-repeat="alert in AlertsService.queue">
+    <span>{{ alert.text }}</span>
+    <img alt=""
+      ng-click="AlertsService.close($index)"
+    	src="assets/images/icons/black/close.png" />
+  </li>
+</ul>

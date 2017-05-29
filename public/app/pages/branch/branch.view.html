@@ -21,7 +21,7 @@
       </div>
       
       <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
-        <img
+        <img alt=""
           id="edit"
           ng-click="Branch.openProfilePictureModal()"
           ng-show="Branch.isModerator()"
@@ -31,22 +31,41 @@
       <ul id="branch-controls" class="sidebar-controls">
         <li>
           <a ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }" >
-            <img src="/assets/images/icons/black/nucleus.png" tooltip text="'Nucleus'" offset-y="60">
+            <img alt=""
+              offset-y="60"
+              src="/assets/images/icons/black/nucleus.png"
+              text="'Nucleus'"
+              tooltip />
           </a>
         </li>
         <li>
           <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }">
-            <img src="/assets/images/icons/black/branch.png" tooltip text="'Child Branches'" offset-y="60">
+            <img alt=""
+              offset-y="60"
+              src="/assets/images/icons/black/branch.png"
+              text="'Child Branches'"
+              tooltip />
           </a>
         </li>
         <li>
-          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('wall') }">
-            <img src="/assets/images/icons/black/wall.png" tooltip text="'Wall'" offset-y="60">
+          <a ng-class="{ 'selected' : Branch.isControlSelected('wall') }"
+            ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
+            <img alt=""
+              offset-y="60"
+              src="/assets/images/icons/black/wall.png"
+              text="'Wall'"
+              tooltip />
           </a>
         </li>
         <li>
-          <a id="add-content" ng-click="Branch.addContent()" ng-class="{ 'disabled': !Branch.canAddContent() }">
-            <img src="/assets/images/icons/black/add.png" tooltip text="Branch.getAddContentTooltip()" offset-y="60">
+          <a id="add-content"
+            ng-class="{ 'disabled': !Branch.canAddContent() }"
+            ng-click="Branch.addContent()">
+            <img alt=""
+              offset-y="60"
+              src="/assets/images/icons/black/add.png"
+              text="Branch.getAddContentTooltip()"
+              tooltip />
           </a>
         </li>
       </ul>

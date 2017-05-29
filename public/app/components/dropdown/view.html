@@ -8,7 +8,12 @@
       <img src="/assets/images/icons/black/expand.png">
     </div>
     <ul ng-show="isOpen">
-      <li class="dropdown-item" ng-repeat="item in items" ng-click="select($index)" ng-class="{ 'selected': item === items[selected] }">{{ item }}</li>
+      <li class="dropdown-item"
+        ng-class="{ 'selected': item === items[selected] }"
+        ng-click="select($index)"
+        ng-repeat="item in items">
+        {{ item }}
+      </li>
     </ul>
   </div>
 </div>
