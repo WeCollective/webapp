@@ -44,10 +44,10 @@ class AuthController extends Injectable {
 
     this.UserService.resendVerification(this.credentials.username)
       .then( () => {
-        this.resendVerificationDone(true)
+        this.resendVerificationDone(true);
       })
       .catch( () => {
-        this.resendVerificationDone(false)
+        this.resendVerificationDone(false);
       });
   }
 

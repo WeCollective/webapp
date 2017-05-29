@@ -1,6 +1,6 @@
-const gulp = require('gulp');
-const argv = require('yargs').argv;
-const del  = require('del');
+const gulp  = require('gulp');
+const yargs = require('yargs');
+const del   = require('del');
 const gutil   = require('gulp-util');
 const jshint  = require('gulp-jshint');
 const less    = require('gulp-less');
@@ -53,6 +53,8 @@ const WEBPACK_CONFIG = {
 };
 
 gulp.task('build', done => {
+  const argv = yargs.argv;
+  
   if (argv.production) {
     environment = 'production';
   }
@@ -62,6 +64,7 @@ gulp.task('build', done => {
   else if (argv.local) {
     environment = 'local';
   }
+  
   console.log(`Environment set to ${environment}...`);
   runSequence('cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
 });
@@ -80,6 +83,8 @@ gulp.task('less', () => {
 gulp.task('lint', () => {
   return gulp.src([path.join(APP_DIR, '**/*.js'), path.join('!', APP_DIR, '**/*.template.js')])
     .pipe(jshint({
+      browser: true,
+      devel: true,
       esversion: 6,
       strict: 'implied'
     }))

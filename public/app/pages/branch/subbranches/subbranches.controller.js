@@ -42,32 +42,39 @@ class BranchSubbranchesController extends Injectable {
   }
 
   // compute the appropriate timeafter for the selected time filter
-  getTimeafter(timeItem) {
+  getTimeafter (timeItem) {
     let timeafter;
-    let date = new Date();
+    
     switch(timeItem) {
       case 'ALL TIME':
         timeafter = 0;
         break;
+
       case 'PAST YEAR':
         timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
         break;
+
       case 'PAST MONTH':
         timeafter = new Date().setMonth(new Date().getMonth() - 1);
         break;
+
       case 'PAST WEEK':
         timeafter = new Date().setDate(new Date().getDate() - 7);
         break;
+
       case 'PAST 24 HRS':
         timeafter = new Date().setDate(new Date().getDate() - 1);
         break;
+
       case 'PAST HOUR':
         timeafter = new Date().setHours(new Date().getHours() - 1);
         break;
+
       default:
         timeafter = 0;
         break;
     }
+    
     return timeafter;
   }
 

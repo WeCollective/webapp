@@ -29,7 +29,8 @@ class CommentThreadController extends Injectable {
     });
   }
 
-  onSubmitComment(comment) {
+  // Params: comment
+  onSubmitComment () {
     if(this.openComment.meta.update) { // if the comment was edited
       // reload the comment data
       this.CommentService.fetch(this.openComment.postid, this.openComment.id).then((response) => {

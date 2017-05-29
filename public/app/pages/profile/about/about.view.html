@@ -1,7 +1,26 @@
 <ul id="profile-about-properties">
-  <li ng-show="Profile.profileUser.name"><span class="field">Name: </span> <span class="value">{{ Profile.profileUser.name }}</span></li>
-  <li ng-show="Profile.profileUser.username"><span class="field">Username: </span> <span class="value">{{ Profile.profileUser.username }}</span></li>
-  <li ng-show="Profile.profileUser.datejoined"><span class="field">Member since: </span> <span class="value">{{ Profile.profileUser.datejoined | date:'dd MMMM yyyy' }}</span></li>
-  <li ng-show="Profile.profileUser.gender"><span class="field">Gender: </span> <span class="value">{{ Profile.profileUser.gender }}</span></li>
-  <li ng-show="Profile.profileUser.dob"><span class="field">DOB: </span> <span class="value">{{ Profile.profileUser.dob | date:'dd MMMM yyyy' }}</span></li>
+  <li ng-show="Profile.profileUser.name">
+  	<span class="field">Name: </span>
+  	<span class="value">{{ Profile.profileUser.name }}</span>
+  </li>
+  
+  <li ng-show="Profile.profileUser.username">
+  	<span class="field">Username: </span>
+  	<span class="value">{{ Profile.profileUser.username }}</span>
+  </li>
+  
+  <li ng-show="Profile.profileUser.datejoined">
+  	<span class="field">Member since: </span>
+  	<span class="value">{{ Profile.profileUser.datejoined | date:'dd MMMM yyyy' }}</span>
+  </li>
+  
+  <li ng-show="Profile.profileUser.gender">
+  	<span class="field">Gender: </span>
+  	<span class="value">{{ Profile.profileUser.gender }}</span>
+  </li>
+  
+  <li ng-show="Profile.profileUser.dob">
+  	<span class="field">DOB: </span>
+  	<span class="value">{{ Profile.profileUser.dob | date:'dd MMMM yyyy' }}</span>
+  </li>
 </ul>

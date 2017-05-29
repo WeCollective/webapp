@@ -4560,6 +4560,14 @@ class Injectable {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(210);
+module.exports = angular;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4597,14 +4605,6 @@ class Generator {
 /* harmony default export */ __webpack_exports__["a"] = (Generator);
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(210);
-module.exports = angular;
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4625,65 +4625,6 @@ const NotificationTypes = {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(NavBarController.$inject, injections);
-
-    this.animationSrc = '';
-    this.expanded = false;
-    this.notificationCount = 0;
-  }
-
-  isControlSelected(control) {
-    return this.$state.current.name.indexOf(control) > -1 && this.$state.params.branchid === 'root';
-  }
-
-  logout() {
-    this.expanded = false;
-    this.UserService.logout().then(() => {
-      this.$state.go('auth.login');
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to log out.');
-    });
-  }
-
-  onHomePage() {
-    return this.$state.current.name === 'weco.home';
-  }
-
-  showNotificationCount() {
-    return this.notificationCount > 0;
-  }
-
-  toggleNav() {
-    this.expanded = !this.expanded;
-  }
-
-  triggerAnimation() {
-    // set animation src to the animated gif
-    this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation.gif';
-    });
-
-    // cancel after 1 sec
-    this.$timeout(() => {
-      this.animationSrc = '';
-    }, 1000);
-  }
-}
-
-NavBarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (NavBarController);
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
@@ -5174,7 +5115,7 @@ module.exports = Color;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5252,7 +5193,7 @@ return af;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5316,7 +5257,7 @@ return arDz;
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5380,7 +5321,7 @@ return arKw;
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5511,7 +5452,7 @@ return arLy;
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5576,7 +5517,7 @@ return arMa;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5686,7 +5627,7 @@ return arSa;
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5750,7 +5691,7 @@ return arTn;
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5897,7 +5838,7 @@ return ar;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6007,7 +5948,7 @@ return az;
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6146,7 +6087,7 @@ return be;
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6241,7 +6182,7 @@ return bg;
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6365,7 +6306,7 @@ return bn;
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6489,7 +6430,7 @@ return bo;
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6602,7 +6543,7 @@ return br;
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6750,7 +6691,7 @@ return bs;
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6843,7 +6784,7 @@ return ca;
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7020,7 +6961,7 @@ return cs;
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7088,7 +7029,7 @@ return cv;
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7174,7 +7115,7 @@ return cy;
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7239,7 +7180,7 @@ return da;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7323,7 +7264,7 @@ return deAt;
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7406,7 +7347,7 @@ return deCh;
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7489,7 +7430,7 @@ return de;
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7594,7 +7535,7 @@ return dv;
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7699,7 +7640,7 @@ return el;
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7771,7 +7712,7 @@ return enAu;
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7839,7 +7780,7 @@ return enCa;
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7911,7 +7852,7 @@ return enGb;
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7983,7 +7924,7 @@ return enIe;
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8055,7 +7996,7 @@ return enNz;
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8133,7 +8074,7 @@ return eo;
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8220,7 +8161,7 @@ return esDo;
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8308,7 +8249,7 @@ return es;
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8393,7 +8334,7 @@ return et;
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8464,7 +8405,7 @@ return eu;
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8576,7 +8517,7 @@ return fa;
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8688,7 +8629,7 @@ return fi;
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8753,7 +8694,7 @@ return fo;
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8832,7 +8773,7 @@ return frCa;
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8915,7 +8856,7 @@ return frCh;
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9003,7 +8944,7 @@ return fr;
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9083,7 +9024,7 @@ return fy;
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9164,7 +9105,7 @@ return gd;
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9246,7 +9187,7 @@ return gl;
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9373,7 +9314,7 @@ return gomLatn;
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9477,7 +9418,7 @@ return he;
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9606,7 +9547,7 @@ return hi;
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9756,7 +9697,7 @@ return hr;
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9870,7 +9811,7 @@ return hu;
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9970,7 +9911,7 @@ return hyAm;
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10058,7 +9999,7 @@ return id;
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10190,7 +10131,7 @@ return is;
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10265,7 +10206,7 @@ return it;
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10350,7 +10291,7 @@ return ja;
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10438,7 +10379,7 @@ return jv;
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10532,7 +10473,7 @@ return ka;
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10624,7 +10565,7 @@ return kk;
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10687,7 +10628,7 @@ return km;
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10818,7 +10759,7 @@ return kn;
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10892,7 +10833,7 @@ return ko;
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10985,7 +10926,7 @@ return ky;
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11127,7 +11068,7 @@ return lb;
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11202,7 +11143,7 @@ return lo;
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11324,7 +11265,7 @@ return lt;
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11426,7 +11367,7 @@ return lv;
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11542,7 +11483,7 @@ return me;
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11611,7 +11552,7 @@ return mi;
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11706,7 +11647,7 @@ return mk;
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11792,7 +11733,7 @@ return ml;
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11956,7 +11897,7 @@ return mr;
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12044,7 +11985,7 @@ return msMy;
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12131,7 +12072,7 @@ return ms;
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12232,7 +12173,7 @@ return my;
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12300,7 +12241,7 @@ return nb;
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12428,7 +12369,7 @@ return ne;
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12521,7 +12462,7 @@ return nlBe;
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12614,7 +12555,7 @@ return nl;
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12679,7 +12620,7 @@ return nn;
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12808,7 +12749,7 @@ return paIn;
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12920,7 +12861,7 @@ return pl;
 
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12986,7 +12927,7 @@ return ptBr;
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13056,7 +12997,7 @@ return pt;
 
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13136,7 +13077,7 @@ return ro;
 
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13324,7 +13265,7 @@ return ru;
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13427,7 +13368,7 @@ return sd;
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13493,7 +13434,7 @@ return se;
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13569,7 +13510,7 @@ return si;
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13724,7 +13665,7 @@ return sk;
 
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13891,7 +13832,7 @@ return sl;
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13966,7 +13907,7 @@ return sq;
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14081,7 +14022,7 @@ return srCyrl;
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14196,7 +14137,7 @@ return sr;
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14290,7 +14231,7 @@ return ss;
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14364,7 +14305,7 @@ return sv;
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14428,7 +14369,7 @@ return sw;
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14563,7 +14504,7 @@ return ta;
 
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14657,7 +14598,7 @@ return te;
 
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14730,7 +14671,7 @@ return tet;
 
 
 /***/ }),
-/* 105 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14802,7 +14743,7 @@ return th;
 
 
 /***/ }),
-/* 106 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14869,7 +14810,7 @@ return tlPh;
 
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14994,7 +14935,7 @@ return tlh;
 
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15089,7 +15030,7 @@ return tr;
 
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15185,7 +15126,7 @@ return tzl;
 
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15248,7 +15189,7 @@ return tzmLatn;
 
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15311,7 +15252,7 @@ return tzm;
 
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15467,7 +15408,7 @@ return uk;
 
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15571,7 +15512,7 @@ return ur;
 
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15634,7 +15575,7 @@ return uzLatn;
 
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15697,7 +15638,7 @@ return uz;
 
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15781,7 +15722,7 @@ return vi;
 
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15854,7 +15795,7 @@ return xPseudo;
 
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15919,7 +15860,7 @@ return yo;
 
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16035,7 +15976,7 @@ return zhCn;
 
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16145,7 +16086,7 @@ return zhHk;
 
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16254,7 +16195,7 @@ return zhTw;
 
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(207);
@@ -16262,7 +16203,7 @@ module.exports = 'ngAnimate';
 
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -16273,7 +16214,7 @@ module.exports = 'ngAnimate';
  * @overview angular-cache is a very useful replacement for Angular's $cacheFactory.
  */
 (function (global, factory) {
-   true ? module.exports = factory(typeof angular === 'undefined' ? __webpack_require__(3) : angular) :
+   true ? module.exports = factory(typeof angular === 'undefined' ? __webpack_require__(2) : angular) :
   typeof define === 'function' && define.amd ? define('angular-cache', ['angular'], factory) :
   (global.angularCacheModuleName = factory(global.angular));
 }(this, function (angular) { 'use strict';
@@ -17378,7 +17319,7 @@ module.exports = 'ngAnimate';
 //# sourceMappingURL=angular-cache.js.map
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* globals define */
@@ -17386,13 +17327,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   if (typeof module !== 'undefined' && module.exports) {
     if (typeof angular === 'undefined') {
-      factory(__webpack_require__(3));
+      factory(__webpack_require__(2));
     } else {
       factory(angular);
     }
     module.exports = 'angular-google-analytics';
   } else if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18678,7 +18619,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19033,7 +18974,7 @@ module.exports =
 
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(209);
@@ -19041,7 +18982,7 @@ module.exports = 'ngSanitize';
 
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports) {
 
 /**
@@ -23655,12 +23596,12 @@ angular.module('ui.router.state')
 })(window, window.angular);
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular__);
 
 
@@ -23688,7 +23629,7 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
     __WEBPACK_IMPORTED_MODULE_1_angular___default.a.extend(this.CacheFactoryProvider.defaults, {
       maxAge: 3600000,
       deleteOnExpire: 'aggressive',
-      onExpire: function (key, value) {
+      onExpire: key => {
         __WEBPACK_IMPORTED_MODULE_1_angular___default.a.injector(['ng']).get('$http').get(key).success(function (data) {
           this.put(key, data);
         }.bind(this));
@@ -23702,7 +23643,7 @@ AppConfig.$inject = ['$sceDelegateProvider', 'AnalyticsProvider', 'CacheFactoryP
 /* harmony default export */ __webpack_exports__["a"] = (AppConfig);
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23730,11 +23671,11 @@ AppController.$inject = ['$state', 'ENV', 'TooltipService'];
 /* harmony default export */ __webpack_exports__["a"] = (AppController);
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
 
@@ -23761,7 +23702,7 @@ const AppFilters = {
 /* harmony default export */ __webpack_exports__["a"] = (AppFilters);
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23983,7 +23924,7 @@ AppRoutes.$inject = ['$httpProvider', '$locationProvider', '$stateProvider', '$u
 /* harmony default export */ __webpack_exports__["a"] = (AppRoutes);
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24000,21 +23941,22 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* de
     });
 
     // state access controls
-    this.$rootScope.$on("$stateChangeStart", (event, toState, toParams, fromState, fromParams) => {
+    // Params: event, toState, toParams, fromState, fromParams
+    this.$rootScope.$on("$stateChangeStart", (event, toState, toParams) => {
       let mods = [];
 
-      let getMods = cb => {
+      const getMods = cb => {
         this.ModService.fetchByBranch(toParams.branchid).then(branchMods => {
           mods = branchMods;
           cb();
         }, cb);
       };
 
-      let doChecks = () => {
+      const doChecks = () => {
         // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
         this.UserService.fetch('me').then(me => {
-          if (toState.selfOnly && (Object.keys(me).length === 0 || toParams.username !== me.username)) {
+          if (toState.selfOnly && (!Object.keys(me).length || toParams.username !== me.username)) {
             this.$state.transitionTo(toState.redirectTo);
             event.preventDefault();
           }
@@ -24023,9 +23965,11 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* de
           // transition to the specified redirection state
           if (toState.modOnly) {
             let isMod = false;
+
             for (let i = 0; i < mods.length; i++) {
               if (mods[i].username === me.username) {
                 isMod = true;
+                break;
               }
             }
 
@@ -24052,12 +23996,13 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* de
     });
   }
 }
-AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window', 'UserService', 'ModService'];
+
+AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window', 'ModService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AppRun);
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24088,7 +24033,7 @@ AppService.$inject = ['ENV'];
 /* harmony default export */ __webpack_exports__["a"] = (AppService);
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24115,7 +24060,7 @@ AlertsComponent.$inject = ['AlertsService'];
 /* harmony default export */ __webpack_exports__["a"] = (AlertsComponent);
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24166,7 +24111,7 @@ AlertsService.$inject = ['$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (AlertsService);
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24223,7 +24168,7 @@ ChartComponent.$inject = ['$compile', 'ChartColours'];
 /* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24259,7 +24204,8 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     });
   }
 
-  onSubmitComment(comment) {
+  // Params: comment
+  onSubmitComment() {
     if (this.openComment.meta.update) {
       // if the comment was edited
       // reload the comment data
@@ -24361,7 +24307,7 @@ CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'User
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24389,7 +24335,7 @@ CommentThreadComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24477,7 +24423,7 @@ CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService',
 /* harmony default export */ __webpack_exports__["a"] = (CommentsController);
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24503,7 +24449,7 @@ CommentsComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24543,7 +24489,7 @@ class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
           this.comment = { text: '' };
           this.onSubmit()(this.comment.id);
         });
-      }).catch(err => {
+      }).catch(() => {
         this.AlertsService.push('error', 'Error editing comment.');
         this.$timeout(() => {
           this.isLoading = false;
@@ -24583,7 +24529,7 @@ WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'A
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentController);
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24616,7 +24562,7 @@ WriteCommentComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentComponent);
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24643,7 +24589,7 @@ CoverPhotoController.$inject = ['$state', 'ModalService'];
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24675,7 +24621,7 @@ CoverPhotoComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24696,7 +24642,8 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     };
   }
 
-  link(scope, element, attrs) {
+  // Params: scope, element, attrs
+  link(scope) {
     scope.isOpen = false;
 
     scope.close = () => {
@@ -24725,7 +24672,7 @@ DropdownComponent.$inject = ['$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24817,7 +24764,7 @@ ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService
 /* harmony default export */ __webpack_exports__["a"] = (ListItemController);
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24847,7 +24794,7 @@ ListItemComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24889,9 +24836,8 @@ class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     **  and so we append it to the directive template (having removed ng-transclude
     **  from the end of the template also).
     */
-    transclude(scope.$parent, function (clone, scope) {
-      element.append(clone);
-    });
+    // Params: clone, scope
+    transclude(scope.$parent, clone => element.append(clone));
   }
 }
 
@@ -24900,7 +24846,7 @@ LoadingComponent.$inject = ['$compile'];
 /* harmony default export */ __webpack_exports__["a"] = (LoadingComponent);
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24918,8 +24864,12 @@ class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     };
   }
 
-  link(scope, element, attrs) {
-    if (scope.entry.action === 'answer-subbranch-request') scope.entry.data = JSON.parse(scope.entry.data);
+  // Params: scope, element, attrs
+  link(scope, element) {
+    if ('answer-subbranch-request' === scope.entry.action) {
+      scope.entry.data = JSON.parse(scope.entry.data);
+    }
+
     this.$templateRequest(`/app/components/mod-log-entry/${scope.entry.action}.template.html`).then(template => {
       element.html(template);
       this.$compile(element.contents())(scope);
@@ -24934,7 +24884,7 @@ ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
 /* harmony default export */ __webpack_exports__["a"] = (ModLogEntryComponent);
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24993,7 +24943,7 @@ CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalServic
 /* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25046,7 +24996,7 @@ AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchSe
 /* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25103,12 +25053,12 @@ DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'Br
 /* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
 
 
 
@@ -25198,12 +25148,12 @@ RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserS
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
 
 
 
@@ -25292,7 +25242,7 @@ RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25351,12 +25301,12 @@ SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'E
 /* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
 
 
 
@@ -25443,7 +25393,7 @@ UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25525,7 +25475,7 @@ BranchNucleusSettingsModalController.$inject = ['$timeout', '$state', 'EventServ
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsModalController);
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25557,7 +25507,7 @@ ModalComponent.$inject = ['EventService', 'ModalService'];
 /* harmony default export */ __webpack_exports__["a"] = (ModalComponent);
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25568,15 +25518,14 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
   constructor(...injections) {
     super(ModalService.$inject, injections);
 
-    this.name = '';
-    this.templateUrl = '';
     this.isOpen = false;
     this.inputArgs = {};
+    this.name = '';
     this.outputArgs = {};
-    this.resolve = () => {};
     this.reject = () => {};
+    this.resolve = () => {};
+    this.templateUrl = '';
     this.templateUrls = {
-
       ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.view.html',
       BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
       CREATE_BRANCH: '/app/components/modal/branch/create/create-branch.modal.view.html',
@@ -25584,7 +25533,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
       DELETE_POST: '/app/components/modal/post/delete/delete-post.modal.view.html',
       FLAG_POST: '/app/components/modal/post/flag/flag-post.modal.view.html',
-      PROFILE_SETTINGS: '/app/components/modal/profile/settings/settings.modal.view.html',
+      PROFILE_SETTINGS: '/app/components/modal/profile/settings/view.html',
       REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
       RESOLVE_FLAG_POST: '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html',
       REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
@@ -25594,6 +25543,33 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       UPLOAD_IMAGE: '/app/components/modal/upload-image/upload-image.modal.view.html'
     };
     this.names = Object.keys(this.templateUrls);
+  }
+
+  Cancel(args) {
+    this.$timeout(() => {
+      this.isOpen = false;
+      if (args) {
+        this.outputArgs = args;
+      }
+      this.name = '';
+      this.resolve(false);
+    });
+  }
+
+  Error() {
+    this.name = '';
+    this.reject();
+  }
+
+  OK(args) {
+    this.$timeout(() => {
+      this.isOpen = false;
+      if (args) {
+        this.outputArgs = args;
+      }
+      this.name = '';
+      this.resolve(true);
+    });
   }
 
   open(name, args, successMessage, errorMessage) {
@@ -25617,36 +25593,9 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
         this.$state.go(this.$state.current, {}, { reload: true });
         this.AlertsService.push('success', successMessage);
       }
-    }).catch(err => {
+    }).catch(() => {
       this.AlertsService.push('error', errorMessage);
     });
-  }
-
-  OK(args) {
-    this.$timeout(() => {
-      this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(true);
-    });
-  }
-
-  Cancel(args) {
-    this.$timeout(() => {
-      this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(false);
-    });
-  }
-
-  Error() {
-    this.name = '';
-    this.reject();
   }
 }
 
@@ -25655,12 +25604,12 @@ ModalService.$inject = ['$state', '$timeout', 'AlertsService', 'EventService'];
 /* harmony default export */ __webpack_exports__["a"] = (ModalService);
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
 
 
 
@@ -25785,14 +25734,13 @@ CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService'
 /* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(2);
 
-
+//import Generator from 'utils/generator.js';
 
 class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
   constructor(...injections) {
@@ -25803,11 +25751,13 @@ class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_POST') return;
+
       this.isLoading = true;
+
       this.PostService.delete(this.ModalService.inputArgs.postid).then(() => {
         this.isLoading = false;
         this.ModalService.OK();
-      }).catch(err => {
+      }).catch(() => {
         this.isLoading = false;
         this.ModalService.Cancel();
       });
@@ -25815,6 +25765,7 @@ class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'DELETE_POST') return;
+
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
@@ -25823,12 +25774,13 @@ class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     });
   }
 }
-DeletePostModalController.$inject = ['$timeout', 'EventService', 'PostService', 'AlertsService', 'ModalService'];
+
+DeletePostModalController.$inject = ['$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (DeletePostModalController);
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25910,7 +25862,7 @@ FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', '
 /* harmony default export */ __webpack_exports__["a"] = (FlagPostModalController);
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26019,7 +25971,7 @@ ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchSer
 /* harmony default export */ __webpack_exports__["a"] = (ResolveFlagPostModalController);
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26064,7 +26016,7 @@ SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalSer
 /* harmony default export */ __webpack_exports__["a"] = (SubmitPollAnswerModalController);
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26128,7 +26080,7 @@ ProfileSettingsModalController.$inject = ['$timeout', 'EventService', 'UserServi
 /* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsModalController);
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26194,14 +26146,72 @@ UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventS
 /* harmony default export */ __webpack_exports__["a"] = (UploadImageModalController);
 
 /***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NavBarController.$inject, injections);
+
+    this.animationSrc = '';
+    this.expanded = false;
+    this.notificationCount = 0;
+  }
+
+  isControlSelected(control) {
+    return this.$state.current.name.indexOf(control) > -1 && this.$state.params.branchid === 'root';
+  }
+
+  logout() {
+    this.expanded = false;
+    this.UserService.logout().then(() => {
+      this.$state.go('auth.login');
+    }).catch(() => {
+      this.AlertsService.push('error', 'Unable to log out.');
+    });
+  }
+
+  onHomePage() {
+    return this.$state.current.name === 'weco.home';
+  }
+
+  showNotificationCount() {
+    return this.notificationCount > 0;
+  }
+
+  toggleNav() {
+    this.expanded = !this.expanded;
+  }
+
+  triggerAnimation() {
+    // set animation src to the animated gif
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation.gif';
+    });
+
+    // cancel after 1 sec
+    this.$timeout(() => {
+      this.animationSrc = '';
+    }, 1000);
+  }
+}
+
+NavBarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (NavBarController);
+
+/***/ }),
 /* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_nav_bar_nav_bar_controller__ = __webpack_require__(5);
 
-
+//import NavBarController from 'components/nav-bar/nav-bar.controller';
 
 class NavBarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
@@ -26214,6 +26224,7 @@ class NavBarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a"
     this.templateUrl = '/app/components/nav-bar/view.html';
   }
 }
+
 NavBarComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavBarComponent);
@@ -26239,7 +26250,8 @@ class NotificationComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
     };
   }
 
-  link(scope, element, attrs) {
+  // Params: scope, element, attrs
+  link(scope, element) {
     scope.UserService = this.UserService;
     scope.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */];
 
@@ -26247,25 +26259,30 @@ class NotificationComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
       switch (scope.notification.reason) {
         case 'branch_rules':
           return 'for violating the branch rules';
+
         case 'site_rules':
           return 'for violating the site rules';
+
         case 'wrong_type':
           return 'for being tagged with an incorrect post type';
+
         case 'nsfw':
           return 'as NSFW';
+
         default:
           return '';
       }
     };
 
     // remplate name is as represented in NotificationTypes with no caps and hyphens instead of underscores
-    let templateName = (() => {
+    const templateName = (() => {
       for (let key in __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */]) {
         if (__WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */][key] === scope.notification.type) {
           return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
         }
       }
     })();
+
     this.$templateRequest(`/app/components/notification/${templateName}.template.html`).then(template => {
       element.html(template);
       this.$compile(element.contents())(scope);
@@ -26274,7 +26291,8 @@ class NotificationComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
     });
   }
 }
-NotificationComponent.$inject = ['$timeout', '$compile', '$templateRequest', 'UserService', 'AlertsService'];
+
+NotificationComponent.$inject = ['$compile', '$templateRequest', '$timeout', 'AlertsService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NotificationComponent);
 
@@ -26294,13 +26312,14 @@ class OnScrollToBottomComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   }
 
   link(scope, element, attrs) {
-    element.on('scroll', e => {
+    element.on('scroll', () => {
       if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
         this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
       }
     });
   }
 }
+
 OnScrollToBottomComponent.$inject = ['$timeout', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (OnScrollToBottomComponent);
@@ -26326,27 +26345,31 @@ class PollAnswerEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     };
   }
 
-  link(scope, element, attrs) {
+  // Params: scope, element, attrs
+  link(scope) {
     scope.newAnswer = '';
 
     scope.addItem = () => {
       // ensure answer doesnt already exist and isn't blank
-      if (scope.answers.indexOf(scope.newAnswer) > -1 || scope.newAnswer === '') {
+      if (scope.answers.indexOf(scope.newAnswer) !== -1 || scope.newAnswer === '') {
         return;
       }
+
       scope.answers.push(scope.newAnswer);
       scope.newAnswer = '';
     };
 
     scope.removeItem = answer => {
+      const itemIndex = scope.answers.indexOf(answer);
+
       // ensure item exists
-      if (scope.answers.indexOf(answer) == -1) {
-        return;
-      }
-      scope.answers.splice(scope.answers.indexOf(answer), 1);
+      if (itemIndex === -1) return;
+
+      scope.answers.splice(itemIndex, 1);
     };
   }
 }
+
 PollAnswerEditorComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (PollAnswerEditorComponent);
@@ -26430,44 +26453,51 @@ class TagEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     };
     this.templateUrl = '/app/components/tag-editor/view.html';
   }
-  link(scope, element, attrs) {
+
+  // Params: scope, element, attrs
+  link(scope) {
     scope.errorMessage = '';
     scope.data = {};
 
     scope.addItem = () => {
       scope.errorMessage = '';
+
       // ensure not already at max number of items
-      if (scope.items.length >= scope.max()) {
-        return;
-      }
+      if (scope.items.length >= scope.max()) return;
+
       // ensure item exists
-      if (!scope.data.item) {
-        return;
-      }
+      if (!scope.data.item) return;
+
       // ensure item doesn't contan whitespace
       if (/\s/g.test(scope.data.item)) {
         scope.errorMessage = 'Cannot contain spaces.';
         return;
       }
+
       // convert to all lowercase
       scope.data.item = scope.data.item.toLowerCase();
+
       // ensure not already in list
-      if (scope.items.indexOf(scope.data.item) > -1) {
-        return;
-      }
+      if (scope.items.indexOf(scope.data.item) !== -1) return;
+
       // add to list and clear textbox
       scope.items.push(scope.data.item);
+
       scope.data.item = undefined;
     };
 
     scope.removeItem = item => {
-      scope.errorMessage = '';
-      if (scope.items.indexOf(item) > -1) {
-        scope.items.splice(scope.items.indexOf(item), 1);
+      const itemIndex = scope.items.indexOf(item);
+
+      if (itemIndex !== -1) {
+        scope.items.splice(itemIndex, 1);
       }
+
+      scope.errorMessage = '';
     };
   }
 }
+
 TagEditorComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (TagEditorComponent);
@@ -26793,7 +26823,7 @@ class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
         this.animationSrc = '/assets/images/logo-animation-large.gif';
       });
 
-      if (this.message.indexOf('...') > -1) {
+      if (this.message.indexOf('...') !== -1) {
         this.message = 'Verifying your account.';
       } else {
         this.message += '.';
@@ -26804,14 +26834,15 @@ class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
       this.UserService.verify(this.$state.params.username, this.$state.params.token).then(() => {
         this.$state.go('auth.login');
         this.AlertsService.push('success', 'Account verified! You can now login.', true);
-      }).catch(err => {
+      }).catch(() => {
         this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
         this.$state.go('auth.signup');
       });
     }, 3000);
   }
 }
-VerifyController.$inject = ['$state', '$interval', '$timeout', 'UserService', 'AlertsService'];
+
+VerifyController.$inject = ['$interval', '$state', '$timeout', 'AlertsService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (VerifyController);
 
@@ -27405,27 +27436,25 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     };
 
     this.getPollAnswers();
+
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
       this.getPollAnswers();
     });
   }
 
-  // indicate whether the poll has been voted yet ie. do we have results to show
-  hasSomeVotes() {
-    let hasVotes = false;
-    for (let datum of this.chart.data) {
-      if (datum !== 0) hasVotes = true;
-    }
-    return hasVotes;
+  getAnswerColor(index) {
+    return index > this.ChartColours.length ? '#d3d3d3' : this.ChartColours[index];
   }
 
-  getPollAnswers(lastAnswerId) {
+  // Params: lastAnswerId
+  getPollAnswers() {
     // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
       this.$timeout(() => {
         this.answers = answers;
         this.chart.labels = [];
         this.chart.data = [];
+
         for (let index in answers) {
           this.chart.labels.push(Number(index) + 1);
           this.chart.data.push(answers[index].votes);
@@ -27438,12 +27467,16 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     });
   }
 
-  getAnswerColor(index) {
-    if (index > this.ChartColours.length) return '#d3d3d3';
-    return this.ChartColours[index];
+  // indicate whether the poll has been voted yet ie. do we have results to show
+  hasSomeVotes() {
+    for (let datum of this.chart.data) {
+      if (datum !== 0) return true;
+    }
+    return false;
   }
 }
-BranchPostResultsController.$inject = ['$timeout', '$scope', 'PostService', 'AlertsService', 'EventService', 'ChartColours'];
+
+BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'ChartColours', 'EventService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
 
@@ -27605,30 +27638,37 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   // compute the appropriate timeafter for the selected time filter
   getTimeafter(timeItem) {
     let timeafter;
-    let date = new Date();
+
     switch (timeItem) {
       case 'ALL TIME':
         timeafter = 0;
         break;
+
       case 'PAST YEAR':
         timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
         break;
+
       case 'PAST MONTH':
         timeafter = new Date().setMonth(new Date().getMonth() - 1);
         break;
+
       case 'PAST WEEK':
         timeafter = new Date().setDate(new Date().getDate() - 7);
         break;
+
       case 'PAST 24 HRS':
         timeafter = new Date().setDate(new Date().getDate() - 1);
         break;
+
       case 'PAST HOUR':
         timeafter = new Date().setHours(new Date().getHours() - 1);
         break;
+
       default:
         timeafter = 0;
         break;
     }
+
     return timeafter;
   }
 
@@ -27735,30 +27775,37 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   // compute the appropriate timeafter for the selected time filter
   getTimeafter(timeItem) {
     let timeafter;
-    let date = new Date();
+
     switch (timeItem) {
       case 'ALL TIME':
         timeafter = 0;
         break;
+
       case 'PAST YEAR':
         timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
         break;
+
       case 'PAST MONTH':
         timeafter = new Date().setMonth(new Date().getMonth() - 1);
         break;
+
       case 'PAST WEEK':
         timeafter = new Date().setDate(new Date().getDate() - 7);
         break;
+
       case 'PAST 24 HRS':
         timeafter = new Date().setDate(new Date().getDate() - 1);
         break;
+
       case 'PAST HOUR':
         timeafter = new Date().setHours(new Date().getHours() - 1);
         break;
+
       default:
         timeafter = 0;
         break;
     }
+
     return timeafter;
   }
 
@@ -27908,17 +27955,18 @@ class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     for (let stat of Object.keys(this.stats)) {
       this.API.fetch('/constant/:stat', { stat }).then(res => {
         this.stats[stat] = res.data.data;
-      }).catch(err => {
+      }).catch(() => {
         this.AlertsService.push('error', 'Having trouble connecting...');
       }).then(this.$timeout);
     }
   }
+
   getHomepageImageURL() {
     if ('production' === this.ENV.name) {
       return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
-    } else {
-      return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
     }
+
+    return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
   }
 }
 
@@ -27945,19 +27993,23 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */];
     this.notifications = [];
 
-    let init = () => {
+    const init = () => {
       if (this.$state.current.name.indexOf('weco.profile') === -1) return;
-
       this.getNotifications();
     };
 
     init();
+
     this.EventService.on(this.EventService.events.CHANGE_USER, init);
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'NotificationsScrollToBottom') return;
+
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
-        if (this.notifications.length > 0) this.getNotifications(this.notifications[this.notifications.length - 1].id);
+
+        if (this.notifications.length) {
+          this.getNotifications(this.notifications[this.notifications.length - 1].id);
+        }
       }
     });
   }
@@ -27968,14 +28020,18 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].CHILD_BRANCH_REQUEST_ANSWERED:
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].BRANCH_MOVED:
         return 'branch';
+
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].MODERATOR:
         return 'moderator';
+
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].COMMENT:
         return 'comment';
+
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_FLAGGED:
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_REMOVED:
       case __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */].POST_TYPE_CHANGED:
         return 'flagged';
+
       default:
         return 'user';
     }
@@ -27991,6 +28047,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
         } else {
           this.notifications = notifications;
         }
+
         this.isLoading = false;
         this.isLoadingMore = false;
       });
@@ -28004,12 +28061,13 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       this.$timeout(() => {
         notification.unread = unread;
       });
-    }).catch(err => {
+    }).catch(() => {
       this.AlertsService.push('error', 'Unable to mark notification.');
     });
   }
 }
-ProfileNotificationsController.$inject = ['$timeout', '$state', 'UserService', 'AlertsService', 'EventService'];
+
+ProfileNotificationsController.$inject = ['$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
 
@@ -28091,7 +28149,8 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
   }
 }
-ProfileController.$inject = ['$timeout', '$state', 'UserService', 'ModalService', 'AlertsService', 'EventService', 'AppService'];
+
+ProfileController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileController);
 
@@ -28167,12 +28226,13 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
     super(API.$inject, injections);
   }
 
-  makeFormEncoded(data, headersGetter) {
+  // Params: data, headersGetter
+  makeFormEncoded(data) {
     let str = [];
     for (let d in data) {
-      str.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+      str.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
     }
-    return str.join("&");
+    return str.join('&');
   }
 
   normaliseResponse(data, headersGetter, status) {
@@ -28197,7 +28257,7 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
 
       // make the request
       let req = {
-        method: method,
+        method,
         url: this.ENV.apiEndpoint + url,
         transformResponse: this.normaliseResponse
       };
@@ -28212,16 +28272,24 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
           'Content-Type': 'application/json'
         };
       }
-      if (method === 'PUT' || method === 'POST') req.data = data;
-      if (method === 'GET' || method === 'DELETE') req.params = data;
-      this.$http(req).then(response => {
-        resolve(response.data || response);
-      }, reject);
+
+      if (method === 'PUT' || method === 'POST') {
+        req.data = data;
+      }
+
+      if (method === 'GET' || method === 'DELETE') {
+        req.params = data;
+      }
+
+      this.$http(req).then(res => resolve(res.data || res), reject);
     });
   }
 
   fetch(url, params, data, urlFormEncode) {
     return this.request('GET', url, params, data, urlFormEncode);
+  }
+  remove(url, params, data, urlFormEncode) {
+    return this.request('DELETE', url, params, data, urlFormEncode);
   }
   save(url, params, data, urlFormEncode) {
     return this.request('POST', url, params, data, urlFormEncode);
@@ -28229,10 +28297,8 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
   update(url, params, data, urlFormEncode) {
     return this.request('PUT', url, params, data, urlFormEncode);
   }
-  remove(url, params, data, urlFormEncode) {
-    return this.request('DELETE', url, params, data, urlFormEncode);
-  }
 }
+
 API.$inject = ['$http', 'ENV'];
 
 /* harmony default export */ __webpack_exports__["a"] = (API);
@@ -28243,7 +28309,7 @@ API.$inject = ['$http', 'ENV'];
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
@@ -28252,12 +28318,12 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     super(BranchService.$inject, injections);
     this.branch = {};
 
-    let updateBranch = () => {
-      if (this.$state.current.name.indexOf('weco.branch') > -1) {
+    const updateBranch = () => {
+      if (this.$state.current.name.indexOf('weco.branch') !== -1) {
         this.fetch(this.$state.params.branchid).then(branch => {
           this.branch = branch;
-        }).catch(response => {
-          if (response.status === 404) {
+        }).catch(err => {
+          if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch branch.');
@@ -28269,183 +28335,145 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     };
 
     updateBranch();
+
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
+  }
+
+  actionSubbranchRequest(action, parentid, childid) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch', {}, data).then(resolve).catch(err => reject(err.data || err));
+    });
   }
 
   fetch(branchid) {
     return new Promise((resolve, reject) => {
       __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
         try {
-          let response = yield this.API.fetch('/branch/:branchid', { branchid: branchid });
-          let branch = response.data;
+          let res = yield this.API.fetch('/branch/:branchid', { branchid });
+          let branch = res.data;
 
           try {
             // attach urls for the branch's profile and cover pictures (inc. thumbnails)
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture' });
-            branch.profileUrl = response.data;
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture' });
+            branch.profileUrl = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture-thumb' });
-            branch.profileUrlThumb = response.data;
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture-thumb' });
+            branch.profileUrlThumb = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover' });
-            branch.coverUrl = response.data;
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover' });
+            branch.coverUrl = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover-thumb' });
-            branch.coverUrlThumb = response.data;
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover-thumb' });
+            branch.coverUrlThumb = res.data;
           } catch (err) {} /* It's okay if we don't have any photos */
 
           // attach parent branch
-          if (branch.parentid === 'root' || branch.parentid === 'none') {
+          if ('root' === branch.parentid || 'none' === branch.parentid) {
             branch.parent = {
               id: branch.parentid
             };
           } else {
-            response = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
-            branch.parent = response.data;
+            res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            branch.parent = res.data;
           }
+
           delete branch.parentid;
 
           // attach moderator list
           branch.mods = yield this.ModService.fetchByBranch(branch.id);
 
           return resolve(branch);
-        } catch (response) {
-          return reject(response.data || response);
+        } catch (err) {
+          return reject(err.data || err);
         }
       }, this);
     });
   }
 
-  update(branchid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid', { branchid: branchid }, data, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  remove(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid', { branchid: branchid }).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch', {}, data).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
   getModLog(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/modlog', {
-        branchid: branchid
-      }).then(response => {
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  getSubbranchRequests(parentid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', {
-        branchid: parentid
-      }).then(response => {
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  actionSubbranchRequest(action, parentid, childid) {
-    return new Promise((resolve, reject) => {
-      let error = response => {
-        return reject(response.data || response);
-      };
-
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', {
-        branchid: parentid,
-        childid: childid
-      }, {
-        action: action
-      }, true).then(resolve).catch(error);
-    });
-  }
-
-  submitSubbranchRequest(parentid, childid) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', {
-        branchid: parentid,
-        childid: childid
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
-    return new Promise((resolve, reject) => {
-      let params = {
-        timeafter: timeafter,
-        sortBy: sortBy
-      };
-      if (lastBranchId) params.lastBranchId = lastBranchId;
-      this.API.fetch('/branch/:branchid/subbranches', {
-        branchid: branchid
-      }, params).then(response => {
-        resolve(response.data);
-      }, true).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.fetch('/branch/:branchid/modlog', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
   getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
     return new Promise((resolve, reject) => {
       let params = {
-        timeafter: timeafter,
-        sortBy: sortBy,
-        stat: stat,
-        postType: postType,
-        flag: !!flag
+        flag: !!flag,
+        postType,
+        sortBy,
+        stat,
+        timeafter
       };
-      if (lastPostId) params.lastPostId = lastPostId;
-      this.API.fetch('/branch/:branchid/posts', {
-        branchid: branchid
-      }, params).then(response => {
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
+
+      if (lastPostId) {
+        params.lastPostId = lastPostId;
+      }
+
+      this.API.fetch('/branch/:branchid/posts', { branchid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
+    return new Promise((resolve, reject) => {
+      let params = { sortBy, timeafter };
+
+      if (lastBranchId) {
+        params.lastBranchId = lastBranchId;
+      }
+
+      this.API.fetch('/branch/:branchid/subbranches', { branchid }, params).then(res => resolve(res.data), true).catch(err => reject(err.data || err));
+    });
+  }
+
+  getSubbranchRequests(parentid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid: parentid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  remove(branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/branch/:branchid', { branchid }).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
   resolveFlaggedPost(branchid, postid, action, data, message) {
     return new Promise((resolve, reject) => {
-      let body = {};
-      body.action = action;
-      body[action === 'change_type' ? 'type' : 'reason'] = data;
-      body.message = message;
-      this.API.save('/branch/:branchid/posts/:postid/resolve', {
-        branchid: branchid,
-        postid: postid
-      }, body).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
+      let body = { action, message };
+
+      body['change_type' === action ? 'type' : 'reason'] = data;
+
+      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  submitSubbranchRequest(parentid, childid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  update(branchid, data) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/branch/:branchid', { branchid }, data, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 }
-BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
+
+BranchService.$inject = ['$state', 'AlertsService', 'API', 'EventService', 'ModService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchService);
 
@@ -28464,49 +28492,40 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   create(data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/comments', {
-        postid: data.postid
-      }, data).then(response => {
-        // pass on the returned commentid
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  // get the comments on a post or replies to another comment
-  getMany(postid, parentid, sortBy, lastCommentId) {
-    return new Promise((resolve, reject) => {
-      let params = {
-        parentid: parentid,
-        sort: sortBy
-      };
-      if (lastCommentId) params.lastCommentId = lastCommentId;
-
-      this.API.fetch('/post/:postid/comments', {
-        postid: postid
-      }, params).then(comments => {
-        resolve(comments.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.save('/post/:postid/comments', { postid: data.postid }, data)
+      // pass on the returned commentid
+      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
   fetch(postid, commentid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid/comments/:commentid', {
-        postid: postid,
-        commentid: commentid
-      }).then(comment => {
+      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(comment => {
         if (!comment || !comment.data) {
           return reject();
         }
-        resolve(comment.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
+
+        return resolve(comment.data);
+      }).catch(err => reject(err.data || err));
+    });
+  }
+
+  // get the comments on a post or replies to another comment
+  getMany(postid, parentid, sort, lastCommentId) {
+    return new Promise((resolve, reject) => {
+      let params = { parentid, sort };
+
+      if (lastCommentId) {
+        params.lastCommentId = lastCommentId;
+      }
+
+      this.API.fetch('/post/:postid/comments', { postid }, params).then(comments => resolve(comments.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  update(postid, commentid, text) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { text }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
@@ -28516,30 +28535,11 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
         return reject();
       }
 
-      this.API.update('/post/:postid/comments/:commentid', {
-        postid: postid,
-        commentid: commentid
-      }, {
-        vote: vote
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  update(postid, commentid, text) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/post/:postid/comments/:commentid', {
-        postid: postid,
-        commentid: commentid
-      }, {
-        text: text
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 }
+
 CommentService.$inject = ['API'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentService);
@@ -28557,25 +28557,27 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     super(EventService.$inject, injections);
 
     this.events = {
-      CHANGE_USER: 'CHANGE_USER',
-      MODAL_OK: 'MODAL_OK',
-      MODAL_CANCEL: 'MODAL_CANCEL',
-      MODAL_OPEN: 'MODAL_OPEN',
-      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
       CHANGE_BRANCH: 'CHANGE_BRANCH',
+      CHANGE_POST: 'CHANGE_POST',
+      CHANGE_USER: 'CHANGE_USER',
+      MODAL_CANCEL: 'MODAL_CANCEL',
+      MODAL_OK: 'MODAL_OK',
+      MODAL_OPEN: 'MODAL_OPEN',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
-      CHANGE_POST: 'CHANGE_POST'
+      STATE_CHANGE_SUCCESS: '$stateChangeSuccess'
     };
   }
 
   emit(event, args) {
     let eventExists = false;
+
     for (let idx in this.events) {
       if (this.events[idx] === event) {
         eventExists = true;
         break;
       }
     }
+
     if (eventExists) {
       this.$rootScope.$broadcast(event, args);
     }
@@ -28589,6 +28591,7 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     });
   }
 }
+
 EventService.$inject = ['$rootScope', '$timeout'];
 
 /* harmony default export */ __webpack_exports__["a"] = (EventService);
@@ -28599,50 +28602,41 @@ EventService.$inject = ['$rootScope', '$timeout'];
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(2);
 
-
+//import Generator from 'utils/generator';
 
 class ModService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(ModService.$inject, injections);
   }
 
-  fetchByBranch(branchid) {
+  create(branchid, username) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/mods', {
-        branchid: branchid
-      }).then(response => {
-        return resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
+      this.API.save('/branch/:branchid/mods', { branchid }, { username }).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
 
-  create(branchid, username) {
+  fetchByBranch(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/mods', {
-        branchid: branchid
-      }, {
-        username: username
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.fetch('/branch/:branchid/mods', { branchid }).then(res => {
+        return resolve(res.data);
+      }).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
 
   remove(branchid, username) {
     return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid/mods/:username', {
-        branchid: branchid,
-        username: username
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
+      this.API.remove('/branch/:branchid/mods/:username', { branchid, username }).then(resolve).catch(err => {
+        return reject(err.data || err);
       });
     });
   }
 }
+
 ModService.$inject = ['API'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ModService);
@@ -28653,7 +28647,7 @@ ModService.$inject = ['API'];
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
@@ -28662,12 +28656,12 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     super(PostService.$inject, injections);
     this.post = {};
 
-    let updatePost = () => {
-      if (this.$state.current.name.indexOf('weco.branch.post') > -1) {
+    const updatePost = () => {
+      if (this.$state.current.name.indexOf('weco.branch.post') !== -1) {
         this.fetch(this.$state.params.postid).then(post => {
           this.post = post;
-        }).catch(response => {
-          if (response.status === 404) {
+        }).catch(err => {
+          if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch post.');
@@ -28679,59 +28673,73 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     };
 
     updatePost();
+
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updatePost);
   }
 
-  getPictureUrl(id, thumbnail) {
-    return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, {
-      postid: id
-    }, {});
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/post', {}, data)
+      // pass on the returned postid
+      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  createPollAnswer(postid, data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/poll/:postid/answer', { postid }, data).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  delete(postid) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/post/:postid', { postid }).then(resolve).catch(err => reject(err.data || err));
+    });
   }
 
   fetch(postid) {
     return new Promise((resolve, reject) => {
       __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
         try {
-          let response = yield this.API.fetch('/post/:postid', { postid: postid }, {});
-          if (!response && !response.data) return reject();
-          let post = response.data;
+          let res = yield this.API.fetch('/post/:postid', { postid }, {});
+
+          if (!res && !res.data) {
+            return reject();
+          }
+
+          let post = res.data;
 
           try {
-            response = yield this.API.fetch('/post/:postid/picture', { postid: postid }, {});
-            post.profileUrl = response.data;
+            res = yield this.API.fetch('/post/:postid/picture', { postid }, {});
+            post.profileUrl = res.data;
           } catch (e) {/* It's okay if we don't have any photos */}
 
           try {
-            response = yield this.API.fetch('/post/:postid/picture-thumb', { postid: postid }, {});
-            post.profileUrlThumb = response.data;
+            res = yield this.API.fetch('/post/:postid/picture-thumb', { postid }, {});
+            post.profileUrlThumb = res.data;
           } catch (e) {/* It's okay if we don't have any photos */}
 
           return resolve(post);
-        } catch (response) {
-          return reject(response.data || response);
+        } catch (err) {
+          return reject(err.data || err);
         }
       }, this);
     });
   }
 
-  create(data) {
+  flag(postid, branchid, flag_type) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post', {}, data).then(response => {
-        // pass on the returned postid
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type }).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
-  delete(postid) {
+  getPictureUrl(postid, thumbnail) {
+    return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
+  }
+
+  getPollAnswers(postid, sortBy, lastAnswerId) {
     return new Promise((resolve, reject) => {
-      this.API.remove('/post/:postid', {
-        postid: postid
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -28741,69 +28749,18 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         return reject();
       }
 
-      this.API.update('/branch/:branchid/posts/:postid', {
-        branchid: branchid,
-        postid: postid
-      }, {
-        vote: vote
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  flag(postid, branchid, flag_type) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/flag', {
-        postid: postid
-      }, {
-        flag_type: flag_type,
-        branchid: branchid
-      }).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  getPollAnswers(postid, sortBy, lastAnswerId) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/poll/:postid/answer', {
-        postid: postid
-      }, {
-        sortBy: sortBy,
-        lastAnswerId: lastAnswerId
-      }).then(response => {
-        resolve(response.data);
-      }).catch(response => {
-        return reject(response.data || response);
-      });
-    });
-  }
-
-  createPollAnswer(postid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/poll/:postid/answer', {
-        postid: postid
-      }, data).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
   votePollAnswer(postid, answerid) {
     return new Promise((resolve, reject) => {
-      this.API.update('/poll/:postid/answer/:answerid/vote', {
-        postid: postid,
-        answerid: answerid
-      }, {
-        vote: 'up'
-      }, true).then(resolve).catch(response => {
-        return reject(response.data || response);
-      });
+      this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 }
-PostService.$inject = ['API', '$timeout', '$state', 'AlertsService', 'EventService', 'BranchService'];
+
+PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (PostService);
 
@@ -28826,11 +28783,12 @@ class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
   fetchUploadUrl(route) {
     return new Promise((resolve, reject) => {
       // fetch a presigned URL to which we can upload an image
-      this.API.fetch('/:route', {
-        route: `${route}-upload-url`
-      }).then(response => {
-        if (!response.data) throw new Error();
-        resolve(response.data);
+      this.API.fetch('/:route', { route: `${route}-upload-url` }).then(res => {
+        if (!res.data) {
+          throw new Error();
+        }
+
+        return resolve(res.data);
       }).catch(reject);
     });
   }
@@ -28854,12 +28812,12 @@ class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
       }).then(() => {
         this.isUploading = false;
         this.progress = 0;
-        resolve();
+        return resolve();
       }, () => {
         // error
         this.isUploading = false;
         this.progress = 0;
-        reject();
+        return reject();
       }, evt => {
         // progress
         this.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
@@ -28867,6 +28825,7 @@ class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     });
   }
 }
+
 UploadService.$inject = ['API', 'Upload'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UploadService);
@@ -28877,7 +28836,7 @@ UploadService.$inject = ['API', 'Upload'];
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
@@ -28959,7 +28918,6 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         try {
           yield this.API.request('POST', '/user/login', {}, credentials, true);
           let user = yield this.fetch('me');
-          console.log(user);
           this.user = user;
           this.EventService.emit(this.EventService.events.CHANGE_USER);
           return resolve();
@@ -29069,7 +29027,7 @@ UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
 
@@ -67541,43 +67499,43 @@ $provide.value("$locale", {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_ui_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_animate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_sanitize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_file_upload__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular_marked__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular_cache__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_components_notification_notification_types_config_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_filters__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_run__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_filters__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_run__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_app_config__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_routes__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_app_config__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_routes__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_services_api__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_app_service__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_app_service__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_services_branch__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_services_comment__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_services_event__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_services_mod__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_components_modal_modal_service__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_components_modal_modal_service__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_services_post__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_components_tooltip_tooltip_service__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_services_upload__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_services_user__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_wall_service__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_home_home_controller__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_auth_auth_controller__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_auth_verify_verify_controller__ = __webpack_require__(179);
@@ -67598,45 +67556,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_nav_bar_controller__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_controller__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_alerts_alerts_directive__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_nav_bar_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_alerts_alerts_directive__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_tooltip_tooltip_directive__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_loading_loading_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_loading_loading_directive__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_tabs_tabs_directive__ = __webpack_require__(172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_dropdown_dropdown_directive__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_dropdown_dropdown_directive__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_notification_notification_item_directive__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_list_item_list_item_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_controller__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_comments_comments_directive__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_controller__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_write_comment_write_comment_directive__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_controller__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_list_item_list_item_directive__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_controller__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_comments_comments_directive__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_controller__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_chart_chart_directive__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_modal_modal_directive__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_profile_settings_settings_modal_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_upload_image_upload_image_modal_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87_components_modal_post_submit_poll_answer_submit_poll_answer_modal_controller__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_chart_chart_directive__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_modal_modal_directive__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_profile_settings_settings_modal_controller__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_upload_image_upload_image_modal_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87_components_modal_post_submit_poll_answer_submit_poll_answer_modal_controller__ = __webpack_require__(163);
 // APP DEPENDENCIES
 
 
@@ -71186,7 +71144,7 @@ module.exports = function(Chart) {
 "use strict";
 
 
-var color = __webpack_require__(6);
+var color = __webpack_require__(5);
 
 module.exports = function(Chart) {
 
@@ -71314,7 +71272,7 @@ module.exports = function(Chart) {
 /* global document: false */
 
 
-var color = __webpack_require__(6);
+var color = __webpack_require__(5);
 
 module.exports = function(Chart) {
 	// Global Chart helpers object for utility methods and classes
@@ -81633,236 +81591,236 @@ if (true) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 7,
-	"./af.js": 7,
-	"./ar": 14,
-	"./ar-dz": 8,
-	"./ar-dz.js": 8,
-	"./ar-kw": 9,
-	"./ar-kw.js": 9,
-	"./ar-ly": 10,
-	"./ar-ly.js": 10,
-	"./ar-ma": 11,
-	"./ar-ma.js": 11,
-	"./ar-sa": 12,
-	"./ar-sa.js": 12,
-	"./ar-tn": 13,
-	"./ar-tn.js": 13,
-	"./ar.js": 14,
-	"./az": 15,
-	"./az.js": 15,
-	"./be": 16,
-	"./be.js": 16,
-	"./bg": 17,
-	"./bg.js": 17,
-	"./bn": 18,
-	"./bn.js": 18,
-	"./bo": 19,
-	"./bo.js": 19,
-	"./br": 20,
-	"./br.js": 20,
-	"./bs": 21,
-	"./bs.js": 21,
-	"./ca": 22,
-	"./ca.js": 22,
-	"./cs": 23,
-	"./cs.js": 23,
-	"./cv": 24,
-	"./cv.js": 24,
-	"./cy": 25,
-	"./cy.js": 25,
-	"./da": 26,
-	"./da.js": 26,
-	"./de": 29,
-	"./de-at": 27,
-	"./de-at.js": 27,
-	"./de-ch": 28,
-	"./de-ch.js": 28,
-	"./de.js": 29,
-	"./dv": 30,
-	"./dv.js": 30,
-	"./el": 31,
-	"./el.js": 31,
-	"./en-au": 32,
-	"./en-au.js": 32,
-	"./en-ca": 33,
-	"./en-ca.js": 33,
-	"./en-gb": 34,
-	"./en-gb.js": 34,
-	"./en-ie": 35,
-	"./en-ie.js": 35,
-	"./en-nz": 36,
-	"./en-nz.js": 36,
-	"./eo": 37,
-	"./eo.js": 37,
-	"./es": 39,
-	"./es-do": 38,
-	"./es-do.js": 38,
-	"./es.js": 39,
-	"./et": 40,
-	"./et.js": 40,
-	"./eu": 41,
-	"./eu.js": 41,
-	"./fa": 42,
-	"./fa.js": 42,
-	"./fi": 43,
-	"./fi.js": 43,
-	"./fo": 44,
-	"./fo.js": 44,
-	"./fr": 47,
-	"./fr-ca": 45,
-	"./fr-ca.js": 45,
-	"./fr-ch": 46,
-	"./fr-ch.js": 46,
-	"./fr.js": 47,
-	"./fy": 48,
-	"./fy.js": 48,
-	"./gd": 49,
-	"./gd.js": 49,
-	"./gl": 50,
-	"./gl.js": 50,
-	"./gom-latn": 51,
-	"./gom-latn.js": 51,
-	"./he": 52,
-	"./he.js": 52,
-	"./hi": 53,
-	"./hi.js": 53,
-	"./hr": 54,
-	"./hr.js": 54,
-	"./hu": 55,
-	"./hu.js": 55,
-	"./hy-am": 56,
-	"./hy-am.js": 56,
-	"./id": 57,
-	"./id.js": 57,
-	"./is": 58,
-	"./is.js": 58,
-	"./it": 59,
-	"./it.js": 59,
-	"./ja": 60,
-	"./ja.js": 60,
-	"./jv": 61,
-	"./jv.js": 61,
-	"./ka": 62,
-	"./ka.js": 62,
-	"./kk": 63,
-	"./kk.js": 63,
-	"./km": 64,
-	"./km.js": 64,
-	"./kn": 65,
-	"./kn.js": 65,
-	"./ko": 66,
-	"./ko.js": 66,
-	"./ky": 67,
-	"./ky.js": 67,
-	"./lb": 68,
-	"./lb.js": 68,
-	"./lo": 69,
-	"./lo.js": 69,
-	"./lt": 70,
-	"./lt.js": 70,
-	"./lv": 71,
-	"./lv.js": 71,
-	"./me": 72,
-	"./me.js": 72,
-	"./mi": 73,
-	"./mi.js": 73,
-	"./mk": 74,
-	"./mk.js": 74,
-	"./ml": 75,
-	"./ml.js": 75,
-	"./mr": 76,
-	"./mr.js": 76,
-	"./ms": 78,
-	"./ms-my": 77,
-	"./ms-my.js": 77,
-	"./ms.js": 78,
-	"./my": 79,
-	"./my.js": 79,
-	"./nb": 80,
-	"./nb.js": 80,
-	"./ne": 81,
-	"./ne.js": 81,
-	"./nl": 83,
-	"./nl-be": 82,
-	"./nl-be.js": 82,
-	"./nl.js": 83,
-	"./nn": 84,
-	"./nn.js": 84,
-	"./pa-in": 85,
-	"./pa-in.js": 85,
-	"./pl": 86,
-	"./pl.js": 86,
-	"./pt": 88,
-	"./pt-br": 87,
-	"./pt-br.js": 87,
-	"./pt.js": 88,
-	"./ro": 89,
-	"./ro.js": 89,
-	"./ru": 90,
-	"./ru.js": 90,
-	"./sd": 91,
-	"./sd.js": 91,
-	"./se": 92,
-	"./se.js": 92,
-	"./si": 93,
-	"./si.js": 93,
-	"./sk": 94,
-	"./sk.js": 94,
-	"./sl": 95,
-	"./sl.js": 95,
-	"./sq": 96,
-	"./sq.js": 96,
-	"./sr": 98,
-	"./sr-cyrl": 97,
-	"./sr-cyrl.js": 97,
-	"./sr.js": 98,
-	"./ss": 99,
-	"./ss.js": 99,
-	"./sv": 100,
-	"./sv.js": 100,
-	"./sw": 101,
-	"./sw.js": 101,
-	"./ta": 102,
-	"./ta.js": 102,
-	"./te": 103,
-	"./te.js": 103,
-	"./tet": 104,
-	"./tet.js": 104,
-	"./th": 105,
-	"./th.js": 105,
-	"./tl-ph": 106,
-	"./tl-ph.js": 106,
-	"./tlh": 107,
-	"./tlh.js": 107,
-	"./tr": 108,
-	"./tr.js": 108,
-	"./tzl": 109,
-	"./tzl.js": 109,
-	"./tzm": 111,
-	"./tzm-latn": 110,
-	"./tzm-latn.js": 110,
-	"./tzm.js": 111,
-	"./uk": 112,
-	"./uk.js": 112,
-	"./ur": 113,
-	"./ur.js": 113,
-	"./uz": 115,
-	"./uz-latn": 114,
-	"./uz-latn.js": 114,
-	"./uz.js": 115,
-	"./vi": 116,
-	"./vi.js": 116,
-	"./x-pseudo": 117,
-	"./x-pseudo.js": 117,
-	"./yo": 118,
-	"./yo.js": 118,
-	"./zh-cn": 119,
-	"./zh-cn.js": 119,
-	"./zh-hk": 120,
-	"./zh-hk.js": 120,
-	"./zh-tw": 121,
-	"./zh-tw.js": 121
+	"./af": 6,
+	"./af.js": 6,
+	"./ar": 13,
+	"./ar-dz": 7,
+	"./ar-dz.js": 7,
+	"./ar-kw": 8,
+	"./ar-kw.js": 8,
+	"./ar-ly": 9,
+	"./ar-ly.js": 9,
+	"./ar-ma": 10,
+	"./ar-ma.js": 10,
+	"./ar-sa": 11,
+	"./ar-sa.js": 11,
+	"./ar-tn": 12,
+	"./ar-tn.js": 12,
+	"./ar.js": 13,
+	"./az": 14,
+	"./az.js": 14,
+	"./be": 15,
+	"./be.js": 15,
+	"./bg": 16,
+	"./bg.js": 16,
+	"./bn": 17,
+	"./bn.js": 17,
+	"./bo": 18,
+	"./bo.js": 18,
+	"./br": 19,
+	"./br.js": 19,
+	"./bs": 20,
+	"./bs.js": 20,
+	"./ca": 21,
+	"./ca.js": 21,
+	"./cs": 22,
+	"./cs.js": 22,
+	"./cv": 23,
+	"./cv.js": 23,
+	"./cy": 24,
+	"./cy.js": 24,
+	"./da": 25,
+	"./da.js": 25,
+	"./de": 28,
+	"./de-at": 26,
+	"./de-at.js": 26,
+	"./de-ch": 27,
+	"./de-ch.js": 27,
+	"./de.js": 28,
+	"./dv": 29,
+	"./dv.js": 29,
+	"./el": 30,
+	"./el.js": 30,
+	"./en-au": 31,
+	"./en-au.js": 31,
+	"./en-ca": 32,
+	"./en-ca.js": 32,
+	"./en-gb": 33,
+	"./en-gb.js": 33,
+	"./en-ie": 34,
+	"./en-ie.js": 34,
+	"./en-nz": 35,
+	"./en-nz.js": 35,
+	"./eo": 36,
+	"./eo.js": 36,
+	"./es": 38,
+	"./es-do": 37,
+	"./es-do.js": 37,
+	"./es.js": 38,
+	"./et": 39,
+	"./et.js": 39,
+	"./eu": 40,
+	"./eu.js": 40,
+	"./fa": 41,
+	"./fa.js": 41,
+	"./fi": 42,
+	"./fi.js": 42,
+	"./fo": 43,
+	"./fo.js": 43,
+	"./fr": 46,
+	"./fr-ca": 44,
+	"./fr-ca.js": 44,
+	"./fr-ch": 45,
+	"./fr-ch.js": 45,
+	"./fr.js": 46,
+	"./fy": 47,
+	"./fy.js": 47,
+	"./gd": 48,
+	"./gd.js": 48,
+	"./gl": 49,
+	"./gl.js": 49,
+	"./gom-latn": 50,
+	"./gom-latn.js": 50,
+	"./he": 51,
+	"./he.js": 51,
+	"./hi": 52,
+	"./hi.js": 52,
+	"./hr": 53,
+	"./hr.js": 53,
+	"./hu": 54,
+	"./hu.js": 54,
+	"./hy-am": 55,
+	"./hy-am.js": 55,
+	"./id": 56,
+	"./id.js": 56,
+	"./is": 57,
+	"./is.js": 57,
+	"./it": 58,
+	"./it.js": 58,
+	"./ja": 59,
+	"./ja.js": 59,
+	"./jv": 60,
+	"./jv.js": 60,
+	"./ka": 61,
+	"./ka.js": 61,
+	"./kk": 62,
+	"./kk.js": 62,
+	"./km": 63,
+	"./km.js": 63,
+	"./kn": 64,
+	"./kn.js": 64,
+	"./ko": 65,
+	"./ko.js": 65,
+	"./ky": 66,
+	"./ky.js": 66,
+	"./lb": 67,
+	"./lb.js": 67,
+	"./lo": 68,
+	"./lo.js": 68,
+	"./lt": 69,
+	"./lt.js": 69,
+	"./lv": 70,
+	"./lv.js": 70,
+	"./me": 71,
+	"./me.js": 71,
+	"./mi": 72,
+	"./mi.js": 72,
+	"./mk": 73,
+	"./mk.js": 73,
+	"./ml": 74,
+	"./ml.js": 74,
+	"./mr": 75,
+	"./mr.js": 75,
+	"./ms": 77,
+	"./ms-my": 76,
+	"./ms-my.js": 76,
+	"./ms.js": 77,
+	"./my": 78,
+	"./my.js": 78,
+	"./nb": 79,
+	"./nb.js": 79,
+	"./ne": 80,
+	"./ne.js": 80,
+	"./nl": 82,
+	"./nl-be": 81,
+	"./nl-be.js": 81,
+	"./nl.js": 82,
+	"./nn": 83,
+	"./nn.js": 83,
+	"./pa-in": 84,
+	"./pa-in.js": 84,
+	"./pl": 85,
+	"./pl.js": 85,
+	"./pt": 87,
+	"./pt-br": 86,
+	"./pt-br.js": 86,
+	"./pt.js": 87,
+	"./ro": 88,
+	"./ro.js": 88,
+	"./ru": 89,
+	"./ru.js": 89,
+	"./sd": 90,
+	"./sd.js": 90,
+	"./se": 91,
+	"./se.js": 91,
+	"./si": 92,
+	"./si.js": 92,
+	"./sk": 93,
+	"./sk.js": 93,
+	"./sl": 94,
+	"./sl.js": 94,
+	"./sq": 95,
+	"./sq.js": 95,
+	"./sr": 97,
+	"./sr-cyrl": 96,
+	"./sr-cyrl.js": 96,
+	"./sr.js": 97,
+	"./ss": 98,
+	"./ss.js": 98,
+	"./sv": 99,
+	"./sv.js": 99,
+	"./sw": 100,
+	"./sw.js": 100,
+	"./ta": 101,
+	"./ta.js": 101,
+	"./te": 102,
+	"./te.js": 102,
+	"./tet": 103,
+	"./tet.js": 103,
+	"./th": 104,
+	"./th.js": 104,
+	"./tl-ph": 105,
+	"./tl-ph.js": 105,
+	"./tlh": 106,
+	"./tlh.js": 106,
+	"./tr": 107,
+	"./tr.js": 107,
+	"./tzl": 108,
+	"./tzl.js": 108,
+	"./tzm": 110,
+	"./tzm-latn": 109,
+	"./tzm-latn.js": 109,
+	"./tzm.js": 110,
+	"./uk": 111,
+	"./uk.js": 111,
+	"./ur": 112,
+	"./ur.js": 112,
+	"./uz": 114,
+	"./uz-latn": 113,
+	"./uz-latn.js": 113,
+	"./uz.js": 114,
+	"./vi": 115,
+	"./vi.js": 115,
+	"./x-pseudo": 116,
+	"./x-pseudo.js": 116,
+	"./yo": 117,
+	"./yo.js": 117,
+	"./zh-cn": 118,
+	"./zh-cn.js": 118,
+	"./zh-hk": 119,
+	"./zh-hk.js": 119,
+	"./zh-tw": 120,
+	"./zh-tw.js": 120
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));

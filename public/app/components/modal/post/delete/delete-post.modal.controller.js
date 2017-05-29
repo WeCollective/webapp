@@ -1,28 +1,33 @@
 import Injectable from 'utils/injectable.js';
-import Generator from 'utils/generator.js';
+//import Generator from 'utils/generator.js';
 
 class DeletePostModalController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(DeletePostModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'DELETE_POST') return;
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'DELETE_POST') return;
+      
       this.isLoading = true;
-      this.PostService.delete(this.ModalService.inputArgs.postid).then(() => {
-        this.isLoading = false;
-        this.ModalService.OK();
-      }).catch((err) => {
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+      
+      this.PostService.delete(this.ModalService.inputArgs.postid)
+        .then( () => {
+          this.isLoading = false;
+          this.ModalService.OK();
+        })
+        .catch( () => {
+          this.isLoading = false;
+          this.ModalService.Cancel();
+        });
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
-      if(name !== 'DELETE_POST') return;
-      this.$timeout(() => {
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'DELETE_POST') return;
+      
+      this.$timeout( () => {
         this.errorMessage = '';
         this.isLoading = false;
         this.ModalService.Cancel();
@@ -30,6 +35,13 @@ class DeletePostModalController extends Injectable {
     });
   }
 }
-DeletePostModalController.$inject = ['$timeout', 'EventService', 'PostService', 'AlertsService', 'ModalService'];
+
+DeletePostModalController.$inject = [
+  '$timeout',
+  'AlertsService',
+  'EventService',
+  'ModalService',
+  'PostService'
+];
 
 export default DeletePostModalController;

@@ -35,9 +35,8 @@ class LoadingComponent extends Injectable {
     **  and so we append it to the directive template (having removed ng-transclude
     **  from the end of the template also).
     */
-    transclude(scope.$parent, function(clone, scope) {
-      element.append(clone);
-    });
+    // Params: clone, scope
+    transclude(scope.$parent, clone => element.append(clone) );
   }
 }
 

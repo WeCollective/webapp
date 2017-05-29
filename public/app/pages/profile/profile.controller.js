@@ -82,6 +82,15 @@ class ProfileController extends Injectable {
     );
   }
 }
-ProfileController.$inject = ['$timeout', '$state', 'UserService', 'ModalService', 'AlertsService', 'EventService', 'AppService'];
+
+ProfileController.$inject = [
+  '$state',
+  '$timeout',
+  'AlertsService',
+  'AppService',
+  'EventService',
+  'ModalService',
+  'UserService'
+];
 
 export default ProfileController;

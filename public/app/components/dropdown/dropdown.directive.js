@@ -14,7 +14,8 @@ class DropdownComponent extends Injectable {
     };
   }
 
-  link(scope, element, attrs) {
+  // Params: scope, element, attrs
+  link (scope) {
     scope.isOpen = false;
 
     scope.close = () => {

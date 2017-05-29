@@ -11,14 +11,19 @@ class ModLogEntryComponent extends Injectable {
     };
   }
 
-  link(scope, element, attrs) {
-    if(scope.entry.action === 'answer-subbranch-request') scope.entry.data = JSON.parse(scope.entry.data);
-    this.$templateRequest(`/app/components/mod-log-entry/${ scope.entry.action }.template.html`).then((template) => {
-      element.html(template);
-      this.$compile(element.contents())(scope);
-    }, () => {
-      console.error('Unable to get mod-log-entry template.');
-    });
+  // Params: scope, element, attrs
+  link(scope, element) {
+    if ('answer-subbranch-request' === scope.entry.action) {
+      scope.entry.data = JSON.parse(scope.entry.data);
+    }
+
+    this.$templateRequest(`/app/components/mod-log-entry/${scope.entry.action}.template.html`)
+      .then( template => {
+        element.html(template);
+        this.$compile(element.contents())(scope);
+      }, () => {
+        console.error('Unable to get mod-log-entry template.');
+      });
   }
 }
 

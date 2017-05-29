@@ -60,13 +60,14 @@ class CreatePostModalController extends Injectable {
         }
         // if it's a poll, add the poll answers
         if(this.newPost.type === 'poll') {
-          for(let i = 0; i < this.pollAnswers.length; i++) {
+          for (let i = 0; i < this.pollAnswers.length; i++) {
             try {
               yield this.PostService.createPollAnswer(postid, {
                 text: this.pollAnswers[i]
               });
-            } catch(err) {
-              return this.$timeout(() => {
+            }
+            catch (err) {
+              return this.$timeout( () => {
                 this.isLoading = false;
                 this.errorMessage = err.message || 'Error creating poll answers!';
               });

@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class HomeController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(HomeController.$inject, injections);
 
     this.stats = {
@@ -16,19 +16,19 @@ class HomeController extends Injectable {
         .then( res => {
           this.stats[stat] = res.data.data;
         })
-        .catch( err => {
+        .catch( () => {
           this.AlertsService.push('error', 'Having trouble connecting...');
         })
         .then(this.$timeout);
     }
   }
+
   getHomepageImageURL() {
     if ('production' === this.ENV.name) {
       return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
     }
-    else {
-      return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
-    }
+    
+    return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
   }
 }
 

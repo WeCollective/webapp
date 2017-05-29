@@ -1,9 +1,14 @@
 <div id="profile-settings-modal" ng-controller="ProfileSettingsModalController as ProfileSettingsModal">
-  <div loading when="ProfileSettingsModal.isLoading" class="clearfix">
+  <div class="clearfix"
+  	loading
+  	when="ProfileSettingsModal.isLoading">
     <h1>Change your {{ ProfileSettingsModal.ModalService.inputArgs.title }}</h1>
     <p class="error-message">{{ ProfileSettingsModal.errorMessage }}</p>
     <div id="profile-settings-inputs">
-      <input ng-repeat="item in ProfileSettingsModal.ModalService.inputArgs.inputs" ng-model="ProfileSettingsModal.values[$index]" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>
+      <input ng-model="ProfileSettingsModal.values[$index]"
+      	ng-repeat="item in ProfileSettingsModal.ModalService.inputArgs.inputs"
+      	placeholder="{{ item.placeholder }}"
+      	type="{{ item.type }}" />
     </div>
   </div>
 </div>

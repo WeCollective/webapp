@@ -27,11 +27,11 @@ class AppConfig extends Injectable {
     angular.extend(this.CacheFactoryProvider.defaults, {
       maxAge: 3600000,
       deleteOnExpire: 'aggressive',
-      onExpire: function (key, value) {
+      onExpire: key => {
         angular.injector(['ng'])
           .get('$http')
           .get(key)
-          .success(function (data) {
+          .success( function (data) {
             this.put(key, data);
           }.bind(this));
       }

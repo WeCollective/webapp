@@ -1,8 +1,34 @@
 <ul id="profile-settings-properties">
-  <li id="change-cover"><span ng-click="Profile.openCoverPictureModal()">Change cover photo</span></li>
-  <li id="change-picture"><span ng-click="Profile.openProfilePictureModal()">Change profile picture</span></li>
-  <li><span class="field">Name: </span> <span class="value">{{ ProfileSettings.UserService.user.name }}</span><span class="change-value"> | <span ng-click="ProfileSettings.openNameModal()">Change</span></span></li>
-  <li><span class="field">Email: </span> <span class="value">{{ ProfileSettings.UserService.user.email }}</span><span class="change-value"> | <span ng-click="ProfileSettings.openEmailModal()">Change</span></span></li>
-  <li><span class="field">DOB: </span> <span class="value">{{ ProfileSettings.UserService.user.dob | date:'dd MMMM yyyy' || 'Not Set' }}</span><span class="change-value"> | <span ng-click="ProfileSettings.openDOBModal()">Change</span></span></li>
-  <li><span class="field">Display NSFW posts: </span><input type="checkbox" ng-model="ProfileSettings.UserService.user.show_nsfw" ng-change="ProfileSettings.updateNSFW()"></input></li>
+  <li id="change-cover">
+  	<span ng-click="Profile.openCoverPictureModal()">Change cover photo</span>
+  </li>
+
+  <li id="change-picture">
+  	<span ng-click="Profile.openProfilePictureModal()">Change profile picture</span>
+  </li>
+  
+  <li>
+  	<span class="field">Name: </span>
+  	<span class="value">{{ ProfileSettings.UserService.user.name }}</span>
+  	<span class="change-value"> | <span ng-click="ProfileSettings.openNameModal()">Change</span></span>
+  </li>
+  
+  <li>
+  	<span class="field">Email: </span>
+  	<span class="value">{{ ProfileSettings.UserService.user.email }}</span>
+  	<span class="change-value"> | <span ng-click="ProfileSettings.openEmailModal()">Change</span></span>
+  </li>
+  
+  <li>
+  	<span class="field">DOB: </span>
+  	<span class="value">{{ ProfileSettings.UserService.user.dob | date:'dd MMMM yyyy' || 'Not Set' }}</span>
+  	<span class="change-value"> | <span ng-click="ProfileSettings.openDOBModal()">Change</span></span>
+  </li>
+  
+  <li>
+  	<span class="field">Display NSFW posts: </span>
+  	<input ng-change="ProfileSettings.updateNSFW()"
+  		ng-model="ProfileSettings.UserService.user.show_nsfw"
+  		type="checkbox" />
+  </li>
 </ul>

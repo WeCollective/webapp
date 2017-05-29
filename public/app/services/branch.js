@@ -2,194 +2,200 @@ import Injectable from 'utils/injectable';
 import Generator from 'utils/generator';
 
 class BranchService extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchService.$inject, injections);
     this.branch = {};
 
-    let updateBranch = () => {
-      if(this.$state.current.name.indexOf('weco.branch') > -1) {
-        this.fetch(this.$state.params.branchid).then((branch) => {
-          this.branch = branch;
-        })
-        .catch((response) => {
-          if(response.status === 404) {
-            this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch branch.');
-          }
-        })
-        .then(() => {
-          this.EventService.emit(this.EventService.events.CHANGE_BRANCH);
-        })
-        .then(this.$timeout);
+    const updateBranch = () => {
+      if (this.$state.current.name.indexOf('weco.branch') !== -1) {
+        this.fetch(this.$state.params.branchid)
+          .then( branch => {
+            this.branch = branch;
+          })
+          .catch( err => {
+            if (err.status === 404) {
+              this.$state.go('weco.notfound');
+            }
+            else {
+              this.AlertsService.push('error', 'Unable to fetch branch.');
+            }
+          })
+          .then( () => {
+            this.EventService.emit(this.EventService.events.CHANGE_BRANCH);
+          })
+          .then(this.$timeout);
       }
     };
 
     updateBranch();
+
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
   }
 
-  fetch(branchid) {
-    return new Promise((resolve, reject) => {
+  actionSubbranchRequest (action, parentid, childid) {
+    return new Promise( (resolve, reject) => {
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }, { action }, true)
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  create (data) {
+    return new Promise( (resolve, reject) => {
+      this.API.save('/branch', {}, data)
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  fetch (branchid) {
+    return new Promise( (resolve, reject) => {
       Generator.run(function* () {
         try {
-          let response = yield this.API.fetch('/branch/:branchid', { branchid: branchid });
-          let branch = response.data;
+          let res = yield this.API.fetch('/branch/:branchid', { branchid });
+          let branch = res.data;
 
           try {
             // attach urls for the branch's profile and cover pictures (inc. thumbnails)
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture' });
-            branch.profileUrl = response.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture' });
+            branch.profileUrl = res.data;
+          }
+          catch(err) { /* It's okay if we don't have any photos */ }
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'picture-thumb' });
-            branch.profileUrlThumb = response.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture-thumb' });
+            branch.profileUrlThumb = res.data;
+          }
+          catch(err) { /* It's okay if we don't have any photos */ }
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover' });
-            branch.coverUrl = response.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover' });
+            branch.coverUrl = res.data;
+          }
+          catch(err) { /* It's okay if we don't have any photos */ }
+
           try {
-            response = yield this.API.fetch('/branch/:branchid/:picture', { branchid: branchid, picture: 'cover-thumb' });
-            branch.coverUrlThumb = response.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
+            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover-thumb' });
+            branch.coverUrlThumb = res.data;
+          }
+          catch(err) { /* It's okay if we don't have any photos */ }
 
           // attach parent branch
-          if(branch.parentid === 'root' || branch.parentid === 'none') {
+          if ('root' === branch.parentid || 'none' === branch.parentid) {
             branch.parent = {
               id: branch.parentid
             };
-          } else {
-            response = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
-            branch.parent = response.data;
           }
+          else {
+            res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            branch.parent = res.data;
+          }
+
           delete branch.parentid;
 
           // attach moderator list
           branch.mods = yield this.ModService.fetchByBranch(branch.id);
 
           return resolve(branch);
-        } catch(response) { return reject(response.data || response); }
+        }
+        catch (err) { return reject(err.data || err); }
       }, this);
     });
   }
 
-  update(branchid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid', { branchid: branchid }, data, true)
-        .then(resolve)
-        .catch((response) => { return reject(response.data || response); });
+  getModLog (branchid) {
+    return new Promise( (resolve, reject) => {
+      this.API.fetch('/branch/:branchid/modlog', { branchid })
+        .then( res => resolve(res.data) )
+        .catch( err => reject(err.data || err) );
     });
   }
 
-  remove(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid', { branchid: branchid })
-        .then(resolve)
-        .catch((response) => { return reject(response.data || response); });
-    });
-  }
-
-  create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch', {}, data)
-        .then(resolve)
-        .catch((response) => { return reject(response.data || response); });
-    });
-  }
-
-  getModLog(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/modlog', {
-        branchid: branchid
-      }).then((response) => {
-        resolve(response.data);
-      }).catch((response) => { return reject(response.data || response); });
-    });
-  }
-
-  getSubbranchRequests(parentid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', {
-        branchid: parentid
-      }).then((response) => {
-        resolve(response.data);
-      }).catch((response) => { return reject(response.data || response); });
-    });
-  }
-
-  actionSubbranchRequest(action, parentid, childid) {
-    return new Promise((resolve, reject) => {
-      let error = (response) => { return reject(response.data || response); };
-
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', {
-        branchid: parentid,
-        childid: childid
-      }, {
-        action: action
-      }, true).then(resolve).catch(error);
-    });
-  }
-
-  submitSubbranchRequest(parentid, childid) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', {
-        branchid: parentid,
-        childid: childid
-      })
-      .then(resolve)
-      .catch((response) => { return reject(response.data || response); });
-    });
-  }
-
-  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
-    return new Promise((resolve, reject) => {
+  getPosts (branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
+    return new Promise( (resolve, reject) => {
       let params = {
-        timeafter: timeafter,
-        sortBy: sortBy
+        flag: !!flag,
+        postType,
+        sortBy,
+        stat,
+        timeafter
       };
-      if(lastBranchId) params.lastBranchId = lastBranchId;
-      this.API.fetch('/branch/:branchid/subbranches', {
-        branchid: branchid
-      }, params).then((response) => {
-        resolve(response.data);
-      }, true).catch((response) => { return reject(response.data || response); });
+
+      if (lastPostId) {
+        params.lastPostId = lastPostId;
+      }
+
+      this.API.fetch('/branch/:branchid/posts', { branchid }, params)
+        .then( res => resolve(res.data) )
+        .catch( err => reject(err.data || err) );
     });
   }
 
-  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
-    return new Promise((resolve, reject) => {
-      let params = {
-        timeafter: timeafter,
-        sortBy: sortBy,
-        stat: stat,
-        postType: postType,
-        flag: !!flag
-      };
-      if(lastPostId) params.lastPostId = lastPostId;
-      this.API.fetch('/branch/:branchid/posts', {
-        branchid: branchid
-      }, params).then((response) => {
-        resolve(response.data);
-      }).catch((response) => { return reject(response.data || response); });
+  getSubbranches (branchid, timeafter, sortBy, lastBranchId) {
+    return new Promise( (resolve, reject) => {
+      let params = { sortBy, timeafter };
+
+      if (lastBranchId) {
+        params.lastBranchId = lastBranchId;
+      }
+
+      this.API.fetch('/branch/:branchid/subbranches', { branchid }, params)
+        .then( res => resolve(res.data), true)
+        .catch( err => reject(err.data || err) );
     });
   }
 
-  resolveFlaggedPost(branchid, postid, action, data, message) {
-    return new Promise((resolve, reject) => {
-      let body = {};
-      body.action = action;
-      body[(action === 'change_type') ? 'type' : 'reason'] = data;
-      body.message = message;
-      this.API.save('/branch/:branchid/posts/:postid/resolve', {
-        branchid: branchid,
-        postid: postid
-      }, body)
-      .then(resolve)
-      .catch((response) => { return reject(response.data || response); });
+  getSubbranchRequests (parentid) {
+    return new Promise( (resolve, reject) => {
+      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid: parentid })
+        .then( res => resolve(res.data) )
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  remove (branchid) {
+    return new Promise( (resolve, reject) => {
+      this.API.remove('/branch/:branchid', { branchid })
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  resolveFlaggedPost (branchid, postid, action, data, message) {
+    return new Promise( (resolve, reject) => {
+      let body = { action, message };
+      
+      body['change_type' === action ? 'type' : 'reason'] = data;
+      
+      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body)
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  submitSubbranchRequest (parentid, childid) {
+    return new Promise( (resolve, reject) => {
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid })
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
+    });
+  }
+
+  update (branchid, data) {
+    return new Promise( (resolve, reject) => {
+      this.API.update('/branch/:branchid', { branchid }, data, true)
+        .then(resolve)
+        .catch( err => reject(err.data || err) );
     });
   }
 }
-BranchService.$inject = ['API', '$state', 'EventService', 'AlertsService', 'ModService'];
+
+BranchService.$inject = [
+  '$state',
+  'AlertsService',
+  'API',
+  'EventService',
+  'ModService'
+];
 
 export default BranchService;
