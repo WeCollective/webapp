@@ -10,7 +10,6 @@ class BranchService extends Injectable {
       if (this.$state.current.name.indexOf('weco.branch') !== -1) {
         this.fetch(this.$state.params.branchid)
           .then( branch => {
-            console.log(branch);
             this.branch = branch;
           })
           .catch( err => {

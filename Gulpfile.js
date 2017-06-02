@@ -109,11 +109,11 @@ gulp.task('configEnvironment', () => {
     }
     
     if (cliEnv) {
-      console.log('\u{1F4DD}  ' + chalk.blue(`Environment set to ${environment}.`));
+      console.log(chalk.dim(`[1/2]`), '\u{1F4DD} ', chalk.blue(`Environment set to ${environment}.`));
       fileFromString({ name: GULP_ENV_CONFIG_FILE_PATH, body: cliEnv }).pipe(gulp.dest(GULP_ENV_CONFIG_FILE_DIR))
     }
     else {
-      console.log('\u{1F4DD}  ' + chalk.blue(`Environment defaults to ${environment}.`));
+      console.log(chalk.dim(`[1/2]`), '\u{1F4DD} ', chalk.blue(`Environment defaults to ${environment}.`));
     }
   })
 });
@@ -131,7 +131,8 @@ gulp.task('lint', () => {
       browser: true,
       devel: true,
       esversion: 6,
-      strict: 'implied'
+      strict: 'implied',
+      loopfunc: true
     }))
     .pipe(jshint.reporter('default'));
 });
