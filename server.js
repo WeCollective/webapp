@@ -15,6 +15,7 @@
 const express = require('express');          // call express
 const app     = express();                   // define our app using express
 const helmet  = require('helmet');           // protect against common web vulnerabilities
+const chalk   = require('chalk');
 
 // SET ENVIRONMENT AND PORT
 const env  = process.env.NODE_ENV || 'development';
@@ -61,4 +62,4 @@ app.all('/*', (req, res, next) => {
 
 // START THE SERVER
 app.listen(port);
-console.log(`Magic happens on port ${port}`);
+console.log(`\u{1F389}  ` + chalk.blue(`Magic happens on port ${port}`));

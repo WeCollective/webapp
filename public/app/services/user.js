@@ -48,7 +48,8 @@ class UserService extends Injectable {
           user.followed_branches = res.data;
 
           return resolve(user);
-        } catch(err) { return reject(err.data || err); }
+        }
+        catch(err) { return reject(err.data || err); }
       }, this);
     });
   }
@@ -57,21 +58,15 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.save('/user/:username/branches/followed', { username }, { branchid }, true)
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
   getNotifications (username, unreadCount, lastNotificationId) {
     return new Promise( (resolve, reject) => {
       this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId })
-        .then( res => {
-          return resolve(res.data);
-        })
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .then( res => resolve(res.data) )
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -87,8 +82,10 @@ class UserService extends Injectable {
           let user = yield this.fetch('me');
           this.user = user;
           this.EventService.emit(this.EventService.events.CHANGE_USER);
+          
           return resolve();
-        } catch(err) { return reject(err.data || err); }
+        }
+        catch(err) { return reject(err.data || err); }
       }, this);
     });
   }
@@ -99,11 +96,10 @@ class UserService extends Injectable {
         .then( () => {
           this.user = {};
           this.EventService.emit(this.EventService.events.CHANGE_USER);
+          
           return resolve();
         })
-        .catch( err => {
-          return reject(err);
-        });
+        .catch( err => reject(err) );
     });
   }
 
@@ -111,9 +107,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true)
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -122,9 +116,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.request('GET', '/user/:username/reset-password', { username })
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -133,9 +125,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.request('POST', '/user/:username/reset-password/:token', { username, token }, { password })
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -144,9 +134,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.request('GET', '/user/:username/reverify', { username })
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -154,10 +142,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.request('POST', '/user', {}, credentials)
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        }
-      );
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -165,9 +150,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true)
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 
@@ -180,8 +163,10 @@ class UserService extends Injectable {
           // fetch the updated self
           this.user = yield this.fetch('me');
           this.EventService.emit(this.EventService.events.CHANGE_USER);
+          
           return resolve();
-        } catch(err) { return reject(err.data || err); }
+        }
+        catch(err) { return reject(err.data || err); }
       }, this);
     });
   }
@@ -191,9 +176,7 @@ class UserService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.request('GET', '/user/:username/verify/:token', { username, token })
         .then(resolve)
-        .catch( err => {
-          return reject(err.data || err);
-        });
+        .catch( err => reject(err.data || err) );
     });
   }
 }

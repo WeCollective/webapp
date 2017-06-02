@@ -68,7 +68,7 @@ import BranchService from 'services/branch';
 import CommentService from 'services/comment';
 import EventService from 'services/event';
 import ModService from 'services/mod';
-import ModalService from 'components/modal/modal.service';
+import ModalService from 'components/modal/service';
 import PostService from 'services/post';
 import TooltipService from 'components/tooltip/tooltip.service';
 import UploadService from 'services/upload';
@@ -93,7 +93,11 @@ registrar.service('WallService', WallService);
 
 // Controllers
 import AppController from 'app.controller';
+import BranchWallController from 'pages/branch/wall/controller';
+
 registrar.controller('AppController', AppController);
+registrar.controller('BranchWallController', BranchWallController);
+
 import HomeController from 'pages/home/home.controller';
 registrar.controller('HomeController', HomeController);
 import AuthController from 'pages/auth/auth.controller';
@@ -124,8 +128,6 @@ import BranchNucleusFlaggedPostsController from 'pages/branch/nucleus/flagged-po
 registrar.controller('BranchNucleusFlaggedPostsController', BranchNucleusFlaggedPostsController);
 import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
-import BranchWallController from 'pages/branch/wall/wall.controller';
-registrar.controller('BranchWallController', BranchWallController);
 import BranchPostController from 'pages/branch/post/post.controller';
 registrar.controller('BranchPostController', BranchPostController);
 import BranchPostVoteController from 'pages/branch/post/vote/vote.controller';
@@ -201,8 +203,11 @@ registrar.directive('chart', ChartComponent);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
-import ProfileSettingsModalController from 'components/modal/profile/settings/settings.modal.controller';
+
+import ProfileSettingsModalController from 'components/modal/profile/settings/controller';
+
 registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
+
 import UploadImageModalController from 'components/modal/upload-image/upload-image.modal.controller';
 registrar.controller('UploadImageModalController', UploadImageModalController);
 import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';

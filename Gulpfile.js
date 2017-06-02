@@ -1,6 +1,9 @@
 const gulp  = require('gulp');
 const yargs = require('yargs');
+const chalk = require('chalk');
+const clean = require('gulp-clean');
 const del   = require('del');
+const fs    = require('fs');
 const gutil   = require('gulp-util');
 const jshint  = require('gulp-jshint');
 const less    = require('gulp-less');
@@ -18,6 +21,28 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const APP_DIR    = path.join(PUBLIC_DIR, 'app');
 const ASSETS_DIR = path.join(PUBLIC_DIR, 'assets');
 const DEST_DIR   = path.join(PUBLIC_DIR, 'dist');
+
+const GULP_ENV_CONFIG_FILE_DIR = './'
+const GULP_ENV_CONFIG_FILE_PATH = `${GULP_ENV_CONFIG_FILE_DIR}.gulp-env`;
+// This is so we preserve environment setting on Nodemon refresh.
+let _firstRun = false;
+
+function fileFromString(opts = {}) {
+  opts.name = opts.name || 'unnamed-file-from-gulp';
+  opts.body = opts.body || 'Set file body in the gulpfile.js';
+
+  let src = require('stream').Readable({ objectMode: true });
+  src._read = function () {
+    this.push(new gutil.File({
+      base: '',
+      contents: new Buffer(opts.body),
+      cwd: '',
+      path: opts.name
+    }));
+    this.push(null);
+  }
+  return src;
+}
 
 const WEBPACK_CONFIG = {
   entry: path.join(APP_DIR, 'app.js'),
@@ -53,24 +78,44 @@ const WEBPACK_CONFIG = {
 };
 
 gulp.task('build', done => {
-  const argv = yargs.argv;
-  
-  if (argv.production) {
-    environment = 'production';
+  if (_firstRun) {
+    runSequence('cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
   }
-  else if (argv.development) {
-    environment = 'development';
+  else {
+    runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
   }
-  else if (argv.local) {
-    environment = 'local';
-  }
-  
-  console.log(`Environment set to ${environment}...`);
-  runSequence('cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
 });
 
 gulp.task('cleanBuildDir', () => {
   return del([path.join(DEST_DIR, '/**/*')]);
+});
+
+gulp.task('configEnvironment', () => {
+  if (_firstRun) {
+    gulp.src(GULP_ENV_CONFIG_FILE_PATH, { read: false }).pipe(clean());
+  }
+
+  fs.readFile(GULP_ENV_CONFIG_FILE_PATH, 'utf-8', (err, file_body) => {
+    const cliEnv = err || _firstRun ? yargs.argv.env : file_body;
+
+    if ('production' === cliEnv) {
+      environment = 'production';
+    }
+    else if ('dev' === cliEnv) {
+      environment = 'development';
+    }
+    else if ('local' === cliEnv) {
+      environment = 'local';
+    }
+    
+    if (cliEnv) {
+      console.log('\u{1F4DD}  ' + chalk.blue(`Environment set to ${environment}.`));
+      fileFromString({ name: GULP_ENV_CONFIG_FILE_PATH, body: cliEnv }).pipe(gulp.dest(GULP_ENV_CONFIG_FILE_DIR))
+    }
+    else {
+      console.log('\u{1F4DD}  ' + chalk.blue(`Environment defaults to ${environment}.`));
+    }
+  })
 });
 
 gulp.task('less', () => {
@@ -101,7 +146,8 @@ gulp.task('nodemon', () => {
       'public/index.html'
     ],
     script: 'server.js',
-    verbose: true,
+    verbose: false,
+    quiet: true,
     delay: 500,
     tasks: ['build']
   });
@@ -163,5 +209,6 @@ gulp.task('webpack', done => {
 });
 
 gulp.task('default', done => {
-  runSequence('build', 'nodemon', done);
+  _firstRun = true;
+  runSequence('configEnvironment', 'build', 'nodemon', done);
 });

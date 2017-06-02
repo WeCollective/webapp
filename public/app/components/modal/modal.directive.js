@@ -9,7 +9,8 @@ class ModalComponent extends Injectable {
     this.scope = {};
     this.templateUrl = '/app/components/modal/view.html';
   }
-  link(scope) {
+  
+  link (scope) {
     scope.ModalService = this.ModalService;
     scope.OK = () => { this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name); };
     scope.Cancel = () => { this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name); };
@@ -18,7 +19,7 @@ class ModalComponent extends Injectable {
 
 ModalComponent.$inject = [
   'EventService',
-  'ModalService',
+  'ModalService'
 ];
 
 export default ModalComponent;

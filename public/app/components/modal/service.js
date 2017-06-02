@@ -12,21 +12,21 @@ class ModalService extends Injectable {
     this.resolve = () => {};
     this.templateUrl = '';
     this.templateUrls = {
-      ADD_MOD:                   '/app/components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.view.html',
-      BRANCH_NUCLEUS_SETTINGS:   '/app/components/modal/branch/nucleus/settings/settings.modal.view.html',
-      CREATE_BRANCH:             '/app/components/modal/branch/create/create-branch.modal.view.html',
-      CREATE_POST:               '/app/components/modal/post/create/create-post.modal.view.html',
-      DELETE_BRANCH:             '/app/components/modal/branch/nucleus/modtools/delete-branch/delete-branch.modal.view.html',
-      DELETE_POST:               '/app/components/modal/post/delete/delete-post.modal.view.html',
-      FLAG_POST:                 '/app/components/modal/post/flag/flag-post.modal.view.html',
+      ADD_MOD:                   '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
+      BRANCH_NUCLEUS_SETTINGS:   '/app/components/modal/branch/nucleus/settings/view.html',
+      CREATE_BRANCH:             '/app/components/modal/branch/create/view.html',
+      CREATE_POST:               '/app/components/modal/post/create/view.html',
+      DELETE_BRANCH:             '/app/components/modal/branch/nucleus/modtools/delete-branch/view.html',
+      DELETE_POST:               '/app/components/modal/post/delete/view.html',
+      FLAG_POST:                 '/app/components/modal/post/flag/view.html',
       PROFILE_SETTINGS:          '/app/components/modal/profile/settings/view.html',
-      REMOVE_MOD:                '/app/components/modal/branch/nucleus/modtools/remove-mod/remove-mod.modal.view.html',
-      RESOLVE_FLAG_POST:         '/app/components/modal/post/flag/resolve/resolve-flag-post.modal.view.html',
-      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/review-subbranch-requests.modal.view.html',
-      SUBMIT_POLL_ANSWER:        '/app/components/modal/post/submit-poll-answer/submit-poll-answer.modal.view.html',
-      SUBMIT_SUBBRANCH_REQUEST:  '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/submit-subbranch-request.modal.view.html',
-      UPDATE_HOMEPAGE_STATS:     '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/update-homepage-stats.modal.view.html',
-      UPLOAD_IMAGE:              '/app/components/modal/upload-image/upload-image.modal.view.html',
+      REMOVE_MOD:                '/app/components/modal/branch/nucleus/modtools/remove-mod/view.html',
+      RESOLVE_FLAG_POST:         '/app/components/modal/post/flag/resolve/view.html',
+      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/view.html',
+      SUBMIT_POLL_ANSWER:        '/app/components/modal/post/submit-poll-answer/view.html',
+      SUBMIT_SUBBRANCH_REQUEST:  '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/view.html',
+      UPDATE_HOMEPAGE_STATS:     '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/view.html',
+      UPLOAD_IMAGE:              '/app/components/modal/upload-image/view.html',
     };
     this.names = Object.keys(this.templateUrls);
   }

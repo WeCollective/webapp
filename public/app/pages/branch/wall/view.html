@@ -1,0 +1,41 @@
+<div id="branch-wall">
+  <div class="content-header">
+    <h1>{{ BranchWall.BranchService.branch.id === 'root' ? 'Global Wall' : 'Wall' }}</h1>
+    
+    <div class="content-controls">
+      <dropdown items="BranchWall.WallService.controls.timeRange.items"
+        selected="BranchWall.WallService.controls.timeRange.selectedIndex"
+        title="'TIME RANGE'">
+      </dropdown>
+      
+      <dropdown items="BranchWall.WallService.controls.postType.items"
+        selected="BranchWall.WallService.controls.postType.selectedIndex"
+        title="'POST TYPE'">
+      </dropdown>
+      
+      <dropdown items="BranchWall.WallService.controls.sortBy.items"
+        selected="BranchWall.WallService.controls.sortBy.selectedIndex"
+        title="'SORT BY'">
+      </dropdown>
+      
+      <dropdown items="BranchWall.WallService.controls.statType.items"
+        selected="BranchWall.WallService.controls.statType.selectedIndex"
+        title="'STAT TYPE'">
+      </dropdown>
+    </div>
+  </div>
+  
+  <div class="content-body"
+    loading
+    on-scroll-to-bottom="WallScrollToBottom"
+    when="BranchWall.WallService.isLoading">
+    <ul id="post-list">
+      <li class="list-item"
+        index="$index"
+        list-item post="post"
+        ng-repeat="post in BranchWall.WallService.posts"
+        stat="BranchWall.WallService.getStatType()">
+      </li>
+    </ul>
+  </div>
+</div>

@@ -13,13 +13,21 @@ class BranchWallController extends Injectable {
   }
 
   // return the correct ui-sref string for when the specified post is clicked
-  getLink(post) {
-    if(post.type === 'text' || post.type === 'poll') {
+  getLink (post) {
+    if ('text' === post.type || 'poll' === post.type) {
       return this.$state.href('weco.branch.post', { postid: post.id });
     }
+
     return post.text;
   }
 }
-BranchWallController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService'];
+
+BranchWallController.$inject = [
+  '$rootScope',
+  '$state',
+  '$timeout',
+  'EventService',
+  'WallService'
+];
 
 export default BranchWallController;
