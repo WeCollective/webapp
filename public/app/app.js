@@ -73,7 +73,7 @@ import PostService from 'services/post';
 import TooltipService from 'components/tooltip/tooltip.service';
 import UploadService from 'services/upload';
 import UserService from 'services/user';
-import WallService from 'pages/branch/wall.service';
+import WallService from 'pages/branch/service';
 
 registrar.service('AlertsService', AlertsService);
 registrar.service('API', API);

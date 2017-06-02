@@ -23877,7 +23877,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       templateUrl: '/app/pages/branch/post/view.html',
       controller: 'BranchPostController',
       controllerAs: 'BranchPost',
-      pageTrack: '/p/:postid/:tab'
+      pageTrack: '/p/:postid'
     })
 
     // Comment Permalink
@@ -26586,8 +26586,8 @@ class TooltipService {
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -27346,16 +27346,24 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       }
 
       // update state params for tabs
-      for (let idx in this.tabStateParams) {
-        this.tabStateParams[idx].branchid = this.PostService.post.branchid;
-        this.tabStateParams[idx].postid = this.PostService.post.id;
+      for (let i in this.tabStateParams) {
+        this.tabStateParams[i].branchid = this.PostService.post.branchid;
+        this.tabStateParams[i].postid = this.PostService.post.id;
       }
 
-      if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-        this.$state.go('weco.branch.post.vote', {
-          branchid: this.PostService.post.branchid,
-          postid: this.$state.params.postid
-        }, { location: 'replace' });
+      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
+        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+
+        if (tabIndex !== -1) {
+          this.$state.go(this.tabStates[tabIndex], {
+            branchid: this.PostService.post.branchid,
+            postid: this.$state.params.postid
+          }, {
+            location: 'replace'
+          });
+        } else {
+          console.log(`Invalid tab name!`);
+        }
       } else {
         this.isLoadingPost = false;
       }
@@ -27365,36 +27373,8 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
   }
 
-  shouldShowTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
-  }
-
-  isOwnPost() {
-    if (!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  setPreviewState(state) {
-    this.previewState = state;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', {
-      postid: this.PostService.post.id
-    }, 'Post deleted.', 'Unable to delete post.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go('weco.home');
-    });
-  }
-
   getPreviewTemplate() {
     return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
-  }
-
-  showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
   }
 
   getVideoEmbedUrl() {
@@ -27420,6 +27400,34 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     }
 
     return '';
+  }
+
+  isOwnPost() {
+    if (!this.PostService.post || !this.PostService.post.data) return false;
+    return this.UserService.user.username === this.PostService.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open('DELETE_POST', {
+      postid: this.PostService.post.id
+    }, 'Post deleted.', 'Unable to delete post.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
+      this.$state.go('weco.home');
+    });
+  }
+
+  setPreviewState(state) {
+    this.previewState = state;
+  }
+
+  shouldShowTabs() {
+    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+  }
+
+  showPreview() {
+    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
   }
 }
 
@@ -27602,6 +27610,176 @@ BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
+class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(WallService.$inject, injections);
+
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.posts = [];
+    this.flaggedOnly = false;
+    this.controls = {
+      timeRange: {
+        selectedIndex: 0,
+        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
+      },
+      sortBy: {
+        selectedIndex: 2,
+        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
+      },
+      postType: {
+        selectedIndex: 0,
+        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+      },
+      statType: {
+        selectedIndex: 0,
+        items: ['GLOBAL', 'LOCAL', 'BRANCH']
+      }
+    };
+
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if ('WallScrollToBottom' !== name) {
+        return;
+      }
+
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+
+        if (this.posts.length) {
+          this.getPosts(this.posts[this.posts.length - 1].id);
+        }
+      }
+    });
+  }
+
+  getPosts(lastPostId) {
+    this.isLoading = true;
+
+    const postType = this.getPostType();
+    const sortBy = this.getSortBy();
+    const statType = this.getStatType();
+    const timeafter = this.getTimeafter();
+
+    // fetch the posts for this branch and timefilter
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
+      this.$timeout(() => {
+        // If lastPostId was specified, we are fetching more posts, so append them.
+        this.posts = lastPostId ? this.posts.concat(posts) : posts;
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(() => {
+      this.AlertsService.push('error', 'Error fetching posts.');
+      this.isLoading = false;
+    });
+  }
+
+  getPostType() {
+    switch (this.controls.postType.items[this.controls.postType.selectedIndex]) {
+      case 'IMAGES':
+        return 'image';
+
+      case 'VIDEOS':
+        return 'video';
+
+      case 'PAGES':
+        return 'page';
+
+      case 'POLLS':
+        return 'poll';
+
+      default:
+        return this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
+    }
+  }
+
+  getSortBy() {
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
+      case 'TOTAL POINTS':
+        return 'points';
+
+      case 'DATE POSTED':
+        return 'date';
+
+      case '# OF COMMENTS':
+        return 'comment_count';
+
+      default:
+        return 'points';
+    }
+  }
+
+  getStatType() {
+    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
+      case 'GLOBAL':
+        return 'global';
+
+      case 'LOCAL':
+        return 'local';
+
+      case 'BRANCH':
+        return 'individual';
+
+      default:
+        return this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+    }
+  }
+
+  // compute the appropriate timeafter for the selected time filter
+  getTimeafter() {
+    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex]) {
+      case 'PAST YEAR':
+        return new Date().setFullYear(new Date().getFullYear() - 1);
+
+      case 'PAST MONTH':
+        return new Date().setMonth(new Date().getMonth() - 1);
+
+      case 'PAST WEEK':
+        return new Date().setDate(new Date().getDate() - 7);
+
+      case 'PAST 24 HRS':
+        return new Date().setDate(new Date().getDate() - 1);
+
+      case 'PAST HOUR':
+        return new Date().setHours(new Date().getHours() - 1);
+
+      case 'ALL TIME':
+      default:
+        return 0;
+    }
+  }
+
+  init(allowedState, flaggedOnly) {
+    if (this.$state.current.name.indexOf(allowedState) === -1) {
+      return;
+    }
+
+    if (!Object.keys(this.BranchService.branch).length) {
+      return;
+    }
+
+    this.flaggedOnly = !!flaggedOnly;
+
+    if (this.flaggedOnly) {
+      this.controls.sortBy.selectedIndex = 2;
+    }
+
+    this.getPosts();
+  }
+}
+
+WallService.$inject = ['$rootScope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (WallService);
+
+/***/ }),
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
 class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(BranchSubbranchesController.$inject, injections);
@@ -27730,178 +27908,6 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 BranchSubbranchesController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
-
-/***/ }),
-/* 191 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(WallService.$inject, injections);
-
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.posts = [];
-    this.flaggedOnly = false;
-    this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
-      },
-      sortBy: {
-        selectedIndex: 2,
-        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
-      },
-      postType: {
-        selectedIndex: 0,
-        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
-      },
-      statType: {
-        selectedIndex: 0,
-        items: ['GLOBAL', 'LOCAL', 'BRANCH']
-      }
-    };
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'WallScrollToBottom') return;
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        if (this.posts.length > 0) this.getPosts(this.posts[this.posts.length - 1].id);
-      }
-    });
-  }
-
-  init(allowedState, flaggedOnly) {
-    if (this.$state.current.name.indexOf(allowedState) === -1) return;
-    if (Object.keys(this.BranchService.branch).length === 0) return;
-
-    this.flaggedOnly = !!flaggedOnly;
-    if (this.flaggedOnly) this.controls.sortBy.selectedIndex = 2;
-    this.getPosts();
-  }
-
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter(timeItem) {
-    let timeafter;
-
-    switch (timeItem) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
-
-      case 'PAST YEAR':
-        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
-        break;
-
-      case 'PAST MONTH':
-        timeafter = new Date().setMonth(new Date().getMonth() - 1);
-        break;
-
-      case 'PAST WEEK':
-        timeafter = new Date().setDate(new Date().getDate() - 7);
-        break;
-
-      case 'PAST 24 HRS':
-        timeafter = new Date().setDate(new Date().getDate() - 1);
-        break;
-
-      case 'PAST HOUR':
-        timeafter = new Date().setHours(new Date().getHours() - 1);
-        break;
-
-      default:
-        timeafter = 0;
-        break;
-    }
-
-    return timeafter;
-  }
-
-  getStatType() {
-    let statType;
-    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
-      case 'GLOBAL':
-        statType = 'global';
-        break;
-      case 'LOCAL':
-        statType = 'local';
-        break;
-      case 'BRANCH':
-        statType = 'individual';
-        break;
-      default:
-        statType = this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
-        break;
-    }
-    return statType;
-  }
-
-  getPosts(lastPostId) {
-    this.isLoading = true;
-    // compute the appropriate timeafter for the selected time filter
-    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
-        sortBy = 'points';
-        break;
-      case 'DATE POSTED':
-        sortBy = 'date';
-        break;
-      case '# OF COMMENTS':
-        sortBy = 'comment_count';
-        break;
-      default:
-        sortBy = 'points';
-        break;
-    }
-
-    let postType;
-    switch (this.controls.postType.items[this.controls.postType.selectedIndex]) {
-      case 'IMAGES':
-        postType = 'image';
-        break;
-      case 'VIDEOS':
-        postType = 'video';
-        break;
-      case 'PAGES':
-        postType = 'page';
-        break;
-      case 'POLLS':
-        postType = 'poll';
-        break;
-      default:
-        postType = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
-        break;
-    }
-
-    let statType = this.getStatType();
-
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
-      this.$timeout(() => {
-        // if lastPostId was specified we are fetching _more_ posts, so append them
-        if (lastPostId) {
-          this.posts = this.posts.concat(posts);
-        } else {
-          this.posts = posts;
-        }
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Error fetching posts.');
-      this.isLoading = false;
-    });
-  }
-}
-WallService.$inject = ['$state', '$rootScope', '$timeout', 'BranchService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (WallService);
 
 /***/ }),
 /* 192 */
@@ -67529,7 +67535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_components_tooltip_tooltip_service__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_services_upload__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_services_user__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_wall_service__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_post_controller__ = __webpack_require__(187);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_wall_controller__ = __webpack_require__(192);
@@ -67547,7 +67553,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_nav_bar_directive__ = __webpack_require__(167);
@@ -67658,7 +67664,7 @@ registrar.service('PostService', __WEBPACK_IMPORTED_MODULE_23_services_post__["a
 registrar.service('TooltipService', __WEBPACK_IMPORTED_MODULE_24_components_tooltip_tooltip_service__["a" /* default */]);
 registrar.service('UploadService', __WEBPACK_IMPORTED_MODULE_25_services_upload__["a" /* default */]);
 registrar.service('UserService', __WEBPACK_IMPORTED_MODULE_26_services_user__["a" /* default */]);
-registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_wall_service__["a" /* default */]);
+registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__["a" /* default */]);
 
 // Controllers
 

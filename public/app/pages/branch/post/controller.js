@@ -41,17 +41,27 @@ class BranchPostController extends Injectable {
       }
 
       // update state params for tabs
-      for(let idx in this.tabStateParams) {
-        this.tabStateParams[idx].branchid = this.PostService.post.branchid;
-        this.tabStateParams[idx].postid = this.PostService.post.id;
+      for (let i in this.tabStateParams) {
+        this.tabStateParams[i].branchid = this.PostService.post.branchid;
+        this.tabStateParams[i].postid = this.PostService.post.id;
       }
 
-      if(this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-        this.$state.go('weco.branch.post.vote', {
-          branchid: this.PostService.post.branchid,
-          postid: this.$state.params.postid
-        }, { location: 'replace' });
-      } else {
+      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
+        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+
+        if (tabIndex !== -1) {
+          this.$state.go(this.tabStates[tabIndex], {
+            branchid: this.PostService.post.branchid,
+            postid: this.$state.params.postid
+          }, {
+            location: 'replace'
+          });
+        }
+        else {
+          console.log(`Invalid tab name!`);
+        }
+      }
+      else {
         this.isLoadingPost = false;
       }
     };
@@ -60,41 +70,8 @@ class BranchPostController extends Injectable {
     this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
   }
 
-  shouldShowTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
-  }
-
-  isOwnPost() {
-    if(!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  setPreviewState(state) {
-    this.previewState = state;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open(
-      'DELETE_POST',
-      {
-        postid: this.PostService.post.id
-      },
-      'Post deleted.',
-      'Unable to delete post.'
-    );
-    
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go('weco.home');
-    });
-  }
-
   getPreviewTemplate() {
     return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
-  }
-
-  showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
   }
 
   getVideoEmbedUrl() {
@@ -120,6 +97,39 @@ class BranchPostController extends Injectable {
     }
 
     return '';
+  }
+
+  isOwnPost() {
+    if(!this.PostService.post || !this.PostService.post.data) return false;
+    return this.UserService.user.username === this.PostService.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open(
+      'DELETE_POST',
+      {
+        postid: this.PostService.post.id
+      },
+      'Post deleted.',
+      'Unable to delete post.'
+    );
+    
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
+      this.$state.go('weco.home');
+    });
+  }
+
+  setPreviewState(state) {
+    this.previewState = state;
+  }
+
+  shouldShowTabs() {
+    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+  }
+
+  showPreview() {
+    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
   }
 }
 

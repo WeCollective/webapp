@@ -197,7 +197,7 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/post/view.html',
         controller: 'BranchPostController',
         controllerAs: 'BranchPost',
-        pageTrack: '/p/:postid/:tab'
+        pageTrack: '/p/:postid'
       })
       
       // Comment Permalink
