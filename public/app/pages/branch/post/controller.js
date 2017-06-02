@@ -7,19 +7,31 @@ class BranchPostController extends Injectable {
     this.isLoadingPost = true;
     this.isLoadingComments = true;
     this.isLoadingMore = false;
-    this.previewState = 'show'; // other states: 'show', 'maximise'
+    
+    // Possible states: show, maximise.
+    this.previewState = 'show';
 
-    this.tabItems = ['vote', 'results', 'discussion'];
-    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
+    this.tabItems = [
+      'vote',
+      'results',
+      'discussion'
+    ];
+
+    this.tabStates = [
+      'weco.branch.post.vote',
+      'weco.branch.post.results',
+      'weco.branch.post.discussion'
+    ];
+    
     this.tabStateParams = [{
-        branchid: this.BranchService.branch.id,
-        postid: this.$state.params.postid
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
     }, {
-        branchid: this.BranchService.branch.id,
-        postid: this.$state.params.postid
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
     }, {
-        branchid: this.BranchService.branch.id,
-        postid: this.$state.params.postid
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
     }];
 
     let redirect = () => {
@@ -43,12 +55,13 @@ class BranchPostController extends Injectable {
         this.isLoadingPost = false;
       }
     };
+
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
     this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
   }
 
   shouldShowTabs() {
-      return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
   isOwnPost() {
@@ -69,8 +82,9 @@ class BranchPostController extends Injectable {
       'Post deleted.',
       'Unable to delete post.'
     );
-    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'DELETE_POST') return;
+    
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
       this.$state.go('weco.home');
     });
   }
@@ -80,31 +94,46 @@ class BranchPostController extends Injectable {
   }
 
   showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) > -1;
+    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
   }
 
   getVideoEmbedUrl() {
-    let isYouTubeUrl = (url) => {
-      if(url && url !== '') {
-        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        let match = url.match(regExp);
-        if(match && match[2].length === 11) {
+    let isYouTubeUrl = url => {
+      if (url && '' !== url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        if (match && match[2].length === 11) {
           return true;
         }
       }
       return false;
     };
 
-    if(this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
+    if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
       let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
-      if(video_id.indexOf('&') !== -1) {
+      
+      if (video_id.indexOf('&') !== -1) {
         video_id = video_id.substring(0, video_id.indexOf('&'));
       }
+
       return `//www.youtube.com/embed/${video_id}?rel=0`;
     }
+
     return '';
   }
 }
-BranchPostController.$inject = ['$timeout', '$rootScope', '$state', 'EventService', 'WallService', 'PostService', 'UserService', 'BranchService', 'AppService', 'ModalService'];
+
+BranchPostController.$inject = [
+  '$rootScope',
+  '$state',
+  '$timeout',
+  'AppService',
+  'BranchService',
+  'EventService',
+  'ModalService',
+  'PostService',
+  'UserService',
+  'WallService'
+];
 
 export default BranchPostController;

@@ -193,11 +193,11 @@ class AppRoutes extends Injectable {
       
       // Posts
       .state('weco.branch.post', {
-        url: '/p/:postid',
-        templateUrl: '/app/pages/branch/post/post.view.html',
+        url: '/p/:postid/:tab',
+        templateUrl: '/app/pages/branch/post/view.html',
         controller: 'BranchPostController',
         controllerAs: 'BranchPost',
-        pageTrack: '/p/:postid'
+        pageTrack: '/p/:postid/:tab'
       })
       
       // Comment Permalink

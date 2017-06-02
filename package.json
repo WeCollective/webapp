@@ -4,9 +4,14 @@
   "description": "The front-end AngularJS app and server for WECO.",
   "main": "server.js",
   "scripts": {
+    "beanstalk-dev": "eb deploy webapp-dev --profile weco-lubos",
+    "beanstalk-production": "eb deploy webapp-prod --profile weco-lubos",
+    "build-dev": "gulp build --env dev",
+    "build-production": "gulp build --env production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "deploy:dev": "eb deploy webapp-dev --profile weco-lubos"
+    "deploy:dev": "npm-run-all -p build-dev beanstalk-dev",
+    "deploy:production": "npm-run-all -p build-production beanstalk-production"
   },
   "repository": {
     "type": "git",
@@ -32,6 +37,7 @@
     "highlightjs": "^8.7.0",
     "marked": "^0.3.6",
     "ng-file-upload": "^12.0.4",
+    "npm-run-all": "4.0.2",
     "prerender-node": "^2.4.0",
     "socket.io": "^1.4.8"
   },

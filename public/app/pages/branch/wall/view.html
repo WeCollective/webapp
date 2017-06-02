@@ -32,8 +32,9 @@
     <ul id="post-list">
       <li class="list-item"
         index="$index"
-        list-item post="post"
+        list-item
         ng-repeat="post in BranchWall.WallService.posts"
+        post="post"
         stat="BranchWall.WallService.getStatType()">
       </li>
     </ul>

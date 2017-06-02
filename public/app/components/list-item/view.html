@@ -64,22 +64,25 @@
     </span>
     
     <div class="list-item-controls">
-      <a ui-sref="weco.branch.post({ postid: ListItem.post.id })">
-        <img alt=""
+      <a ui-sref="weco.branch.post({ postid: ListItem.post.id, tab: 'discussion' })">
+        <img alt="View post discussion"
           class="control"
-          src="/assets/images/icons/black/comment.png" />
+          src="/assets/images/icons/black/comment.png"
+          title="View post discussion" />
       </a>
       
-      <img alt=""
+      <img alt="Flag the post"
         class="control"
         ng-click="ListItem.openFlagPostModal()"
-        src="/assets/images/icons/black/flag.png" />
+        src="/assets/images/icons/black/flag.png"
+        title="Flag the post" />
       
-      <img alt=""
+      <img alt="Delete the post"
         class="control"
         ng-click="ListItem.openDeletePostModal()"
         ng-show="ListItem.isOwnPost()"
-        src="/assets/images/icons/black/delete.png" />
+        src="/assets/images/icons/black/delete.png"
+        title="Delete the post" />
     </div>
   </div>
 </li>

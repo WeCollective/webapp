@@ -93,9 +93,11 @@ registrar.service('WallService', WallService);
 
 // Controllers
 import AppController from 'app.controller';
+import BranchPostController from 'pages/branch/post/controller';
 import BranchWallController from 'pages/branch/wall/controller';
 
 registrar.controller('AppController', AppController);
+registrar.controller('BranchPostController', BranchPostController);
 registrar.controller('BranchWallController', BranchWallController);
 
 import HomeController from 'pages/home/home.controller';
@@ -128,8 +130,6 @@ import BranchNucleusFlaggedPostsController from 'pages/branch/nucleus/flagged-po
 registrar.controller('BranchNucleusFlaggedPostsController', BranchNucleusFlaggedPostsController);
 import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
-import BranchPostController from 'pages/branch/post/post.controller';
-registrar.controller('BranchPostController', BranchPostController);
 import BranchPostVoteController from 'pages/branch/post/vote/vote.controller';
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
 import BranchPostResultsController from 'pages/branch/post/results/results.controller';
