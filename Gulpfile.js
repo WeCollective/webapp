@@ -86,6 +86,18 @@ gulp.task('build', done => {
   }
 });
 
+gulp.task('build:dev', done => {
+  _firstRun = true;
+  environment = 'development';
+  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+});
+
+gulp.task('build:production', done => {
+  _firstRun = true;
+  environment = 'production';
+  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+});
+
 gulp.task('cleanBuildDir', () => {
   return del([path.join(DEST_DIR, '/**/*')]);
 });

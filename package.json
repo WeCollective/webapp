@@ -6,8 +6,8 @@
   "scripts": {
     "beanstalk-dev": "eb deploy webapp-dev --profile weco-lubos",
     "beanstalk-production": "eb deploy webapp-prod --profile weco-lubos",
-    "build-dev": "gulp build --env dev",
-    "build-production": "gulp build --env production",
+    "build-dev": "gulp build:dev",
+    "build-production": "gulp build:production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "deploy:dev": "npm-run-all build-dev beanstalk-dev",
