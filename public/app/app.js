@@ -136,10 +136,10 @@ import BranchPostResultsController from 'pages/branch/post/results/results.contr
 registrar.controller('BranchPostResultsController', BranchPostResultsController);
 
 // Components
-import NavBarComponent from 'components/nav-bar/nav-bar.directive';
-import NavBarController from 'components/nav-bar/nav-bar.controller';
-registrar.directive('navBar', NavBarComponent);
-registrar.controller('NavBarController', NavBarController);
+import NavbarComponent from 'components/nav-bar/directive';
+import NavbarController from 'components/nav-bar/controller';
+registrar.directive('navBar', NavbarComponent);
+registrar.controller('NavbarController', NavbarController);
 
 import CoverPhotoComponent from 'components/cover-photo/cover-photo.directive';
 import CoverPhotoController from 'components/cover-photo/cover-photo.controller';

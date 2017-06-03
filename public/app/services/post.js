@@ -9,9 +9,7 @@ class PostService extends Injectable {
     const updatePost = () => {
       if (this.$state.current.name.indexOf('weco.branch.post') !== -1) {
         this.fetch(this.$state.params.postid)
-          .then( post => {
-            this.post = post;
-          })
+          .then( post => this.post = post )
           .catch( err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');

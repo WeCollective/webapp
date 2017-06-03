@@ -58,7 +58,7 @@ class BranchPostController extends Injectable {
           });
         }
         else {
-          console.log(`Invalid tab name!`);
+          console.warn(`Invalid tab name!`);
         }
       }
       else {

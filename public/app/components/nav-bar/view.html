@@ -4,7 +4,7 @@
     <div>
       <!-- Hamburger Menu -->
       <div class="hamburger-menu" 
-        ng-click="NavBar.AppService.toggleOpenFrameColumn()">
+        ng-click="Navbar.AppService.toggleOpenFrameColumn()">
         <span></span>
         <span></span>
         <span></span>
@@ -12,11 +12,11 @@
 
       <!-- Weco Cube -->
       <a class="logo"
-        ng-click="NavBar.triggerAnimation()"
+        ng-click="Navbar.triggerAnimation()"
         ui-sref="weco.home">      
         <img alt="Weco logo animation"
           class="animation"
-          ng-src="{{ NavBar.animationSrc }}" />
+          ng-src="{{ Navbar.animationSrc }}" />
         
         <img alt="Weco logo"
           src="/assets/images/nav-logo.png" />
@@ -25,7 +25,7 @@
       <!-- Navigation Controls -->
       <div class="nav-controls">
         <a class="navbar--item"
-          ng-class="{ 'opaque' : NavBar.isControlSelected('nucleus') }"
+          ng-class="{ 'opaque' : Navbar.isControlSelected('nucleus') }"
           ui-sref="weco.branch.nucleus.about({ branchid: 'root' })">
           <img alt=""
             class="navbar--icon"
@@ -36,7 +36,7 @@
         </a>
         
         <a class="navbar--item"
-          ng-class="{ 'opaque' : NavBar.isControlSelected('subbranches') }"
+          ng-class="{ 'opaque' : Navbar.isControlSelected('subbranches') }"
           ui-sref="weco.branch.subbranches({ branchid: 'root' })">
           <img alt=""
             class="navbar--icon"
@@ -47,7 +47,7 @@
         </a>
         
         <a class="navbar--item"
-          ng-class="{ 'opaque' : NavBar.isControlSelected('wall') }"
+          ng-class="{ 'opaque' : Navbar.isControlSelected('wall') }"
           ui-sref="weco.branch.wall({ branchid: 'root' })">
           <img alt=""
             class="navbar--icon"
@@ -61,67 +61,67 @@
 
     <div class="user-controls">
       <a class="navbar--item"
-        ng-show="!NavBar.UserService.isAuthenticated()"
+        ng-show="!Navbar.UserService.isAuthenticated()"
         ui-sref="auth.login">  
         <span class="text">Log In</span>
       </a>
       
       <a class="navbar--item"
-        ng-show="!NavBar.UserService.isAuthenticated()"
+        ng-show="!Navbar.UserService.isAuthenticated()"
         ui-sref="auth.signup">
         <span class="text">Sign up</span>
       </a>
       
       <a class="navbar--item item--notification"
-        ng-class="{ 'opaque': NavBar.notificationCount > 0 }"
-        ng-show="NavBar.UserService.isAuthenticated()"
-        ui-sref="weco.profile.notifications({ username: NavBar.UserService.user.username })">
+        ng-class="{ 'opaque': Navbar.notificationCount > 0 }"
+        ng-show="Navbar.UserService.isAuthenticated()"
+        ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
         <div class="navbar--icon">
-          <img alt=""
+          <img alt="You have {{ Navbar.notificationCount }} unread notifications"
             src="assets/images/icons/white/notification.png" />
 
           <div id="notification-count"
-            ng-show="NavBar.showNotificationCount()">
-            <span>{{ NavBar.notificationCount > 9 ? '9+' : NavBar.notificationCount }}</span>
+            ng-show="Navbar.showNotificationCount()">
+            <span>{{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}</span>
           </div>
         </div>
       </a>
       
       <a class="navbar--item item--profile"
-        ng-class="{ 'opaque' : NavBar.isControlSelected('profile') }"
-        ng-show="NavBar.UserService.isAuthenticated()"
-        ui-sref="weco.profile.about({ username: NavBar.UserService.user.username })">
-        <span class="text">{{ NavBar.UserService.user.username }}</span>
+        ng-class="{ 'opaque' : Navbar.isControlSelected('profile') }"
+        ng-show="Navbar.UserService.isAuthenticated()"
+        ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })">
+        <span class="text">{{ Navbar.UserService.user.username }}</span>
         <div id="profile-picture"
-          style="background-image: url('{{ NavBar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+          style="background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
         </div>
       </a>
       
       <div class="navbar--item item--expand"
-        ng-show="NavBar.UserService.isAuthenticated()">
+        ng-show="Navbar.UserService.isAuthenticated()">
         <img alt=""
           class="navbar--icon"
-          ng-class="{ 'opaque': NavBar.expanded }"
-          ng-click="NavBar.toggleNav()"
+          ng-class="{ 'opaque': Navbar.expanded }"
+          ng-click="Navbar.toggleNav()"
           src="assets/images/icons/white/nav-expand.png" />
 
         <!-- Expandable Items -->
-        <ul ng-show="NavBar.expanded">
+        <ul ng-show="Navbar.expanded">
           <li id="logout"
-            ng-click="NavBar.logout()">
+            ng-click="Navbar.logout()">
             <span>Log Out</span>
           </li>
           
           <li class="followed-branch"
             id="followed-branch-title"
-            ng-show="NavBar.UserService.user.followed_branches.length > 0">
+            ng-show="Navbar.UserService.user.followed_branches.length > 0">
             <span>Following:</span>
           </li>
           
-          <a ng-repeat="branch in NavBar.UserService.user.followed_branches"
+          <a ng-repeat="branch in Navbar.UserService.user.followed_branches"
             ui-sref="weco.branch.wall({ branchid: branch })">
             <li class="followed-branch"
-              ng-show="NavBar.UserService.user.followed_branches.length > 0">
+              ng-show="Navbar.UserService.user.followed_branches.length > 0">
               <span>b/{{ branch }}</span>
             </li>
           </a>

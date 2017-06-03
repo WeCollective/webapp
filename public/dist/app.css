@@ -949,13 +949,16 @@ div[loading] div.loading-container img {
 .navbar > .content > div.user-controls .navbar--item.item--notification {
   border-left-width: 0;
 }
+.navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon {
+  position: relative;
+}
 .navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon div#notification-count {
   background-color: #e74c3c;
   border-radius: 50%;
   box-sizing: border-box;
   color: #fff;
   font-size: 9px;
-  font-weight: 600;
+  font-weight: 500;
   height: 18px;
   min-width: 18px;
   padding-top: 2px;
@@ -3521,7 +3524,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-  color: #494949;
+  color: #b3b3b3;
   font-size: 13px;
   font-weight: 300;
 }
@@ -3588,7 +3591,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #494949;
+    color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }
@@ -3666,7 +3669,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     margin-bottom: 5px;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #494949;
+    color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }

@@ -10,7 +10,7 @@ class ProfileNotificationsController extends Injectable {
     this.NotificationTypes = NotificationTypes;
     this.notifications = [];
 
-    const init = () => {
+    const init = _ => {
       if (this.$state.current.name.indexOf('weco.profile') === -1) return;
       this.getNotifications();
     };
@@ -18,8 +18,9 @@ class ProfileNotificationsController extends Injectable {
     init();
 
     this.EventService.on(this.EventService.events.CHANGE_USER, init);
+
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'NotificationsScrollToBottom') return;
+      if ('NotificationsScrollToBottom' !== name) return;
       
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
@@ -59,31 +60,22 @@ class ProfileNotificationsController extends Injectable {
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId)
       .then( notifications => {
-        this.$timeout( () => {
-          if (lastNotificationId) {
-            this.notifications = this.notifications.concat(notifications);
-          }
-          else {
-            this.notifications = notifications;
-          }
-
+        this.$timeout( _ => {
+          this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
           this.isLoading = false;
           this.isLoadingMore = false;
         });
       })
-      .catch( () => {
-        this.AlertsService.push('error', 'Unable to fetch notifications.');
-      });
+      .catch( _ => this.AlertsService.push('error', 'Unable to fetch notifications.') );
   }
 
-  setUnread (notification, unread) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, unread)
-      .then( () => {
-        this.$timeout( () => { notification.unread = unread; } );
+  toggleUnreadState (notification) {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread)
+      .then( _ => {
+        this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
+        this.$timeout( _ => notification.unread = !notification.unread );
       })
-      .catch( () => {
-        this.AlertsService.push('error', 'Unable to mark notification.');
-      });
+      .catch( _ => this.AlertsService.push('error', 'Unable to mark notification.') );
   }
 }
 

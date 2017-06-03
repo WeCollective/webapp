@@ -144,7 +144,9 @@ gulp.task('lint', () => {
       devel: true,
       esversion: 6,
       strict: 'implied',
-      loopfunc: true
+      loopfunc: true,
+      // Allow fall-through in switch statements.
+      '-W086': true
     }))
     .pipe(jshint.reporter('default'));
 });

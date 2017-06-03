@@ -5,6 +5,18 @@ class API extends Injectable {
     super(API.$inject, injections);
   }
 
+  delete (url, params, data, urlFormEncode) {
+    return this.request('DELETE', url, params, data, urlFormEncode);
+  }
+
+  fetch (url, params, data, urlFormEncode) {
+    return this.get(url, params, data, urlFormEncode);
+  }
+
+  get (url, params, data, urlFormEncode) {
+    return this.request('GET', url, params, data, urlFormEncode);
+  }
+
   // Params: data, headersGetter
   makeFormEncoded (data) {
     let str = [];
@@ -14,7 +26,7 @@ class API extends Injectable {
     return str.join('&');
   }
 
-  normaliseResponse(data, headersGetter, status) {
+  normaliseResponse (data, headersGetter, status) {
     try {
       data = JSON.parse(data);
       data.status = status;
@@ -25,21 +37,37 @@ class API extends Injectable {
     }
   }
 
-  request(method, url, params, data, urlFormEncode) {
+  post (url, params, data, urlFormEncode) {
+    return this.request('POST', url, params, data, urlFormEncode);
+  }
+
+  put (url, params, data, urlFormEncode) {
+    return this.request('PUT', url, params, data, urlFormEncode);
+  }
+
+  remove (url, params, data, urlFormEncode) {
+    return this.delete(url, params, data, urlFormEncode);
+  }
+
+  request (method, url, params, data, urlFormEncode) {
     return new Promise( (resolve, reject) => {
       // ensure url has a leading slash
-      if (url[0] !== '/') url = '/' + url;
+      if (url[0] !== '/') {
+        url = '/' + url;
+      }
 
       // replace :params in the url with their specified values
       for (let paramName of Object.keys(params)) {
         url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
       }
 
+      url = this.ENV.apiEndpoint + url;
+
       // make the request
       let req = {
         method,
-        url: this.ENV.apiEndpoint + url,
-        transformResponse: this.normaliseResponse
+        transformResponse: this.normaliseResponse,
+        url
       };
 
       if (!!urlFormEncode) {
@@ -54,22 +82,27 @@ class API extends Injectable {
         };
       }
       
-      if (method === 'PUT' || method === 'POST') {
+      if ('PUT' === method || 'POST' === method) {
         req.data = data;
       }
       
-      if (method === 'GET' || method === 'DELETE') {
+      if ('GET' === method || 'DELETE' === method) {
         req.params = data;
       }
 
-      this.$http(req).then( res => resolve(res.data || res), reject);
+      this.$http(req)
+        .then( res => resolve(res.data || res) )
+        .catch(reject);
     });
   }
 
-  fetch(url, params, data, urlFormEncode)  { return this.request('GET', url, params, data, urlFormEncode); }
-  remove(url, params, data, urlFormEncode) { return this.request('DELETE', url, params, data, urlFormEncode); }
-  save(url, params, data, urlFormEncode)   { return this.request('POST', url, params, data, urlFormEncode); }
-  update(url, params, data, urlFormEncode) { return this.request('PUT', url, params, data, urlFormEncode); }
+  save (url, params, data, urlFormEncode) {
+    return this.post(url, params, data, urlFormEncode);
+  }
+
+  update (url, params, data, urlFormEncode) {
+    return this.put(url, params, data, urlFormEncode);
+  }
 }
 
 API.$inject = [

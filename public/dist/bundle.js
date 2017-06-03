@@ -23706,10 +23706,10 @@ const AppFilters = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(AppRoutes.$inject, injections);
 
@@ -23873,7 +23873,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
 
     // Posts
     .state('weco.branch.post', {
-      url: '/p/:postid/:tab',
+      url: '/p/:postid',
       templateUrl: '/app/pages/branch/post/view.html',
       controller: 'BranchPostController',
       controllerAs: 'BranchPost',
@@ -23902,7 +23902,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /*
       pageTrack: '/p/:postid/results'
     }).state('weco.branch.post.discussion', {
       url: '/discussion',
-      templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
+      templateUrl: '/app/pages/branch/post/discussion/view.html',
       pageTrack: '/p/:postid/discussion'
     });
 
@@ -26155,30 +26155,37 @@ UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventS
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
-    super(NavBarController.$inject, injections);
+    super(NavbarController.$inject, injections);
 
     this.animationSrc = '';
     this.expanded = false;
     this.notificationCount = 0;
+
+    this.EventService.on(this.EventService.events.FETCH_USER_ME_DATA, _ => {
+      this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
+        this.notificationCount = notificationCount;
+        this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+      }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+    });
   }
 
   isControlSelected(control) {
-    return this.$state.current.name.indexOf(control) > -1 && this.$state.params.branchid === 'root';
+    return this.$state.current.name.indexOf(control) !== -1 && 'root' === this.$state.params.branchid;
   }
 
   logout() {
     this.expanded = false;
-    this.UserService.logout().then(() => {
+    this.UserService.logout().then(_ => {
       this.$state.go('auth.login');
-    }).catch(() => {
+    }).catch(_ => {
       this.AlertsService.push('error', 'Unable to log out.');
     });
   }
 
   onHomePage() {
-    return this.$state.current.name === 'weco.home';
+    return 'weco.home' === this.$state.current.name;
   }
 
   showNotificationCount() {
@@ -26191,20 +26198,20 @@ class NavBarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
   triggerAnimation() {
     // set animation src to the animated gif
-    this.$timeout(() => {
+    this.$timeout(_ => {
       this.animationSrc = '/assets/images/logo-animation.gif';
     });
 
     // cancel after 1 sec
-    this.$timeout(() => {
+    this.$timeout(_ => {
       this.animationSrc = '';
     }, 1000);
   }
 }
 
-NavBarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'UserService'];
+NavbarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
 
-/* harmony default export */ __webpack_exports__["a"] = (NavBarController);
+/* harmony default export */ __webpack_exports__["a"] = (NavbarController);
 
 /***/ }),
 /* 167 */
@@ -26213,23 +26220,22 @@ NavBarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService',
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
-//import NavBarController from 'components/nav-bar/nav-bar.controller';
 
-class NavBarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+class NavbarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
-    super(NavBarComponent.$inject, injections);
+    super(NavbarComponent.$inject, injections);
 
-    this.controller = 'NavBarController';
-    this.controllerAs = 'NavBar';
+    this.controller = 'NavbarController';
+    this.controllerAs = 'Navbar';
     this.restrict = 'E';
     this.replace = true;
     this.templateUrl = '/app/components/nav-bar/view.html';
   }
 }
 
-NavBarComponent.$inject = [];
+NavbarComponent.$inject = [];
 
-/* harmony default export */ __webpack_exports__["a"] = (NavBarComponent);
+/* harmony default export */ __webpack_exports__["a"] = (NavbarComponent);
 
 /***/ }),
 /* 168 */
@@ -26586,8 +26592,8 @@ class TooltipService {
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -27362,7 +27368,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
             location: 'replace'
           });
         } else {
-          console.log(`Invalid tab name!`);
+          console.warn(`Invalid tab name!`);
         }
       } else {
         this.isLoadingPost = false;
@@ -28013,7 +28019,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_notification_types_config__["a" /* default */];
     this.notifications = [];
 
-    const init = () => {
+    const init = _ => {
       if (this.$state.current.name.indexOf('weco.profile') === -1) return;
       this.getNotifications();
     };
@@ -28021,8 +28027,9 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     init();
 
     this.EventService.on(this.EventService.events.CHANGE_USER, init);
+
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'NotificationsScrollToBottom') return;
+      if ('NotificationsScrollToBottom' !== name) return;
 
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
@@ -28061,29 +28068,19 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
-      this.$timeout(() => {
-        if (lastNotificationId) {
-          this.notifications = this.notifications.concat(notifications);
-        } else {
-          this.notifications = notifications;
-        }
-
+      this.$timeout(_ => {
+        this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
         this.isLoading = false;
         this.isLoadingMore = false;
       });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to fetch notifications.');
-    });
+    }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
-  setUnread(notification, unread) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, unread).then(() => {
-      this.$timeout(() => {
-        notification.unread = unread;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to mark notification.');
-    });
+  toggleUnreadState(notification) {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread).then(_ => {
+      this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
+      this.$timeout(_ => notification.unread = !notification.unread);
+    }).catch(_ => this.AlertsService.push('error', 'Unable to mark notification.'));
   }
 }
 
@@ -28246,6 +28243,18 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
     super(API.$inject, injections);
   }
 
+  delete(url, params, data, urlFormEncode) {
+    return this.request('DELETE', url, params, data, urlFormEncode);
+  }
+
+  fetch(url, params, data, urlFormEncode) {
+    return this.get(url, params, data, urlFormEncode);
+  }
+
+  get(url, params, data, urlFormEncode) {
+    return this.request('GET', url, params, data, urlFormEncode);
+  }
+
   // Params: data, headersGetter
   makeFormEncoded(data) {
     let str = [];
@@ -28265,21 +28274,37 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
     }
   }
 
+  post(url, params, data, urlFormEncode) {
+    return this.request('POST', url, params, data, urlFormEncode);
+  }
+
+  put(url, params, data, urlFormEncode) {
+    return this.request('PUT', url, params, data, urlFormEncode);
+  }
+
+  remove(url, params, data, urlFormEncode) {
+    return this.delete(url, params, data, urlFormEncode);
+  }
+
   request(method, url, params, data, urlFormEncode) {
     return new Promise((resolve, reject) => {
       // ensure url has a leading slash
-      if (url[0] !== '/') url = '/' + url;
+      if (url[0] !== '/') {
+        url = '/' + url;
+      }
 
       // replace :params in the url with their specified values
       for (let paramName of Object.keys(params)) {
         url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
       }
 
+      url = this.ENV.apiEndpoint + url;
+
       // make the request
       let req = {
         method,
-        url: this.ENV.apiEndpoint + url,
-        transformResponse: this.normaliseResponse
+        transformResponse: this.normaliseResponse,
+        url
       };
 
       if (!!urlFormEncode) {
@@ -28293,29 +28318,24 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
         };
       }
 
-      if (method === 'PUT' || method === 'POST') {
+      if ('PUT' === method || 'POST' === method) {
         req.data = data;
       }
 
-      if (method === 'GET' || method === 'DELETE') {
+      if ('GET' === method || 'DELETE' === method) {
         req.params = data;
       }
 
-      this.$http(req).then(res => resolve(res.data || res), reject);
+      this.$http(req).then(res => resolve(res.data || res)).catch(reject);
     });
   }
 
-  fetch(url, params, data, urlFormEncode) {
-    return this.request('GET', url, params, data, urlFormEncode);
-  }
-  remove(url, params, data, urlFormEncode) {
-    return this.request('DELETE', url, params, data, urlFormEncode);
-  }
   save(url, params, data, urlFormEncode) {
-    return this.request('POST', url, params, data, urlFormEncode);
+    return this.post(url, params, data, urlFormEncode);
   }
+
   update(url, params, data, urlFormEncode) {
-    return this.request('PUT', url, params, data, urlFormEncode);
+    return this.put(url, params, data, urlFormEncode);
   }
 }
 
@@ -28580,35 +28600,26 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       CHANGE_BRANCH: 'CHANGE_BRANCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
+      FETCH_USER_ME_DATA: 'FETCH_USER_ME_DATA',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
-      STATE_CHANGE_SUCCESS: '$stateChangeSuccess'
+      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
+      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
     };
   }
 
   emit(event, args) {
-    let eventExists = false;
-
-    for (let idx in this.events) {
-      if (this.events[idx] === event) {
-        eventExists = true;
-        break;
+    for (let i in this.events) {
+      if (this.events[i] === event) {
+        return this.$rootScope.$broadcast(event, args);
       }
-    }
-
-    if (eventExists) {
-      this.$rootScope.$broadcast(event, args);
     }
   }
 
   on(event, callback) {
-    this.$rootScope.$on(event, (evt, args) => {
-      return this.$timeout(() => {
-        callback(args);
-      });
-    });
+    this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
   }
 }
 
@@ -28678,9 +28689,7 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
     const updatePost = () => {
       if (this.$state.current.name.indexOf('weco.branch.post') !== -1) {
-        this.fetch(this.$state.params.postid).then(post => {
-          this.post = post;
-        }).catch(err => {
+        this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
           if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {
@@ -28868,6 +28877,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     this.fetch('me').then(user => {
       this.user = user;
     }).catch(() => {}).then(this.$timeout).then(() => {
+      this.EventService.emit(this.EventService.events.FETCH_USER_ME_DATA);
       this.EventService.emit(this.EventService.events.CHANGE_USER);
     });
   }
@@ -67556,8 +67566,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_nav_bar_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_directive__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_controller__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_alerts_alerts_directive__ = __webpack_require__(133);
@@ -67713,8 +67723,8 @@ registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_47
 // Components
 
 
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavBarController', __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_nav_bar_controller__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_controller__["a" /* default */]);
 
 
 

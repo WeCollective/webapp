@@ -13,6 +13,7 @@ class UserService extends Injectable {
       .catch( () => {} )
       .then(this.$timeout)
       .then( () => {
+        this.EventService.emit(this.EventService.events.FETCH_USER_ME_DATA);
         this.EventService.emit(this.EventService.events.CHANGE_USER);
       });
   }

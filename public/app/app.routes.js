@@ -1,4 +1,4 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class AppRoutes extends Injectable {
   constructor(...injections) {
@@ -193,7 +193,7 @@ class AppRoutes extends Injectable {
       
       // Posts
       .state('weco.branch.post', {
-        url: '/p/:postid/:tab',
+        url: '/p/:postid',
         templateUrl: '/app/pages/branch/post/view.html',
         controller: 'BranchPostController',
         controllerAs: 'BranchPost',
@@ -226,7 +226,7 @@ class AppRoutes extends Injectable {
       
       .state('weco.branch.post.discussion', {
         url: '/discussion',
-        templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
+        templateUrl: '/app/pages/branch/post/discussion/view.html',
         pageTrack: '/p/:postid/discussion'
       });
 

@@ -8,33 +8,26 @@ class EventService extends Injectable {
       CHANGE_BRANCH: 'CHANGE_BRANCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
+      FETCH_USER_ME_DATA: 'FETCH_USER_ME_DATA',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
-      STATE_CHANGE_SUCCESS: '$stateChangeSuccess'
+      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
+      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
     };
   }
 
   emit (event, args) {
-    let eventExists = false;
-
-    for (let idx in this.events) {
-      if (this.events[idx] === event) {
-        eventExists = true;
-        break;
+    for (let i in this.events) {
+      if (this.events[i] === event) {
+        return this.$rootScope.$broadcast(event, args);
       }
-    }
-
-    if (eventExists) {
-      this.$rootScope.$broadcast(event, args);
     }
   }
 
   on (event, callback) {
-    this.$rootScope.$on(event, (evt, args) => { return this.$timeout( () => {
-      callback(args);
-    }); });
+    this.$rootScope.$on(event, (e, args) => this.$timeout( _ => callback(args) ) );
   }
 }
 
