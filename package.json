@@ -4,8 +4,8 @@
   "description": "The front-end AngularJS app and server for WECO.",
   "main": "server.js",
   "scripts": {
-    "beanstalk-dev": "eb deploy webapp-dev --profile weco-lubos",
-    "beanstalk-production": "eb deploy webapp-prod --profile weco-lubos",
+    "beanstalk-dev": "eb deploy webapp-dev --profile weco-iam",
+    "beanstalk-production": "eb deploy webapp-prod --profile weco-iam",
     "build-dev": "gulp build:dev",
     "build-production": "gulp build:production",
     "test": "echo \"Error: no test specified\" && exit 1",
