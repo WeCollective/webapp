@@ -24,7 +24,7 @@ let app = angular.module(
 import ENV from 'env.config';
 app.constant('ENV', ENV);
 
-import NotificationTypes from 'components/notification/notification-types.config.js';
+import NotificationTypes from 'components/notification/config';
 app.constant('NotificationTypes', NotificationTypes);
 
 app.constant('ChartColours', [
@@ -70,7 +70,7 @@ import EventService from 'services/event';
 import ModService from 'services/mod';
 import ModalService from 'components/modal/service';
 import PostService from 'services/post';
-import TooltipService from 'components/tooltip/tooltip.service';
+import TooltipService from 'components/tooltip/service';
 import UploadService from 'services/upload';
 import UserService from 'services/user';
 import WallService from 'pages/branch/service';
@@ -97,12 +97,14 @@ import BranchPostController from 'pages/branch/post/controller';
 import BranchPostResultsController from 'pages/branch/post/results/controller';
 import BranchPostVoteController from 'pages/branch/post/vote/controller';
 import BranchWallController from 'pages/branch/wall/controller';
+import TooltipController from 'components/tooltip/controller';
 
 registrar.controller('AppController', AppController);
 registrar.controller('BranchPostController', BranchPostController);
 registrar.controller('BranchPostResultsController', BranchPostResultsController);
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
 registrar.controller('BranchWallController', BranchWallController);
+registrar.controller('TooltipController', TooltipController);
 
 import HomeController from 'pages/home/home.controller';
 registrar.controller('HomeController', HomeController);
@@ -139,10 +141,12 @@ registrar.controller('BranchSubbranchesController', BranchSubbranchesController)
 // Components
 import NavbarComponent from 'components/nav-bar/directive';
 import NavbarController from 'components/nav-bar/controller';
+import TooltipComponent from 'components/tooltip/directive';
 import UploadImageModalController from 'components/modal/upload-image/controller';
 
 registrar.directive('navBar', NavbarComponent);
 registrar.controller('NavbarController', NavbarController);
+registrar.directive('tooltip', TooltipComponent);
 registrar.controller('UploadImageModalController', UploadImageModalController);
 
 import CoverPhotoComponent from 'components/cover-photo/cover-photo.directive';
@@ -152,9 +156,6 @@ registrar.controller('CoverPhotoController', CoverPhotoController);
 
 import AlertsComponent from 'components/alerts/alerts.directive';
 registrar.directive('alerts', AlertsComponent);
-
-import TooltipComponent from 'components/tooltip/tooltip.directive';
-registrar.directive('tooltip', TooltipComponent);
 
 import LoadingComponent from 'components/loading/loading.directive';
 registrar.directive('loading', LoadingComponent);

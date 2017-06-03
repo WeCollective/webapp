@@ -1,21 +1,16 @@
 import angular from 'angular';
 
 const AppFilters = {
-  // capitalize a string
-  capitalize: () => {
+  capitalize () {
     return input => {
       return !!input ? (input[0].toUpperCase() + input.substr(1).toLowerCase()) : '';
     };
   },
 
   // reverse an array
-  reverse: () => {
+  reverse () {
     return items => {
-      if (!items || !angular.isArray(items)) {
-        return false;
-      }
-      
-      return items.slice().reverse();
+      return (!items || !angular.isArray(items)) ? false : items.slice().reverse();
     };
   },
 };

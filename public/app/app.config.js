@@ -1,5 +1,5 @@
-import Injectable from 'utils/injectable.js';
 import angular from 'angular';
+import Injectable from 'utils/injectable';
 
 class AppConfig extends Injectable {
   constructor(...injections) {

@@ -9,12 +9,14 @@ class NavbarController extends Injectable {
     this.notificationCount = 0;
 
     this.EventService.on(this.EventService.events.FETCH_USER_ME_DATA, _ => {
-      this.UserService.getNotifications(this.UserService.user.username, true)
-        .then( notificationCount => {
-          this.notificationCount = notificationCount;
-          this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy );
-        })
-        .catch( _ => this.AlertsService.push('error', 'Unable to fetch notifications.') );
+      if (this.UserService.user.username) {
+        this.UserService.getNotifications(this.UserService.user.username, true)
+          .then( notificationCount => {
+            this.notificationCount = notificationCount;
+            this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy );
+          })
+          .catch( _ => this.AlertsService.push('error', 'Unable to fetch notifications.') );
+      }
     });
   }
 

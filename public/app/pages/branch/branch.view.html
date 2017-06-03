@@ -8,7 +8,7 @@
 
 <div class="cover-page page">
   <div id="branch-frame" class="frame" loading when="Branch.isLoading">
-    <div id="branch-info" class="sidebar frame-column" ng-class="{ 'open': Branch.AppService.frameColumnOpen }">
+    <div id="branch-info" class="sidebar frame-column" ng-class="{ 'open': Branch.AppService.isSidebarOpen }">
       <div class="sidebar-info">
         <h1>{{ Branch.BranchService.branch.name }}</h1>
         
@@ -30,42 +30,40 @@
       
       <ul id="branch-controls" class="sidebar-controls">
         <li>
-          <a ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }" >
-            <img alt=""
-              offset-y="60"
-              src="/assets/images/icons/black/nucleus.png"
-              text="'Nucleus'"
-              tooltip />
+          <a ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }"
+            offset-y="60"
+            text="'Nucleus'"
+            tooltip
+            ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })">
+            <img alt="" src="/assets/images/icons/black/nucleus.png" />
           </a>
         </li>
         <li>
-          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }">
-            <img alt=""
-              offset-y="60"
-              src="/assets/images/icons/black/branch.png"
-              text="'Child Branches'"
-              tooltip />
+          <a ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }"
+            offset-y="60"
+            text="'Child Branches'"
+            tooltip
+            ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" >
+            <img alt="" src="/assets/images/icons/black/branch.png" />
           </a>
         </li>
         <li>
           <a ng-class="{ 'selected' : Branch.isControlSelected('wall') }"
+            offset-y="60"
+            text="'Wall'"
+            tooltip
             ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-            <img alt=""
-              offset-y="60"
-              src="/assets/images/icons/black/wall.png"
-              text="'Wall'"
-              tooltip />
+            <img alt="" src="/assets/images/icons/black/wall.png" />
           </a>
         </li>
         <li>
           <a id="add-content"
             ng-class="{ 'disabled': !Branch.canAddContent() }"
-            ng-click="Branch.addContent()">
-            <img alt=""
-              offset-y="60"
-              src="/assets/images/icons/black/add.png"
-              text="Branch.getAddContentTooltip()"
-              tooltip />
+            ng-click="Branch.addContent()"
+            offset-y="60"
+            text="Branch.getAddContentTooltip()"
+            tooltip>
+            <img alt="" src="/assets/images/icons/black/add.png" />
           </a>
         </li>
       </ul>

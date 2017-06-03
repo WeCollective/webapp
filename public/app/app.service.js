@@ -3,7 +3,7 @@ import Injectable from 'utils/injectable';
 class AppService extends Injectable {
   constructor (...injections) {
     super(AppService.$inject, injections);
-    this.frameColumnOpen = false;
+    this.isSidebarOpen = false;
   }
 
   getProxyUrl (url) {
@@ -11,8 +11,8 @@ class AppService extends Injectable {
     return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
   }
 
-  toggleOpenFrameColumn () {
-    this.frameColumnOpen = !this.frameColumnOpen;
+  toggleSidebar () {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }
 

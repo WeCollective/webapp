@@ -1,16 +1,18 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class AppRun extends Injectable {
   constructor(...injections) {
     super(AppRun.$inject, injections);
 
     // Tell Prerender.io to cache when DOM is loaded
-    this.$timeout( () => { this.$window.prerenderReady = true; });
+    this.$timeout( _ => { this.$window.prerenderReady = true; });
 
     // state access controls
     // Params: event, toState, toParams, fromState, fromParams
-    this.$rootScope.$on("$stateChangeStart", (event, toState, toParams) => {
+    this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
       let mods = [];
+
+      this.EventService.emit('$stateChangeSuccess');
 
       const getMods = cb => {
         this.ModService.fetchByBranch(toParams.branchid)
@@ -20,7 +22,7 @@ class AppRun extends Injectable {
           }, cb);
       };
 
-      const doChecks = () => {
+      const doChecks = _ => {
         // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
         this.UserService.fetch('me')
@@ -73,6 +75,7 @@ AppRun.$inject = [
   '$state',
   '$timeout',
   '$window',
+  'EventService',
   'ModService',
   'UserService'
 ];

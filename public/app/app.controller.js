@@ -1,4 +1,4 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class AppController extends Injectable {
   constructor(...injections) {
@@ -8,9 +8,9 @@ class AppController extends Injectable {
   }
   
   hasNavBar() {
-    if (this.$state.current.name.indexOf('auth') !== -1 ||
-       this.$state.current.name.indexOf('verify') !== -1 ||
-       this.$state.current.name.indexOf('reset-password') !== -1) {
+    if (this.$state.current.name.includes('auth') ||
+       this.$state.current.name.includes('verify') ||
+       this.$state.current.name.includes('reset-password')) {
       return false;
     }
 
