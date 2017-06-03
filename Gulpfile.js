@@ -183,7 +183,7 @@ gulp.task('replaceTemplateStrings:config', () => {
     apiEndpoint = 'https://wecoapi.com/v1';
   }
 
-  console.log(chalk.dim(`[2/3]`), '\u{1F4DD} ', chalk.blue(`Using ${apiEndpoint} as the endpoint...`));
+  console.log(chalk.dim(`[2/3]`), '\u{1F4CD} ', chalk.blue(`Using ${apiEndpoint} as the endpoint...`));
 
   return gulp.src([path.join(APP_DIR, 'env.config.template.js')])
     .pipe(replace(/%ENV_NAME%/g, environment))
