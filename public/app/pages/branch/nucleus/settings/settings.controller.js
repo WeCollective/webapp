@@ -5,63 +5,68 @@ class BranchNucleusSettingsController extends Injectable {
     super(BranchNucleusSettingsController.$inject, injections);
   }
 
-  openVisibleNameModal() {
-    this.ModalService.open(
-      'BRANCH_NUCLEUS_SETTINGS',
-      {
-        title: 'Visible Name',
-        inputs: [
-          {
-            placeholder: 'Visible name',
-            type: 'text',
-            fieldname: 'name'
-          }
-        ],
-        textareas: []
-      },
-      'Successfully updated branch settings!',
-      'Unable to update branch settings.'
-    );
-  }
+  openModal (modalType) {
+    let title = '',
+      templateName = 'BRANCH_NUCLEUS_SETTINGS',
+      inputs  = [],
+      textareas = [],
+      route = 'branch/root/',
+      type;
 
-  openRulesModal() {
-    this.ModalService.open(
-      'BRANCH_NUCLEUS_SETTINGS',
-      {
-        title: 'Rules & Etiquette',
-        inputs: [],
-        textareas: [
-          {
-            placeholder: 'Rules & Etiquette Text',
-            fieldname: 'rules',
-            value: this.BranchService.branch.rules
-          }
-        ]
-      },
-      'Successfully updated branch settings!',
-      'Unable to update branch settings.'
-    );
-  }
+    if ('profile-picture' === modalType) {
+      type = 'picture';
+    }
+    else if ('cover-picture' === modalType) {
+      type = 'cover';
+    }
 
-  openDescriptionModal() {
-    this.ModalService.open(
-      'BRANCH_NUCLEUS_SETTINGS',
-      {
-        title: 'Description',
-        inputs: [],
-        textareas: [
-          {
-            placeholder: 'Description',
-            fieldname: 'description',
-            value: this.BranchService.branch.description
-          }
-        ]
-      },
-      'Successfully updated branch settings!',
-      'Unable to update branch settings.'
-    );
+    switch (modalType) {
+      case 'profile-picture':
+      case 'cover-picture':
+        templateName = 'UPLOAD_IMAGE';
+        break;
+
+      case 'description':
+        title = 'Description';
+        textareas = [{
+          fieldname: 'description',
+          placeholder: 'Description',
+          value: this.BranchService.branch.description
+        }];
+        break;
+
+      case 'rules':
+        title = 'Rules & Etiquette';
+        textareas = [{
+          fieldname: 'rules',
+          placeholder: 'Rules & Etiquette Text',
+          value: this.BranchService.branch.rules
+        }];
+        break;
+
+      case 'visible-name':
+        title = 'Visible Name';
+        inputs = [{
+          fieldname: 'name',
+          placeholder: 'Visible name',
+          type: 'text'
+        }];
+        break;
+
+      default:
+        break;
+    }
+    this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title },
+      'Successfully updated branch settings!', 'Unable to update branch settings.' );
   }
 }
-BranchNucleusSettingsController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'ModalService'];
+
+BranchNucleusSettingsController.$inject = [
+  '$state',
+  '$timeout',
+  'AlertsService',
+  'BranchService',
+  'ModalService'
+];
 
 export default BranchNucleusSettingsController;

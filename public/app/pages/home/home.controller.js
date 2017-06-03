@@ -13,12 +13,8 @@ class HomeController extends Injectable {
 
     for (let stat of Object.keys(this.stats)) {
       this.API.fetch('/constant/:stat', { stat })
-        .then( res => {
-          this.stats[stat] = res.data.data;
-        })
-        .catch( () => {
-          this.AlertsService.push('error', 'Having trouble connecting...');
-        })
+        .then( res => this.stats[stat] = res.data.data )
+        .catch( () => this.AlertsService.push('error', 'Having trouble connecting...') )
         .then(this.$timeout);
     }
   }

@@ -26000,8 +26000,8 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.inputArgs = {};
     this.name = '';
     this.outputArgs = {};
-    this.reject = () => {};
-    this.resolve = () => {};
+    this.reject = _ => {};
+    this.resolve = _ => {};
     this.templateUrl = '';
     this.templateUrls = {
       ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
@@ -26024,14 +26024,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
   }
 
   Cancel(args) {
-    this.$timeout(() => {
-      this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(false);
-    });
+    this.finished(args, false);
   }
 
   Error() {
@@ -26039,15 +26032,19 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.reject();
   }
 
-  OK(args) {
-    this.$timeout(() => {
+  finished(args, success) {
+    this.$timeout(_ => {
       this.isOpen = false;
       if (args) {
         this.outputArgs = args;
       }
       this.name = '';
-      this.resolve(true);
+      this.resolve(success);
     });
+  }
+
+  OK(args) {
+    this.finished(args, true);
   }
 
   open(name, args, successMessage, errorMessage) {
@@ -26055,9 +26052,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     // force change the template url so that controllers included on
     // the template are reloaded
     this.templateUrl = '';
-    this.$timeout(() => {
-      this.templateUrl = this.templateUrls[name];
-    });
+    this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
     this.isOpen = true;
     this.inputArgs = args;
     this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
@@ -26071,9 +26066,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
         this.$state.go(this.$state.current, {}, { reload: true });
         this.AlertsService.push('success', successMessage);
       }
-    }).catch(() => {
-      this.AlertsService.push('error', errorMessage);
-    });
+    }).catch(_ => this.AlertsService.push('error', errorMessage));
   }
 }
 
@@ -26093,38 +26086,37 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
   constructor(...injections) {
     super(UploadImageModalController.$inject, injections);
 
-    this.uploadUrl = '';
     this.errorMessage = '';
     this.file = null;
+    this.uploadUrl = '';
 
-    let getUploadUrl = () => {
-      let uploadUrlRoute = this.ModalService.inputArgs.route + this.ModalService.inputArgs.type;
-      this.UploadService.fetchUploadUrl(uploadUrlRoute).then(uploadUrl => {
-        this.uploadUrl = uploadUrl;
-      }).catch(() => {
+    const setUploadUrl = _ => {
+      const args = this.ModalService.inputArgs;
+      this.UploadService.fetchUploadUrl(args.route + args.type).then(uploadUrl => this.uploadUrl = uploadUrl).catch(_ => {
         this.AlertsService.push('error', 'Unable to upload photo!');
         this.ModalService.Cancel();
       });
     };
 
-    getUploadUrl();
+    setUploadUrl();
+
     this.EventService.on(this.EventService.events.MODAL_OPEN, name => {
-      if (name !== 'UPLOAD_IMAGE') return;
-      getUploadUrl();
+      if ('UPLOAD_IMAGE' !== name) return;
+      setUploadUrl();
     });
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'UPLOAD_IMAGE') return;
-      if (!this.file) {
-        this.errorMessage = 'No file selected!';
-        return;
-      }
-      this.errorMessage = '';
-      this.UploadService.uploadImage(this.file, this.uploadUrl).then(() => {
+      if ('UPLOAD_IMAGE' !== name) return;
+
+      this.errorMessage = this.file ? '' : 'No file selected!';
+
+      if (!this.file) return;
+
+      this.UploadService.uploadImage(this.file, this.uploadUrl).then(_ => {
         this.file = null;
         this.ModalService.OK();
-      }).catch(() => {
-        this.$timeout(() => {
+      }).catch(_ => {
+        this.$timeout(_ => {
           this.file = null;
           this.errorMessage = 'Unable to upload photo!';
         });
@@ -26132,7 +26124,7 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'UPLOAD_IMAGE') return;
+      if ('UPLOAD_IMAGE' !== name) return;
       this.file = null;
       this.errorMessage = '';
       this.ModalService.Cancel();
@@ -26143,7 +26135,8 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
     this.file = file;
   }
 }
-UploadImageModalController.$inject = ['$timeout', 'API', 'ModalService', 'EventService', 'UploadService', 'AlertsService'];
+
+UploadImageModalController.$inject = ['$timeout', 'AlertsService', 'API', 'EventService', 'ModalService', 'UploadService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UploadImageModalController);
 
@@ -26592,8 +26585,8 @@ class TooltipService {
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -27200,61 +27193,73 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     this.tabStates = [];
     this.tabStateParams = [];
 
-    let isModerator = () => {
-      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-        if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-          return true;
-        }
+    let init = _ => {
+      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) {
+        return;
       }
-      return false;
-    };
 
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) return;
-      if (Object.keys(this.BranchService.branch).length === 0) return;
+      if (!Object.keys(this.BranchService.branch).length) {
+        return;
+      }
 
       this.tabItems = ['about', 'moderators'];
       this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{ branchid: this.BranchService.branch.id }, { branchid: this.BranchService.branch.id }];
+      this.tabStateParams = [{
+        branchid: this.BranchService.branch.id
+      }, {
+        branchid: this.BranchService.branch.id
+      }];
 
-      if (this.UserService.isAuthenticated() && isModerator()) {
+      if (this.UserService.isAuthenticated() && this.isModerator()) {
         // add settings tab
-        if (this.tabItems.indexOf('settings') === -1) {
+        if (!this.tabItems.includes('settings')) {
           this.tabItems.push('settings');
           this.tabStates.push('weco.branch.nucleus.settings');
           this.tabStateParams.push({ branchid: this.BranchService.branch.id });
         }
+
         // add mod tools tab
-        if (this.tabItems.indexOf('mod tools') === -1) {
+        if (!this.tabItems.includes('mod tools')) {
           this.tabItems.push('mod tools');
           this.tabStates.push('weco.branch.nucleus.modtools');
           this.tabStateParams.push({ branchid: this.BranchService.branch.id });
         }
+
         // add flagged posts tab
-        if (this.tabItems.indexOf('flagged posts') === -1) {
+        if (!this.tabItems.includes('flagged posts')) {
           this.tabItems.push('flagged posts');
           this.tabStates.push('weco.branch.nucleus.flaggedposts');
           this.tabStateParams.push({ branchid: this.BranchService.branch.id });
         }
       } else {
         if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          this.$state.go('weco.branch.nucleus.about', { branchid: this.BranchService.branch.id }).then(init);
+          const branchid = this.BranchService.branch.id;
+          this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
         }
       }
     };
 
     init();
+
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
     this.EventService.on(this.EventService.events.CHANGE_USER, init);
   }
 
   addHTMLLineBreaks(str) {
-    if (str) {
-      return str.split('\n').join('<br>');
+    return str ? str.split('\n').join('<br>') : str;
+  }
+
+  isModerator() {
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        return true;
+      }
     }
+    return false;
   }
 }
-BranchNucleusController.$inject = ['$timeout', '$state', 'BranchService', 'UserService', 'EventService'];
+
+BranchNucleusController.$inject = ['$state', '$timeout', 'BranchService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
 
@@ -27271,43 +27276,61 @@ class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
     super(BranchNucleusSettingsController.$inject, injections);
   }
 
-  openVisibleNameModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Visible Name',
-      inputs: [{
-        placeholder: 'Visible name',
-        type: 'text',
-        fieldname: 'name'
-      }],
-      textareas: []
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
+  openModal(modalType) {
+    let title = '',
+        templateName = 'BRANCH_NUCLEUS_SETTINGS',
+        inputs = [],
+        textareas = [],
+        route = 'branch/root/',
+        type;
 
-  openRulesModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Rules & Etiquette',
-      inputs: [],
-      textareas: [{
-        placeholder: 'Rules & Etiquette Text',
-        fieldname: 'rules',
-        value: this.BranchService.branch.rules
-      }]
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
+    if ('profile-picture' === modalType) {
+      type = 'picture';
+    } else if ('cover-picture' === modalType) {
+      type = 'cover';
+    }
 
-  openDescriptionModal() {
-    this.ModalService.open('BRANCH_NUCLEUS_SETTINGS', {
-      title: 'Description',
-      inputs: [],
-      textareas: [{
-        placeholder: 'Description',
-        fieldname: 'description',
-        value: this.BranchService.branch.description
-      }]
-    }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
+    switch (modalType) {
+      case 'profile-picture':
+      case 'cover-picture':
+        templateName = 'UPLOAD_IMAGE';
+        break;
+
+      case 'description':
+        title = 'Description';
+        textareas = [{
+          fieldname: 'description',
+          placeholder: 'Description',
+          value: this.BranchService.branch.description
+        }];
+        break;
+
+      case 'rules':
+        title = 'Rules & Etiquette';
+        textareas = [{
+          fieldname: 'rules',
+          placeholder: 'Rules & Etiquette Text',
+          value: this.BranchService.branch.rules
+        }];
+        break;
+
+      case 'visible-name':
+        title = 'Visible Name';
+        inputs = [{
+          fieldname: 'name',
+          placeholder: 'Visible name',
+          type: 'text'
+        }];
+        break;
+
+      default:
+        break;
+    }
+    this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
   }
 }
-BranchNucleusSettingsController.$inject = ['$timeout', '$state', 'BranchService', 'AlertsService', 'ModalService'];
+
+BranchNucleusSettingsController.$inject = ['$state', '$timeout', 'AlertsService', 'BranchService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
 
@@ -27979,11 +28002,7 @@ class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     };
 
     for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', { stat }).then(res => {
-        this.stats[stat] = res.data.data;
-      }).catch(() => {
-        this.AlertsService.push('error', 'Having trouble connecting...');
-      }).then(this.$timeout);
+      this.API.fetch('/constant/:stat', { stat }).then(res => this.stats[stat] = res.data.data).catch(() => this.AlertsService.push('error', 'Having trouble connecting...')).then(this.$timeout);
     }
   }
 
@@ -28822,9 +28841,9 @@ class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     });
   }
 
-  uploadImage(file, uploadUrl) {
+  uploadImage(data, url) {
     return new Promise((resolve, reject) => {
-      if (!file) {
+      if (!data) {
         return reject();
       }
 
@@ -28832,24 +28851,24 @@ class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
       this.progress = 0;
 
       this.Upload.http({
-        url: uploadUrl,
+        url,
         method: 'PUT',
         headers: {
           'Content-Type': 'image/*'
         },
-        data: file
-      }).then(() => {
+        data
+      }).then(_ => {
         this.isUploading = false;
         this.progress = 0;
         return resolve();
-      }, () => {
+      }, _ => {
         // error
         this.isUploading = false;
         this.progress = 0;
         return reject();
-      }, evt => {
+      }, e => {
         // progress
-        this.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        this.progress = Math.min(100, parseInt(100.0 * e.loaded / e.total));
       });
     });
   }
@@ -67568,31 +67587,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_directive__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_tooltip_tooltip_directive__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_loading_loading_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_dropdown_dropdown_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_notification_notification_item_directive__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_list_item_list_item_directive__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_comments_comments_directive__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_controller__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_chart_chart_directive__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_modal_modal_directive__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_profile_settings_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_upload_image_upload_image_modal_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_modal_upload_image_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_alerts_alerts_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_tooltip_tooltip_directive__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_loading_loading_directive__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_tabs_tabs_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_tabs_tabs_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_dropdown_dropdown_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_notification_notification_item_directive__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_directive__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_list_item_list_item_controller__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_directive__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_controller__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_chart_chart_directive__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_modal_directive__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_profile_settings_controller__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(151);
@@ -67723,78 +67742,79 @@ registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_47
 // Components
 
 
+
+
 registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_directive__["a" /* default */]);
 registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_controller__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_50_components_modal_upload_image_controller__["a" /* default */]);
 
 
 
-registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_cover_photo_directive__["a" /* default */]);
-registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_controller__["a" /* default */]);
+registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_51_components_cover_photo_cover_photo_directive__["a" /* default */]);
+registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_52_components_cover_photo_cover_photo_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_52_components_alerts_alerts_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_53_components_alerts_alerts_directive__["a" /* default */]);
 
 
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_53_components_tooltip_tooltip_directive__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_54_components_tooltip_tooltip_directive__["a" /* default */]);
 
 
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_54_components_loading_loading_directive__["a" /* default */]);
-
-
-
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_55_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_56_components_tabs_tabs_controller__["a" /* default */]);
-
-
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_57_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_58_components_dropdown_dropdown_directive__["a" /* default */]);
-
-
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_59_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__["a" /* default */]);
-
-
-registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_60_components_notification_notification_item_directive__["a" /* default */]);
-
-
-registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_61_components_tag_editor_tag_editor_directive__["a" /* default */]);
+registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_55_components_loading_loading_directive__["a" /* default */]);
 
 
 
-registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_62_components_list_item_list_item_directive__["a" /* default */]);
-registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_56_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_57_components_tabs_tabs_controller__["a" /* default */]);
+
+
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_58_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
+
+
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_59_components_dropdown_dropdown_directive__["a" /* default */]);
+
+
+registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_60_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__["a" /* default */]);
+
+
+registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_61_components_notification_notification_item_directive__["a" /* default */]);
+
+
+registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_62_components_tag_editor_tag_editor_directive__["a" /* default */]);
 
 
 
-registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_64_components_comments_comments_directive__["a" /* default */]);
-registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_controller__["a" /* default */]);
+registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_63_components_list_item_list_item_directive__["a" /* default */]);
+registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_64_components_list_item_list_item_controller__["a" /* default */]);
 
 
 
-registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_66_components_comments_write_comment_write_comment_directive__["a" /* default */]);
-registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_controller__["a" /* default */]);
+registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_65_components_comments_comments_directive__["a" /* default */]);
+registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_controller__["a" /* default */]);
 
 
 
-registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_68_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
-registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
-
-
-registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_70_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
-
-
-registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_71_components_chart_chart_directive__["a" /* default */]);
-
-
-registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_72_components_modal_modal_directive__["a" /* default */]);
+registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_67_components_comments_write_comment_write_comment_directive__["a" /* default */]);
+registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_68_components_comments_write_comment_write_comment_controller__["a" /* default */]);
 
 
 
-registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_73_components_modal_profile_settings_controller__["a" /* default */]);
+registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_69_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
+registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_70_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
 
 
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_74_components_modal_upload_image_upload_image_modal_controller__["a" /* default */]);
+registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_71_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
+
+
+registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_72_components_chart_chart_directive__["a" /* default */]);
+
+
+registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_73_components_modal_modal_directive__["a" /* default */]);
+
+
+
+registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_74_components_modal_profile_settings_controller__["a" /* default */]);
+
 
 registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_75_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
 

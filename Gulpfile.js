@@ -146,7 +146,9 @@ gulp.task('lint', () => {
       strict: 'implied',
       loopfunc: true,
       // Allow fall-through in switch statements.
-      '-W086': true
+      '-W086': true,
+      // This was throwing an error in the case of _ => 'hey from an arrow function'. :/
+      unused: false
     }))
     .pipe(jshint.reporter('default'));
 });

@@ -1,7 +1,35 @@
 <ul id="nucleus-settings-properties">
-  <li id="change-picture"><span ng-click="BranchNucleusSettings.openProfilePictureModal()">Change flag image</span></li>
-  <li id="change-cover"><span ng-click="BranchNucleusSettings.openCoverPictureModal()">Change cover photo</span></li>
-  <li><span class="field">Visible Name: </span> <span class="value">{{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }}</span><span class="change-value"> | <span ng-click="BranchNucleusSettings.openVisibleNameModal()">Change</span></span></li>
-  <li><span class="field marked-title">Rules &amp; Etiquette: </span> <div class="value" marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'"></div><span class="change-value marked-title"><span ng-click="BranchNucleusSettings.openRulesModal()">Change</span></span></li>
-  <li><span class="field marked-title">Description: </span> <div class="value" marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'"></div><span class="change-value marked-title"><span ng-click="BranchNucleusSettings.openDescriptionModal()">Change</span></span></li>
+  <li id="change-picture">
+  	<span ng-click="BranchNucleusSettings.openModal('profile-picture')">
+  		Change flag image
+  	</span>
+  </li>
+
+  <li id="change-cover">
+    <span ng-click="BranchNucleusSettings.openModal('cover-picture')">
+      Change cover photo
+    </span>
+  </li>
+
+  <li>
+    <span class="field">Visible Name: </span>
+    <span class="value">{{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }}</span>
+    <span class="change-value"> | <span ng-click="BranchNucleusSettings.openModal('visible-name')">Change</span></span>
+  </li>
+
+  <li>
+    <span class="field marked-title">Rules &amp; Etiquette: </span>
+    <div class="value" marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'"></div>
+    <span class="change-value marked-title">
+      <span ng-click="BranchNucleusSettings.openModal('rules')">Change</span>
+    </span>
+  </li>
+
+  <li>
+    <span class="field marked-title">Description: </span>
+    <div class="value" marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'"></div>
+    <span class="change-value marked-title">
+      <span ng-click="BranchNucleusSettings.openModal('description')">Change</span>
+    </span>
+  </li>
 </ul>

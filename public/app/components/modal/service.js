@@ -8,8 +8,8 @@ class ModalService extends Injectable {
     this.inputArgs = {};
     this.name = '';
     this.outputArgs = {};
-    this.reject = () => {};
-    this.resolve = () => {};
+    this.reject = _ => {};
+    this.resolve = _ => {};
     this.templateUrl = '';
     this.templateUrls = {
       ADD_MOD:                   '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
@@ -32,14 +32,7 @@ class ModalService extends Injectable {
   }
 
   Cancel (args) {
-    this.$timeout(() => {
-      this.isOpen = false;
-      if(args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(false);
-    });
+    this.finished(args, false);
   }
 
   Error () {
@@ -47,15 +40,19 @@ class ModalService extends Injectable {
     this.reject();
   }
 
-  OK (args) {
-    this.$timeout(() => {
+  finished (args, success) {
+    this.$timeout( _ => {
       this.isOpen = false;
       if (args) {
         this.outputArgs = args;
       }
       this.name = '';
-      this.resolve(true);
+      this.resolve(success);
     });
+  }
+
+  OK (args) {
+    this.finished(args, true);
   }
 
   open (name, args, successMessage, errorMessage) {
@@ -63,7 +60,7 @@ class ModalService extends Injectable {
     // force change the template url so that controllers included on
     // the template are reloaded
     this.templateUrl = '';
-    this.$timeout(() => { this.templateUrl = this.templateUrls[name]; });
+    this.$timeout( _ => this.templateUrl = this.templateUrls[name] );
     this.isOpen = true;
     this.inputArgs = args;
     this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
@@ -79,9 +76,7 @@ class ModalService extends Injectable {
           this.AlertsService.push('success', successMessage);
         }
       })
-      .catch( () => {
-        this.AlertsService.push('error', errorMessage);
-      });
+      .catch( _ => this.AlertsService.push('error', errorMessage) );
   }
 }
 

@@ -23,9 +23,9 @@ class UploadService extends Injectable {
     });
   }
 
-  uploadImage (file, uploadUrl) {
+  uploadImage (data, url) {
     return new Promise( (resolve, reject) => {
-      if (!file) {
+      if (!data) {
         return reject();
       }
 
@@ -33,23 +33,23 @@ class UploadService extends Injectable {
       this.progress = 0;
 
       this.Upload.http({
-        url: uploadUrl,
+        url,
         method: 'PUT',
         headers: {
           'Content-Type': 'image/*'
         },
-        data: file
+        data
       })
-        .then( () => {
+        .then( _ => {
           this.isUploading = false;
           this.progress = 0;
           return resolve();
-        }, () => {  // error
+        }, _ => {  // error
           this.isUploading = false;
           this.progress = 0;
           return reject();
-        }, evt => {  // progress
-          this.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        }, e => {  // progress
+          this.progress = Math.min(100, parseInt(100.0 * e.loaded / e.total));
         });
     });
   }

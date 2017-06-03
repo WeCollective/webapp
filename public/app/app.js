@@ -138,8 +138,11 @@ registrar.controller('BranchPostResultsController', BranchPostResultsController)
 // Components
 import NavbarComponent from 'components/nav-bar/directive';
 import NavbarController from 'components/nav-bar/controller';
+import UploadImageModalController from 'components/modal/upload-image/controller';
+
 registrar.directive('navBar', NavbarComponent);
 registrar.controller('NavbarController', NavbarController);
+registrar.controller('UploadImageModalController', UploadImageModalController);
 
 import CoverPhotoComponent from 'components/cover-photo/cover-photo.directive';
 import CoverPhotoController from 'components/cover-photo/cover-photo.controller';
@@ -208,8 +211,7 @@ import ProfileSettingsModalController from 'components/modal/profile/settings/co
 
 registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
 
-import UploadImageModalController from 'components/modal/upload-image/upload-image.modal.controller';
-registrar.controller('UploadImageModalController', UploadImageModalController);
+
 import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';
 registrar.controller('BranchNucleusSettingsModalController', BranchNucleusSettingsModalController);
 import AddModModalController from 'components/modal/branch/nucleus/modtools/add-mod/add-mod.modal.controller';
