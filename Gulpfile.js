@@ -47,7 +47,7 @@ function fileFromString(opts = {}) {
 const WEBPACK_CONFIG = {
   entry: path.join(APP_DIR, 'app.js'),
   output: {
-    filename: 'production' === environment ? 'bundle.min.js' : 'bundle.js',
+    filename: '',
     path: DEST_DIR
   },
   devtool: 'source-map',
@@ -79,23 +79,23 @@ const WEBPACK_CONFIG = {
 
 gulp.task('build', done => {
   if (_firstRun) {
-    runSequence('cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+    runSequence('cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
   }
   else {
-    runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+    runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
   }
 });
 
 gulp.task('build:dev', done => {
   _firstRun = true;
   environment = 'development';
-  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
 });
 
 gulp.task('build:production', done => {
   _firstRun = true;
   environment = 'production';
-  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings', 'less', 'lint', 'webpack', done);
+  runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
 });
 
 gulp.task('cleanBuildDir', () => {
@@ -108,7 +108,7 @@ gulp.task('configEnvironment', () => {
   }
 
   fs.readFile(GULP_ENV_CONFIG_FILE_PATH, 'utf-8', (err, file_body) => {
-    const cliEnv = err || _firstRun ? yargs.argv.env : file_body;
+    const cliEnv = err || _firstRun ? (yargs.argv.env || environment) : file_body;
 
     if ('production' === cliEnv) {
       environment = 'production';
@@ -121,11 +121,11 @@ gulp.task('configEnvironment', () => {
     }
     
     if (cliEnv) {
-      console.log(chalk.dim(`[1/2]`), '\u{1F4DD} ', chalk.blue(`Environment set to ${environment}.`));
+      console.log(chalk.dim(`[1/3]`), '\u{1F4DD} ', chalk.blue(`Environment set to ${environment}.`));
       fileFromString({ name: GULP_ENV_CONFIG_FILE_PATH, body: cliEnv }).pipe(gulp.dest(GULP_ENV_CONFIG_FILE_DIR))
     }
     else {
-      console.log(chalk.dim(`[1/2]`), '\u{1F4DD} ', chalk.blue(`Environment defaults to ${environment}.`));
+      console.log(chalk.dim(`[1/3]`), '\u{1F4DD} ', chalk.blue(`Environment defaults to ${environment}.`));
     }
   })
 });
@@ -168,22 +168,20 @@ gulp.task('nodemon', () => {
   });
 });
 
-gulp.task('replaceTemplateStrings', done => {
-  runSequence('replaceTemplateStrings:config', 'replaceTemplateStrings:index', done);
-});
-
 gulp.task('replaceTemplateStrings:config', () => {
   let apiEndpoint;
   
-  if (environment === 'local') {
+  if ('local' === environment) {
     apiEndpoint = 'http://localhost:8080/v1';
   }
-  else if (environment === 'development') {
+  else if ('development' === environment) {
     apiEndpoint = 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1';
   }
-  else if (environment === 'production') {
+  else if ('production' === environment) {
     apiEndpoint = 'https://wecoapi.com/v1';
   }
+
+  console.log(chalk.dim(`[2/3]`), '\u{1F4DD} ', chalk.blue(`Using ${apiEndpoint} as the endpoint...`));
 
   return gulp.src([path.join(APP_DIR, 'env.config.template.js')])
     .pipe(replace(/%ENV_NAME%/g, environment))
@@ -193,18 +191,17 @@ gulp.task('replaceTemplateStrings:config', () => {
 });
 
 gulp.task('replaceTemplateStrings:index', () => {
-  let wecoAppScript = 'bundle.js',
-    socketIOEndpoint;
+  const wecoAppScript = 'production' === environment ? 'bundle.min.js' : 'bundle.js';
+  let socketIOEndpoint;
 
-  if (environment === 'local') {
+  if ('local' === environment) {
     socketIOEndpoint = 'http://localhost:8080/socket.io/socket.io.js';
   }
-  else if (environment === 'development') {
+  else if ('development' === environment) {
     socketIOEndpoint = 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/socket.io/socket.io.js';
   }
-  else if (environment === 'production') {
+  else if ('production' === environment) {
     socketIOEndpoint = 'https://wecoapi.com/socket.io/socket.io.js';
-    wecoAppScript = 'bundle.min.js';
   }
 
   return gulp.src([path.join(PUBLIC_DIR, 'index.template.html')])
@@ -216,6 +213,7 @@ gulp.task('replaceTemplateStrings:index', () => {
 
 gulp.task('webpack', done => {
   WEBPACK_CONFIG.output.filename = 'production' === environment ? 'bundle.min.js' : 'bundle.js';
+
   webpack(WEBPACK_CONFIG, (err, stats) => {
       if (err) throw new gutil.PluginError('webpack', err);
       gutil.log('[webpack]', stats.toString());

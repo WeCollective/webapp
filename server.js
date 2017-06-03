@@ -62,4 +62,4 @@ app.all('/*', (req, res, next) => {
 
 // START THE SERVER
 app.listen(port);
-console.log(chalk.dim(`[2/2]`), '\u{1F389} ', chalk.blue(`Magic happens on port ${port}!`));
+console.log(chalk.dim(`[3/3]`), '\u{1F389} ', chalk.blue(`Magic happens on port ${port}!`));
