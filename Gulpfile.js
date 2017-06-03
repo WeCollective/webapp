@@ -1,12 +1,12 @@
 const gulp  = require('gulp');
 const yargs = require('yargs');
-const chalk = require('chalk');
 const clean = require('gulp-clean');
 const del   = require('del');
 const fs    = require('fs');
 const gutil   = require('gulp-util');
 const jshint  = require('gulp-jshint');
 const less    = require('gulp-less');
+const logger  = require('./console-logger');
 const nodemon = require("gulp-nodemon");
 const path    = require('path');
 const rename  = require('gulp-rename');
@@ -121,11 +121,11 @@ gulp.task('configEnvironment', () => {
     }
     
     if (cliEnv) {
-      console.log(chalk.dim(`[1/3]`), '\u{1F4DD} ', chalk.blue(`Environment set to ${environment}.`));
+      logger.log(`Environment set to ${environment}.`, '1F4DD');
       fileFromString({ name: GULP_ENV_CONFIG_FILE_PATH, body: cliEnv }).pipe(gulp.dest(GULP_ENV_CONFIG_FILE_DIR))
     }
     else {
-      console.log(chalk.dim(`[1/3]`), '\u{1F4DD} ', chalk.blue(`Environment defaults to ${environment}.`));
+      logger.log(`Environment defaults to ${environment}.`, '1F4DD');
     }
   })
 });
@@ -183,7 +183,7 @@ gulp.task('replaceTemplateStrings:config', () => {
     apiEndpoint = 'https://wecoapi.com/v1';
   }
 
-  console.log(chalk.dim(`[2/3]`), '\u{1F4CD} ', chalk.blue(`Using ${apiEndpoint} as the endpoint...`));
+  logger.log(`Using ${apiEndpoint} as the endpoint...`, '1F4CD');
 
   return gulp.src([path.join(APP_DIR, 'env.config.template.js')])
     .pipe(replace(/%ENV_NAME%/g, environment))

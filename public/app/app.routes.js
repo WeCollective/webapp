@@ -203,14 +203,14 @@ class AppRoutes extends Injectable {
       // Comment Permalink
       .state('weco.branch.post.comment', {
         url: '/c/:commentid',
-        templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
+        templateUrl: '/app/pages/branch/post/discussion/view.html',
         pageTrack: '/p/:postid/c/:commentid'
       })
       
       // Poll Tabs
       .state('weco.branch.post.vote', {
         url: '/vote',
-        templateUrl: '/app/pages/branch/post/vote/vote.view.html',
+        templateUrl: '/app/pages/branch/post/vote/view.html',
         controller: 'BranchPostVoteController',
         controllerAs: 'BranchPostVote',
         pageTrack: '/p/:postid/vote'
@@ -218,7 +218,7 @@ class AppRoutes extends Injectable {
       
       .state('weco.branch.post.results', {
         url: '/results',
-        templateUrl: '/app/pages/branch/post/results/results.view.html',
+        templateUrl: '/app/pages/branch/post/results/view.html',
         controller: 'BranchPostResultsController',
         controllerAs: 'BranchPostResults',
         pageTrack: '/p/:postid/results'

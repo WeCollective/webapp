@@ -23883,20 +23883,20 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
     // Comment Permalink
     .state('weco.branch.post.comment', {
       url: '/c/:commentid',
-      templateUrl: '/app/pages/branch/post/discussion/discussion.view.html',
+      templateUrl: '/app/pages/branch/post/discussion/view.html',
       pageTrack: '/p/:postid/c/:commentid'
     })
 
     // Poll Tabs
     .state('weco.branch.post.vote', {
       url: '/vote',
-      templateUrl: '/app/pages/branch/post/vote/vote.view.html',
+      templateUrl: '/app/pages/branch/post/vote/view.html',
       controller: 'BranchPostVoteController',
       controllerAs: 'BranchPostVote',
       pageTrack: '/p/:postid/vote'
     }).state('weco.branch.post.results', {
       url: '/results',
-      templateUrl: '/app/pages/branch/post/results/results.view.html',
+      templateUrl: '/app/pages/branch/post/results/view.html',
       controller: 'BranchPostResultsController',
       controllerAs: 'BranchPostResults',
       pageTrack: '/p/:postid/results'
@@ -27478,28 +27478,25 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
     this.answers = [];
     this.chart = {
-      type: 'pie',
       data: [],
       labels: [],
-      options: {}
+      options: {},
+      type: 'pie'
     };
 
     this.getPollAnswers();
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
-      this.getPollAnswers();
-    });
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers());
   }
 
   getAnswerColor(index) {
-    return index > this.ChartColours.length ? '#d3d3d3' : this.ChartColours[index];
+    return index > this.ChartColours.length - 1 ? '#d3d3d3' : this.ChartColours[index];
   }
 
   // Params: lastAnswerId
   getPollAnswers() {
-    // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
-      this.$timeout(() => {
+      this.$timeout(_ => {
         this.answers = answers;
         this.chart.labels = [];
         this.chart.data = [];
@@ -67567,24 +67564,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_post_controller__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_wall_controller__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_home_home_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_auth_auth_controller__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_auth_verify_verify_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_profile_profile_controller__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_profile_settings_settings_controller__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_profile_notifications_notifications_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_branch_branch_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_nucleus_about_about_controller__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_results_controller__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_vote_controller__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_branch_wall_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_home_home_controller__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_auth_auth_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_auth_verify_verify_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_profile_profile_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_profile_settings_settings_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_profile_notifications_notifications_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_branch_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_about_about_controller__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_nav_bar_directive__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_controller__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_modal_upload_image_controller__ = __webpack_require__(165);
@@ -67700,44 +67697,44 @@ registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_servi
 
 
 
+
+
 registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_28_app_controller__["a" /* default */]);
 registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_post_controller__["a" /* default */]);
-registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_wall_controller__["a" /* default */]);
+registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_results_controller__["a" /* default */]);
+registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_vote_controller__["a" /* default */]);
+registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_32_pages_branch_wall_controller__["a" /* default */]);
 
 
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_31_pages_home_home_controller__["a" /* default */]);
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_33_pages_home_home_controller__["a" /* default */]);
 
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_32_pages_auth_auth_controller__["a" /* default */]);
+registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_34_pages_auth_auth_controller__["a" /* default */]);
 
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_33_pages_auth_verify_verify_controller__["a" /* default */]);
+registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_35_pages_auth_verify_verify_controller__["a" /* default */]);
 
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
+registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_36_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
 
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_35_pages_profile_profile_controller__["a" /* default */]);
+registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_37_pages_profile_profile_controller__["a" /* default */]);
 
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_36_pages_profile_settings_settings_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_38_pages_profile_settings_settings_controller__["a" /* default */]);
 
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_37_pages_profile_notifications_notifications_controller__["a" /* default */]);
+registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_39_pages_profile_notifications_notifications_controller__["a" /* default */]);
 
-registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_38_pages_branch_branch_controller__["a" /* default */]);
+registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_40_pages_branch_branch_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_39_pages_branch_nucleus_nucleus_controller__["a" /* default */]);
+registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_nucleus_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_40_pages_branch_nucleus_about_about_controller__["a" /* default */]);
+registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_about_about_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_41_pages_branch_nucleus_moderators_moderators_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_moderators_moderators_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_settings_settings_controller__["a" /* default */]);
+registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_settings_settings_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_modtools_modtools_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_modtools_modtools_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_flagged_posts_flagged_posts_controller__["a" /* default */]);
+registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_flagged_posts_flagged_posts_controller__["a" /* default */]);
 
-registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_45_pages_branch_subbranches_subbranches_controller__["a" /* default */]);
-
-registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_46_pages_branch_post_vote_vote_controller__["a" /* default */]);
-
-registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_47_pages_branch_post_results_results_controller__["a" /* default */]);
+registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_47_pages_branch_subbranches_subbranches_controller__["a" /* default */]);
 
 // Components
 

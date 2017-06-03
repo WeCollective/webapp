@@ -6,29 +6,26 @@ class BranchPostResultsController extends Injectable {
 
     this.answers = [];
     this.chart = {
-      type: 'pie',
       data: [],
       labels: [],
-      options: {}
+      options: {},
+      type: 'pie'
     };
 
     this.getPollAnswers();
     
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
-      this.getPollAnswers();
-    });
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers() );
   }
 
   getAnswerColor (index) {
-    return index > this.ChartColours.length ? '#d3d3d3' : this.ChartColours[index];
+    return index > this.ChartColours.length - 1 ? '#d3d3d3' : this.ChartColours[index];
   }
 
   // Params: lastAnswerId
   getPollAnswers () {
-    // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined)
       .then( answers => {
-        this.$timeout( () => {
+        this.$timeout( _ => {
           this.answers = answers;
           this.chart.labels = [];
           this.chart.data = [];
