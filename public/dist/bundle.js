@@ -24626,38 +24626,28 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   constructor(...injections) {
     super(DropdownComponent.$inject, injections);
 
+    this.scope = {
+      items: '=',
+      selected: '=',
+      title: '&'
+    };
     this.restrict = 'E';
     this.replace = 'true';
     this.templateUrl = '/app/components/dropdown/view.html';
-    this.scope = {
-      title: '&',
-      items: '=',
-      selected: '='
-    };
   }
 
   // Params: scope, element, attrs
   link(scope) {
     scope.isOpen = false;
 
-    scope.close = () => {
-      this.$timeout(() => {
-        scope.isOpen = false;
-      });
-    };
+    scope.close = _ => this.$timeout(_ => scope.isOpen = false);
 
-    scope.open = () => {
-      this.$timeout(() => {
-        scope.isOpen = true;
-      });
-    };
+    scope.open = _ => this.$timeout(_ => scope.isOpen = true);
 
-    scope.select = idx => {
-      this.$timeout(() => {
-        scope.selected = idx;
-        scope.close();
-      });
-    };
+    scope.select = index => this.$timeout(_ => {
+      scope.selected = index;
+      scope.close();
+    });
   }
 }
 
@@ -27677,33 +27667,31 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   constructor(...injections) {
     super(WallService.$inject, injections);
 
+    this.flaggedOnly = false;
     this.isLoading = false;
     this.isLoadingMore = false;
     this.posts = [];
-    this.flaggedOnly = false;
     this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
+      postType: {
+        items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
+        selectedIndex: 0
       },
       sortBy: {
-        selectedIndex: 2,
-        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
-      },
-      postType: {
-        selectedIndex: 0,
-        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+        items: ['total points', '# of comments', 'date posted'],
+        selectedIndex: 2
       },
       statType: {
-        selectedIndex: 0,
-        items: ['GLOBAL', 'LOCAL', 'BRANCH']
+        items: ['global', 'local', 'branch'],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+        selectedIndex: 0
       }
     };
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('WallScrollToBottom' !== name) {
-        return;
-      }
+      if ('WallScrollToBottom' !== name) return;
 
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
@@ -27725,30 +27713,30 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
     // fetch the posts for this branch and timefilter
     this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
-      this.$timeout(() => {
+      this.$timeout(_ => {
         // If lastPostId was specified, we are fetching more posts, so append them.
         this.posts = lastPostId ? this.posts.concat(posts) : posts;
         this.isLoading = false;
         this.isLoadingMore = false;
       });
-    }).catch(() => {
+    }).catch(_ => {
       this.AlertsService.push('error', 'Error fetching posts.');
       this.isLoading = false;
     });
   }
 
   getPostType() {
-    switch (this.controls.postType.items[this.controls.postType.selectedIndex]) {
-      case 'IMAGES':
+    switch (this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase()) {
+      case 'images':
         return 'image';
 
-      case 'VIDEOS':
+      case 'videos':
         return 'video';
 
-      case 'PAGES':
+      case 'pages':
         return 'page';
 
-      case 'POLLS':
+      case 'polls':
         return 'poll';
 
       default:
@@ -27757,14 +27745,14 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getSortBy() {
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'total points':
         return 'points';
 
-      case 'DATE POSTED':
+      case 'date posted':
         return 'date';
 
-      case '# OF COMMENTS':
+      case '# of comments':
         return 'comment_count';
 
       default:
@@ -27773,14 +27761,14 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getStatType() {
-    switch (this.controls.statType.items[this.controls.statType.selectedIndex]) {
-      case 'GLOBAL':
+    switch (this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase()) {
+      case 'global':
         return 'global';
 
-      case 'LOCAL':
+      case 'local':
         return 'local';
 
-      case 'BRANCH':
+      case 'branch':
         return 'individual';
 
       default:
@@ -27790,34 +27778,31 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   // compute the appropriate timeafter for the selected time filter
   getTimeafter() {
-    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex]) {
-      case 'PAST YEAR':
+    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+      case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 
-      case 'PAST MONTH':
+      case 'past month':
         return new Date().setMonth(new Date().getMonth() - 1);
 
-      case 'PAST WEEK':
+      case 'past week':
         return new Date().setDate(new Date().getDate() - 7);
 
-      case 'PAST 24 HRS':
+      case 'past 24 hrs':
         return new Date().setDate(new Date().getDate() - 1);
 
-      case 'PAST HOUR':
+      case 'past hour':
         return new Date().setHours(new Date().getHours() - 1);
 
-      case 'ALL TIME':
+      case 'all time':
       default:
         return 0;
     }
   }
 
+  // This is also called from `/wall/controller.js`
   init(allowedState, flaggedOnly) {
-    if (this.$state.current.name.indexOf(allowedState) === -1) {
-      return;
-    }
-
-    if (!Object.keys(this.BranchService.branch).length) {
+    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }
 
@@ -27984,22 +27969,14 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.WallService.init('weco.branch.wall');
-    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, () => {
-      this.WallService.init('weco.branch.wall');
-    });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
-      this.WallService.init('weco.branch.wall');
-    });
+    const cb = _ => this.WallService.init('weco.branch.wall');
+
+    cb();
+    this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, cb);
+    this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, cb);
+    this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, cb);
+    this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, cb);
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb);
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -28012,7 +27989,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 }
 
-BranchWallController.$inject = ['$rootScope', '$state', '$timeout', 'EventService', 'WallService'];
+BranchWallController.$inject = ['$rootScope', '$state', '$timeout', 'BranchService', 'EventService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
 
@@ -28411,19 +28388,16 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     super(BranchService.$inject, injections);
     this.branch = {};
 
-    const updateBranch = () => {
-      if (this.$state.current.name.indexOf('weco.branch') !== -1) {
-        this.fetch(this.$state.params.branchid).then(branch => {
-          this.branch = branch;
-        }).catch(err => {
+    const updateBranch = _ => {
+      console.log(this.$state.current.name);
+      if (this.$state.current.name.includes('weco.branch')) {
+        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
           if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch branch.');
           }
-        }).then(() => {
-          this.EventService.emit(this.EventService.events.CHANGE_BRANCH);
-        }).then(this.$timeout);
+        }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH)).then(this.$timeout);
       }
     };
 
@@ -28432,9 +28406,9 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
   }
 
-  actionSubbranchRequest(action, parentid, childid) {
+  actionSubbranchRequest(action, branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
@@ -28531,9 +28505,9 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     });
   }
 
-  getSubbranchRequests(parentid) {
+  getSubbranchRequests(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid: parentid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -28553,9 +28527,9 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     });
   }
 
-  submitSubbranchRequest(parentid, childid) {
+  submitSubbranchRequest(branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }).then(resolve).catch(err => reject(err.data || err));
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
@@ -28566,7 +28540,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
   }
 }
 
-BranchService.$inject = ['$state', 'AlertsService', 'API', 'EventService', 'ModService'];
+BranchService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'EventService', 'ModService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchService);
 

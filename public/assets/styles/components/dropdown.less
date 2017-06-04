@@ -25,23 +25,14 @@ div.dropdown {
   li.dropdown-item {
     border-radius: 3px;
     box-sizing: border-box;
-    display: inline-block;
     font-size: @font-size-xs;
-    padding: 5px 20px 5px 10px;
+    padding: 5px 10px;
     position: relative;
 
     img {
       height: 10px;
-      position: absolute;
-      right: 5px;
-      top: 8px;
+      margin-left: 6px;
       width: auto;
-      z-index: 10;
-    }
-
-    &:hover {
-      background-color: @light-grey;
-      cursor: pointer;
     }
 
     &.selected,
@@ -50,9 +41,22 @@ div.dropdown {
     }
   }
 
+  div.dropdown-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  li.dropdown-item:hover {
+    background-color: @light-grey;
+    cursor: pointer;
+  }
+
   div.dropdown-title {
     display: inline-block;
+    line-height: 1;
     padding-left: 10px;
+    position: relative;
 
     span {
       color: @dark-grey;

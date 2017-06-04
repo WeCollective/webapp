@@ -6,12 +6,11 @@ class BranchService extends Injectable {
     super(BranchService.$inject, injections);
     this.branch = {};
 
-    const updateBranch = () => {
-      if (this.$state.current.name.indexOf('weco.branch') !== -1) {
+    const updateBranch = _ => {
+      console.log(this.$state.current.name);
+      if (this.$state.current.name.includes('weco.branch')) {
         this.fetch(this.$state.params.branchid)
-          .then( branch => {
-            this.branch = branch;
-          })
+          .then( branch => this.branch = branch )
           .catch( err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');
@@ -20,9 +19,7 @@ class BranchService extends Injectable {
               this.AlertsService.push('error', 'Unable to fetch branch.');
             }
           })
-          .then( () => {
-            this.EventService.emit(this.EventService.events.CHANGE_BRANCH);
-          })
+          .then( _ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH) )
           .then(this.$timeout);
       }
     };
@@ -32,9 +29,9 @@ class BranchService extends Injectable {
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
   }
 
-  actionSubbranchRequest (action, parentid, childid) {
+  actionSubbranchRequest (action, branchid, childid) {
     return new Promise( (resolve, reject) => {
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid }, { action }, true)
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true)
         .then(resolve)
         .catch( err => reject(err.data || err) );
     });
@@ -145,9 +142,9 @@ class BranchService extends Injectable {
     });
   }
 
-  getSubbranchRequests (parentid) {
+  getSubbranchRequests (branchid) {
     return new Promise( (resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid: parentid })
+      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid })
         .then( res => resolve(res.data) )
         .catch( err => reject(err.data || err) );
     });
@@ -173,9 +170,9 @@ class BranchService extends Injectable {
     });
   }
 
-  submitSubbranchRequest (parentid, childid) {
+  submitSubbranchRequest (branchid, childid) {
     return new Promise( (resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid: parentid, childid })
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid })
         .then(resolve)
         .catch( err => reject(err.data || err) );
     });
@@ -192,6 +189,7 @@ class BranchService extends Injectable {
 
 BranchService.$inject = [
   '$state',
+  '$timeout',
   'AlertsService',
   'API',
   'EventService',

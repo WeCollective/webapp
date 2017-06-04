@@ -1,26 +1,26 @@
 <div id="branch-wall">
   <div class="content-header">
-    <h1>{{ BranchWall.BranchService.branch.id === 'root' ? 'Global Wall' : 'Wall' }}</h1>
+    <h1 class="text--capitalize">{{ 'root' === BranchWall.BranchService.branch.id ? 'global ' : '' }}wall</h1>
     
     <div class="content-controls">
       <dropdown items="BranchWall.WallService.controls.timeRange.items"
         selected="BranchWall.WallService.controls.timeRange.selectedIndex"
-        title="'TIME RANGE'">
+        title="'time range'">
+      </dropdown>
+
+      <dropdown items="BranchWall.WallService.controls.sortBy.items"
+        selected="BranchWall.WallService.controls.sortBy.selectedIndex"
+        title="'sort by'">
       </dropdown>
       
       <dropdown items="BranchWall.WallService.controls.postType.items"
         selected="BranchWall.WallService.controls.postType.selectedIndex"
-        title="'POST TYPE'">
-      </dropdown>
-      
-      <dropdown items="BranchWall.WallService.controls.sortBy.items"
-        selected="BranchWall.WallService.controls.sortBy.selectedIndex"
-        title="'SORT BY'">
+        title="'post type'">
       </dropdown>
       
       <dropdown items="BranchWall.WallService.controls.statType.items"
         selected="BranchWall.WallService.controls.statType.selectedIndex"
-        title="'STAT TYPE'">
+        title="'stat type'">
       </dropdown>
     </div>
   </div>

@@ -27,7 +27,7 @@ const GULP_ENV_CONFIG_FILE_PATH = `${GULP_ENV_CONFIG_FILE_DIR}.gulp-env`;
 // This is so we preserve environment setting on Nodemon refresh.
 let _firstRun = false;
 
-function fileFromString(opts = {}) {
+function fileFromString (opts = {}) {
   opts.name = opts.name || 'unnamed-file-from-gulp';
   opts.body = opts.body || 'Set file body in the gulpfile.js';
 
@@ -42,6 +42,14 @@ function fileFromString(opts = {}) {
     this.push(null);
   }
   return src;
+}
+
+function setInitialTask (env) {
+  _firstRun = true;
+  
+  if (env) {
+    environment = env;
+  }
 }
 
 const WEBPACK_CONFIG = {
@@ -78,23 +86,16 @@ const WEBPACK_CONFIG = {
 };
 
 gulp.task('build', done => {
-  if (_firstRun) {
-    runSequence('cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
-  }
-  else {
-    runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
-  }
+  runSequence('cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
 });
 
 gulp.task('build:dev', done => {
-  _firstRun = true;
-  environment = 'development';
+  setInitialTask('development');
   runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
 });
 
 gulp.task('build:production', done => {
-  _firstRun = true;
-  environment = 'production';
+  setInitialTask('production');
   runSequence('configEnvironment', 'cleanBuildDir', 'replaceTemplateStrings:config', 'less', 'lint', 'webpack', 'replaceTemplateStrings:index', done);
 });
 
@@ -103,6 +104,7 @@ gulp.task('cleanBuildDir', () => {
 });
 
 gulp.task('configEnvironment', () => {
+  // Delete the old config file.
   if (_firstRun) {
     gulp.src(GULP_ENV_CONFIG_FILE_PATH, { read: false }).pipe(clean());
   }
@@ -156,17 +158,16 @@ gulp.task('lint', () => {
 gulp.task('nodemon', () => {
   nodemon({
     ext: 'js html less',
-    watch: 'public',
     ignore: [
       'public/app/env.config.js',
       'public/dist/*',
       'public/index.html'
     ],
-    script: 'server.js',
-    verbose: false,
     quiet: true,
-    delay: 500,
-    tasks: ['build']
+    script: 'server.js',
+    tasks: ['configEnvironment', 'build'],
+    verbose: false,
+    watch: 'public'
   });
 });
 
@@ -224,6 +225,6 @@ gulp.task('webpack', done => {
 });
 
 gulp.task('default', done => {
-  _firstRun = true;
+  setInitialTask();
   runSequence('configEnvironment', 'build', 'nodemon', done);
 });

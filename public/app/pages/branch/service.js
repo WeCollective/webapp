@@ -4,33 +4,54 @@ class WallService extends Injectable {
   constructor(...injections) {
     super(WallService.$inject, injections);
 
+    this.flaggedOnly = false;
     this.isLoading = false;
     this.isLoadingMore = false;
     this.posts = [];
-    this.flaggedOnly = false;
     this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
+      postType: {
+        items: [
+          'all',
+          'text',
+          'images',
+          'videos',
+          'audio',
+          'pages',
+          'polls'
+        ],
+        selectedIndex: 0
       },
       sortBy: {
-        selectedIndex: 2,
-        items: ['TOTAL POINTS', '# OF COMMENTS', 'DATE POSTED']
-      },
-      postType: {
-        selectedIndex: 0,
-        items: ['ALL', 'TEXT', 'IMAGES', 'VIDEOS', 'AUDIO', 'PAGES', 'POLLS']
+        items: [
+          'total points',
+          '# of comments',
+          'date posted'
+        ],
+        selectedIndex: 2
       },
       statType: {
-        selectedIndex: 0,
-        items: ['GLOBAL', 'LOCAL', 'BRANCH']
+        items: [
+          'global',
+          'local',
+          'branch'
+        ],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: [
+          'all time',
+          'past year',
+          'past month',
+          'past week',
+          'past 24 hrs',
+          'past hour'
+        ],
+        selectedIndex: 0
       }
     };
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('WallScrollToBottom' !== name) {
-        return;
-      }
+      if ('WallScrollToBottom' !== name) return;
       
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
@@ -53,31 +74,31 @@ class WallService extends Injectable {
     // fetch the posts for this branch and timefilter
     this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly)
       .then( posts => {
-        this.$timeout( () => {
+        this.$timeout( _ => {
           // If lastPostId was specified, we are fetching more posts, so append them.
           this.posts = lastPostId ? this.posts.concat(posts) : posts;
           this.isLoading = false;
           this.isLoadingMore = false;
         });
       })
-      .catch( () => {
+      .catch( _ => {
         this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
       });
   }
 
   getPostType() {
-    switch(this.controls.postType.items[this.controls.postType.selectedIndex]) {
-      case 'IMAGES':
+    switch(this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase()) {
+      case 'images':
         return 'image';
 
-      case 'VIDEOS':
+      case 'videos':
         return 'video';
 
-      case 'PAGES':
+      case 'pages':
         return 'page';
 
-      case 'POLLS':
+      case 'polls':
         return 'poll';
 
       default:
@@ -86,14 +107,14 @@ class WallService extends Injectable {
   }
 
   getSortBy() {
-    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
+    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'total points':
         return 'points';
 
-      case 'DATE POSTED':
+      case 'date posted':
         return 'date';
 
-      case '# OF COMMENTS':
+      case '# of comments':
         return 'comment_count';
 
       default:
@@ -102,14 +123,14 @@ class WallService extends Injectable {
   }
 
   getStatType() {
-    switch(this.controls.statType.items[this.controls.statType.selectedIndex]) {
-      case 'GLOBAL':
+    switch(this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase()) {
+      case 'global':
         return 'global';
         
-      case 'LOCAL':
+      case 'local':
         return 'local';
 
-      case 'BRANCH':
+      case 'branch':
         return 'individual';
 
       default:
@@ -119,34 +140,31 @@ class WallService extends Injectable {
 
   // compute the appropriate timeafter for the selected time filter
   getTimeafter() {
-    switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]) {
-      case 'PAST YEAR':
+    switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+      case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 
-      case 'PAST MONTH':
+      case 'past month':
         return new Date().setMonth(new Date().getMonth() - 1);
 
-      case 'PAST WEEK':
+      case 'past week':
         return new Date().setDate(new Date().getDate() - 7);
 
-      case 'PAST 24 HRS':
+      case 'past 24 hrs':
         return new Date().setDate(new Date().getDate() - 1);
 
-      case 'PAST HOUR':
+      case 'past hour':
         return new Date().setHours(new Date().getHours() - 1);
 
-      case 'ALL TIME':
+      case 'all time':
       default:
         return 0;
     }
   }
 
+  // This is also called from `/wall/controller.js`
   init(allowedState, flaggedOnly) {
-    if (this.$state.current.name.indexOf(allowedState) === -1) {
-      return;
-    }
-
-    if (!Object.keys(this.BranchService.branch).length) {
+    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }
 

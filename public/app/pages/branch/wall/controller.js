@@ -4,12 +4,14 @@ class BranchWallController extends Injectable {
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.WallService.init('weco.branch.wall');
-    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => { this.WallService.init('weco.branch.wall'); });
-    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => { this.WallService.init('weco.branch.wall'); });
-    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => { this.WallService.init('weco.branch.wall'); });
-    this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, () => { this.WallService.init('weco.branch.wall'); });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => { this.WallService.init('weco.branch.wall'); });
+    const cb = _ => this.WallService.init('weco.branch.wall');
+
+    cb();
+    this.$rootScope.$watch( _ => this.WallService.controls.postType.selectedIndex, cb );
+    this.$rootScope.$watch( _ => this.WallService.controls.sortBy.selectedIndex, cb );
+    this.$rootScope.$watch( _ => this.WallService.controls.statType.selectedIndex, cb );
+    this.$rootScope.$watch( _ => this.WallService.controls.timeRange.selectedIndex, cb );
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb );
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -26,6 +28,7 @@ BranchWallController.$inject = [
   '$rootScope',
   '$state',
   '$timeout',
+  'BranchService',
   'EventService',
   'WallService'
 ];
