@@ -1,9 +1,10 @@
-<div id="profile-notifications"
+<div class="notifications"
+  id="profile-notifications"
   loading
-  on-scroll-to-bottom="NotificationsScrollToBottom"
-  when="ProfileNotifications.isLoading">
+  loading-when="ProfileNotifications.isLoading"
+  on-scroll-to-bottom="NotificationsScrollToBottom">
   <div id="empty"
-    ng-show="!ProfileNotifications.notifications || ProfileNotifications.notifications.length === 0">
+    ng-show="!ProfileNotifications.notifications || !ProfileNotifications.notifications.length">
     No notifications.
   </div>
   

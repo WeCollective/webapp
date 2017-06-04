@@ -23790,7 +23790,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
       pageTrack: '/u/:username/settings'
     }).state('weco.profile.notifications', {
       url: '/notifications',
-      templateUrl: '/app/pages/profile/notifications/notifications.view.html',
+      templateUrl: '/app/pages/profile/notifications/view.html',
       controller: 'ProfileNotificationsController',
       controllerAs: 'ProfileNotifications',
       selfOnly: true,
@@ -24798,6 +24798,8 @@ class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.restrict = 'A';
     this.replace = false;
     this.scope = {
+      loadingWhen: '&',
+      // Legacy.
       when: '&'
     };
     this.templateUrl = '/app/components/loading/view.html';
@@ -26308,7 +26310,7 @@ class OnScrollToBottomComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   }
 
   link(scope, element, attrs) {
-    element.on('scroll', () => {
+    element.on('scroll', _ => {
       if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
         this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
       }
@@ -28051,13 +28053,15 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     super(ProfileNotificationsController.$inject, injections);
 
     this.isLoading = false;
-    this.isLoadingMore = false;
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */];
     this.notifications = [];
 
     const init = _ => {
-      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
-      this.getNotifications();
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(_ => this.getNotifications());
+      }
     };
 
     init();
@@ -28067,8 +28071,8 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
 
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
+      if (!this.isLoading) {
+        this.isLoading = true;
 
         if (this.notifications.length) {
           this.getNotifications(this.notifications[this.notifications.length - 1].id);
@@ -28107,7 +28111,6 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       this.$timeout(_ => {
         this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
         this.isLoading = false;
-        this.isLoadingMore = false;
       });
     }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
@@ -28136,15 +28139,15 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   constructor(...injections) {
     super(ProfileController.$inject, injections);
 
-    this.showCover = true;
     this.isLoading = false;
+    this.profileUser = {};
+    this.showCover = true;
     this.tabItems = ['about'];
     this.tabStates = ['weco.profile.about'];
-    this.profileUser = {};
 
-    let loadOtherUser = () => {
+    const loadOtherUser = _ => {
       // ensure we are in the 'about' state
-      if (this.$state.current.name !== 'weco.profile.about') {
+      if ('weco.profile.about' !== this.$state.current.name) {
         this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
       } else {
         this.isLoading = true;
@@ -28152,28 +28155,32 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
           this.profileUser = user;
           this.isLoading = false;
         }).catch(err => {
-          if (err.status === 404) {
+          this.isLoading = false;
+
+          if (404 === err.status) {
             return this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch user.');
             this.$state.go('weco.home');
           }
-          this.isLoading = false;
         }).then(this.$timeout);
       }
     };
 
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
       if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(() => {
+        this.$timeout(_ => {
           this.profileUser = this.UserService.user;
+
           if (this.UserService.user.username === this.$state.params.username) {
-            if (this.tabItems.indexOf('settings') === -1 && this.tabStates.indexOf('weco.profile.settings') === -1) {
+            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
               this.tabItems.push('settings');
               this.tabStates.push('weco.profile.settings');
             }
-            if (this.tabItems.indexOf('notifications') === -1 && this.tabStates.indexOf('weco.profile.notifications') === -1) {
+
+            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
               this.tabItems.push('notifications');
               this.tabStates.push('weco.profile.notifications');
             }
@@ -28188,18 +28195,18 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.EventService.on(this.EventService.events.CHANGE_USER, init);
   }
 
-  openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'picture'
-    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
-  }
-
   openCoverPictureModal() {
     this.ModalService.open('UPLOAD_IMAGE', {
       route: 'user/me/',
       type: 'cover'
     }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
+  }
+
+  openProfilePictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'picture'
+    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
   }
 }
 
@@ -29079,6 +29086,16 @@ class ComponentRegistrar {
     this.app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(appName);
   }
 
+  config(contructorFn) {
+    this.app.config(contructorFn);
+    return this;
+  }
+
+  controller(name, contructorFn) {
+    this.app.controller(name, contructorFn);
+    return this;
+  }
+
   directive(name, constructorFn) {
     constructorFn = this._normalizeConstructor(constructorFn);
     if (!constructorFn.prototype.compile) {
@@ -29101,24 +29118,16 @@ class ComponentRegistrar {
       };
     });
 
-    var factoryArray = this._createFactoryArray(constructorFn);
+    const factoryArray = this._createFactoryArray(constructorFn);
 
     this.app.directive(name, factoryArray);
     return this;
   }
 
-  config(contructorFn) {
-    this.app.config(contructorFn);
-    return this;
-  }
-
-  controller(name, contructorFn) {
-    this.app.controller(name, contructorFn);
-    return this;
-  }
-
-  service(name, contructorFn) {
-    this.app.service(name, contructorFn);
+  factory(name, constructorFn) {
+    constructorFn = this._normalizeConstructor(constructorFn);
+    const factoryArray = this._createFactoryArray(constructorFn);
+    this.app.factory(name, factoryArray);
     return this;
   }
 
@@ -29127,28 +29136,18 @@ class ComponentRegistrar {
     return this;
   }
 
-  factory(name, constructorFn) {
-    constructorFn = this._normalizeConstructor(constructorFn);
-    var factoryArray = this._createFactoryArray(constructorFn);
-    this.app.factory(name, factoryArray);
+  service(name, contructorFn) {
+    this.app.service(name, contructorFn);
     return this;
   }
 
   /*
-   * If the constructorFn is an array of type ['dep1', 'dep2', ..., constructor() {}]
-   * we need to pull out the array of dependencies and add it as an $inject property of the
-   * actual constructor function.
+   * Clone a function
    */
-  _normalizeConstructor(input) {
-    let constructorFn;
-    if (input.constructor === Array) {
-      var injected = input.slice(0, input.length - 1);
-      constructorFn = input[input.length - 1];
-      constructorFn.$inject = injected;
-    } else {
-      constructorFn = input;
-    }
-    return constructorFn;
+  _cloneFunction(original) {
+    return function () {
+      return original.apply(this, arguments);
+    };
   }
 
   /*
@@ -29160,28 +29159,42 @@ class ComponentRegistrar {
    */
   _createFactoryArray(constructorFn) {
     // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
-    let args = constructorFn.$inject || [];
+    const args = constructorFn.$inject || [];
     let factoryArray = args.slice(); // create a copy of the array
+
     // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
     // dependency, and the final item is the factory function itself.
     factoryArray.push((...args) => {
       //return new constructorFn(...args);
-      var instance = new constructorFn(...args);
-      for (var key in instance) {
+      let instance = new constructorFn(...args);
+
+      for (let key in instance) {
         instance[key] = instance[key];
       }
+
       return instance;
     });
+
     return factoryArray;
   }
 
   /*
-   * Clone a function
+   * If the constructorFn is an array of type ['dep1', 'dep2', ..., constructor() {}]
+   * we need to pull out the array of dependencies and add it as an $inject property of the
+   * actual constructor function.
    */
-  _cloneFunction(original) {
-    return function () {
-      return original.apply(this, arguments);
-    };
+  _normalizeConstructor(input) {
+    let constructorFn;
+
+    if (input.constructor === Array) {
+      const injected = input.slice(0, input.length - 1);
+      constructorFn = input[input.length - 1];
+      constructorFn.$inject = injected;
+    } else {
+      constructorFn = input;
+    }
+
+    return constructorFn;
   }
 
   /**
@@ -67583,14 +67596,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_results_controller__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_vote_controller__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_branch_wall_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_components_tooltip_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_home_home_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_auth_auth_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_verify_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_profile_profile_controller__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_profile_settings_settings_controller__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_profile_notifications_notifications_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_profile_notifications_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_components_tooltip_controller__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_home_home_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_auth_auth_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_auth_verify_verify_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_profile_profile_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_profile_settings_settings_controller__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_branch_branch_controller__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_about_about_controller__ = __webpack_require__(182);
@@ -67601,19 +67614,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_list_item_directive__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_list_item_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_tooltip_directive__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_modal_upload_image_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_loading_loading_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_dropdown_dropdown_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_loading_directive__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_directive__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_nav_bar_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_on_scroll_to_bottom_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_tooltip_directive__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_modal_upload_image_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_alerts_alerts_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_dropdown_dropdown_directive__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_directive__ = __webpack_require__(139);
@@ -67717,27 +67730,27 @@ registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_servi
 
 
 
+
 registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_28_app_controller__["a" /* default */]);
 registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_post_controller__["a" /* default */]);
 registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_results_controller__["a" /* default */]);
 registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_vote_controller__["a" /* default */]);
 registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_32_pages_branch_wall_controller__["a" /* default */]);
-registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_33_components_tooltip_controller__["a" /* default */]);
+registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_33_pages_profile_notifications_controller__["a" /* default */]);
+registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_34_components_tooltip_controller__["a" /* default */]);
 
 
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_34_pages_home_home_controller__["a" /* default */]);
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_35_pages_home_home_controller__["a" /* default */]);
 
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_35_pages_auth_auth_controller__["a" /* default */]);
+registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_36_pages_auth_auth_controller__["a" /* default */]);
 
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_verify_controller__["a" /* default */]);
+registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_37_pages_auth_verify_verify_controller__["a" /* default */]);
 
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_37_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
+registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_38_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
 
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_38_pages_profile_profile_controller__["a" /* default */]);
+registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_39_pages_profile_profile_controller__["a" /* default */]);
 
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_39_pages_profile_settings_settings_controller__["a" /* default */]);
-
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_40_pages_profile_notifications_notifications_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_40_pages_profile_settings_settings_controller__["a" /* default */]);
 
 registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_41_pages_branch_branch_controller__["a" /* default */]);
 
@@ -67763,37 +67776,35 @@ registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_48
 
 
 
+
+
 registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_49_components_list_item_directive__["a" /* default */]);
 registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_50_components_list_item_controller__["a" /* default */]);
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_51_components_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_controller__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_53_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_54_components_modal_upload_image_controller__["a" /* default */]);
+registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_51_components_loading_directive__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_53_components_nav_bar_controller__["a" /* default */]);
+registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_54_components_on_scroll_to_bottom_directive__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_55_components_tooltip_directive__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_56_components_modal_upload_image_controller__["a" /* default */]);
 
 
 
-registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_55_components_cover_photo_cover_photo_directive__["a" /* default */]);
-registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_56_components_cover_photo_cover_photo_controller__["a" /* default */]);
+registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_57_components_cover_photo_cover_photo_directive__["a" /* default */]);
+registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_58_components_cover_photo_cover_photo_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_57_components_alerts_alerts_directive__["a" /* default */]);
-
-
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_58_components_loading_loading_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_59_components_alerts_alerts_directive__["a" /* default */]);
 
 
 
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_59_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_controller__["a" /* default */]);
 
 
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_61_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_62_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
 
 
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_62_components_dropdown_dropdown_directive__["a" /* default */]);
-
-
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_63_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__["a" /* default */]);
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_63_components_dropdown_dropdown_directive__["a" /* default */]);
 
 
 registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__["a" /* default */]);

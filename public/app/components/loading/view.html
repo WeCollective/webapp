@@ -1,4 +1,4 @@
-<div class="loading-container" ng-show="when()">
+<div class="loading-container" ng-show="loadingWhen() || when()">
   <img alt="" src="/assets/images/loader.gif" />
 </div>
 <!-- We are doing transclusion manually in the directive link in order to have

@@ -6,13 +6,15 @@ class ProfileNotificationsController extends Injectable {
     super(ProfileNotificationsController.$inject, injections);
 
     this.isLoading = false;
-    this.isLoadingMore = false;
     this.NotificationTypes = NotificationTypes;
     this.notifications = [];
 
     const init = _ => {
-      if (this.$state.current.name.indexOf('weco.profile') === -1) return;
-      this.getNotifications();
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout( _ => this.getNotifications() );
+      }
     };
 
     init();
@@ -22,8 +24,8 @@ class ProfileNotificationsController extends Injectable {
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
       
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
+      if (!this.isLoading) {
+        this.isLoading = true;
         
         if (this.notifications.length) {
           this.getNotifications(this.notifications[this.notifications.length - 1].id);
@@ -63,7 +65,6 @@ class ProfileNotificationsController extends Injectable {
         this.$timeout( _ => {
           this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
           this.isLoading = false;
-          this.isLoadingMore = false;
         });
       })
       .catch( _ => this.AlertsService.push('error', 'Unable to fetch notifications.') );

@@ -60,7 +60,22 @@
     
     <span class="list-item-description"
       ng-class="ListItem.post.type">
-      Submitted by <a ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">{{ ListItem.post.data.creator }}</a> to <a ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">b/{{ ListItem.getOriginalBranches()[0] }}</a><span ng-show="ListItem.getOriginalBranches().length > 1" tooltip text="ListItem.getOriginalBranchesTooltipString()" offset-y="30" offset-x="30"> and {{ ListItem.getOriginalBranches().length - 1 }} others</span> at {{ ListItem.post.date | date:'HH:mm on dd of MMMM yyyy' }}
+      Submitted by
+      <a ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">
+        {{ ListItem.post.data.creator }}
+      </a>
+      to
+      <a ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
+        b/{{ ListItem.getOriginalBranches()[0] }}
+      </a>
+      <span ng-show="ListItem.getOriginalBranches().length > 1"
+        offset-x="30"
+        offset-y="30"
+        text="ListItem.getOriginalBranchesTooltipString()"
+        tooltip>
+        and {{ ListItem.getOriginalBranches().length - 1 }} others
+      </span>
+      at {{ ListItem.post.date | date:'HH:mm on dd of MMMM yyyy' }}
     </span>
     
     <div class="list-item-controls">

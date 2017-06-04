@@ -7,6 +7,8 @@ class LoadingComponent extends Injectable {
     this.restrict = 'A';
     this.replace = false;
     this.scope = {
+      loadingWhen: '&',
+      // Legacy.
       when: '&'
     };
     this.templateUrl = '/app/components/loading/view.html';

@@ -8,7 +8,7 @@ class OnScrollToBottomComponent extends Injectable {
   }
 
   link (scope, element, attrs) {
-    element.on('scroll', () => {
+    element.on('scroll', _ => {
       if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
         this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
       }

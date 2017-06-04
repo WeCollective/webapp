@@ -105,7 +105,7 @@ class AppRoutes extends Injectable {
       
       .state('weco.profile.notifications', {
         url: '/notifications',
-        templateUrl: '/app/pages/profile/notifications/notifications.view.html',
+        templateUrl: '/app/pages/profile/notifications/view.html',
         controller: 'ProfileNotificationsController',
         controllerAs: 'ProfileNotifications',
         selfOnly: true,
