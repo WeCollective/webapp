@@ -8,7 +8,7 @@ class NavbarController extends Injectable {
     this.expanded = false;
     this.notificationCount = 0;
 
-    this.EventService.on(this.EventService.events.FETCH_USER_ME_DATA, _ => {
+    this.EventService.on(this.EventService.events.CHANGE_USER, _ => {
       if (this.UserService.user.username) {
         this.UserService.getNotifications(this.UserService.user.username, true)
           .then( notificationCount => {
@@ -20,8 +20,8 @@ class NavbarController extends Injectable {
     });
   }
 
-  isControlSelected(control) {
-    return this.$state.current.name.indexOf(control) !== -1 && 'root' === this.$state.params.branchid;
+  isControlSelected (control) {
+    return this.$state.current.name.includes(control) && 'root' === this.$state.params.branchid;
   }
 
   logout () {

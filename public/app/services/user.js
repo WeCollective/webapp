@@ -7,15 +7,10 @@ class UserService extends Injectable {
     this.user = {};
 
     this.fetch('me')
-      .then( user => {
-        this.user = user;
-      })
-      .catch( () => {} )
+      .then( user => this.user = user )
+      .catch( _ => {} )
       .then(this.$timeout)
-      .then( () => {
-        this.EventService.emit(this.EventService.events.FETCH_USER_ME_DATA);
-        this.EventService.emit(this.EventService.events.CHANGE_USER);
-      });
+      .then( _ => this.EventService.emit(this.EventService.events.CHANGE_USER) );
   }
 
   fetch (username) {
@@ -31,14 +26,17 @@ class UserService extends Injectable {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture' });
             user.profileUrl = res.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
+          
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture-thumb' });
             user.profileUrlThumb = res.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
+          
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover' });
             user.coverUrl = res.data;
           } catch(err) { /* It's okay if we don't have any photos */ }
+          
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover-thumb' });
             user.coverUrlThumb = res.data;
@@ -82,7 +80,9 @@ class UserService extends Injectable {
           yield this.API.request('POST', '/user/login', {}, credentials, true);
           let user = yield this.fetch('me');
           this.user = user;
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
+          
+          // Add delay for navbar to trigger constructor and attach listener for this event.
+          this.$timeout( _ => this.EventService.emit(this.EventService.events.CHANGE_USER), 100);
           
           return resolve();
         }
@@ -163,6 +163,7 @@ class UserService extends Injectable {
           yield this.API.update('/user/me', {}, data, true);
           // fetch the updated self
           this.user = yield this.fetch('me');
+          
           this.EventService.emit(this.EventService.events.CHANGE_USER);
           
           return resolve();

@@ -8,7 +8,6 @@ class EventService extends Injectable {
       CHANGE_BRANCH: 'CHANGE_BRANCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
-      FETCH_USER_ME_DATA: 'FETCH_USER_ME_DATA',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',

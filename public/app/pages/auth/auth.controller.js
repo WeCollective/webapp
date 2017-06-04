@@ -22,7 +22,7 @@ class AuthController extends Injectable {
 
   login() {
     this.UserService.login(this.credentials)
-      .then( () => {
+      .then( _ => {
         this.isLoading = false;
         this.loopAnimation = false;
         this.$state.go('weco.home');
@@ -33,7 +33,7 @@ class AuthController extends Injectable {
         this.loopAnimation = false;
 
         // Possibly unverified account
-        if (res.status === 403) {
+        if (403 === res.status) {
           this.showResendVerification = true;
         }
       });
@@ -43,12 +43,8 @@ class AuthController extends Injectable {
     this.isLoading = true;
 
     this.UserService.resendVerification(this.credentials.username)
-      .then( () => {
-        this.resendVerificationDone(true);
-      })
-      .catch( () => {
-        this.resendVerificationDone(false);
-      });
+      .then(  _ => this.resendVerificationDone(true) )
+      .catch( _ => this.resendVerificationDone(false) );
   }
 
   resendVerificationDone(success) {
@@ -69,7 +65,7 @@ class AuthController extends Injectable {
     }
 
     this.UserService.signup(this.credentials)
-      .then( () => {
+      .then( _ => {
         this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
         this.isLoading = false;
         this.loopAnimation = false;
@@ -90,25 +86,22 @@ class AuthController extends Injectable {
     
     if (this.isLoginForm()) {
       this.login();
-    } else {
+    }
+    else {
       this.signup();
     }
   }
 
   triggerAnimation() {
     if (this.animationSrc) {
-      this.$timeout( () => {
-        this.animationSrc = '';
-      });
+      this.$timeout( _ => this.animationSrc = '' );
     }
 
     // set animation src to the animated gif
-    this.$timeout( () => {
-      this.animationSrc = '/assets/images/logo-animation-large.gif';
-    });
+    this.$timeout( _ => this.animationSrc = '/assets/images/logo-animation-large.gif' );
 
     // cancel after 1 sec
-    this.$timeout( () => {
+    this.$timeout( _ => {
       this.animationSrc = '';
       
       if (this.loopAnimation) {

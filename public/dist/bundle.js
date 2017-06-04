@@ -26151,7 +26151,7 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.expanded = false;
     this.notificationCount = 0;
 
-    this.EventService.on(this.EventService.events.FETCH_USER_ME_DATA, _ => {
+    this.EventService.on(this.EventService.events.CHANGE_USER, _ => {
       if (this.UserService.user.username) {
         this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
           this.notificationCount = notificationCount;
@@ -26162,7 +26162,7 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
   }
 
   isControlSelected(control) {
-    return this.$state.current.name.indexOf(control) !== -1 && 'root' === this.$state.params.branchid;
+    return this.$state.current.name.includes(control) && 'root' === this.$state.params.branchid;
   }
 
   logout() {
@@ -26655,7 +26655,7 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   }
 
   login() {
-    this.UserService.login(this.credentials).then(() => {
+    this.UserService.login(this.credentials).then(_ => {
       this.isLoading = false;
       this.loopAnimation = false;
       this.$state.go('weco.home');
@@ -26665,7 +26665,7 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
       this.loopAnimation = false;
 
       // Possibly unverified account
-      if (res.status === 403) {
+      if (403 === res.status) {
         this.showResendVerification = true;
       }
     });
@@ -26674,11 +26674,7 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   resendVerification() {
     this.isLoading = true;
 
-    this.UserService.resendVerification(this.credentials.username).then(() => {
-      this.resendVerificationDone(true);
-    }).catch(() => {
-      this.resendVerificationDone(false);
-    });
+    this.UserService.resendVerification(this.credentials.username).then(_ => this.resendVerificationDone(true)).catch(_ => this.resendVerificationDone(false));
   }
 
   resendVerificationDone(success) {
@@ -26698,7 +26694,7 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
       return;
     }
 
-    this.UserService.signup(this.credentials).then(() => {
+    this.UserService.signup(this.credentials).then(_ => {
       this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
       this.isLoading = false;
       this.loopAnimation = false;
@@ -26725,18 +26721,14 @@ class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   triggerAnimation() {
     if (this.animationSrc) {
-      this.$timeout(() => {
-        this.animationSrc = '';
-      });
+      this.$timeout(_ => this.animationSrc = '');
     }
 
     // set animation src to the animated gif
-    this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation-large.gif';
-    });
+    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
     // cancel after 1 sec
-    this.$timeout(() => {
+    this.$timeout(_ => {
       this.animationSrc = '';
 
       if (this.loopAnimation) {
@@ -28639,7 +28631,6 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       CHANGE_BRANCH: 'CHANGE_BRANCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
-      FETCH_USER_ME_DATA: 'FETCH_USER_ME_DATA',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',
@@ -28913,12 +28904,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     super(UserService.$inject, injections);
     this.user = {};
 
-    this.fetch('me').then(user => {
-      this.user = user;
-    }).catch(() => {}).then(this.$timeout).then(() => {
-      this.EventService.emit(this.EventService.events.FETCH_USER_ME_DATA);
-      this.EventService.emit(this.EventService.events.CHANGE_USER);
-    });
+    this.fetch('me').then(user => this.user = user).catch(_ => {}).then(this.$timeout).then(_ => this.EventService.emit(this.EventService.events.CHANGE_USER));
   }
 
   fetch(username) {
@@ -28934,14 +28920,17 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture' });
             user.profileUrl = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture-thumb' });
             user.profileUrlThumb = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover' });
             user.coverUrl = res.data;
           } catch (err) {/* It's okay if we don't have any photos */}
+
           try {
             res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover-thumb' });
             user.coverUrlThumb = res.data;
@@ -28982,7 +28971,9 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
           yield this.API.request('POST', '/user/login', {}, credentials, true);
           let user = yield this.fetch('me');
           this.user = user;
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
+
+          // Add delay for navbar to trigger constructor and attach listener for this event.
+          this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_USER), 100);
 
           return resolve();
         } catch (err) {
@@ -29050,6 +29041,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
           yield this.API.update('/user/me', {}, data, true);
           // fetch the updated self
           this.user = yield this.fetch('me');
+
           this.EventService.emit(this.EventService.events.CHANGE_USER);
 
           return resolve();
