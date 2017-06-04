@@ -24668,65 +24668,43 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     super(ListItemController.$inject, injections);
   }
 
+  getOriginalBranches() {
+    let branches = [];
+
+    if (this.post.data && this.post.data.original_branches) {
+      branches = JSON.parse(this.post.data.original_branches);
+    }
+
+    return branches;
+  }
+
+  getOriginalBranchesTooltipString() {
+    const original_branches = this.getOriginalBranches();
+    let string = '';
+
+    for (let i = 1; i < original_branches.length; i++) {
+      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
+    }
+
+    return string;
+  }
+
+  getTotalFlagCount() {
+    const p = this.post;
+    return p.branch_rules_count + p.site_rules_count + p.wrong_type_count + p.nsfw_count;
+  }
+
   isOwnPost() {
     return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
   }
 
   openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', {
-      postid: this.post.id
-    }, 'Post deleted.', 'Unable to delete post.');
+    this.ModalService.open('DELETE_POST', { postid: this.post.id }, 'Post deleted.', 'Unable to delete post.');
+
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_POST') return;
+      if ('DELETE_POST' !== name) return;
       this.$state.go(this.$state.current.name, { reload: true });
     });
-  }
-
-  vote(direction) {
-    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(() => {
-      let inc = direction === 'up' ? 1 : -1;
-      this.$timeout(() => {
-        this.post.individual += inc;
-        this.post.local += inc;
-        this.post.global += inc;
-      });
-      this.AlertsService.push('success', 'Thanks for voting!');
-    }).catch(err => {
-      if (err.status === 400) {
-        this.AlertsService.push('error', 'You have already voted on this post.');
-      } else if (err.status === 403) {
-        this.AlertsService.push('error', 'Please log in or create an account to vote.');
-      } else {
-        this.AlertsService.push('error', 'Error voting on post.');
-      }
-    });
-  }
-
-  getOriginalBranchesTooltipString() {
-    if (!this.post.data || !this.post.data.original_branches) return '';
-    let tooltip = '';
-    let original_branches = JSON.parse(this.post.data.original_branches);
-    for (let i = 1; i < original_branches.length; i++) {
-      tooltip += original_branches[i] + (i < original_branches.length ? '\n' : '');
-    }
-    return tooltip;
-  }
-
-  getOriginalBranches() {
-    if (!this.post.data || !this.post.data.original_branches) return '';
-    return JSON.parse(this.post.data.original_branches);
-  }
-
-  getTotalFlagCount() {
-    return this.post.branch_rules_count + this.post.site_rules_count + this.post.wrong_type_count + this.post.nsfw_count;
-  }
-
-  showFlags() {
-    return this.$state.current.name.indexOf('weco.branch.nucleus') > -1;
-  }
-
-  showVotes() {
-    return !!this.stat;
   }
 
   openFlagPostModal() {
@@ -24737,9 +24715,37 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   openResolveFlagPostModal() {
-    this.ModalService.open('RESOLVE_FLAG_POST', {
-      post: this.post
-    }, 'Done.', 'Error resolving flags on post.');
+    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post }, 'Done.', 'Error resolving flags on post.');
+  }
+
+  showFlags() {
+    return this.$state.current.name.includes('weco.branch.nucleus');
+  }
+
+  showVotes() {
+    return !!this.stat;
+  }
+
+  vote(direction) {
+    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(_ => {
+      const inc = direction === 'up' ? 1 : -1;
+
+      this.$timeout(_ => {
+        this.post.individual += inc;
+        this.post.local += inc;
+        this.post.global += inc;
+      });
+
+      this.AlertsService.push('success', 'Thanks for voting!');
+    }).catch(err => {
+      if (400 === err.status) {
+        this.AlertsService.push('error', 'You have already voted on this post.');
+      } else if (403 === err.status) {
+        this.AlertsService.push('error', 'Please log in or create an account to vote.');
+      } else {
+        this.AlertsService.push('error', 'Error voting on post.');
+      }
+    });
   }
 }
 
@@ -24759,17 +24765,17 @@ class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   constructor(...injections) {
     super(ListItemComponent.$inject, injections);
 
-    this.restrict = 'A';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {
-      post: '=',
       index: '=',
+      post: '=',
       stat: '='
     };
-    this.templateUrl = '/app/components/list-item/view.html';
-    this.controllerAs = 'ListItem';
     this.controller = 'ListItemController';
+    this.controllerAs = 'ListItem';
+    this.replace = true;
+    this.restrict = 'A';
+    this.scope = {};
+    this.templateUrl = '/app/components/list-item/view.html';
   }
 }
 
@@ -67593,23 +67599,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_nav_bar_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_tooltip_directive__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_modal_upload_image_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_loading_loading_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_dropdown_dropdown_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_notification_notification_item_directive__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_list_item_list_item_directive__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_list_item_list_item_controller__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_list_item_directive__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_list_item_controller__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_nav_bar_directive__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_tooltip_directive__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_modal_upload_image_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_cover_photo_cover_photo_directive__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_cover_photo_cover_photo_controller__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_alerts_alerts_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_loading_loading_directive__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_tabs_tabs_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_dropdown_dropdown_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_directive__ = __webpack_require__(139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_controller__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
@@ -67755,46 +67761,45 @@ registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_48
 
 
 
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_49_components_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_50_components_nav_bar_controller__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_51_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_52_components_modal_upload_image_controller__["a" /* default */]);
+
+
+registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_49_components_list_item_directive__["a" /* default */]);
+registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_50_components_list_item_controller__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_51_components_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_52_components_nav_bar_controller__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_53_components_tooltip_directive__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_54_components_modal_upload_image_controller__["a" /* default */]);
 
 
 
-registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_53_components_cover_photo_cover_photo_directive__["a" /* default */]);
-registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_54_components_cover_photo_cover_photo_controller__["a" /* default */]);
+registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_55_components_cover_photo_cover_photo_directive__["a" /* default */]);
+registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_56_components_cover_photo_cover_photo_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_55_components_alerts_alerts_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_57_components_alerts_alerts_directive__["a" /* default */]);
 
 
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_56_components_loading_loading_directive__["a" /* default */]);
-
-
-
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_57_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_58_components_tabs_tabs_controller__["a" /* default */]);
-
-
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_59_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_60_components_dropdown_dropdown_directive__["a" /* default */]);
-
-
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_61_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__["a" /* default */]);
-
-
-registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_62_components_notification_notification_item_directive__["a" /* default */]);
-
-
-registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_63_components_tag_editor_tag_editor_directive__["a" /* default */]);
+registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_58_components_loading_loading_directive__["a" /* default */]);
 
 
 
-registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_64_components_list_item_list_item_directive__["a" /* default */]);
-registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_65_components_list_item_list_item_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_59_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_controller__["a" /* default */]);
+
+
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_61_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
+
+
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_62_components_dropdown_dropdown_directive__["a" /* default */]);
+
+
+registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_63_components_on_scroll_to_bottom_on_scroll_to_bottom_directive__["a" /* default */]);
+
+
+registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__["a" /* default */]);
+
+
+registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_65_components_tag_editor_tag_editor_directive__["a" /* default */]);
 
 
 

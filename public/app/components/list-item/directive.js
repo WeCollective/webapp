@@ -4,17 +4,17 @@ class ListItemComponent extends Injectable {
   constructor(...injections) {
     super(ListItemComponent.$inject, injections);
 
-    this.restrict = 'A';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {
-      post: '=',
       index: '=',
+      post: '=',
       stat: '='
     };
-    this.templateUrl = '/app/components/list-item/view.html';
-    this.controllerAs = 'ListItem';
     this.controller = 'ListItemController';
+    this.controllerAs = 'ListItem';
+    this.replace = true;
+    this.restrict = 'A';
+    this.scope = {};
+    this.templateUrl = '/app/components/list-item/view.html';
   }
 }
 

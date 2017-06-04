@@ -139,11 +139,15 @@ registrar.controller('BranchSubbranchesController', BranchSubbranchesController)
 
 
 // Components
+import ListItemComponent from 'components/list-item/directive';
+import ListItemController from 'components/list-item/controller';
 import NavbarComponent from 'components/nav-bar/directive';
 import NavbarController from 'components/nav-bar/controller';
 import TooltipComponent from 'components/tooltip/directive';
 import UploadImageModalController from 'components/modal/upload-image/controller';
 
+registrar.directive('listItem', ListItemComponent);
+registrar.controller('ListItemController', ListItemController);
 registrar.directive('navBar', NavbarComponent);
 registrar.controller('NavbarController', NavbarController);
 registrar.directive('tooltip', TooltipComponent);
@@ -179,11 +183,6 @@ registrar.directive('notification', NotificationComponent);
 
 import TagEditorComponent from 'components/tag-editor/tag-editor.directive';
 registrar.directive('tagEditor', TagEditorComponent);
-
-import ListItemComponent from 'components/list-item/list-item.directive';
-import ListItemController from 'components/list-item/list-item.controller';
-registrar.directive('listItem', ListItemComponent);
-registrar.controller('ListItemController', ListItemController);
 
 import CommentsComponent from 'components/comments/comments.directive';
 import CommentsController from 'components/comments/comments.controller';
