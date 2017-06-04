@@ -27,8 +27,22 @@ class ListItemController extends Injectable {
   }
 
   getTotalFlagCount () {
-    const p = this.post;
-    return p.branch_rules_count + p.site_rules_count + p.wrong_type_count + p.nsfw_count;
+    const counts = [
+      'branch_rules_count',
+      'nsfw_count',
+      'site_rules_count',
+      'wrong_type_count'
+    ];
+
+    let total = 0;
+
+    counts.forEach( key => {
+      if (this.post[key]) {
+        total += (Number.isNaN(this.post[key]) ? 0 : this.post[key]);
+      }
+    });
+
+    return total;
   }
 
   isOwnPost () {

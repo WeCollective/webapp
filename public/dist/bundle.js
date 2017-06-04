@@ -24694,8 +24694,17 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   getTotalFlagCount() {
-    const p = this.post;
-    return p.branch_rules_count + p.site_rules_count + p.wrong_type_count + p.nsfw_count;
+    const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
+
+    let total = 0;
+
+    counts.forEach(key => {
+      if (this.post[key]) {
+        total += Number.isNaN(this.post[key]) ? 0 : this.post[key];
+      }
+    });
+
+    return total;
   }
 
   isOwnPost() {
@@ -25875,10 +25884,10 @@ ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchSer
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(SubmitPollAnswerModalController.$inject, injections);
 
@@ -25886,31 +25895,40 @@ class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_
     this.isLoading = false;
     this.newAnswer = '';
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_POLL_ANSWER') return;
+    this.cleanUpSuccessCb = this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
 
-      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, {
-        text: this.newAnswer
-      }).then(() => {
-        this.ModalService.OK();
-      }).catch(err => {
-        return this.$timeout(() => {
-          this.isLoading = false;
-          this.errorMessage = err.message || 'Error creating poll answer!';
-        });
-      });
+      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, { text: this.newAnswer }).then(_ => this.$timeout(_ => this.closeModal('', true))).catch(err => this.$timeout(_ => this.closeModal(err.message || 'Error creating poll answer!')));
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'SUBMIT_POLL_ANSWER') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+    this.cleanUpCancelCb = this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
+      this.$timeout(_ => this.closeModal('', false));
     });
   }
+
+  closeModal(errorMessage, success) {
+    this.isLoading = false;
+    this.errorMessage = errorMessage;
+
+    if (success !== undefined) {
+      if ('function' === typeof this.cleanUpCancelCb) {
+        this.cleanUpCancelCb();
+      }
+
+      if ('function' === typeof this.cleanUpSuccessCb) {
+        this.cleanUpSuccessCb();
+      }
+    }
+
+    if (success === true) {
+      this.ModalService.OK();
+    } else if (success === false) {
+      this.ModalService.Cancel();
+    }
+  }
 }
+
 SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (SubmitPollAnswerModalController);
@@ -27042,22 +27060,16 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   constructor(...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    this.WallService.init('weco.branch.nucleus', true);
-    this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
-      this.WallService.init('weco.branch.nucleus', true);
-    });
+    const cb = _ => this.WallService.init('weco.branch.nucleus', true);
+
+    this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, cb);
+    this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, cb);
+    this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, cb);
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb);
   }
 }
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', 'WallService', 'EventService'];
+
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', 'EventService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
 
@@ -27568,30 +27580,59 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     super(BranchPostVoteController.$inject, injections);
 
     this.answers = [];
-    this.selectedAnswerIndex = -1;
     this.controls = {
       sortBy: {
-        items: ['DATE POSTED', 'VOTES'],
+        items: ['date posted', 'votes'],
         selectedIndex: 0
       }
     };
+    this.selectedAnswerIndex = -1;
 
-    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      this.getPollAnswers();
+    this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, _ => this.getPollAnswers());
+  }
+
+  canSubmitNewAnswer() {
+    const post = this.PostService.post;
+    const user = this.UserService.user;
+    return !(post.locked && post.data.creator !== user.username);
+  }
+
+  getPollAnswers(lastAnswerId) {
+    this.selectedAnswerIndex = -1;
+
+    let sortBy;
+
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'date':
+        sortBy = 'date';
+        break;
+
+      case 'votes':
+        sortBy = 'votes';
+        break;
+
+      default:
+        sortBy = 'date';
+        break;
+    }
+
+    // fetch the poll answers
+    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => this.$timeout(_ => {
+      // if lastAnswerId was specified we are fetching _more_ answers, so append them
+      this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
+    })).catch(err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }
     });
   }
 
-  vote() {
-    let answer = this.answers[this.selectedAnswerIndex];
-    if (!answer) return;
-    this.PostService.votePollAnswer(answer.postid, answer.id).then(() => {
-      this.AlertsService.push('success', 'Your vote has been cast!');
-    }).catch(err => {
-      if (err.message) {
-        this.AlertsService.push('error', err.message);
-      } else {
-        this.AlertsService.push('error', 'Error casting your vote!');
-      }
+  openSubmitPollAnswerModal() {
+    this.ModalService.open('SUBMIT_POLL_ANSWER', { postid: this.PostService.post.id }, 'Answer submitted.', 'Unable to submit answer.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
+      this.$state.go('weco.branch.post.vote', { reload: true });
     });
   }
 
@@ -27599,61 +27640,16 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     this.selectedAnswerIndex = index;
   }
 
-  getPollAnswers(lastAnswerId) {
-    this.selectedAnswerIndex = -1;
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'DATE':
-        sortBy = 'date';
-        break;
-      case 'VOTES':
-        sortBy = 'votes';
-        break;
-      default:
-        sortBy = 'date';
-        break;
-    }
+  vote() {
+    const answer = this.answers[this.selectedAnswerIndex];
 
-    // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => {
-      this.$timeout(() => {
-        // if lastAnswerId was specified we are fetching _more_ answers, so append them
-        if (lastAnswerId) {
-          this.answers = this.answers.concat(answers);
-        } else {
-          this.answers = answers;
-        }
-      });
-    }).catch(err => {
-      if (err.status !== 404) {
-        this.AlertsService.push('error', 'Error fetching poll answers.');
-      }
-    });
-  }
+    if (!answer) return;
 
-  canSubmitNewAnswer() {
-    if (this.PostService.post.locked) {
-      if (this.PostService.post.data.creator === this.UserService.user.username) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  }
-
-  openSubmitPollAnswerModal() {
-    this.ModalService.open('SUBMIT_POLL_ANSWER', {
-      postid: this.PostService.post.id
-    }, 'Answer submitted.', 'Unable to submit answer.');
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_POLL_ANSWER') return;
-      this.$state.go('weco.branch.post.vote', { reload: true });
-    });
+    this.PostService.votePollAnswer(answer.postid, answer.id).then(_ => this.AlertsService.push('success', 'Your vote has been cast!')).catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
   }
 }
-BranchPostVoteController.$inject = ['$timeout', '$scope', '$state', 'PostService', 'AlertsService', 'ModalService', 'EventService', 'UserService'];
+
+BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
 
@@ -28650,8 +28646,9 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     }
   }
 
+  // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
   on(event, callback) {
-    this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
+    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
   }
 }
 
@@ -28717,20 +28714,21 @@ ModService.$inject = ['API'];
 class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(PostService.$inject, injections);
+
     this.post = {};
 
-    const updatePost = () => {
-      if (this.$state.current.name.indexOf('weco.branch.post') !== -1) {
-        this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
-          if (err.status === 404) {
-            this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch post.');
-          }
-        }).then(() => {
-          this.EventService.emit(this.EventService.events.CHANGE_POST);
-        }).then(this.$timeout);
+    const updatePost = _ => {
+      if (!this.$state.current.name.includes('weco.branch.post')) {
+        return;
       }
+
+      this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
+        if (404 === err.status) {
+          this.$state.go('weco.notfound');
+        } else {
+          this.AlertsService.push('error', 'Unable to fetch post.');
+        }
+      }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
     };
 
     updatePost();
@@ -67587,24 +67585,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_controller__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_results_controller__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_branch_post_vote_controller__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_branch_wall_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_profile_notifications_controller__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_home_home_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_auth_auth_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_auth_verify_verify_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_profile_profile_controller__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_profile_settings_settings_controller__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_about_about_controller__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_nucleus_flagged_posts_flagged_posts_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_nucleus_flagged_posts_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_controller__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_branch_post_results_controller__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_branch_post_vote_controller__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_branch_wall_controller__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_profile_notifications_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_components_tooltip_controller__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_home_home_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_auth_auth_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_auth_verify_verify_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_profile_profile_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_profile_settings_settings_controller__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_nucleus_controller__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_about_about_controller__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_moderators_moderators_controller__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_settings_settings_controller__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_branch_nucleus_modtools_modtools_controller__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_cover_photo_directive__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_controller__ = __webpack_require__(142);
@@ -67614,38 +67612,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_nav_bar_directive__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_controller__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_on_scroll_to_bottom_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_tooltip_directive__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_modal_upload_image_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_dropdown_dropdown_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_directive__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_controller__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_chart_chart_directive__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_modal_directive__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_profile_settings_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_88_components_modal_post_submit_poll_answer_submit_poll_answer_modal_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_tooltip_directive__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_modal_upload_image_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_alerts_alerts_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_dropdown_dropdown_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_directive__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_comments_controller__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_chart_chart_directive__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_modal_directive__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_profile_settings_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_88_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(149);
 // APP DEPENDENCIES
 
 
@@ -67726,43 +67724,44 @@ registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_servi
 
 
 
+
 registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_28_app_controller__["a" /* default */]);
 registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_controller__["a" /* default */]);
-registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_post_controller__["a" /* default */]);
-registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_results_controller__["a" /* default */]);
-registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_32_pages_branch_post_vote_controller__["a" /* default */]);
-registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_33_pages_branch_wall_controller__["a" /* default */]);
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_34_pages_profile_notifications_controller__["a" /* default */]);
-registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__["a" /* default */]);
+registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_nucleus_flagged_posts_controller__["a" /* default */]);
+registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_31_pages_branch_post_controller__["a" /* default */]);
+registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_32_pages_branch_post_results_controller__["a" /* default */]);
+registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_33_pages_branch_post_vote_controller__["a" /* default */]);
+registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_34_pages_branch_wall_controller__["a" /* default */]);
+registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_35_pages_profile_notifications_controller__["a" /* default */]);
+registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_36_components_tooltip_controller__["a" /* default */]);
 
 
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_36_pages_home_home_controller__["a" /* default */]);
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_37_pages_home_home_controller__["a" /* default */]);
 
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_37_pages_auth_auth_controller__["a" /* default */]);
+registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_38_pages_auth_auth_controller__["a" /* default */]);
 
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_38_pages_auth_verify_verify_controller__["a" /* default */]);
+registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_39_pages_auth_verify_verify_controller__["a" /* default */]);
 
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_39_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
+registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_40_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
 
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_40_pages_profile_profile_controller__["a" /* default */]);
+registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_41_pages_profile_profile_controller__["a" /* default */]);
 
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_41_pages_profile_settings_settings_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_42_pages_profile_settings_settings_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_42_pages_branch_nucleus_nucleus_controller__["a" /* default */]);
+registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_nucleus_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_43_pages_branch_nucleus_about_about_controller__["a" /* default */]);
+registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_about_about_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_44_pages_branch_nucleus_moderators_moderators_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_moderators_moderators_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_45_pages_branch_nucleus_settings_settings_controller__["a" /* default */]);
+registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_settings_settings_controller__["a" /* default */]);
 
-registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_46_pages_branch_nucleus_modtools_modtools_controller__["a" /* default */]);
-
-registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_47_pages_branch_nucleus_flagged_posts_flagged_posts_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_47_pages_branch_nucleus_modtools_modtools_controller__["a" /* default */]);
 
 registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__["a" /* default */]);
 
 // Components
+
 
 
 
@@ -67782,83 +67781,82 @@ registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_53_components_loading_d
 registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_54_components_nav_bar_directive__["a" /* default */]);
 registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_controller__["a" /* default */]);
 registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_56_components_on_scroll_to_bottom_directive__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_57_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_58_components_modal_upload_image_controller__["a" /* default */]);
+registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_57_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_58_components_tooltip_directive__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_59_components_modal_upload_image_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_59_components_alerts_alerts_directive__["a" /* default */]);
-
-
-
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_60_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_controller__["a" /* default */]);
-
-
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_62_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_63_components_dropdown_dropdown_directive__["a" /* default */]);
-
-
-registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_64_components_notification_notification_item_directive__["a" /* default */]);
-
-
-registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_65_components_tag_editor_tag_editor_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_60_components_alerts_alerts_directive__["a" /* default */]);
 
 
 
-registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_66_components_comments_comments_directive__["a" /* default */]);
-registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_controller__["a" /* default */]);
+
+
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_63_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
+
+
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_64_components_dropdown_dropdown_directive__["a" /* default */]);
+
+
+registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__["a" /* default */]);
+
+
+registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_66_components_tag_editor_tag_editor_directive__["a" /* default */]);
 
 
 
-registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_68_components_comments_write_comment_write_comment_directive__["a" /* default */]);
-registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_controller__["a" /* default */]);
+registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_directive__["a" /* default */]);
+registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_68_components_comments_comments_controller__["a" /* default */]);
 
 
 
-registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_70_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
-registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
-
-
-registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_72_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
-
-
-registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_73_components_chart_chart_directive__["a" /* default */]);
-
-
-registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_74_components_modal_modal_directive__["a" /* default */]);
+registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_directive__["a" /* default */]);
+registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_70_components_comments_write_comment_write_comment_controller__["a" /* default */]);
 
 
 
-registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_75_components_modal_profile_settings_controller__["a" /* default */]);
+registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
+registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_72_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
 
 
-registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
+registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_73_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
 
-registrar.controller('AddModModalController', __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('DeleteBranchModalController', __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__["a" /* default */]);
+registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_74_components_chart_chart_directive__["a" /* default */]);
 
-registrar.controller('RemoveModModalController', __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('ReviewSubbranchRequestsModalController', __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__["a" /* default */]);
+registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_75_components_modal_modal_directive__["a" /* default */]);
 
-registrar.controller('SubmitSubbranchRequestModalController', __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__["a" /* default */]);
 
-registrar.controller('UpdateHomepageStatsModalController', __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__["a" /* default */]);
 
-registrar.controller('FlagPostModalController', __WEBPACK_IMPORTED_MODULE_83_components_modal_post_flag_flag_post_modal_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_76_components_modal_profile_settings_controller__["a" /* default */]);
 
-registrar.controller('CreatePostModalController', __WEBPACK_IMPORTED_MODULE_84_components_modal_post_create_create_post_modal_controller__["a" /* default */]);
 
-registrar.controller('DeletePostModalController', __WEBPACK_IMPORTED_MODULE_85_components_modal_post_delete_delete_post_modal_controller__["a" /* default */]);
+registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
 
-registrar.controller('ResolveFlagPostModalController', __WEBPACK_IMPORTED_MODULE_86_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__["a" /* default */]);
+registrar.controller('AddModModalController', __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('CreateBranchModalController', __WEBPACK_IMPORTED_MODULE_87_components_modal_branch_create_create_branch_modal_controller__["a" /* default */]);
+registrar.controller('DeleteBranchModalController', __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__["a" /* default */]);
 
-registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_88_components_modal_post_submit_poll_answer_submit_poll_answer_modal_controller__["a" /* default */]);
+registrar.controller('RemoveModModalController', __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__["a" /* default */]);
+
+registrar.controller('ReviewSubbranchRequestsModalController', __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__["a" /* default */]);
+
+registrar.controller('SubmitSubbranchRequestModalController', __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__["a" /* default */]);
+
+registrar.controller('UpdateHomepageStatsModalController', __WEBPACK_IMPORTED_MODULE_83_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__["a" /* default */]);
+
+registrar.controller('FlagPostModalController', __WEBPACK_IMPORTED_MODULE_84_components_modal_post_flag_flag_post_modal_controller__["a" /* default */]);
+
+registrar.controller('CreatePostModalController', __WEBPACK_IMPORTED_MODULE_85_components_modal_post_create_create_post_modal_controller__["a" /* default */]);
+
+registrar.controller('DeletePostModalController', __WEBPACK_IMPORTED_MODULE_86_components_modal_post_delete_delete_post_modal_controller__["a" /* default */]);
+
+registrar.controller('ResolveFlagPostModalController', __WEBPACK_IMPORTED_MODULE_87_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__["a" /* default */]);
+
+registrar.controller('CreateBranchModalController', __WEBPACK_IMPORTED_MODULE_88_components_modal_branch_create_create_branch_modal_controller__["a" /* default */]);
 
 /***/ }),
 /* 213 */

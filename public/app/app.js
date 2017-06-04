@@ -94,6 +94,7 @@ registrar.service('WallService', WallService);
 // Controllers
 import AppController from 'app.controller';
 import BranchController from 'pages/branch/controller';
+import BranchNucleusFlaggedPostsController from 'pages/branch/nucleus/flagged-posts/controller';
 import BranchPostController from 'pages/branch/post/controller';
 import BranchPostResultsController from 'pages/branch/post/results/controller';
 import BranchPostVoteController from 'pages/branch/post/vote/controller';
@@ -103,6 +104,7 @@ import TooltipController from 'components/tooltip/controller';
 
 registrar.controller('AppController', AppController);
 registrar.controller('BranchController', BranchController);
+registrar.controller('BranchNucleusFlaggedPostsController', BranchNucleusFlaggedPostsController);
 registrar.controller('BranchPostController', BranchPostController);
 registrar.controller('BranchPostResultsController', BranchPostResultsController);
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
@@ -132,8 +134,6 @@ import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/setti
 registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsController);
 import BranchNucleusModtoolsController from 'pages/branch/nucleus/modtools/modtools.controller';
 registrar.controller('BranchNucleusModtoolsController', BranchNucleusModtoolsController);
-import BranchNucleusFlaggedPostsController from 'pages/branch/nucleus/flagged-posts/flagged-posts.controller';
-registrar.controller('BranchNucleusFlaggedPostsController', BranchNucleusFlaggedPostsController);
 import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 
@@ -147,6 +147,7 @@ import LoadingComponent from 'components/loading/directive';
 import NavbarComponent from 'components/nav-bar/directive';
 import NavbarController from 'components/nav-bar/controller';
 import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/directive';
+import SubmitPollAnswerModalController from 'components/modal/post/submit-poll-answer/controller';
 import TooltipComponent from 'components/tooltip/directive';
 import UploadImageModalController from 'components/modal/upload-image/controller';
 
@@ -158,6 +159,7 @@ registrar.directive('loading', LoadingComponent);
 registrar.directive('navBar', NavbarComponent);
 registrar.controller('NavbarController', NavbarController);
 registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
+registrar.controller('SubmitPollAnswerModalController', SubmitPollAnswerModalController);
 registrar.directive('tooltip', TooltipComponent);
 registrar.controller('UploadImageModalController', UploadImageModalController);
 
@@ -234,5 +236,3 @@ import ResolveFlagPostModalController from 'components/modal/post/flag/resolve/r
 registrar.controller('ResolveFlagPostModalController', ResolveFlagPostModalController);
 import CreateBranchModalController from 'components/modal/branch/create/create-branch.modal.controller';
 registrar.controller('CreateBranchModalController', CreateBranchModalController);
-import SubmitPollAnswerModalController from 'components/modal/post/submit-poll-answer/submit-poll-answer.modal.controller';
-registrar.controller('SubmitPollAnswerModalController', SubmitPollAnswerModalController);

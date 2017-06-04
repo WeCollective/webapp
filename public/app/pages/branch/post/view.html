@@ -1,18 +1,69 @@
 <div id="branch-post" loading when="BranchPost.isLoadingPost">
-  <div class="list-item" list-item post="BranchPost.PostService.post" index="0" stat="'local'"></div>
-  <div id="preview-controls" class="clearfix">
-    <img ng-show="BranchPost.isOwnPost()" ng-click="BranchPost.openDeletePostModal()" src="/assets/images/icons/black/delete.png">
-    <img ng-show="(BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/hide.png" ng-click="BranchPost.setPreviewState('hide')" tooltip text="'Hide'" offset-y="40">
-    <img ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/show.png" ng-click="BranchPost.setPreviewState('show')" tooltip text="'Reveal'" offset-y="40">
-    <img ng-show="(BranchPost.previewState === 'show' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/maximise.png" ng-click="BranchPost.setPreviewState('maximise')" tooltip text="'Expand'" offset-y="40">
-    <img ng-show="(BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')" src="/assets/images/icons/black/minimise.png" ng-click="BranchPost.setPreviewState('show')" tooltip text="'Shrink'" offset-y="40">
+  <div class="list-item"
+    index="0"
+    list-item
+    post="BranchPost.PostService.post"
+    stat="'local'">
   </div>
-  <ng-include id="post-preview" ng-if="BranchPost.showPreview()" src="BranchPost.getPreviewTemplate()"></ng-include>
 
-  <tabs ng-if="BranchPost.shouldShowTabs()" items="BranchPost.tabItems" states="BranchPost.tabStates" state-params="BranchPost.tabStateParams"></tabs>
-  <div ng-if="BranchPost.shouldShowTabs()" class="post-body" ui-view></div>
+  <div id="preview-controls" class="clearfix">
+    <img alt=""
+      ng-click="BranchPost.openDeletePostModal()"
+      ng-show="BranchPost.isOwnPost()"
+      src="/assets/images/icons/black/delete.png" />
 
-  <div ng-if="!BranchPost.shouldShowTabs()" id="comments-wrapper">
+    <img alt=""
+      ng-click="BranchPost.setPreviewState('hide')"
+      ng-show="(BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
+      offset-y="40"
+      src="/assets/images/icons/black/hide.png"
+      text="'Hide'"
+      tooltip />
+
+    <img alt=""
+      ng-click="BranchPost.setPreviewState('show')"
+      ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
+      offset-y="40"
+      src="/assets/images/icons/black/show.png"
+      text="'Reveal'"
+      tooltip />
+
+    <img alt=""
+      ng-click="BranchPost.setPreviewState('maximise')"
+      ng-show="BranchPost.previewState === 'show' && (BranchPost.PostService.post.type === 'video' ||
+      BranchPost.PostService.post.type === 'image')"
+      offset-y="40"
+      src="/assets/images/icons/black/maximise.png"
+      text="'Expand'"
+      tooltip />
+
+    <img alt=""
+      ng-click="BranchPost.setPreviewState('show')"
+      ng-show="(BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"      
+      offset-y="40"
+      src="/assets/images/icons/black/minimise.png"
+      text="'Shrink'"
+      tooltip />
+  </div>
+
+  <ng-include id="post-preview"
+    ng-if="BranchPost.showPreview()"
+    src="BranchPost.getPreviewTemplate()">
+  </ng-include>
+
+  <tabs
+    ng-if="BranchPost.shouldShowTabs()"
+    items="BranchPost.tabItems"
+    states="BranchPost.tabStates"
+    state-params="BranchPost.tabStateParams">
+  </tabs>
+  
+  <div class="post-body"
+    ng-if="BranchPost.shouldShowTabs()"
+    ui-view>
+  </div>
+
+  <div id="comments-wrapper" ng-if="!BranchPost.shouldShowTabs()">
     <comments></comments>
   </div>
 </div>

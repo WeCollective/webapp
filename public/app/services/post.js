@@ -4,25 +4,26 @@ import Generator from 'utils/generator';
 class PostService extends Injectable {
   constructor (...injections) {
     super(PostService.$inject, injections);
+    
     this.post = {};
 
-    const updatePost = () => {
-      if (this.$state.current.name.indexOf('weco.branch.post') !== -1) {
-        this.fetch(this.$state.params.postid)
-          .then( post => this.post = post )
-          .catch( err => {
-            if (err.status === 404) {
-              this.$state.go('weco.notfound');
-            }
-            else {
-              this.AlertsService.push('error', 'Unable to fetch post.');
-            }
-          })
-          .then( () => {
-            this.EventService.emit(this.EventService.events.CHANGE_POST);
-          })
-          .then(this.$timeout);
+    const updatePost = _ => {
+      if (!this.$state.current.name.includes('weco.branch.post')) {
+        return;
       }
+
+      this.fetch(this.$state.params.postid)
+        .then( post => this.post = post )
+        .catch( err => {
+          if (404 === err.status) {
+            this.$state.go('weco.notfound');
+          }
+          else {
+            this.AlertsService.push('error', 'Unable to fetch post.');
+          }
+        })
+        .then( _ => this.EventService.emit(this.EventService.events.CHANGE_POST) )
+        .then(this.$timeout);
     };
 
     updatePost();
