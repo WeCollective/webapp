@@ -28389,7 +28389,6 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     this.branch = {};
 
     const updateBranch = _ => {
-      console.log(this.$state.current.name);
       if (this.$state.current.name.includes('weco.branch')) {
         this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
           if (err.status === 404) {

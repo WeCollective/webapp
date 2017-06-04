@@ -70,22 +70,25 @@
           offset-y="20"
           src="/assets/images/icons/black/comment.png"
           text="'View post discussion'"
-          title="View post discussion"
           tooltip />
       </a>
       
-      <img alt="Flag the post"
+      <img alt="Flag post"
         class="control"
         ng-click="ListItem.openFlagPostModal()"
+        offset-y="20"
         src="/assets/images/icons/black/flag.png"
-        title="Flag the post" />
+        text="'Flag post'"
+        tooltip />
       
-      <img alt="Delete the post"
+      <img alt="Delete post"
         class="control"
         ng-click="ListItem.openDeletePostModal()"
         ng-show="ListItem.isOwnPost()"
+        offset-y="20"
         src="/assets/images/icons/black/delete.png"
-        title="Delete the post" />
+        text="'Delete post'"
+        tooltip />
     </div>
   </div>
 </li>
