@@ -23802,7 +23802,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
     .state('weco.branch', {
       url: '/b/:branchid',
       abstract: true,
-      templateUrl: '/app/pages/branch/branch.view.html',
+      templateUrl: '/app/pages/branch/view.html',
       controller: 'BranchController',
       controllerAs: 'Branch'
     })
@@ -23811,37 +23811,37 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
     .state('weco.branch.nucleus', {
       url: '/nucleus',
       abstract: true,
-      templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
+      templateUrl: '/app/pages/branch/nucleus/view.html',
       controller: 'BranchNucleusController',
       controllerAs: 'BranchNucleus',
       pageTrack: '/b/:branchid/nucleus'
     }).state('weco.branch.nucleus.about', {
       url: '/about',
-      templateUrl: '/app/pages/branch/nucleus/about/about.view.html',
+      templateUrl: '/app/pages/branch/nucleus/about/view.html',
       controller: 'BranchNucleusAboutController',
       controllerAs: 'BranchNucleusAbout'
     }).state('weco.branch.nucleus.settings', {
       url: '/settings',
-      templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
+      templateUrl: '/app/pages/branch/nucleus/settings/view.html',
       controller: 'BranchNucleusSettingsController',
       controllerAs: 'BranchNucleusSettings',
       modOnly: true,
       redirectTo: 'auth.login'
     }).state('weco.branch.nucleus.moderators', {
       url: '/moderators',
-      templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
+      templateUrl: '/app/pages/branch/nucleus/moderators/view.html',
       controller: 'BranchNucleusModeratorsController',
       controllerAs: 'BranchNucleusModerators'
     }).state('weco.branch.nucleus.modtools', {
       url: '/modtools',
-      templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
+      templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
       controller: 'BranchNucleusModtoolsController',
       controllerAs: 'BranchNucleusModtools',
       modOnly: true,
       redirectTo: 'auth.login'
     }).state('weco.branch.nucleus.flaggedposts', {
       url: '/flaggedposts',
-      templateUrl: '/app/pages/branch/nucleus/flagged-posts/flagged-posts.view.html',
+      templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
       controller: 'BranchNucleusFlaggedPostsController',
       controllerAs: 'BranchNucleusFlaggedPosts',
       modOnly: true,
@@ -23851,7 +23851,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
     // Subbranches
     .state('weco.branch.subbranches', {
       url: '/childbranches',
-      templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
+      templateUrl: '/app/pages/branch/subbranches/view.html',
       controller: 'BranchSubbranchesController',
       controllerAs: 'BranchSubbranches',
       pageTrack: '/b/:branchid/childbranches'
@@ -27308,7 +27308,7 @@ class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
         templateName = 'BRANCH_NUCLEUS_SETTINGS',
         inputs = [],
         textareas = [],
-        route = 'branch/root/',
+        route = `branch/${this.BranchService.branch.id}/`,
         type;
 
     if ('profile-picture' === modalType) {

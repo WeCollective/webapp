@@ -117,7 +117,7 @@ class AppRoutes extends Injectable {
       .state('weco.branch', {
         url: '/b/:branchid',
         abstract: true,
-        templateUrl: '/app/pages/branch/branch.view.html',
+        templateUrl: '/app/pages/branch/view.html',
         controller: 'BranchController',
         controllerAs: 'Branch'
       })
@@ -126,7 +126,7 @@ class AppRoutes extends Injectable {
       .state('weco.branch.nucleus', {
         url: '/nucleus',
         abstract: true,
-        templateUrl: '/app/pages/branch/nucleus/nucleus.view.html',
+        templateUrl: '/app/pages/branch/nucleus/view.html',
         controller: 'BranchNucleusController',
         controllerAs: 'BranchNucleus',
         pageTrack: '/b/:branchid/nucleus'
@@ -134,14 +134,14 @@ class AppRoutes extends Injectable {
       
       .state('weco.branch.nucleus.about', {
         url: '/about',
-        templateUrl: '/app/pages/branch/nucleus/about/about.view.html',
+        templateUrl: '/app/pages/branch/nucleus/about/view.html',
         controller: 'BranchNucleusAboutController',
         controllerAs: 'BranchNucleusAbout'
       })
       
       .state('weco.branch.nucleus.settings', {
         url: '/settings',
-        templateUrl: '/app/pages/branch/nucleus/settings/settings.view.html',
+        templateUrl: '/app/pages/branch/nucleus/settings/view.html',
         controller: 'BranchNucleusSettingsController',
         controllerAs: 'BranchNucleusSettings',
         modOnly: true,
@@ -150,14 +150,14 @@ class AppRoutes extends Injectable {
       
       .state('weco.branch.nucleus.moderators', {
         url: '/moderators',
-        templateUrl: '/app/pages/branch/nucleus/moderators/moderators.view.html',
+        templateUrl: '/app/pages/branch/nucleus/moderators/view.html',
         controller: 'BranchNucleusModeratorsController',
         controllerAs: 'BranchNucleusModerators'
       })
       
       .state('weco.branch.nucleus.modtools', {
         url: '/modtools',
-        templateUrl: '/app/pages/branch/nucleus/modtools/modtools.view.html',
+        templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
         controller: 'BranchNucleusModtoolsController',
         controllerAs: 'BranchNucleusModtools',
         modOnly: true,
@@ -166,7 +166,7 @@ class AppRoutes extends Injectable {
       
       .state('weco.branch.nucleus.flaggedposts', {
         url: '/flaggedposts',
-        templateUrl: '/app/pages/branch/nucleus/flagged-posts/flagged-posts.view.html',
+        templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
         controller: 'BranchNucleusFlaggedPostsController',
         controllerAs: 'BranchNucleusFlaggedPosts',
         modOnly: true,
@@ -176,7 +176,7 @@ class AppRoutes extends Injectable {
       // Subbranches
       .state('weco.branch.subbranches', {
         url: '/childbranches',
-        templateUrl: '/app/pages/branch/subbranches/subbranches.view.html',
+        templateUrl: '/app/pages/branch/subbranches/view.html',
         controller: 'BranchSubbranchesController',
         controllerAs: 'BranchSubbranches',
         pageTrack: '/b/:branchid/childbranches'

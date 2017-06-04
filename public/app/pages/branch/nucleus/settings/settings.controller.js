@@ -10,7 +10,7 @@ class BranchNucleusSettingsController extends Injectable {
       templateName = 'BRANCH_NUCLEUS_SETTINGS',
       inputs  = [],
       textareas = [],
-      route = 'branch/root/',
+      route = `branch/${this.BranchService.branch.id}/`,
       type;
 
     if ('profile-picture' === modalType) {
