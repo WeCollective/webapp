@@ -2631,11 +2631,6 @@ div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value[marked] {
-  box-sizing: border-box;
-  margin-top: 10px;
-  padding-left: 20px;
-}
 div#branch-nucleus div.content-body > div.button {
   background-color: #92bedb;
   border-radius: 3px;
@@ -2754,11 +2749,6 @@ div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.cha
 div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
-}
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.value[marked] {
-  box-sizing: border-box;
-  margin-top: 10px;
-  padding-left: 20px;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container {
   display: flex;
@@ -3412,11 +3402,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
   font-size: 14px;
   width: 100%;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li div.value[marked] {
-  box-sizing: border-box;
-  margin-top: 10px;
-  padding-left: 20px;
-}
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li {
   padding: 5px 0;
 }
@@ -3454,11 +3439,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body ul#prof
 div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value[marked] {
-  box-sizing: border-box;
-  margin-top: 10px;
-  padding-left: 20px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
   height: 100%;
