@@ -1,9 +1,8 @@
 <cover-photo
   can-edit="Branch.isModerator()"
-  image-url="Branch.branch.coverUrl"
-  is-open="Branch.showCover"
-  open-upload-cover-modal="Branch.openCoverPictureModal"
-  thumb-url="Branch.branch.coverUrlThumb" >
+  image-url="Branch.BranchService.branch.coverUrl"
+  open-upload-cover-modal="Branch.openModal"
+  thumb-url="Branch.BranchService.branch.coverUrlThumb" >
 </cover-photo>
 
 <div class="cover-page page">
@@ -23,7 +22,7 @@
       <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
         <img alt=""
           id="edit"
-          ng-click="Branch.openProfilePictureModal()"
+          ng-click="Branch.openModal('profile-picture')"
           ng-show="Branch.isModerator()"
           src="/assets/images/icons/white/edit.png" />
       </div>

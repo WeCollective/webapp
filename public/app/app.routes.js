@@ -35,7 +35,7 @@ class AppRoutes extends Injectable {
       
       .state('verify', {
         url: '/:username/verify/:token',
-        templateUrl: '/app/pages/auth/verify/verify.view.html',
+        templateUrl: '/app/pages/auth/verify/view.html',
         controller: 'VerifyController',
         controllerAs: 'Verify'
       })
@@ -43,19 +43,19 @@ class AppRoutes extends Injectable {
       .state('reset-password', {
         url: '/reset-password',
         abstract: true,
-        templateUrl: '/app/pages/auth/reset-password/reset-password.view.html',
+        templateUrl: '/app/pages/auth/reset-password/view.html',
         controller: 'ResetPasswordController',
         controllerAs: 'ResetPassword'
       })
       
       .state('reset-password.request', {
         url: '/request',
-        templateUrl: '/app/pages/auth/reset-password/request/request.view.html'
+        templateUrl: '/app/pages/auth/reset-password/request/view.html'
       })
       
       .state('reset-password.confirm', {
         url: '/:username/:token',
-        templateUrl: '/app/pages/auth/reset-password/confirm/confirm.view.html'
+        templateUrl: '/app/pages/auth/reset-password/confirm/view.html'
       })
       
       // Abstract root state contains nav-bar
@@ -72,7 +72,7 @@ class AppRoutes extends Injectable {
       // Homepage state
       .state('weco.home', {
         url: '/',
-        templateUrl: '/app/pages/home/home.view.html',
+        templateUrl: '/app/pages/home/view.html',
         controller: 'HomeController',
         controllerAs: 'Home',
         pageTrack: '/'
@@ -82,20 +82,20 @@ class AppRoutes extends Injectable {
       .state('weco.profile', {
         url: '/u/:username',
         abstract: true,
-        templateUrl: '/app/pages/profile/profile.view.html',
+        templateUrl: '/app/pages/profile/view.html',
         controller: 'ProfileController',
         controllerAs: 'Profile'
       })
       
       .state('weco.profile.about', {
         url: '/about',
-        templateUrl: '/app/pages/profile/about/about.view.html',
+        templateUrl: '/app/pages/profile/about/view.html',
         pageTrack: '/u/:username/about'
       })
       
       .state('weco.profile.settings', {
         url: '/settings',
-        templateUrl: '/app/pages/profile/settings/settings.view.html',
+        templateUrl: '/app/pages/profile/settings/view.html',
         controller: 'ProfileSettingsController',
         controllerAs: 'ProfileSettings',
         selfOnly: true,

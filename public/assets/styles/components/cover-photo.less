@@ -11,7 +11,6 @@ div.cover-photo {
   height: 0;
   position: relative;
   width: 100%;
-  z-index: 200;
 
   img {
     height: auto;
@@ -33,5 +32,9 @@ div.cover-photo {
     &#cover-photo-edit { right: 40px; }
   }
 
-  &.open { .set-responsively(height, frame-column-width); }
+  &.open {
+    height: @sidebar-w;
+    
+    .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
+  }
 }

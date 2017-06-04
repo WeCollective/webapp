@@ -4,19 +4,18 @@ class CoverPhotoComponent extends Injectable {
   constructor(...injections) {
     super(CoverPhotoComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {
-      imageUrl: '&',
-      thumbUrl: '&',
       canEdit: '&',
-      isOpen: '=',
-      openUploadCoverModal: '='
+      imageUrl: '&',
+      openUploadCoverModal: '=',
+      thumbUrl: '&'
     };
-    this.templateUrl = '/app/components/cover-photo/view.html';
-    this.controllerAs = 'CoverPhoto';
     this.controller = 'CoverPhotoController';
+    this.controllerAs = 'CoverPhoto';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/cover-photo/view.html';
   }
 }
 

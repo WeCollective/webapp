@@ -711,7 +711,6 @@ div.cover-photo {
   height: 0;
   position: relative;
   width: 100%;
-  z-index: 200;
 }
 div.cover-photo img {
   height: auto;
@@ -734,22 +733,7 @@ div.cover-photo img#cover-photo-edit {
 div.cover-photo.open {
   height: 201px;
 }
-@media only screen and (min-width: 576px) {
-  div.cover-photo.open {
-    height: 201px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  div.cover-photo.open {
-    height: 201px;
-  }
-}
 @media only screen and (min-width: 992px) {
-  div.cover-photo.open {
-    height: 249px;
-  }
-}
-@media only screen and (min-width: 1200px) {
   div.cover-photo.open {
     height: 249px;
   }

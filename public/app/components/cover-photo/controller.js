@@ -3,10 +3,21 @@ import Injectable from 'utils/injectable';
 class CoverPhotoController extends Injectable {
   constructor(...injections) {
     super(CoverPhotoController.$inject, injections);
+
+    this.isOpen = true;
   }
-  showCoverPicture() { this.isOpen = true; }
-  hideCoverPicture() { this.isOpen = false; }
-  hasUrls() { return Boolean(this.imageUrl()) && Boolean(this.thumbUrl()); }
+
+  hasUrls () {
+  	return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
+  }
+  
+  hideCoverPicture () {
+  	this.isOpen = false;
+  }
+
+  showCoverPicture () {
+  	this.isOpen = true;
+  }
 }
 
 CoverPhotoController.$inject = [

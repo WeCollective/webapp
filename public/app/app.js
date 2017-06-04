@@ -93,6 +93,7 @@ registrar.service('WallService', WallService);
 
 // Controllers
 import AppController from 'app.controller';
+import BranchController from 'pages/branch/controller';
 import BranchPostController from 'pages/branch/post/controller';
 import BranchPostResultsController from 'pages/branch/post/results/controller';
 import BranchPostVoteController from 'pages/branch/post/vote/controller';
@@ -101,6 +102,7 @@ import ProfileNotificationsController from 'pages/profile/notifications/controll
 import TooltipController from 'components/tooltip/controller';
 
 registrar.controller('AppController', AppController);
+registrar.controller('BranchController', BranchController);
 registrar.controller('BranchPostController', BranchPostController);
 registrar.controller('BranchPostResultsController', BranchPostResultsController);
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
@@ -120,8 +122,6 @@ import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
 import ProfileSettingsController from 'pages/profile/settings/settings.controller';
 registrar.controller('ProfileSettingsController', ProfileSettingsController);
-import BranchController from 'pages/branch/branch.controller';
-registrar.controller('BranchController', BranchController);
 import BranchNucleusController from 'pages/branch/nucleus/nucleus.controller';
 registrar.controller('BranchNucleusController', BranchNucleusController);
 import BranchNucleusAboutController from 'pages/branch/nucleus/about/about.controller';
@@ -139,6 +139,8 @@ registrar.controller('BranchSubbranchesController', BranchSubbranchesController)
 
 
 // Components
+import CoverPhotoComponent from 'components/cover-photo/directive';
+import CoverPhotoController from 'components/cover-photo/controller';
 import ListItemComponent from 'components/list-item/directive';
 import ListItemController from 'components/list-item/controller';
 import LoadingComponent from 'components/loading/directive';
@@ -148,6 +150,8 @@ import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/directive'
 import TooltipComponent from 'components/tooltip/directive';
 import UploadImageModalController from 'components/modal/upload-image/controller';
 
+registrar.directive('coverPhoto', CoverPhotoComponent);
+registrar.controller('CoverPhotoController', CoverPhotoController);
 registrar.directive('listItem', ListItemComponent);
 registrar.controller('ListItemController', ListItemController);
 registrar.directive('loading', LoadingComponent);
@@ -156,11 +160,6 @@ registrar.controller('NavbarController', NavbarController);
 registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
 registrar.directive('tooltip', TooltipComponent);
 registrar.controller('UploadImageModalController', UploadImageModalController);
-
-import CoverPhotoComponent from 'components/cover-photo/cover-photo.directive';
-import CoverPhotoController from 'components/cover-photo/cover-photo.controller';
-registrar.directive('coverPhoto', CoverPhotoComponent);
-registrar.controller('CoverPhotoController', CoverPhotoController);
 
 import AlertsComponent from 'components/alerts/alerts.directive';
 registrar.directive('alerts', AlertsComponent);
