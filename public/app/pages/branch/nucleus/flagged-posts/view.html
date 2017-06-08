@@ -13,11 +13,19 @@
         title="'POST TYPE'">
       </dropdown>
     </div>
-  </div
+  </div>
 
-  <div class="content-body" on-scroll-to-bottom="WallScrollToBottom" loading when="BranchNucleusFlaggedPosts.WallService.isLoading">
+  <div class="content-body"
+    loading
+    loading-when="BranchNucleusFlaggedPosts.WallService.isLoading"
+    on-scroll-to-bottom="WallScrollToBottom">
     <ul id="post-list">
-      <li class="list-item" ng-repeat="post in BranchNucleusFlaggedPosts.WallService.posts" list-item post="post" index="$index"></li>
+      <li class="list-item"
+        index="$index"
+        list-item
+        ng-repeat="post in BranchNucleusFlaggedPosts.WallService.posts"
+        post="post">
+      </li>
     </ul>
   </div>
 </div>

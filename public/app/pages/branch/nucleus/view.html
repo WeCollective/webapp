@@ -1,9 +1,18 @@
 <div id="branch-nucleus">
   <div class="content-header">
-    <h1>{{ Branch.BranchService.branch.id === 'root' ? 'Global Nucleus' : 'Nucleus' }}</h1>
+    <h1 class="text--capitalize">
+    	{{ 'root' === Branch.BranchService.branch.id ? 'global ' : '' }}nucleus
+    </h1>
     <div class="content-controls">
-      <tabs items="BranchNucleus.tabItems" states="BranchNucleus.tabStates" state-params="BranchNucleus.tabStateParams"></tabs>
+      <tabs items="BranchNucleus.tabItems"
+      	states="BranchNucleus.tabStates"
+      	state-params="BranchNucleus.tabStateParams">
+      </tabs>
     </div>
   </div>
-  <div class="content-body" ng-class="BranchNucleus.$state.current.name.slice(BranchNucleus.$state.current.name.lastIndexOf('.') + 1)" ui-view></div>
+  
+  <div class="content-body"
+  	ng-class="BranchNucleus.$state.current.name.slice(BranchNucleus.$state.current.name.lastIndexOf('.') + 1)"
+  	ui-view>
+  </div>
 </div>

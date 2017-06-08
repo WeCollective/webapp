@@ -12,24 +12,48 @@
   </li>
 
   <li>
-    <span class="field">Visible Name: </span>
-    <span class="value">{{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }}</span>
-    <span class="change-value"> | <span ng-click="BranchNucleusSettings.openModal('visible-name')">Change</span></span>
-  </li>
-
-  <li>
-    <span class="field marked-title">Rules &amp; Etiquette: </span>
-    <div class="value" marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'"></div>
-    <span class="change-value marked-title">
-      <span ng-click="BranchNucleusSettings.openModal('rules')">Change</span>
+    <span class="field">
+      Visible Name:
+    </span>
+    
+    <span class="value">
+      {{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }}
+    </span>
+    
+    <span class="change-value"> |
+      <span ng-click="BranchNucleusSettings.openModal('visible-name')">
+        Change
+      </span>
     </span>
   </li>
 
   <li>
-    <span class="field marked-title">Description: </span>
-    <div class="value" marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'"></div>
+    <span class="field marked-title">
+      Rules &amp; Etiquette:
+    </span>
+
+    <div class="value" marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'">
+    </div>
+
     <span class="change-value marked-title">
-      <span ng-click="BranchNucleusSettings.openModal('description')">Change</span>
+      <span ng-click="BranchNucleusSettings.openModal('rules')">
+        Change
+      </span>
+    </span>
+  </li>
+
+  <li>
+    <span class="field marked-title">
+      Description:
+    </span>
+    
+    <div class="value" marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'">
+    </div>
+    
+    <span class="change-value marked-title">
+      <span ng-click="BranchNucleusSettings.openModal('description')">
+        Change
+      </span>
     </span>
   </li>
 </ul>
