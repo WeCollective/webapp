@@ -15,44 +15,12 @@ class UserService extends Injectable {
 
   fetch (username) {
     return new Promise( (resolve, reject) => {
-      Generator.run(function* () {
-        try {
-          // fetch the user
-          let res  = yield this.API.fetch('/user/:username', { username });
-
-          let user = res.data;
-
-          console.log(user, username)
-
-          try {
-            // attach urls for the user's profile and cover pictures (inc. thumbnails)
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture' });
-            user.profileUrl = res.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
-          
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture-thumb' });
-            user.profileUrlThumb = res.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
-          
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover' });
-            user.coverUrl = res.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
-          
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover-thumb' });
-            user.coverUrlThumb = res.data;
-          } catch(err) { /* It's okay if we don't have any photos */ }
-
-          // attach user's followed branches
-          res = yield this.API.fetch('/user/:username/branches/followed', { username });
-          user.followed_branches = res.data;
-
-          return resolve(user);
-        }
-        catch(err) { return reject(err.data || err); }
-      }, this);
+      this.API.fetch('/user/:username', { username })
+        .then( res => {
+          console.log(res);
+          return resolve(res.data);
+        })
+        .catch( err => reject(err.data || err) );
     });
   }
 

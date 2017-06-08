@@ -26642,8 +26642,8 @@ class TooltipService {
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -28900,45 +28900,10 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   fetch(username) {
     return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          // fetch the user
-          let res = yield this.API.fetch('/user/:username', { username });
-
-          let user = res.data;
-
-          console.log(user, username);
-
-          try {
-            // attach urls for the user's profile and cover pictures (inc. thumbnails)
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture' });
-            user.profileUrl = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'picture-thumb' });
-            user.profileUrlThumb = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover' });
-            user.coverUrl = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/user/:username/:picture', { username, picture: 'cover-thumb' });
-            user.coverUrlThumb = res.data;
-          } catch (err) {} /* It's okay if we don't have any photos */
-
-          // attach user's followed branches
-          res = yield this.API.fetch('/user/:username/branches/followed', { username });
-          user.followed_branches = res.data;
-
-          return resolve(user);
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
+      this.API.fetch('/user/:username', { username }).then(res => {
+        console.log(res);
+        return resolve(res.data);
+      }).catch(err => reject(err.data || err));
     });
   }
 
