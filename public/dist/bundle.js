@@ -26642,8 +26642,8 @@ class TooltipService {
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'local',
-   apiEndpoint: 'http://localhost:8080/v1'
+   name: 'development',
+   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -28445,7 +28445,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
       if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
         fetchingBranch = true;
 
-        this.fetch(this.$state.params.branchid).then(branch => this.$timeout(_ => this.branch = branch)).catch(err => {
+        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
           if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {

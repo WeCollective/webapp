@@ -13,7 +13,7 @@ class BranchService extends Injectable {
         fetchingBranch = true;
 
         this.fetch(this.$state.params.branchid)
-          .then( branch => this.$timeout( _ => this.branch = branch ))
+          .then( branch => this.branch = branch )
           .catch( err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');
