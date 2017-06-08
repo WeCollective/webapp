@@ -7,28 +7,24 @@ class VerifyController extends Injectable {
     this.message = 'Verifying your account';
     this.animationSrc = '/assets/images/logo-animation-large.gif';
 
-    this.$interval(() => {
-      if(this.animationSrc !== '') {
-        this.$timeout( () => { this.animationSrc = ''; } );
+    this.$interval( _ => {
+      if (this.animationSrc !== '') {
+        this.$timeout( _ => this.animationSrc = '' );
       }
-      // set animation src to the animated gif
-      this.$timeout( () => { this.animationSrc = '/assets/images/logo-animation-large.gif'; } );
 
-      if (this.message.indexOf('...') !== -1) {
-        this.message = 'Verifying your account.';
-      }
-      else {
-        this.message += '.';
-      }
+      // set animation src to the animated gif
+      this.$timeout( _ => this.animationSrc = '/assets/images/logo-animation-large.gif' );
+
+      this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
     }, 1000);
 
-    this.$timeout( () => {
+    this.$timeout( _ => {
       this.UserService.verify(this.$state.params.username, this.$state.params.token)
-        .then( () => {
+        .then( _ => {
           this.$state.go('auth.login');
           this.AlertsService.push('success', 'Account verified! You can now login.', true);
         })
-        .catch( () => {
+        .catch( _ => {
           this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
           this.$state.go('auth.signup');
         });

@@ -21,9 +21,14 @@ class BranchNucleusModtoolsController extends Injectable {
         });
     };
 
-    getModLog();
+    // todo cache this instead...
+    //getModLog();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   openAddModModal() {
@@ -85,6 +90,7 @@ class BranchNucleusModtoolsController extends Injectable {
 }
 
 BranchNucleusModtoolsController.$inject = [
+  '$scope',
   '$timeout',
   'AlertsService',
   'BranchService',

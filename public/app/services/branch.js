@@ -6,10 +6,14 @@ class BranchService extends Injectable {
     super(BranchService.$inject, injections);
     this.branch = {};
 
+    let fetchingBranch = false;
+
     const updateBranch = _ => {
-      if (this.$state.current.name.includes('weco.branch')) {
+      if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
+        fetchingBranch = true;
+
         this.fetch(this.$state.params.branchid)
-          .then( branch => this.branch = branch )
+          .then( branch => this.$timeout( _ => this.branch = branch ))
           .catch( err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');
@@ -18,8 +22,10 @@ class BranchService extends Injectable {
               this.AlertsService.push('error', 'Unable to fetch branch.');
             }
           })
-          .then( _ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH) )
-          .then(this.$timeout);
+          .then( _ => {
+            this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
+            fetchingBranch = false;
+          });
       }
     };
 
@@ -51,30 +57,7 @@ class BranchService extends Injectable {
           let res = yield this.API.fetch('/branch/:branchid', { branchid });
           let branch = res.data;
 
-          try {
-            // attach urls for the branch's profile and cover pictures (inc. thumbnails)
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture' });
-            branch.profileUrl = res.data;
-          }
-          catch(err) { /* It's okay if we don't have any photos */ }
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture-thumb' });
-            branch.profileUrlThumb = res.data;
-          }
-          catch(err) { /* It's okay if we don't have any photos */ }
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover' });
-            branch.coverUrl = res.data;
-          }
-          catch(err) { /* It's okay if we don't have any photos */ }
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover-thumb' });
-            branch.coverUrlThumb = res.data;
-          }
-          catch(err) { /* It's okay if we don't have any photos */ }
+          //console.log(branch);
 
           // attach parent branch
           if ('root' === branch.parentid || 'none' === branch.parentid) {
@@ -84,6 +67,7 @@ class BranchService extends Injectable {
           }
           else {
             res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            //console.log(res.data);
             branch.parent = res.data;
           }
 

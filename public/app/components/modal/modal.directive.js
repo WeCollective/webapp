@@ -4,8 +4,8 @@ class ModalComponent extends Injectable {
   constructor(...injections) {
     super(ModalComponent.$inject, injections);
 
-    this.restrict = 'A';
     this.replace = false;
+    this.restrict = 'A';
     this.scope = {};
     this.templateUrl = '/app/components/modal/view.html';
   }

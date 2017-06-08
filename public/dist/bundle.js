@@ -24630,13 +24630,13 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   constructor(...injections) {
     super(DropdownComponent.$inject, injections);
 
+    this.replace = 'true';
+    this.restrict = 'E';
     this.scope = {
       items: '=',
       selected: '=',
       title: '&'
     };
-    this.restrict = 'E';
-    this.replace = 'true';
     this.templateUrl = '/app/components/dropdown/view.html';
   }
 
@@ -25491,8 +25491,8 @@ class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   constructor(...injections) {
     super(ModalComponent.$inject, injections);
 
-    this.restrict = 'A';
     this.replace = false;
+    this.restrict = 'A';
     this.scope = {};
     this.templateUrl = '/app/components/modal/view.html';
   }
@@ -26862,29 +26862,22 @@ class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.message = 'Verifying your account';
     this.animationSrc = '/assets/images/logo-animation-large.gif';
 
-    this.$interval(() => {
+    this.$interval(_ => {
       if (this.animationSrc !== '') {
-        this.$timeout(() => {
-          this.animationSrc = '';
-        });
+        this.$timeout(_ => this.animationSrc = '');
       }
-      // set animation src to the animated gif
-      this.$timeout(() => {
-        this.animationSrc = '/assets/images/logo-animation-large.gif';
-      });
 
-      if (this.message.indexOf('...') !== -1) {
-        this.message = 'Verifying your account.';
-      } else {
-        this.message += '.';
-      }
+      // set animation src to the animated gif
+      this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
+
+      this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
     }, 1000);
 
-    this.$timeout(() => {
-      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(() => {
+    this.$timeout(_ => {
+      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(_ => {
         this.$state.go('auth.login');
         this.AlertsService.push('success', 'Account verified! You can now login.', true);
-      }).catch(() => {
+      }).catch(_ => {
         this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
         this.$state.go('auth.signup');
       });
@@ -27062,8 +27055,8 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     this.tabStates = [];
     this.tabStateParams = [];
 
-    let init = _ => {
-      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) {
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.branch.nucleus')) {
         return;
       }
 
@@ -27071,38 +27064,35 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
         return;
       }
 
+      const branchid = this.BranchService.branch.id;
+
       this.tabItems = ['about', 'moderators'];
       this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{
-        branchid: this.BranchService.branch.id
-      }, {
-        branchid: this.BranchService.branch.id
-      }];
+      this.tabStateParams = [{ branchid }, { branchid }];
 
       if (this.UserService.isAuthenticated() && this.isModerator()) {
         // add settings tab
         if (!this.tabItems.includes('settings')) {
           this.tabItems.push('settings');
           this.tabStates.push('weco.branch.nucleus.settings');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
 
         // add mod tools tab
         if (!this.tabItems.includes('mod tools')) {
           this.tabItems.push('mod tools');
           this.tabStates.push('weco.branch.nucleus.modtools');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
 
         // add flagged posts tab
         if (!this.tabItems.includes('flagged posts')) {
           this.tabItems.push('flagged posts');
           this.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
       } else {
         if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          const branchid = this.BranchService.branch.id;
           this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
         }
       }
@@ -27110,8 +27100,12 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
 
     init();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   addHTMLLineBreaks(str) {
@@ -27128,7 +27122,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
   }
 }
 
-BranchNucleusController.$inject = ['$state', '$timeout', 'BranchService', 'EventService', 'UserService'];
+BranchNucleusController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
 
@@ -27144,20 +27138,29 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   constructor(...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    const cb = _ => this.WallService.init('weco.branch.nucleus', true);
+    const cb = branchid => this.WallService.init('weco.branch.nucleus', true);
 
-    // todo timeout not tested, remove function and leave only the return value
-    this.$timeout(_ => {
-      this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, cb);
-      this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, cb);
-      this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, cb);
-    }, 0);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb);
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$timeout', 'EventService', 'WallService'];
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
 
@@ -27174,18 +27177,18 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
     super(BranchNucleusModeratorsController.$inject, injections);
 
     this.mods = [];
-    this.isLoading = true;
+    this.isLoading = false;
 
     const getMod = (username, index) => {
-      return this.UserService.fetch(username).then(user => this.$timeout(_ => this.mods[index] = user)).catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
+      return this.UserService.fetch(username).then(user => this.mods[index] = user).catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
     };
 
-    const getAllMods = () => {
-      if (!Object.keys(this.BranchService.branch).length) return;
+    const getAllMods = _ => {
+      if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
+
+      this.isLoading = true;
 
       let promises = [];
-
-      this.$timeout(_ => this.isLoading = true);
 
       for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
         promises.push(getMod(this.BranchService.branch.mods[i].username, i));
@@ -27198,13 +27201,18 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
       });
     };
 
-    getAllMods();
+    // todo cache this instead...
+    //getAllMods();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-BranchNucleusModeratorsController.$inject = ['$timeout', 'AlertsService', 'BranchService', 'EventService', 'UserService'];
+BranchNucleusModeratorsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
 
@@ -27235,9 +27243,14 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
       });
     };
 
-    getModLog();
+    // todo cache this instead...
+    //getModLog();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   openAddModModal() {
@@ -27290,7 +27303,7 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
   }
 }
 
-BranchNucleusModtoolsController.$inject = ['$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
 
@@ -27377,9 +27390,9 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
-    this.isLoadingPost = true;
     this.isLoadingComments = true;
     this.isLoadingMore = false;
+    this.isLoadingPost = true;
 
     // Possible states: show, maximise.
     this.previewState = 'show';
@@ -27399,7 +27412,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       postid: this.$state.params.postid
     }];
 
-    let redirect = () => {
+    const redirect = () => {
       // post not updated yet, wait for CHANGE_POST event
       if (this.$state.params.postid !== this.PostService.post.id) {
         return;
@@ -27429,8 +27442,12 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       }
     };
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
-    this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getPreviewTemplate() {
@@ -27438,7 +27455,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   getVideoEmbedUrl() {
-    let isYouTubeUrl = url => {
+    const isYouTubeUrl = url => {
       if (url && '' !== url) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
         const match = url.match(regExp);
@@ -27452,7 +27469,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
       let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
 
-      if (video_id.indexOf('&') !== -1) {
+      if (video_id.includes('&')) {
         video_id = video_id.substring(0, video_id.indexOf('&'));
       }
 
@@ -27468,9 +27485,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', {
-      postid: this.PostService.post.id
-    }, 'Post deleted.', 'Unable to delete post.');
+    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id }, 'Post deleted.', 'Unable to delete post.');
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if ('DELETE_POST' !== name) return;
@@ -27487,11 +27502,11 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
+    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
   }
 }
 
-BranchPostController.$inject = ['$rootScope', '$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService', 'WallService'];
+BranchPostController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
 
@@ -27517,7 +27532,11 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
     this.getPollAnswers();
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers());
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers()));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getAnswerColor(index) {
@@ -27578,7 +27597,13 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     };
     this.selectedAnswerIndex = -1;
 
-    this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, _ => this.getPollAnswers());
+    let listeners = [];
+
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.getPollAnswers();
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   canSubmitNewAnswer() {
@@ -27655,10 +27680,6 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   constructor(...injections) {
     super(WallService.$inject, injections);
 
-    this.flaggedOnly = false;
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.posts = [];
     this.controls = {
       postType: {
         items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
@@ -27677,6 +27698,10 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         selectedIndex: 0
       }
     };
+    this.flaggedOnly = false;
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.posts = [];
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('WallScrollToBottom' !== name) return;
@@ -27692,6 +27717,13 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getPosts(lastPostId) {
+    if (this.isLoading === true) return;
+
+    // We are fetching a new set of posts, hide the cached ones.
+    if (!lastPostId) {
+      this.posts = [];
+    }
+
     this.isLoading = true;
 
     const postType = this.getPostType();
@@ -27714,7 +27746,9 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getPostType() {
-    switch (this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase()) {
+    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
+
+    switch (key.toLowerCase()) {
       case 'images':
         return 'image';
 
@@ -27728,7 +27762,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         return 'poll';
 
       default:
-        return this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
+        return key;
     }
   }
 
@@ -27749,7 +27783,9 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getStatType() {
-    switch (this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase()) {
+    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
+
+    switch (key.toLowerCase()) {
       case 'global':
         return 'global';
 
@@ -27760,7 +27796,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         return 'individual';
 
       default:
-        return this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        return key;
     }
   }
 
@@ -27790,7 +27826,6 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   // This is also called from `/wall` and `/nucleus` controllers.
   init(allowedState, flaggedOnly) {
-    //console.log('yaaas');
     if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }
@@ -27821,128 +27856,127 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   constructor(...injections) {
     super(BranchSubbranchesController.$inject, injections);
 
-    this.isLoading = false;
-    this.isLoadingMore = false;
     this.branches = [];
     this.controls = {
-      timeRange: {
-        selectedIndex: 0,
-        items: ['ALL TIME', 'PAST YEAR', 'PAST MONTH', 'PAST WEEK', 'PAST 24 HRS', 'PAST HOUR']
-      },
       sortBy: {
-        selectedIndex: 0,
-        items: ['TOTAL POINTS', '# OF POSTS', '# OF COMMENTS', 'DATE CREATED']
+        items: ['total points', '# of posts', '# of comments', 'date created'],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+        selectedIndex: 0
       }
     };
+    this.isLoading = false;
+    this.isLoadingMore = false;
 
-    this.$scope.$watch(() => this.controls.timeRange.selectedIndex, () => {
-      init();
-    });
-    this.$scope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      init();
-    });
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.branch.subbranches')) {
+        return;
+      }
 
-    let init = () => {
-      if (this.$state.current.name.indexOf('weco.branch.subbranches') === -1) return;
-      if (Object.keys(this.BranchService.branch).length === 0) return;
+      if (!Object.keys(this.BranchService.branch).length) {
+        return;
+      }
 
       this.getSubbranches();
     };
 
-    init();
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+    // todo cache this instead...
+    //init();
+
+    let listeners = [];
+
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) init();
+    }));
+
+    listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) init();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'BranchSubbranchesScrollToBottom') return;
+
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
-        if (this.branches.length > 0) {
+
+        if (this.branches.length) {
           this.getSubbranches(this.branches[this.branches.length - 1].id);
         }
       }
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getSortBy() {
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'total points':
+        return 'post_points';
+
+      case '# of posts':
+        return 'post_count';
+
+      case '# of comments':
+        return 'post_comments';
+
+      case 'date created':
+      default:
+        return 'date';
+    }
+  }
+
+  getSubbranches(lastBranchId) {
+    if (this.isLoading === true) return;
+
+    this.isLoading = true;
+
+    const sortBy = this.getSortBy();
+    const timeafter = this.getTimeafter();
+
+    // fetch the subbranches for this branch and timefilter
+    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
+      this.$timeout(_ => {
+        // if lastBranchId was specified we are fetching _more_ branches, so append them
+        this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(_ => {
+      this.AlertsService.push('error', 'Error fetching branches.');
+      this.$timeout(_ => this.isLoading = false);
     });
   }
 
   // compute the appropriate timeafter for the selected time filter
-  getTimeafter(timeItem) {
-    let timeafter;
+  getTimeafter() {
+    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+      case 'past year':
+        return new Date().setFullYear(new Date().getFullYear() - 1);
 
-    switch (timeItem) {
-      case 'ALL TIME':
-        timeafter = 0;
-        break;
+      case 'past month':
+        return new Date().setMonth(new Date().getMonth() - 1);
 
-      case 'PAST YEAR':
-        timeafter = new Date().setFullYear(new Date().getFullYear() - 1);
-        break;
+      case 'past week':
+        return new Date().setDate(new Date().getDate() - 7);
 
-      case 'PAST MONTH':
-        timeafter = new Date().setMonth(new Date().getMonth() - 1);
-        break;
+      case 'past 24 hrs':
+        return new Date().setDate(new Date().getDate() - 1);
 
-      case 'PAST WEEK':
-        timeafter = new Date().setDate(new Date().getDate() - 7);
-        break;
+      case 'past hour':
+        return new Date().setHours(new Date().getHours() - 1);
 
-      case 'PAST 24 HRS':
-        timeafter = new Date().setDate(new Date().getDate() - 1);
-        break;
-
-      case 'PAST HOUR':
-        timeafter = new Date().setHours(new Date().getHours() - 1);
-        break;
-
+      case 'all time':
       default:
-        timeafter = 0;
-        break;
+        return 0;
     }
-
-    return timeafter;
-  }
-
-  getSubbranches(lastBranchId) {
-    this.isLoading = true;
-
-    let timeafter = this.getTimeafter(this.controls.timeRange.items[this.controls.timeRange.selectedIndex]);
-    let sortBy;
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex]) {
-      case 'TOTAL POINTS':
-        sortBy = 'post_points';
-        break;
-      case 'DATE CREATED':
-        sortBy = 'date';
-        break;
-      case '# OF POSTS':
-        sortBy = 'post_count';
-        break;
-      case '# OF COMMENTS':
-        sortBy = 'post_comments';
-        break;
-      default:
-        sortBy = 'date';
-        break;
-    }
-
-    // fetch the subbranches for this branch and timefilter
-    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
-      this.$timeout(() => {
-        // if lastBranchId was specified we are fetching _more_ branches, so append them
-        if (lastBranchId) {
-          this.branches = this.branches.concat(branches);
-        } else {
-          this.branches = branches;
-        }
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Error fetching branches.');
-      this.$timeout(() => {
-        this.isLoading = false;
-      });
-    });
   }
 }
-BranchSubbranchesController.$inject = ['$timeout', '$state', '$scope', 'BranchService', 'AlertsService', 'EventService'];
+
+BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
 
@@ -27960,12 +27994,30 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     const cb = _ => this.WallService.init('weco.branch.wall');
 
-    cb();
-    this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, cb);
-    this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, cb);
-    this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, cb);
-    this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, cb);
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb);
+    // todo cache this instead...
+    //cb();
+
+    let listeners = [];
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -27978,7 +28030,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 }
 
-BranchWallController.$inject = ['$rootScope', '$state', '$timeout', 'BranchService', 'EventService', 'WallService'];
+BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'BranchService', 'EventService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
 
@@ -28002,7 +28054,7 @@ class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     };
 
     for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', { stat }).then(res => this.stats[stat] = res.data.data).catch(() => this.AlertsService.push('error', 'Having trouble connecting...')).then(this.$timeout);
+      this.API.fetch('/constant/:stat', { stat }).then(res => this.stats[stat] = res.data.data).catch(_ => this.AlertsService.push('error', 'Having trouble connecting...')).then(this.$timeout);
     }
   }
 
@@ -28047,9 +28099,11 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
 
     init();
 
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
 
       if (!this.isLoading) {
@@ -28059,7 +28113,9 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
           this.getNotifications(this.notifications[this.notifications.length - 1].id);
         }
       }
-    });
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getNotificationImageType(notification) {
@@ -28104,7 +28160,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
   }
 }
 
-ProfileNotificationsController.$inject = ['$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
+ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
 
@@ -28173,7 +28229,12 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     };
 
     init();
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   openCoverPictureModal() {
@@ -28191,7 +28252,7 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
   }
 }
 
-ProfileController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
+ProfileController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileController);
 
@@ -28242,11 +28303,7 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   }
 
   updateNSFW() {
-    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(() => {
-      this.AlertsService.push('success', 'Successfully updated profile settings!');
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to update profile settings.');
-    });
+    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!')).catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
   }
 }
 
@@ -28382,15 +28439,22 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     super(BranchService.$inject, injections);
     this.branch = {};
 
+    let fetchingBranch = false;
+
     const updateBranch = _ => {
-      if (this.$state.current.name.includes('weco.branch')) {
-        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
+      if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
+        fetchingBranch = true;
+
+        this.fetch(this.$state.params.branchid).then(branch => this.$timeout(_ => this.branch = branch)).catch(err => {
           if (err.status === 404) {
             this.$state.go('weco.notfound');
           } else {
             this.AlertsService.push('error', 'Unable to fetch branch.');
           }
-        }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH)).then(this.$timeout);
+        }).then(_ => {
+          this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
+          fetchingBranch = false;
+        });
       }
     };
 
@@ -28418,26 +28482,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
           let res = yield this.API.fetch('/branch/:branchid', { branchid });
           let branch = res.data;
 
-          try {
-            // attach urls for the branch's profile and cover pictures (inc. thumbnails)
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture' });
-            branch.profileUrl = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'picture-thumb' });
-            branch.profileUrlThumb = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover' });
-            branch.coverUrl = res.data;
-          } catch (err) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/branch/:branchid/:picture', { branchid, picture: 'cover-thumb' });
-            branch.coverUrlThumb = res.data;
-          } catch (err) {} /* It's okay if we don't have any photos */
+          //console.log(branch);
 
           // attach parent branch
           if ('root' === branch.parentid || 'none' === branch.parentid) {
@@ -28446,6 +28491,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
             };
           } else {
             res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            //console.log(res.data);
             branch.parent = res.data;
           }
 
@@ -28900,10 +28946,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   fetch(username) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username', { username }).then(res => {
-        console.log(res);
-        return resolve(res.data);
-      }).catch(err => reject(err.data || err));
+      this.API.fetch('/user/:username', { username }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -67553,32 +67596,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_branch_post_controller__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_branch_post_results_controller__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_branch_post_vote_controller__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_wall_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_profile_notifications_controller__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_components_tooltip_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_pages_home_home_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_auth_auth_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_auth_verify_verify_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_profile_profile_controller__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_profile_settings_settings_controller__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_subbranches_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_wall_controller__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_profile_notifications_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_components_tooltip_controller__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_home_home_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_auth_auth_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_auth_verify_verify_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_profile_profile_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_profile_settings_settings_controller__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_cover_photo_directive__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_controller__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_list_item_directive__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_list_item_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_loading_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_on_scroll_to_bottom_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_tooltip_directive__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_modal_upload_image_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_dropdown_dropdown_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_dropdown_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_list_item_directive__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_list_item_controller__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_loading_directive__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_directive__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_nav_bar_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_on_scroll_to_bottom_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_tooltip_directive__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_modal_upload_image_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_alerts_alerts_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_tabs_tabs_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_directive__ = __webpack_require__(139);
@@ -67689,6 +67732,7 @@ registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_servi
 
 
 
+
 registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_28_app_controller__["a" /* default */]);
 registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_controller__["a" /* default */]);
 registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_nucleus_about_controller__["a" /* default */]);
@@ -67700,24 +67744,23 @@ registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODUL
 registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_36_pages_branch_post_controller__["a" /* default */]);
 registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_37_pages_branch_post_results_controller__["a" /* default */]);
 registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_38_pages_branch_post_vote_controller__["a" /* default */]);
-registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_39_pages_branch_wall_controller__["a" /* default */]);
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_40_pages_profile_notifications_controller__["a" /* default */]);
-registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_41_components_tooltip_controller__["a" /* default */]);
+registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_39_pages_branch_subbranches_controller__["a" /* default */]);
+registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_40_pages_branch_wall_controller__["a" /* default */]);
+registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_41_pages_profile_notifications_controller__["a" /* default */]);
+registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_42_components_tooltip_controller__["a" /* default */]);
 
 
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_42_pages_home_home_controller__["a" /* default */]);
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_43_pages_home_home_controller__["a" /* default */]);
 
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_43_pages_auth_auth_controller__["a" /* default */]);
+registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_44_pages_auth_auth_controller__["a" /* default */]);
 
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_44_pages_auth_verify_verify_controller__["a" /* default */]);
+registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_45_pages_auth_verify_verify_controller__["a" /* default */]);
 
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_45_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
+registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_46_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
 
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_46_pages_profile_profile_controller__["a" /* default */]);
+registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_47_pages_profile_profile_controller__["a" /* default */]);
 
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_47_pages_profile_settings_settings_controller__["a" /* default */]);
-
-registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_48_pages_branch_subbranches_subbranches_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_48_pages_profile_settings_settings_controller__["a" /* default */]);
 
 // Components
 
@@ -67732,31 +67775,30 @@ registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_48
 
 
 
+
 registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_49_components_cover_photo_directive__["a" /* default */]);
 registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_controller__["a" /* default */]);
-registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_51_components_list_item_directive__["a" /* default */]);
-registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_52_components_list_item_controller__["a" /* default */]);
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_53_components_loading_directive__["a" /* default */]);
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_54_components_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_controller__["a" /* default */]);
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_56_components_on_scroll_to_bottom_directive__["a" /* default */]);
-registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_57_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_58_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_59_components_modal_upload_image_controller__["a" /* default */]);
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_51_components_dropdown_directive__["a" /* default */]);
+registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_52_components_list_item_directive__["a" /* default */]);
+registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_53_components_list_item_controller__["a" /* default */]);
+registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_54_components_loading_directive__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_56_components_nav_bar_controller__["a" /* default */]);
+registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_57_components_on_scroll_to_bottom_directive__["a" /* default */]);
+registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_58_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_59_components_tooltip_directive__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_60_components_modal_upload_image_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_60_components_alerts_alerts_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_61_components_alerts_alerts_directive__["a" /* default */]);
 
 
 
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_61_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_63_components_tabs_tabs_controller__["a" /* default */]);
 
 
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_63_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_64_components_dropdown_dropdown_directive__["a" /* default */]);
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_64_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
 
 
 registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__["a" /* default */]);

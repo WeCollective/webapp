@@ -2991,7 +2991,7 @@ div#branch-nucleus div.content-header div.content-controls ul.tabs {
 }
 @media only screen and (min-width: 576px) {
   div#branch-nucleus div.content-header div.content-controls {
-    overflow-x: auto;
+    overflow-x: visible;
   }
   div#branch-nucleus div.content-header div.content-controls ul.tabs {
     white-space: normal;

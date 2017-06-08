@@ -4,10 +4,6 @@ class WallService extends Injectable {
   constructor(...injections) {
     super(WallService.$inject, injections);
 
-    this.flaggedOnly = false;
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.posts = [];
     this.controls = {
       postType: {
         items: [
@@ -49,6 +45,10 @@ class WallService extends Injectable {
         selectedIndex: 0
       }
     };
+    this.flaggedOnly = false;
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.posts = [];
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('WallScrollToBottom' !== name) return;
@@ -64,6 +64,13 @@ class WallService extends Injectable {
   }
 
   getPosts(lastPostId) {
+    if (this.isLoading === true) return;
+
+    // We are fetching a new set of posts, hide the cached ones.
+    if (!lastPostId) {
+      this.posts = [];
+    }
+
     this.isLoading = true;
 
     const postType  = this.getPostType();
@@ -88,7 +95,9 @@ class WallService extends Injectable {
   }
 
   getPostType() {
-    switch(this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase()) {
+    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
+
+    switch(key.toLowerCase()) {
       case 'images':
         return 'image';
 
@@ -102,7 +111,7 @@ class WallService extends Injectable {
         return 'poll';
 
       default:
-        return this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
+        return key;
     }
   }
 
@@ -123,7 +132,9 @@ class WallService extends Injectable {
   }
 
   getStatType() {
-    switch(this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase()) {
+    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
+
+    switch(key.toLowerCase()) {
       case 'global':
         return 'global';
         
@@ -134,7 +145,7 @@ class WallService extends Injectable {
         return 'individual';
 
       default:
-        return this.controls.statType.items[this.controls.statType.selectedIndex].toLowerCase();
+        return key;
     }
   }
 
@@ -164,7 +175,6 @@ class WallService extends Injectable {
 
   // This is also called from `/wall` and `/nucleus` controllers.
   init(allowedState, flaggedOnly) {
-    //console.log('yaaas');
     if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }

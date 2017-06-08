@@ -8,8 +8,8 @@ class BranchNucleusController extends Injectable {
     this.tabStates = [];
     this.tabStateParams = [];
 
-    let init = _ => {
-      if (this.$state.current.name.indexOf('weco.branch.nucleus') === -1) {
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.branch.nucleus')) {
         return;
       }
 
@@ -17,50 +17,50 @@ class BranchNucleusController extends Injectable {
         return;
       }
 
+      const branchid = this.BranchService.branch.id;
+
       this.tabItems = ['about', 'moderators'];
       this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{
-        branchid: this.BranchService.branch.id
-      }, {
-        branchid: this.BranchService.branch.id
-      }];
+      this.tabStateParams = [{ branchid }, { branchid }];
 
       if (this.UserService.isAuthenticated() && this.isModerator()) {
         // add settings tab
         if (!this.tabItems.includes('settings')) {
           this.tabItems.push('settings');
           this.tabStates.push('weco.branch.nucleus.settings');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
         
         // add mod tools tab
         if (!this.tabItems.includes('mod tools')) {
           this.tabItems.push('mod tools');
           this.tabStates.push('weco.branch.nucleus.modtools');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
 
         // add flagged posts tab
         if (!this.tabItems.includes('flagged posts')) {
           this.tabItems.push('flagged posts');
           this.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.tabStateParams.push({ branchid: this.BranchService.branch.id });
+          this.tabStateParams.push({ branchid });
         }
       }
       else {
         if (this.$state.current.name !== 'weco.branch.nucleus.about' &&
            this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          const branchid = this.BranchService.branch.id;
-          this.$state.go('weco.branch.nucleus.about', { branchid })
-            .then(init);
+          this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
         }
       }
     };
 
     init();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, init);
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+    let listeners = [];
+    
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   addHTMLLineBreaks (str) {
@@ -78,6 +78,7 @@ class BranchNucleusController extends Injectable {
 }
 
 BranchNucleusController.$inject = [
+  '$scope',
   '$state',
   '$timeout',
   'BranchService',

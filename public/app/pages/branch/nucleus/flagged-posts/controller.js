@@ -4,21 +4,31 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    const cb = _ => this.WallService.init('weco.branch.nucleus', true);
+    const cb = branchid => this.WallService.init('weco.branch.nucleus', true);
 
-    // todo timeout not tested, remove function and leave only the return value
-    this.$timeout( _ => {
-      this.$rootScope.$watch( _ => this.WallService.controls.postType.selectedIndex, cb);
-      this.$rootScope.$watch( _ => this.WallService.controls.sortBy.selectedIndex, cb);
-      this.$rootScope.$watch( _ => this.WallService.controls.timeRange.selectedIndex, cb);
-    }, 0);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb);
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+    
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 }
 
 BranchNucleusFlaggedPostsController.$inject = [
   '$rootScope',
+  '$scope',
   '$timeout',
   'EventService',
   'WallService'

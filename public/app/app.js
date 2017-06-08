@@ -103,6 +103,7 @@ import BranchNucleusSettingsController from 'pages/branch/nucleus/settings/contr
 import BranchPostController from 'pages/branch/post/controller';
 import BranchPostResultsController from 'pages/branch/post/results/controller';
 import BranchPostVoteController from 'pages/branch/post/vote/controller';
+import BranchSubbranchesController from 'pages/branch/subbranches/controller';
 import BranchWallController from 'pages/branch/wall/controller';
 import ProfileNotificationsController from 'pages/profile/notifications/controller';
 import TooltipController from 'components/tooltip/controller';
@@ -118,6 +119,7 @@ registrar.controller('BranchNucleusSettingsController', BranchNucleusSettingsCon
 registrar.controller('BranchPostController', BranchPostController);
 registrar.controller('BranchPostResultsController', BranchPostResultsController);
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
+registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 registrar.controller('BranchWallController', BranchWallController);
 registrar.controller('ProfileNotificationsController', ProfileNotificationsController);
 registrar.controller('TooltipController', TooltipController);
@@ -134,13 +136,12 @@ import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
 import ProfileSettingsController from 'pages/profile/settings/settings.controller';
 registrar.controller('ProfileSettingsController', ProfileSettingsController);
-import BranchSubbranchesController from 'pages/branch/subbranches/subbranches.controller';
-registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 
 
 // Components
 import CoverPhotoComponent from 'components/cover-photo/directive';
 import CoverPhotoController from 'components/cover-photo/controller';
+import DropdownComponent from 'components/dropdown/directive';
 import ListItemComponent from 'components/list-item/directive';
 import ListItemController from 'components/list-item/controller';
 import LoadingComponent from 'components/loading/directive';
@@ -153,6 +154,7 @@ import UploadImageModalController from 'components/modal/upload-image/controller
 
 registrar.directive('coverPhoto', CoverPhotoComponent);
 registrar.controller('CoverPhotoController', CoverPhotoController);
+registrar.directive('dropdown', DropdownComponent);
 registrar.directive('listItem', ListItemComponent);
 registrar.controller('ListItemController', ListItemController);
 registrar.directive('loading', LoadingComponent);
@@ -173,9 +175,6 @@ registrar.controller('TabsController', TabsController);
 
 import ModLogEntryComponent from 'components/mod-log-entry/mod-log-entry.directive';
 registrar.directive('modLogEntry', ModLogEntryComponent);
-
-import DropdownComponent from 'components/dropdown/dropdown.directive';
-registrar.directive('dropdown', DropdownComponent);
 
 import NotificationComponent from 'components/notification/notification-item.directive';
 registrar.directive('notification', NotificationComponent);

@@ -6,12 +6,30 @@ class BranchWallController extends Injectable {
 
     const cb = _ => this.WallService.init('weco.branch.wall');
 
-    cb();
-    this.$rootScope.$watch( _ => this.WallService.controls.postType.selectedIndex, cb );
-    this.$rootScope.$watch( _ => this.WallService.controls.sortBy.selectedIndex, cb );
-    this.$rootScope.$watch( _ => this.WallService.controls.statType.selectedIndex, cb );
-    this.$rootScope.$watch( _ => this.WallService.controls.timeRange.selectedIndex, cb );
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb );
+    // todo cache this instead...
+    //cb();
+
+    let listeners = [];
+    
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+    
+    listeners.push(this.$rootScope.$watch( _ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -26,8 +44,8 @@ class BranchWallController extends Injectable {
 
 BranchWallController.$inject = [
   '$rootScope',
+  '$scope',
   '$state',
-  '$timeout',
   'BranchService',
   'EventService',
   'WallService'

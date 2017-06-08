@@ -13,8 +13,12 @@ class BranchPostResultsController extends Injectable {
     };
 
     this.getPollAnswers();
+
+    let listeners = [];
     
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers() );
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers() ));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   getAnswerColor (index) {

@@ -4,13 +4,13 @@ class DropdownComponent extends Injectable {
   constructor(...injections) {
     super(DropdownComponent.$inject, injections);
 
+    this.replace = 'true';
+    this.restrict = 'E';
     this.scope = {
       items: '=',
       selected: '=',
       title: '&'
-    };
-    this.restrict = 'E';
-    this.replace = 'true';
+    };    
     this.templateUrl = '/app/components/dropdown/view.html';
   }
 

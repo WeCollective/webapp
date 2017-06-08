@@ -5,20 +5,20 @@ class BranchNucleusModeratorsController extends Injectable {
     super(BranchNucleusModeratorsController.$inject, injections);
 
     this.mods = [];
-    this.isLoading = true;
+    this.isLoading = false;
 
     const getMod = (username, index) => {
       return this.UserService.fetch(username)
-        .then( user => this.$timeout( _ => this.mods[index] = user ) )
+        .then( user => this.mods[index] = user )
         .catch( _ => this.AlertsService.push('error', 'Error fetching moderator.') );
     };
 
-    const getAllMods = () => {
-      if (!Object.keys(this.BranchService.branch).length) return;
+    const getAllMods = _ => {
+      if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
+
+      this.isLoading = true;
 
       let promises = [];
-
-      this.$timeout( _ => this.isLoading = true );
       
       for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
         promises.push(getMod(this.BranchService.branch.mods[i].username, i));
@@ -33,13 +33,19 @@ class BranchNucleusModeratorsController extends Injectable {
         });
     };
 
-    getAllMods();
+    // todo cache this instead...
+    //getAllMods();
 
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 }
 
 BranchNucleusModeratorsController.$inject = [
+  '$scope',
   '$timeout',
   'AlertsService',
   'BranchService',

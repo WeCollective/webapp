@@ -16,10 +16,7 @@ class UserService extends Injectable {
   fetch (username) {
     return new Promise( (resolve, reject) => {
       this.API.fetch('/user/:username', { username })
-        .then( res => {
-          console.log(res);
-          return resolve(res.data);
-        })
+        .then( res => resolve(res.data) )
         .catch( err => reject(err.data || err) );
     });
   }

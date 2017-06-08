@@ -4,9 +4,9 @@ class BranchPostController extends Injectable {
   constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
-    this.isLoadingPost = true;
     this.isLoadingComments = true;
     this.isLoadingMore = false;
+    this.isLoadingPost = true;
     
     // Possible states: show, maximise.
     this.previewState = 'show';
@@ -34,7 +34,7 @@ class BranchPostController extends Injectable {
       postid: this.$state.params.postid
     }];
 
-    let redirect = () => {
+    const redirect = () => {
       // post not updated yet, wait for CHANGE_POST event
       if(this.$state.params.postid !== this.PostService.post.id) {
         return;
@@ -66,8 +66,12 @@ class BranchPostController extends Injectable {
       }
     };
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect);
-    this.EventService.on(this.EventService.events.CHANGE_POST, redirect);
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   getPreviewTemplate() {
@@ -75,7 +79,7 @@ class BranchPostController extends Injectable {
   }
 
   getVideoEmbedUrl() {
-    let isYouTubeUrl = url => {
+    const isYouTubeUrl = url => {
       if (url && '' !== url) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
         const match = url.match(regExp);
@@ -89,7 +93,7 @@ class BranchPostController extends Injectable {
     if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
       let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
       
-      if (video_id.indexOf('&') !== -1) {
+      if (video_id.includes('&')) {
         video_id = video_id.substring(0, video_id.indexOf('&'));
       }
 
@@ -105,14 +109,8 @@ class BranchPostController extends Injectable {
   }
 
   openDeletePostModal() {
-    this.ModalService.open(
-      'DELETE_POST',
-      {
-        postid: this.PostService.post.id
-      },
-      'Post deleted.',
-      'Unable to delete post.'
-    );
+    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id },
+      'Post deleted.', 'Unable to delete post.' );
     
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if ('DELETE_POST' !== name) return;
@@ -129,12 +127,13 @@ class BranchPostController extends Injectable {
   }
 
   showPreview() {
-    return ['image', 'text', 'video', 'poll'].indexOf(this.PostService.post.type) !== -1;
+    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
   }
 }
 
 BranchPostController.$inject = [
   '$rootScope',
+  '$scope',
   '$state',
   '$timeout',
   'AppService',

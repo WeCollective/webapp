@@ -1,6 +1,8 @@
 <div id="branch-wall">
   <div class="content-header">
-    <h1 class="text--capitalize">{{ 'root' === BranchWall.BranchService.branch.id ? 'global ' : '' }}wall</h1>
+    <h1 class="text--capitalize">
+      {{ 'root' === BranchWall.BranchService.branch.id ? 'global ' : '' }}wall
+    </h1>
     
     <div class="content-controls">
       <dropdown items="BranchWall.WallService.controls.timeRange.items"

@@ -16,7 +16,13 @@ class BranchPostVoteController extends Injectable {
     };
     this.selectedAnswerIndex = -1;
 
-    this.$scope.$watch( _ => this.controls.sortBy.selectedIndex, _ => this.getPollAnswers() );
+    let listeners = [];
+
+    listeners.push(this.$scope.$watch( _ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.getPollAnswers();
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   canSubmitNewAnswer () {

@@ -63,7 +63,12 @@ class ProfileController extends Injectable {
     };
 
     init();
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   openCoverPictureModal () {
@@ -86,6 +91,7 @@ class ProfileController extends Injectable {
 }
 
 ProfileController.$inject = [
+  '$scope',
   '$state',
   '$timeout',
   'AlertsService',

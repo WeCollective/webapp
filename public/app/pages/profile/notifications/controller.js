@@ -19,9 +19,11 @@ class ProfileNotificationsController extends Injectable {
 
     init();
 
-    this.EventService.on(this.EventService.events.CHANGE_USER, init);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
       
       if (!this.isLoading) {
@@ -31,7 +33,9 @@ class ProfileNotificationsController extends Injectable {
           this.getNotifications(this.notifications[this.notifications.length - 1].id);
         }
       }
-    });
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
   }
 
   getNotificationImageType (notification) {
@@ -81,6 +85,7 @@ class ProfileNotificationsController extends Injectable {
 }
 
 ProfileNotificationsController.$inject = [
+  '$scope',
   '$state',
   '$timeout',
   'AlertsService',
