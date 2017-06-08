@@ -19,7 +19,10 @@ class UserService extends Injectable {
         try {
           // fetch the user
           let res  = yield this.API.fetch('/user/:username', { username });
+
           let user = res.data;
+
+          console.log(user, username)
 
           try {
             // attach urls for the user's profile and cover pictures (inc. thumbnails)

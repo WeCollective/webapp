@@ -27790,7 +27790,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   // This is also called from `/wall` and `/nucleus` controllers.
   init(allowedState, flaggedOnly) {
-    console.log('yaaas');
+    //console.log('yaaas');
     if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }
@@ -28904,7 +28904,10 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         try {
           // fetch the user
           let res = yield this.API.fetch('/user/:username', { username });
+
           let user = res.data;
+
+          console.log(user, username);
 
           try {
             // attach urls for the user's profile and cover pictures (inc. thumbnails)
