@@ -22,6 +22,7 @@ class CoverPhotoController extends Injectable {
 
 CoverPhotoController.$inject = [
 	'$state',
+  'BranchService',
 	'ModalService'
 ];
 

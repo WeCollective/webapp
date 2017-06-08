@@ -24583,7 +24583,7 @@ class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 }
 
-CoverPhotoController.$inject = ['$state', 'ModalService'];
+CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 
