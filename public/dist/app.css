@@ -1418,6 +1418,9 @@ div.tag-editor p {
     font-size: 12px;
   }
 }
+.tooltip:empty {
+  display: none;
+}
 body.modalOpen {
   overflow: hidden;
   position: fixed;
