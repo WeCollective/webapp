@@ -49,7 +49,7 @@ app.run(AppRun);
 
 // REGISTER COMPONENTS
 import ComponentRegistrar from 'utils/component-registrar';
-let registrar = new ComponentRegistrar('wecoApp');
+const registrar = new ComponentRegistrar('wecoApp');
 
 // Config
 import AppConfig from 'app.config';
@@ -61,38 +61,13 @@ registrar.config(AppRoutes);
 
 
 // SERVICES.
-import AlertsService from 'components/alerts/alerts.service';
-import API from 'services/api';
-import AppService from 'app.service';
-import BranchService from 'services/branch';
-import CommentService from 'services/comment';
-import EventService from 'services/event';
-import ModService from 'services/mod';
-import ModalService from 'components/modal/service';
-import PostService from 'services/post';
-import TooltipService from 'components/tooltip/service';
-import UploadService from 'services/upload';
-import UserService from 'services/user';
-import WallService from 'pages/branch/service';
-
-registrar.service('AlertsService', AlertsService);
-registrar.service('API', API);
-registrar.service('AppService', AppService);
-registrar.service('BranchService', BranchService);
-registrar.service('CommentService', CommentService);
-registrar.service('EventService', EventService);
-registrar.service('ModService', ModService);
-registrar.service('ModalService', ModalService);
-registrar.service('PostService', PostService);
-registrar.service('TooltipService', TooltipService);
-registrar.service('UploadService', UploadService);
-registrar.service('UserService', UserService);
-registrar.service('WallService', WallService);
-
+import initServices from 'services/_init';
+initServices(registrar);
 
 
 // Controllers
 import AppController from 'app.controller';
+import AuthController from 'pages/auth/controller';
 import BranchController from 'pages/branch/controller';
 import BranchNucleusAboutController from 'pages/branch/nucleus/about/controller';
 import BranchNucleusController from 'pages/branch/nucleus/controller';
@@ -105,10 +80,16 @@ import BranchPostResultsController from 'pages/branch/post/results/controller';
 import BranchPostVoteController from 'pages/branch/post/vote/controller';
 import BranchSubbranchesController from 'pages/branch/subbranches/controller';
 import BranchWallController from 'pages/branch/wall/controller';
+import HomeController from 'pages/home/controller';
+import ProfileController from 'pages/profile/controller';
 import ProfileNotificationsController from 'pages/profile/notifications/controller';
+import ProfileSettingsController from 'pages/profile/settings/controller';
+import ResetPasswordController from 'pages/auth/reset-password/controller';
 import TooltipController from 'components/tooltip/controller';
+import VerifyController from 'pages/auth/verify/controller';
 
 registrar.controller('AppController', AppController);
+registrar.controller('AuthController', AuthController);
 registrar.controller('BranchController', BranchController);
 registrar.controller('BranchNucleusAboutController', BranchNucleusAboutController);
 registrar.controller('BranchNucleusController', BranchNucleusController);
@@ -121,21 +102,14 @@ registrar.controller('BranchPostResultsController', BranchPostResultsController)
 registrar.controller('BranchPostVoteController', BranchPostVoteController);
 registrar.controller('BranchSubbranchesController', BranchSubbranchesController);
 registrar.controller('BranchWallController', BranchWallController);
-registrar.controller('ProfileNotificationsController', ProfileNotificationsController);
-registrar.controller('TooltipController', TooltipController);
-
-import HomeController from 'pages/home/home.controller';
 registrar.controller('HomeController', HomeController);
-import AuthController from 'pages/auth/auth.controller';
-registrar.controller('AuthController', AuthController);
-import VerifyController from 'pages/auth/verify/verify.controller';
-registrar.controller('VerifyController', VerifyController);
-import ResetPasswordController from 'pages/auth/reset-password/reset-password.controller';
-registrar.controller('ResetPasswordController', ResetPasswordController);
-import ProfileController from 'pages/profile/profile.controller';
 registrar.controller('ProfileController', ProfileController);
-import ProfileSettingsController from 'pages/profile/settings/settings.controller';
+registrar.controller('ProfileNotificationsController', ProfileNotificationsController);
 registrar.controller('ProfileSettingsController', ProfileSettingsController);
+registrar.controller('ResetPasswordController', ResetPasswordController);
+registrar.controller('TooltipController', TooltipController);
+registrar.controller('VerifyController', VerifyController);
+
 
 
 // Components
@@ -148,6 +122,7 @@ import LoadingComponent from 'components/loading/directive';
 import NavbarComponent from 'components/nav-bar/directive';
 import NavbarController from 'components/nav-bar/controller';
 import OnScrollToBottomComponent from 'components/on-scroll-to-bottom/directive';
+import ProfileSettingsModalController from 'components/modal/profile/settings/controller';
 import SubmitPollAnswerModalController from 'components/modal/post/submit-poll-answer/controller';
 import TooltipComponent from 'components/tooltip/directive';
 import UploadImageModalController from 'components/modal/upload-image/controller';
@@ -162,6 +137,7 @@ registrar.directive('navBar', NavbarComponent);
 registrar.controller('NavbarController', NavbarController);
 registrar.directive('onScrollToBottom', OnScrollToBottomComponent);
 registrar.controller('SubmitPollAnswerModalController', SubmitPollAnswerModalController);
+registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
 registrar.directive('tooltip', TooltipComponent);
 registrar.controller('UploadImageModalController', UploadImageModalController);
 
@@ -205,10 +181,6 @@ registrar.directive('chart', ChartComponent);
 
 import ModalComponent from 'components/modal/modal.directive';
 registrar.directive('modal', ModalComponent);
-
-import ProfileSettingsModalController from 'components/modal/profile/settings/controller';
-
-registrar.controller('ProfileSettingsModalController', ProfileSettingsModalController);
 
 
 import BranchNucleusSettingsModalController from 'components/modal/branch/nucleus/settings/settings.modal.controller';

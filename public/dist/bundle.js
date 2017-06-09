@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 212);
+/******/ 	return __webpack_require__(__webpack_require__.s = 200);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(261)("./" + name);
+            __webpack_require__(262)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4534,7 +4534,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(265)(module)))
 
 /***/ }),
 /* 1 */
@@ -4562,7 +4562,7 @@ class Injectable {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(211);
+__webpack_require__(199);
 module.exports = angular;
 
 
@@ -4628,8 +4628,8 @@ const NotificationTypes = {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var convert = __webpack_require__(258);
-var string = __webpack_require__(256);
+var convert = __webpack_require__(259);
+var string = __webpack_require__(257);
 
 var Color = function (obj) {
 	if (obj instanceof Color) {
@@ -16198,7 +16198,7 @@ return zhTw;
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(208);
+__webpack_require__(196);
 module.exports = 'ngAnimate';
 
 
@@ -18633,7 +18633,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 
-var unindent = __webpack_require__(209);
+var unindent = __webpack_require__(197);
 
   /**
    * @ngdoc overview
@@ -18813,7 +18813,7 @@ function markedProvider() {
     var m;
 
     try {
-      m = __webpack_require__(260);
+      m = __webpack_require__(261);
     } catch (err) {
       m = $window.marked || marked;
     }
@@ -18977,7 +18977,7 @@ module.exports =
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(210);
+__webpack_require__(198);
 module.exports = 'ngSanitize';
 
 
@@ -24006,34 +24006,6 @@ AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window', 'EventService',
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class AppService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AppService.$inject, injections);
-    this.isSidebarOpen = false;
-  }
-
-  getProxyUrl(url) {
-    // only proxy http requests, not https
-    return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
-  }
-
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-}
-
-AppService.$inject = ['ENV'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AppService);
-
-/***/ }),
-/* 133 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
 class AlertsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(AlertsComponent.$inject, injections);
@@ -24054,63 +24026,12 @@ AlertsComponent.$inject = ['AlertsService'];
 /* harmony default export */ __webpack_exports__["a"] = (AlertsComponent);
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class AlertsService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AlertsService.$inject, injections);
-
-    this.queue = [];
-    this.duration = 5000;
-  }
-
-  purge() {
-    this.queue = this.queue.filter(function (alert) {
-      return alert.alive === true;
-    });
-  }
-
-  close(idx) {
-    if (this.queue[idx]) {
-      this.queue[idx].alive = false;
-    }
-    this.$timeout(() => {
-      this.purge();
-    }, 600);
-  }
-
-  push(type, text, persist) {
-    let alert = {
-      type: type,
-      text: text,
-      alive: true
-    };
-    this.$timeout(() => {
-      this.queue = [alert].concat(this.queue);
-      if (!persist) {
-        this.$timeout(() => {
-          this.close(0);
-        }, this.duration);
-      }
-    });
-  }
-}
-AlertsService.$inject = ['$timeout'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AlertsService);
-
-/***/ }),
-/* 135 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_chart_js__);
 
 
@@ -24162,7 +24083,7 @@ ChartComponent.$inject = ['$compile', 'ChartColours'];
 /* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
 
 /***/ }),
-/* 136 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24301,7 +24222,7 @@ CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'User
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
 
 /***/ }),
-/* 137 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24329,7 +24250,7 @@ CommentThreadComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
 
 /***/ }),
-/* 138 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24417,7 +24338,7 @@ CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService',
 /* harmony default export */ __webpack_exports__["a"] = (CommentsController);
 
 /***/ }),
-/* 139 */
+/* 137 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24443,7 +24364,7 @@ CommentsComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
 
 /***/ }),
-/* 140 */
+/* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24523,7 +24444,7 @@ WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'A
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentController);
 
 /***/ }),
-/* 141 */
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24556,7 +24477,7 @@ WriteCommentComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentComponent);
 
 /***/ }),
-/* 142 */
+/* 140 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24588,7 +24509,7 @@ CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService'];
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 
 /***/ }),
-/* 143 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24619,7 +24540,7 @@ CoverPhotoComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
 
 /***/ }),
-/* 144 */
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24660,7 +24581,7 @@ DropdownComponent.$inject = ['$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
 
 /***/ }),
-/* 145 */
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24767,7 +24688,7 @@ ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService
 /* harmony default export */ __webpack_exports__["a"] = (ListItemController);
 
 /***/ }),
-/* 146 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24797,7 +24718,7 @@ ListItemComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
 
 /***/ }),
-/* 147 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24851,7 +24772,7 @@ LoadingComponent.$inject = ['$compile'];
 /* harmony default export */ __webpack_exports__["a"] = (LoadingComponent);
 
 /***/ }),
-/* 148 */
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24889,7 +24810,7 @@ ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
 /* harmony default export */ __webpack_exports__["a"] = (ModLogEntryComponent);
 
 /***/ }),
-/* 149 */
+/* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24948,7 +24869,7 @@ CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalServic
 /* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
 
 /***/ }),
-/* 150 */
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25001,7 +24922,7 @@ AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchSe
 /* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
 
 /***/ }),
-/* 151 */
+/* 149 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25058,7 +24979,7 @@ DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'Br
 /* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
 
 /***/ }),
-/* 152 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25153,7 +25074,7 @@ RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserS
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
-/* 153 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25247,7 +25168,7 @@ RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
-/* 154 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25306,7 +25227,7 @@ SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'E
 /* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
 
 /***/ }),
-/* 155 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25398,7 +25319,7 @@ UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
 
 /***/ }),
-/* 156 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25480,7 +25401,7 @@ BranchNucleusSettingsModalController.$inject = ['$timeout', '$state', 'EventServ
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsModalController);
 
 /***/ }),
-/* 157 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25513,7 +25434,7 @@ ModalComponent.$inject = ['EventService', 'ModalService'];
 /* harmony default export */ __webpack_exports__["a"] = (ModalComponent);
 
 /***/ }),
-/* 158 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25643,7 +25564,7 @@ CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService'
 /* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
 
 /***/ }),
-/* 159 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25689,7 +25610,7 @@ DeletePostModalController.$inject = ['$timeout', 'AlertsService', 'EventService'
 /* harmony default export */ __webpack_exports__["a"] = (DeletePostModalController);
 
 /***/ }),
-/* 160 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25771,7 +25692,7 @@ FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', '
 /* harmony default export */ __webpack_exports__["a"] = (FlagPostModalController);
 
 /***/ }),
-/* 161 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25880,7 +25801,7 @@ ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchSer
 /* harmony default export */ __webpack_exports__["a"] = (ResolveFlagPostModalController);
 
 /***/ }),
-/* 162 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25934,7 +25855,7 @@ SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalSer
 /* harmony default export */ __webpack_exports__["a"] = (SubmitPollAnswerModalController);
 
 /***/ }),
-/* 163 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26002,97 +25923,7 @@ ProfileSettingsModalController.$inject = ['$timeout', 'EventService', 'ModalServ
 /* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsModalController);
 
 /***/ }),
-/* 164 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ModalService.$inject, injections);
-
-    this.isOpen = false;
-    this.inputArgs = {};
-    this.name = '';
-    this.outputArgs = {};
-    this.reject = _ => {};
-    this.resolve = _ => {};
-    this.templateUrl = '';
-    this.templateUrls = {
-      ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
-      BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/view.html',
-      CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
-      CREATE_POST: '/app/components/modal/post/create/view.html',
-      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/view.html',
-      DELETE_POST: '/app/components/modal/post/delete/view.html',
-      FLAG_POST: '/app/components/modal/post/flag/view.html',
-      PROFILE_SETTINGS: '/app/components/modal/profile/settings/view.html',
-      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/view.html',
-      RESOLVE_FLAG_POST: '/app/components/modal/post/flag/resolve/view.html',
-      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/view.html',
-      SUBMIT_POLL_ANSWER: '/app/components/modal/post/submit-poll-answer/view.html',
-      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/view.html',
-      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/view.html',
-      UPLOAD_IMAGE: '/app/components/modal/upload-image/view.html'
-    };
-    this.names = Object.keys(this.templateUrls);
-  }
-
-  Cancel(args) {
-    this.finished(args, false);
-  }
-
-  Error() {
-    this.name = '';
-    this.reject();
-  }
-
-  finished(args, success) {
-    this.$timeout(_ => {
-      this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(success);
-    });
-  }
-
-  OK(args) {
-    this.finished(args, true);
-  }
-
-  open(name, args, successMessage, errorMessage) {
-    this.name = name;
-    // force change the template url so that controllers included on
-    // the template are reloaded
-    this.templateUrl = '';
-    this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
-    this.isOpen = true;
-    this.inputArgs = args;
-    this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
-
-    new Promise((resolve, reject) => {
-      this.resolve = resolve;
-      this.reject = reject;
-    }).then(result => {
-      // force reload if OK was pressed
-      if (result) {
-        this.$state.go(this.$state.current, {}, { reload: true });
-        this.AlertsService.push('success', successMessage);
-      }
-    }).catch(_ => this.AlertsService.push('error', errorMessage));
-  }
-}
-
-ModalService.$inject = ['$state', '$timeout', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ModalService);
-
-/***/ }),
-/* 165 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26158,7 +25989,7 @@ UploadImageModalController.$inject = ['$timeout', 'AlertsService', 'API', 'Event
 /* harmony default export */ __webpack_exports__["a"] = (UploadImageModalController);
 
 /***/ }),
-/* 166 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26226,7 +26057,7 @@ NavbarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService',
 /* harmony default export */ __webpack_exports__["a"] = (NavbarController);
 
 /***/ }),
-/* 167 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26250,7 +26081,7 @@ NavbarComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (NavbarComponent);
 
 /***/ }),
-/* 168 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26317,7 +26148,7 @@ NotificationComponent.$inject = ['$compile', '$templateRequest', '$timeout', 'Al
 /* harmony default export */ __webpack_exports__["a"] = (NotificationComponent);
 
 /***/ }),
-/* 169 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26345,7 +26176,7 @@ OnScrollToBottomComponent.$inject = ['$timeout', 'EventService'];
 /* harmony default export */ __webpack_exports__["a"] = (OnScrollToBottomComponent);
 
 /***/ }),
-/* 170 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26395,7 +26226,7 @@ PollAnswerEditorComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (PollAnswerEditorComponent);
 
 /***/ }),
-/* 171 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26416,7 +26247,7 @@ TabsController.$inject = ['$state', 'AlertsService'];
 /* harmony default export */ __webpack_exports__["a"] = (TabsController);
 
 /***/ }),
-/* 172 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26453,7 +26284,7 @@ TabsComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (TabsComponent);
 
 /***/ }),
-/* 173 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26523,7 +26354,7 @@ TagEditorComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (TagEditorComponent);
 
 /***/ }),
-/* 174 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26543,7 +26374,7 @@ TooltipController.$inject = ['$state', '$timeout', 'AppService', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (TooltipController);
 
 /***/ }),
-/* 175 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26620,36 +26451,20 @@ TooltipComponent.$inject = ['$timeout', '$window', 'EventService', 'TooltipServi
 /* harmony default export */ __webpack_exports__["a"] = (TooltipComponent);
 
 /***/ }),
-/* 176 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class TooltipService {
-  constructor() {
-    this.text = '';
-    this.visible = false;
-    this.x = 0;
-    this.y = 0;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (TooltipService);
-
-/***/ }),
-/* 177 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
 
 /***/ }),
-/* 178 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26765,7 +26580,7 @@ AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
 /* harmony default export */ __webpack_exports__["a"] = (AuthController);
 
 /***/ }),
-/* 179 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26848,7 +26663,7 @@ ResetPasswordController.$inject = ['$state', '$timeout', 'UserService', 'AlertsS
 /* harmony default export */ __webpack_exports__["a"] = (ResetPasswordController);
 
 /***/ }),
-/* 180 */
+/* 176 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26890,7 +26705,7 @@ VerifyController.$inject = ['$interval', '$state', '$timeout', 'AlertsService', 
 /* harmony default export */ __webpack_exports__["a"] = (VerifyController);
 
 /***/ }),
-/* 181 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26998,7 +26813,7 @@ BranchController.$inject = ['$state', '$timeout', 'AppService', 'BranchService',
 /* harmony default export */ __webpack_exports__["a"] = (BranchController);
 
 /***/ }),
-/* 182 */
+/* 178 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27040,7 +26855,7 @@ BranchNucleusAboutController.$inject = ['$timeout', 'AlertsService', 'BranchServ
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusAboutController);
 
 /***/ }),
-/* 183 */
+/* 179 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27127,7 +26942,7 @@ BranchNucleusController.$inject = ['$scope', '$state', '$timeout', 'BranchServic
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
 
 /***/ }),
-/* 184 */
+/* 180 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27165,7 +26980,7 @@ BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
 
 /***/ }),
-/* 185 */
+/* 181 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27217,7 +27032,7 @@ BranchNucleusModeratorsController.$inject = ['$scope', '$timeout', 'AlertsServic
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
 
 /***/ }),
-/* 186 */
+/* 182 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27308,7 +27123,7 @@ BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService'
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
 
 /***/ }),
-/* 187 */
+/* 183 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27379,7 +27194,7 @@ BranchNucleusSettingsController.$inject = ['$state', '$timeout', 'AlertsService'
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
 
 /***/ }),
-/* 188 */
+/* 184 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27511,7 +27326,7 @@ BranchPostController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'A
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
 
 /***/ }),
-/* 189 */
+/* 185 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27577,7 +27392,7 @@ BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'C
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
 
 /***/ }),
-/* 190 */
+/* 186 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27669,183 +27484,7 @@ BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsServi
 /* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
 
 /***/ }),
-/* 191 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(WallService.$inject, injections);
-
-    this.controls = {
-      postType: {
-        items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
-        selectedIndex: 0
-      },
-      sortBy: {
-        items: ['total points', '# of comments', 'date posted'],
-        selectedIndex: 2
-      },
-      statType: {
-        items: ['global', 'local', 'branch'],
-        selectedIndex: 0
-      },
-      timeRange: {
-        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
-        selectedIndex: 0
-      }
-    };
-    this.flaggedOnly = false;
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.posts = [];
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('WallScrollToBottom' !== name) return;
-
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.posts.length) {
-          this.getPosts(this.posts[this.posts.length - 1].id);
-        }
-      }
-    });
-  }
-
-  getPosts(lastPostId) {
-    if (this.isLoading === true) return;
-
-    // We are fetching a new set of posts, hide the cached ones.
-    if (!lastPostId) {
-      this.posts = [];
-    }
-
-    this.isLoading = true;
-
-    const postType = this.getPostType();
-    const sortBy = this.getSortBy();
-    const statType = this.getStatType();
-    const timeafter = this.getTimeafter();
-
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
-      this.$timeout(_ => {
-        // If lastPostId was specified, we are fetching more posts, so append them.
-        this.posts = lastPostId ? this.posts.concat(posts) : posts;
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(_ => {
-      this.AlertsService.push('error', 'Error fetching posts.');
-      this.isLoading = false;
-    });
-  }
-
-  getPostType() {
-    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
-
-    switch (key.toLowerCase()) {
-      case 'images':
-        return 'image';
-
-      case 'videos':
-        return 'video';
-
-      case 'pages':
-        return 'page';
-
-      case 'polls':
-        return 'poll';
-
-      default:
-        return key;
-    }
-  }
-
-  getSortBy() {
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
-      case 'total points':
-        return 'points';
-
-      case 'date posted':
-        return 'date';
-
-      case '# of comments':
-        return 'comment_count';
-
-      default:
-        return 'points';
-    }
-  }
-
-  getStatType() {
-    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
-
-    switch (key.toLowerCase()) {
-      case 'global':
-        return 'global';
-
-      case 'local':
-        return 'local';
-
-      case 'branch':
-        return 'individual';
-
-      default:
-        return key;
-    }
-  }
-
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter() {
-    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
-      case 'past year':
-        return new Date().setFullYear(new Date().getFullYear() - 1);
-
-      case 'past month':
-        return new Date().setMonth(new Date().getMonth() - 1);
-
-      case 'past week':
-        return new Date().setDate(new Date().getDate() - 7);
-
-      case 'past 24 hrs':
-        return new Date().setDate(new Date().getDate() - 1);
-
-      case 'past hour':
-        return new Date().setHours(new Date().getHours() - 1);
-
-      case 'all time':
-      default:
-        return 0;
-    }
-  }
-
-  // This is also called from `/wall` and `/nucleus` controllers.
-  init(allowedState, flaggedOnly) {
-    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
-      return;
-    }
-
-    this.flaggedOnly = !!flaggedOnly;
-
-    if (this.flaggedOnly) {
-      this.controls.sortBy.selectedIndex = 2;
-    }
-
-    this.getPosts();
-  }
-}
-
-WallService.$inject = ['$rootScope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (WallService);
-
-/***/ }),
-/* 192 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27981,7 +27620,7 @@ BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsSe
 /* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
 
 /***/ }),
-/* 193 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28035,7 +27674,7 @@ BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'BranchService
 /* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
 
 /***/ }),
-/* 194 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28072,7 +27711,99 @@ HomeController.$inject = ['$timeout', 'AlertsService', 'API', 'ENV'];
 /* harmony default export */ __webpack_exports__["a"] = (HomeController);
 
 /***/ }),
-/* 195 */
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileController.$inject, injections);
+
+    this.isLoading = false;
+    this.profileUser = {};
+    this.showCover = true;
+    this.tabItems = ['about'];
+    this.tabStates = ['weco.profile.about'];
+
+    const loadOtherUser = _ => {
+      // ensure we are in the 'about' state
+      if ('weco.profile.about' !== this.$state.current.name) {
+        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
+      } else {
+        this.isLoading = true;
+        this.UserService.fetch(this.$state.params.username).then(user => {
+          this.profileUser = user;
+          this.isLoading = false;
+        }).catch(err => {
+          this.isLoading = false;
+
+          if (404 === err.status) {
+            return this.$state.go('weco.notfound');
+          } else {
+            this.AlertsService.push('error', 'Unable to fetch user.');
+            this.$state.go('weco.home');
+          }
+        }).then(this.$timeout);
+      }
+    };
+
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(_ => {
+          this.profileUser = this.UserService.user;
+
+          if (this.UserService.user.username === this.$state.params.username) {
+            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
+              this.tabItems.push('settings');
+              this.tabStates.push('weco.profile.settings');
+            }
+
+            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
+              this.tabItems.push('notifications');
+              this.tabStates.push('weco.profile.notifications');
+            }
+          }
+        });
+      } else {
+        loadOtherUser();
+      }
+    };
+
+    init();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  openCoverPictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'cover'
+    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
+  }
+
+  openProfilePictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'picture'
+    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
+  }
+}
+
+ProfileController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
+
+/***/ }),
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28165,99 +27896,7 @@ ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'Alert
 /* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
 
 /***/ }),
-/* 196 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileController.$inject, injections);
-
-    this.isLoading = false;
-    this.profileUser = {};
-    this.showCover = true;
-    this.tabItems = ['about'];
-    this.tabStates = ['weco.profile.about'];
-
-    const loadOtherUser = _ => {
-      // ensure we are in the 'about' state
-      if ('weco.profile.about' !== this.$state.current.name) {
-        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
-      } else {
-        this.isLoading = true;
-        this.UserService.fetch(this.$state.params.username).then(user => {
-          this.profileUser = user;
-          this.isLoading = false;
-        }).catch(err => {
-          this.isLoading = false;
-
-          if (404 === err.status) {
-            return this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch user.');
-            this.$state.go('weco.home');
-          }
-        }).then(this.$timeout);
-      }
-    };
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(_ => {
-          this.profileUser = this.UserService.user;
-
-          if (this.UserService.user.username === this.$state.params.username) {
-            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
-              this.tabItems.push('settings');
-              this.tabStates.push('weco.profile.settings');
-            }
-
-            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
-              this.tabItems.push('notifications');
-              this.tabStates.push('weco.profile.notifications');
-            }
-          }
-        });
-      } else {
-        loadOtherUser();
-      }
-    };
-
-    init();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  openCoverPictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'cover'
-    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
-  }
-
-  openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'picture'
-    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
-  }
-}
-
-ProfileController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
-
-/***/ }),
-/* 197 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28312,762 +27951,48 @@ ProfileSettingsController.$inject = ['$state', 'AlertsService', 'ModalService', 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
 
 /***/ }),
-/* 198 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_alerts_alerts_service__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__branch__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__comment__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__event__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mod__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_modal_service__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__post__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__upload__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__ = __webpack_require__(205);
 
 
-class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(API.$inject, injections);
-  }
 
-  delete(url, params, data, urlFormEncode) {
-    return this.request('DELETE', url, params, data, urlFormEncode);
-  }
 
-  fetch(url, params, data, urlFormEncode) {
-    return this.get(url, params, data, urlFormEncode);
-  }
 
-  get(url, params, data, urlFormEncode) {
-    return this.request('GET', url, params, data, urlFormEncode);
-  }
 
-  // Params: data, headersGetter
-  makeFormEncoded(data) {
-    let str = [];
-    for (let d in data) {
-      str.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-    }
-    return str.join('&');
-  }
 
-  normaliseResponse(data, headersGetter, status) {
-    try {
-      data = JSON.parse(data);
-      data.status = status;
-      return data;
-    } catch (e) {
-      return data;
-    }
-  }
 
-  post(url, params, data, urlFormEncode) {
-    return this.request('POST', url, params, data, urlFormEncode);
-  }
 
-  put(url, params, data, urlFormEncode) {
-    return this.request('PUT', url, params, data, urlFormEncode);
-  }
 
-  remove(url, params, data, urlFormEncode) {
-    return this.delete(url, params, data, urlFormEncode);
-  }
 
-  request(method, url, params, data, urlFormEncode) {
-    return new Promise((resolve, reject) => {
-      // ensure url has a leading slash
-      if (url[0] !== '/') {
-        url = '/' + url;
-      }
 
-      // replace :params in the url with their specified values
-      for (let paramName of Object.keys(params)) {
-        url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
-      }
 
-      url = this.ENV.apiEndpoint + url;
 
-      // make the request
-      let req = {
-        method,
-        transformResponse: this.normaliseResponse,
-        url
-      };
+let refs = [{ name: 'AlertsService', service: __WEBPACK_IMPORTED_MODULE_0__components_alerts_alerts_service__["a" /* default */] }, { name: 'API', service: __WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */] }, { name: 'AppService', service: __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* default */] }, { name: 'BranchService', service: __WEBPACK_IMPORTED_MODULE_3__branch__["a" /* default */] }, { name: 'CommentService', service: __WEBPACK_IMPORTED_MODULE_4__comment__["a" /* default */] }, { name: 'EventService', service: __WEBPACK_IMPORTED_MODULE_5__event__["a" /* default */] }, { name: 'ModService', service: __WEBPACK_IMPORTED_MODULE_6__mod__["a" /* default */] }, { name: 'ModalService', service: __WEBPACK_IMPORTED_MODULE_7__components_modal_service__["a" /* default */] }, { name: 'PostService', service: __WEBPACK_IMPORTED_MODULE_8__post__["a" /* default */] }, { name: 'TooltipService', service: __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__["a" /* default */] }, { name: 'UploadService', service: __WEBPACK_IMPORTED_MODULE_10__upload__["a" /* default */] }, { name: 'UserService', service: __WEBPACK_IMPORTED_MODULE_11__user__["a" /* default */] }, { name: 'WallService', service: __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__["a" /* default */] }];
 
-      if (!!urlFormEncode) {
-        req.headers = {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        };
-        req.transformRequest = this.makeFormEncoded;
-      } else {
-        req.headers = {
-          'Content-Type': 'application/json'
-        };
-      }
+const services = registrar => {
+  if (!registrar) throw new Error('Cannot register services - no registrar provided.');
+  refs.forEach(ref => registrar.service(ref.name, ref.service));
+};
 
-      if ('PUT' === method || 'POST' === method) {
-        req.data = data;
-      }
-
-      if ('GET' === method || 'DELETE' === method) {
-        req.params = data;
-      }
-
-      this.$http(req).then(res => resolve(res.data || res)).catch(reject);
-    });
-  }
-
-  save(url, params, data, urlFormEncode) {
-    return this.post(url, params, data, urlFormEncode);
-  }
-
-  update(url, params, data, urlFormEncode) {
-    return this.put(url, params, data, urlFormEncode);
-  }
-}
-
-API.$inject = ['$http', 'ENV'];
-
-/* harmony default export */ __webpack_exports__["a"] = (API);
+/* harmony default export */ __webpack_exports__["a"] = (services);
 
 /***/ }),
-/* 199 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
-
-
-
-class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchService.$inject, injections);
-    this.branch = {};
-
-    let fetchingBranch = false;
-
-    const updateBranch = _ => {
-      if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
-        fetchingBranch = true;
-
-        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
-          if (err.status === 404) {
-            this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch branch.');
-          }
-        }).then(_ => {
-          this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
-          fetchingBranch = false;
-        });
-      }
-    };
-
-    updateBranch();
-
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
-  }
-
-  actionSubbranchRequest(action, branchid, childid) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch', {}, data).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  fetch(branchid) {
-    return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          let res = yield this.API.fetch('/branch/:branchid', { branchid });
-          let branch = res.data;
-
-          //console.log(branch);
-
-          // attach parent branch
-          if ('root' === branch.parentid || 'none' === branch.parentid) {
-            branch.parent = {
-              id: branch.parentid
-            };
-          } else {
-            res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
-            //console.log(res.data);
-            branch.parent = res.data;
-          }
-
-          delete branch.parentid;
-
-          // attach moderator list
-          branch.mods = yield this.ModService.fetchByBranch(branch.id);
-
-          return resolve(branch);
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
-    });
-  }
-
-  getModLog(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/modlog', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
-    return new Promise((resolve, reject) => {
-      let params = {
-        flag: !!flag,
-        postType,
-        sortBy,
-        stat,
-        timeafter
-      };
-
-      if (lastPostId) {
-        params.lastPostId = lastPostId;
-      }
-
-      this.API.fetch('/branch/:branchid/posts', { branchid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
-    return new Promise((resolve, reject) => {
-      let params = { sortBy, timeafter };
-
-      if (lastBranchId) {
-        params.lastBranchId = lastBranchId;
-      }
-
-      this.API.fetch('/branch/:branchid/subbranches', { branchid }, params).then(res => resolve(res.data), true).catch(err => reject(err.data || err));
-    });
-  }
-
-  getSubbranchRequests(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  remove(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid', { branchid }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  resolveFlaggedPost(branchid, postid, action, data, message) {
-    return new Promise((resolve, reject) => {
-      let body = { action, message };
-
-      body['change_type' === action ? 'type' : 'reason'] = data;
-
-      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  submitSubbranchRequest(branchid, childid) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  update(branchid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid', { branchid }, data, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-}
-
-BranchService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'EventService', 'ModService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchService);
-
-/***/ }),
-/* 200 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CommentService.$inject, injections);
-  }
-
-  create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/comments', { postid: data.postid }, data)
-      // pass on the returned commentid
-      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  fetch(postid, commentid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(comment => {
-        if (!comment || !comment.data) {
-          return reject();
-        }
-
-        return resolve(comment.data);
-      }).catch(err => reject(err.data || err));
-    });
-  }
-
-  // get the comments on a post or replies to another comment
-  getMany(postid, parentid, sort, lastCommentId) {
-    return new Promise((resolve, reject) => {
-      let params = { parentid, sort };
-
-      if (lastCommentId) {
-        params.lastCommentId = lastCommentId;
-      }
-
-      this.API.fetch('/post/:postid/comments', { postid }, params).then(comments => resolve(comments.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  update(postid, commentid, text) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { text }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  vote(postid, commentid, vote) {
-    return new Promise((resolve, reject) => {
-      if (vote !== 'up' && vote !== 'down') {
-        return reject();
-      }
-
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-}
-
-CommentService.$inject = ['API'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CommentService);
-
-/***/ }),
-/* 201 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(EventService.$inject, injections);
-
-    this.events = {
-      CHANGE_BRANCH: 'CHANGE_BRANCH',
-      CHANGE_POST: 'CHANGE_POST',
-      CHANGE_USER: 'CHANGE_USER',
-      MODAL_CANCEL: 'MODAL_CANCEL',
-      MODAL_OK: 'MODAL_OK',
-      MODAL_OPEN: 'MODAL_OPEN',
-      SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
-      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
-      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
-    };
-  }
-
-  emit(event, args) {
-    for (let i in this.events) {
-      if (this.events[i] === event) {
-        return this.$rootScope.$broadcast(event, args);
-      }
-    }
-  }
-
-  // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
-  on(event, callback) {
-    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
-  }
-}
-
-EventService.$inject = ['$rootScope', '$timeout'];
-
-/* harmony default export */ __webpack_exports__["a"] = (EventService);
-
-/***/ }),
-/* 202 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-//import Generator from 'utils/generator';
-
-class ModService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ModService.$inject, injections);
-  }
-
-  create(branchid, username) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/mods', { branchid }, { username }).then(resolve).catch(err => {
-        return reject(err.data || err);
-      });
-    });
-  }
-
-  fetchByBranch(branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/mods', { branchid }).then(res => {
-        return resolve(res.data);
-      }).catch(err => {
-        return reject(err.data || err);
-      });
-    });
-  }
-
-  remove(branchid, username) {
-    return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid/mods/:username', { branchid, username }).then(resolve).catch(err => {
-        return reject(err.data || err);
-      });
-    });
-  }
-}
-
-ModService.$inject = ['API'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ModService);
-
-/***/ }),
-/* 203 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
-
-
-
-class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(PostService.$inject, injections);
-
-    this.post = {};
-
-    const updatePost = _ => {
-      if (!this.$state.current.name.includes('weco.branch.post')) {
-        return;
-      }
-
-      this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
-        if (404 === err.status) {
-          this.$state.go('weco.notfound');
-        } else {
-          this.AlertsService.push('error', 'Unable to fetch post.');
-        }
-      }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
-    };
-
-    updatePost();
-
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updatePost);
-  }
-
-  create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/post', {}, data)
-      // pass on the returned postid
-      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  createPollAnswer(postid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/poll/:postid/answer', { postid }, data).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  delete(postid) {
-    return new Promise((resolve, reject) => {
-      this.API.remove('/post/:postid', { postid }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  fetch(postid) {
-    return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          let res = yield this.API.fetch('/post/:postid', { postid }, {});
-
-          if (!res && !res.data) {
-            return reject();
-          }
-
-          let post = res.data;
-
-          try {
-            res = yield this.API.fetch('/post/:postid/picture', { postid }, {});
-            post.profileUrl = res.data;
-          } catch (e) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/post/:postid/picture-thumb', { postid }, {});
-            post.profileUrlThumb = res.data;
-          } catch (e) {/* It's okay if we don't have any photos */}
-
-          return resolve(post);
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
-    });
-  }
-
-  flag(postid, branchid, flag_type) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  getPictureUrl(postid, thumbnail) {
-    return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
-  }
-
-  getPollAnswers(postid, sortBy, lastAnswerId) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  vote(branchid, postid, vote) {
-    return new Promise((resolve, reject) => {
-      if (vote !== 'up' && vote !== 'down') {
-        return reject();
-      }
-
-      this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  votePollAnswer(postid, answerid) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-}
-
-PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (PostService);
-
-/***/ }),
-/* 204 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(UploadService.$inject, injections);
-
-    this.isUploading = false;
-    this.progress = 0;
-  }
-
-  fetchUploadUrl(route) {
-    return new Promise((resolve, reject) => {
-      // fetch a presigned URL to which we can upload an image
-      this.API.fetch('/:route', { route: `${route}-upload-url` }).then(res => {
-        if (!res.data) {
-          throw new Error();
-        }
-
-        return resolve(res.data);
-      }).catch(reject);
-    });
-  }
-
-  uploadImage(data, url) {
-    return new Promise((resolve, reject) => {
-      if (!data) {
-        return reject();
-      }
-
-      this.isUploading = true;
-      this.progress = 0;
-
-      this.Upload.http({
-        url,
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'image/*'
-        },
-        data
-      }).then(_ => {
-        this.isUploading = false;
-        this.progress = 0;
-        return resolve();
-      }, _ => {
-        // error
-        this.isUploading = false;
-        this.progress = 0;
-        return reject();
-      }, e => {
-        // progress
-        this.progress = Math.min(100, parseInt(100.0 * e.loaded / e.total));
-      });
-    });
-  }
-}
-
-UploadService.$inject = ['API', 'Upload'];
-
-/* harmony default export */ __webpack_exports__["a"] = (UploadService);
-
-/***/ }),
-/* 205 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
-
-
-
-class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(UserService.$inject, injections);
-    this.user = {};
-
-    this.fetch('me').then(user => this.user = user).catch(_ => {}).then(this.$timeout).then(_ => this.EventService.emit(this.EventService.events.CHANGE_USER));
-  }
-
-  fetch(username) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username', { username }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  followBranch(username, branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.save('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  getNotifications(username, unreadCount, lastNotificationId) {
-    return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
-    });
-  }
-
-  isAuthenticated() {
-    return !!this.user && Object.keys(this.user).length > 0;
-  }
-
-  login(credentials) {
-    return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          yield this.API.request('POST', '/user/login', {}, credentials, true);
-          let user = yield this.fetch('me');
-          this.user = user;
-
-          // Add delay for navbar to trigger constructor and attach listener for this event.
-          this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_USER), 100);
-
-          return resolve();
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
-    });
-  }
-
-  logout() {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/logout', {}).then(() => {
-        this.user = {};
-        this.EventService.emit(this.EventService.events.CHANGE_USER);
-
-        return resolve();
-      }).catch(err => reject(err));
-    });
-  }
-
-  markNotification(username, notificationid, unread) {
-    return new Promise((resolve, reject) => {
-      this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  // send a reset password link to the users inbox
-  requestResetPassword(username) {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/reset-password', { username }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  // send a reset password link to the users inbox
-  resetPassword(username, password, token) {
-    return new Promise((resolve, reject) => {
-      this.API.request('POST', '/user/:username/reset-password/:token', { username, token }, { password }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  // resend the user verification email
-  resendVerification(username) {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/reverify', { username }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  signup(credentials) {
-    return new Promise((resolve, reject) => {
-      this.API.request('POST', '/user', {}, credentials).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  unfollowBranch(username, branchid) {
-    return new Promise((resolve, reject) => {
-      this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-
-  update(data) {
-    return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          // update self
-          yield this.API.update('/user/me', {}, data, true);
-          // fetch the updated self
-          this.user = yield this.fetch('me');
-
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
-
-          return resolve();
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
-    });
-  }
-
-  // verify user account
-  verify(username, token) {
-    return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/:username/verify/:token', { username, token }).then(resolve).catch(err => reject(err.data || err));
-    });
-  }
-}
-
-UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (UserService);
-
-/***/ }),
-/* 206 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29202,14 +28127,14 @@ class ComponentRegistrar {
 /* harmony default export */ __webpack_exports__["a"] = (ComponentRegistrar);
 
 /***/ }),
-/* 207 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(262);
+__webpack_require__(263);
 module.exports = 'ngFileUpload';
 
 /***/ }),
-/* 208 */
+/* 196 */
 /***/ (function(module, exports) {
 
 /**
@@ -33370,7 +32295,7 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 
 
 /***/ }),
-/* 209 */
+/* 197 */
 /***/ (function(module, exports) {
 
 module.exports = function unindent(text) {
@@ -33405,7 +32330,7 @@ module.exports = function unindent(text) {
 
 
 /***/ }),
-/* 210 */
+/* 198 */
 /***/ (function(module, exports) {
 
 /**
@@ -34167,7 +33092,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 211 */
+/* 199 */
 /***/ (function(module, exports) {
 
 /**
@@ -67544,7 +66469,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 212 */
+/* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67557,7 +66482,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_animate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_sanitize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_file_upload__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular_marked__);
@@ -67565,87 +66490,75 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular_cache__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_components_notification_config__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_filters__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_run__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_app_config__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_routes__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_services_api__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_app_service__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_services_branch__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_services_comment__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_services_event__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_services_mod__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_components_modal_service__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_services_post__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_components_tooltip_service__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_services_upload__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_services_user__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_controller__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_controller__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_branch_nucleus_about_controller__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_branch_nucleus_controller__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_branch_nucleus_flagged_posts_controller__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_branch_nucleus_moderators_controller__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_branch_nucleus_modtools_controller__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_pages_branch_nucleus_settings_controller__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_branch_post_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_pages_branch_post_results_controller__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_pages_branch_post_vote_controller__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_pages_branch_subbranches_controller__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_pages_branch_wall_controller__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_pages_profile_notifications_controller__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_components_tooltip_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_pages_home_home_controller__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_pages_auth_auth_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_pages_auth_verify_verify_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_pages_auth_reset_password_reset_password_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_pages_profile_profile_controller__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_pages_profile_settings_settings_controller__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_cover_photo_directive__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_controller__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_dropdown_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_list_item_directive__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_list_item_controller__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_loading_directive__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_nav_bar_controller__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_on_scroll_to_bottom_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_tooltip_directive__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_modal_upload_image_controller__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_alerts_alerts_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_tabs_tabs_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_tag_editor_tag_editor_directive__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_directive__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_comments_comments_controller__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_directive__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_comments_write_comment_write_comment_controller__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_chart_chart_directive__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_modal_directive__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_profile_settings_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_88_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_services_init__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_app_controller__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_pages_auth_controller__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_pages_branch_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_pages_branch_nucleus_about_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_pages_branch_nucleus_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_pages_branch_nucleus_flagged_posts_controller__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_pages_branch_nucleus_moderators_controller__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_pages_branch_nucleus_modtools_controller__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_pages_branch_nucleus_settings_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_pages_branch_post_controller__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_pages_branch_post_results_controller__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_post_vote_controller__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_pages_branch_subbranches_controller__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_wall_controller__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_home_controller__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_profile_controller__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_profile_notifications_controller__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_profile_settings_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_controller__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_controller__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_components_cover_photo_directive__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_components_cover_photo_controller__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_components_dropdown_directive__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_components_list_item_directive__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_components_list_item_controller__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_components_loading_directive__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_components_nav_bar_directive__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_components_nav_bar_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_components_on_scroll_to_bottom_directive__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_components_modal_profile_settings_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_tooltip_directive__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_modal_upload_image_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_alerts_alerts_directive__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_tabs_tabs_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_tabs_tabs_controller__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_notification_notification_item_directive__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_tag_editor_tag_editor_directive__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_comments_comments_directive__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_comments_comments_controller__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_comments_write_comment_write_comment_directive__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_comments_write_comment_write_comment_controller__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_chart_chart_directive__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_modal_modal_directive__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(147);
 // APP DEPENDENCIES
 
 
@@ -67678,7 +66591,7 @@ app.run(__WEBPACK_IMPORTED_MODULE_11_app_run__["a" /* default */]);
 
 // REGISTER COMPONENTS
 
-let registrar = new __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__["a" /* default */]('wecoApp');
+const registrar = new __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__["a" /* default */]('wecoApp');
 
 // Config
 
@@ -67689,32 +66602,7 @@ registrar.config(__WEBPACK_IMPORTED_MODULE_14_app_routes__["a" /* default */]);
 
 // SERVICES.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-registrar.service('AlertsService', __WEBPACK_IMPORTED_MODULE_15_components_alerts_alerts_service__["a" /* default */]);
-registrar.service('API', __WEBPACK_IMPORTED_MODULE_16_services_api__["a" /* default */]);
-registrar.service('AppService', __WEBPACK_IMPORTED_MODULE_17_app_service__["a" /* default */]);
-registrar.service('BranchService', __WEBPACK_IMPORTED_MODULE_18_services_branch__["a" /* default */]);
-registrar.service('CommentService', __WEBPACK_IMPORTED_MODULE_19_services_comment__["a" /* default */]);
-registrar.service('EventService', __WEBPACK_IMPORTED_MODULE_20_services_event__["a" /* default */]);
-registrar.service('ModService', __WEBPACK_IMPORTED_MODULE_21_services_mod__["a" /* default */]);
-registrar.service('ModalService', __WEBPACK_IMPORTED_MODULE_22_components_modal_service__["a" /* default */]);
-registrar.service('PostService', __WEBPACK_IMPORTED_MODULE_23_services_post__["a" /* default */]);
-registrar.service('TooltipService', __WEBPACK_IMPORTED_MODULE_24_components_tooltip_service__["a" /* default */]);
-registrar.service('UploadService', __WEBPACK_IMPORTED_MODULE_25_services_upload__["a" /* default */]);
-registrar.service('UserService', __WEBPACK_IMPORTED_MODULE_26_services_user__["a" /* default */]);
-registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_service__["a" /* default */]);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_15_services_init__["a" /* default */])(registrar);
 
 // Controllers
 
@@ -67733,34 +66621,33 @@ registrar.service('WallService', __WEBPACK_IMPORTED_MODULE_27_pages_branch_servi
 
 
 
-registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_28_app_controller__["a" /* default */]);
-registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_controller__["a" /* default */]);
-registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_30_pages_branch_nucleus_about_controller__["a" /* default */]);
-registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_31_pages_branch_nucleus_controller__["a" /* default */]);
-registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_32_pages_branch_nucleus_flagged_posts_controller__["a" /* default */]);
-registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_33_pages_branch_nucleus_moderators_controller__["a" /* default */]);
-registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_34_pages_branch_nucleus_modtools_controller__["a" /* default */]);
-registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_35_pages_branch_nucleus_settings_controller__["a" /* default */]);
-registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_36_pages_branch_post_controller__["a" /* default */]);
-registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_37_pages_branch_post_results_controller__["a" /* default */]);
-registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_38_pages_branch_post_vote_controller__["a" /* default */]);
-registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_39_pages_branch_subbranches_controller__["a" /* default */]);
-registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_40_pages_branch_wall_controller__["a" /* default */]);
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_41_pages_profile_notifications_controller__["a" /* default */]);
-registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_42_components_tooltip_controller__["a" /* default */]);
 
 
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_43_pages_home_home_controller__["a" /* default */]);
 
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_44_pages_auth_auth_controller__["a" /* default */]);
 
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_45_pages_auth_verify_verify_controller__["a" /* default */]);
 
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_46_pages_auth_reset_password_reset_password_controller__["a" /* default */]);
 
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_47_pages_profile_profile_controller__["a" /* default */]);
-
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_48_pages_profile_settings_settings_controller__["a" /* default */]);
+registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_16_app_controller__["a" /* default */]);
+registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_17_pages_auth_controller__["a" /* default */]);
+registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_18_pages_branch_controller__["a" /* default */]);
+registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_19_pages_branch_nucleus_about_controller__["a" /* default */]);
+registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_20_pages_branch_nucleus_controller__["a" /* default */]);
+registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_21_pages_branch_nucleus_flagged_posts_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_22_pages_branch_nucleus_moderators_controller__["a" /* default */]);
+registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_23_pages_branch_nucleus_modtools_controller__["a" /* default */]);
+registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_24_pages_branch_nucleus_settings_controller__["a" /* default */]);
+registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_25_pages_branch_post_controller__["a" /* default */]);
+registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_26_pages_branch_post_results_controller__["a" /* default */]);
+registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_27_pages_branch_post_vote_controller__["a" /* default */]);
+registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_28_pages_branch_subbranches_controller__["a" /* default */]);
+registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_wall_controller__["a" /* default */]);
+registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_30_pages_home_controller__["a" /* default */]);
+registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_31_pages_profile_controller__["a" /* default */]);
+registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_32_pages_profile_notifications_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_33_pages_profile_settings_controller__["a" /* default */]);
+registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_controller__["a" /* default */]);
+registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__["a" /* default */]);
+registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_controller__["a" /* default */]);
 
 // Components
 
@@ -67776,149 +66663,1265 @@ registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_48_p
 
 
 
-registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_49_components_cover_photo_directive__["a" /* default */]);
-registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_50_components_cover_photo_controller__["a" /* default */]);
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_51_components_dropdown_directive__["a" /* default */]);
-registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_52_components_list_item_directive__["a" /* default */]);
-registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_53_components_list_item_controller__["a" /* default */]);
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_54_components_loading_directive__["a" /* default */]);
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_55_components_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_56_components_nav_bar_controller__["a" /* default */]);
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_57_components_on_scroll_to_bottom_directive__["a" /* default */]);
-registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_58_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_59_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_60_components_modal_upload_image_controller__["a" /* default */]);
+
+registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_37_components_cover_photo_directive__["a" /* default */]);
+registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_38_components_cover_photo_controller__["a" /* default */]);
+registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_39_components_dropdown_directive__["a" /* default */]);
+registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_40_components_list_item_directive__["a" /* default */]);
+registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_41_components_list_item_controller__["a" /* default */]);
+registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_42_components_loading_directive__["a" /* default */]);
+registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_43_components_nav_bar_directive__["a" /* default */]);
+registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_44_components_nav_bar_controller__["a" /* default */]);
+registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_45_components_on_scroll_to_bottom_directive__["a" /* default */]);
+registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_47_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
+registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_46_components_modal_profile_settings_controller__["a" /* default */]);
+registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_48_components_tooltip_directive__["a" /* default */]);
+registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_49_components_modal_upload_image_controller__["a" /* default */]);
 
 
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_61_components_alerts_alerts_directive__["a" /* default */]);
-
-
-
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_62_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_63_components_tabs_tabs_controller__["a" /* default */]);
-
-
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_64_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_65_components_notification_notification_item_directive__["a" /* default */]);
-
-
-registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_66_components_tag_editor_tag_editor_directive__["a" /* default */]);
+registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_50_components_alerts_alerts_directive__["a" /* default */]);
 
 
 
-registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_67_components_comments_comments_directive__["a" /* default */]);
-registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_68_components_comments_comments_controller__["a" /* default */]);
+registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_51_components_tabs_tabs_directive__["a" /* default */]);
+registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_52_components_tabs_tabs_controller__["a" /* default */]);
+
+
+registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_53_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
+
+
+registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_54_components_notification_notification_item_directive__["a" /* default */]);
+
+
+registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_55_components_tag_editor_tag_editor_directive__["a" /* default */]);
 
 
 
-registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_69_components_comments_write_comment_write_comment_directive__["a" /* default */]);
-registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_70_components_comments_write_comment_write_comment_controller__["a" /* default */]);
+registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_56_components_comments_comments_directive__["a" /* default */]);
+registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_57_components_comments_comments_controller__["a" /* default */]);
 
 
 
-registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_71_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
-registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_72_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
-
-
-registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_73_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
-
-
-registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_74_components_chart_chart_directive__["a" /* default */]);
-
-
-registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_75_components_modal_modal_directive__["a" /* default */]);
+registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_58_components_comments_write_comment_write_comment_directive__["a" /* default */]);
+registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_59_components_comments_write_comment_write_comment_controller__["a" /* default */]);
 
 
 
-registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_76_components_modal_profile_settings_controller__["a" /* default */]);
+registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_60_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
+registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_61_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
 
 
-registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_77_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
+registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_62_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
 
-registrar.controller('AddModModalController', __WEBPACK_IMPORTED_MODULE_78_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('DeleteBranchModalController', __WEBPACK_IMPORTED_MODULE_79_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__["a" /* default */]);
+registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_63_components_chart_chart_directive__["a" /* default */]);
 
-registrar.controller('RemoveModModalController', __WEBPACK_IMPORTED_MODULE_80_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('ReviewSubbranchRequestsModalController', __WEBPACK_IMPORTED_MODULE_81_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__["a" /* default */]);
+registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_64_components_modal_modal_directive__["a" /* default */]);
 
-registrar.controller('SubmitSubbranchRequestModalController', __WEBPACK_IMPORTED_MODULE_82_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__["a" /* default */]);
 
-registrar.controller('UpdateHomepageStatsModalController', __WEBPACK_IMPORTED_MODULE_83_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__["a" /* default */]);
+registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_65_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
 
-registrar.controller('FlagPostModalController', __WEBPACK_IMPORTED_MODULE_84_components_modal_post_flag_flag_post_modal_controller__["a" /* default */]);
+registrar.controller('AddModModalController', __WEBPACK_IMPORTED_MODULE_66_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('CreatePostModalController', __WEBPACK_IMPORTED_MODULE_85_components_modal_post_create_create_post_modal_controller__["a" /* default */]);
+registrar.controller('DeleteBranchModalController', __WEBPACK_IMPORTED_MODULE_67_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__["a" /* default */]);
 
-registrar.controller('DeletePostModalController', __WEBPACK_IMPORTED_MODULE_86_components_modal_post_delete_delete_post_modal_controller__["a" /* default */]);
+registrar.controller('RemoveModModalController', __WEBPACK_IMPORTED_MODULE_68_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__["a" /* default */]);
 
-registrar.controller('ResolveFlagPostModalController', __WEBPACK_IMPORTED_MODULE_87_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__["a" /* default */]);
+registrar.controller('ReviewSubbranchRequestsModalController', __WEBPACK_IMPORTED_MODULE_69_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__["a" /* default */]);
 
-registrar.controller('CreateBranchModalController', __WEBPACK_IMPORTED_MODULE_88_components_modal_branch_create_create_branch_modal_controller__["a" /* default */]);
+registrar.controller('SubmitSubbranchRequestModalController', __WEBPACK_IMPORTED_MODULE_70_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__["a" /* default */]);
+
+registrar.controller('UpdateHomepageStatsModalController', __WEBPACK_IMPORTED_MODULE_71_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__["a" /* default */]);
+
+registrar.controller('FlagPostModalController', __WEBPACK_IMPORTED_MODULE_72_components_modal_post_flag_flag_post_modal_controller__["a" /* default */]);
+
+registrar.controller('CreatePostModalController', __WEBPACK_IMPORTED_MODULE_73_components_modal_post_create_create_post_modal_controller__["a" /* default */]);
+
+registrar.controller('DeletePostModalController', __WEBPACK_IMPORTED_MODULE_74_components_modal_post_delete_delete_post_modal_controller__["a" /* default */]);
+
+registrar.controller('ResolveFlagPostModalController', __WEBPACK_IMPORTED_MODULE_75_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__["a" /* default */]);
+
+registrar.controller('CreateBranchModalController', __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_create_create_branch_modal_controller__["a" /* default */]);
+
+/***/ }),
+/* 201 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AppService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AppService.$inject, injections);
+    this.isSidebarOpen = false;
+  }
+
+  getProxyUrl(url) {
+    // only proxy http requests, not https
+    return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+}
+
+AppService.$inject = ['ENV'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AppService);
+
+/***/ }),
+/* 202 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AlertsService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AlertsService.$inject, injections);
+
+    this.queue = [];
+    this.duration = 5000;
+  }
+
+  purge() {
+    this.queue = this.queue.filter(function (alert) {
+      return alert.alive === true;
+    });
+  }
+
+  close(idx) {
+    if (this.queue[idx]) {
+      this.queue[idx].alive = false;
+    }
+    this.$timeout(() => {
+      this.purge();
+    }, 600);
+  }
+
+  push(type, text, persist) {
+    let alert = {
+      type: type,
+      text: text,
+      alive: true
+    };
+    this.$timeout(() => {
+      this.queue = [alert].concat(this.queue);
+      if (!persist) {
+        this.$timeout(() => {
+          this.close(0);
+        }, this.duration);
+      }
+    });
+  }
+}
+AlertsService.$inject = ['$timeout'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AlertsService);
+
+/***/ }),
+/* 203 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ModalService.$inject, injections);
+
+    this.isOpen = false;
+    this.inputArgs = {};
+    this.name = '';
+    this.outputArgs = {};
+    this.reject = _ => {};
+    this.resolve = _ => {};
+    this.templateUrl = '';
+    this.templateUrls = {
+      ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
+      BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/view.html',
+      CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
+      CREATE_POST: '/app/components/modal/post/create/view.html',
+      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/view.html',
+      DELETE_POST: '/app/components/modal/post/delete/view.html',
+      FLAG_POST: '/app/components/modal/post/flag/view.html',
+      PROFILE_SETTINGS: '/app/components/modal/profile/settings/view.html',
+      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/view.html',
+      RESOLVE_FLAG_POST: '/app/components/modal/post/flag/resolve/view.html',
+      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/view.html',
+      SUBMIT_POLL_ANSWER: '/app/components/modal/post/submit-poll-answer/view.html',
+      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/view.html',
+      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/view.html',
+      UPLOAD_IMAGE: '/app/components/modal/upload-image/view.html'
+    };
+    this.names = Object.keys(this.templateUrls);
+  }
+
+  Cancel(args) {
+    this.finished(args, false);
+  }
+
+  Error() {
+    this.name = '';
+    this.reject();
+  }
+
+  finished(args, success) {
+    this.$timeout(_ => {
+      this.isOpen = false;
+      if (args) {
+        this.outputArgs = args;
+      }
+      this.name = '';
+      this.resolve(success);
+    });
+  }
+
+  OK(args) {
+    this.finished(args, true);
+  }
+
+  open(name, args, successMessage, errorMessage) {
+    this.name = name;
+    // force change the template url so that controllers included on
+    // the template are reloaded
+    this.templateUrl = '';
+    this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
+    this.isOpen = true;
+    this.inputArgs = args;
+    this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
+
+    new Promise((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject = reject;
+    }).then(result => {
+      // force reload if OK was pressed
+      if (result) {
+        this.$state.go(this.$state.current, {}, { reload: true });
+        this.AlertsService.push('success', successMessage);
+      }
+    }).catch(_ => this.AlertsService.push('error', errorMessage));
+  }
+}
+
+ModalService.$inject = ['$state', '$timeout', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ModalService);
+
+/***/ }),
+/* 204 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class TooltipService {
+  constructor() {
+    this.text = '';
+    this.visible = false;
+    this.x = 0;
+    this.y = 0;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (TooltipService);
+
+/***/ }),
+/* 205 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(WallService.$inject, injections);
+
+    this.controls = {
+      postType: {
+        items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
+        selectedIndex: 0
+      },
+      sortBy: {
+        items: ['total points', '# of comments', 'date posted'],
+        selectedIndex: 2
+      },
+      statType: {
+        items: ['global', 'local', 'branch'],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+        selectedIndex: 0
+      }
+    };
+    this.flaggedOnly = false;
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.posts = [];
+
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if ('WallScrollToBottom' !== name) return;
+
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+
+        if (this.posts.length) {
+          this.getPosts(this.posts[this.posts.length - 1].id);
+        }
+      }
+    });
+  }
+
+  getPosts(lastPostId) {
+    if (this.isLoading === true) return;
+
+    // We are fetching a new set of posts, hide the cached ones.
+    if (!lastPostId) {
+      this.posts = [];
+    }
+
+    this.isLoading = true;
+
+    const postType = this.getPostType();
+    const sortBy = this.getSortBy();
+    const statType = this.getStatType();
+    const timeafter = this.getTimeafter();
+
+    // fetch the posts for this branch and timefilter
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
+      this.$timeout(_ => {
+        // If lastPostId was specified, we are fetching more posts, so append them.
+        this.posts = lastPostId ? this.posts.concat(posts) : posts;
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(_ => {
+      this.AlertsService.push('error', 'Error fetching posts.');
+      this.isLoading = false;
+    });
+  }
+
+  getPostType() {
+    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
+
+    switch (key.toLowerCase()) {
+      case 'images':
+        return 'image';
+
+      case 'videos':
+        return 'video';
+
+      case 'pages':
+        return 'page';
+
+      case 'polls':
+        return 'poll';
+
+      default:
+        return key;
+    }
+  }
+
+  getSortBy() {
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'total points':
+        return 'points';
+
+      case 'date posted':
+        return 'date';
+
+      case '# of comments':
+        return 'comment_count';
+
+      default:
+        return 'points';
+    }
+  }
+
+  getStatType() {
+    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
+
+    switch (key.toLowerCase()) {
+      case 'global':
+        return 'global';
+
+      case 'local':
+        return 'local';
+
+      case 'branch':
+        return 'individual';
+
+      default:
+        return key;
+    }
+  }
+
+  // compute the appropriate timeafter for the selected time filter
+  getTimeafter() {
+    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+      case 'past year':
+        return new Date().setFullYear(new Date().getFullYear() - 1);
+
+      case 'past month':
+        return new Date().setMonth(new Date().getMonth() - 1);
+
+      case 'past week':
+        return new Date().setDate(new Date().getDate() - 7);
+
+      case 'past 24 hrs':
+        return new Date().setDate(new Date().getDate() - 1);
+
+      case 'past hour':
+        return new Date().setHours(new Date().getHours() - 1);
+
+      case 'all time':
+      default:
+        return 0;
+    }
+  }
+
+  // This is also called from `/wall` and `/nucleus` controllers.
+  init(allowedState, flaggedOnly) {
+    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
+      return;
+    }
+
+    this.flaggedOnly = !!flaggedOnly;
+
+    if (this.flaggedOnly) {
+      this.controls.sortBy.selectedIndex = 2;
+    }
+
+    this.getPosts();
+  }
+}
+
+WallService.$inject = ['$rootScope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (WallService);
+
+/***/ }),
+/* 206 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(API.$inject, injections);
+  }
+
+  delete(url, params, data, urlFormEncode) {
+    return this.request('DELETE', url, params, data, urlFormEncode);
+  }
+
+  fetch(url, params, data, urlFormEncode) {
+    return this.get(url, params, data, urlFormEncode);
+  }
+
+  get(url, params, data, urlFormEncode) {
+    return this.request('GET', url, params, data, urlFormEncode);
+  }
+
+  // Params: data, headersGetter
+  makeFormEncoded(data) {
+    let str = [];
+    for (let d in data) {
+      str.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    }
+    return str.join('&');
+  }
+
+  normaliseResponse(data, headersGetter, status) {
+    try {
+      data = JSON.parse(data);
+      data.status = status;
+      return data;
+    } catch (e) {
+      return data;
+    }
+  }
+
+  post(url, params, data, urlFormEncode) {
+    return this.request('POST', url, params, data, urlFormEncode);
+  }
+
+  put(url, params, data, urlFormEncode) {
+    return this.request('PUT', url, params, data, urlFormEncode);
+  }
+
+  remove(url, params, data, urlFormEncode) {
+    return this.delete(url, params, data, urlFormEncode);
+  }
+
+  request(method, url, params, data, urlFormEncode) {
+    return new Promise((resolve, reject) => {
+      // ensure url has a leading slash
+      if (url[0] !== '/') {
+        url = '/' + url;
+      }
+
+      // replace :params in the url with their specified values
+      for (let paramName of Object.keys(params)) {
+        url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
+      }
+
+      url = this.ENV.apiEndpoint + url;
+
+      // make the request
+      let req = {
+        method,
+        transformResponse: this.normaliseResponse,
+        url
+      };
+
+      if (!!urlFormEncode) {
+        req.headers = {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        req.transformRequest = this.makeFormEncoded;
+      } else {
+        req.headers = {
+          'Content-Type': 'application/json'
+        };
+      }
+
+      if ('PUT' === method || 'POST' === method) {
+        req.data = data;
+      }
+
+      if ('GET' === method || 'DELETE' === method) {
+        req.params = data;
+      }
+
+      this.$http(req).then(res => resolve(res.data || res)).catch(reject);
+    });
+  }
+
+  save(url, params, data, urlFormEncode) {
+    return this.post(url, params, data, urlFormEncode);
+  }
+
+  update(url, params, data, urlFormEncode) {
+    return this.put(url, params, data, urlFormEncode);
+  }
+}
+
+API.$inject = ['$http', 'ENV'];
+
+/* harmony default export */ __webpack_exports__["a"] = (API);
+
+/***/ }),
+/* 207 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
+
+
+
+class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchService.$inject, injections);
+    this.branch = {};
+
+    let fetchingBranch = false;
+
+    const updateBranch = _ => {
+      console.log('updating branch...');
+
+      if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
+        fetchingBranch = true;
+
+        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
+          if (err.status === 404) {
+            this.$state.go('weco.notfound');
+          } else {
+            this.AlertsService.push('error', 'Unable to fetch branch.');
+          }
+        }).then(_ => {
+          this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
+          fetchingBranch = false;
+        });
+      }
+    };
+
+    updateBranch();
+
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
+  }
+
+  actionSubbranchRequest(action, branchid, childid) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch', {}, data).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  fetch(branchid) {
+    return new Promise((resolve, reject) => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        try {
+          let res = yield this.API.fetch('/branch/:branchid', { branchid });
+          let branch = res.data;
+
+          //console.log(branch);
+
+          // attach parent branch
+          if ('root' === branch.parentid || 'none' === branch.parentid) {
+            branch.parent = {
+              id: branch.parentid
+            };
+          } else {
+            res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            //console.log(res.data);
+            branch.parent = res.data;
+          }
+
+          delete branch.parentid;
+
+          // attach moderator list
+          branch.mods = yield this.ModService.fetchByBranch(branch.id);
+
+          return resolve(branch);
+        } catch (err) {
+          return reject(err.data || err);
+        }
+      }, this);
+    });
+  }
+
+  getModLog(branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/branch/:branchid/modlog', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
+    return new Promise((resolve, reject) => {
+      let params = {
+        flag: !!flag,
+        postType,
+        sortBy,
+        stat,
+        timeafter
+      };
+
+      if (lastPostId) {
+        params.lastPostId = lastPostId;
+      }
+
+      this.API.fetch('/branch/:branchid/posts', { branchid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
+    return new Promise((resolve, reject) => {
+      let params = { sortBy, timeafter };
+
+      if (lastBranchId) {
+        params.lastBranchId = lastBranchId;
+      }
+
+      this.API.fetch('/branch/:branchid/subbranches', { branchid }, params).then(res => resolve(res.data), true).catch(err => reject(err.data || err));
+    });
+  }
+
+  getSubbranchRequests(branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  remove(branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/branch/:branchid', { branchid }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  resolveFlaggedPost(branchid, postid, action, data, message) {
+    return new Promise((resolve, reject) => {
+      let body = { action, message };
+
+      body['change_type' === action ? 'type' : 'reason'] = data;
+
+      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  submitSubbranchRequest(branchid, childid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  update(branchid, data) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/branch/:branchid', { branchid }, data, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+}
+
+BranchService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'EventService', 'ModService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchService);
+
+/***/ }),
+/* 208 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CommentService.$inject, injections);
+  }
+
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/post/:postid/comments', { postid: data.postid }, data)
+      // pass on the returned commentid
+      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  fetch(postid, commentid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(comment => {
+        if (!comment || !comment.data) {
+          return reject();
+        }
+
+        return resolve(comment.data);
+      }).catch(err => reject(err.data || err));
+    });
+  }
+
+  // get the comments on a post or replies to another comment
+  getMany(postid, parentid, sort, lastCommentId) {
+    return new Promise((resolve, reject) => {
+      let params = { parentid, sort };
+
+      if (lastCommentId) {
+        params.lastCommentId = lastCommentId;
+      }
+
+      this.API.fetch('/post/:postid/comments', { postid }, params).then(comments => resolve(comments.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  update(postid, commentid, text) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { text }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  vote(postid, commentid, vote) {
+    return new Promise((resolve, reject) => {
+      if (vote !== 'up' && vote !== 'down') {
+        return reject();
+      }
+
+      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+}
+
+CommentService.$inject = ['API'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CommentService);
+
+/***/ }),
+/* 209 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(EventService.$inject, injections);
+
+    this.events = {
+      CHANGE_BRANCH: 'CHANGE_BRANCH',
+      CHANGE_POST: 'CHANGE_POST',
+      CHANGE_USER: 'CHANGE_USER',
+      MODAL_CANCEL: 'MODAL_CANCEL',
+      MODAL_OK: 'MODAL_OK',
+      MODAL_OPEN: 'MODAL_OPEN',
+      SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
+      STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
+      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
+    };
+  }
+
+  emit(event, args) {
+    for (let i in this.events) {
+      if (this.events[i] === event) {
+        return this.$rootScope.$broadcast(event, args);
+      }
+    }
+  }
+
+  // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
+  on(event, callback) {
+    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
+  }
+}
+
+EventService.$inject = ['$rootScope', '$timeout'];
+
+/* harmony default export */ __webpack_exports__["a"] = (EventService);
+
+/***/ }),
+/* 210 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+//import Generator from 'utils/generator';
+
+class ModService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ModService.$inject, injections);
+  }
+
+  create(branchid, username) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/branch/:branchid/mods', { branchid }, { username }).then(resolve).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+
+  fetchByBranch(branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/branch/:branchid/mods', { branchid }).then(res => {
+        return resolve(res.data);
+      }).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+
+  remove(branchid, username) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/branch/:branchid/mods/:username', { branchid, username }).then(resolve).catch(err => {
+        return reject(err.data || err);
+      });
+    });
+  }
+}
+
+ModService.$inject = ['API'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ModService);
+
+/***/ }),
+/* 211 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
+
+
+
+class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(PostService.$inject, injections);
+
+    this.post = {};
+
+    const updatePost = _ => {
+      if (!this.$state.current.name.includes('weco.branch.post')) {
+        return;
+      }
+
+      this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
+        if (404 === err.status) {
+          this.$state.go('weco.notfound');
+        } else {
+          this.AlertsService.push('error', 'Unable to fetch post.');
+        }
+      }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
+    };
+
+    updatePost();
+
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updatePost);
+  }
+
+  create(data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/post', {}, data)
+      // pass on the returned postid
+      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  createPollAnswer(postid, data) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/poll/:postid/answer', { postid }, data).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  delete(postid) {
+    return new Promise((resolve, reject) => {
+      this.API.remove('/post/:postid', { postid }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  fetch(postid) {
+    return new Promise((resolve, reject) => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        try {
+          let res = yield this.API.fetch('/post/:postid', { postid }, {});
+
+          if (!res && !res.data) {
+            return reject();
+          }
+
+          let post = res.data;
+
+          try {
+            res = yield this.API.fetch('/post/:postid/picture', { postid }, {});
+            post.profileUrl = res.data;
+          } catch (e) {/* It's okay if we don't have any photos */}
+
+          try {
+            res = yield this.API.fetch('/post/:postid/picture-thumb', { postid }, {});
+            post.profileUrlThumb = res.data;
+          } catch (e) {/* It's okay if we don't have any photos */}
+
+          return resolve(post);
+        } catch (err) {
+          return reject(err.data || err);
+        }
+      }, this);
+    });
+  }
+
+  flag(postid, branchid, flag_type) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  getPictureUrl(postid, thumbnail) {
+    return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
+  }
+
+  getPollAnswers(postid, sortBy, lastAnswerId) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  vote(branchid, postid, vote) {
+    return new Promise((resolve, reject) => {
+      if (vote !== 'up' && vote !== 'down') {
+        return reject();
+      }
+
+      this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  votePollAnswer(postid, answerid) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+}
+
+PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (PostService);
+
+/***/ }),
+/* 212 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class UploadService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(UploadService.$inject, injections);
+
+    this.isUploading = false;
+    this.progress = 0;
+  }
+
+  fetchUploadUrl(route) {
+    return new Promise((resolve, reject) => {
+      // fetch a presigned URL to which we can upload an image
+      this.API.fetch('/:route', { route: `${route}-upload-url` }).then(res => {
+        if (!res.data) {
+          throw new Error();
+        }
+
+        return resolve(res.data);
+      }).catch(reject);
+    });
+  }
+
+  uploadImage(data, url) {
+    return new Promise((resolve, reject) => {
+      if (!data) {
+        return reject();
+      }
+
+      this.isUploading = true;
+      this.progress = 0;
+
+      this.Upload.http({
+        url,
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'image/*'
+        },
+        data
+      }).then(_ => {
+        this.isUploading = false;
+        this.progress = 0;
+        return resolve();
+      }, _ => {
+        // error
+        this.isUploading = false;
+        this.progress = 0;
+        return reject();
+      }, e => {
+        // progress
+        this.progress = Math.min(100, parseInt(100.0 * e.loaded / e.total));
+      });
+    });
+  }
+}
+
+UploadService.$inject = ['API', 'Upload'];
+
+/* harmony default export */ __webpack_exports__["a"] = (UploadService);
 
 /***/ }),
 /* 213 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
+
+
+
+class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(UserService.$inject, injections);
+    this.user = {};
+
+    this.fetch('me').then(user => this.user = user).catch(_ => {}).then(this.$timeout).then(_ => this.EventService.emit(this.EventService.events.CHANGE_USER));
+  }
+
+  fetch(username) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/user/:username', { username }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  followBranch(username, branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.save('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  getNotifications(username, unreadCount, lastNotificationId) {
+    return new Promise((resolve, reject) => {
+      this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+    });
+  }
+
+  isAuthenticated() {
+    return !!this.user && Object.keys(this.user).length > 0;
+  }
+
+  login(credentials) {
+    return new Promise((resolve, reject) => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        try {
+          yield this.API.request('POST', '/user/login', {}, credentials, true);
+          let user = yield this.fetch('me');
+          this.user = user;
+
+          // Add delay for navbar to trigger constructor and attach listener for this event.
+          this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_USER), 100);
+
+          return resolve();
+        } catch (err) {
+          return reject(err.data || err);
+        }
+      }, this);
+    });
+  }
+
+  logout() {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/logout', {}).then(() => {
+        this.user = {};
+        this.EventService.emit(this.EventService.events.CHANGE_USER);
+
+        return resolve();
+      }).catch(err => reject(err));
+    });
+  }
+
+  markNotification(username, notificationid, unread) {
+    return new Promise((resolve, reject) => {
+      this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  // send a reset password link to the users inbox
+  requestResetPassword(username) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/reset-password', { username }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  // send a reset password link to the users inbox
+  resetPassword(username, password, token) {
+    return new Promise((resolve, reject) => {
+      this.API.request('POST', '/user/:username/reset-password/:token', { username, token }, { password }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  // resend the user verification email
+  resendVerification(username) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/reverify', { username }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  signup(credentials) {
+    return new Promise((resolve, reject) => {
+      this.API.request('POST', '/user', {}, credentials).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  unfollowBranch(username, branchid) {
+    return new Promise((resolve, reject) => {
+      this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+
+  update(data) {
+    return new Promise((resolve, reject) => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+        try {
+          // update self
+          yield this.API.update('/user/me', {}, data, true);
+          // fetch the updated self
+          this.user = yield this.fetch('me');
+
+          this.EventService.emit(this.EventService.events.CHANGE_USER);
+
+          return resolve();
+        } catch (err) {
+          return reject(err.data || err);
+        }
+      }, this);
+    });
+  }
+
+  // verify user account
+  verify(username, token) {
+    return new Promise((resolve, reject) => {
+      this.API.request('GET', '/user/:username/verify/:token', { username, token }).then(resolve).catch(err => reject(err.data || err));
+    });
+  }
+}
+
+UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (UserService);
+
+/***/ }),
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @namespace Chart
  */
-var Chart = __webpack_require__(234)();
+var Chart = __webpack_require__(235)();
 
+__webpack_require__(233)(Chart);
+__webpack_require__(247)(Chart);
+__webpack_require__(229)(Chart);
 __webpack_require__(232)(Chart);
-__webpack_require__(246)(Chart);
+__webpack_require__(237)(Chart);
 __webpack_require__(228)(Chart);
+__webpack_require__(230)(Chart);
 __webpack_require__(231)(Chart);
 __webpack_require__(236)(Chart);
-__webpack_require__(227)(Chart);
-__webpack_require__(229)(Chart);
-__webpack_require__(230)(Chart);
-__webpack_require__(235)(Chart);
-__webpack_require__(238)(Chart);
 __webpack_require__(239)(Chart);
-__webpack_require__(237)(Chart);
-__webpack_require__(233)(Chart);
 __webpack_require__(240)(Chart);
-
+__webpack_require__(238)(Chart);
+__webpack_require__(234)(Chart);
 __webpack_require__(241)(Chart);
+
 __webpack_require__(242)(Chart);
 __webpack_require__(243)(Chart);
 __webpack_require__(244)(Chart);
+__webpack_require__(245)(Chart);
 
-__webpack_require__(252)(Chart);
-__webpack_require__(250)(Chart);
-__webpack_require__(251)(Chart);
 __webpack_require__(253)(Chart);
+__webpack_require__(251)(Chart);
+__webpack_require__(252)(Chart);
 __webpack_require__(254)(Chart);
 __webpack_require__(255)(Chart);
+__webpack_require__(256)(Chart);
 
 // Controllers must be loaded after elements
 // See Chart.core.datasetController.dataElementType
-__webpack_require__(221)(Chart);
 __webpack_require__(222)(Chart);
 __webpack_require__(223)(Chart);
 __webpack_require__(224)(Chart);
 __webpack_require__(225)(Chart);
 __webpack_require__(226)(Chart);
+__webpack_require__(227)(Chart);
 
-__webpack_require__(214)(Chart);
 __webpack_require__(215)(Chart);
 __webpack_require__(216)(Chart);
 __webpack_require__(217)(Chart);
 __webpack_require__(218)(Chart);
 __webpack_require__(219)(Chart);
 __webpack_require__(220)(Chart);
+__webpack_require__(221)(Chart);
 
 // Loading built-it plugins
 var plugins = [];
 
 plugins.push(
-    __webpack_require__(247)(Chart),
     __webpack_require__(248)(Chart),
-    __webpack_require__(249)(Chart)
+    __webpack_require__(249)(Chart),
+    __webpack_require__(250)(Chart)
 );
 
 Chart.plugins.register(plugins);
@@ -67930,7 +67933,7 @@ if (typeof window !== 'undefined') {
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67948,7 +67951,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67965,7 +67968,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67983,7 +67986,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68001,7 +68004,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68019,7 +68022,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68037,7 +68040,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68091,7 +68094,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68481,7 +68484,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68610,7 +68613,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68920,7 +68923,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69260,7 +69263,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69490,7 +69493,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69664,7 +69667,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69839,7 +69842,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69996,7 +69999,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70854,7 +70857,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71191,7 +71194,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71317,7 +71320,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72308,7 +72311,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72631,7 +72634,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72694,7 +72697,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73137,7 +73140,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73515,7 +73518,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74279,7 +74282,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74330,7 +74333,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74545,7 +74548,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75490,7 +75493,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75601,7 +75604,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75695,7 +75698,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75802,7 +75805,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76017,7 +76020,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76307,7 +76310,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76315,7 +76318,7 @@ module.exports = function(Chart) {
 
 // By default, select the browser (DOM) platform.
 // @TODO Make possible to select another platform at build time.
-var implementation = __webpack_require__(245);
+var implementation = __webpack_require__(246);
 
 module.exports = function(Chart) {
 	/**
@@ -76383,7 +76386,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76699,7 +76702,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77250,7 +77253,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77483,7 +77486,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77622,7 +77625,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77819,7 +77822,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77932,7 +77935,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78185,7 +78188,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78715,7 +78718,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79164,11 +79167,11 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(259);
+var colorNames = __webpack_require__(260);
 
 module.exports = {
    getRgba: getRgba,
@@ -79391,7 +79394,7 @@ for (var name in colorNames) {
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports) {
 
 /* MIT license */
@@ -80095,10 +80098,10 @@ for (var key in cssKeywords) {
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(257);
+var conversions = __webpack_require__(258);
 
 var convert = function() {
    return new Converter();
@@ -80192,7 +80195,7 @@ Converter.prototype.getValues = function(space) {
 module.exports = convert;
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -80347,7 +80350,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -81637,10 +81640,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(263)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264)))
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -81889,10 +81892,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 261;
+webpackContext.id = 262;
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports) {
 
 /**!
@@ -84796,7 +84799,7 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports) {
 
 var g;
@@ -84823,7 +84826,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {

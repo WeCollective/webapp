@@ -9,6 +9,8 @@ class BranchService extends Injectable {
     let fetchingBranch = false;
 
     const updateBranch = _ => {
+      console.log('updating branch...');
+
       if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
         fetchingBranch = true;
 
