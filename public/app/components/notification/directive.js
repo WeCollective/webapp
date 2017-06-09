@@ -1,5 +1,5 @@
 import Injectable from 'utils/injectable';
-import NotificationTypes from 'components/notification/config';
+import NotificationTypes from 'components/notification/constants';
 
 class NotificationComponent extends Injectable {
   constructor (...injections) {

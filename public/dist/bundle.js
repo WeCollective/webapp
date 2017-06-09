@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 200);
+/******/ 	return __webpack_require__(__webpack_require__.s = 143);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(262)("./" + name);
+            __webpack_require__(265)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4534,7 +4534,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(265)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(268)(module)))
 
 /***/ }),
 /* 1 */
@@ -4562,7 +4562,7 @@ class Injectable {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(199);
+__webpack_require__(141);
 module.exports = angular;
 
 
@@ -4610,26 +4610,27 @@ class Generator {
 
 "use strict";
 // configure notification type constants (matches server)
-const NotificationTypes = {
-  'NEW_CHILD_BRANCH_REQUEST': 0,
-  'CHILD_BRANCH_REQUEST_ANSWERED': 1,
-  'BRANCH_MOVED': 2,
-  'MODERATOR': 3,
-  'COMMENT': 4,
-  'POST_FLAGGED': 5,
-  'POST_REMOVED': 6,
-  'POST_TYPE_CHANGED': 7,
-  'POST_MARKED_NSFW': 8
+const constants = {
+  NEW_CHILD_BRANCH_REQUEST: 0,
+  CHILD_BRANCH_REQUEST_ANSWERED: 1,
+  BRANCH_MOVED: 2,
+  MODERATOR: 3,
+  COMMENT: 4,
+  POST_FLAGGED: 5,
+  POST_REMOVED: 6,
+  POST_TYPE_CHANGED: 7,
+  POST_MARKED_NSFW: 8
 };
-/* harmony default export */ __webpack_exports__["a"] = (NotificationTypes);
+
+/* harmony default export */ __webpack_exports__["a"] = (constants);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var convert = __webpack_require__(259);
-var string = __webpack_require__(257);
+var convert = __webpack_require__(262);
+var string = __webpack_require__(260);
 
 var Color = function (obj) {
 	if (obj instanceof Color) {
@@ -16198,7 +16199,7 @@ return zhTw;
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(196);
+__webpack_require__(138);
 module.exports = 'ngAnimate';
 
 
@@ -18633,7 +18634,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 
-var unindent = __webpack_require__(197);
+var unindent = __webpack_require__(139);
 
   /**
    * @ngdoc overview
@@ -18813,7 +18814,7 @@ function markedProvider() {
     var m;
 
     try {
-      m = __webpack_require__(261);
+      m = __webpack_require__(264);
     } catch (err) {
       m = $window.marked || marked;
     }
@@ -18977,7 +18978,7 @@ module.exports =
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(198);
+__webpack_require__(140);
 module.exports = 'ngSanitize';
 
 
@@ -23647,34 +23648,6 @@ AppConfig.$inject = ['$sceDelegateProvider', 'AnalyticsProvider', 'CacheFactoryP
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class AppController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AppController.$inject, injections);
-
-    this.socketioURL = `${this.ENV.apiEndpoint}socket.io/socket.io.js`;
-  }
-
-  hasNavBar() {
-    if (this.$state.current.name.includes('auth') || this.$state.current.name.includes('verify') || this.$state.current.name.includes('reset-password')) {
-      return false;
-    }
-
-    return true;
-  }
-}
-
-AppController.$inject = ['$state', 'ENV', 'TooltipService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AppController);
-
-/***/ }),
-/* 129 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 
@@ -23697,7 +23670,7 @@ const AppFilters = {
 /* harmony default export */ __webpack_exports__["a"] = (AppFilters);
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23919,7 +23892,7 @@ AppRoutes.$inject = ['$httpProvider', '$locationProvider', '$stateProvider', '$u
 /* harmony default export */ __webpack_exports__["a"] = (AppRoutes);
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23999,2459 +23972,16 @@ AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (AppRun);
 
 /***/ }),
+/* 131 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#227692', '#7174ab', '#2c4a6e'];
+
+/* harmony default export */ __webpack_exports__["a"] = (constants);
+
+/***/ }),
 /* 132 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class AlertsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AlertsComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
-    this.templateUrl = '/app/components/alerts/view.html';
-  }
-
-  link(scope) {
-    scope.AlertsService = this.AlertsService;
-  }
-}
-
-AlertsComponent.$inject = ['AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AlertsComponent);
-
-/***/ }),
-/* 133 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_chart_js__);
-
-
-
-class ChartComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ChartComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {
-      type: '=',
-      chartData: '=',
-      labels: '=',
-      colors: '=',
-      options: '='
-    };
-    this.template = '<div class="chart"><canvas></canvas></div>';
-  }
-
-  link(scope, element) {
-    let redrawChart = () => {
-      if (scope.chart) scope.chart.destroy();
-      scope.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js___default.a(element[0].querySelector('canvas'), {
-        type: scope.type,
-        data: {
-          labels: scope.labels,
-          datasets: [{
-            data: scope.chartData,
-            backgroundColor: scope.colors || this.ChartColours,
-            hoverBackgroundColor: scope.colors || this.ChartColours
-          }]
-        },
-        options: scope.options
-      });
-    };
-
-    scope.$watch('chartData', redrawChart);
-    scope.$watch('labels', redrawChart);
-    scope.$watch('colors', redrawChart);
-    scope.$watch('options', redrawChart);
-    scope.$watch('type', redrawChart);
-    redrawChart();
-  }
-}
-
-ChartComponent.$inject = ['$compile', 'ChartColours'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
-
-/***/ }),
-/* 134 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CommentThreadController.$inject, injections);
-
-    this.openComment = undefined; // the comment which is being replied to
-  }
-
-  openReply(comment, isEdit) {
-    this.$timeout(() => {
-      if (this.openComment && this.openComment.meta) {
-        this.openComment.meta.openReply = false;
-      }
-      this.openComment = comment;
-      this.openComment.meta = {
-        openReply: true,
-        update: isEdit
-      };
-    });
-  }
-
-  closeReply() {
-    this.$timeout(() => {
-      this.openComment.meta = {
-        openReply: false,
-        update: false
-      };
-    });
-  }
-
-  // Params: comment
-  onSubmitComment() {
-    if (this.openComment.meta.update) {
-      // if the comment was edited
-      // reload the comment data
-      this.CommentService.fetch(this.openComment.postid, this.openComment.id).then(response => {
-        this.$timeout(() => {
-          // copy keys over so not to destroy 'openComment' object reference to 'comment' in the comments array
-          for (let key in response) this.openComment[key] = response[key];
-          this.closeReply();
-        });
-      }).catch(() => {
-        this.AlertsService.push('error', 'Unable to reload comment!');
-        this.closeReply();
-      });
-    } else {
-      // if the comment was replied to
-      // load the replies
-      this.loadMore(this.openComment);
-      this.closeReply();
-    }
-  }
-
-  timeSince(date) {
-    let msPerMinute = 60 * 1000;
-    let msPerHour = msPerMinute * 60;
-    let msPerDay = msPerHour * 24;
-    let msPerMonth = msPerDay * 30;
-    let msPerYear = msPerDay * 365;
-
-    let elapsed = new Date().getTime() - new Date(date);
-
-    if (elapsed < msPerMinute) {
-      return Math.round(elapsed / 1000) + ' seconds ago';
-    }
-    if (elapsed < msPerHour) {
-      return Math.round(elapsed / msPerMinute) + ' minutes ago';
-    }
-    if (elapsed < msPerDay) {
-      return Math.round(elapsed / msPerHour) + ' hours ago';
-    }
-    if (elapsed < msPerMonth) {
-      return Math.round(elapsed / msPerDay) + ' days ago';
-    }
-    if (elapsed < msPerYear) {
-      return Math.round(elapsed / msPerMonth) + ' months ago';
-    }
-    return Math.round(elapsed / msPerYear) + ' years ago';
-  }
-
-  loadMore(comment) {
-    let lastCommentId = null;
-    if (comment.comments && comment.comments.length > 0) lastCommentId = comment.comments[comment.comments.length - 1].id;
-
-    // fetch the replies to this comment, or just the number of replies
-    this.CommentService.getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId).then(comments => {
-      this.$timeout(() => {
-        // if lastCommentId was specified we are fetching _more_ comments, so append them
-        if (lastCommentId) {
-          comment.comments = comment.comments.concat(comments);
-        } else {
-          comment.comments = comments;
-        }
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to get replies!');
-    });
-  }
-
-  vote(comment, direction) {
-    this.CommentService.vote(comment.postid, comment.id, direction).then(() => {
-      let inc = direction === 'up' ? 1 : -1;
-      this.$timeout(() => {
-        comment.individual += inc;
-      });
-      this.AlertsService.push('success', 'Thanks for voting!');
-    }).catch(err => {
-      if (err.status === 400) {
-        this.AlertsService.push('error', 'You have already voted on this comment.');
-      } else if (err.status === 403) {
-        this.AlertsService.push('error', 'Please log in or create an account to vote.');
-      } else {
-        this.AlertsService.push('error', 'Error voting on comment.');
-      }
-    });
-  }
-
-  isOwnComment(comment) {
-    if (!this.UserService.user || !comment.data) {
-      return false;
-    }
-    return this.UserService.user.username === comment.data.creator;
-  }
-
-  openCommentPermalink(comment) {
-    this.$state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
-  }
-}
-CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'UserService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
-
-/***/ }),
-/* 135 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CommentThreadComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CommentThreadComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = false;
-    this.scope = {};
-    this.bindToController = {
-      comments: '=',
-      sortBy: '='
-    };
-    this.templateUrl = '/app/components/comments/comment-thread/view.html';
-    this.controller = 'CommentThreadController';
-    this.controllerAs = 'CommentThread';
-  }
-}
-CommentThreadComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
-
-/***/ }),
-/* 136 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CommentsController.$inject, injections);
-
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    this.comments = [];
-    this.controls = {
-      sortBy: {
-        selectedIndex: 0,
-        items: ['POINTS', 'REPLIES', 'DATE']
-      }
-    };
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'CommentsScrollToBottom') return;
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        if (this.comments.length > 0) this.getComments(this.comments[this.comments.length - 1].id);
-      }
-    });
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      this.reloadComments();
-    });
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
-      this.reloadComments();
-    });
-  }
-
-  isCommentPermalink() {
-    return this.$state.current.name === 'weco.branch.post.comment';
-  }
-
-  getComments(lastCommentId) {
-    if (this.isCommentPermalink()) {
-      // fetch the permalinked comment
-      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid).then(comment => {
-        this.$timeout(() => {
-          this.comments = [comment];
-          this.isLoading = false;
-        });
-      }).catch(err => {
-        if (err.status != 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
-        this.isLoading = false;
-      });
-    } else {
-      // fetch all the comments for this post
-      let sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
-      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then(comments => {
-        this.$timeout(() => {
-          // if lastCommentId was specified we are fetching _more_ comments, so append them
-          if (lastCommentId) {
-            this.comments = this.comments.concat(comments);
-          } else {
-            this.comments = comments;
-          }
-          this.isLoadingMore = false;
-          this.isLoading = false;
-        });
-      }).catch(err => {
-        if (err.status !== 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
-        this.isLoading = false;
-      });
-    }
-  }
-
-  reloadComments() {
-    this.isLoading = true;
-    this.comments = [];
-    this.getComments();
-  }
-}
-CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService', 'EventService', 'CommentService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CommentsController);
-
-/***/ }),
-/* 137 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CommentsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CommentsComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
-    this.bindToController = {};
-    this.templateUrl = '/app/components/comments/view.html';
-    this.controllerAs = 'Comments';
-    this.controller = 'CommentsController';
-  }
-}
-
-CommentsComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
-
-/***/ }),
-/* 138 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(WriteCommentController.$inject, injections);
-
-    this.isLoading = false;
-    this.comment = { text: '' };
-
-    this.$rootScope.$watch(() => this.update, () => {
-      if (this.update) {
-        this.comment.text = this.originalCommentText();
-      } else {
-        this.comment.text = '';
-      }
-    });
-  }
-
-  postComment() {
-    this.$timeout(() => {
-      this.isLoading = true;
-    });
-    this.comment.postid = this.postid();
-    this.comment.parentid = this.parentid();
-
-    // update an existing comment
-    if (this.update) {
-      // NB: if we are editing the existing comment, the supplied "parentid" is
-      // actually the id of the comment to be edited
-      this.CommentService.update(this.comment.postid, this.comment.parentid, this.comment.text).then(() => {
-        this.$timeout(() => {
-          this.isLoading = false;
-          this.comment = { text: '' };
-          this.onSubmit()(this.comment.id);
-        });
-      }).catch(() => {
-        this.AlertsService.push('error', 'Error editing comment.');
-        this.$timeout(() => {
-          this.isLoading = false;
-        });
-      });
-    } else {
-      // create a new comment
-      this.CommentService.create(this.comment).then(id => {
-        this.$timeout(() => {
-          this.isLoading = false;
-          this.comment = { text: '' };
-          this.onSubmit()(id);
-        });
-      }).catch(err => {
-        if (err.status === 403) {
-          this.AlertsService.push('error', 'Please log in or create an account to comment.');
-        } else {
-          this.AlertsService.push('error', 'Error posting comment.');
-        }
-        this.$timeout(() => {
-          this.isLoading = false;
-        });
-      });
-    }
-  }
-
-  cancelComment() {
-    this.$timeout(() => {
-      this.isLoading = false;
-      this.comment = { text: '' };
-      this.onCancel()();
-    });
-  }
-}
-WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (WriteCommentController);
-
-/***/ }),
-/* 139 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class WriteCommentComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(WriteCommentComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
-    this.bindToController = {
-      parentid: '&',
-      postid: '&',
-      onSubmit: '&',
-      onCancel: '&',
-      update: '=',
-      placeholder: '&',
-      originalCommentText: '&'
-    };
-    this.templateUrl = '/app/components/comments/write-comment/view.html';
-    this.controller = 'WriteCommentController';
-    this.controllerAs = 'WriteComment';
-  }
-}
-WriteCommentComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (WriteCommentComponent);
-
-/***/ }),
-/* 140 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CoverPhotoController.$inject, injections);
-
-    this.isOpen = true;
-  }
-
-  hasUrls() {
-    return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
-  }
-
-  hideCoverPicture() {
-    this.isOpen = false;
-  }
-
-  showCoverPicture() {
-    this.isOpen = true;
-  }
-}
-
-CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
-
-/***/ }),
-/* 141 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class CoverPhotoComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(CoverPhotoComponent.$inject, injections);
-
-    this.bindToController = {
-      canEdit: '&',
-      imageUrl: '&',
-      openUploadCoverModal: '=',
-      thumbUrl: '&'
-    };
-    this.controller = 'CoverPhotoController';
-    this.controllerAs = 'CoverPhoto';
-    this.replace = true;
-    this.restrict = 'E';
-    this.scope = {};
-    this.templateUrl = '/app/components/cover-photo/view.html';
-  }
-}
-
-CoverPhotoComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
-
-/***/ }),
-/* 142 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(DropdownComponent.$inject, injections);
-
-    this.replace = 'true';
-    this.restrict = 'E';
-    this.scope = {
-      items: '=',
-      selected: '=',
-      title: '&'
-    };
-    this.templateUrl = '/app/components/dropdown/view.html';
-  }
-
-  // Params: scope, element, attrs
-  link(scope) {
-    scope.isOpen = false;
-
-    scope.close = _ => this.$timeout(_ => scope.isOpen = false);
-
-    scope.open = _ => this.$timeout(_ => scope.isOpen = true);
-
-    scope.select = index => this.$timeout(_ => {
-      scope.selected = index;
-      scope.close();
-    });
-  }
-}
-
-DropdownComponent.$inject = ['$timeout'];
-
-/* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
-
-/***/ }),
-/* 143 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ListItemController.$inject, injections);
-  }
-
-  getOriginalBranches() {
-    let branches = [];
-
-    if (this.post.data && this.post.data.original_branches) {
-      branches = JSON.parse(this.post.data.original_branches);
-    }
-
-    return branches;
-  }
-
-  getOriginalBranchesTooltipString() {
-    const original_branches = this.getOriginalBranches();
-    let string = '';
-
-    for (let i = 1; i < original_branches.length; i++) {
-      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
-    }
-
-    return string;
-  }
-
-  getTotalFlagCount() {
-    const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
-
-    let total = 0;
-
-    counts.forEach(key => {
-      if (this.post[key]) {
-        total += Number.isNaN(this.post[key]) ? 0 : this.post[key];
-      }
-    });
-
-    return total;
-  }
-
-  isOwnPost() {
-    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', { postid: this.post.id }, 'Post deleted.', 'Unable to delete post.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go(this.$state.current.name, { reload: true });
-    });
-  }
-
-  openFlagPostModal() {
-    this.ModalService.open('FLAG_POST', {
-      post: this.post,
-      branchid: this.BranchService.branch.id
-    }, 'Post flagged. The branch moderators will be informed.', 'Unable to flag post.');
-  }
-
-  openResolveFlagPostModal() {
-    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post }, 'Done.', 'Error resolving flags on post.');
-  }
-
-  showFlags() {
-    return this.$state.current.name.includes('weco.branch.nucleus');
-  }
-
-  showVotes() {
-    return !!this.stat;
-  }
-
-  vote(direction) {
-    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(_ => {
-      const inc = direction === 'up' ? 1 : -1;
-
-      this.$timeout(_ => {
-        this.post.individual += inc;
-        this.post.local += inc;
-        this.post.global += inc;
-      });
-
-      this.AlertsService.push('success', 'Thanks for voting!');
-    }).catch(err => {
-      if (400 === err.status) {
-        this.AlertsService.push('error', 'You have already voted on this post.');
-      } else if (403 === err.status) {
-        this.AlertsService.push('error', 'Please log in or create an account to vote.');
-      } else {
-        this.AlertsService.push('error', 'Error voting on post.');
-      }
-    });
-  }
-}
-
-ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ListItemController);
-
-/***/ }),
-/* 144 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ListItemComponent.$inject, injections);
-
-    this.bindToController = {
-      index: '=',
-      post: '=',
-      stat: '='
-    };
-    this.controller = 'ListItemController';
-    this.controllerAs = 'ListItem';
-    this.replace = true;
-    this.restrict = 'A';
-    this.scope = {};
-    this.templateUrl = '/app/components/list-item/view.html';
-  }
-}
-
-ListItemComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
-
-/***/ }),
-/* 145 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(LoadingComponent.$inject, injections);
-
-    this.restrict = 'A';
-    this.replace = false;
-    this.scope = {
-      loadingWhen: '&',
-      // Legacy.
-      when: '&'
-    };
-    this.templateUrl = '/app/components/loading/view.html';
-    this.transclude = true;
-  }
-
-  link(scope, element, attrs, ctrl, transclude) {
-    /*  Here we perform transclusion manually, instead of using ng-transclude.
-    **  This is because ng-transclude automatically assigns the transcluded
-    **  content a new *child* scope of the transcluded contents's context.
-    **  However, we want the transcluded html to keep the *same* scope of its
-    **  context so that its behaviour is unaffected, and changes made within it
-    **  are reflected in it's context's scope.
-    **
-    **  To do this, we make the scope of the transcluded content that of
-    **  the parent scope of this directive. (even though the scope
-    **  is isolate, its $parent is actually still that of its context,
-    **  there just isn't any prototypical inheritance).
-    **  The directive's context ($parent) and the context of the transcluded
-    **  content are the same, so the transcluded content keeps the scope
-    **  of its parent, as desired.
-    **
-    **  This is implemented through use of the transclude function.
-    **  The second param clones the transcluded html and assigns it the scope
-    **  supplied in the first parameter. You can then do with it as you want,
-    **  and so we append it to the directive template (having removed ng-transclude
-    **  from the end of the template also).
-    */
-    // Params: clone, scope
-    transclude(scope.$parent, clone => element.append(clone));
-  }
-}
-
-LoadingComponent.$inject = ['$compile'];
-
-/* harmony default export */ __webpack_exports__["a"] = (LoadingComponent);
-
-/***/ }),
-/* 146 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ModLogEntryComponent.$inject, injections);
-
-    this.restrict = 'A';
-    this.replace = false;
-    this.scope = {
-      entry: '='
-    };
-  }
-
-  // Params: scope, element, attrs
-  link(scope, element) {
-    if ('answer-subbranch-request' === scope.entry.action) {
-      scope.entry.data = JSON.parse(scope.entry.data);
-    }
-
-    this.$templateRequest(`/app/components/mod-log-entry/${scope.entry.action}.template.html`).then(template => {
-      element.html(template);
-      this.$compile(element.contents())(scope);
-    }, () => {
-      console.error('Unable to get mod-log-entry template.');
-    });
-  }
-}
-
-ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ModLogEntryComponent);
-
-/***/ }),
-/* 147 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(CreateBranchModalController.$inject, injections);
-
-    this.newBranch = { parentid: this.ModalService.inputArgs.branchid };
-    this.errorMessage = '';
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'CREATE_BRANCH') return;
-
-      // if not all fields are filled, display message
-      if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      // perform the update
-      this.isLoading = true;
-      this.newBranch.id = this.newBranch.id.toLowerCase();
-      this.BranchService.create(this.newBranch).then(() => {
-        this.$timeout(() => {
-          let id = this.newBranch.id;
-          this.newBranch = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK({ branchid: id });
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'CREATE_BRANCH') return;
-      this.$timeout(() => {
-        this.newBranch = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
-
-/***/ }),
-/* 148 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(AddModModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.data = {};
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'ADD_MOD') return;
-      this.isLoading = true;
-      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = response.message;
-          if (response.status == 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'ADD_MOD') return;
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
-
-/***/ }),
-/* 149 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(DeleteBranchModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.data = {};
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_BRANCH') return;
-      // if not all fields are filled, display message
-      if (!this.data || !this.data.branchid) {
-        this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-        return;
-      }
-
-      this.isLoading = true;
-      this.BranchService.remove(this.data.branchid).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_BRANCH') return;
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
-
-/***/ }),
-/* 150 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
-
-
-
-class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(RemoveModModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.mods = {};
-    this.selectedMod = {};
-
-    let getMod = (username, index) => {
-      return this.UserService.fetch(username).then(data => {
-        this.$timeout(() => {
-          this.mods[index] = data;
-        });
-      }).catch(() => {
-        this.$timeout(() => {
-          this.errorMessage = 'Unable to get mod!';
-        });
-      });
-    };
-
-    let init = () => {
-      this.isLoading = true;
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-        try {
-          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
-            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
-          }
-
-          this.$timeout(() => {
-            this.isLoading = false;
-          });
-        } catch (err) {
-          this.$timeout(() => {
-            this.AlertsService.push('error', 'Unable to fetch moderators!');
-            this.ModalService.Cancel();
-          });
-        }
-      }, this);
-    };
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'REMOVE_MOD') return;
-      this.isLoading = true;
-      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => {
-        this.$timeout(() => {
-          this.ModalService.OK({
-            removedMod: this.selectedMod.username
-          });
-          this.selectedMod = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          if (response.status === 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'REMOVE_MOD') return;
-      this.$timeout(() => {
-        this.ModalService.Cancel();
-        this.selectedMod = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-      });
-    });
-
-    init();
-  }
-
-  select(mod) {
-    this.selectedMod = mod;
-  }
-}
-RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
-
-/***/ }),
-/* 151 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
-
-
-
-class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(RemoveModModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.requests = [];
-    this.isLoading = true;
-
-    let init = () => {
-      // Get the list of requests
-      this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid).then(requests => {
-        // get a specific branch object and insert into requests array on branch attribute
-        let getBranch = request => {
-          return this.BranchService.fetch(request.childid).then(data => {
-            request.branch = data;
-          }).catch(() => {
-            this.errorMessage = 'Unable to get branch!';
-          });
-        };
-
-        __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-          for (let i = 0; i < requests.length; i++) {
-            yield getBranch(requests[i]);
-          }
-
-          this.$timeout(() => {
-            this.requests = requests;
-            this.isLoading = false;
-          });
-        }, this);
-      }).catch(() => {
-        this.$timeout(() => {
-          this.AlertsService.push('error', 'Unable to fetch child branch requests!');
-          this.ModalService.Cancel();
-        });
-      });
-    };
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.OK();
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-
-    init();
-  }
-
-  action(index, action) {
-    this.isLoading = true;
-
-    this.BranchService.actionSubbranchRequest(action, this.requests[index].parentid, this.requests[index].childid).then(() => {
-      this.$timeout(() => {
-        this.requests.splice(index, 1);
-        this.errorMessage = '';
-        this.isLoading = false;
-      });
-    }).catch(response => {
-      this.$timeout(() => {
-        this.errorMessage = response.message;
-        if (response.status === 404) {
-          this.errorMessage = 'That user doesn\'t exist';
-        }
-        this.isLoading = false;
-      });
-    });
-  }
-}
-
-RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
-
-/***/ }),
-/* 152 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(SubmitSubbranchRequestModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.data = {};
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      if (!this.data || !this.data.parentid) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      this.isLoading = true;
-      let branchid = this.ModalService.inputArgs.branchid;
-      this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-
-SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
-
-/***/ }),
-/* 153 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
-
-
-
-class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(UpdateHomepageStatsModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = true;
-    this.stats = {
-      donation_total: 0,
-      raised_total: 0
-    };
-
-    let init = () => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-        try {
-          let response = yield this.API.fetch('/constant/donation_total', {});
-          this.stats.donation_total = response.data.data;
-
-          response = yield this.API.fetch('/constant/raised_total', {});
-          this.stats.raised_total = response.data.data;
-        } catch (err) {
-          this.AlertsService.push('error', 'Error updating homepage stats.');
-          this.ModalService.Cancel();
-        }
-
-        this.$timeout(() => {
-          this.isLoading = false;
-        });
-      }, this);
-    };
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'UPDATE_HOMEPAGE_STATS') return;
-
-      // validate stats
-      this.isLoading = true;
-      if (isNaN(this.stats.donation_total) || isNaN(this.stats.raised_total)) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Invalid amount';
-          this.isLoading = false;
-        });
-      }
-
-      // update stats
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-        try {
-          yield this.API.update('/constant/donation_total', {}, {
-            data: Number(this.stats.donation_total)
-          });
-
-          yield this.API.update('/constant/raised_total', {}, {
-            data: Number(this.stats.raised_total)
-          });
-
-          this.$timeout(() => {
-            this.isLoading = false;
-            this.ModalService.OK();
-          });
-        } catch (err) {
-          this.AlertsService.push('error', 'Error updating homepage stats.');
-          this.ModalService.Cancel();
-        }
-      }, this);
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'UPDATE_HOMEPAGE_STATS') return;
-
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-
-    init();
-  }
-}
-
-UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService', 'ModalService', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
-
-/***/ }),
-/* 154 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusSettingsModalController.$inject, injections);
-
-    this.inputValues = [];
-    this.textareaValues = [];
-    this.errorMessage = '';
-    this.isLoading = false;
-
-    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
-      this.textareaValues[i] = this.ModalService.inputArgs.textareas[i].value;
-    }
-    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
-      this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
-    }
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
-      // if not all fields are filled, display message
-      if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.indexOf('') > -1 || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.indexOf('') > -1) {
-        this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-        return;
-      }
-
-      // construct data to update using the proper fieldnames
-      let updateData = {};
-      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
-        updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.inputValues[i];
-
-        // convert date input values to unix timestamp
-        if (this.ModalService.inputArgs.inputs[i].type === 'date') {
-          updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.inputValues[i]).getTime();
-        }
-      }
-      for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
-        updateData[this.ModalService.inputArgs.textareas[i].fieldname] = this.textareaValues[i];
-      }
-
-      // perform the update
-      this.isLoading = true;
-      this.BranchService.update(this.$state.params.branchid, updateData).then(() => {
-        this.$timeout(() => {
-          this.inputValues = [];
-          this.textareaValues = [];
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
-      this.$timeout(() => {
-        this.inputValues = [];
-        this.textareaValues = [];
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-BranchNucleusSettingsModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsModalController);
-
-/***/ }),
-/* 155 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ModalComponent.$inject, injections);
-
-    this.replace = false;
-    this.restrict = 'A';
-    this.scope = {};
-    this.templateUrl = '/app/components/modal/view.html';
-  }
-
-  link(scope) {
-    scope.ModalService = this.ModalService;
-    scope.OK = () => {
-      this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
-    };
-    scope.Cancel = () => {
-      this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
-    };
-  }
-}
-
-ModalComponent.$inject = ['EventService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ModalComponent);
-
-/***/ }),
-/* 156 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
-
-
-
-class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(CreatePostModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.file = null;
-    this.isLoading = false;
-    this.preview = false;
-    this.newPost = {
-      branchids: [this.ModalService.inputArgs.branchid],
-      nsfw: false,
-      locked: false
-    };
-    this.pollAnswers = [];
-    this.postType = {
-      items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
-      idx: 0,
-      title: 'POST TYPE'
-    };
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'CREATE_POST') return;
-
-      // if not all fields are filled, display message
-      if (!this.newPost || !this.newPost.title || !this.newPost.branchids || this.newPost.branchids.length === 0 || !this.newPost.text || this.newPost.nsfw === undefined || this.newPost.locked === undefined) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      // perform the update
-      this.isLoading = true;
-      this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
-      if (this.newPost.type !== 'poll') this.newPost.locked = false;
-
-      // create copy of post to not interfere with binding of items on tag-editor
-      let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
-      post.branchids = JSON.stringify(this.newPost.branchids);
-
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-        let postid;
-        try {
-          postid = yield this.PostService.create(post);
-        } catch (err) {
-          return this.$timeout(() => {
-            this.isLoading = false;
-            this.errorMessage = err.message || 'Error creating post!';
-          });
-        }
-        // if it's a poll, add the poll answers
-        if (this.newPost.type === 'poll') {
-          for (let i = 0; i < this.pollAnswers.length; i++) {
-            try {
-              yield this.PostService.createPollAnswer(postid, {
-                text: this.pollAnswers[i]
-              });
-            } catch (err) {
-              return this.$timeout(() => {
-                this.isLoading = false;
-                this.errorMessage = err.message || 'Error creating poll answers!';
-              });
-            }
-          }
-        }
-
-        this.$timeout(() => {
-          this.errorMessage = '';
-          this.isLoading = false;
-        });
-        if (this.file && this.newPost.type !== 'image') {
-          let uploadUrl;
-          try {
-            uploadUrl = yield this.getUploadUrl(postid);
-          } catch (err) {
-            this.AlertsService.push('error', 'Unable to upload photo!');
-            this.ModalService.OK();
-          }
-          try {
-            yield this.UploadService.uploadImage(this.file, uploadUrl);
-            this.file = null;
-            this.ModalService.OK();
-          } catch (err) {
-            this.AlertsService.push('error', 'Unable to upload photo!');
-            this.ModalService.OK();
-          }
-        } else {
-          this.ModalService.OK();
-        }
-      }, this);
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'CREATE_POST') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-
-  togglePreview() {
-    this.preview = !this.preview;
-  }
-
-  getUploadUrl(postid) {
-    return new Promise((resolve, reject) => {
-      let uploadUrlRoute = `post/${postid}/picture`;
-      this.UploadService.fetchUploadUrl(uploadUrlRoute).then(resolve).catch(reject);
-    });
-  }
-
-  setFile(file) {
-    this.file = file;
-  }
-}
-CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService', 'AppService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
-
-/***/ }),
-/* 157 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-//import Generator from 'utils/generator.js';
-
-class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(DeletePostModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_POST') return;
-
-      this.isLoading = true;
-
-      this.PostService.delete(this.ModalService.inputArgs.postid).then(() => {
-        this.isLoading = false;
-        this.ModalService.OK();
-      }).catch(() => {
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_POST') return;
-
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-
-DeletePostModalController.$inject = ['$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (DeletePostModalController);
-
-/***/ }),
-/* 158 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(FlagPostModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.selectedIndex = 0;
-    this.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + this.ModalService.inputArgs.post.type.toUpperCase() + ' POST'];
-    if (!this.ModalService.inputArgs.post.nsfw) {
-      this.flagItems.push('NSFW');
-    }
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'FLAG_POST') return;
-
-      this.isLoading = true;
-      let post = this.ModalService.inputArgs.post;
-      let type;
-      switch (this.selectedIndex) {
-        case 0:
-          type = 'branch_rules';
-          break;
-        case 1:
-          type = 'site_rules';
-          break;
-        case 2:
-          type = 'wrong_type';
-          break;
-        case 3:
-          type = 'nsfw';
-          break;
-        default:
-          this.errorMessage = 'Unknown flag type.';
-          this.isLoading = false;
-          return;
-      }
-
-      this.PostService.flag(post.id, this.ModalService.inputArgs.branchid, type).then(() => {
-        this.$timeout(() => {
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'FLAG_POST') return;
-
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-
-  close() {
-    this.$timeout(() => {
-      this.errorMessage = '';
-      this.isLoading = false;
-      this.ModalService.Cancel();
-    });
-  }
-}
-FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', 'PostService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (FlagPostModalController);
-
-/***/ }),
-/* 159 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(ResolveFlagPostModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.text = { reason: '' };
-    this.controls = {
-      reason: {
-        selectedIndex: 0,
-        items: ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES']
-      },
-      resolve: {
-        selectedIndex: 0,
-        items: ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST']
-      },
-      postType: {
-        selectedIndex: 0,
-        items: ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE', 'POLL']
-      }
-    };
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'RESOLVE_FLAG_POST') return;
-
-      this.isLoading = true;
-      let action, data;
-      switch (this.controls.resolve.selectedIndex) {
-        case 0:
-          // change post type
-          action = 'change_type';
-          data = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
-          break;
-        case 1:
-          // remove post
-          action = 'remove';
-          if (this.controls.reason.selectedIndex === 0) {
-            data = 'branch_rules';
-          } else if (this.controls.reason.selectedIndex === 1) {
-            data = 'site_rules';
-          } else {
-            this.AlertsService.push('error', 'Unknown reason.');
-            return;
-          }
-          break;
-        case 2:
-          // mark as nsfw
-          action = 'mark_nsfw';
-          break;
-        case 3:
-          // approve post
-          action = 'approve';
-          break;
-        default:
-          this.AlertsService.push('error', 'Unknown action.');
-          return;
-      }
-
-      if (action === 'remove' && (!this.text.reason || this.text.reason.length === 0)) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please provide an explanatory message for the OP';
-          this.isLoading = false;
-        });
-      }
-
-      this.BranchService.resolveFlaggedPost(this.ModalService.inputArgs.post.branchid, this.ModalService.inputArgs.post.id, action, data, this.text.reason).then(() => {
-        this.$timeout(() => {
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'RESOLVE_FLAG_POST') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-
-  close() {
-    this.$timeout(() => {
-      this.errorMessage = '';
-      this.isLoading = false;
-      this.ModalService.Cancel();
-    });
-  }
-}
-ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchService', 'AlertsService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ResolveFlagPostModalController);
-
-/***/ }),
-/* 160 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(SubmitPollAnswerModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.newAnswer = '';
-
-    this.cleanUpSuccessCb = this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('SUBMIT_POLL_ANSWER' !== name) return;
-
-      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, { text: this.newAnswer }).then(_ => this.$timeout(_ => this.closeModal('', true))).catch(err => this.$timeout(_ => this.closeModal(err.message || 'Error creating poll answer!')));
-    });
-
-    this.cleanUpCancelCb = this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if ('SUBMIT_POLL_ANSWER' !== name) return;
-      this.$timeout(_ => this.closeModal('', false));
-    });
-  }
-
-  closeModal(errorMessage, success) {
-    this.isLoading = false;
-    this.errorMessage = errorMessage;
-
-    if (success !== undefined) {
-      if ('function' === typeof this.cleanUpCancelCb) {
-        this.cleanUpCancelCb();
-      }
-
-      if ('function' === typeof this.cleanUpSuccessCb) {
-        this.cleanUpSuccessCb();
-      }
-    }
-
-    if (success === true) {
-      this.ModalService.OK();
-    } else if (success === false) {
-      this.ModalService.Cancel();
-    }
-  }
-}
-
-SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (SubmitPollAnswerModalController);
-
-/***/ }),
-/* 161 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class ProfileSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileSettingsModalController.$inject, injections);
-
-    this.values = [];
-    this.errorMessage = '';
-    this.isLoading = false;
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'PROFILE_SETTINGS') return;
-
-      // if not all fields are filled, display message
-      if (this.values.length < this.ModalService.inputArgs.inputs.length || this.values.indexOf('') !== -1) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      // construct data to update using the proper fieldnames
-      let updateData = {};
-      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
-        updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.values[i];
-
-        // convert date input values to unix timestamp
-        if (this.ModalService.inputArgs.inputs[i].type === 'date') {
-          updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.values[i]).getTime();
-        }
-      }
-
-      // perform the update
-      this.isLoading = true;
-
-      this.UserService.update(updateData).then(() => {
-        this.values = [];
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.OK();
-      }).catch(err => {
-        this.errorMessage = err.message;
-        this.isLoading = false;
-      }).then(this.$timeout);
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'PROFILE_SETTINGS') return;
-
-      this.$timeout(() => {
-        this.values = [];
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-
-ProfileSettingsModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsModalController);
-
-/***/ }),
-/* 162 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(UploadImageModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.file = null;
-    this.uploadUrl = '';
-
-    const setUploadUrl = _ => {
-      const args = this.ModalService.inputArgs;
-      this.UploadService.fetchUploadUrl(args.route + args.type).then(uploadUrl => this.uploadUrl = uploadUrl).catch(_ => {
-        this.AlertsService.push('error', 'Unable to upload photo!');
-        this.ModalService.Cancel();
-      });
-    };
-
-    setUploadUrl();
-
-    this.EventService.on(this.EventService.events.MODAL_OPEN, name => {
-      if ('UPLOAD_IMAGE' !== name) return;
-      setUploadUrl();
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('UPLOAD_IMAGE' !== name) return;
-
-      this.errorMessage = this.file ? '' : 'No file selected!';
-
-      if (!this.file) return;
-
-      this.UploadService.uploadImage(this.file, this.uploadUrl).then(_ => {
-        this.file = null;
-        this.ModalService.OK();
-      }).catch(_ => {
-        this.$timeout(_ => {
-          this.file = null;
-          this.errorMessage = 'Unable to upload photo!';
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if ('UPLOAD_IMAGE' !== name) return;
-      this.file = null;
-      this.errorMessage = '';
-      this.ModalService.Cancel();
-    });
-  }
-
-  setFile(file) {
-    this.file = file;
-  }
-}
-
-UploadImageModalController.$inject = ['$timeout', 'AlertsService', 'API', 'EventService', 'ModalService', 'UploadService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (UploadImageModalController);
-
-/***/ }),
-/* 163 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(NavbarController.$inject, injections);
-
-    this.animationSrc = '';
-    this.expanded = false;
-    this.notificationCount = 0;
-
-    this.EventService.on(this.EventService.events.CHANGE_USER, _ => {
-      if (this.UserService.user.username) {
-        this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
-          this.notificationCount = notificationCount;
-          this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
-        }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
-      }
-    });
-  }
-
-  isControlSelected(control) {
-    return this.$state.current.name.includes(control) && 'root' === this.$state.params.branchid;
-  }
-
-  logout() {
-    this.expanded = false;
-    this.UserService.logout().then(_ => {
-      this.$state.go('auth.login');
-    }).catch(_ => {
-      this.AlertsService.push('error', 'Unable to log out.');
-    });
-  }
-
-  onHomePage() {
-    return 'weco.home' === this.$state.current.name;
-  }
-
-  showNotificationCount() {
-    return this.notificationCount > 0;
-  }
-
-  toggleNav() {
-    this.expanded = !this.expanded;
-  }
-
-  triggerAnimation() {
-    // set animation src to the animated gif
-    this.$timeout(_ => {
-      this.animationSrc = '/assets/images/logo-animation.gif';
-    });
-
-    // cancel after 1 sec
-    this.$timeout(_ => {
-      this.animationSrc = '';
-    }, 1000);
-  }
-}
-
-NavbarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (NavbarController);
-
-/***/ }),
-/* 164 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class NavbarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(NavbarComponent.$inject, injections);
-
-    this.controller = 'NavbarController';
-    this.controllerAs = 'Navbar';
-    this.restrict = 'E';
-    this.replace = true;
-    this.templateUrl = '/app/components/nav-bar/view.html';
-  }
-}
-
-NavbarComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (NavbarComponent);
-
-/***/ }),
-/* 165 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_config__ = __webpack_require__(4);
-
-
-
-class NotificationComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(NotificationComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {
-      notification: '='
-    };
-  }
-
-  // Params: scope, element, attrs
-  link(scope, element) {
-    scope.UserService = this.UserService;
-    scope.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */];
-
-    scope.reasonString = () => {
-      switch (scope.notification.reason) {
-        case 'branch_rules':
-          return 'for violating the branch rules';
-
-        case 'site_rules':
-          return 'for violating the site rules';
-
-        case 'wrong_type':
-          return 'for being tagged with an incorrect post type';
-
-        case 'nsfw':
-          return 'as NSFW';
-
-        default:
-          return '';
-      }
-    };
-
-    // remplate name is as represented in NotificationTypes with no caps and hyphens instead of underscores
-    const templateName = (() => {
-      for (let key in __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */]) {
-        if (__WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */][key] === scope.notification.type) {
-          return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
-        }
-      }
-    })();
-
-    this.$templateRequest(`/app/components/notification/${templateName}.template.html`).then(template => {
-      element.html(template);
-      this.$compile(element.contents())(scope);
-    }, () => {
-      console.error('Unable to get notification template.');
-    });
-  }
-}
-
-NotificationComponent.$inject = ['$compile', '$templateRequest', '$timeout', 'AlertsService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (NotificationComponent);
-
-/***/ }),
-/* 166 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class OnScrollToBottomComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(OnScrollToBottomComponent.$inject, injections);
-
-    this.restrict = 'A';
-  }
-
-  link(scope, element, attrs) {
-    element.on('scroll', _ => {
-      if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
-        this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
-      }
-    });
-  }
-}
-
-OnScrollToBottomComponent.$inject = ['$timeout', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (OnScrollToBottomComponent);
-
-/***/ }),
-/* 167 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class PollAnswerEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(PollAnswerEditorComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = 'true';
-    this.templateUrl = '/app/components/poll-answer-editor/view.html';
-    this.scope = {
-      answers: '=',
-      title: '&'
-    };
-  }
-
-  // Params: scope, element, attrs
-  link(scope) {
-    scope.newAnswer = '';
-
-    scope.addItem = () => {
-      // ensure answer doesnt already exist and isn't blank
-      if (scope.answers.indexOf(scope.newAnswer) !== -1 || scope.newAnswer === '') {
-        return;
-      }
-
-      scope.answers.push(scope.newAnswer);
-      scope.newAnswer = '';
-    };
-
-    scope.removeItem = answer => {
-      const itemIndex = scope.answers.indexOf(answer);
-
-      // ensure item exists
-      if (itemIndex === -1) return;
-
-      scope.answers.splice(itemIndex, 1);
-    };
-  }
-}
-
-PollAnswerEditorComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (PollAnswerEditorComponent);
-
-/***/ }),
-/* 168 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class TabsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TabsController.$inject, injections);
-  }
-  // returns a boolean indicating whether the tab at the given index is selected
-  isSelected(index) {
-    return this.$state.current.name === this.states[index];
-  }
-}
-TabsController.$inject = ['$state', 'AlertsService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (TabsController);
-
-/***/ }),
-/* 169 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class TabsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TabsComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
-
-    /* NB: states specified in 'states' array can be a pure state name, e.g. weco.home,
-    **     or they can have parameters, e.g:
-    **        weco.branch.subbranches({ "branchid" : "root" })
-    **     In the latter case, the parameters must be specified in JSON parsable
-    **     format, i.e. with double quotes around property names and values.
-    */
-    this.bindToController = {
-      items: '=',
-      states: '=',
-      stateParams: '=',
-      callbacks: '='
-    };
-    this.templateUrl = '/app/components/tabs/view.html';
-    this.controllerAs = 'Tabs';
-    this.controller = 'TabsController';
-  }
-}
-TabsComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (TabsComponent);
-
-/***/ }),
-/* 170 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class TagEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TagEditorComponent.$inject, injections);
-
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {
-      items: '=',
-      title: '&',
-      max: '&'
-    };
-    this.templateUrl = '/app/components/tag-editor/view.html';
-  }
-
-  // Params: scope, element, attrs
-  link(scope) {
-    scope.errorMessage = '';
-    scope.data = {};
-
-    scope.addItem = () => {
-      scope.errorMessage = '';
-
-      // ensure not already at max number of items
-      if (scope.items.length >= scope.max()) return;
-
-      // ensure item exists
-      if (!scope.data.item) return;
-
-      // ensure item doesn't contan whitespace
-      if (/\s/g.test(scope.data.item)) {
-        scope.errorMessage = 'Cannot contain spaces.';
-        return;
-      }
-
-      // convert to all lowercase
-      scope.data.item = scope.data.item.toLowerCase();
-
-      // ensure not already in list
-      if (scope.items.indexOf(scope.data.item) !== -1) return;
-
-      // add to list and clear textbox
-      scope.items.push(scope.data.item);
-
-      scope.data.item = undefined;
-    };
-
-    scope.removeItem = item => {
-      const itemIndex = scope.items.indexOf(item);
-
-      if (itemIndex !== -1) {
-        scope.items.splice(itemIndex, 1);
-      }
-
-      scope.errorMessage = '';
-    };
-  }
-}
-
-TagEditorComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (TagEditorComponent);
-
-/***/ }),
-/* 171 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class TooltipController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TooltipController.$inject, injections);
-
-    this.EventService.on('$stateChangeSuccess', _ => this.$timeout(_ => this.TooltipService.visible = false));
-  }
-}
-
-TooltipController.$inject = ['$state', '$timeout', 'AppService', 'EventService', 'TooltipService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (TooltipController);
-
-/***/ }),
-/* 172 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class TooltipComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TooltipComponent.$inject, injections);
-
-    this.controller = 'TooltipController';
-    this.controllerAs = 'Tooltip';
-    this.restrict = 'A';
-    this.replace = true;
-    this.scope = {
-      offsetX: '&',
-      offsetY: '&',
-      text: '&'
-    };
-  }
-
-  link(scope, element) {
-    const el = element[0];
-    let rect = el.getBoundingClientRect();
-
-    let offsetX = scope.offsetX(),
-        offsetY = scope.offsetY();
-
-    if (!offsetX || isNaN(offsetX)) {
-      offsetX = 0;
-    }
-
-    if (!offsetY || isNaN(offsetY)) {
-      offsetY = 0;
-    }
-
-    el.addEventListener('mouseover', _ => {
-      this.$timeout(_ => {
-        if (scope.text() === '') return;
-
-        rect = el.getBoundingClientRect();
-
-        this.TooltipService.text = scope.text();
-        this.TooltipService.visible = true;
-        this.TooltipService.x = rect.left + this.$window.pageXOffset + offsetX;
-        this.TooltipService.y = rect.top + this.$window.pageYOffset + offsetY;
-      });
-    }, false);
-
-    el.addEventListener('mouseout', event => {
-      rect = el.getBoundingClientRect();
-
-      // Do not hide the tooltip if we are still within the element.
-      // This would happen when we mouse over the child element.
-      if (event.clientX > rect.right || event.clientX < rect.left || event.clientY < rect.top || event.clientY > rect.bottom) {
-        this.$timeout(_ => this.hide());
-      }
-    });
-
-    scope.TooltipService = this.TooltipService;
-  }
-
-  hide(delay = 0) {
-    if (this.timer) {
-      this.$timeout.cancel(this.timer);
-    }
-
-    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
-  }
-}
-
-TooltipComponent.$inject = ['$timeout', '$window', 'EventService', 'TooltipService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (TooltipComponent);
-
-/***/ }),
-/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26464,1535 +23994,202 @@ let ENV = {
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
 
 /***/ }),
-/* 174 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_comments_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_comments_comment_thread_controller__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_cover_photo_controller__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_modal_branch_create_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_modal_post_create_controller__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_modal_branch_nucleus_modtools_delete_branch_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_modal_post_delete_controller__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_modal_post_flag_controller__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_list_item_controller__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_nav_bar_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_modal_profile_settings_controller__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_modal_branch_nucleus_modtools_remove_mod_controller__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_resolve_controller__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_modal_post_submit_poll_answer_controller__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_tabs_controller__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_modal_upload_image_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_comments_write_comment_controller__ = __webpack_require__(152);
 
 
-class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(AuthController.$inject, injections);
 
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-    this.credentials = {};
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.loopAnimation = false;
-    this.showResendVerification = false;
-  }
 
-  getAnimationSrc() {
-    return this.animationSrc;
-  }
 
-  isLoginForm() {
-    return 'auth.login' === this.$state.current.name;
-  }
 
-  login() {
-    this.UserService.login(this.credentials).then(_ => {
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('weco.home');
-    }).catch(res => {
-      this.errorMessage = res.message;
-      this.isLoading = false;
-      this.loopAnimation = false;
 
-      // Possibly unverified account
-      if (403 === res.status) {
-        this.showResendVerification = true;
-      }
-    });
-  }
 
-  resendVerification() {
-    this.isLoading = true;
 
-    this.UserService.resendVerification(this.credentials.username).then(_ => this.resendVerificationDone(true)).catch(_ => this.resendVerificationDone(false));
-  }
 
-  resendVerificationDone(success) {
-    const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
-    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
 
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.showResendVerification = false;
-  }
 
-  signup() {
-    if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.errorMessage = 'Inconsistent password!';
-      this.isLoading = false;
-      this.loopAnimation = false;
-      return;
-    }
 
-    this.UserService.signup(this.credentials).then(_ => {
-      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('weco.home');
-    }).catch(res => {
-      this.errorMessage = res.message;
-      this.isLoading = false;
-      this.loopAnimation = false;
-    });
-  }
 
-  submit() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
-    this.credentials.username = this.credentials.username.toLowerCase();
 
-    if (this.isLoginForm()) {
-      this.login();
-    } else {
-      this.signup();
-    }
-  }
 
-  triggerAnimation() {
-    if (this.animationSrc) {
-      this.$timeout(_ => this.animationSrc = '');
-    }
 
-    // set animation src to the animated gif
-    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
-    // cancel after 1 sec
-    this.$timeout(_ => {
-      this.animationSrc = '';
 
-      if (this.loopAnimation) {
-        this.triggerAnimation();
-      }
-    }, 1000);
-  }
-}
 
-AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
 
-/* harmony default export */ __webpack_exports__["a"] = (AuthController);
+
+// Components.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let refs = [{ name: 'AppController', module: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */] }, { name: 'AuthController', module: __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__["a" /* default */] }, { name: 'BranchController', module: __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__["a" /* default */] }, { name: 'BranchNucleusAboutController', module: __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__["a" /* default */] }, { name: 'BranchNucleusController', module: __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__["a" /* default */] }, { name: 'BranchNucleusFlaggedPostsController', module: __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__["a" /* default */] }, { name: 'BranchNucleusModeratorsController', module: __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__["a" /* default */] }, { name: 'BranchNucleusModtoolsController', module: __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsController', module: __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'BranchPostController', module: __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__["a" /* default */] }, { name: 'BranchPostResultsController', module: __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__["a" /* default */] }, { name: 'BranchPostVoteController', module: __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__["a" /* default */] }, { name: 'BranchSubbranchesController', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__["a" /* default */] }, { name: 'BranchWallController', module: __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__["a" /* default */] }, { name: 'HomeController', module: __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__["a" /* default */] }, { name: 'ProfileController', module: __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__["a" /* default */] }, { name: 'ProfileNotificationsController', module: __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__["a" /* default */] }, { name: 'ProfileSettingsController', module: __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__["a" /* default */] }, { name: 'ResetPasswordController', module: __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__["a" /* default */] }, { name: 'TooltipController', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__["a" /* default */] }, { name: 'VerifyController', module: __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__["a" /* default */] }, { name: 'AddModModalController', module: __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'CommentsController', module: __WEBPACK_IMPORTED_MODULE_23__components_comments_controller__["a" /* default */] }, { name: 'CommentThreadController', module: __WEBPACK_IMPORTED_MODULE_24__components_comments_comment_thread_controller__["a" /* default */] }, { name: 'CoverPhotoController', module: __WEBPACK_IMPORTED_MODULE_25__components_cover_photo_controller__["a" /* default */] }, { name: 'CreateBranchModalController', module: __WEBPACK_IMPORTED_MODULE_26__components_modal_branch_create_controller__["a" /* default */] }, { name: 'CreatePostModalController', module: __WEBPACK_IMPORTED_MODULE_27__components_modal_post_create_controller__["a" /* default */] }, { name: 'DeleteBranchModalController', module: __WEBPACK_IMPORTED_MODULE_28__components_modal_branch_nucleus_modtools_delete_branch_controller__["a" /* default */] }, { name: 'DeletePostModalController', module: __WEBPACK_IMPORTED_MODULE_29__components_modal_post_delete_controller__["a" /* default */] }, { name: 'FlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_30__components_modal_post_flag_controller__["a" /* default */] }, { name: 'ListItemController', module: __WEBPACK_IMPORTED_MODULE_31__components_list_item_controller__["a" /* default */] }, { name: 'NavbarController', module: __WEBPACK_IMPORTED_MODULE_32__components_nav_bar_controller__["a" /* default */] }, { name: 'ProfileSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_33__components_modal_profile_settings_controller__["a" /* default */] }, { name: 'RemoveModModalController', module: __WEBPACK_IMPORTED_MODULE_34__components_modal_branch_nucleus_modtools_remove_mod_controller__["a" /* default */] }, { name: 'ResolveFlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_resolve_controller__["a" /* default */] }, { name: 'ReviewSubbranchRequestsModalController', module: __WEBPACK_IMPORTED_MODULE_36__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__["a" /* default */] }, { name: 'SubmitPollAnswerModalController', module: __WEBPACK_IMPORTED_MODULE_37__components_modal_post_submit_poll_answer_controller__["a" /* default */] }, { name: 'SubmitSubbranchRequestModalController', module: __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__["a" /* default */] }, { name: 'TabsController', module: __WEBPACK_IMPORTED_MODULE_39__components_tabs_controller__["a" /* default */] }, { name: 'UpdateHomepageStatsModalController', module: __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__["a" /* default */] }, { name: 'UploadImageModalController', module: __WEBPACK_IMPORTED_MODULE_41__components_modal_upload_image_controller__["a" /* default */] }, { name: 'WriteCommentController', module: __WEBPACK_IMPORTED_MODULE_42__components_comments_write_comment_controller__["a" /* default */] }];
+
+const controllers = registrar => {
+  if (!registrar) throw new Error('Cannot register controllers - no registrar provided.');
+  refs.forEach(ref => registrar.controller(ref.name, ref.module));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (controllers);
 
 /***/ }),
-/* 175 */
+/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_alerts_directive__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_chart_directive__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_comments_directive__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_comments_comment_thread_directive__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_cover_photo_directive__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_dropdown_directive__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_list_item_directive__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_loading_directive__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_modal_directive__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_mod_log_entry_directive__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_nav_bar_directive__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_notification_directive__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_on_scroll_to_bottom_directive__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_poll_answer_editor_directive__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_tabs_directive__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_tag_editor_directive__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_tooltip_directive__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_comments_write_comment_directive__ = __webpack_require__(153);
 
 
-class ResetPasswordController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ResetPasswordController.$inject, injections);
 
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.loopAnimation = false;
-    this.credentials = {};
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-  }
 
-  resetPassword() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
 
-    if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.AlertsService.push('error', 'The two passwords are different.');
-      this.isLoading = false;
-      this.loopAnimation = false;
-      return;
-    }
 
-    this.UserService.resetPassword(this.$state.params.username, this.credentials.password, this.$state.params.token).then(() => {
-      this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.$state.go('auth.login');
-    }).catch(response => {
-      this.$timeout(() => {
-        this.errorMessage = response.message;
-        this.isLoading = false;
-        this.loopAnimation = false;
-      });
-    });
-  }
 
-  sendLink() {
-    this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
 
-    this.UserService.requestResetPassword(this.credentials.username).then(() => {
-      this.$state.go('weco.home');
-      this.isLoading = false;
-      this.loopAnimation = false;
-      this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
-    }).catch(response => {
-      this.isLoading = false;
-      this.errorMessage = response.message;
-      this.loopAnimation = false;
-    });
-  }
 
-  triggerAnimation() {
-    if (this.animationSrc !== '') {
-      this.$timeout(() => {
-        this.animationSrc = '';
-      });
-    }
-    // set animation src to the animated gif
-    this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation-large.gif';
-    });
-    // cancel after 1 sec
-    this.$timeout(() => {
-      this.animationSrc = '';
-      if (this.loopAnimation) this.triggerAnimation();
-    }, 1000);
-  }
-}
-ResetPasswordController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
 
-/* harmony default export */ __webpack_exports__["a"] = (ResetPasswordController);
+
+
+
+
+
+
+
+
+
+let refs = [{ name: 'alerts', module: __WEBPACK_IMPORTED_MODULE_0__components_alerts_directive__["a" /* default */] }, { name: 'chart', module: __WEBPACK_IMPORTED_MODULE_1__components_chart_directive__["a" /* default */] }, { name: 'comments', module: __WEBPACK_IMPORTED_MODULE_2__components_comments_directive__["a" /* default */] }, { name: 'commentThread', module: __WEBPACK_IMPORTED_MODULE_3__components_comments_comment_thread_directive__["a" /* default */] }, { name: 'coverPhoto', module: __WEBPACK_IMPORTED_MODULE_4__components_cover_photo_directive__["a" /* default */] }, { name: 'dropdown', module: __WEBPACK_IMPORTED_MODULE_5__components_dropdown_directive__["a" /* default */] }, { name: 'listItem', module: __WEBPACK_IMPORTED_MODULE_6__components_list_item_directive__["a" /* default */] }, { name: 'loading', module: __WEBPACK_IMPORTED_MODULE_7__components_loading_directive__["a" /* default */] }, { name: 'modal', module: __WEBPACK_IMPORTED_MODULE_8__components_modal_directive__["a" /* default */] }, { name: 'modLogEntry', module: __WEBPACK_IMPORTED_MODULE_9__components_mod_log_entry_directive__["a" /* default */] }, { name: 'navBar', module: __WEBPACK_IMPORTED_MODULE_10__components_nav_bar_directive__["a" /* default */] }, { name: 'notification', module: __WEBPACK_IMPORTED_MODULE_11__components_notification_directive__["a" /* default */] }, { name: 'onScrollToBottom', module: __WEBPACK_IMPORTED_MODULE_12__components_on_scroll_to_bottom_directive__["a" /* default */] }, { name: 'pollAnswerEditor', module: __WEBPACK_IMPORTED_MODULE_13__components_poll_answer_editor_directive__["a" /* default */] }, { name: 'tabs', module: __WEBPACK_IMPORTED_MODULE_14__components_tabs_directive__["a" /* default */] }, { name: 'tagEditor', module: __WEBPACK_IMPORTED_MODULE_15__components_tag_editor_directive__["a" /* default */] }, { name: 'tooltip', module: __WEBPACK_IMPORTED_MODULE_16__components_tooltip_directive__["a" /* default */] }, { name: 'writeComment', module: __WEBPACK_IMPORTED_MODULE_17__components_comments_write_comment_directive__["a" /* default */] }];
+
+const directives = registrar => {
+  if (!registrar) throw new Error('Cannot register directives - no registrar provided.');
+  refs.forEach(ref => registrar.directive(ref.name, ref.module));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (directives);
 
 /***/ }),
-/* 176 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_alerts_service__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_api__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_branch__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_comment__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_event__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_mod__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_modal_service__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_post__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_upload__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_user__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__ = __webpack_require__(202);
 
 
-class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(VerifyController.$inject, injections);
 
-    this.message = 'Verifying your account';
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
 
-    this.$interval(_ => {
-      if (this.animationSrc !== '') {
-        this.$timeout(_ => this.animationSrc = '');
-      }
 
-      // set animation src to the animated gif
-      this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
-      this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
-    }, 1000);
 
-    this.$timeout(_ => {
-      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(_ => {
-        this.$state.go('auth.login');
-        this.AlertsService.push('success', 'Account verified! You can now login.', true);
-      }).catch(_ => {
-        this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
-        this.$state.go('auth.signup');
-      });
-    }, 3000);
-  }
-}
 
-VerifyController.$inject = ['$interval', '$state', '$timeout', 'AlertsService', 'UserService'];
 
-/* harmony default export */ __webpack_exports__["a"] = (VerifyController);
 
-/***/ }),
-/* 177 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchController.$inject, injections);
 
-    this.isLoading = !Object.keys(this.BranchService.branch).length;
-
-    // update the view when the branch changes
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
-  }
-
-  addContent() {
-    let errorMessage, modalName, successMessage;
-
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        modalName = 'CREATE_BRANCH';
-        successMessage = 'Successfully created new branch!';
-        errorMessage = 'Error creating new branch.';
-        break;
-
-      case 'weco.branch.wall':
-        modalName = 'CREATE_POST';
-        successMessage = 'Successfully created post!';
-        errorMessage = 'Error creating post.';
-        break;
-
-      // case 'weco.branch.post':
-      //   // broadcast add comment clicked so that the comment section is scrolled
-      //   // to the top, where the comment box is visible
-      //   $rootScope.$broadcast('add-comment');
-    }
-
-    if (!!modalName) {
-      this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
-    }
-  }
-
-  // returns boolean indicating whether the add content behaviour has any defined
-  // behaviour in the current state
-  canAddContent() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-      case 'weco.branch.wall':
-      case 'weco.branch.post':
-        return true;
-
-      default:
-        return false;
-    }
-  }
-
-  // dynamic tooltip text for add content button, whose behaviour
-  // is dependent on the current state
-  getAddContentTooltip() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        return 'Create New Branch';
-
-      case 'weco.branch.wall':
-        return 'Add New Post';
-
-      case 'weco.branch.post':
-        return 'Write a Comment';
-
-      default:
-        return '';
-    }
-  }
-
-  isControlSelected(control) {
-    return this.$state.current.name.includes(control);
-  }
-
-  isModerator() {
-    if (!this.BranchService.branch.mods) {
-      return false;
-    }
-
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  openModal(modalType) {
-    const route = `branch/${this.BranchService.branch.id}/`,
-          messageType = 'profile-picture' === modalType ? 'profile' : 'cover',
-          type = 'profile-picture' === modalType ? 'picture' : 'cover';
-
-    this.ModalService.open('UPLOAD_IMAGE', { route, type }, `Successfully updated ${messageType} picture.`, `Unable to update ${messageType} picture.`);
-  }
-}
-
-BranchController.$inject = ['$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchController);
-
-/***/ }),
-/* 178 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusAboutController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusAboutController.$inject, injections);
-  }
-
-  isFollowingBranch() {
-    if (this.UserService.isAuthenticated()) {
-      return this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
-    }
-
-    return false;
-  }
-
-  toggleFollowBranch() {
-    let errorMessage, successMessage, toggle;
-
-    if (this.isFollowingBranch()) {
-      errorMessage = 'Error unfollowing branch.';
-      successMessage = `You're no longer following this branch!`;
-      toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-    } else {
-      errorMessage = 'Error following branch.';
-      successMessage = `You're now following this branch!`;
-      toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-    }
-
-    toggle.then(_ => this.AlertsService.push('success', successMessage)).catch(_ => this.AlertsService.push('error', errorMessage));
-  }
-}
-
-BranchNucleusAboutController.$inject = ['$timeout', 'AlertsService', 'BranchService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusAboutController);
-
-/***/ }),
-/* 179 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusController.$inject, injections);
-
-    this.tabItems = [];
-    this.tabStates = [];
-    this.tabStateParams = [];
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.branch.nucleus')) {
-        return;
-      }
-
-      if (!Object.keys(this.BranchService.branch).length) {
-        return;
-      }
-
-      const branchid = this.BranchService.branch.id;
-
-      this.tabItems = ['about', 'moderators'];
-      this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{ branchid }, { branchid }];
-
-      if (this.UserService.isAuthenticated() && this.isModerator()) {
-        // add settings tab
-        if (!this.tabItems.includes('settings')) {
-          this.tabItems.push('settings');
-          this.tabStates.push('weco.branch.nucleus.settings');
-          this.tabStateParams.push({ branchid });
-        }
-
-        // add mod tools tab
-        if (!this.tabItems.includes('mod tools')) {
-          this.tabItems.push('mod tools');
-          this.tabStates.push('weco.branch.nucleus.modtools');
-          this.tabStateParams.push({ branchid });
-        }
-
-        // add flagged posts tab
-        if (!this.tabItems.includes('flagged posts')) {
-          this.tabItems.push('flagged posts');
-          this.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.tabStateParams.push({ branchid });
-        }
-      } else {
-        if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
-        }
-      }
-    };
-
-    init();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  addHTMLLineBreaks(str) {
-    return str ? str.split('\n').join('<br>') : str;
-  }
-
-  isModerator() {
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        return true;
-      }
-    }
-    return false;
-  }
-}
-
-BranchNucleusController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
-
-/***/ }),
-/* 180 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusFlaggedPostsController.$inject, injections);
-
-    const cb = branchid => this.WallService.init('weco.branch.nucleus', true);
-
-    let listeners = [];
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-}
-
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'WallService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
-
-/***/ }),
-/* 181 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusModeratorsController.$inject, injections);
-
-    this.mods = [];
-    this.isLoading = false;
-
-    const getMod = (username, index) => {
-      return this.UserService.fetch(username).then(user => this.mods[index] = user).catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
-    };
-
-    const getAllMods = _ => {
-      if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
-
-      this.isLoading = true;
-
-      let promises = [];
-
-      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-        promises.push(getMod(this.BranchService.branch.mods[i].username, i));
-      }
-
-      // when all mods fetched, loading finished
-      Promise.all(promises).then(_ => this.$timeout(_ => this.isLoading = false)).catch(_ => {
-        this.AlertsService.push('error', 'Error fetching moderators.');
-        this.$timeout(_ => this.isLoading = false);
-      });
-    };
-
-    // todo cache this instead...
-    //getAllMods();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-}
-
-BranchNucleusModeratorsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
-
-/***/ }),
-/* 182 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusModtoolsController.$inject, injections);
-
-    this.isLoading = true;
-    this.modLog = [];
-
-    const getModLog = _ => {
-      if (!Object.keys(this.BranchService.branch).length) return;
-
-      this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
-        this.modLog = log;
-        this.isLoading = false;
-      })).catch(_ => {
-        this.AlertsService.push('error', 'Error fetching moderator action log.');
-        this.isLoading = false;
-      });
-    };
-
-    // todo cache this instead...
-    //getModLog();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  openAddModModal() {
-    this.ModalService.open('ADD_MOD', { branchid: this.BranchService.branch.id }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
-  }
-
-  openRemoveModModal() {
-    let me;
-
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        me = this.BranchService.branch.mods[i];
-        break;
-      }
-    }
-
-    // a list of mods to be removed
-    // can include self if other mods are present, and
-    // removeable others must be added after self
-    let removableMods = [];
-
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === me.username && this.BranchService.branch.mods.length > 1) {
-        removableMods.push(this.BranchService.branch.mods[i]);
-      } else if (this.BranchService.branch.mods[i].date > me.date) {
-        removableMods.push(this.BranchService.branch.mods[i]);
-      }
-    }
-
-    this.ModalService.open('REMOVE_MOD', {
-      branchid: this.BranchService.branch.id,
-      mods: removableMods
-    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
-  }
-
-  openReviewSubbranchRequestsModal() {
-    this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', { branchid: this.BranchService.branch.id }, 'Successfully responded to child branch request.', 'Error responding to child branch request.');
-  }
-
-  openSubmitSubbranchRequestModal() {
-    this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', { branchid: this.BranchService.branch.id }, 'Successfully submitted child branch request.', 'Error submitting child branch request.');
-  }
-
-  openDeleteBranchModal() {
-    this.ModalService.open('DELETE_BRANCH', {}, 'Successfully deleted branch.', 'Error deleting branch.');
-  }
-
-  openUpdateHomepageStatsModal() {
-    this.ModalService.open('UPDATE_HOMEPAGE_STATS', {}, 'Successfully updated homepage stats.', 'Error updating homepage stats.');
-  }
-}
-
-BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
-
-/***/ }),
-/* 183 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchNucleusSettingsController.$inject, injections);
-  }
-
-  openModal(modalType) {
-    let title = '',
-        templateName = 'BRANCH_NUCLEUS_SETTINGS',
-        inputs = [],
-        textareas = [],
-        route = `branch/${this.BranchService.branch.id}/`,
-        type;
-
-    if ('profile-picture' === modalType) {
-      type = 'picture';
-    } else if ('cover-picture' === modalType) {
-      type = 'cover';
-    }
-
-    switch (modalType) {
-      case 'profile-picture':
-      case 'cover-picture':
-        templateName = 'UPLOAD_IMAGE';
-        break;
-
-      case 'description':
-        title = 'Description';
-        textareas = [{
-          fieldname: 'description',
-          placeholder: 'Description',
-          value: this.BranchService.branch.description
-        }];
-        break;
-
-      case 'rules':
-        title = 'Rules & Etiquette';
-        textareas = [{
-          fieldname: 'rules',
-          placeholder: 'Rules & Etiquette Text',
-          value: this.BranchService.branch.rules
-        }];
-        break;
-
-      case 'visible-name':
-        title = 'Visible Name';
-        inputs = [{
-          fieldname: 'name',
-          placeholder: 'Visible name',
-          type: 'text'
-        }];
-        break;
-
-      default:
-        break;
-    }
-    this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
-  }
-}
-
-BranchNucleusSettingsController.$inject = ['$state', '$timeout', 'AlertsService', 'BranchService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
-
-/***/ }),
-/* 184 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostController.$inject, injections);
-
-    this.isLoadingComments = true;
-    this.isLoadingMore = false;
-    this.isLoadingPost = true;
-
-    // Possible states: show, maximise.
-    this.previewState = 'show';
-
-    this.tabItems = ['vote', 'results', 'discussion'];
-
-    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
-
-    this.tabStateParams = [{
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
-    }];
-
-    const redirect = () => {
-      // post not updated yet, wait for CHANGE_POST event
-      if (this.$state.params.postid !== this.PostService.post.id) {
-        return;
-      }
-
-      // update state params for tabs
-      for (let i in this.tabStateParams) {
-        this.tabStateParams[i].branchid = this.PostService.post.branchid;
-        this.tabStateParams[i].postid = this.PostService.post.id;
-      }
-
-      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
-        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
-
-        if (tabIndex !== -1) {
-          this.$state.go(this.tabStates[tabIndex], {
-            branchid: this.PostService.post.branchid,
-            postid: this.$state.params.postid
-          }, {
-            location: 'replace'
-          });
-        } else {
-          console.warn(`Invalid tab name!`);
-        }
-      } else {
-        this.isLoadingPost = false;
-      }
-    };
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  getPreviewTemplate() {
-    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
-  }
-
-  getVideoEmbedUrl() {
-    const isYouTubeUrl = url => {
-      if (url && '' !== url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        if (match && match[2].length === 11) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
-      let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
-
-      if (video_id.includes('&')) {
-        video_id = video_id.substring(0, video_id.indexOf('&'));
-      }
-
-      return `//www.youtube.com/embed/${video_id}?rel=0`;
-    }
-
-    return '';
-  }
-
-  isOwnPost() {
-    if (!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id }, 'Post deleted.', 'Unable to delete post.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go('weco.home');
-    });
-  }
-
-  setPreviewState(state) {
-    this.previewState = state;
-  }
-
-  shouldShowTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
-  }
-
-  showPreview() {
-    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
-  }
-}
-
-BranchPostController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService', 'WallService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
-
-/***/ }),
-/* 185 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostResultsController.$inject, injections);
-
-    this.answers = [];
-    this.chart = {
-      data: [],
-      labels: [],
-      options: {},
-      type: 'pie'
-    };
-
-    this.getPollAnswers();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers()));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  getAnswerColor(index) {
-    return index > this.ChartColours.length - 1 ? '#d3d3d3' : this.ChartColours[index];
-  }
-
-  // Params: lastAnswerId
-  getPollAnswers() {
-    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
-      this.$timeout(_ => {
-        this.answers = answers;
-        this.chart.labels = [];
-        this.chart.data = [];
-
-        for (let index in answers) {
-          this.chart.labels.push(Number(index) + 1);
-          this.chart.data.push(answers[index].votes);
-        }
-      });
-    }).catch(err => {
-      if (err.status !== 404) {
-        this.AlertsService.push('error', 'Error fetching poll answers.');
-      }
-    });
-  }
-
-  // indicate whether the poll has been voted yet ie. do we have results to show
-  hasSomeVotes() {
-    for (let datum of this.chart.data) {
-      if (datum !== 0) return true;
-    }
-    return false;
-  }
-}
-
-BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'ChartColours', 'EventService', 'PostService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
-
-/***/ }),
-/* 186 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchPostVoteController.$inject, injections);
-
-    this.answers = [];
-    this.controls = {
-      sortBy: {
-        items: ['date posted', 'votes'],
-        selectedIndex: 0
-      }
-    };
-    this.selectedAnswerIndex = -1;
-
-    let listeners = [];
-
-    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.getPollAnswers();
-    }));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  canSubmitNewAnswer() {
-    const post = this.PostService.post;
-    const user = this.UserService.user;
-    return !(post.locked && post.data.creator !== user.username);
-  }
-
-  getPollAnswers(lastAnswerId) {
-    this.selectedAnswerIndex = -1;
-
-    let sortBy;
-
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
-      case 'date':
-        sortBy = 'date';
-        break;
-
-      case 'votes':
-        sortBy = 'votes';
-        break;
-
-      default:
-        sortBy = 'date';
-        break;
-    }
-
-    // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => this.$timeout(_ => {
-      // if lastAnswerId was specified we are fetching _more_ answers, so append them
-      this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
-    })).catch(err => {
-      if (err.status !== 404) {
-        this.AlertsService.push('error', 'Error fetching poll answers.');
-      }
-    });
-  }
-
-  openSubmitPollAnswerModal() {
-    this.ModalService.open('SUBMIT_POLL_ANSWER', { postid: this.PostService.post.id }, 'Answer submitted.', 'Unable to submit answer.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('SUBMIT_POLL_ANSWER' !== name) return;
-      this.$state.go('weco.branch.post.vote', { reload: true });
-    });
-  }
-
-  selectAnswer(index) {
-    this.selectedAnswerIndex = index;
-  }
-
-  vote() {
-    const answer = this.answers[this.selectedAnswerIndex];
-
-    if (!answer) return;
-
-    this.PostService.votePollAnswer(answer.postid, answer.id).then(_ => this.AlertsService.push('success', 'Your vote has been cast!')).catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
-  }
-}
-
-BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
-
-/***/ }),
-/* 187 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchSubbranchesController.$inject, injections);
-
-    this.branches = [];
-    this.controls = {
-      sortBy: {
-        items: ['total points', '# of posts', '# of comments', 'date created'],
-        selectedIndex: 0
-      },
-      timeRange: {
-        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
-        selectedIndex: 0
-      }
-    };
-    this.isLoading = false;
-    this.isLoadingMore = false;
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.branch.subbranches')) {
-        return;
-      }
-
-      if (!Object.keys(this.BranchService.branch).length) {
-        return;
-      }
-
-      this.getSubbranches();
-    };
-
-    // todo cache this instead...
-    //init();
-
-    let listeners = [];
-
-    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
-    }));
-
-    listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'BranchSubbranchesScrollToBottom') return;
-
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.branches.length) {
-          this.getSubbranches(this.branches[this.branches.length - 1].id);
-        }
-      }
-    }));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  getSortBy() {
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
-      case 'total points':
-        return 'post_points';
-
-      case '# of posts':
-        return 'post_count';
-
-      case '# of comments':
-        return 'post_comments';
-
-      case 'date created':
-      default:
-        return 'date';
-    }
-  }
-
-  getSubbranches(lastBranchId) {
-    if (this.isLoading === true) return;
-
-    this.isLoading = true;
-
-    const sortBy = this.getSortBy();
-    const timeafter = this.getTimeafter();
-
-    // fetch the subbranches for this branch and timefilter
-    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
-      this.$timeout(_ => {
-        // if lastBranchId was specified we are fetching _more_ branches, so append them
-        this.branches = lastBranchId ? this.branches.concat(branches) : branches;
-        this.isLoading = false;
-        this.isLoadingMore = false;
-      });
-    }).catch(_ => {
-      this.AlertsService.push('error', 'Error fetching branches.');
-      this.$timeout(_ => this.isLoading = false);
-    });
-  }
-
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter() {
-    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
-      case 'past year':
-        return new Date().setFullYear(new Date().getFullYear() - 1);
-
-      case 'past month':
-        return new Date().setMonth(new Date().getMonth() - 1);
-
-      case 'past week':
-        return new Date().setDate(new Date().getDate() - 7);
-
-      case 'past 24 hrs':
-        return new Date().setDate(new Date().getDate() - 1);
-
-      case 'past hour':
-        return new Date().setHours(new Date().getHours() - 1);
-
-      case 'all time':
-      default:
-        return 0;
-    }
-  }
-}
-
-BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
-
-/***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(BranchWallController.$inject, injections);
-
-    const cb = _ => this.WallService.init('weco.branch.wall');
-
-    // todo cache this instead...
-    //cb();
-
-    let listeners = [];
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  // return the correct ui-sref string for when the specified post is clicked
-  getLink(post) {
-    if ('text' === post.type || 'poll' === post.type) {
-      return this.$state.href('weco.branch.post', { postid: post.id });
-    }
-
-    return post.text;
-  }
-}
-
-BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'BranchService', 'EventService', 'WallService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
-
-/***/ }),
-/* 189 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(HomeController.$inject, injections);
-
-    this.stats = {
-      branch_count: '...',
-      donation_total: '...',
-      raised_total: '...',
-      user_count: '...'
-    };
-
-    for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', { stat }).then(res => this.stats[stat] = res.data.data).catch(_ => this.AlertsService.push('error', 'Having trouble connecting...')).then(this.$timeout);
-    }
-  }
-
-  getHomepageImageURL() {
-    if ('production' === this.ENV.name) {
-      return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
-    }
-
-    return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
-  }
-}
-
-HomeController.$inject = ['$timeout', 'AlertsService', 'API', 'ENV'];
-
-/* harmony default export */ __webpack_exports__["a"] = (HomeController);
-
-/***/ }),
-/* 190 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileController.$inject, injections);
-
-    this.isLoading = false;
-    this.profileUser = {};
-    this.showCover = true;
-    this.tabItems = ['about'];
-    this.tabStates = ['weco.profile.about'];
-
-    const loadOtherUser = _ => {
-      // ensure we are in the 'about' state
-      if ('weco.profile.about' !== this.$state.current.name) {
-        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
-      } else {
-        this.isLoading = true;
-        this.UserService.fetch(this.$state.params.username).then(user => {
-          this.profileUser = user;
-          this.isLoading = false;
-        }).catch(err => {
-          this.isLoading = false;
-
-          if (404 === err.status) {
-            return this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch user.');
-            this.$state.go('weco.home');
-          }
-        }).then(this.$timeout);
-      }
-    };
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(_ => {
-          this.profileUser = this.UserService.user;
-
-          if (this.UserService.user.username === this.$state.params.username) {
-            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
-              this.tabItems.push('settings');
-              this.tabStates.push('weco.profile.settings');
-            }
-
-            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
-              this.tabItems.push('notifications');
-              this.tabStates.push('weco.profile.notifications');
-            }
-          }
-        });
-      } else {
-        loadOtherUser();
-      }
-    };
-
-    init();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  openCoverPictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'cover'
-    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
-  }
-
-  openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
-      route: 'user/me/',
-      type: 'picture'
-    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
-  }
-}
-
-ProfileController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
-
-/***/ }),
-/* 191 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_config__ = __webpack_require__(4);
-
-
-
-class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileNotificationsController.$inject, injections);
-
-    this.isLoading = false;
-    this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */];
-    this.notifications = [];
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(_ => this.getNotifications());
-      }
-    };
-
-    init();
-
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('NotificationsScrollToBottom' !== name) return;
-
-      if (!this.isLoading) {
-        this.isLoading = true;
-
-        if (this.notifications.length) {
-          this.getNotifications(this.notifications[this.notifications.length - 1].id);
-        }
-      }
-    }));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  getNotificationImageType(notification) {
-    switch (notification.type) {
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].NEW_CHILD_BRANCH_REQUEST:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].CHILD_BRANCH_REQUEST_ANSWERED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].BRANCH_MOVED:
-        return 'branch';
-
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].MODERATOR:
-        return 'moderator';
-
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].COMMENT:
-        return 'comment';
-
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].POST_FLAGGED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].POST_REMOVED:
-      case __WEBPACK_IMPORTED_MODULE_1_components_notification_config__["a" /* default */].POST_TYPE_CHANGED:
-        return 'flagged';
-
-      default:
-        return 'user';
-    }
-  }
-
-  getNotifications(lastNotificationId) {
-    this.isLoading = true;
-
-    this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
-      this.$timeout(_ => {
-        this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
-        this.isLoading = false;
-      });
-    }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
-  }
-
-  toggleUnreadState(notification) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread).then(_ => {
-      this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
-      this.$timeout(_ => notification.unread = !notification.unread);
-    }).catch(_ => this.AlertsService.push('error', 'Unable to mark notification.'));
-  }
-}
-
-ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
-
-/***/ }),
-/* 192 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ProfileSettingsController.$inject, injections);
-  }
-
-  openNameModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Name',
-      inputs: [{
-        fieldname: 'name',
-        placeholder: 'Name',
-        type: 'text'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openEmailModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Email',
-      inputs: [{
-        placeholder: 'Email',
-        type: 'email',
-        fieldname: 'email'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openDOBModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Date of Birth',
-      inputs: [{
-        placeholder: 'Date of Birth',
-        type: 'date',
-        fieldname: 'dob'
-      }]
-    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  updateNSFW() {
-    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!')).catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
-  }
-}
-
-ProfileSettingsController.$inject = ['$state', 'AlertsService', 'ModalService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
-
-/***/ }),
-/* 193 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_alerts_alerts_service__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_service__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__branch__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__comment__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__event__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mod__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_modal_service__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__post__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__upload__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__ = __webpack_require__(205);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let refs = [{ name: 'AlertsService', service: __WEBPACK_IMPORTED_MODULE_0__components_alerts_alerts_service__["a" /* default */] }, { name: 'API', service: __WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */] }, { name: 'AppService', service: __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* default */] }, { name: 'BranchService', service: __WEBPACK_IMPORTED_MODULE_3__branch__["a" /* default */] }, { name: 'CommentService', service: __WEBPACK_IMPORTED_MODULE_4__comment__["a" /* default */] }, { name: 'EventService', service: __WEBPACK_IMPORTED_MODULE_5__event__["a" /* default */] }, { name: 'ModService', service: __WEBPACK_IMPORTED_MODULE_6__mod__["a" /* default */] }, { name: 'ModalService', service: __WEBPACK_IMPORTED_MODULE_7__components_modal_service__["a" /* default */] }, { name: 'PostService', service: __WEBPACK_IMPORTED_MODULE_8__post__["a" /* default */] }, { name: 'TooltipService', service: __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__["a" /* default */] }, { name: 'UploadService', service: __WEBPACK_IMPORTED_MODULE_10__upload__["a" /* default */] }, { name: 'UserService', service: __WEBPACK_IMPORTED_MODULE_11__user__["a" /* default */] }, { name: 'WallService', service: __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__["a" /* default */] }];
+let refs = [{ name: 'AlertsService', module: __WEBPACK_IMPORTED_MODULE_0__components_alerts_service__["a" /* default */] }, { name: 'API', module: __WEBPACK_IMPORTED_MODULE_1__services_api__["a" /* default */] }, { name: 'AppService', module: __WEBPACK_IMPORTED_MODULE_2__app_service__["a" /* default */] }, { name: 'BranchService', module: __WEBPACK_IMPORTED_MODULE_3__services_branch__["a" /* default */] }, { name: 'CommentService', module: __WEBPACK_IMPORTED_MODULE_4__services_comment__["a" /* default */] }, { name: 'EventService', module: __WEBPACK_IMPORTED_MODULE_5__services_event__["a" /* default */] }, { name: 'ModService', module: __WEBPACK_IMPORTED_MODULE_6__services_mod__["a" /* default */] }, { name: 'ModalService', module: __WEBPACK_IMPORTED_MODULE_7__components_modal_service__["a" /* default */] }, { name: 'PostService', module: __WEBPACK_IMPORTED_MODULE_8__services_post__["a" /* default */] }, { name: 'TooltipService', module: __WEBPACK_IMPORTED_MODULE_9__components_tooltip_service__["a" /* default */] }, { name: 'UploadService', module: __WEBPACK_IMPORTED_MODULE_10__services_upload__["a" /* default */] }, { name: 'UserService', module: __WEBPACK_IMPORTED_MODULE_11__services_user__["a" /* default */] }, { name: 'WallService', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_service__["a" /* default */] }];
 
 const services = registrar => {
   if (!registrar) throw new Error('Cannot register services - no registrar provided.');
-  refs.forEach(ref => registrar.service(ref.name, ref.service));
+  refs.forEach(ref => registrar.service(ref.name, ref.module));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (services);
 
 /***/ }),
-/* 194 */
+/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28127,14 +24324,14 @@ class ComponentRegistrar {
 /* harmony default export */ __webpack_exports__["a"] = (ComponentRegistrar);
 
 /***/ }),
-/* 195 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(263);
+__webpack_require__(266);
 module.exports = 'ngFileUpload';
 
 /***/ }),
-/* 196 */
+/* 138 */
 /***/ (function(module, exports) {
 
 /**
@@ -32295,7 +28492,7 @@ angular.module('ngAnimate', [], function initAngularHelpers() {
 
 
 /***/ }),
-/* 197 */
+/* 139 */
 /***/ (function(module, exports) {
 
 module.exports = function unindent(text) {
@@ -32330,7 +28527,7 @@ module.exports = function unindent(text) {
 
 
 /***/ }),
-/* 198 */
+/* 140 */
 /***/ (function(module, exports) {
 
 /**
@@ -33092,7 +29289,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 199 */
+/* 141 */
 /***/ (function(module, exports) {
 
 /**
@@ -66469,97 +62666,66 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 200 */
+/* 142 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AppController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AppController.$inject, injections);
+
+    this.socketioURL = `${this.ENV.apiEndpoint}socket.io/socket.io.js`;
+  }
+
+  hasNavBar() {
+    if (this.$state.current.name.includes('auth') || this.$state.current.name.includes('verify') || this.$state.current.name.includes('reset-password')) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
+AppController.$inject = ['$state', 'ENV', 'TooltipService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AppController);
+
+/***/ }),
+/* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router__ = __webpack_require__(126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_ui_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_cache__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_cache___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_cache__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_animate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_animate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_sanitize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_file_upload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_file_upload__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng_file_upload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_google_analytics__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular_google_analytics__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular_marked__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_google_analytics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_cache___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular_cache__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_env_config__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_components_notification_config__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_filters__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_run__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_app_config__ = __webpack_require__(127);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_routes__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_services_init__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_app_controller__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_pages_auth_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_pages_branch_controller__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_pages_branch_nucleus_about_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_pages_branch_nucleus_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_pages_branch_nucleus_flagged_posts_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_pages_branch_nucleus_moderators_controller__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_pages_branch_nucleus_modtools_controller__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_pages_branch_nucleus_settings_controller__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_pages_branch_post_controller__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_pages_branch_post_results_controller__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_pages_branch_post_vote_controller__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_pages_branch_subbranches_controller__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_pages_branch_wall_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_pages_home_controller__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31_pages_profile_controller__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_pages_profile_notifications_controller__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33_pages_profile_settings_controller__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_controller__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_controller__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37_components_cover_photo_directive__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38_components_cover_photo_controller__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_components_dropdown_directive__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40_components_list_item_directive__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_components_list_item_controller__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_components_loading_directive__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43_components_nav_bar_directive__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44_components_nav_bar_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45_components_on_scroll_to_bottom_directive__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46_components_modal_profile_settings_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47_components_modal_post_submit_poll_answer_controller__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48_components_tooltip_directive__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49_components_modal_upload_image_controller__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50_components_alerts_alerts_directive__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51_components_tabs_tabs_directive__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52_components_tabs_tabs_controller__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53_components_mod_log_entry_mod_log_entry_directive__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54_components_notification_notification_item_directive__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55_components_tag_editor_tag_editor_directive__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_components_comments_comments_directive__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57_components_comments_comments_controller__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58_components_comments_write_comment_write_comment_directive__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59_components_comments_write_comment_write_comment_controller__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60_components_comments_comment_thread_comment_thread_directive__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61_components_comments_comment_thread_comment_thread_controller__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62_components_poll_answer_editor_poll_answer_editor_directive__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63_components_chart_chart_directive__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64_components_modal_modal_directive__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65_components_modal_branch_nucleus_settings_settings_modal_controller__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72_components_modal_post_flag_flag_post_modal_controller__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73_components_modal_post_create_create_post_modal_controller__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74_components_modal_post_delete_delete_post_modal_controller__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_create_create_branch_modal_controller__ = __webpack_require__(147);
-// APP DEPENDENCIES
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_sanitize__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular_sanitize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_ui_router__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_ui_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular_ui_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_app_config__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_routes__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_run__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_chart_constants__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_env_config__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_notification_constants__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_app_filters__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__init_controllers__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__init_directives__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__init_services__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_utils_component_registrar__ = __webpack_require__(136);
 
 
 
@@ -66569,183 +62735,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-let app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('wecoApp', [__WEBPACK_IMPORTED_MODULE_1_angular_ui_router___default.a, __WEBPACK_IMPORTED_MODULE_2_angular_animate___default.a, __WEBPACK_IMPORTED_MODULE_3_angular_sanitize___default.a, __WEBPACK_IMPORTED_MODULE_4_ng_file_upload___default.a, __WEBPACK_IMPORTED_MODULE_5_angular_marked___default.a, __WEBPACK_IMPORTED_MODULE_6_angular_google_analytics___default.a, __WEBPACK_IMPORTED_MODULE_7_angular_cache___default.a]);
 
-// CONSTANTS
 
-app.constant('ENV', __WEBPACK_IMPORTED_MODULE_8_env_config__["a" /* default */]);
 
 
-app.constant('NotificationTypes', __WEBPACK_IMPORTED_MODULE_9_components_notification_config__["a" /* default */]);
 
-app.constant('ChartColours', ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#227692', '#7174ab', '#2c4a6e']);
 
-// FILTERS
 
-app.filter('reverse', __WEBPACK_IMPORTED_MODULE_10_app_filters__["a" /* default */].reverse);
-app.filter('capitalize', __WEBPACK_IMPORTED_MODULE_10_app_filters__["a" /* default */].capitalize);
 
-// RUN
 
-app.run(__WEBPACK_IMPORTED_MODULE_11_app_run__["a" /* default */]);
 
-// REGISTER COMPONENTS
 
-const registrar = new __WEBPACK_IMPORTED_MODULE_12_utils_component_registrar__["a" /* default */]('wecoApp');
 
-// Config
 
 
 
-registrar.config(__WEBPACK_IMPORTED_MODULE_13_app_config__["a" /* default */]);
-registrar.config(__WEBPACK_IMPORTED_MODULE_14_app_routes__["a" /* default */]);
 
-// SERVICES.
+const appName = 'wecoApp';
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_15_services_init__["a" /* default */])(registrar);
+const app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(appName, [__WEBPACK_IMPORTED_MODULE_1_angular_cache___default.a, __WEBPACK_IMPORTED_MODULE_2_angular_animate___default.a, __WEBPACK_IMPORTED_MODULE_3_ng_file_upload___default.a, __WEBPACK_IMPORTED_MODULE_4_angular_google_analytics___default.a, __WEBPACK_IMPORTED_MODULE_5_angular_marked___default.a, __WEBPACK_IMPORTED_MODULE_6_angular_sanitize___default.a, __WEBPACK_IMPORTED_MODULE_7_angular_ui_router___default.a]);
+const registrar = new __WEBPACK_IMPORTED_MODULE_18_utils_component_registrar__["a" /* default */](appName);
 
-// Controllers
+// Constants.
+app.constant('ChartColours', __WEBPACK_IMPORTED_MODULE_11__components_chart_constants__["a" /* default */]);
+app.constant('ENV', __WEBPACK_IMPORTED_MODULE_12_env_config__["a" /* default */]);
+app.constant('NotificationTypes', __WEBPACK_IMPORTED_MODULE_13__components_notification_constants__["a" /* default */]);
 
+// Filters.
+app.filter('capitalize', __WEBPACK_IMPORTED_MODULE_14_app_filters__["a" /* default */].capitalize);
+app.filter('reverse', __WEBPACK_IMPORTED_MODULE_14_app_filters__["a" /* default */].reverse);
 
+// Config.
+registrar.config(__WEBPACK_IMPORTED_MODULE_8_app_config__["a" /* default */]);
+registrar.config(__WEBPACK_IMPORTED_MODULE_9_app_routes__["a" /* default */]);
 
+// Register components.
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_15__init_controllers__["a" /* default */])(registrar);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_16__init_directives__["a" /* default */])(registrar);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_17__init_services__["a" /* default */])(registrar);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-registrar.controller('AppController', __WEBPACK_IMPORTED_MODULE_16_app_controller__["a" /* default */]);
-registrar.controller('AuthController', __WEBPACK_IMPORTED_MODULE_17_pages_auth_controller__["a" /* default */]);
-registrar.controller('BranchController', __WEBPACK_IMPORTED_MODULE_18_pages_branch_controller__["a" /* default */]);
-registrar.controller('BranchNucleusAboutController', __WEBPACK_IMPORTED_MODULE_19_pages_branch_nucleus_about_controller__["a" /* default */]);
-registrar.controller('BranchNucleusController', __WEBPACK_IMPORTED_MODULE_20_pages_branch_nucleus_controller__["a" /* default */]);
-registrar.controller('BranchNucleusFlaggedPostsController', __WEBPACK_IMPORTED_MODULE_21_pages_branch_nucleus_flagged_posts_controller__["a" /* default */]);
-registrar.controller('BranchNucleusModeratorsController', __WEBPACK_IMPORTED_MODULE_22_pages_branch_nucleus_moderators_controller__["a" /* default */]);
-registrar.controller('BranchNucleusModtoolsController', __WEBPACK_IMPORTED_MODULE_23_pages_branch_nucleus_modtools_controller__["a" /* default */]);
-registrar.controller('BranchNucleusSettingsController', __WEBPACK_IMPORTED_MODULE_24_pages_branch_nucleus_settings_controller__["a" /* default */]);
-registrar.controller('BranchPostController', __WEBPACK_IMPORTED_MODULE_25_pages_branch_post_controller__["a" /* default */]);
-registrar.controller('BranchPostResultsController', __WEBPACK_IMPORTED_MODULE_26_pages_branch_post_results_controller__["a" /* default */]);
-registrar.controller('BranchPostVoteController', __WEBPACK_IMPORTED_MODULE_27_pages_branch_post_vote_controller__["a" /* default */]);
-registrar.controller('BranchSubbranchesController', __WEBPACK_IMPORTED_MODULE_28_pages_branch_subbranches_controller__["a" /* default */]);
-registrar.controller('BranchWallController', __WEBPACK_IMPORTED_MODULE_29_pages_branch_wall_controller__["a" /* default */]);
-registrar.controller('HomeController', __WEBPACK_IMPORTED_MODULE_30_pages_home_controller__["a" /* default */]);
-registrar.controller('ProfileController', __WEBPACK_IMPORTED_MODULE_31_pages_profile_controller__["a" /* default */]);
-registrar.controller('ProfileNotificationsController', __WEBPACK_IMPORTED_MODULE_32_pages_profile_notifications_controller__["a" /* default */]);
-registrar.controller('ProfileSettingsController', __WEBPACK_IMPORTED_MODULE_33_pages_profile_settings_controller__["a" /* default */]);
-registrar.controller('ResetPasswordController', __WEBPACK_IMPORTED_MODULE_34_pages_auth_reset_password_controller__["a" /* default */]);
-registrar.controller('TooltipController', __WEBPACK_IMPORTED_MODULE_35_components_tooltip_controller__["a" /* default */]);
-registrar.controller('VerifyController', __WEBPACK_IMPORTED_MODULE_36_pages_auth_verify_controller__["a" /* default */]);
-
-// Components
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-registrar.directive('coverPhoto', __WEBPACK_IMPORTED_MODULE_37_components_cover_photo_directive__["a" /* default */]);
-registrar.controller('CoverPhotoController', __WEBPACK_IMPORTED_MODULE_38_components_cover_photo_controller__["a" /* default */]);
-registrar.directive('dropdown', __WEBPACK_IMPORTED_MODULE_39_components_dropdown_directive__["a" /* default */]);
-registrar.directive('listItem', __WEBPACK_IMPORTED_MODULE_40_components_list_item_directive__["a" /* default */]);
-registrar.controller('ListItemController', __WEBPACK_IMPORTED_MODULE_41_components_list_item_controller__["a" /* default */]);
-registrar.directive('loading', __WEBPACK_IMPORTED_MODULE_42_components_loading_directive__["a" /* default */]);
-registrar.directive('navBar', __WEBPACK_IMPORTED_MODULE_43_components_nav_bar_directive__["a" /* default */]);
-registrar.controller('NavbarController', __WEBPACK_IMPORTED_MODULE_44_components_nav_bar_controller__["a" /* default */]);
-registrar.directive('onScrollToBottom', __WEBPACK_IMPORTED_MODULE_45_components_on_scroll_to_bottom_directive__["a" /* default */]);
-registrar.controller('SubmitPollAnswerModalController', __WEBPACK_IMPORTED_MODULE_47_components_modal_post_submit_poll_answer_controller__["a" /* default */]);
-registrar.controller('ProfileSettingsModalController', __WEBPACK_IMPORTED_MODULE_46_components_modal_profile_settings_controller__["a" /* default */]);
-registrar.directive('tooltip', __WEBPACK_IMPORTED_MODULE_48_components_tooltip_directive__["a" /* default */]);
-registrar.controller('UploadImageModalController', __WEBPACK_IMPORTED_MODULE_49_components_modal_upload_image_controller__["a" /* default */]);
-
-
-registrar.directive('alerts', __WEBPACK_IMPORTED_MODULE_50_components_alerts_alerts_directive__["a" /* default */]);
-
-
-
-registrar.directive('tabs', __WEBPACK_IMPORTED_MODULE_51_components_tabs_tabs_directive__["a" /* default */]);
-registrar.controller('TabsController', __WEBPACK_IMPORTED_MODULE_52_components_tabs_tabs_controller__["a" /* default */]);
-
-
-registrar.directive('modLogEntry', __WEBPACK_IMPORTED_MODULE_53_components_mod_log_entry_mod_log_entry_directive__["a" /* default */]);
-
-
-registrar.directive('notification', __WEBPACK_IMPORTED_MODULE_54_components_notification_notification_item_directive__["a" /* default */]);
-
-
-registrar.directive('tagEditor', __WEBPACK_IMPORTED_MODULE_55_components_tag_editor_tag_editor_directive__["a" /* default */]);
-
-
-
-registrar.directive('comments', __WEBPACK_IMPORTED_MODULE_56_components_comments_comments_directive__["a" /* default */]);
-registrar.controller('CommentsController', __WEBPACK_IMPORTED_MODULE_57_components_comments_comments_controller__["a" /* default */]);
-
-
-
-registrar.directive('writeComment', __WEBPACK_IMPORTED_MODULE_58_components_comments_write_comment_write_comment_directive__["a" /* default */]);
-registrar.controller('WriteCommentController', __WEBPACK_IMPORTED_MODULE_59_components_comments_write_comment_write_comment_controller__["a" /* default */]);
-
-
-
-registrar.directive('commentThread', __WEBPACK_IMPORTED_MODULE_60_components_comments_comment_thread_comment_thread_directive__["a" /* default */]);
-registrar.controller('CommentThreadController', __WEBPACK_IMPORTED_MODULE_61_components_comments_comment_thread_comment_thread_controller__["a" /* default */]);
-
-
-registrar.directive('pollAnswerEditor', __WEBPACK_IMPORTED_MODULE_62_components_poll_answer_editor_poll_answer_editor_directive__["a" /* default */]);
-
-
-registrar.directive('chart', __WEBPACK_IMPORTED_MODULE_63_components_chart_chart_directive__["a" /* default */]);
-
-
-registrar.directive('modal', __WEBPACK_IMPORTED_MODULE_64_components_modal_modal_directive__["a" /* default */]);
-
-
-registrar.controller('BranchNucleusSettingsModalController', __WEBPACK_IMPORTED_MODULE_65_components_modal_branch_nucleus_settings_settings_modal_controller__["a" /* default */]);
-
-registrar.controller('AddModModalController', __WEBPACK_IMPORTED_MODULE_66_components_modal_branch_nucleus_modtools_add_mod_add_mod_modal_controller__["a" /* default */]);
-
-registrar.controller('DeleteBranchModalController', __WEBPACK_IMPORTED_MODULE_67_components_modal_branch_nucleus_modtools_delete_branch_delete_branch_modal_controller__["a" /* default */]);
-
-registrar.controller('RemoveModModalController', __WEBPACK_IMPORTED_MODULE_68_components_modal_branch_nucleus_modtools_remove_mod_remove_mod_modal_controller__["a" /* default */]);
-
-registrar.controller('ReviewSubbranchRequestsModalController', __WEBPACK_IMPORTED_MODULE_69_components_modal_branch_nucleus_modtools_review_subbranch_requests_review_subbranch_requests_modal_controller__["a" /* default */]);
-
-registrar.controller('SubmitSubbranchRequestModalController', __WEBPACK_IMPORTED_MODULE_70_components_modal_branch_nucleus_modtools_submit_subbranch_request_submit_subbranch_request_modal_controller__["a" /* default */]);
-
-registrar.controller('UpdateHomepageStatsModalController', __WEBPACK_IMPORTED_MODULE_71_components_modal_branch_nucleus_modtools_update_homepage_stats_update_homepage_stats_modal_controller__["a" /* default */]);
-
-registrar.controller('FlagPostModalController', __WEBPACK_IMPORTED_MODULE_72_components_modal_post_flag_flag_post_modal_controller__["a" /* default */]);
-
-registrar.controller('CreatePostModalController', __WEBPACK_IMPORTED_MODULE_73_components_modal_post_create_create_post_modal_controller__["a" /* default */]);
-
-registrar.controller('DeletePostModalController', __WEBPACK_IMPORTED_MODULE_74_components_modal_post_delete_delete_post_modal_controller__["a" /* default */]);
-
-registrar.controller('ResolveFlagPostModalController', __WEBPACK_IMPORTED_MODULE_75_components_modal_post_flag_resolve_resolve_flag_post_modal_controller__["a" /* default */]);
-
-registrar.controller('CreateBranchModalController', __WEBPACK_IMPORTED_MODULE_76_components_modal_branch_create_create_branch_modal_controller__["a" /* default */]);
+// Start the app.
+app.run(__WEBPACK_IMPORTED_MODULE_10_app_run__["a" /* default */]);
 
 /***/ }),
-/* 201 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66773,7 +62806,34 @@ AppService.$inject = ['ENV'];
 /* harmony default export */ __webpack_exports__["a"] = (AppService);
 
 /***/ }),
-/* 202 */
+/* 145 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AlertsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AlertsComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {};
+    this.templateUrl = '/app/components/alerts/view.html';
+  }
+
+  link(scope) {
+    scope.AlertsService = this.AlertsService;
+  }
+}
+
+AlertsComponent.$inject = ['AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AlertsComponent);
+
+/***/ }),
+/* 146 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66824,7 +62884,1904 @@ AlertsService.$inject = ['$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (AlertsService);
 
 /***/ }),
-/* 203 */
+/* 147 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_chart_js__);
+
+
+
+class ChartComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ChartComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {
+      type: '=',
+      chartData: '=',
+      labels: '=',
+      colors: '=',
+      options: '='
+    };
+    this.template = '<div class="chart"><canvas></canvas></div>';
+  }
+
+  link(scope, element) {
+    let redrawChart = () => {
+      if (scope.chart) scope.chart.destroy();
+      scope.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js___default.a(element[0].querySelector('canvas'), {
+        type: scope.type,
+        data: {
+          labels: scope.labels,
+          datasets: [{
+            data: scope.chartData,
+            backgroundColor: scope.colors || this.ChartColours,
+            hoverBackgroundColor: scope.colors || this.ChartColours
+          }]
+        },
+        options: scope.options
+      });
+    };
+
+    scope.$watch('chartData', redrawChart);
+    scope.$watch('labels', redrawChart);
+    scope.$watch('colors', redrawChart);
+    scope.$watch('options', redrawChart);
+    scope.$watch('type', redrawChart);
+    redrawChart();
+  }
+}
+
+ChartComponent.$inject = ['$compile', 'ChartColours'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
+
+/***/ }),
+/* 148 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CommentThreadController.$inject, injections);
+
+    this.openComment = undefined; // the comment which is being replied to
+  }
+
+  openReply(comment, isEdit) {
+    this.$timeout(() => {
+      if (this.openComment && this.openComment.meta) {
+        this.openComment.meta.openReply = false;
+      }
+      this.openComment = comment;
+      this.openComment.meta = {
+        openReply: true,
+        update: isEdit
+      };
+    });
+  }
+
+  closeReply() {
+    this.$timeout(() => {
+      this.openComment.meta = {
+        openReply: false,
+        update: false
+      };
+    });
+  }
+
+  // Params: comment
+  onSubmitComment() {
+    if (this.openComment.meta.update) {
+      // if the comment was edited
+      // reload the comment data
+      this.CommentService.fetch(this.openComment.postid, this.openComment.id).then(response => {
+        this.$timeout(() => {
+          // copy keys over so not to destroy 'openComment' object reference to 'comment' in the comments array
+          for (let key in response) this.openComment[key] = response[key];
+          this.closeReply();
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Unable to reload comment!');
+        this.closeReply();
+      });
+    } else {
+      // if the comment was replied to
+      // load the replies
+      this.loadMore(this.openComment);
+      this.closeReply();
+    }
+  }
+
+  timeSince(date) {
+    let msPerMinute = 60 * 1000;
+    let msPerHour = msPerMinute * 60;
+    let msPerDay = msPerHour * 24;
+    let msPerMonth = msPerDay * 30;
+    let msPerYear = msPerDay * 365;
+
+    let elapsed = new Date().getTime() - new Date(date);
+
+    if (elapsed < msPerMinute) {
+      return Math.round(elapsed / 1000) + ' seconds ago';
+    }
+    if (elapsed < msPerHour) {
+      return Math.round(elapsed / msPerMinute) + ' minutes ago';
+    }
+    if (elapsed < msPerDay) {
+      return Math.round(elapsed / msPerHour) + ' hours ago';
+    }
+    if (elapsed < msPerMonth) {
+      return Math.round(elapsed / msPerDay) + ' days ago';
+    }
+    if (elapsed < msPerYear) {
+      return Math.round(elapsed / msPerMonth) + ' months ago';
+    }
+    return Math.round(elapsed / msPerYear) + ' years ago';
+  }
+
+  loadMore(comment) {
+    let lastCommentId = null;
+    if (comment.comments && comment.comments.length > 0) lastCommentId = comment.comments[comment.comments.length - 1].id;
+
+    // fetch the replies to this comment, or just the number of replies
+    this.CommentService.getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId).then(comments => {
+      this.$timeout(() => {
+        // if lastCommentId was specified we are fetching _more_ comments, so append them
+        if (lastCommentId) {
+          comment.comments = comment.comments.concat(comments);
+        } else {
+          comment.comments = comments;
+        }
+      });
+    }).catch(() => {
+      this.AlertsService.push('error', 'Unable to get replies!');
+    });
+  }
+
+  vote(comment, direction) {
+    this.CommentService.vote(comment.postid, comment.id, direction).then(() => {
+      let inc = direction === 'up' ? 1 : -1;
+      this.$timeout(() => {
+        comment.individual += inc;
+      });
+      this.AlertsService.push('success', 'Thanks for voting!');
+    }).catch(err => {
+      if (err.status === 400) {
+        this.AlertsService.push('error', 'You have already voted on this comment.');
+      } else if (err.status === 403) {
+        this.AlertsService.push('error', 'Please log in or create an account to vote.');
+      } else {
+        this.AlertsService.push('error', 'Error voting on comment.');
+      }
+    });
+  }
+
+  isOwnComment(comment) {
+    if (!this.UserService.user || !comment.data) {
+      return false;
+    }
+    return this.UserService.user.username === comment.data.creator;
+  }
+
+  openCommentPermalink(comment) {
+    this.$state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
+  }
+}
+CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'UserService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
+
+/***/ }),
+/* 149 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CommentThreadComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CommentThreadComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = false;
+    this.scope = {};
+    this.bindToController = {
+      comments: '=',
+      sortBy: '='
+    };
+    this.templateUrl = '/app/components/comments/comment-thread/view.html';
+    this.controller = 'CommentThreadController';
+    this.controllerAs = 'CommentThread';
+  }
+}
+CommentThreadComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
+
+/***/ }),
+/* 150 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CommentsController.$inject, injections);
+
+    this.isLoading = false;
+    this.isLoadingMore = false;
+    this.comments = [];
+    this.controls = {
+      sortBy: {
+        selectedIndex: 0,
+        items: ['POINTS', 'REPLIES', 'DATE']
+      }
+    };
+
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'CommentsScrollToBottom') return;
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+        if (this.comments.length > 0) this.getComments(this.comments[this.comments.length - 1].id);
+      }
+    });
+    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => {
+      this.reloadComments();
+    });
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
+      this.reloadComments();
+    });
+  }
+
+  isCommentPermalink() {
+    return this.$state.current.name === 'weco.branch.post.comment';
+  }
+
+  getComments(lastCommentId) {
+    if (this.isCommentPermalink()) {
+      // fetch the permalinked comment
+      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid).then(comment => {
+        this.$timeout(() => {
+          this.comments = [comment];
+          this.isLoading = false;
+        });
+      }).catch(err => {
+        if (err.status != 404) {
+          this.AlertsService.push('error', 'Error loading comments.');
+        }
+        this.isLoading = false;
+      });
+    } else {
+      // fetch all the comments for this post
+      let sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then(comments => {
+        this.$timeout(() => {
+          // if lastCommentId was specified we are fetching _more_ comments, so append them
+          if (lastCommentId) {
+            this.comments = this.comments.concat(comments);
+          } else {
+            this.comments = comments;
+          }
+          this.isLoadingMore = false;
+          this.isLoading = false;
+        });
+      }).catch(err => {
+        if (err.status !== 404) {
+          this.AlertsService.push('error', 'Error loading comments.');
+        }
+        this.isLoading = false;
+      });
+    }
+  }
+
+  reloadComments() {
+    this.isLoading = true;
+    this.comments = [];
+    this.getComments();
+  }
+}
+CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService', 'EventService', 'CommentService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CommentsController);
+
+/***/ }),
+/* 151 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CommentsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CommentsComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {};
+    this.bindToController = {};
+    this.templateUrl = '/app/components/comments/view.html';
+    this.controllerAs = 'Comments';
+    this.controller = 'CommentsController';
+  }
+}
+
+CommentsComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
+
+/***/ }),
+/* 152 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(WriteCommentController.$inject, injections);
+
+    this.isLoading = false;
+    this.comment = { text: '' };
+
+    this.$rootScope.$watch(() => this.update, () => {
+      if (this.update) {
+        this.comment.text = this.originalCommentText();
+      } else {
+        this.comment.text = '';
+      }
+    });
+  }
+
+  postComment() {
+    this.$timeout(() => {
+      this.isLoading = true;
+    });
+    this.comment.postid = this.postid();
+    this.comment.parentid = this.parentid();
+
+    // update an existing comment
+    if (this.update) {
+      // NB: if we are editing the existing comment, the supplied "parentid" is
+      // actually the id of the comment to be edited
+      this.CommentService.update(this.comment.postid, this.comment.parentid, this.comment.text).then(() => {
+        this.$timeout(() => {
+          this.isLoading = false;
+          this.comment = { text: '' };
+          this.onSubmit()(this.comment.id);
+        });
+      }).catch(() => {
+        this.AlertsService.push('error', 'Error editing comment.');
+        this.$timeout(() => {
+          this.isLoading = false;
+        });
+      });
+    } else {
+      // create a new comment
+      this.CommentService.create(this.comment).then(id => {
+        this.$timeout(() => {
+          this.isLoading = false;
+          this.comment = { text: '' };
+          this.onSubmit()(id);
+        });
+      }).catch(err => {
+        if (err.status === 403) {
+          this.AlertsService.push('error', 'Please log in or create an account to comment.');
+        } else {
+          this.AlertsService.push('error', 'Error posting comment.');
+        }
+        this.$timeout(() => {
+          this.isLoading = false;
+        });
+      });
+    }
+  }
+
+  cancelComment() {
+    this.$timeout(() => {
+      this.isLoading = false;
+      this.comment = { text: '' };
+      this.onCancel()();
+    });
+  }
+}
+WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (WriteCommentController);
+
+/***/ }),
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class WriteCommentComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(WriteCommentComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {};
+    this.bindToController = {
+      parentid: '&',
+      postid: '&',
+      onSubmit: '&',
+      onCancel: '&',
+      update: '=',
+      placeholder: '&',
+      originalCommentText: '&'
+    };
+    this.templateUrl = '/app/components/comments/write-comment/view.html';
+    this.controller = 'WriteCommentController';
+    this.controllerAs = 'WriteComment';
+  }
+}
+WriteCommentComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (WriteCommentComponent);
+
+/***/ }),
+/* 154 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CoverPhotoController.$inject, injections);
+
+    this.isOpen = true;
+  }
+
+  hasUrls() {
+    return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
+  }
+
+  hideCoverPicture() {
+    this.isOpen = false;
+  }
+
+  showCoverPicture() {
+    this.isOpen = true;
+  }
+}
+
+CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
+
+/***/ }),
+/* 155 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class CoverPhotoComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(CoverPhotoComponent.$inject, injections);
+
+    this.bindToController = {
+      canEdit: '&',
+      imageUrl: '&',
+      openUploadCoverModal: '=',
+      thumbUrl: '&'
+    };
+    this.controller = 'CoverPhotoController';
+    this.controllerAs = 'CoverPhoto';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/cover-photo/view.html';
+  }
+}
+
+CoverPhotoComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
+
+/***/ }),
+/* 156 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(DropdownComponent.$inject, injections);
+
+    this.replace = 'true';
+    this.restrict = 'E';
+    this.scope = {
+      items: '=',
+      selected: '=',
+      title: '&'
+    };
+    this.templateUrl = '/app/components/dropdown/view.html';
+  }
+
+  // Params: scope, element, attrs
+  link(scope) {
+    scope.isOpen = false;
+
+    scope.close = _ => this.$timeout(_ => scope.isOpen = false);
+
+    scope.open = _ => this.$timeout(_ => scope.isOpen = true);
+
+    scope.select = index => this.$timeout(_ => {
+      scope.selected = index;
+      scope.close();
+    });
+  }
+}
+
+DropdownComponent.$inject = ['$timeout'];
+
+/* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
+
+/***/ }),
+/* 157 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ListItemController.$inject, injections);
+  }
+
+  getOriginalBranches() {
+    let branches = [];
+
+    if (this.post.data && this.post.data.original_branches) {
+      branches = JSON.parse(this.post.data.original_branches);
+    }
+
+    return branches;
+  }
+
+  getOriginalBranchesTooltipString() {
+    const original_branches = this.getOriginalBranches();
+    let string = '';
+
+    for (let i = 1; i < original_branches.length; i++) {
+      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
+    }
+
+    return string;
+  }
+
+  getTotalFlagCount() {
+    const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
+
+    let total = 0;
+
+    counts.forEach(key => {
+      if (this.post[key]) {
+        total += Number.isNaN(this.post[key]) ? 0 : this.post[key];
+      }
+    });
+
+    return total;
+  }
+
+  isOwnPost() {
+    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open('DELETE_POST', { postid: this.post.id }, 'Post deleted.', 'Unable to delete post.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
+      this.$state.go(this.$state.current.name, { reload: true });
+    });
+  }
+
+  openFlagPostModal() {
+    this.ModalService.open('FLAG_POST', {
+      post: this.post,
+      branchid: this.BranchService.branch.id
+    }, 'Post flagged. The branch moderators will be informed.', 'Unable to flag post.');
+  }
+
+  openResolveFlagPostModal() {
+    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post }, 'Done.', 'Error resolving flags on post.');
+  }
+
+  showFlags() {
+    return this.$state.current.name.includes('weco.branch.nucleus');
+  }
+
+  showVotes() {
+    return !!this.stat;
+  }
+
+  vote(direction) {
+    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(_ => {
+      const inc = direction === 'up' ? 1 : -1;
+
+      this.$timeout(_ => {
+        this.post.individual += inc;
+        this.post.local += inc;
+        this.post.global += inc;
+      });
+
+      this.AlertsService.push('success', 'Thanks for voting!');
+    }).catch(err => {
+      if (400 === err.status) {
+        this.AlertsService.push('error', 'You have already voted on this post.');
+      } else if (403 === err.status) {
+        this.AlertsService.push('error', 'Please log in or create an account to vote.');
+      } else {
+        this.AlertsService.push('error', 'Error voting on post.');
+      }
+    });
+  }
+}
+
+ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ListItemController);
+
+/***/ }),
+/* 158 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ListItemComponent.$inject, injections);
+
+    this.bindToController = {
+      index: '=',
+      post: '=',
+      stat: '='
+    };
+    this.controller = 'ListItemController';
+    this.controllerAs = 'ListItem';
+    this.replace = true;
+    this.restrict = 'A';
+    this.scope = {};
+    this.templateUrl = '/app/components/list-item/view.html';
+  }
+}
+
+ListItemComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
+
+/***/ }),
+/* 159 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class LoadingComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(LoadingComponent.$inject, injections);
+
+    this.restrict = 'A';
+    this.replace = false;
+    this.scope = {
+      loadingWhen: '&',
+      // Legacy.
+      when: '&'
+    };
+    this.templateUrl = '/app/components/loading/view.html';
+    this.transclude = true;
+  }
+
+  link(scope, element, attrs, ctrl, transclude) {
+    /*  Here we perform transclusion manually, instead of using ng-transclude.
+    **  This is because ng-transclude automatically assigns the transcluded
+    **  content a new *child* scope of the transcluded contents's context.
+    **  However, we want the transcluded html to keep the *same* scope of its
+    **  context so that its behaviour is unaffected, and changes made within it
+    **  are reflected in it's context's scope.
+    **
+    **  To do this, we make the scope of the transcluded content that of
+    **  the parent scope of this directive. (even though the scope
+    **  is isolate, its $parent is actually still that of its context,
+    **  there just isn't any prototypical inheritance).
+    **  The directive's context ($parent) and the context of the transcluded
+    **  content are the same, so the transcluded content keeps the scope
+    **  of its parent, as desired.
+    **
+    **  This is implemented through use of the transclude function.
+    **  The second param clones the transcluded html and assigns it the scope
+    **  supplied in the first parameter. You can then do with it as you want,
+    **  and so we append it to the directive template (having removed ng-transclude
+    **  from the end of the template also).
+    */
+    // Params: clone, scope
+    transclude(scope.$parent, clone => element.append(clone));
+  }
+}
+
+LoadingComponent.$inject = ['$compile'];
+
+/* harmony default export */ __webpack_exports__["a"] = (LoadingComponent);
+
+/***/ }),
+/* 160 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ModLogEntryComponent.$inject, injections);
+
+    this.restrict = 'A';
+    this.replace = false;
+    this.scope = {
+      entry: '='
+    };
+  }
+
+  // Params: scope, element, attrs
+  link(scope, element) {
+    if ('answer-subbranch-request' === scope.entry.action) {
+      scope.entry.data = JSON.parse(scope.entry.data);
+    }
+
+    this.$templateRequest(`/app/components/mod-log-entry/${scope.entry.action}.template.html`).then(template => {
+      element.html(template);
+      this.$compile(element.contents())(scope);
+    }, () => {
+      console.error('Unable to get mod-log-entry template.');
+    });
+  }
+}
+
+ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ModLogEntryComponent);
+
+/***/ }),
+/* 161 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(CreateBranchModalController.$inject, injections);
+
+    this.newBranch = { parentid: this.ModalService.inputArgs.branchid };
+    this.errorMessage = '';
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'CREATE_BRANCH') return;
+
+      // if not all fields are filled, display message
+      if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+      }
+
+      // perform the update
+      this.isLoading = true;
+      this.newBranch.id = this.newBranch.id.toLowerCase();
+      this.BranchService.create(this.newBranch).then(() => {
+        this.$timeout(() => {
+          let id = this.newBranch.id;
+          this.newBranch = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK({ branchid: id });
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'CREATE_BRANCH') return;
+      this.$timeout(() => {
+        this.newBranch = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
+
+/***/ }),
+/* 162 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(AddModModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.data = {};
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'ADD_MOD') return;
+      this.isLoading = true;
+      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = response.message;
+          if (response.status == 404) {
+            this.errorMessage = 'That user doesn\'t exist';
+          }
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'ADD_MOD') return;
+      this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
+
+/***/ }),
+/* 163 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(DeleteBranchModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.data = {};
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'DELETE_BRANCH') return;
+      // if not all fields are filled, display message
+      if (!this.data || !this.data.branchid) {
+        this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+        return;
+      }
+
+      this.isLoading = true;
+      this.BranchService.remove(this.data.branchid).then(() => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'DELETE_BRANCH') return;
+      this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
+
+/***/ }),
+/* 164 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+
+
+
+class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(RemoveModModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.mods = {};
+    this.selectedMod = {};
+
+    let getMod = (username, index) => {
+      return this.UserService.fetch(username).then(data => {
+        this.$timeout(() => {
+          this.mods[index] = data;
+        });
+      }).catch(() => {
+        this.$timeout(() => {
+          this.errorMessage = 'Unable to get mod!';
+        });
+      });
+    };
+
+    let init = () => {
+      this.isLoading = true;
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+        try {
+          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
+            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
+          }
+
+          this.$timeout(() => {
+            this.isLoading = false;
+          });
+        } catch (err) {
+          this.$timeout(() => {
+            this.AlertsService.push('error', 'Unable to fetch moderators!');
+            this.ModalService.Cancel();
+          });
+        }
+      }, this);
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'REMOVE_MOD') return;
+      this.isLoading = true;
+      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => {
+        this.$timeout(() => {
+          this.ModalService.OK({
+            removedMod: this.selectedMod.username
+          });
+          this.selectedMod = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          if (response.status === 404) {
+            this.errorMessage = 'That user doesn\'t exist';
+          }
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'REMOVE_MOD') return;
+      this.$timeout(() => {
+        this.ModalService.Cancel();
+        this.selectedMod = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+      });
+    });
+
+    init();
+  }
+
+  select(mod) {
+    this.selectedMod = mod;
+  }
+}
+RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
+
+/***/ }),
+/* 165 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+
+
+
+class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(RemoveModModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.requests = [];
+    this.isLoading = true;
+
+    let init = () => {
+      // Get the list of requests
+      this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid).then(requests => {
+        // get a specific branch object and insert into requests array on branch attribute
+        let getBranch = request => {
+          return this.BranchService.fetch(request.childid).then(data => {
+            request.branch = data;
+          }).catch(() => {
+            this.errorMessage = 'Unable to get branch!';
+          });
+        };
+
+        __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+          for (let i = 0; i < requests.length; i++) {
+            yield getBranch(requests[i]);
+          }
+
+          this.$timeout(() => {
+            this.requests = requests;
+            this.isLoading = false;
+          });
+        }, this);
+      }).catch(() => {
+        this.$timeout(() => {
+          this.AlertsService.push('error', 'Unable to fetch child branch requests!');
+          this.ModalService.Cancel();
+        });
+      });
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.OK();
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+
+    init();
+  }
+
+  action(index, action) {
+    this.isLoading = true;
+
+    this.BranchService.actionSubbranchRequest(action, this.requests[index].parentid, this.requests[index].childid).then(() => {
+      this.$timeout(() => {
+        this.requests.splice(index, 1);
+        this.errorMessage = '';
+        this.isLoading = false;
+      });
+    }).catch(response => {
+      this.$timeout(() => {
+        this.errorMessage = response.message;
+        if (response.status === 404) {
+          this.errorMessage = 'That user doesn\'t exist';
+        }
+        this.isLoading = false;
+      });
+    });
+  }
+}
+
+RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
+
+/***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(SubmitSubbranchRequestModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.data = {};
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
+      if (!this.data || !this.data.parentid) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+      }
+
+      this.isLoading = true;
+      let branchid = this.ModalService.inputArgs.branchid;
+      this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
+      this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+
+SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+
+
+
+class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(UpdateHomepageStatsModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = true;
+    this.stats = {
+      donation_total: 0,
+      raised_total: 0
+    };
+
+    let init = () => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+        try {
+          let response = yield this.API.fetch('/constant/donation_total', {});
+          this.stats.donation_total = response.data.data;
+
+          response = yield this.API.fetch('/constant/raised_total', {});
+          this.stats.raised_total = response.data.data;
+        } catch (err) {
+          this.AlertsService.push('error', 'Error updating homepage stats.');
+          this.ModalService.Cancel();
+        }
+
+        this.$timeout(() => {
+          this.isLoading = false;
+        });
+      }, this);
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'UPDATE_HOMEPAGE_STATS') return;
+
+      // validate stats
+      this.isLoading = true;
+      if (isNaN(this.stats.donation_total) || isNaN(this.stats.raised_total)) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Invalid amount';
+          this.isLoading = false;
+        });
+      }
+
+      // update stats
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+        try {
+          yield this.API.update('/constant/donation_total', {}, {
+            data: Number(this.stats.donation_total)
+          });
+
+          yield this.API.update('/constant/raised_total', {}, {
+            data: Number(this.stats.raised_total)
+          });
+
+          this.$timeout(() => {
+            this.isLoading = false;
+            this.ModalService.OK();
+          });
+        } catch (err) {
+          this.AlertsService.push('error', 'Error updating homepage stats.');
+          this.ModalService.Cancel();
+        }
+      }, this);
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'UPDATE_HOMEPAGE_STATS') return;
+
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+
+    init();
+  }
+}
+
+UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService', 'ModalService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
+
+/***/ }),
+/* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusSettingsModalController.$inject, injections);
+
+    this.inputValues = [];
+    this.textareaValues = [];
+    this.errorMessage = '';
+    this.isLoading = false;
+
+    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
+      this.textareaValues[i] = this.ModalService.inputArgs.textareas[i].value;
+    }
+    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+      this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
+    }
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
+      // if not all fields are filled, display message
+      if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.indexOf('') > -1 || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.indexOf('') > -1) {
+        this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+        return;
+      }
+
+      // construct data to update using the proper fieldnames
+      let updateData = {};
+      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+        updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.inputValues[i];
+
+        // convert date input values to unix timestamp
+        if (this.ModalService.inputArgs.inputs[i].type === 'date') {
+          updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.inputValues[i]).getTime();
+        }
+      }
+      for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
+        updateData[this.ModalService.inputArgs.textareas[i].fieldname] = this.textareaValues[i];
+      }
+
+      // perform the update
+      this.isLoading = true;
+      this.BranchService.update(this.$state.params.branchid, updateData).then(() => {
+        this.$timeout(() => {
+          this.inputValues = [];
+          this.textareaValues = [];
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
+      this.$timeout(() => {
+        this.inputValues = [];
+        this.textareaValues = [];
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+BranchNucleusSettingsModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsModalController);
+
+/***/ }),
+/* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ModalComponent.$inject, injections);
+
+    this.replace = false;
+    this.restrict = 'A';
+    this.scope = {};
+    this.templateUrl = '/app/components/modal/view.html';
+  }
+
+  link(scope) {
+    scope.ModalService = this.ModalService;
+    scope.OK = () => {
+      this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
+    };
+    scope.Cancel = () => {
+      this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
+    };
+  }
+}
+
+ModalComponent.$inject = ['EventService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ModalComponent);
+
+/***/ }),
+/* 170 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+
+
+
+class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(CreatePostModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.file = null;
+    this.isLoading = false;
+    this.preview = false;
+    this.newPost = {
+      branchids: [this.ModalService.inputArgs.branchid],
+      nsfw: false,
+      locked: false
+    };
+    this.pollAnswers = [];
+    this.postType = {
+      items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
+      idx: 0,
+      title: 'POST TYPE'
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'CREATE_POST') return;
+
+      // if not all fields are filled, display message
+      if (!this.newPost || !this.newPost.title || !this.newPost.branchids || this.newPost.branchids.length === 0 || !this.newPost.text || this.newPost.nsfw === undefined || this.newPost.locked === undefined) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+      }
+
+      // perform the update
+      this.isLoading = true;
+      this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
+      if (this.newPost.type !== 'poll') this.newPost.locked = false;
+
+      // create copy of post to not interfere with binding of items on tag-editor
+      let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
+      post.branchids = JSON.stringify(this.newPost.branchids);
+
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+        let postid;
+        try {
+          postid = yield this.PostService.create(post);
+        } catch (err) {
+          return this.$timeout(() => {
+            this.isLoading = false;
+            this.errorMessage = err.message || 'Error creating post!';
+          });
+        }
+        // if it's a poll, add the poll answers
+        if (this.newPost.type === 'poll') {
+          for (let i = 0; i < this.pollAnswers.length; i++) {
+            try {
+              yield this.PostService.createPollAnswer(postid, {
+                text: this.pollAnswers[i]
+              });
+            } catch (err) {
+              return this.$timeout(() => {
+                this.isLoading = false;
+                this.errorMessage = err.message || 'Error creating poll answers!';
+              });
+            }
+          }
+        }
+
+        this.$timeout(() => {
+          this.errorMessage = '';
+          this.isLoading = false;
+        });
+        if (this.file && this.newPost.type !== 'image') {
+          let uploadUrl;
+          try {
+            uploadUrl = yield this.getUploadUrl(postid);
+          } catch (err) {
+            this.AlertsService.push('error', 'Unable to upload photo!');
+            this.ModalService.OK();
+          }
+          try {
+            yield this.UploadService.uploadImage(this.file, uploadUrl);
+            this.file = null;
+            this.ModalService.OK();
+          } catch (err) {
+            this.AlertsService.push('error', 'Unable to upload photo!');
+            this.ModalService.OK();
+          }
+        } else {
+          this.ModalService.OK();
+        }
+      }, this);
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'CREATE_POST') return;
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+
+  togglePreview() {
+    this.preview = !this.preview;
+  }
+
+  getUploadUrl(postid) {
+    return new Promise((resolve, reject) => {
+      let uploadUrlRoute = `post/${postid}/picture`;
+      this.UploadService.fetchUploadUrl(uploadUrlRoute).then(resolve).catch(reject);
+    });
+  }
+
+  setFile(file) {
+    this.file = file;
+  }
+}
+CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService', 'AppService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
+
+/***/ }),
+/* 171 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+//import Generator from 'utils/generator.js';
+
+class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(DeletePostModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'DELETE_POST') return;
+
+      this.isLoading = true;
+
+      this.PostService.delete(this.ModalService.inputArgs.postid).then(() => {
+        this.isLoading = false;
+        this.ModalService.OK();
+      }).catch(() => {
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'DELETE_POST') return;
+
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+
+DeletePostModalController.$inject = ['$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (DeletePostModalController);
+
+/***/ }),
+/* 172 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(FlagPostModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.selectedIndex = 0;
+    this.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + this.ModalService.inputArgs.post.type.toUpperCase() + ' POST'];
+    if (!this.ModalService.inputArgs.post.nsfw) {
+      this.flagItems.push('NSFW');
+    }
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'FLAG_POST') return;
+
+      this.isLoading = true;
+      let post = this.ModalService.inputArgs.post;
+      let type;
+      switch (this.selectedIndex) {
+        case 0:
+          type = 'branch_rules';
+          break;
+        case 1:
+          type = 'site_rules';
+          break;
+        case 2:
+          type = 'wrong_type';
+          break;
+        case 3:
+          type = 'nsfw';
+          break;
+        default:
+          this.errorMessage = 'Unknown flag type.';
+          this.isLoading = false;
+          return;
+      }
+
+      this.PostService.flag(post.id, this.ModalService.inputArgs.branchid, type).then(() => {
+        this.$timeout(() => {
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'FLAG_POST') return;
+
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+
+  close() {
+    this.$timeout(() => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
+    });
+  }
+}
+FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', 'PostService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (FlagPostModalController);
+
+/***/ }),
+/* 173 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(ResolveFlagPostModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.text = { reason: '' };
+    this.controls = {
+      reason: {
+        selectedIndex: 0,
+        items: ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES']
+      },
+      resolve: {
+        selectedIndex: 0,
+        items: ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST']
+      },
+      postType: {
+        selectedIndex: 0,
+        items: ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE', 'POLL']
+      }
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'RESOLVE_FLAG_POST') return;
+
+      this.isLoading = true;
+      let action, data;
+      switch (this.controls.resolve.selectedIndex) {
+        case 0:
+          // change post type
+          action = 'change_type';
+          data = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
+          break;
+        case 1:
+          // remove post
+          action = 'remove';
+          if (this.controls.reason.selectedIndex === 0) {
+            data = 'branch_rules';
+          } else if (this.controls.reason.selectedIndex === 1) {
+            data = 'site_rules';
+          } else {
+            this.AlertsService.push('error', 'Unknown reason.');
+            return;
+          }
+          break;
+        case 2:
+          // mark as nsfw
+          action = 'mark_nsfw';
+          break;
+        case 3:
+          // approve post
+          action = 'approve';
+          break;
+        default:
+          this.AlertsService.push('error', 'Unknown action.');
+          return;
+      }
+
+      if (action === 'remove' && (!this.text.reason || this.text.reason.length === 0)) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please provide an explanatory message for the OP';
+          this.isLoading = false;
+        });
+      }
+
+      this.BranchService.resolveFlaggedPost(this.ModalService.inputArgs.post.branchid, this.ModalService.inputArgs.post.id, action, data, this.text.reason).then(() => {
+        this.$timeout(() => {
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'RESOLVE_FLAG_POST') return;
+      this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+
+  close() {
+    this.$timeout(() => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
+    });
+  }
+}
+ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchService', 'AlertsService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ResolveFlagPostModalController);
+
+/***/ }),
+/* 174 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(SubmitPollAnswerModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.newAnswer = '';
+
+    this.cleanUpSuccessCb = this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
+
+      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, { text: this.newAnswer }).then(_ => this.$timeout(_ => this.closeModal('', true))).catch(err => this.$timeout(_ => this.closeModal(err.message || 'Error creating poll answer!')));
+    });
+
+    this.cleanUpCancelCb = this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
+      this.$timeout(_ => this.closeModal('', false));
+    });
+  }
+
+  closeModal(errorMessage, success) {
+    this.isLoading = false;
+    this.errorMessage = errorMessage;
+
+    if (success !== undefined) {
+      if ('function' === typeof this.cleanUpCancelCb) {
+        this.cleanUpCancelCb();
+      }
+
+      if ('function' === typeof this.cleanUpSuccessCb) {
+        this.cleanUpSuccessCb();
+      }
+    }
+
+    if (success === true) {
+      this.ModalService.OK();
+    } else if (success === false) {
+      this.ModalService.Cancel();
+    }
+  }
+}
+
+SubmitPollAnswerModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (SubmitPollAnswerModalController);
+
+/***/ }),
+/* 175 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class ProfileSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileSettingsModalController.$inject, injections);
+
+    this.values = [];
+    this.errorMessage = '';
+    this.isLoading = false;
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'PROFILE_SETTINGS') return;
+
+      // if not all fields are filled, display message
+      if (this.values.length < this.ModalService.inputArgs.inputs.length || this.values.indexOf('') !== -1) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+      }
+
+      // construct data to update using the proper fieldnames
+      let updateData = {};
+      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+        updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.values[i];
+
+        // convert date input values to unix timestamp
+        if (this.ModalService.inputArgs.inputs[i].type === 'date') {
+          updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.values[i]).getTime();
+        }
+      }
+
+      // perform the update
+      this.isLoading = true;
+
+      this.UserService.update(updateData).then(() => {
+        this.values = [];
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.OK();
+      }).catch(err => {
+        this.errorMessage = err.message;
+        this.isLoading = false;
+      }).then(this.$timeout);
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'PROFILE_SETTINGS') return;
+
+      this.$timeout(() => {
+        this.values = [];
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+
+ProfileSettingsModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsModalController);
+
+/***/ }),
+/* 176 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66914,7 +64871,535 @@ ModalService.$inject = ['$state', '$timeout', 'AlertsService', 'EventService'];
 /* harmony default export */ __webpack_exports__["a"] = (ModalService);
 
 /***/ }),
-/* 204 */
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(UploadImageModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.file = null;
+    this.uploadUrl = '';
+
+    const setUploadUrl = _ => {
+      const args = this.ModalService.inputArgs;
+      this.UploadService.fetchUploadUrl(args.route + args.type).then(uploadUrl => this.uploadUrl = uploadUrl).catch(_ => {
+        this.AlertsService.push('error', 'Unable to upload photo!');
+        this.ModalService.Cancel();
+      });
+    };
+
+    setUploadUrl();
+
+    this.EventService.on(this.EventService.events.MODAL_OPEN, name => {
+      if ('UPLOAD_IMAGE' !== name) return;
+      setUploadUrl();
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('UPLOAD_IMAGE' !== name) return;
+
+      this.errorMessage = this.file ? '' : 'No file selected!';
+
+      if (!this.file) return;
+
+      this.UploadService.uploadImage(this.file, this.uploadUrl).then(_ => {
+        this.file = null;
+        this.ModalService.OK();
+      }).catch(_ => {
+        this.$timeout(_ => {
+          this.file = null;
+          this.errorMessage = 'Unable to upload photo!';
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if ('UPLOAD_IMAGE' !== name) return;
+      this.file = null;
+      this.errorMessage = '';
+      this.ModalService.Cancel();
+    });
+  }
+
+  setFile(file) {
+    this.file = file;
+  }
+}
+
+UploadImageModalController.$inject = ['$timeout', 'AlertsService', 'API', 'EventService', 'ModalService', 'UploadService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (UploadImageModalController);
+
+/***/ }),
+/* 178 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NavbarController.$inject, injections);
+
+    this.animationSrc = '';
+    this.expanded = false;
+    this.notificationCount = 0;
+
+    this.EventService.on(this.EventService.events.CHANGE_USER, _ => {
+      if (this.UserService.user.username) {
+        this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
+          this.notificationCount = notificationCount;
+          this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+        }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+      }
+    });
+  }
+
+  isControlSelected(control) {
+    return this.$state.current.name.includes(control) && 'root' === this.$state.params.branchid;
+  }
+
+  logout() {
+    this.expanded = false;
+    this.UserService.logout().then(_ => {
+      this.$state.go('auth.login');
+    }).catch(_ => {
+      this.AlertsService.push('error', 'Unable to log out.');
+    });
+  }
+
+  onHomePage() {
+    return 'weco.home' === this.$state.current.name;
+  }
+
+  showNotificationCount() {
+    return this.notificationCount > 0;
+  }
+
+  toggleNav() {
+    this.expanded = !this.expanded;
+  }
+
+  triggerAnimation() {
+    // set animation src to the animated gif
+    this.$timeout(_ => {
+      this.animationSrc = '/assets/images/logo-animation.gif';
+    });
+
+    // cancel after 1 sec
+    this.$timeout(_ => {
+      this.animationSrc = '';
+    }, 1000);
+  }
+}
+
+NavbarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (NavbarController);
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class NavbarComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NavbarComponent.$inject, injections);
+
+    this.controller = 'NavbarController';
+    this.controllerAs = 'Navbar';
+    this.restrict = 'E';
+    this.replace = true;
+    this.templateUrl = '/app/components/nav-bar/view.html';
+  }
+}
+
+NavbarComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (NavbarComponent);
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__ = __webpack_require__(4);
+
+
+
+class NotificationComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(NotificationComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {
+      notification: '='
+    };
+  }
+
+  // Params: scope, element, attrs
+  link(scope, element) {
+    scope.UserService = this.UserService;
+    scope.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */];
+
+    scope.reasonString = () => {
+      switch (scope.notification.reason) {
+        case 'branch_rules':
+          return 'for violating the branch rules';
+
+        case 'site_rules':
+          return 'for violating the site rules';
+
+        case 'wrong_type':
+          return 'for being tagged with an incorrect post type';
+
+        case 'nsfw':
+          return 'as NSFW';
+
+        default:
+          return '';
+      }
+    };
+
+    // remplate name is as represented in NotificationTypes with no caps and hyphens instead of underscores
+    const templateName = (() => {
+      for (let key in __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */]) {
+        if (__WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */][key] === scope.notification.type) {
+          return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
+        }
+      }
+    })();
+
+    this.$templateRequest(`/app/components/notification/${templateName}.template.html`).then(template => {
+      element.html(template);
+      this.$compile(element.contents())(scope);
+    }, () => {
+      console.error('Unable to get notification template.');
+    });
+  }
+}
+
+NotificationComponent.$inject = ['$compile', '$templateRequest', '$timeout', 'AlertsService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (NotificationComponent);
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class OnScrollToBottomComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(OnScrollToBottomComponent.$inject, injections);
+
+    this.restrict = 'A';
+  }
+
+  link(scope, element, attrs) {
+    element.on('scroll', _ => {
+      if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
+        this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
+      }
+    });
+  }
+}
+
+OnScrollToBottomComponent.$inject = ['$timeout', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (OnScrollToBottomComponent);
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class PollAnswerEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(PollAnswerEditorComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = 'true';
+    this.templateUrl = '/app/components/poll-answer-editor/view.html';
+    this.scope = {
+      answers: '=',
+      title: '&'
+    };
+  }
+
+  // Params: scope, element, attrs
+  link(scope) {
+    scope.newAnswer = '';
+
+    scope.addItem = () => {
+      // ensure answer doesnt already exist and isn't blank
+      if (scope.answers.indexOf(scope.newAnswer) !== -1 || scope.newAnswer === '') {
+        return;
+      }
+
+      scope.answers.push(scope.newAnswer);
+      scope.newAnswer = '';
+    };
+
+    scope.removeItem = answer => {
+      const itemIndex = scope.answers.indexOf(answer);
+
+      // ensure item exists
+      if (itemIndex === -1) return;
+
+      scope.answers.splice(itemIndex, 1);
+    };
+  }
+}
+
+PollAnswerEditorComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (PollAnswerEditorComponent);
+
+/***/ }),
+/* 183 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class TabsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(TabsController.$inject, injections);
+  }
+  // returns a boolean indicating whether the tab at the given index is selected
+  isSelected(index) {
+    return this.$state.current.name === this.states[index];
+  }
+}
+TabsController.$inject = ['$state', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (TabsController);
+
+/***/ }),
+/* 184 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class TabsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(TabsComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {};
+
+    /* NB: states specified in 'states' array can be a pure state name, e.g. weco.home,
+    **     or they can have parameters, e.g:
+    **        weco.branch.subbranches({ "branchid" : "root" })
+    **     In the latter case, the parameters must be specified in JSON parsable
+    **     format, i.e. with double quotes around property names and values.
+    */
+    this.bindToController = {
+      items: '=',
+      states: '=',
+      stateParams: '=',
+      callbacks: '='
+    };
+    this.templateUrl = '/app/components/tabs/view.html';
+    this.controllerAs = 'Tabs';
+    this.controller = 'TabsController';
+  }
+}
+TabsComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (TabsComponent);
+
+/***/ }),
+/* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class TagEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(TagEditorComponent.$inject, injections);
+
+    this.restrict = 'E';
+    this.replace = true;
+    this.scope = {
+      items: '=',
+      title: '&',
+      max: '&'
+    };
+    this.templateUrl = '/app/components/tag-editor/view.html';
+  }
+
+  // Params: scope, element, attrs
+  link(scope) {
+    scope.errorMessage = '';
+    scope.data = {};
+
+    scope.addItem = () => {
+      scope.errorMessage = '';
+
+      // ensure not already at max number of items
+      if (scope.items.length >= scope.max()) return;
+
+      // ensure item exists
+      if (!scope.data.item) return;
+
+      // ensure item doesn't contan whitespace
+      if (/\s/g.test(scope.data.item)) {
+        scope.errorMessage = 'Cannot contain spaces.';
+        return;
+      }
+
+      // convert to all lowercase
+      scope.data.item = scope.data.item.toLowerCase();
+
+      // ensure not already in list
+      if (scope.items.indexOf(scope.data.item) !== -1) return;
+
+      // add to list and clear textbox
+      scope.items.push(scope.data.item);
+
+      scope.data.item = undefined;
+    };
+
+    scope.removeItem = item => {
+      const itemIndex = scope.items.indexOf(item);
+
+      if (itemIndex !== -1) {
+        scope.items.splice(itemIndex, 1);
+      }
+
+      scope.errorMessage = '';
+    };
+  }
+}
+
+TagEditorComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (TagEditorComponent);
+
+/***/ }),
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class TooltipController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(TooltipController.$inject, injections);
+
+    this.EventService.on('$stateChangeSuccess', _ => this.$timeout(_ => this.TooltipService.visible = false));
+  }
+}
+
+TooltipController.$inject = ['$state', '$timeout', 'AppService', 'EventService', 'TooltipService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (TooltipController);
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class TooltipComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(TooltipComponent.$inject, injections);
+
+    this.controller = 'TooltipController';
+    this.controllerAs = 'Tooltip';
+    this.restrict = 'A';
+    this.replace = true;
+    this.scope = {
+      offsetX: '&',
+      offsetY: '&',
+      text: '&'
+    };
+  }
+
+  link(scope, element) {
+    const el = element[0];
+    let rect = el.getBoundingClientRect();
+
+    let offsetX = scope.offsetX(),
+        offsetY = scope.offsetY();
+
+    if (!offsetX || isNaN(offsetX)) {
+      offsetX = 0;
+    }
+
+    if (!offsetY || isNaN(offsetY)) {
+      offsetY = 0;
+    }
+
+    el.addEventListener('mouseover', _ => {
+      this.$timeout(_ => {
+        if (scope.text() === '') return;
+
+        rect = el.getBoundingClientRect();
+
+        this.TooltipService.text = scope.text();
+        this.TooltipService.visible = true;
+        this.TooltipService.x = rect.left + this.$window.pageXOffset + offsetX;
+        this.TooltipService.y = rect.top + this.$window.pageYOffset + offsetY;
+      });
+    }, false);
+
+    el.addEventListener('mouseout', event => {
+      rect = el.getBoundingClientRect();
+
+      // Do not hide the tooltip if we are still within the element.
+      // This would happen when we mouse over the child element.
+      if (event.clientX > rect.right || event.clientX < rect.left || event.clientY < rect.top || event.clientY > rect.bottom) {
+        this.$timeout(_ => this.hide());
+      }
+    });
+
+    scope.TooltipService = this.TooltipService;
+  }
+
+  hide(delay = 0) {
+    if (this.timer) {
+      this.$timeout.cancel(this.timer);
+    }
+
+    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
+  }
+}
+
+TooltipComponent.$inject = ['$timeout', '$window', 'EventService', 'TooltipService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (TooltipComponent);
+
+/***/ }),
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66930,7 +65415,1027 @@ class TooltipService {
 /* harmony default export */ __webpack_exports__["a"] = (TooltipService);
 
 /***/ }),
-/* 205 */
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class AuthController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(AuthController.$inject, injections);
+
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+    this.credentials = {};
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.loopAnimation = false;
+    this.showResendVerification = false;
+  }
+
+  getAnimationSrc() {
+    return this.animationSrc;
+  }
+
+  isLoginForm() {
+    return 'auth.login' === this.$state.current.name;
+  }
+
+  login() {
+    this.UserService.login(this.credentials).then(_ => {
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('weco.home');
+    }).catch(res => {
+      this.errorMessage = res.message;
+      this.isLoading = false;
+      this.loopAnimation = false;
+
+      // Possibly unverified account
+      if (403 === res.status) {
+        this.showResendVerification = true;
+      }
+    });
+  }
+
+  resendVerification() {
+    this.isLoading = true;
+
+    this.UserService.resendVerification(this.credentials.username).then(_ => this.resendVerificationDone(true)).catch(_ => this.resendVerificationDone(false));
+  }
+
+  resendVerificationDone(success) {
+    const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
+    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.showResendVerification = false;
+  }
+
+  signup() {
+    if (this.credentials.password !== this.credentials.confirmPassword) {
+      this.errorMessage = 'Inconsistent password!';
+      this.isLoading = false;
+      this.loopAnimation = false;
+      return;
+    }
+
+    this.UserService.signup(this.credentials).then(_ => {
+      this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('weco.home');
+    }).catch(res => {
+      this.errorMessage = res.message;
+      this.isLoading = false;
+      this.loopAnimation = false;
+    });
+  }
+
+  submit() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+    this.credentials.username = this.credentials.username.toLowerCase();
+
+    if (this.isLoginForm()) {
+      this.login();
+    } else {
+      this.signup();
+    }
+  }
+
+  triggerAnimation() {
+    if (this.animationSrc) {
+      this.$timeout(_ => this.animationSrc = '');
+    }
+
+    // set animation src to the animated gif
+    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
+
+    // cancel after 1 sec
+    this.$timeout(_ => {
+      this.animationSrc = '';
+
+      if (this.loopAnimation) {
+        this.triggerAnimation();
+      }
+    }, 1000);
+  }
+}
+
+AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AuthController);
+
+/***/ }),
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ResetPasswordController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ResetPasswordController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.loopAnimation = false;
+    this.credentials = {};
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+  }
+
+  resetPassword() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+
+    if (this.credentials.password !== this.credentials.confirmPassword) {
+      this.AlertsService.push('error', 'The two passwords are different.');
+      this.isLoading = false;
+      this.loopAnimation = false;
+      return;
+    }
+
+    this.UserService.resetPassword(this.$state.params.username, this.credentials.password, this.$state.params.token).then(() => {
+      this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.$state.go('auth.login');
+    }).catch(response => {
+      this.$timeout(() => {
+        this.errorMessage = response.message;
+        this.isLoading = false;
+        this.loopAnimation = false;
+      });
+    });
+  }
+
+  sendLink() {
+    this.isLoading = true;
+    this.loopAnimation = true;
+    this.triggerAnimation();
+
+    this.UserService.requestResetPassword(this.credentials.username).then(() => {
+      this.$state.go('weco.home');
+      this.isLoading = false;
+      this.loopAnimation = false;
+      this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
+    }).catch(response => {
+      this.isLoading = false;
+      this.errorMessage = response.message;
+      this.loopAnimation = false;
+    });
+  }
+
+  triggerAnimation() {
+    if (this.animationSrc !== '') {
+      this.$timeout(() => {
+        this.animationSrc = '';
+      });
+    }
+    // set animation src to the animated gif
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation-large.gif';
+    });
+    // cancel after 1 sec
+    this.$timeout(() => {
+      this.animationSrc = '';
+      if (this.loopAnimation) this.triggerAnimation();
+    }, 1000);
+  }
+}
+ResetPasswordController.$inject = ['$state', '$timeout', 'UserService', 'AlertsService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ResetPasswordController);
+
+/***/ }),
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class VerifyController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(VerifyController.$inject, injections);
+
+    this.message = 'Verifying your account';
+    this.animationSrc = '/assets/images/logo-animation-large.gif';
+
+    this.$interval(_ => {
+      if (this.animationSrc !== '') {
+        this.$timeout(_ => this.animationSrc = '');
+      }
+
+      // set animation src to the animated gif
+      this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
+
+      this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
+    }, 1000);
+
+    this.$timeout(_ => {
+      this.UserService.verify(this.$state.params.username, this.$state.params.token).then(_ => {
+        this.$state.go('auth.login');
+        this.AlertsService.push('success', 'Account verified! You can now login.', true);
+      }).catch(_ => {
+        this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
+        this.$state.go('auth.signup');
+      });
+    }, 3000);
+  }
+}
+
+VerifyController.$inject = ['$interval', '$state', '$timeout', 'AlertsService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (VerifyController);
+
+/***/ }),
+/* 192 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchController.$inject, injections);
+
+    this.isLoading = !Object.keys(this.BranchService.branch).length;
+
+    // update the view when the branch changes
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
+  }
+
+  addContent() {
+    let errorMessage, modalName, successMessage;
+
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        modalName = 'CREATE_BRANCH';
+        successMessage = 'Successfully created new branch!';
+        errorMessage = 'Error creating new branch.';
+        break;
+
+      case 'weco.branch.wall':
+        modalName = 'CREATE_POST';
+        successMessage = 'Successfully created post!';
+        errorMessage = 'Error creating post.';
+        break;
+
+      // case 'weco.branch.post':
+      //   // broadcast add comment clicked so that the comment section is scrolled
+      //   // to the top, where the comment box is visible
+      //   $rootScope.$broadcast('add-comment');
+    }
+
+    if (!!modalName) {
+      this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
+    }
+  }
+
+  // returns boolean indicating whether the add content behaviour has any defined
+  // behaviour in the current state
+  canAddContent() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+      case 'weco.branch.wall':
+      case 'weco.branch.post':
+        return true;
+
+      default:
+        return false;
+    }
+  }
+
+  // dynamic tooltip text for add content button, whose behaviour
+  // is dependent on the current state
+  getAddContentTooltip() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        return 'Create New Branch';
+
+      case 'weco.branch.wall':
+        return 'Add New Post';
+
+      case 'weco.branch.post':
+        return 'Write a Comment';
+
+      default:
+        return '';
+    }
+  }
+
+  isControlSelected(control) {
+    return this.$state.current.name.includes(control);
+  }
+
+  isModerator() {
+    if (!this.BranchService.branch.mods) {
+      return false;
+    }
+
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  openModal(modalType) {
+    const route = `branch/${this.BranchService.branch.id}/`,
+          messageType = 'profile-picture' === modalType ? 'profile' : 'cover',
+          type = 'profile-picture' === modalType ? 'picture' : 'cover';
+
+    this.ModalService.open('UPLOAD_IMAGE', { route, type }, `Successfully updated ${messageType} picture.`, `Unable to update ${messageType} picture.`);
+  }
+}
+
+BranchController.$inject = ['$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchController);
+
+/***/ }),
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusAboutController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusAboutController.$inject, injections);
+  }
+
+  isFollowingBranch() {
+    if (this.UserService.isAuthenticated()) {
+      return this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
+    }
+
+    return false;
+  }
+
+  toggleFollowBranch() {
+    let errorMessage, successMessage, toggle;
+
+    if (this.isFollowingBranch()) {
+      errorMessage = 'Error unfollowing branch.';
+      successMessage = `You're no longer following this branch!`;
+      toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    } else {
+      errorMessage = 'Error following branch.';
+      successMessage = `You're now following this branch!`;
+      toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    }
+
+    toggle.then(_ => this.AlertsService.push('success', successMessage)).catch(_ => this.AlertsService.push('error', errorMessage));
+  }
+}
+
+BranchNucleusAboutController.$inject = ['$timeout', 'AlertsService', 'BranchService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusAboutController);
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusController.$inject, injections);
+
+    this.tabItems = [];
+    this.tabStates = [];
+    this.tabStateParams = [];
+
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.branch.nucleus')) {
+        return;
+      }
+
+      if (!Object.keys(this.BranchService.branch).length) {
+        return;
+      }
+
+      const branchid = this.BranchService.branch.id;
+
+      this.tabItems = ['about', 'moderators'];
+      this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
+      this.tabStateParams = [{ branchid }, { branchid }];
+
+      if (this.UserService.isAuthenticated() && this.isModerator()) {
+        // add settings tab
+        if (!this.tabItems.includes('settings')) {
+          this.tabItems.push('settings');
+          this.tabStates.push('weco.branch.nucleus.settings');
+          this.tabStateParams.push({ branchid });
+        }
+
+        // add mod tools tab
+        if (!this.tabItems.includes('mod tools')) {
+          this.tabItems.push('mod tools');
+          this.tabStates.push('weco.branch.nucleus.modtools');
+          this.tabStateParams.push({ branchid });
+        }
+
+        // add flagged posts tab
+        if (!this.tabItems.includes('flagged posts')) {
+          this.tabItems.push('flagged posts');
+          this.tabStates.push('weco.branch.nucleus.flaggedposts');
+          this.tabStateParams.push({ branchid });
+        }
+      } else {
+        if (this.$state.current.name !== 'weco.branch.nucleus.about' && this.$state.current.name !== 'weco.branch.nucleus.moderators') {
+          this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
+        }
+      }
+    };
+
+    init();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  addHTMLLineBreaks(str) {
+    return str ? str.split('\n').join('<br>') : str;
+  }
+
+  isModerator() {
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+BranchNucleusController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusController);
+
+/***/ }),
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusFlaggedPostsController.$inject, injections);
+
+    const cb = branchid => this.WallService.init('weco.branch.nucleus', true);
+
+    let listeners = [];
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+}
+
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'WallService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
+
+/***/ }),
+/* 196 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusModeratorsController.$inject, injections);
+
+    this.mods = [];
+    this.isLoading = false;
+
+    const getMod = (username, index) => {
+      return this.UserService.fetch(username).then(user => this.mods[index] = user).catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
+    };
+
+    const getAllMods = _ => {
+      if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
+
+      this.isLoading = true;
+
+      let promises = [];
+
+      for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+        promises.push(getMod(this.BranchService.branch.mods[i].username, i));
+      }
+
+      // when all mods fetched, loading finished
+      Promise.all(promises).then(_ => this.$timeout(_ => this.isLoading = false)).catch(_ => {
+        this.AlertsService.push('error', 'Error fetching moderators.');
+        this.$timeout(_ => this.isLoading = false);
+      });
+    };
+
+    // todo cache this instead...
+    //getAllMods();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getAllMods));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+}
+
+BranchNucleusModeratorsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModeratorsController);
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusModtoolsController.$inject, injections);
+
+    this.isLoading = true;
+    this.modLog = [];
+
+    const getModLog = _ => {
+      if (!Object.keys(this.BranchService.branch).length) return;
+
+      this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
+        this.modLog = log;
+        this.isLoading = false;
+      })).catch(_ => {
+        this.AlertsService.push('error', 'Error fetching moderator action log.');
+        this.isLoading = false;
+      });
+    };
+
+    // todo cache this instead...
+    //getModLog();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  openAddModModal() {
+    this.ModalService.open('ADD_MOD', { branchid: this.BranchService.branch.id }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
+  }
+
+  openRemoveModModal() {
+    let me;
+
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
+        me = this.BranchService.branch.mods[i];
+        break;
+      }
+    }
+
+    // a list of mods to be removed
+    // can include self if other mods are present, and
+    // removeable others must be added after self
+    let removableMods = [];
+
+    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+      if (this.BranchService.branch.mods[i].username === me.username && this.BranchService.branch.mods.length > 1) {
+        removableMods.push(this.BranchService.branch.mods[i]);
+      } else if (this.BranchService.branch.mods[i].date > me.date) {
+        removableMods.push(this.BranchService.branch.mods[i]);
+      }
+    }
+
+    this.ModalService.open('REMOVE_MOD', {
+      branchid: this.BranchService.branch.id,
+      mods: removableMods
+    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
+  }
+
+  openReviewSubbranchRequestsModal() {
+    this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', { branchid: this.BranchService.branch.id }, 'Successfully responded to child branch request.', 'Error responding to child branch request.');
+  }
+
+  openSubmitSubbranchRequestModal() {
+    this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', { branchid: this.BranchService.branch.id }, 'Successfully submitted child branch request.', 'Error submitting child branch request.');
+  }
+
+  openDeleteBranchModal() {
+    this.ModalService.open('DELETE_BRANCH', {}, 'Successfully deleted branch.', 'Error deleting branch.');
+  }
+
+  openUpdateHomepageStatsModal() {
+    this.ModalService.open('UPDATE_HOMEPAGE_STATS', {}, 'Successfully updated homepage stats.', 'Error updating homepage stats.');
+  }
+}
+
+BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
+
+/***/ }),
+/* 198 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchNucleusSettingsController.$inject, injections);
+  }
+
+  openModal(modalType) {
+    let title = '',
+        templateName = 'BRANCH_NUCLEUS_SETTINGS',
+        inputs = [],
+        textareas = [],
+        route = `branch/${this.BranchService.branch.id}/`,
+        type;
+
+    if ('profile-picture' === modalType) {
+      type = 'picture';
+    } else if ('cover-picture' === modalType) {
+      type = 'cover';
+    }
+
+    switch (modalType) {
+      case 'profile-picture':
+      case 'cover-picture':
+        templateName = 'UPLOAD_IMAGE';
+        break;
+
+      case 'description':
+        title = 'Description';
+        textareas = [{
+          fieldname: 'description',
+          placeholder: 'Description',
+          value: this.BranchService.branch.description
+        }];
+        break;
+
+      case 'rules':
+        title = 'Rules & Etiquette';
+        textareas = [{
+          fieldname: 'rules',
+          placeholder: 'Rules & Etiquette Text',
+          value: this.BranchService.branch.rules
+        }];
+        break;
+
+      case 'visible-name':
+        title = 'Visible Name';
+        inputs = [{
+          fieldname: 'name',
+          placeholder: 'Visible name',
+          type: 'text'
+        }];
+        break;
+
+      default:
+        break;
+    }
+    this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
+  }
+}
+
+BranchNucleusSettingsController.$inject = ['$state', '$timeout', 'AlertsService', 'BranchService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsController);
+
+/***/ }),
+/* 199 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostController.$inject, injections);
+
+    this.isLoadingComments = true;
+    this.isLoadingMore = false;
+    this.isLoadingPost = true;
+
+    // Possible states: show, maximise.
+    this.previewState = 'show';
+
+    this.tabItems = ['vote', 'results', 'discussion'];
+
+    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
+
+    this.tabStateParams = [{
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }, {
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }, {
+      branchid: this.BranchService.branch.id,
+      postid: this.$state.params.postid
+    }];
+
+    const redirect = () => {
+      // post not updated yet, wait for CHANGE_POST event
+      if (this.$state.params.postid !== this.PostService.post.id) {
+        return;
+      }
+
+      // update state params for tabs
+      for (let i in this.tabStateParams) {
+        this.tabStateParams[i].branchid = this.PostService.post.branchid;
+        this.tabStateParams[i].postid = this.PostService.post.id;
+      }
+
+      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
+        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+
+        if (tabIndex !== -1) {
+          this.$state.go(this.tabStates[tabIndex], {
+            branchid: this.PostService.post.branchid,
+            postid: this.$state.params.postid
+          }, {
+            location: 'replace'
+          });
+        } else {
+          console.warn(`Invalid tab name!`);
+        }
+      } else {
+        this.isLoadingPost = false;
+      }
+    };
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getPreviewTemplate() {
+    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
+  }
+
+  getVideoEmbedUrl() {
+    const isYouTubeUrl = url => {
+      if (url && '' !== url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        if (match && match[2].length === 11) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
+      let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
+
+      if (video_id.includes('&')) {
+        video_id = video_id.substring(0, video_id.indexOf('&'));
+      }
+
+      return `//www.youtube.com/embed/${video_id}?rel=0`;
+    }
+
+    return '';
+  }
+
+  isOwnPost() {
+    if (!this.PostService.post || !this.PostService.post.data) return false;
+    return this.UserService.user.username === this.PostService.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id }, 'Post deleted.', 'Unable to delete post.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
+      this.$state.go('weco.home');
+    });
+  }
+
+  setPreviewState(state) {
+    this.previewState = state;
+  }
+
+  shouldShowTabs() {
+    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+  }
+
+  showPreview() {
+    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
+  }
+}
+
+BranchPostController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService', 'WallService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostController);
+
+/***/ }),
+/* 200 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostResultsController.$inject, injections);
+
+    this.answers = [];
+    this.chart = {
+      data: [],
+      labels: [],
+      options: {},
+      type: 'pie'
+    };
+
+    this.getPollAnswers();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers()));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getAnswerColor(index) {
+    return index > this.ChartColours.length - 1 ? '#d3d3d3' : this.ChartColours[index];
+  }
+
+  // Params: lastAnswerId
+  getPollAnswers() {
+    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
+      this.$timeout(_ => {
+        this.answers = answers;
+        this.chart.labels = [];
+        this.chart.data = [];
+
+        for (let index in answers) {
+          this.chart.labels.push(Number(index) + 1);
+          this.chart.data.push(answers[index].votes);
+        }
+      });
+    }).catch(err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }
+    });
+  }
+
+  // indicate whether the poll has been voted yet ie. do we have results to show
+  hasSomeVotes() {
+    for (let datum of this.chart.data) {
+      if (datum !== 0) return true;
+    }
+    return false;
+  }
+}
+
+BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'ChartColours', 'EventService', 'PostService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostResultsController);
+
+/***/ }),
+/* 201 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchPostVoteController.$inject, injections);
+
+    this.answers = [];
+    this.controls = {
+      sortBy: {
+        items: ['date posted', 'votes'],
+        selectedIndex: 0
+      }
+    };
+    this.selectedAnswerIndex = -1;
+
+    let listeners = [];
+
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.getPollAnswers();
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  canSubmitNewAnswer() {
+    const post = this.PostService.post;
+    const user = this.UserService.user;
+    return !(post.locked && post.data.creator !== user.username);
+  }
+
+  getPollAnswers(lastAnswerId) {
+    this.selectedAnswerIndex = -1;
+
+    let sortBy;
+
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'date':
+        sortBy = 'date';
+        break;
+
+      case 'votes':
+        sortBy = 'votes';
+        break;
+
+      default:
+        sortBy = 'date';
+        break;
+    }
+
+    // fetch the poll answers
+    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => this.$timeout(_ => {
+      // if lastAnswerId was specified we are fetching _more_ answers, so append them
+      this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
+    })).catch(err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }
+    });
+  }
+
+  openSubmitPollAnswerModal() {
+    this.ModalService.open('SUBMIT_POLL_ANSWER', { postid: this.PostService.post.id }, 'Answer submitted.', 'Unable to submit answer.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('SUBMIT_POLL_ANSWER' !== name) return;
+      this.$state.go('weco.branch.post.vote', { reload: true });
+    });
+  }
+
+  selectAnswer(index) {
+    this.selectedAnswerIndex = index;
+  }
+
+  vote() {
+    const answer = this.answers[this.selectedAnswerIndex];
+
+    if (!answer) return;
+
+    this.PostService.votePollAnswer(answer.postid, answer.id).then(_ => this.AlertsService.push('success', 'Your vote has been cast!')).catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
+  }
+}
+
+BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchPostVoteController);
+
+/***/ }),
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67106,7 +66611,474 @@ WallService.$inject = ['$rootScope', '$state', '$timeout', 'AlertsService', 'Bra
 /* harmony default export */ __webpack_exports__["a"] = (WallService);
 
 /***/ }),
+/* 203 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchSubbranchesController.$inject, injections);
+
+    this.branches = [];
+    this.controls = {
+      sortBy: {
+        items: ['total points', '# of posts', '# of comments', 'date created'],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+        selectedIndex: 0
+      }
+    };
+    this.isLoading = false;
+    this.isLoadingMore = false;
+
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.branch.subbranches')) {
+        return;
+      }
+
+      if (!Object.keys(this.BranchService.branch).length) {
+        return;
+      }
+
+      this.getSubbranches();
+    };
+
+    // todo cache this instead...
+    //init();
+
+    let listeners = [];
+
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) init();
+    }));
+
+    listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) init();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'BranchSubbranchesScrollToBottom') return;
+
+      if (!this.isLoadingMore) {
+        this.isLoadingMore = true;
+
+        if (this.branches.length) {
+          this.getSubbranches(this.branches[this.branches.length - 1].id);
+        }
+      }
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getSortBy() {
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+      case 'total points':
+        return 'post_points';
+
+      case '# of posts':
+        return 'post_count';
+
+      case '# of comments':
+        return 'post_comments';
+
+      case 'date created':
+      default:
+        return 'date';
+    }
+  }
+
+  getSubbranches(lastBranchId) {
+    if (this.isLoading === true) return;
+
+    this.isLoading = true;
+
+    const sortBy = this.getSortBy();
+    const timeafter = this.getTimeafter();
+
+    // fetch the subbranches for this branch and timefilter
+    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
+      this.$timeout(_ => {
+        // if lastBranchId was specified we are fetching _more_ branches, so append them
+        this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+        this.isLoading = false;
+        this.isLoadingMore = false;
+      });
+    }).catch(_ => {
+      this.AlertsService.push('error', 'Error fetching branches.');
+      this.$timeout(_ => this.isLoading = false);
+    });
+  }
+
+  // compute the appropriate timeafter for the selected time filter
+  getTimeafter() {
+    switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+      case 'past year':
+        return new Date().setFullYear(new Date().getFullYear() - 1);
+
+      case 'past month':
+        return new Date().setMonth(new Date().getMonth() - 1);
+
+      case 'past week':
+        return new Date().setDate(new Date().getDate() - 7);
+
+      case 'past 24 hrs':
+        return new Date().setDate(new Date().getDate() - 1);
+
+      case 'past hour':
+        return new Date().setHours(new Date().getHours() - 1);
+
+      case 'all time':
+      default:
+        return 0;
+    }
+  }
+}
+
+BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchSubbranchesController);
+
+/***/ }),
+/* 204 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(BranchWallController.$inject, injections);
+
+    const cb = _ => this.WallService.init('weco.branch.wall');
+
+    // todo cache this instead...
+    //cb();
+
+    let listeners = [];
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) cb();
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  // return the correct ui-sref string for when the specified post is clicked
+  getLink(post) {
+    if ('text' === post.type || 'poll' === post.type) {
+      return this.$state.href('weco.branch.post', { postid: post.id });
+    }
+
+    return post.text;
+  }
+}
+
+BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'BranchService', 'EventService', 'WallService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
+
+/***/ }),
+/* 205 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class HomeController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(HomeController.$inject, injections);
+
+    this.stats = {
+      branch_count: '...',
+      donation_total: '...',
+      raised_total: '...',
+      user_count: '...'
+    };
+
+    for (let stat of Object.keys(this.stats)) {
+      this.API.fetch('/constant/:stat', { stat }).then(res => this.stats[stat] = res.data.data).catch(_ => this.AlertsService.push('error', 'Having trouble connecting...')).then(this.$timeout);
+    }
+  }
+
+  getHomepageImageURL() {
+    if ('production' === this.ENV.name) {
+      return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
+    }
+
+    return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
+  }
+}
+
+HomeController.$inject = ['$timeout', 'AlertsService', 'API', 'ENV'];
+
+/* harmony default export */ __webpack_exports__["a"] = (HomeController);
+
+/***/ }),
 /* 206 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileController.$inject, injections);
+
+    this.isLoading = false;
+    this.profileUser = {};
+    this.showCover = true;
+    this.tabItems = ['about'];
+    this.tabStates = ['weco.profile.about'];
+
+    const loadOtherUser = _ => {
+      // ensure we are in the 'about' state
+      if ('weco.profile.about' !== this.$state.current.name) {
+        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
+      } else {
+        this.isLoading = true;
+        this.UserService.fetch(this.$state.params.username).then(user => {
+          this.profileUser = user;
+          this.isLoading = false;
+        }).catch(err => {
+          this.isLoading = false;
+
+          if (404 === err.status) {
+            return this.$state.go('weco.notfound');
+          } else {
+            this.AlertsService.push('error', 'Unable to fetch user.');
+            this.$state.go('weco.home');
+          }
+        }).then(this.$timeout);
+      }
+    };
+
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(_ => {
+          this.profileUser = this.UserService.user;
+
+          if (this.UserService.user.username === this.$state.params.username) {
+            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
+              this.tabItems.push('settings');
+              this.tabStates.push('weco.profile.settings');
+            }
+
+            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
+              this.tabItems.push('notifications');
+              this.tabStates.push('weco.profile.notifications');
+            }
+          }
+        });
+      } else {
+        loadOtherUser();
+      }
+    };
+
+    init();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  openCoverPictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'cover'
+    }, 'Successfully updated cover picture.', 'Unable to update cover picture.');
+  }
+
+  openProfilePictureModal() {
+    this.ModalService.open('UPLOAD_IMAGE', {
+      route: 'user/me/',
+      type: 'picture'
+    }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
+  }
+}
+
+ProfileController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileController);
+
+/***/ }),
+/* 207 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__ = __webpack_require__(4);
+
+
+
+class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileNotificationsController.$inject, injections);
+
+    this.isLoading = false;
+    this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */];
+    this.notifications = [];
+
+    const init = _ => {
+      if (!this.$state.current.name.includes('weco.profile')) return;
+
+      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+        this.$timeout(_ => this.getNotifications());
+      }
+    };
+
+    init();
+
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if ('NotificationsScrollToBottom' !== name) return;
+
+      if (!this.isLoading) {
+        this.isLoading = true;
+
+        if (this.notifications.length) {
+          this.getNotifications(this.notifications[this.notifications.length - 1].id);
+        }
+      }
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getNotificationImageType(notification) {
+    switch (notification.type) {
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].NEW_CHILD_BRANCH_REQUEST:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].CHILD_BRANCH_REQUEST_ANSWERED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].BRANCH_MOVED:
+        return 'branch';
+
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].MODERATOR:
+        return 'moderator';
+
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].COMMENT:
+        return 'comment';
+
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].POST_FLAGGED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].POST_REMOVED:
+      case __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */].POST_TYPE_CHANGED:
+        return 'flagged';
+
+      default:
+        return 'user';
+    }
+  }
+
+  getNotifications(lastNotificationId) {
+    this.isLoading = true;
+
+    this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
+      this.$timeout(_ => {
+        this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
+        this.isLoading = false;
+      });
+    }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+  }
+
+  toggleUnreadState(notification) {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread).then(_ => {
+      this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
+      this.$timeout(_ => notification.unread = !notification.unread);
+    }).catch(_ => this.AlertsService.push('error', 'Unable to mark notification.'));
+  }
+}
+
+ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
+
+/***/ }),
+/* 208 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ProfileSettingsController.$inject, injections);
+  }
+
+  openNameModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Name',
+      inputs: [{
+        fieldname: 'name',
+        placeholder: 'Name',
+        type: 'text'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  openEmailModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Email',
+      inputs: [{
+        placeholder: 'Email',
+        type: 'email',
+        fieldname: 'email'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  openDOBModal() {
+    this.ModalService.open('PROFILE_SETTINGS', {
+      title: 'Date of Birth',
+      inputs: [{
+        placeholder: 'Date of Birth',
+        type: 'date',
+        fieldname: 'dob'
+      }]
+    }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  updateNSFW() {
+    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!')).catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
+  }
+}
+
+ProfileSettingsController.$inject = ['$state', 'AlertsService', 'ModalService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsController);
+
+/***/ }),
+/* 209 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67219,7 +67191,7 @@ API.$inject = ['$http', 'ENV'];
 /* harmony default export */ __webpack_exports__["a"] = (API);
 
 /***/ }),
-/* 207 */
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67380,7 +67352,7 @@ BranchService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'EventSer
 /* harmony default export */ __webpack_exports__["a"] = (BranchService);
 
 /***/ }),
-/* 208 */
+/* 211 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67447,7 +67419,7 @@ CommentService.$inject = ['API'];
 /* harmony default export */ __webpack_exports__["a"] = (CommentService);
 
 /***/ }),
-/* 209 */
+/* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67490,7 +67462,7 @@ EventService.$inject = ['$rootScope', '$timeout'];
 /* harmony default export */ __webpack_exports__["a"] = (EventService);
 
 /***/ }),
-/* 210 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67535,7 +67507,7 @@ ModService.$inject = ['API'];
 /* harmony default export */ __webpack_exports__["a"] = (ModService);
 
 /***/ }),
-/* 211 */
+/* 214 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67657,7 +67629,7 @@ PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchServ
 /* harmony default export */ __webpack_exports__["a"] = (PostService);
 
 /***/ }),
-/* 212 */
+/* 215 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67723,7 +67695,7 @@ UploadService.$inject = ['API', 'Upload'];
 /* harmony default export */ __webpack_exports__["a"] = (UploadService);
 
 /***/ }),
-/* 213 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67863,65 +67835,65 @@ UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
 /* harmony default export */ __webpack_exports__["a"] = (UserService);
 
 /***/ }),
-/* 214 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * @namespace Chart
  */
-var Chart = __webpack_require__(235)();
+var Chart = __webpack_require__(238)();
 
-__webpack_require__(233)(Chart);
-__webpack_require__(247)(Chart);
-__webpack_require__(229)(Chart);
-__webpack_require__(232)(Chart);
-__webpack_require__(237)(Chart);
-__webpack_require__(228)(Chart);
-__webpack_require__(230)(Chart);
-__webpack_require__(231)(Chart);
 __webpack_require__(236)(Chart);
-__webpack_require__(239)(Chart);
+__webpack_require__(250)(Chart);
+__webpack_require__(232)(Chart);
+__webpack_require__(235)(Chart);
 __webpack_require__(240)(Chart);
-__webpack_require__(238)(Chart);
+__webpack_require__(231)(Chart);
+__webpack_require__(233)(Chart);
 __webpack_require__(234)(Chart);
-__webpack_require__(241)(Chart);
-
+__webpack_require__(239)(Chart);
 __webpack_require__(242)(Chart);
 __webpack_require__(243)(Chart);
+__webpack_require__(241)(Chart);
+__webpack_require__(237)(Chart);
 __webpack_require__(244)(Chart);
-__webpack_require__(245)(Chart);
 
-__webpack_require__(253)(Chart);
-__webpack_require__(251)(Chart);
-__webpack_require__(252)(Chart);
+__webpack_require__(245)(Chart);
+__webpack_require__(246)(Chart);
+__webpack_require__(247)(Chart);
+__webpack_require__(248)(Chart);
+
+__webpack_require__(256)(Chart);
 __webpack_require__(254)(Chart);
 __webpack_require__(255)(Chart);
-__webpack_require__(256)(Chart);
+__webpack_require__(257)(Chart);
+__webpack_require__(258)(Chart);
+__webpack_require__(259)(Chart);
 
 // Controllers must be loaded after elements
 // See Chart.core.datasetController.dataElementType
-__webpack_require__(222)(Chart);
-__webpack_require__(223)(Chart);
-__webpack_require__(224)(Chart);
 __webpack_require__(225)(Chart);
 __webpack_require__(226)(Chart);
 __webpack_require__(227)(Chart);
+__webpack_require__(228)(Chart);
+__webpack_require__(229)(Chart);
+__webpack_require__(230)(Chart);
 
-__webpack_require__(215)(Chart);
-__webpack_require__(216)(Chart);
-__webpack_require__(217)(Chart);
 __webpack_require__(218)(Chart);
 __webpack_require__(219)(Chart);
 __webpack_require__(220)(Chart);
 __webpack_require__(221)(Chart);
+__webpack_require__(222)(Chart);
+__webpack_require__(223)(Chart);
+__webpack_require__(224)(Chart);
 
 // Loading built-it plugins
 var plugins = [];
 
 plugins.push(
-    __webpack_require__(248)(Chart),
-    __webpack_require__(249)(Chart),
-    __webpack_require__(250)(Chart)
+    __webpack_require__(251)(Chart),
+    __webpack_require__(252)(Chart),
+    __webpack_require__(253)(Chart)
 );
 
 Chart.plugins.register(plugins);
@@ -67933,7 +67905,7 @@ if (typeof window !== 'undefined') {
 
 
 /***/ }),
-/* 215 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67951,7 +67923,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 216 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67968,7 +67940,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 217 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67986,7 +67958,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 218 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68004,7 +67976,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 219 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68022,7 +67994,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 220 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68040,7 +68012,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 221 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68094,7 +68066,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 222 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68484,7 +68456,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 223 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68613,7 +68585,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 224 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68923,7 +68895,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 225 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69263,7 +69235,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 226 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69493,7 +69465,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 227 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69667,7 +69639,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 228 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69842,7 +69814,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 229 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69999,7 +69971,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 230 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70857,7 +70829,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 231 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71194,7 +71166,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 232 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71320,7 +71292,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 233 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72311,7 +72283,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 234 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72634,7 +72606,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 235 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72697,7 +72669,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 236 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73140,7 +73112,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 237 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73518,7 +73490,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 238 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74282,7 +74254,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 239 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74333,7 +74305,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 240 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74548,7 +74520,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 241 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75493,7 +75465,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 242 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75604,7 +75576,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 243 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75698,7 +75670,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 244 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75805,7 +75777,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 245 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76020,7 +75992,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 246 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76310,7 +76282,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 247 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76318,7 +76290,7 @@ module.exports = function(Chart) {
 
 // By default, select the browser (DOM) platform.
 // @TODO Make possible to select another platform at build time.
-var implementation = __webpack_require__(246);
+var implementation = __webpack_require__(249);
 
 module.exports = function(Chart) {
 	/**
@@ -76386,7 +76358,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 248 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76702,7 +76674,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 249 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77253,7 +77225,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 250 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77486,7 +77458,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 251 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77625,7 +77597,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 252 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77822,7 +77794,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 253 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77935,7 +77907,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 254 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78188,7 +78160,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 255 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78718,7 +78690,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 256 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79167,11 +79139,11 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 257 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(260);
+var colorNames = __webpack_require__(263);
 
 module.exports = {
    getRgba: getRgba,
@@ -79394,7 +79366,7 @@ for (var name in colorNames) {
 
 
 /***/ }),
-/* 258 */
+/* 261 */
 /***/ (function(module, exports) {
 
 /* MIT license */
@@ -80098,10 +80070,10 @@ for (var key in cssKeywords) {
 
 
 /***/ }),
-/* 259 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(258);
+var conversions = __webpack_require__(261);
 
 var convert = function() {
    return new Converter();
@@ -80195,7 +80167,7 @@ Converter.prototype.getValues = function(space) {
 module.exports = convert;
 
 /***/ }),
-/* 260 */
+/* 263 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -80350,7 +80322,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 261 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -81640,10 +81612,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(264)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(267)))
 
 /***/ }),
-/* 262 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -81892,10 +81864,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 262;
+webpackContext.id = 265;
 
 /***/ }),
-/* 263 */
+/* 266 */
 /***/ (function(module, exports) {
 
 /**!
@@ -84799,7 +84771,7 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
 
 
 /***/ }),
-/* 264 */
+/* 267 */
 /***/ (function(module, exports) {
 
 var g;
@@ -84826,7 +84798,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 265 */
+/* 268 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
