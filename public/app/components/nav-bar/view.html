@@ -80,7 +80,8 @@
           <img alt="You have {{ Navbar.notificationCount }} unread notifications"
             src="assets/images/icons/white/notification.png" />
 
-          <div id="notification-count"
+          <div class="navbar--item--badge"
+            id="notification-count"
             ng-show="Navbar.showNotificationCount()">
             <span>{{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}</span>
           </div>

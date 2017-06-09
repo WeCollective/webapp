@@ -1,33 +1,11 @@
 import Injectable from 'utils/injectable';
 
 class ProfileSettingsController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(ProfileSettingsController.$inject, injections);
   }
 
-  openNameModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-        title: 'Name',
-        inputs: [{
-          fieldname: 'name',
-          placeholder: 'Name',
-          type: 'text'
-        }]
-      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openEmailModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
-        title: 'Email',
-        inputs: [{
-          placeholder: 'Email',
-          type: 'email',
-          fieldname: 'email'
-        }]
-      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
-  }
-
-  openDOBModal() {
+  openDOBModal () {
     this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Date of Birth',
         inputs: [{
@@ -38,10 +16,32 @@ class ProfileSettingsController extends Injectable {
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
 
-  updateNSFW() {
+  openEmailModal () {
+    this.ModalService.open('PROFILE_SETTINGS', {
+        title: 'Email',
+        inputs: [{
+          placeholder: 'Email',
+          type: 'email',
+          fieldname: 'email'
+        }]
+      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  openNameModal () {
+    this.ModalService.open('PROFILE_SETTINGS', {
+        title: 'Name',
+        inputs: [{
+          fieldname: 'name',
+          placeholder: 'Name',
+          type: 'text'
+        }]
+      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+  }
+
+  updateNSFW () {
     this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw })
-      .then( _ => this.AlertsService.push('success', 'Successfully updated profile settings!') )
-      .catch( _ => this.AlertsService.push('error', 'Unable to update profile settings.') );
+      .then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!'))
+      .catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
   }
 }
 

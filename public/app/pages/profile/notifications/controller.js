@@ -7,35 +7,23 @@ class ProfileNotificationsController extends Injectable {
 
     this.isLoading = false;
     this.NotificationTypes = NotificationTypes;
-    this.notifications = [];
+    this.notifications = this.LocalStorageService.getObject('cache').profileNotifications || [];
 
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout( _ => this.getNotifications() );
-      }
-    };
-
-    init();
+    this.init();
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
-      
-      if (!this.isLoading) {
-        this.isLoading = true;
         
-        if (this.notifications.length) {
-          this.getNotifications(this.notifications[this.notifications.length - 1].id);
-        }
+      if (this.notifications.length) {
+        this.getNotifications(this.notifications[this.notifications.length - 1].id);
       }
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getNotificationImageType (notification) {
@@ -62,25 +50,39 @@ class ProfileNotificationsController extends Injectable {
   }
 
   getNotifications (lastNotificationId) {
+    if (this.isLoading === true) return;
+
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId)
-      .then( notifications => {
-        this.$timeout( _ => {
+      .then(notifications => {
+        this.$timeout(_ => {
           this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
           this.isLoading = false;
+
+          let cache = this.LocalStorageService.getObject('cache');
+          cache.profileNotifications = this.notifications;
+          this.LocalStorageService.setObject('cache', cache);
         });
       })
-      .catch( _ => this.AlertsService.push('error', 'Unable to fetch notifications.') );
+      .catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+  }
+
+  init () {
+    if (!this.$state.current.name.includes('weco.profile')) return;
+
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+      this.$timeout(_ => this.getNotifications());
+    }
   }
 
   toggleUnreadState (notification) {
     this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread)
-      .then( _ => {
+      .then(_ => {
         this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
-        this.$timeout( _ => notification.unread = !notification.unread );
+        this.$timeout(_ => notification.unread = !notification.unread);
       })
-      .catch( _ => this.AlertsService.push('error', 'Unable to mark notification.') );
+      .catch(_ => this.AlertsService.push('error', 'Unable to mark notification.'));
   }
 }
 
@@ -90,6 +92,7 @@ ProfileNotificationsController.$inject = [
   '$timeout',
   'AlertsService',
   'EventService',
+  'LocalStorageService',
   'UserService'
 ];
 

@@ -63,6 +63,8 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/logout', {})
         .then(_ => {
+          this.LocalStorageService.setObject('cache', {});
+
           this.user = {};
           this.EventService.emit(this.EventService.events.CHANGE_USER);
           return resolve();
@@ -155,6 +157,7 @@ UserService.$inject = [
   'API',
   'ENV',
   'EventService',
+  'LocalStorageService'
 ];
 
 export default UserService;

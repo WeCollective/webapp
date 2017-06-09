@@ -1,7 +1,7 @@
 <div class="notifications"
   id="profile-notifications"
   loading
-  loading-when="ProfileNotifications.isLoading"
+  loading-when="!ProfileNotifications.notifications.length && ProfileNotifications.isLoading"
   on-scroll-to-bottom="NotificationsScrollToBottom">
   <div id="empty"
     ng-show="!ProfileNotifications.notifications || !ProfileNotifications.notifications.length">

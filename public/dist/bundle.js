@@ -64953,26 +64953,23 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
         this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
           this.notificationCount = notificationCount;
           this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+          this.$scope.$apply();
         }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
       }
     });
   }
 
   isControlSelected(control) {
-    return this.$state.current.name.includes(control) && 'root' === this.$state.params.branchid;
+    return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
   }
 
   logout() {
     this.expanded = false;
-    this.UserService.logout().then(_ => {
-      this.$state.go('auth.login');
-    }).catch(_ => {
-      this.AlertsService.push('error', 'Unable to log out.');
-    });
+    this.UserService.logout().then(_ => this.$state.go('auth.login')).catch(_ => this.AlertsService.push('error', 'Unable to log out.'));
   }
 
   onHomePage() {
-    return 'weco.home' === this.$state.current.name;
+    return this.$state.current.name === 'weco.home';
   }
 
   showNotificationCount() {
@@ -64985,18 +64982,14 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
   triggerAnimation() {
     // set animation src to the animated gif
-    this.$timeout(_ => {
-      this.animationSrc = '/assets/images/logo-animation.gif';
-    });
+    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation.gif');
 
     // cancel after 1 sec
-    this.$timeout(_ => {
-      this.animationSrc = '';
-    }, 1000);
+    this.$timeout(_ => this.animationSrc = '', 1000);
   }
 }
 
-NavbarController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
+NavbarController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavbarController);
 
@@ -66901,59 +66894,62 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.tabItems = ['about'];
     this.tabStates = ['weco.profile.about'];
 
-    const loadOtherUser = _ => {
-      // ensure we are in the 'about' state
-      if ('weco.profile.about' !== this.$state.current.name) {
-        this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(init);
-      } else {
-        this.isLoading = true;
-        this.UserService.fetch(this.$state.params.username).then(user => {
-          this.profileUser = user;
-          this.isLoading = false;
-        }).catch(err => {
-          this.isLoading = false;
+    this.init = this.init.bind(this);
+    this.loadOtherUser = this.loadOtherUser.bind(this);
 
-          if (404 === err.status) {
-            return this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch user.');
-            this.$state.go('weco.home');
-          }
-        }).then(this.$timeout);
-      }
-    };
-
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(_ => {
-          this.profileUser = this.UserService.user;
-
-          if (this.UserService.user.username === this.$state.params.username) {
-            if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
-              this.tabItems.push('settings');
-              this.tabStates.push('weco.profile.settings');
-            }
-
-            if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
-              this.tabItems.push('notifications');
-              this.tabStates.push('weco.profile.notifications');
-            }
-          }
-        });
-      } else {
-        loadOtherUser();
-      }
-    };
-
-    init();
+    this.init();
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  init() {
+    if (!this.$state.current.name.includes('weco.profile')) return;
+
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+      this.$timeout(_ => {
+        this.profileUser = this.UserService.user;
+
+        if (this.UserService.user.username === this.$state.params.username) {
+          if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
+            this.tabItems.push('settings');
+            this.tabStates.push('weco.profile.settings');
+          }
+
+          if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
+            this.tabItems.push('notifications');
+            this.tabStates.push('weco.profile.notifications');
+          }
+        }
+      });
+    } else {
+      this.loadOtherUser();
+    }
+  }
+
+  loadOtherUser() {
+    if (this.$state.current.name !== 'weco.profile.about') {
+      this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(this.init);
+      return;
+    }
+
+    this.isLoading = true;
+    this.UserService.fetch(this.$state.params.username).then(user => {
+      this.profileUser = user;
+      this.isLoading = false;
+    }).catch(err => {
+      this.isLoading = false;
+
+      if (err.status === 404) {
+        return this.$state.go('weco.notfound');
+      } else {
+        this.AlertsService.push('error', 'Unable to fetch user.');
+        this.$state.go('weco.home');
+      }
+    }).then(this.$timeout);
   }
 
   openCoverPictureModal() {
@@ -66991,31 +66987,19 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
 
     this.isLoading = false;
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */];
-    this.notifications = [];
+    this.notifications = this.LocalStorageService.getObject('cache').profileNotifications || [];
 
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.profile')) return;
-
-      if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-        this.$timeout(_ => this.getNotifications());
-      }
-    };
-
-    init();
+    this.init();
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('NotificationsScrollToBottom' !== name) return;
 
-      if (!this.isLoading) {
-        this.isLoading = true;
-
-        if (this.notifications.length) {
-          this.getNotifications(this.notifications[this.notifications.length - 1].id);
-        }
+      if (this.notifications.length) {
+        this.getNotifications(this.notifications[this.notifications.length - 1].id);
       }
     }));
 
@@ -67046,14 +67030,28 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
   }
 
   getNotifications(lastNotificationId) {
+    if (this.isLoading === true) return;
+
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
       this.$timeout(_ => {
         this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
         this.isLoading = false;
+
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.profileNotifications = this.notifications;
+        this.LocalStorageService.setObject('cache', cache);
       });
     }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+  }
+
+  init() {
+    if (!this.$state.current.name.includes('weco.profile')) return;
+
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+      this.$timeout(_ => this.getNotifications());
+    }
   }
 
   toggleUnreadState(notification) {
@@ -67064,7 +67062,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
   }
 }
 
-ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'UserService'];
+ProfileNotificationsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'LocalStorageService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileNotificationsController);
 
@@ -67081,13 +67079,13 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     super(ProfileSettingsController.$inject, injections);
   }
 
-  openNameModal() {
+  openDOBModal() {
     this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Name',
+      title: 'Date of Birth',
       inputs: [{
-        fieldname: 'name',
-        placeholder: 'Name',
-        type: 'text'
+        placeholder: 'Date of Birth',
+        type: 'date',
+        fieldname: 'dob'
       }]
     }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
@@ -67103,13 +67101,13 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
 
-  openDOBModal() {
+  openNameModal() {
     this.ModalService.open('PROFILE_SETTINGS', {
-      title: 'Date of Birth',
+      title: 'Name',
       inputs: [{
-        placeholder: 'Date of Birth',
-        type: 'date',
-        fieldname: 'dob'
+        fieldname: 'name',
+        placeholder: 'Name',
+        type: 'text'
       }]
     }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
@@ -67831,6 +67829,8 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   logout() {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/logout', {}).then(_ => {
+        this.LocalStorageService.setObject('cache', {});
+
         this.user = {};
         this.EventService.emit(this.EventService.events.CHANGE_USER);
         return resolve();
@@ -67904,7 +67904,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 }
 
-UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService'];
+UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService', 'LocalStorageService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UserService);
 
