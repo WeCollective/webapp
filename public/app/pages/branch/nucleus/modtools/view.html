@@ -38,17 +38,17 @@
   </ul>
   
   <ul id="nucleus-modtools-log">
-    <div loading loading-when="BranchNucleusModtools.isLoading">
+    <div loading loading-when="!BranchNucleusModtools.log.length && BranchNucleusModtools.isLoading">
       <h2>Moderator Action Log</h2>
       
-      <h3 ng-show="!BranchNucleusModtools.modLog || !BranchNucleusModtools.modLog.length">
+      <h3 ng-show="!BranchNucleusModtools.log || !BranchNucleusModtools.log.length">
         No entries to display
       </h3>
       
       <li class="clearfix"
         entry="entry"
         mod-log-entry
-        ng-repeat="entry in BranchNucleusModtools.modLog">
+        ng-repeat="entry in BranchNucleusModtools.log">
       </li>
     </div>
   </ul>

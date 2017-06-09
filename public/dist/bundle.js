@@ -65908,29 +65908,44 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   constructor(...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    const cb = branchid => this.WallService.init('weco.branch.nucleus', true);
+    this.posts = this.LocalStorageService.getObject('cache').branchNucleusFlaggedPosts || [];
+
+    this.cb = this.cb.bind(this);
 
     let listeners = [];
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
 
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
+
+  cb(branchid) {
+    this.WallService.init('weco.branch.nucleus', true).then(posts => {
+      this.posts = posts;
+
+      let cache = this.LocalStorageService.getObject('cache');
+      cache.branchNucleusFlaggedPosts = this.posts;
+      this.LocalStorageService.setObject('cache', cache);
+
+      // The view would not update otherwise.
+      this.$scope.$apply();
+    });
+  }
 }
 
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'WallService'];
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'LocalStorageService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
 
@@ -65946,13 +65961,11 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
   constructor(...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
-    this.mods = [];
+    this.mods = this.LocalStorageService.getObject('cache').branchNucleusMods || [];
     this.isLoading = false;
 
     this.getAllMods = this.getAllMods.bind(this);
     this.getMod = this.getMod.bind(this);
-
-    console.log(this.LocalStorageService, this.LocalStorageService.setObject);
 
     let listeners = [];
 
@@ -65973,7 +65986,13 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
     }
 
     // when all mods fetched, loading finished
-    Promise.all(promises).then(_ => this.$timeout(_ => this.isLoading = false)).catch(_ => {
+    Promise.all(promises).then(_ => {
+      let cache = this.LocalStorageService.getObject('cache');
+      cache.branchNucleusMods = this.mods;
+      this.LocalStorageService.setObject('cache', cache);
+
+      this.$timeout(_ => this.isLoading = false);
+    }).catch(_ => {
       this.AlertsService.push('error', 'Error fetching moderators.');
       this.$timeout(_ => this.isLoading = false);
     });
@@ -66001,28 +66020,31 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
     super(BranchNucleusModtoolsController.$inject, injections);
 
     this.isLoading = true;
-    this.modLog = [];
+    this.log = this.LocalStorageService.getObject('cache').modLog || [];
 
-    const getModLog = _ => {
-      if (!Object.keys(this.BranchService.branch).length) return;
-
-      this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
-        this.modLog = log;
-        this.isLoading = false;
-      })).catch(_ => {
-        this.AlertsService.push('error', 'Error fetching moderator action log.');
-        this.isLoading = false;
-      });
-    };
-
-    // todo cache this instead...
-    //getModLog();
+    this.getLog = this.getLog.bind(this);
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getLog));
 
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getLog() {
+    if (!Object.keys(this.BranchService.branch).length) return;
+
+    this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
+      this.log = log;
+      this.isLoading = false;
+
+      let cache = this.LocalStorageService.getObject('cache');
+      cache.modLog = this.log;
+      this.LocalStorageService.setObject('cache', cache);
+    })).catch(_ => {
+      this.AlertsService.push('error', 'Error fetching moderator action log.');
+      this.isLoading = false;
+    });
   }
 
   openAddModModal() {
@@ -66075,7 +66097,7 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
   }
 }
 
-BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'LocalStorageService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusModtoolsController);
 
@@ -66489,26 +66511,33 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   }
 
   getPosts(lastPostId) {
-    if (this.isLoading === true) return;
+    return new Promise((resolve, reject) => {
+      let posts = [];
 
-    this.isLoading = true;
+      if (this.isLoading === true) return resolve(posts);
 
-    const postType = this.getPostType();
-    const sortBy = this.getSortBy();
-    const statType = this.getStatType();
-    const timeafter = this.getTimeafter();
+      this.isLoading = true;
 
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(posts => {
-      this.$timeout(_ => {
-        // If lastPostId was specified, we are fetching more posts, so append them.
-        this.posts = lastPostId ? this.posts.concat(posts) : posts;
+      const postType = this.getPostType();
+      const sortBy = this.getSortBy();
+      const statType = this.getStatType();
+      const timeafter = this.getTimeafter();
+
+      // fetch the posts for this branch and timefilter
+      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(newPosts => {
+        this.$timeout(_ => {
+          // If lastPostId was specified, we are fetching more posts, so append them.
+          posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
+          this.posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
+          this.isLoading = false;
+          this.isLoadingMore = false;
+          return resolve(posts);
+        });
+      }).catch(_ => {
+        this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
-        this.isLoadingMore = false;
+        return resolve(posts);
       });
-    }).catch(_ => {
-      this.AlertsService.push('error', 'Error fetching posts.');
-      this.isLoading = false;
     });
   }
 
@@ -66593,17 +66622,19 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   // This is also called from `/wall` and `/nucleus` controllers.
   init(allowedState, flaggedOnly) {
-    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
-      return;
-    }
+    return new Promise((resolve, reject) => {
+      if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
+        return reject();
+      }
 
-    this.flaggedOnly = !!flaggedOnly;
+      this.flaggedOnly = !!flaggedOnly;
 
-    if (this.flaggedOnly) {
-      this.controls.sortBy.selectedIndex = 2;
-    }
+      if (this.flaggedOnly) {
+        this.controls.sortBy.selectedIndex = 2;
+      }
 
-    this.getPosts();
+      return resolve(this.getPosts());
+    });
   }
 }
 

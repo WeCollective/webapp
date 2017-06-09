@@ -17,13 +17,13 @@
 
   <div class="content-body"
     loading
-    loading-when="BranchNucleusFlaggedPosts.WallService.isLoading"
+    loading-when="!BranchNucleusFlaggedPosts.posts.length && BranchNucleusFlaggedPosts.WallService.isLoading"
     on-scroll-to-bottom="WallScrollToBottom">
     <ul id="post-list">
       <li class="list-item"
         index="$index"
         list-item
-        ng-repeat="post in BranchNucleusFlaggedPosts.WallService.posts"
+        ng-repeat="post in BranchNucleusFlaggedPosts.posts"
         post="post">
       </li>
     </ul>

@@ -4,13 +4,11 @@ class BranchNucleusModeratorsController extends Injectable {
   constructor (...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
-    this.mods = [];
+    this.mods = this.LocalStorageService.getObject('cache').branchNucleusMods || [];
     this.isLoading = false;
 
     this.getAllMods = this.getAllMods.bind(this);
     this.getMod = this.getMod.bind(this);
-
-    console.log(this.LocalStorageService, this.LocalStorageService.setObject)
 
     let listeners = [];
 
@@ -32,7 +30,13 @@ class BranchNucleusModeratorsController extends Injectable {
 
     // when all mods fetched, loading finished
     Promise.all(promises)
-      .then(_ => this.$timeout(_ => this.isLoading = false))
+      .then(_ => {
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.branchNucleusMods = this.mods;
+        this.LocalStorageService.setObject('cache', cache);
+
+        this.$timeout(_ => this.isLoading = false);
+      })
       .catch(_ => {
         this.AlertsService.push('error', 'Error fetching moderators.');
         this.$timeout(_ => this.isLoading = false);

@@ -5,30 +5,33 @@ class BranchNucleusModtoolsController extends Injectable {
     super(BranchNucleusModtoolsController.$inject, injections);
 
     this.isLoading = true;
-    this.modLog = [];
+    this.log = this.LocalStorageService.getObject('cache').modLog || [];
 
-    const getModLog = _ => {
-      if (!Object.keys(this.BranchService.branch).length) return;
-      
-      this.BranchService.getModLog(this.BranchService.branch.id)
-        .then(log => this.$timeout(_ => {
-          this.modLog = log;
-          this.isLoading = false;
-        }))
-        .catch(_ => {
-          this.AlertsService.push('error', 'Error fetching moderator action log.');
-          this.isLoading = false;
-        });
-    };
-
-    // todo cache this instead...
-    //getModLog();
+    this.getLog = this.getLog.bind(this);
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getLog));
 
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getLog () {
+    if (!Object.keys(this.BranchService.branch).length) return;
+    
+    this.BranchService.getModLog(this.BranchService.branch.id)
+      .then(log => this.$timeout(_ => {
+        this.log = log;
+        this.isLoading = false;
+
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.modLog = this.log;
+        this.LocalStorageService.setObject('cache', cache);
+      }))
+      .catch(_ => {
+        this.AlertsService.push('error', 'Error fetching moderator action log.');
+        this.isLoading = false;
+      });
   }
 
   openAddModModal () {
@@ -95,6 +98,7 @@ BranchNucleusModtoolsController.$inject = [
   'AlertsService',
   'BranchService',
   'EventService',
+  'LocalStorageService',
   'ModalService',
   'UserService'
 ];

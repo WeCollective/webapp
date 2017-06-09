@@ -1,6 +1,6 @@
 <div id="nucleus-moderators-list-container"
 	loading
-  loading-when="BranchNucleusModerators.isLoading">
+  loading-when="!BranchNucleusModerators.mods.length && BranchNucleusModerators.isLoading">
   <ul>
     <a ng-repeat="mod in BranchNucleusModerators.mods" ui-sref="weco.profile.about({ username: mod.username })">
       <li>

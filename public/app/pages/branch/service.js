@@ -64,29 +64,36 @@ class WallService extends Injectable {
   }
 
   getPosts (lastPostId) {
-    if (this.isLoading === true) return;
+    return new Promise((resolve, reject) => {
+      let posts = [];
 
-    this.isLoading = true;
+      if (this.isLoading === true) return resolve(posts);
 
-    const postType  = this.getPostType();
-    const sortBy    = this.getSortBy();
-    const statType  = this.getStatType();
-    const timeafter = this.getTimeafter();
+      this.isLoading = true;
 
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly)
-      .then(posts => {
-        this.$timeout(_ => {
-          // If lastPostId was specified, we are fetching more posts, so append them.
-          this.posts = lastPostId ? this.posts.concat(posts) : posts;
+      const postType  = this.getPostType();
+      const sortBy    = this.getSortBy();
+      const statType  = this.getStatType();
+      const timeafter = this.getTimeafter();
+
+      // fetch the posts for this branch and timefilter
+      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly)
+        .then(newPosts => {
+          this.$timeout(_ => {
+            // If lastPostId was specified, we are fetching more posts, so append them.
+            posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
+            this.posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
+            this.isLoading = false;
+            this.isLoadingMore = false;
+            return resolve(posts);
+          });
+        })
+        .catch(_ => {
+          this.AlertsService.push('error', 'Error fetching posts.');
           this.isLoading = false;
-          this.isLoadingMore = false;
+          return resolve(posts);
         });
-      })
-      .catch(_ => {
-        this.AlertsService.push('error', 'Error fetching posts.');
-        this.isLoading = false;
-      });
+    });
   }
 
   getPostType () {
@@ -170,17 +177,19 @@ class WallService extends Injectable {
 
   // This is also called from `/wall` and `/nucleus` controllers.
   init (allowedState, flaggedOnly) {
-    if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
-      return;
-    }
+    return new Promise((resolve, reject) => {
+      if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
+        return reject();
+      }
 
-    this.flaggedOnly = !!flaggedOnly;
-    
-    if (this.flaggedOnly) {
-      this.controls.sortBy.selectedIndex = 2;
-    }
+      this.flaggedOnly = !!flaggedOnly;
+      
+      if (this.flaggedOnly) {
+        this.controls.sortBy.selectedIndex = 2;
+      }
 
-    this.getPosts();
+      return resolve(this.getPosts());
+    });
   }
 }
 

@@ -1299,6 +1299,7 @@ ul.tabs {
   display: inline-block;
 }
 ul.tabs a li {
+  border-bottom: solid 2px transparent;
   display: inline-block;
   min-width: 60px;
   padding: 4px 10px;
@@ -1309,7 +1310,7 @@ ul.tabs a li span {
   text-transform: uppercase;
 }
 ul.tabs a li.selected {
-  border-bottom: solid 2px #000;
+  border-bottom-color: #000;
 }
 ul.tabs a li.selected span {
   font-weight: 600;
