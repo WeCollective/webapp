@@ -14,6 +14,8 @@ class NavbarController extends Injectable {
           .then(notificationCount => {
             this.notificationCount = notificationCount;
             this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+
+            // Sometimes the notifications badge would not get updated.
             this.$scope.$apply();
           })
           .catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
@@ -34,10 +36,6 @@ class NavbarController extends Injectable {
 
   onHomePage () {
     return this.$state.current.name === 'weco.home';
-  }
-
-  showNotificationCount () {
-    return this.notificationCount > 0;
   }
 
   toggleNav () {

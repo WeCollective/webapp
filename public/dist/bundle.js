@@ -64953,6 +64953,8 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
         this.UserService.getNotifications(this.UserService.user.username, true).then(notificationCount => {
           this.notificationCount = notificationCount;
           this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+
+          // Sometimes the notifications badge would not get updated.
           this.$scope.$apply();
         }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
       }
@@ -64970,10 +64972,6 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
   onHomePage() {
     return this.$state.current.name === 'weco.home';
-  }
-
-  showNotificationCount() {
-    return this.notificationCount > 0;
   }
 
   toggleNav() {

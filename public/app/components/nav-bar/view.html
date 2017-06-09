@@ -81,8 +81,7 @@
             src="assets/images/icons/white/notification.png" />
 
           <div class="navbar--item--badge"
-            id="notification-count"
-            ng-show="Navbar.showNotificationCount()">
+            ng-show="Navbar.notificationCount > 0">
             <span>{{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}</span>
           </div>
         </div>

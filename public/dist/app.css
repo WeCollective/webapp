@@ -906,6 +906,7 @@ div[loading] div.loading-container img {
   display: flex;
   height: 100%;
   justify-content: center;
+  position: relative;
 }
 .navbar > .content > div .navbar--item .navbar--icon {
   display: flex;
@@ -913,6 +914,41 @@ div[loading] div.loading-container img {
   justify-content: center;
   opacity: .5;
   padding: 0 6px;
+}
+.navbar > .content > div .navbar--item .navbar--item--badge {
+  background-color: #e74c3c;
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 500;
+  height: 18px;
+  min-width: 18px;
+  padding-top: 2px;
+  position: absolute;
+  right: -3px;
+  text-align: center;
+  top: -4px;
+}
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add,
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove {
+  transition: transform .3s, opacity .3s;
+}
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add {
+  opacity: 1;
+  transform: scale(1);
+}
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  transform: scale(0);
+}
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove {
+  opacity: 0;
+  transform: scale(0);
+}
+.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  transform: scale(1);
 }
 .navbar > .content > div .navbar--item:hover {
   background-color: rgba(255, 255, 255, 0.1);
@@ -941,21 +977,6 @@ div[loading] div.loading-container img {
 }
 .navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon {
   position: relative;
-}
-.navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon div#notification-count {
-  background-color: #e74c3c;
-  border-radius: 50%;
-  box-sizing: border-box;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 500;
-  height: 18px;
-  min-width: 18px;
-  padding-top: 2px;
-  position: absolute;
-  right: -3px;
-  text-align: center;
-  top: -4px;
 }
 .navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon img {
   height: 100%;
@@ -3445,6 +3466,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   overflow: hidden;
   padding: 10px 20px 10px 10px;
   position: relative;
+  transition: background-color 0.3s;
 }
 @media only screen and (min-width: 576px) {
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
@@ -3522,6 +3544,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     overflow: hidden;
     padding: 10px 20px 10px 10px;
     position: relative;
+    transition: background-color 0.3s;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
@@ -3600,6 +3623,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     overflow: hidden;
     padding: 10px 20px 10px 10px;
     position: relative;
+    transition: background-color 0.3s;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
