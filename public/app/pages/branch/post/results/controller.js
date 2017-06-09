@@ -16,9 +16,9 @@ class BranchPostResultsController extends Injectable {
 
     let listeners = [];
     
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, _ => this.getPollAnswers() ));
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS,_ => this.getPollAnswers()));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getAnswerColor (index) {
@@ -28,19 +28,17 @@ class BranchPostResultsController extends Injectable {
   // Params: lastAnswerId
   getPollAnswers () {
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined)
-      .then( answers => {
-        this.$timeout( _ => {
-          this.answers = answers;
-          this.chart.labels = [];
-          this.chart.data = [];
-          
-          for (let index in answers) {
-            this.chart.labels.push(Number(index) + 1);
-            this.chart.data.push(answers[index].votes);
-          }
-        });
-      })
-      .catch( err => {
+      .then(answers => this.$timeout(_ => {
+        this.answers = answers;
+        this.chart.labels = [];
+        this.chart.data = [];
+        
+        for (let index in answers) {
+          this.chart.labels.push(Number(index) + 1);
+          this.chart.data.push(answers[index].votes);
+        }
+      }))
+      .catch(err => {
         if (err.status !== 404) {
           this.AlertsService.push('error', 'Error fetching poll answers.');
         }

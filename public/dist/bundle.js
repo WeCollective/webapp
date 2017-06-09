@@ -66343,18 +66343,16 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
   // Params: lastAnswerId
   getPollAnswers() {
-    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => {
-      this.$timeout(_ => {
-        this.answers = answers;
-        this.chart.labels = [];
-        this.chart.data = [];
+    this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => this.$timeout(_ => {
+      this.answers = answers;
+      this.chart.labels = [];
+      this.chart.data = [];
 
-        for (let index in answers) {
-          this.chart.labels.push(Number(index) + 1);
-          this.chart.data.push(answers[index].votes);
-        }
-      });
-    }).catch(err => {
+      for (let index in answers) {
+        this.chart.labels.push(Number(index) + 1);
+        this.chart.data.push(answers[index].votes);
+      }
+    })).catch(err => {
       if (err.status !== 404) {
         this.AlertsService.push('error', 'Error fetching poll answers.');
       }
@@ -67609,24 +67607,13 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     super(PostService.$inject, injections);
 
     this.post = {};
+    this.updating = false;
 
-    const updatePost = _ => {
-      if (!this.$state.current.name.includes('weco.branch.post')) {
-        return;
-      }
+    this.updatePost = this.updatePost.bind(this);
 
-      this.fetch(this.$state.params.postid).then(post => this.post = post).catch(err => {
-        if (err.status === 404) {
-          this.$state.go('weco.notfound');
-        } else {
-          this.AlertsService.push('error', 'Unable to fetch post.');
-        }
-      }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
-    };
+    this.updatePost();
 
-    updatePost();
-
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updatePost);
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.updatePost);
   }
 
   create(data) {
@@ -67651,31 +67638,7 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   fetch(postid) {
     return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
-        try {
-          let res = yield this.API.fetch('/post/:postid', { postid }, {});
-
-          if (!res && !res.data) {
-            return reject();
-          }
-
-          let post = res.data;
-
-          try {
-            res = yield this.API.fetch('/post/:postid/picture', { postid }, {});
-            post.profileUrl = res.data;
-          } catch (e) {/* It's okay if we don't have any photos */}
-
-          try {
-            res = yield this.API.fetch('/post/:postid/picture-thumb', { postid }, {});
-            post.profileUrlThumb = res.data;
-          } catch (e) {/* It's okay if we don't have any photos */}
-
-          return resolve(post);
-        } catch (err) {
-          return reject(err.data || err);
-        }
-      }, this);
+      this.API.fetch('/post/:postid', { postid }, {}).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -67693,6 +67656,27 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     return new Promise((resolve, reject) => {
       this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
+  }
+
+  updatePost() {
+    if (!this.$state.current.name.includes('weco.branch.post') || this.updating === true) {
+      return;
+    }
+
+    this.updating = true;
+
+    this.fetch(this.$state.params.postid).then(post => {
+      this.post = post;
+      this.updating = false;
+    }).catch(err => {
+      this.updating = false;
+
+      if (err.status === 404) {
+        this.$state.go('weco.notfound');
+      } else {
+        this.AlertsService.push('error', 'Unable to fetch post.');
+      }
+    }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
   }
 
   vote(branchid, postid, vote) {

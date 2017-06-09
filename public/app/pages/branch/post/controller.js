@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchPostController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchPostController.$inject, injections);
 
     this.isLoadingComments = true;
@@ -36,7 +36,7 @@ class BranchPostController extends Injectable {
 
     const redirect = () => {
       // post not updated yet, wait for CHANGE_POST event
-      if(this.$state.params.postid !== this.PostService.post.id) {
+      if (this.$state.params.postid !== this.PostService.post.id) {
         return;
       }
 
@@ -74,11 +74,11 @@ class BranchPostController extends Injectable {
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  getPreviewTemplate() {
+  getPreviewTemplate () {
     return `/app/pages/branch/post/templates-preview/${this.PostService.post.type}.html`;
   }
 
-  getVideoEmbedUrl() {
+  getVideoEmbedUrl () {
     const isYouTubeUrl = url => {
       if (url && '' !== url) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -103,12 +103,12 @@ class BranchPostController extends Injectable {
     return '';
   }
 
-  isOwnPost() {
-    if(!this.PostService.post || !this.PostService.post.data) return false;
+  isOwnPost () {
+    if (!this.PostService.post || !this.PostService.post.data) return false;
     return this.UserService.user.username === this.PostService.post.data.creator;
   }
 
-  openDeletePostModal() {
+  openDeletePostModal () {
     this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id },
       'Post deleted.', 'Unable to delete post.' );
     
@@ -118,15 +118,15 @@ class BranchPostController extends Injectable {
     });
   }
 
-  setPreviewState(state) {
+  setPreviewState (state) {
     this.previewState = state;
   }
 
-  shouldShowTabs() {
+  shouldShowTabs () {
     return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
-  showPreview() {
+  showPreview () {
     return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
   }
 }

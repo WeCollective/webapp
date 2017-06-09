@@ -18,11 +18,11 @@ class BranchPostVoteController extends Injectable {
 
     let listeners = [];
 
-    listeners.push(this.$scope.$watch( _ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.getPollAnswers();
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   canSubmitNewAnswer () {
@@ -52,11 +52,11 @@ class BranchPostVoteController extends Injectable {
 
     // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
-      .then( answers => this.$timeout( _ => {
+      .then(answers => this.$timeout(_ => {
         // if lastAnswerId was specified we are fetching _more_ answers, so append them
         this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
       }))
-      .catch( err => {
+      .catch(err => {
         if (err.status !== 404) {
           this.AlertsService.push('error', 'Error fetching poll answers.');
         }
@@ -83,8 +83,8 @@ class BranchPostVoteController extends Injectable {
     if (!answer) return;
     
     this.PostService.votePollAnswer(answer.postid, answer.id)
-      .then( _ => this.AlertsService.push('success', 'Your vote has been cast!') )
-      .catch( err => this.AlertsService.push('error', err.message || 'Error casting your vote!') );
+      .then(_ => this.AlertsService.push('success', 'Your vote has been cast!'))
+      .catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
   }
 }
 
