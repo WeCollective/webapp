@@ -22,7 +22,7 @@
 
     <img alt=""
       ng-click="BranchPost.setPreviewState('show')"
-      ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
+      ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
       offset-y="40"
       src="/assets/images/icons/black/show.png"
       text="'Reveal'"
@@ -39,7 +39,8 @@
 
     <img alt=""
       ng-click="BranchPost.setPreviewState('show')"
-      ng-show="(BranchPost.previewState === 'maximise' && BranchPost.PostService.post.type !== 'text') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"      
+      ng-show="BranchPost.previewState === 'maximise' && (BranchPost.PostService.post.type === 'video' ||
+      BranchPost.PostService.post.type === 'image')"      
       offset-y="40"
       src="/assets/images/icons/black/minimise.png"
       text="'Shrink'"
