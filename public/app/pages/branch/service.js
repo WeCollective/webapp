@@ -46,6 +46,7 @@ class WallService extends Injectable {
       }
     };
     this.flaggedOnly = false;
+    this.isCoverOpen = false;
     this.isLoading = false;
     this.isLoadingMore = false;
     this.posts = [];

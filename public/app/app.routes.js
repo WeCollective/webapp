@@ -61,7 +61,10 @@ class AppRoutes extends Injectable {
       // Abstract root state contains nav-bar
       .state('weco', {
         abstract: true,
-        template: `<nav-bar></nav-bar><div ng-class="{ 'full-page-nav': App.hasNavBar(), 'full-page': !App.hasNavBar() }" ui-view></div>`
+        template: `
+          <nav-bar></nav-bar>
+          <div class="full-page" ng-class="{ 'full-page-nav': App.hasNavBar() }" ui-view>
+          </div>`
       })
       
       // 404 Not Found

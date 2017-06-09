@@ -23723,7 +23723,10 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
-      template: `<nav-bar></nav-bar><div ng-class="{ 'full-page-nav': App.hasNavBar(), 'full-page': !App.hasNavBar() }" ui-view></div>`
+      template: `
+          <nav-bar></nav-bar>
+          <div class="full-page" ng-class="{ 'full-page-nav': App.hasNavBar() }" ui-view>
+          </div>`
     })
 
     // 404 Not Found
@@ -63344,23 +63347,19 @@ class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(CoverPhotoController.$inject, injections);
 
-    this.isOpen = true;
+    this.WallService.isCoverOpen = true;
   }
 
   hasUrls() {
     return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
   }
 
-  hideCoverPicture() {
-    this.isOpen = false;
-  }
-
-  showCoverPicture() {
-    this.isOpen = true;
+  toggleCoverPicture() {
+    this.WallService.isCoverOpen = !this.WallService.isCoverOpen;
   }
 }
 
-CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService'];
+CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 
@@ -66498,6 +66497,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
       }
     };
     this.flaggedOnly = false;
+    this.isCoverOpen = false;
     this.isLoading = false;
     this.isLoadingMore = false;
     this.posts = [];
@@ -66795,7 +66795,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    const cb = _ => this.WallService.init('weco.branch.wall');
+    this.cb = this.cb.bind(this);
 
     // todo cache this instead...
     //cb();
@@ -66803,24 +66803,32 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     let listeners = [];
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) cb();
+      if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, cb));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
 
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  cb() {
+    this.WallService.init('weco.branch.wall').then(posts => {
+      console.log(posts);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   // return the correct ui-sref string for when the specified post is clicked

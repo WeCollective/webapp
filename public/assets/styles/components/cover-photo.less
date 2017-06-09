@@ -8,10 +8,11 @@ div.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: @shadow-1;
-  height: 0;
+  height: @sidebar-w;
   position: relative;
   width: 100%;
   z-index: 1;
+  transition: height .4s;
 
   img {
     height: auto;
@@ -19,23 +20,23 @@ div.cover-photo {
     position: absolute;
     top: calc(~'100% + 20px');
     width: 22px;
+    transition: transform .2s;
 
     &:hover {
       cursor: pointer;
       opacity: .8;
     }
 
-    &#cover-photo-hide,
-    &#cover-photo-show {
-      right: 10px;
-    }
+    &.cover-photo-toggle { right: 10px; }
 
     &#cover-photo-edit { right: 40px; }
   }
 
-  &.open {
-    height: @sidebar-w;
+  &.closed {
+    height: 0;
     
-    .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
+    img.cover-photo-toggle { transform: rotateZ(180deg); }
   }
+
+  .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
 }

@@ -71,18 +71,18 @@ span {
   .full-page {
     height: 100%;
     width: 100%;
-  }
 
-  .full-page-nav {
-    height: calc(~'100% - @{navbar-h}');
-    padding-top: @navbar-h;
-    position: relative;
-    width: 100%;
-    
-    .responsive(@screen-sm, {
-      height: calc(~'100% - @{navbar-h-lg}');
-      padding-top: @navbar-h-lg;
-    });
+    &.full-page-nav {
+      height: calc(~'100% - @{navbar-h}');
+      padding-top: @navbar-h;
+      position: relative;
+      width: 100%;
+      
+      .mediaQuery(@screen-sm, {
+        height: calc(~'100% - @{navbar-h-lg}');
+        padding-top: @navbar-h-lg;
+      });
+    }
   }
 
   div.page {
@@ -90,11 +90,7 @@ span {
     height: 100%;
     width: 100%;
 
-    &.cover-page {
-      position: relative;
-
-      &.cover-open { height: 65%; }
-    }
+    &.cover-page { position: relative; }
 
     > div.frame {
       background-color: #fff;

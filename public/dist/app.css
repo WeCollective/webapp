@@ -116,14 +116,14 @@ span {
   height: 100%;
   width: 100%;
 }
-#weco-root .full-page-nav {
+#weco-root .full-page.full-page-nav {
   height: calc(100% - 35px);
   padding-top: 35px;
   position: relative;
   width: 100%;
 }
 @media only screen and (min-width: 576px) {
-  #weco-root .full-page-nav {
+  #weco-root .full-page.full-page-nav {
     height: calc(100% - 45px);
     padding-top: 45px;
   }
@@ -135,9 +135,6 @@ span {
 }
 #weco-root div.page.cover-page {
   position: relative;
-}
-#weco-root div.page.cover-page.cover-open {
-  height: 65%;
 }
 #weco-root div.page > div.frame {
   background-color: #fff;
@@ -708,10 +705,11 @@ div.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  height: 0;
+  height: 201px;
   position: relative;
   width: 100%;
   z-index: 1;
+  transition: height .4s;
 }
 div.cover-photo img {
   height: auto;
@@ -719,23 +717,26 @@ div.cover-photo img {
   position: absolute;
   top: calc(100% + 20px);
   width: 22px;
+  transition: transform .2s;
 }
 div.cover-photo img:hover {
   cursor: pointer;
   opacity: .8;
 }
-div.cover-photo img#cover-photo-hide,
-div.cover-photo img#cover-photo-show {
+div.cover-photo img.cover-photo-toggle {
   right: 10px;
 }
 div.cover-photo img#cover-photo-edit {
   right: 40px;
 }
-div.cover-photo.open {
-  height: 201px;
+div.cover-photo.closed {
+  height: 0;
+}
+div.cover-photo.closed img.cover-photo-toggle {
+  transform: rotateZ(180deg);
 }
 @media only screen and (min-width: 992px) {
-  div.cover-photo.open {
+  div.cover-photo {
     height: 249px;
   }
 }

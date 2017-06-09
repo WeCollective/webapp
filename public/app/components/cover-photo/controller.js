@@ -4,26 +4,23 @@ class CoverPhotoController extends Injectable {
   constructor (...injections) {
     super(CoverPhotoController.$inject, injections);
 
-    this.isOpen = true;
+    this.WallService.isCoverOpen = true;
   }
 
   hasUrls () {
   	return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
   }
-  
-  hideCoverPicture () {
-  	this.isOpen = false;
-  }
 
-  showCoverPicture () {
-  	this.isOpen = true;
+  toggleCoverPicture () {
+    this.WallService.isCoverOpen = !this.WallService.isCoverOpen;
   }
 }
 
 CoverPhotoController.$inject = [
 	'$state',
   'BranchService',
-	'ModalService'
+	'ModalService',
+  'WallService'
 ];
 
 export default CoverPhotoController;
