@@ -14,8 +14,18 @@
         <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>
         
         <h2 ng-show="Branch.BranchService.branch.parent.id !== 'none'">
-          <span ng-show="Branch.BranchService.branch.parent.id !== 'root'">... / </span>
-          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">{{ Branch.BranchService.branch.parent.name || 'All' }}</a> / <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">{{ Branch.BranchService.branch.name }}</a>
+          <span ng-show="Branch.BranchService.branch.parent.id !== 'root'">
+            ... /
+          </span>
+          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">
+            {{ Branch.BranchService.branch.parent.name || 'All' }}
+          </a>
+          <span>
+            /
+          </span>
+          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">
+            {{ Branch.BranchService.branch.name }}
+          </a>
         </h2>
       </div>
       

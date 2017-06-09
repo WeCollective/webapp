@@ -4,7 +4,9 @@ class BranchNucleusModeratorsController extends Injectable {
   constructor (...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
-    this.mods = this.LocalStorageService.getObject('cache').branchNucleusMods || [];
+    const cache = this.LocalStorageService.getObject('cache').branchNucleusMods || {};
+
+    this.mods = cache[this.BranchService.branch.id] || [];
     this.isLoading = false;
 
     this.getAllMods = this.getAllMods.bind(this);
@@ -18,21 +20,24 @@ class BranchNucleusModeratorsController extends Injectable {
   }
 
   getAllMods () {
-    if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
+    if (Object.keys(this.BranchService.branch).length < 2 || this.isLoading === true) return;
 
     this.isLoading = true;
 
     let promises = [];
     
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      promises.push(this.getMod(this.BranchService.branch.mods[i].username, i));
+      promises.push(this.getMod(this.BranchService.branch.mods[i].username));
     }
 
     // when all mods fetched, loading finished
     Promise.all(promises)
-      .then(_ => {
+      .then( values => {
+        this.mods = values;
+
         let cache = this.LocalStorageService.getObject('cache');
-        cache.branchNucleusMods = this.mods;
+        cache.branchNucleusMods = cache.branchNucleusMods || {};
+        cache.branchNucleusMods[this.BranchService.branch.id] = this.mods;
         this.LocalStorageService.setObject('cache', cache);
 
         this.$timeout(_ => this.isLoading = false);
@@ -43,10 +48,15 @@ class BranchNucleusModeratorsController extends Injectable {
       });
   }
 
-  getMod (username, index) {
-    return this.UserService.fetch(username)
-      .then(user => this.mods[index] = user)
-      .catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
+  getMod (username) {
+    return new Promise((resolve, reject) => {
+      this.UserService.fetch(username)
+        .then(user => resolve(user))
+        .catch(_ => {
+          this.AlertsService.push('error', 'Error fetching moderator.');
+          return resolve();
+        });
+    });
   }
 }
 

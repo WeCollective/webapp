@@ -4,7 +4,8 @@ import Generator from 'utils/generator';
 class BranchService extends Injectable {
   constructor (...injections) {
     super(BranchService.$inject, injections);
-    this.branch = {};
+    
+    this.branch = { id: 'root' };
 
     let fetchingBranch = false;
 
@@ -12,9 +13,13 @@ class BranchService extends Injectable {
       if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
         fetchingBranch = true;
 
+        if (this.branch.id !== this.$state.params.branchid) {
+          this.branch = { id: this.$state.params.branchid };
+        }
+
         this.fetch(this.$state.params.branchid)
-          .then( branch => this.branch = branch )
-          .catch( err => {
+          .then(branch => this.branch = branch)
+          .catch(err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');
             }
@@ -22,7 +27,7 @@ class BranchService extends Injectable {
               this.AlertsService.push('error', 'Unable to fetch branch.');
             }
           })
-          .then( _ => {
+          .then(_ => {
             // Wrap this into timeout to ensure any dependent controller has time to attach listener
             // before this event fires for the first time.
             this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);

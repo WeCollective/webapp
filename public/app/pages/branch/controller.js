@@ -4,7 +4,7 @@ class BranchController extends Injectable {
   constructor (...injections) {
     super(BranchController.$inject, injections);
 
-    this.isLoading = !Object.keys(this.BranchService.branch).length;
+    this.isLoading = Object.keys(this.BranchService.branch).length < 2;
 
     // update the view when the branch changes
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));

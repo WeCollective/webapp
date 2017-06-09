@@ -75,7 +75,7 @@ class BranchPostController extends Injectable {
   }
 
   getPreviewTemplate() {
-    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
+    return `/app/pages/branch/post/templates-preview/${this.PostService.post.type}.html`;
   }
 
   getVideoEmbedUrl() {

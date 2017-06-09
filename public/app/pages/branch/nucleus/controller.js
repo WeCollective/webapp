@@ -11,7 +11,7 @@ class BranchNucleusController extends Injectable {
         return;
       }
 
-      if (!Object.keys(this.BranchService.branch).length) {
+      if (Object.keys(this.BranchService.branch).length < 2) {
         return;
       }
 

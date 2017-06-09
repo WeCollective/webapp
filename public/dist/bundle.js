@@ -63639,8 +63639,8 @@ class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(ModLogEntryComponent.$inject, injections);
 
-    this.restrict = 'A';
     this.replace = false;
+    this.restrict = 'A';
     this.scope = {
       entry: '='
     };
@@ -63648,16 +63648,14 @@ class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
   // Params: scope, element, attrs
   link(scope, element) {
-    if ('answer-subbranch-request' === scope.entry.action) {
+    if (scope.entry.action === 'answer-subbranch-request') {
       scope.entry.data = JSON.parse(scope.entry.data);
     }
 
-    this.$templateRequest(`/app/components/mod-log-entry/${scope.entry.action}.template.html`).then(template => {
+    this.$templateRequest(`/app/components/mod-log-entry/templates/${scope.entry.action}.html`).then(template => {
       element.html(template);
       this.$compile(element.contents())(scope);
-    }, () => {
-      console.error('Unable to get mod-log-entry template.');
-    });
+    }).catch(_ => console.error('Unable to get mod-log-entry template.'));
   }
 }
 
@@ -65340,6 +65338,14 @@ class TooltipComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     };
   }
 
+  hide(delay = 0) {
+    if (this.timer) {
+      this.$timeout.cancel(this.timer);
+    }
+
+    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
+  }
+
   link(scope, element) {
     const el = element[0];
     let rect = el.getBoundingClientRect();
@@ -65379,14 +65385,6 @@ class TooltipComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     });
 
     scope.TooltipService = this.TooltipService;
-  }
-
-  hide(delay = 0) {
-    if (this.timer) {
-      this.$timeout.cancel(this.timer);
-    }
-
-    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
   }
 }
 
@@ -65662,7 +65660,7 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
   constructor(...injections) {
     super(BranchController.$inject, injections);
 
-    this.isLoading = !Object.keys(this.BranchService.branch).length;
+    this.isLoading = Object.keys(this.BranchService.branch).length < 2;
 
     // update the view when the branch changes
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
@@ -65819,7 +65817,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
         return;
       }
 
-      if (!Object.keys(this.BranchService.branch).length) {
+      if (Object.keys(this.BranchService.branch).length < 2) {
         return;
       }
 
@@ -65908,7 +65906,9 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   constructor(...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    this.posts = this.LocalStorageService.getObject('cache').branchNucleusFlaggedPosts || [];
+    const cache = this.LocalStorageService.getObject('cache').branchNucleusFlaggedPosts || {};
+
+    this.posts = cache[this.BranchService.branch.id] || [];
 
     this.cb = this.cb.bind(this);
 
@@ -65936,7 +65936,8 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
       this.posts = posts;
 
       let cache = this.LocalStorageService.getObject('cache');
-      cache.branchNucleusFlaggedPosts = this.posts;
+      cache.branchNucleusFlaggedPosts = cache.branchNucleusFlaggedPosts || {};
+      cache.branchNucleusFlaggedPosts[this.BranchService.branch.id] = this.posts;
       this.LocalStorageService.setObject('cache', cache);
 
       // The view would not update otherwise.
@@ -65945,7 +65946,7 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   }
 }
 
-BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'EventService', 'LocalStorageService', 'WallService'];
+BranchNucleusFlaggedPostsController.$inject = ['$rootScope', '$scope', '$timeout', 'BranchService', 'EventService', 'LocalStorageService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusFlaggedPostsController);
 
@@ -65961,7 +65962,9 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
   constructor(...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
-    this.mods = this.LocalStorageService.getObject('cache').branchNucleusMods || [];
+    const cache = this.LocalStorageService.getObject('cache').branchNucleusMods || {};
+
+    this.mods = cache[this.BranchService.branch.id] || [];
     this.isLoading = false;
 
     this.getAllMods = this.getAllMods.bind(this);
@@ -65975,20 +65978,23 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
   }
 
   getAllMods() {
-    if (!Object.keys(this.BranchService.branch).length || this.isLoading === true) return;
+    if (Object.keys(this.BranchService.branch).length < 2 || this.isLoading === true) return;
 
     this.isLoading = true;
 
     let promises = [];
 
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      promises.push(this.getMod(this.BranchService.branch.mods[i].username, i));
+      promises.push(this.getMod(this.BranchService.branch.mods[i].username));
     }
 
     // when all mods fetched, loading finished
-    Promise.all(promises).then(_ => {
+    Promise.all(promises).then(values => {
+      this.mods = values;
+
       let cache = this.LocalStorageService.getObject('cache');
-      cache.branchNucleusMods = this.mods;
+      cache.branchNucleusMods = cache.branchNucleusMods || {};
+      cache.branchNucleusMods[this.BranchService.branch.id] = this.mods;
       this.LocalStorageService.setObject('cache', cache);
 
       this.$timeout(_ => this.isLoading = false);
@@ -65998,8 +66004,13 @@ class BranchNucleusModeratorsController extends __WEBPACK_IMPORTED_MODULE_0_util
     });
   }
 
-  getMod(username, index) {
-    return this.UserService.fetch(username).then(user => this.mods[index] = user).catch(_ => this.AlertsService.push('error', 'Error fetching moderator.'));
+  getMod(username) {
+    return new Promise((resolve, reject) => {
+      this.UserService.fetch(username).then(user => resolve(user)).catch(_ => {
+        this.AlertsService.push('error', 'Error fetching moderator.');
+        return resolve();
+      });
+    });
   }
 }
 
@@ -66019,8 +66030,10 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
   constructor(...injections) {
     super(BranchNucleusModtoolsController.$inject, injections);
 
+    const cache = this.LocalStorageService.getObject('cache').modLog || {};
+
     this.isLoading = true;
-    this.log = this.LocalStorageService.getObject('cache').modLog || [];
+    this.log = cache[this.BranchService.branch.id] || [];
 
     this.getLog = this.getLog.bind(this);
 
@@ -66032,14 +66045,15 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
   }
 
   getLog() {
-    if (!Object.keys(this.BranchService.branch).length) return;
+    if (Object.keys(this.BranchService.branch).length < 2) return;
 
     this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
       this.log = log;
       this.isLoading = false;
 
       let cache = this.LocalStorageService.getObject('cache');
-      cache.modLog = this.log;
+      cache.modLog = cache.modLog || {};
+      cache.modLog[this.BranchService.branch.id] = this.log;
       this.LocalStorageService.setObject('cache', cache);
     })).catch(_ => {
       this.AlertsService.push('error', 'Error fetching moderator action log.');
@@ -66245,7 +66259,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   getPreviewTemplate() {
-    return `/app/pages/branch/post/${this.PostService.post.type}.preview.template.html`;
+    return `/app/pages/branch/post/templates-preview/${this.PostService.post.type}.html`;
   }
 
   getVideoEmbedUrl() {
@@ -66623,7 +66637,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   // This is also called from `/wall` and `/nucleus` controllers.
   init(allowedState, flaggedOnly) {
     return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
+      if (!this.$state.current.name.includes(allowedState) || Object.keys(this.BranchService.branch).length < 2) {
         return reject();
       }
 
@@ -66673,7 +66687,7 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
         return;
       }
 
-      if (!Object.keys(this.BranchService.branch).length) {
+      if (Object.keys(this.BranchService.branch).length < 2) {
         return;
       }
 
@@ -67235,13 +67249,18 @@ API.$inject = ['$http', 'ENV'];
 class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(BranchService.$inject, injections);
-    this.branch = {};
+
+    this.branch = { id: 'root' };
 
     let fetchingBranch = false;
 
     const updateBranch = _ => {
       if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
         fetchingBranch = true;
+
+        if (this.branch.id !== this.$state.params.branchid) {
+          this.branch = { id: this.$state.params.branchid };
+        }
 
         this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
           if (err.status === 404) {

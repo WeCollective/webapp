@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class CoverPhotoController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(CoverPhotoController.$inject, injections);
 
     this.isOpen = true;

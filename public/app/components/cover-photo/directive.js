@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class CoverPhotoComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(CoverPhotoComponent.$inject, injections);
 
     this.bindToController = {

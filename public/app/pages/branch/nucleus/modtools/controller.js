@@ -4,8 +4,10 @@ class BranchNucleusModtoolsController extends Injectable {
   constructor (...injections) {
     super(BranchNucleusModtoolsController.$inject, injections);
 
+    const cache = this.LocalStorageService.getObject('cache').modLog || {};
+
     this.isLoading = true;
-    this.log = this.LocalStorageService.getObject('cache').modLog || [];
+    this.log = cache[this.BranchService.branch.id] || [];
 
     this.getLog = this.getLog.bind(this);
 
@@ -17,7 +19,7 @@ class BranchNucleusModtoolsController extends Injectable {
   }
 
   getLog () {
-    if (!Object.keys(this.BranchService.branch).length) return;
+    if (Object.keys(this.BranchService.branch).length < 2) return;
     
     this.BranchService.getModLog(this.BranchService.branch.id)
       .then(log => this.$timeout(_ => {
@@ -25,7 +27,8 @@ class BranchNucleusModtoolsController extends Injectable {
         this.isLoading = false;
 
         let cache = this.LocalStorageService.getObject('cache');
-        cache.modLog = this.log;
+        cache.modLog = cache.modLog || {};
+        cache.modLog[this.BranchService.branch.id] = this.log;
         this.LocalStorageService.setObject('cache', cache);
       }))
       .catch(_ => {

@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class TooltipComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(TooltipComponent.$inject, injections);
 
     this.controller = 'TooltipController';
@@ -13,6 +13,14 @@ class TooltipComponent extends Injectable {
       offsetY: '&',
       text: '&'
     };
+  }
+
+  hide (delay = 0) {
+    if (this.timer) {
+      this.$timeout.cancel(this.timer);
+    }
+
+    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
   }
 
   link (scope, element) {
@@ -31,7 +39,7 @@ class TooltipComponent extends Injectable {
     }
 
     el.addEventListener('mouseover', _ => {
-      this.$timeout( _ => {
+      this.$timeout(_ => {
         if (scope.text() === '') return;
 
         rect = el.getBoundingClientRect();
@@ -50,19 +58,11 @@ class TooltipComponent extends Injectable {
       // This would happen when we mouse over the child element.
       if (event.clientX > rect.right || event.clientX < rect.left ||
         event.clientY < rect.top || event.clientY > rect.bottom) {
-        this.$timeout( _ => this.hide() );
+        this.$timeout(_ => this.hide());
       }
     });
 
     scope.TooltipService = this.TooltipService;
-  }
-
-  hide (delay = 0) {
-    if (this.timer) {
-      this.$timeout.cancel(this.timer);
-    }
-
-    this.timer = this.$timeout( _ => this.TooltipService.visible = false, delay);
   }
 }
 

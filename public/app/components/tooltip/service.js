@@ -1,5 +1,5 @@
 class TooltipService {
-  constructor() {
+  constructor () {
     this.text = '';
     this.visible = false;
     this.x = 0;

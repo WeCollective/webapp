@@ -178,7 +178,7 @@ class WallService extends Injectable {
   // This is also called from `/wall` and `/nucleus` controllers.
   init (allowedState, flaggedOnly) {
     return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
+      if (!this.$state.current.name.includes(allowedState) || Object.keys(this.BranchService.branch).length < 2) {
         return reject();
       }
 

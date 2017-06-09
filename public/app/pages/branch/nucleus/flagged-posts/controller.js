@@ -4,7 +4,9 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   constructor (...injections) {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
-    this.posts = this.LocalStorageService.getObject('cache').branchNucleusFlaggedPosts || [];
+    const cache = this.LocalStorageService.getObject('cache').branchNucleusFlaggedPosts || {};
+
+    this.posts = cache[this.BranchService.branch.id] || [];
 
     this.cb = this.cb.bind(this);
 
@@ -33,7 +35,8 @@ class BranchNucleusFlaggedPostsController extends Injectable {
         this.posts = posts;
 
         let cache = this.LocalStorageService.getObject('cache');
-        cache.branchNucleusFlaggedPosts = this.posts;
+        cache.branchNucleusFlaggedPosts = cache.branchNucleusFlaggedPosts || {};
+        cache.branchNucleusFlaggedPosts[this.BranchService.branch.id] = this.posts;
         this.LocalStorageService.setObject('cache', cache);
         
         // The view would not update otherwise.
@@ -46,6 +49,7 @@ BranchNucleusFlaggedPostsController.$inject = [
   '$rootScope',
   '$scope',
   '$timeout',
+  'BranchService',
   'EventService',
   'LocalStorageService',
   'WallService'
