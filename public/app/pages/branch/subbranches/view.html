@@ -1,8 +1,9 @@
 <div id="branch-subbranches">
   <div class="content-header">
-    <h1>
-      {{ BranchSubbranches.BranchService.branch.id === 'root' ? 'Root Branches' : 'Child Branches' }}
+    <h1 class="text--capitalize">
+      {{ BranchSubbranches.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
     </h1>
+
     <div class="content-controls">
       <dropdown items="BranchSubbranches.controls.timeRange.items"
         selected="BranchSubbranches.controls.timeRange.selectedIndex"
@@ -18,7 +19,7 @@
 
   <div class="content-body"
     loading
-    loading-when="BranchSubbranches.isLoading"
+    loading-when="!BranchSubbranches.branches.length && BranchSubbranches.isLoading"
     on-scroll-to-bottom="BranchSubbranchesScrollToBottom">
     <ul id="subbranch-list">
       <li class="list-item" ng-repeat="subbranch in BranchSubbranches.branches">

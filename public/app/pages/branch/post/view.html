@@ -51,9 +51,8 @@
     src="BranchPost.getPreviewTemplate()">
   </ng-include>
 
-  <tabs
+  <tabs items="BranchPost.tabItems"
     ng-if="BranchPost.shouldShowTabs()"
-    items="BranchPost.tabItems"
     states="BranchPost.tabStates"
     state-params="BranchPost.tabStateParams">
   </tabs>

@@ -66673,32 +66673,19 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     this.isLoading = false;
     this.isLoadingMore = false;
 
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.branch.subbranches')) {
-        return;
-      }
-
-      if (Object.keys(this.BranchService.branch).length < 2) {
-        return;
-      }
-
-      this.getSubbranches();
-    };
-
-    // todo cache this instead...
-    //init();
+    this.init = this.init.bind(this);
 
     let listeners = [];
 
     listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
+      if (newValue !== oldValue) this.init();
     }));
 
     listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
+      if (newValue !== oldValue) this.init();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'BranchSubbranchesScrollToBottom') return;
@@ -66745,8 +66732,11 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
       this.$timeout(_ => {
         // if lastBranchId was specified we are fetching _more_ branches, so append them
         this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+
         this.isLoading = false;
         this.isLoadingMore = false;
+
+        this.$scope.$apply();
       });
     }).catch(_ => {
       this.AlertsService.push('error', 'Error fetching branches.');
@@ -66777,6 +66767,18 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
         return 0;
     }
   }
+
+  init() {
+    if (!this.$state.current.name.includes('weco.branch.subbranches')) {
+      return;
+    }
+
+    if (Object.keys(this.BranchService.branch).length < 2) {
+      return;
+    }
+
+    this.getSubbranches();
+  }
 }
 
 BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService'];
@@ -66795,10 +66797,9 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.cb = this.cb.bind(this);
+    this.posts = [];
 
-    // todo cache this instead...
-    //cb();
+    this.cb = this.cb.bind(this);
 
     let listeners = [];
 
@@ -66825,9 +66826,8 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
   cb() {
     this.WallService.init('weco.branch.wall').then(posts => {
-      console.log(posts);
-    }).catch(err => {
-      console.log(err);
+      this.posts = posts;
+      this.$scope.$apply();
     });
   }
 
@@ -67266,26 +67266,28 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
     let fetchingBranch = false;
 
     const updateBranch = _ => {
-      if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
-        fetchingBranch = true;
+      this.$timeout(_ => {
+        if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
+          fetchingBranch = true;
 
-        if (this.branch.id !== this.$state.params.branchid) {
-          this.branch = { id: this.$state.params.branchid };
-        }
-
-        this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
-          if (err.status === 404) {
-            this.$state.go('weco.notfound');
-          } else {
-            this.AlertsService.push('error', 'Unable to fetch branch.');
+          if (this.branch.id !== this.$state.params.branchid) {
+            this.branch = { id: this.$state.params.branchid };
           }
-        }).then(_ => {
-          // Wrap this into timeout to ensure any dependent controller has time to attach listener
-          // before this event fires for the first time.
-          this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
-          fetchingBranch = false;
-        });
-      }
+
+          this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
+            if (err.status === 404) {
+              this.$state.go('weco.notfound');
+            } else {
+              this.AlertsService.push('error', 'Unable to fetch branch.');
+            }
+          }).then(_ => {
+            // Wrap this into timeout to ensure any dependent controller has time to attach listener
+            // before this event fires for the first time.
+            this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
+            fetchingBranch = false;
+          });
+        }
+      });
     };
 
     updateBranch();

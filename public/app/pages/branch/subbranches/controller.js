@@ -30,32 +30,19 @@ class BranchSubbranchesController extends Injectable {
     this.isLoading = false;
     this.isLoadingMore = false;
 
-    const init = _ => {
-      if (!this.$state.current.name.includes('weco.branch.subbranches')) {
-        return;
-      }
-
-      if (Object.keys(this.BranchService.branch).length < 2) {
-        return;
-      }
-
-      this.getSubbranches();
-    };
-
-    // todo cache this instead...
-    //init();
+    this.init = this.init.bind(this);
 
     let listeners = [];
 
-    listeners.push(this.$scope.$watch( _ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
+    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.init();
     }));
 
-    listeners.push(this.$scope.$watch( _ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) init();
+    listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.init();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
     
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'BranchSubbranchesScrollToBottom') return;
@@ -69,7 +56,7 @@ class BranchSubbranchesController extends Injectable {
       }
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getSortBy () {
@@ -99,17 +86,20 @@ class BranchSubbranchesController extends Injectable {
 
     // fetch the subbranches for this branch and timefilter
     this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId)
-      .then( branches => {
-        this.$timeout( _ => {
+      .then(branches => {
+        this.$timeout(_ => {
           // if lastBranchId was specified we are fetching _more_ branches, so append them
           this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+
           this.isLoading = false;
           this.isLoadingMore = false;
+
+          this.$scope.$apply();
         });
       })
-      .catch( _ => {
+      .catch(_ => {
         this.AlertsService.push('error', 'Error fetching branches.');
-        this.$timeout( _ => this.isLoading = false );
+        this.$timeout(_ => this.isLoading = false);
       });
   }
 
@@ -135,6 +125,18 @@ class BranchSubbranchesController extends Injectable {
       default:
         return 0;
     }
+  }
+
+  init () {
+    if (!this.$state.current.name.includes('weco.branch.subbranches')) {
+      return;
+    }
+
+    if (Object.keys(this.BranchService.branch).length < 2) {
+      return;
+    }
+
+    this.getSubbranches();
   }
 }
 

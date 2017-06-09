@@ -1,13 +1,12 @@
 import Injectable from 'utils/injectable';
 
 class BranchWallController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.cb = this.cb.bind(this);
+    this.posts = [];
 
-    // todo cache this instead...
-    //cb();
+    this.cb = this.cb.bind(this);
 
     let listeners = [];
     
@@ -35,10 +34,8 @@ class BranchWallController extends Injectable {
   cb () {
     this.WallService.init('weco.branch.wall')
       .then(posts => {
-        console.log(posts);
-      })
-      .catch(err => {
-        console.log(err);
+        this.posts = posts;
+        this.$scope.$apply();
       });
   }
 

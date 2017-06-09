@@ -71,7 +71,7 @@ class BranchPostController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getPreviewTemplate() {
