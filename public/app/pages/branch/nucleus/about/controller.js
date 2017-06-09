@@ -1,11 +1,11 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusAboutController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchNucleusAboutController.$inject, injections);
   }
 
-  isFollowingBranch() {
+  isFollowingBranch () {
     if (this.UserService.isAuthenticated()) {
       return this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
     }
@@ -13,7 +13,7 @@ class BranchNucleusAboutController extends Injectable {
     return false;
   }
 
-  toggleFollowBranch() {
+  toggleFollowBranch () {
      let errorMessage,
       successMessage,
       toggle;
@@ -30,8 +30,8 @@ class BranchNucleusAboutController extends Injectable {
      }
 
      toggle
-       .then( _ => this.AlertsService.push('success', successMessage) )
-       .catch( _ => this.AlertsService.push('error', errorMessage) );
+       .then(_ => this.AlertsService.push('success', successMessage))
+       .catch(_ => this.AlertsService.push('error', errorMessage));
    }
 }
 

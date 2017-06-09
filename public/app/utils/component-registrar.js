@@ -19,7 +19,7 @@ class ComponentRegistrar {
     constructorFn = this._normalizeConstructor(constructorFn);
     if (!constructorFn.prototype.compile) {
       // create an empty compile function if none was defined.
-      constructorFn.prototype.compile = () => {};
+      constructorFn.prototype.compile = _ => {};
     }
 
     let originalCompileFn = this._cloneFunction(constructorFn.prototype.compile);
@@ -83,7 +83,7 @@ class ComponentRegistrar {
     
     // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
     // dependency, and the final item is the factory function itself.
-    factoryArray.push( (...args) => {
+    factoryArray.push((...args) => {
       //return new constructorFn(...args);
       let instance = new constructorFn(...args);
 

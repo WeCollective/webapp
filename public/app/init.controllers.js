@@ -1,94 +1,94 @@
-import AppController from './app.controller';
-import AuthController from './pages/auth/controller';
-import BranchController from './pages/branch/controller';
-import BranchNucleusAboutController from './pages/branch/nucleus/about/controller';
-import BranchNucleusController from './pages/branch/nucleus/controller';
-import BranchNucleusFlaggedPostsController from './pages/branch/nucleus/flagged-posts/controller';
-import BranchNucleusModeratorsController from './pages/branch/nucleus/moderators/controller';
-import BranchNucleusModtoolsController from './pages/branch/nucleus/modtools/controller';
-import BranchNucleusSettingsController from './pages/branch/nucleus/settings/controller';
-import BranchPostController from './pages/branch/post/controller';
-import BranchPostResultsController from './pages/branch/post/results/controller';
-import BranchPostVoteController from './pages/branch/post/vote/controller';
-import BranchSubbranchesController from './pages/branch/subbranches/controller';
-import BranchWallController from './pages/branch/wall/controller';
-import HomeController from './pages/home/controller';
-import ProfileController from './pages/profile/controller';
-import ProfileNotificationsController from './pages/profile/notifications/controller';
-import ProfileSettingsController from './pages/profile/settings/controller';
-import ResetPasswordController from './pages/auth/reset-password/controller';
-import TooltipController from './components/tooltip/controller';
-import VerifyController from './pages/auth/verify/controller';
+import App from './app.controller';
+import Auth from './pages/auth/controller';
+import Branch from './pages/branch/controller';
+import BranchNucleusAbout from './pages/branch/nucleus/about/controller';
+import BranchNucleus from './pages/branch/nucleus/controller';
+import BranchNucleusFlaggedPosts from './pages/branch/nucleus/flagged-posts/controller';
+import BranchNucleusModerators from './pages/branch/nucleus/moderators/controller';
+import BranchNucleusModtools from './pages/branch/nucleus/modtools/controller';
+import BranchNucleusSettings from './pages/branch/nucleus/settings/controller';
+import BranchPost from './pages/branch/post/controller';
+import BranchPostResults from './pages/branch/post/results/controller';
+import BranchPostVote from './pages/branch/post/vote/controller';
+import BranchSubbranches from './pages/branch/subbranches/controller';
+import BranchWall from './pages/branch/wall/controller';
+import Home from './pages/home/controller';
+import Profile from './pages/profile/controller';
+import ProfileNotifications from './pages/profile/notifications/controller';
+import ProfileSettings from './pages/profile/settings/controller';
+import ResetPassword from './pages/auth/reset-password/controller';
+import Tooltip from './components/tooltip/controller';
+import Verify from './pages/auth/verify/controller';
 
 // Components.
-import AddModModalController from './components/modal/branch/nucleus/modtools/add-mod/controller';
-import BranchNucleusSettingsModalController from './components/modal/branch/nucleus/settings/controller';
-import CommentsController from './components/comments/controller';
-import CommentThreadController from './components/comments/comment-thread/controller';
-import CoverPhotoController from './components/cover-photo/controller';
-import CreateBranchModalController from './components/modal/branch/create/controller';
-import CreatePostModalController from './components/modal/post/create/controller';
-import DeleteBranchModalController from './components/modal/branch/nucleus/modtools/delete-branch/controller';
-import DeletePostModalController from './components/modal/post/delete/controller';
-import FlagPostModalController from './components/modal/post/flag/controller';
-import ListItemController from './components/list-item/controller';
-import NavbarController from './components/nav-bar/controller';
-import ProfileSettingsModalController from './components/modal/profile/settings/controller';
-import RemoveModModalController from './components/modal/branch/nucleus/modtools/remove-mod/controller';
-import ResolveFlagPostModalController from './components/modal/post/flag/resolve/controller';
-import ReviewSubbranchRequestsModalController from './components/modal/branch/nucleus/modtools/review-subbranch-requests/controller';
-import SubmitPollAnswerModalController from './components/modal/post/submit-poll-answer/controller';
-import SubmitSubbranchRequestModalController from './components/modal/branch/nucleus/modtools/submit-subbranch-request/controller';
-import TabsController from './components/tabs/controller';
-import UpdateHomepageStatsModalController from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
-import UploadImageModalController from './components/modal/upload-image/controller';
-import WriteCommentController from './components/comments/write-comment/controller';
+import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/controller';
+import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
+import Comments from './components/comments/controller';
+import CommentThread from './components/comments/comment-thread/controller';
+import CoverPhoto from './components/cover-photo/controller';
+import CreateBranchModal from './components/modal/branch/create/controller';
+import CreatePostModal from './components/modal/post/create/controller';
+import DeleteBranchModal from './components/modal/branch/nucleus/modtools/delete-branch/controller';
+import DeletePostModal from './components/modal/post/delete/controller';
+import FlagPostModal from './components/modal/post/flag/controller';
+import ListItem from './components/list-item/controller';
+import Navbar from './components/nav-bar/controller';
+import ProfileSettingsModal from './components/modal/profile/settings/controller';
+import RemoveModModal from './components/modal/branch/nucleus/modtools/remove-mod/controller';
+import ResolveFlagPostModal from './components/modal/post/flag/resolve/controller';
+import ReviewSubbranchRequestsModal from './components/modal/branch/nucleus/modtools/review-subbranch-requests/controller';
+import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/controller';
+import SubmitSubbranchRequestModal from './components/modal/branch/nucleus/modtools/submit-subbranch-request/controller';
+import Tabs from './components/tabs/controller';
+import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
+import UploadImageModal from './components/modal/upload-image/controller';
+import WriteComment from './components/comments/write-comment/controller';
 
 let refs = [
-  { name: 'AppController', module: AppController },
-  { name: 'AuthController', module: AuthController },
-  { name: 'BranchController', module: BranchController },
-  { name: 'BranchNucleusAboutController', module: BranchNucleusAboutController },
-  { name: 'BranchNucleusController', module: BranchNucleusController },
-  { name: 'BranchNucleusFlaggedPostsController', module: BranchNucleusFlaggedPostsController },
-  { name: 'BranchNucleusModeratorsController', module: BranchNucleusModeratorsController },
-  { name: 'BranchNucleusModtoolsController', module: BranchNucleusModtoolsController },
-  { name: 'BranchNucleusSettingsController', module: BranchNucleusSettingsController },
-  { name: 'BranchPostController', module: BranchPostController },
-  { name: 'BranchPostResultsController', module: BranchPostResultsController },
-  { name: 'BranchPostVoteController', module: BranchPostVoteController },
-  { name: 'BranchSubbranchesController', module: BranchSubbranchesController },
-  { name: 'BranchWallController', module: BranchWallController },
-  { name: 'HomeController', module: HomeController },
-  { name: 'ProfileController', module: ProfileController },
-  { name: 'ProfileNotificationsController', module: ProfileNotificationsController },
-  { name: 'ProfileSettingsController', module: ProfileSettingsController },
-  { name: 'ResetPasswordController', module: ResetPasswordController },
-  { name: 'TooltipController', module: TooltipController },
-  { name: 'VerifyController', module: VerifyController },
+  { name: 'AppController', module: App },
+  { name: 'AuthController', module: Auth },
+  { name: 'BranchController', module: Branch },
+  { name: 'BranchNucleusAboutController', module: BranchNucleusAbout },
+  { name: 'BranchNucleusController', module: BranchNucleus },
+  { name: 'BranchNucleusFlaggedPostsController', module: BranchNucleusFlaggedPosts },
+  { name: 'BranchNucleusModeratorsController', module: BranchNucleusModerators },
+  { name: 'BranchNucleusModtoolsController', module: BranchNucleusModtools },
+  { name: 'BranchNucleusSettingsController', module: BranchNucleusSettings },
+  { name: 'BranchPostController', module: BranchPost },
+  { name: 'BranchPostResultsController', module: BranchPostResults },
+  { name: 'BranchPostVoteController', module: BranchPostVote },
+  { name: 'BranchSubbranchesController', module: BranchSubbranches },
+  { name: 'BranchWallController', module: BranchWall },
+  { name: 'HomeController', module: Home },
+  { name: 'ProfileController', module: Profile },
+  { name: 'ProfileNotificationsController', module: ProfileNotifications },
+  { name: 'ProfileSettingsController', module: ProfileSettings },
+  { name: 'ResetPasswordController', module: ResetPassword },
+  { name: 'TooltipController', module: Tooltip },
+  { name: 'VerifyController', module: Verify },
   
-  { name: 'AddModModalController', module: AddModModalController },
-  { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModalController },
-  { name: 'CommentsController', module: CommentsController },
-  { name: 'CommentThreadController', module: CommentThreadController },
-  { name: 'CoverPhotoController', module: CoverPhotoController },
-  { name: 'CreateBranchModalController', module: CreateBranchModalController },
-  { name: 'CreatePostModalController', module: CreatePostModalController },
-  { name: 'DeleteBranchModalController', module: DeleteBranchModalController },
-  { name: 'DeletePostModalController', module: DeletePostModalController },
-  { name: 'FlagPostModalController', module: FlagPostModalController },
-  { name: 'ListItemController', module: ListItemController },
-  { name: 'NavbarController', module: NavbarController },
-  { name: 'ProfileSettingsModalController', module: ProfileSettingsModalController },
-  { name: 'RemoveModModalController', module: RemoveModModalController },
-  { name: 'ResolveFlagPostModalController', module: ResolveFlagPostModalController },
-  { name: 'ReviewSubbranchRequestsModalController', module: ReviewSubbranchRequestsModalController },
-  { name: 'SubmitPollAnswerModalController', module: SubmitPollAnswerModalController },
-  { name: 'SubmitSubbranchRequestModalController', module: SubmitSubbranchRequestModalController },
-  { name: 'TabsController', module: TabsController },
-  { name: 'UpdateHomepageStatsModalController', module: UpdateHomepageStatsModalController },
-  { name: 'UploadImageModalController', module: UploadImageModalController },
-  { name: 'WriteCommentController', module: WriteCommentController }
+  { name: 'AddModModalController', module: AddModModal },
+  { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },
+  { name: 'CommentsController', module: Comments },
+  { name: 'CommentThreadController', module: CommentThread },
+  { name: 'CoverPhotoController', module: CoverPhoto },
+  { name: 'CreateBranchModalController', module: CreateBranchModal },
+  { name: 'CreatePostModalController', module: CreatePostModal },
+  { name: 'DeleteBranchModalController', module: DeleteBranchModal },
+  { name: 'DeletePostModalController', module: DeletePostModal },
+  { name: 'FlagPostModalController', module: FlagPostModal },
+  { name: 'ListItemController', module: ListItem },
+  { name: 'NavbarController', module: Navbar },
+  { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },
+  { name: 'RemoveModModalController', module: RemoveModModal },
+  { name: 'ResolveFlagPostModalController', module: ResolveFlagPostModal },
+  { name: 'ReviewSubbranchRequestsModalController', module: ReviewSubbranchRequestsModal },
+  { name: 'SubmitPollAnswerModalController', module: SubmitPollAnswerModal },
+  { name: 'SubmitSubbranchRequestModalController', module: SubmitSubbranchRequestModal },
+  { name: 'TabsController', module: Tabs },
+  { name: 'UpdateHomepageStatsModalController', module: UpdateHomepageStatsModal },
+  { name: 'UploadImageModalController', module: UploadImageModal },
+  { name: 'WriteCommentController', module: WriteComment }
 ];
 
 const controllers = (registrar) => {

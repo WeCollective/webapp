@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class API extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(API.$inject, injections);
   }
 
@@ -50,7 +50,7 @@ class API extends Injectable {
   }
 
   request (method, url, params, data, urlFormEncode) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       // ensure url has a leading slash
       if (url[0] !== '/') {
         url = '/' + url;

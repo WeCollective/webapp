@@ -1,10 +1,12 @@
 class Generator {
   // run an es6 generator function through to completion
-  static run(g, context, ...args) {
+  static run (g, context, ...args) {
     const isPromise = obj => obj instanceof Promise;
+    
     let iterator = g.apply(context, ...args), result;
+
     // asynchronously iterate over generator
-    (function iterate(val, err) {
+    (function iterate (val, err) {
       result = err ? iterator.throw(err) : iterator.next(val);
 
       if (!result.done) {
@@ -13,15 +15,13 @@ class Generator {
           // invoke iterate with the arguments of the promise result
           result.value
             .then(iterate)
-            .catch( err => { iterate(null, err); });
+            .catch(err => iterate(null, err));
         }
         // yielded an immediate value
         else {
           // wrap in setTimeout to avoid synchronous recursion
-          setTimeout( () => {
-            // invoke iterate with the argument which is immediately available
-            iterate(result.value);
-          }, 0);
+          // invoke iterate with the argument which is immediately available
+          setTimeout(_ => iterate(result.value), 0);
         }
       }
     })();

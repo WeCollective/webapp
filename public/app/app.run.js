@@ -1,13 +1,13 @@
 import Injectable from 'utils/injectable';
 
 class AppRun extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(AppRun.$inject, injections);
 
     // Tell Prerender.io to cache when DOM is loaded
-    this.$timeout( _ => { this.$window.prerenderReady = true; });
+    this.$timeout(_ => this.$window.prerenderReady = true);
 
-    // state access controls
+    // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
       let mods = [];
@@ -16,7 +16,7 @@ class AppRun extends Injectable {
 
       const getMods = cb => {
         this.ModService.fetchByBranch(toParams.branchid)
-          .then( branchMods => {
+          .then(branchMods => {
             mods = branchMods;
             cb();
           }, cb);
@@ -26,7 +26,7 @@ class AppRun extends Injectable {
         // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
         this.UserService.fetch('me')
-          .then( me => {
+          .then(me => {
             if (toState.selfOnly && (!Object.keys(me).length || toParams.username !== me.username)) {
               this.$state.transitionTo(toState.redirectTo);
               event.preventDefault();
@@ -45,15 +45,15 @@ class AppRun extends Injectable {
               }
 
               if (!isMod) {
-                this.$state.transitionTo(toState.redirectTo);
                 event.preventDefault();
+                this.$state.transitionTo(toState.redirectTo);
               }
             }
           })
-          .catch( err => {
+          .catch(err => {
             if (err) {
-              this.$state.transitionTo(toState.redirectTo);
               event.preventDefault();
+              this.$state.transitionTo(toState.redirectTo);
             }
           });
       };

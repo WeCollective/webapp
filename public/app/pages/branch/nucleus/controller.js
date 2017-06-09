@@ -1,12 +1,10 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchNucleusController.$inject, injections);
 
-    this.tabItems = [];
-    this.tabStates = [];
-    this.tabStateParams = [];
+    this.state = this.getInitialState();
 
     const init = _ => {
       if (!this.$state.current.name.includes('weco.branch.nucleus')) {
@@ -19,30 +17,28 @@ class BranchNucleusController extends Injectable {
 
       const branchid = this.BranchService.branch.id;
 
-      this.tabItems = ['about', 'moderators'];
-      this.tabStates = ['weco.branch.nucleus.about', 'weco.branch.nucleus.moderators'];
-      this.tabStateParams = [{ branchid }, { branchid }];
+      this.state = this.getInitialState();
 
       if (this.UserService.isAuthenticated() && this.isModerator()) {
         // add settings tab
-        if (!this.tabItems.includes('settings')) {
-          this.tabItems.push('settings');
-          this.tabStates.push('weco.branch.nucleus.settings');
-          this.tabStateParams.push({ branchid });
+        if (!this.state.tabItems.includes('settings')) {
+          this.state.tabItems.push('settings');
+          this.state.tabStates.push('weco.branch.nucleus.settings');
+          this.state.tabStateParams.push({ branchid });
         }
         
         // add mod tools tab
-        if (!this.tabItems.includes('mod tools')) {
-          this.tabItems.push('mod tools');
-          this.tabStates.push('weco.branch.nucleus.modtools');
-          this.tabStateParams.push({ branchid });
+        if (!this.state.tabItems.includes('mod tools')) {
+          this.state.tabItems.push('mod tools');
+          this.state.tabStates.push('weco.branch.nucleus.modtools');
+          this.state.tabStateParams.push({ branchid });
         }
 
         // add flagged posts tab
-        if (!this.tabItems.includes('flagged posts')) {
-          this.tabItems.push('flagged posts');
-          this.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.tabStateParams.push({ branchid });
+        if (!this.state.tabItems.includes('flagged posts')) {
+          this.state.tabItems.push('flagged posts');
+          this.state.tabStates.push('weco.branch.nucleus.flaggedposts');
+          this.state.tabStateParams.push({ branchid });
         }
       }
       else {
@@ -60,11 +56,30 @@ class BranchNucleusController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   addHTMLLineBreaks (str) {
     return str ? str.split('\n').join('<br>') : str;
+  }
+
+  getInitialState () {
+    const branchid = this.BranchService.branch.id;
+    return {
+      tabItems: [
+        'about',
+        'moderators'
+      ],
+      tabStates: [
+        'weco.branch.nucleus.about',
+        'weco.branch.nucleus.moderators'
+      ],
+      tabStateParams: [{
+        branchid
+      }, {
+        branchid
+      }],
+    };
   }
 
   isModerator () {

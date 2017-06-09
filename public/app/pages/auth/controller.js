@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class AuthController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(AuthController.$inject, injections);
 
     this.animationSrc = '/assets/images/logo-animation-large.gif';
@@ -12,42 +12,39 @@ class AuthController extends Injectable {
     this.showResendVerification = false;
   }
 
-  getAnimationSrc() {
+  getAnimationSrc () {
     return this.animationSrc;
   }
 
-  isLoginForm() {
+  isLoginForm () {
     return 'auth.login' === this.$state.current.name;
   }
 
-  login() {
+  login () {
     this.UserService.login(this.credentials)
-      .then( _ => {
-        this.isLoading = false;
-        this.loopAnimation = false;
+      .then(_ => {
+        this.stopAnimation();
         this.$state.go('weco.home');
       })
-      .catch( res => {
-        this.errorMessage = res.message;
-        this.isLoading = false;
-        this.loopAnimation = false;
+      .catch(err => {
+        this.stopAnimation(err.message);
 
         // Possibly unverified account
-        if (403 === res.status) {
+        if (err.status === 403) {
           this.showResendVerification = true;
         }
       });
   }
 
-  resendVerification() {
+  resendVerification () {
     this.isLoading = true;
 
     this.UserService.resendVerification(this.credentials.username)
-      .then(  _ => this.resendVerificationDone(true) )
-      .catch( _ => this.resendVerificationDone(false) );
+      .then(_ => this.resendVerificationDone(true))
+      .catch(_ => this.resendVerificationDone(false));
   }
 
-  resendVerificationDone(success) {
+  resendVerificationDone (success) {
     const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
     this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
     
@@ -56,29 +53,31 @@ class AuthController extends Injectable {
     this.showResendVerification = false;
   }
 
-  signup() {
+  signup () {
     if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.errorMessage = 'Inconsistent password!';
-      this.isLoading = false;
-      this.loopAnimation = false;
+      this.stopAnimation('Inconsistent password!');
       return;
     }
 
     this.UserService.signup(this.credentials)
-      .then( _ => {
+      .then(_ => {
+        this.stopAnimation();
         this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-        this.isLoading = false;
-        this.loopAnimation = false;
         this.$state.go('weco.home');
       })
-      .catch( res => {
-        this.errorMessage = res.message;
-        this.isLoading = false;
-        this.loopAnimation = false;
-      });
+      .catch(err => this.stopAnimation(err.message));
   }
 
-  submit() {
+  stopAnimation (errorMessage) {
+    if (errorMessage !== undefined) {
+      this.errorMessage = errorMessage;
+    }
+
+    this.isLoading = false;
+    this.loopAnimation = false;
+  }
+
+  submit () {
     this.isLoading = true;
     this.loopAnimation = true;
     this.triggerAnimation();
@@ -92,16 +91,16 @@ class AuthController extends Injectable {
     }
   }
 
-  triggerAnimation() {
+  triggerAnimation () {
     if (this.animationSrc) {
-      this.$timeout( _ => this.animationSrc = '' );
+      this.$timeout(_ => this.animationSrc = '');
     }
 
     // set animation src to the animated gif
-    this.$timeout( _ => this.animationSrc = '/assets/images/logo-animation-large.gif' );
+    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
     // cancel after 1 sec
-    this.$timeout( _ => {
+    this.$timeout(_ => {
       this.animationSrc = '';
       
       if (this.loopAnimation) {

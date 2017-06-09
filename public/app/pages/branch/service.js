@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class WallService extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(WallService.$inject, injections);
 
     this.controls = {
@@ -63,13 +63,8 @@ class WallService extends Injectable {
     });
   }
 
-  getPosts(lastPostId) {
+  getPosts (lastPostId) {
     if (this.isLoading === true) return;
-
-    // We are fetching a new set of posts, hide the cached ones.
-    if (!lastPostId) {
-      this.posts = [];
-    }
 
     this.isLoading = true;
 
@@ -80,21 +75,21 @@ class WallService extends Injectable {
 
     // fetch the posts for this branch and timefilter
     this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly)
-      .then( posts => {
-        this.$timeout( _ => {
+      .then(posts => {
+        this.$timeout(_ => {
           // If lastPostId was specified, we are fetching more posts, so append them.
           this.posts = lastPostId ? this.posts.concat(posts) : posts;
           this.isLoading = false;
           this.isLoadingMore = false;
         });
       })
-      .catch( _ => {
+      .catch(_ => {
         this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
       });
   }
 
-  getPostType() {
+  getPostType () {
     const key = this.controls.postType.items[this.controls.postType.selectedIndex];
 
     switch(key.toLowerCase()) {
@@ -115,7 +110,7 @@ class WallService extends Injectable {
     }
   }
 
-  getSortBy() {
+  getSortBy () {
     switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
       case 'total points':
         return 'points';
@@ -131,7 +126,7 @@ class WallService extends Injectable {
     }
   }
 
-  getStatType() {
+  getStatType () {
     const key = this.controls.statType.items[this.controls.statType.selectedIndex];
 
     switch(key.toLowerCase()) {
@@ -150,7 +145,7 @@ class WallService extends Injectable {
   }
 
   // compute the appropriate timeafter for the selected time filter
-  getTimeafter() {
+  getTimeafter () {
     switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
@@ -174,7 +169,7 @@ class WallService extends Injectable {
   }
 
   // This is also called from `/wall` and `/nucleus` controllers.
-  init(allowedState, flaggedOnly) {
+  init (allowedState, flaggedOnly) {
     if (!this.$state.current.name.includes(allowedState) || !Object.keys(this.BranchService.branch).length) {
       return;
     }

@@ -1,41 +1,41 @@
-import AlertsComponent from './components/alerts/directive';
-import ChartComponent from './components/chart/directive';
-import CommentsComponent from './components/comments/directive';
-import CommentThreadComponent from './components/comments/comment-thread/directive';
-import CoverPhotoComponent from './components/cover-photo/directive';
-import DropdownComponent from './components/dropdown/directive';
-import ListItemComponent from './components/list-item/directive';
-import LoadingComponent from './components/loading/directive';
-import ModalComponent from './components/modal/directive';
-import ModLogEntryComponent from './components/mod-log-entry/directive';
-import NavbarComponent from './components/nav-bar/directive';
-import NotificationComponent from './components/notification/directive';
-import OnScrollToBottomComponent from './components/on-scroll-to-bottom/directive';
-import PollAnswerEditorComponent from './components/poll-answer-editor/directive';
-import TabsComponent from './components/tabs/directive';
-import TagEditorComponent from './components/tag-editor/directive';
-import TooltipComponent from './components/tooltip/directive';
-import WriteCommentComponent from './components/comments/write-comment/directive';
+import Alerts from './components/alerts/directive';
+import Chart from './components/chart/directive';
+import Comments from './components/comments/directive';
+import CommentThread from './components/comments/comment-thread/directive';
+import CoverPhoto from './components/cover-photo/directive';
+import Dropdown from './components/dropdown/directive';
+import ListItem from './components/list-item/directive';
+import Loading from './components/loading/directive';
+import Modal from './components/modal/directive';
+import ModLogEntry from './components/mod-log-entry/directive';
+import Navbar from './components/nav-bar/directive';
+import Notification from './components/notification/directive';
+import OnScrollToBottom from './components/on-scroll-to-bottom/directive';
+import PollAnswerEditor from './components/poll-answer-editor/directive';
+import Tabs from './components/tabs/directive';
+import TagEditor from './components/tag-editor/directive';
+import Tooltip from './components/tooltip/directive';
+import WriteComment from './components/comments/write-comment/directive';
 
 let refs = [
-  { name: 'alerts', module: AlertsComponent },
-  { name: 'chart', module: ChartComponent },
-  { name: 'comments', module: CommentsComponent },
-  { name: 'commentThread', module: CommentThreadComponent },
-  { name: 'coverPhoto', module: CoverPhotoComponent },
-  { name: 'dropdown', module: DropdownComponent },
-  { name: 'listItem', module: ListItemComponent },
-  { name: 'loading', module: LoadingComponent },
-  { name: 'modal', module: ModalComponent },
-  { name: 'modLogEntry', module: ModLogEntryComponent },
-  { name: 'navBar', module: NavbarComponent },
-  { name: 'notification', module: NotificationComponent },
-  { name: 'onScrollToBottom', module: OnScrollToBottomComponent },
-  { name: 'pollAnswerEditor', module: PollAnswerEditorComponent },
-  { name: 'tabs', module: TabsComponent },
-  { name: 'tagEditor', module: TagEditorComponent },
-  { name: 'tooltip', module: TooltipComponent },
-  { name: 'writeComment', module: WriteCommentComponent }
+  { name: 'alerts', module: Alerts },
+  { name: 'chart', module: Chart },
+  { name: 'comments', module: Comments },
+  { name: 'commentThread', module: CommentThread },
+  { name: 'coverPhoto', module: CoverPhoto },
+  { name: 'dropdown', module: Dropdown },
+  { name: 'listItem', module: ListItem },
+  { name: 'loading', module: Loading },
+  { name: 'modal', module: Modal },
+  { name: 'modLogEntry', module: ModLogEntry },
+  { name: 'navBar', module: Navbar },
+  { name: 'notification', module: Notification },
+  { name: 'onScrollToBottom', module: OnScrollToBottom },
+  { name: 'pollAnswerEditor', module: PollAnswerEditor },
+  { name: 'tabs', module: Tabs },
+  { name: 'tagEditor', module: TagEditor },
+  { name: 'tooltip', module: Tooltip },
+  { name: 'writeComment', module: WriteComment }
 ];
 
 const directives = (registrar) => {

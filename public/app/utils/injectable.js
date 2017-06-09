@@ -6,7 +6,7 @@
 **      injections  array of injected dependencies
 */
 class Injectable {
-  constructor(names, injections) {
+  constructor (names, injections) {
     for (let idx in names) {
       this[names[idx]] = injections[idx];
     }

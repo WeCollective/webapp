@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusSettingsController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchNucleusSettingsController.$inject, injections);
   }
 

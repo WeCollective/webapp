@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class AppRoutes extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(AppRoutes.$inject, injections);
 
     this.$httpProvider.defaults.withCredentials = true;
@@ -9,7 +9,7 @@ class AppRoutes extends Injectable {
     this.$urlRouterProvider.otherwise('/');
 
     // Remove trailing slashes from URLs.
-    this.$urlRouterProvider.rule( ($injector, $location) => {
+    this.$urlRouterProvider.rule(($injector, $location) => {
       let path = $location.path();
       const hasTrailingSlash = path[path.length - 1] === '/';
       if (hasTrailingSlash) {
@@ -235,7 +235,7 @@ class AppRoutes extends Injectable {
     this.$urlRouterProvider.when('/b/{branchid}', '/b/{branchid}/wall');
 
     // 404 redirect.
-    this.$urlRouterProvider.otherwise( ($injector, $location) => {
+    this.$urlRouterProvider.otherwise(($injector, $location) => {
       const state = $injector.get('$state');
       state.go('weco.notfound');
       return $location.path();

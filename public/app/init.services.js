@@ -1,31 +1,33 @@
-import AlertsService from './components/alerts/service';
+import Alerts from './components/alerts/service';
 import API from './services/api';
-import AppService from './app.service';
-import BranchService from './services/branch';
-import CommentService from './services/comment';
-import EventService from './services/event';
-import ModService from './services/mod';
-import ModalService from './components/modal/service';
-import PostService from './services/post';
-import TooltipService from './components/tooltip/service';
-import UploadService from './services/upload';
-import UserService from './services/user';
-import WallService from './pages/branch/service';
+import App from './app.service';
+import Branch from './services/branch';
+import Comment from './services/comment';
+import Event from './services/event';
+import LocalStorage from './services/localstorage';
+import Mod from './services/mod';
+import Modal from './components/modal/service';
+import Post from './services/post';
+import Tooltip from './components/tooltip/service';
+import Upload from './services/upload';
+import User from './services/user';
+import Wall from './pages/branch/service';
 
 let refs = [
-  { name: 'AlertsService', module: AlertsService },
+  { name: 'AlertsService', module: Alerts },
   { name: 'API', module: API },
-  { name: 'AppService', module: AppService },
-  { name: 'BranchService', module: BranchService },
-  { name: 'CommentService', module: CommentService },
-  { name: 'EventService', module: EventService },
-  { name: 'ModService', module: ModService },
-  { name: 'ModalService', module: ModalService },
-  { name: 'PostService', module: PostService },
-  { name: 'TooltipService', module: TooltipService },
-  { name: 'UploadService', module: UploadService },
-  { name: 'UserService', module: UserService },
-  { name: 'WallService', module: WallService }
+  { name: 'AppService', module: App },
+  { name: 'BranchService', module: Branch },
+  { name: 'CommentService', module: Comment },
+  { name: 'EventService', module: Event },
+  { name: 'LocalStorageService', module: LocalStorage },
+  { name: 'ModService', module: Mod },
+  { name: 'ModalService', module: Modal },
+  { name: 'PostService', module: Post },
+  { name: 'TooltipService', module: Tooltip },
+  { name: 'UploadService', module: Upload },
+  { name: 'UserService', module: User },
+  { name: 'WallService', module: Wall }
 ];
 
 const services = (registrar) => {

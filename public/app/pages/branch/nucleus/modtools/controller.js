@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusModtoolsController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchNucleusModtoolsController.$inject, injections);
 
     this.isLoading = true;
@@ -11,11 +11,11 @@ class BranchNucleusModtoolsController extends Injectable {
       if (!Object.keys(this.BranchService.branch).length) return;
       
       this.BranchService.getModLog(this.BranchService.branch.id)
-        .then( log => this.$timeout( _ => {
+        .then(log => this.$timeout(_ => {
           this.modLog = log;
           this.isLoading = false;
         }))
-        .catch( _ => {
+        .catch(_ => {
           this.AlertsService.push('error', 'Error fetching moderator action log.');
           this.isLoading = false;
         });
@@ -28,15 +28,15 @@ class BranchNucleusModtoolsController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, getModLog));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach( deregisterListener => deregisterListener() ));
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  openAddModModal() {
+  openAddModModal () {
     this.ModalService.open('ADD_MOD', { branchid: this.BranchService.branch.id },
       'Successfully updated moderator settings.', 'Error updating moderator settings.');
   }
 
-  openRemoveModModal() {
+  openRemoveModModal () {
     let me;
     
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
@@ -68,22 +68,22 @@ class BranchNucleusModtoolsController extends Injectable {
       'Error updating moderator settings.');
   }
 
-  openReviewSubbranchRequestsModal() {
+  openReviewSubbranchRequestsModal () {
     this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', { branchid: this.BranchService.branch.id },
       'Successfully responded to child branch request.', 'Error responding to child branch request.');
   }
 
-  openSubmitSubbranchRequestModal() {
+  openSubmitSubbranchRequestModal () {
     this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', { branchid: this.BranchService.branch.id },
       'Successfully submitted child branch request.', 'Error submitting child branch request.');
   }
 
-  openDeleteBranchModal() {
+  openDeleteBranchModal () {
     this.ModalService.open('DELETE_BRANCH', {},
       'Successfully deleted branch.', 'Error deleting branch.');
   }
 
-  openUpdateHomepageStatsModal() {
+  openUpdateHomepageStatsModal () {
     this.ModalService.open('UPDATE_HOMEPAGE_STATS', {},
       'Successfully updated homepage stats.', 'Error updating homepage stats.');
   }

@@ -13,16 +13,16 @@ class PostService extends Injectable {
       }
 
       this.fetch(this.$state.params.postid)
-        .then( post => this.post = post )
-        .catch( err => {
-          if (404 === err.status) {
+        .then(post => this.post = post)
+        .catch(err => {
+          if (err.status === 404) {
             this.$state.go('weco.notfound');
           }
           else {
             this.AlertsService.push('error', 'Unable to fetch post.');
           }
         })
-        .then( _ => this.EventService.emit(this.EventService.events.CHANGE_POST) )
+        .then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST))
         .then(this.$timeout);
     };
 
@@ -32,32 +32,32 @@ class PostService extends Injectable {
   }
 
   create (data) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/post', {}, data)
         // pass on the returned postid
-        .then( res => resolve(res.data) )
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
   createPollAnswer (postid, data) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/poll/:postid/answer', { postid }, data)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   delete (postid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.remove('/post/:postid', { postid })
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   fetch (postid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
           let res = yield this.API.fetch('/post/:postid', { postid }, {});
@@ -88,10 +88,10 @@ class PostService extends Injectable {
   }
 
   flag (postid, branchid, flag_type) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type })
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
@@ -102,8 +102,8 @@ class PostService extends Injectable {
   getPollAnswers (postid, sortBy, lastAnswerId) {
     return new Promise( (resolve, reject) => {
       this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
-        .then( res => resolve(res.data) )
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
@@ -115,7 +115,7 @@ class PostService extends Injectable {
 
       this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
@@ -123,7 +123,7 @@ class PostService extends Injectable {
     return new Promise( (resolve, reject) => {
       this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 }

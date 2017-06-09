@@ -7,26 +7,26 @@ class ModService extends Injectable {
   }
 
   create (branchid, username) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/branch/:branchid/mods', { branchid }, { username })
         .then(resolve)
-        .catch( err => { return reject(err.data || err); });
+        .catch(err => reject(err.data || err));
     });
   }
 
   fetchByBranch (branchid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.fetch('/branch/:branchid/mods', { branchid })
-        .then( res => { return resolve(res.data); })
-        .catch( err => { return reject(err.data || err); });
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
   remove (branchid, username) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.remove('/branch/:branchid/mods/:username', { branchid, username })
         .then(resolve)
-        .catch( err => { return reject(err.data || err); });
+        .catch(err => reject(err.data || err));
     });
   }
 }

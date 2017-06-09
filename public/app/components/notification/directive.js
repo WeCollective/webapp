@@ -37,7 +37,7 @@ class NotificationComponent extends Injectable {
     };
 
     // remplate name is as represented in NotificationTypes with no caps and hyphens instead of underscores
-    const templateName = ( () => {
+    const templateName = (_ => {
       for (let key in NotificationTypes) {
         if (NotificationTypes[key] === scope.notification.type) {
           return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
@@ -45,13 +45,12 @@ class NotificationComponent extends Injectable {
       }
     })();
 
-    this.$templateRequest(`/app/components/notification/${templateName}.template.html`)
-      .then( template => {
+    this.$templateRequest(`/app/components/notification/templates/${templateName}.html`)
+      .then(template => {
         element.html(template);
         this.$compile(element.contents())(scope);
-      }, () => {
-        console.error('Unable to get notification template.');
-      });
+      })
+      .catch(_ => console.error('Unable to get notification template.'));
   }
 }
 

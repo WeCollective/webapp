@@ -9,8 +9,6 @@ class BranchService extends Injectable {
     let fetchingBranch = false;
 
     const updateBranch = _ => {
-      console.log('updating branch...');
-
       if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
         fetchingBranch = true;
 
@@ -25,7 +23,9 @@ class BranchService extends Injectable {
             }
           })
           .then( _ => {
-            this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
+            // Wrap this into timeout to ensure any dependent controller has time to attach listener
+            // before this event fires for the first time.
+            this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
             fetchingBranch = false;
           });
       }
@@ -37,23 +37,23 @@ class BranchService extends Injectable {
   }
 
   actionSubbranchRequest (action, branchid, childid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   create (data) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/branch', {}, data)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   fetch (branchid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
           let res = yield this.API.fetch('/branch/:branchid', { branchid });
@@ -86,15 +86,15 @@ class BranchService extends Injectable {
   }
 
   getModLog (branchid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.fetch('/branch/:branchid/modlog', { branchid })
-        .then( res => resolve(res.data) )
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
   getPosts (branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let params = {
         flag: !!flag,
         postType,
@@ -108,13 +108,13 @@ class BranchService extends Injectable {
       }
 
       this.API.fetch('/branch/:branchid/posts', { branchid }, params)
-        .then( res => resolve(res.data) )
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
   getSubbranches (branchid, timeafter, sortBy, lastBranchId) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let params = { sortBy, timeafter };
 
       if (lastBranchId) {
@@ -122,52 +122,52 @@ class BranchService extends Injectable {
       }
 
       this.API.fetch('/branch/:branchid/subbranches', { branchid }, params)
-        .then( res => resolve(res.data), true)
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data), true)
+        .catch(err => reject(err.data || err));
     });
   }
 
   getSubbranchRequests (branchid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.fetch('/branch/:branchid/requests/subbranches', { branchid })
-        .then( res => resolve(res.data) )
-        .catch( err => reject(err.data || err) );
+        .then(res => resolve(res.data))
+        .catch(err => reject(err.data || err));
     });
   }
 
   remove (branchid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.remove('/branch/:branchid', { branchid })
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   resolveFlaggedPost (branchid, postid, action, data, message) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let body = { action, message };
       
       body['change_type' === action ? 'type' : 'reason'] = data;
       
       this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   submitSubbranchRequest (branchid, childid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid })
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 
   update (branchid, data) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.update('/branch/:branchid', { branchid }, data, true)
         .then(resolve)
-        .catch( err => reject(err.data || err) );
+        .catch(err => reject(err.data || err));
     });
   }
 }

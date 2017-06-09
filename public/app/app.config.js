@@ -2,7 +2,7 @@ import angular from 'angular';
 import Injectable from 'utils/injectable';
 
 class AppConfig extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(AppConfig.$inject, injections);
 
     // GitHub flavoured markdown
@@ -31,7 +31,7 @@ class AppConfig extends Injectable {
         angular.injector(['ng'])
           .get('$http')
           .get(key)
-          .success( function (data) {
+          .success(function (data) {
             this.put(key, data);
           }.bind(this));
       }

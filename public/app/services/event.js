@@ -27,7 +27,7 @@ class EventService extends Injectable {
 
   // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
   on (event, callback) {
-    return this.$rootScope.$on(event, (e, args) => this.$timeout( _ => callback(args)));
+    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
   }
 }
 

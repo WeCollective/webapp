@@ -9,10 +9,10 @@ class UploadService extends Injectable {
   }
 
   fetchUploadUrl (route) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       // fetch a presigned URL to which we can upload an image
       this.API.fetch('/:route', { route: `${route}-upload-url` })
-        .then( res => {
+        .then(res => {
           if (!res.data) {
             throw new Error();
           }
@@ -24,7 +24,7 @@ class UploadService extends Injectable {
   }
 
   uploadImage (data, url) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if (!data) {
         return reject();
       }
@@ -40,7 +40,7 @@ class UploadService extends Injectable {
         },
         data
       })
-        .then( _ => {
+        .then(_ => {
           this.isUploading = false;
           this.progress = 0;
           return resolve();
