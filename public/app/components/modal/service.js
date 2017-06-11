@@ -4,8 +4,8 @@ class ModalService extends Injectable {
   constructor (...injections) {
     super(ModalService.$inject, injections);
 
-    this.isOpen = false;
     this.inputArgs = {};
+    this.isOpen = false;
     this.name = '';
     this.outputArgs = {};
     this.reject = _ => {};
@@ -32,27 +32,36 @@ class ModalService extends Injectable {
   }
 
   Cancel (args) {
-    this.finished(args, false);
+    return new Promise((resolve, reject) => {
+      this.finished(args, false).then(_ => resolve());
+    });
   }
 
   Error () {
-    this.name = '';
-    this.reject();
+    return new Promise((resolve, reject) => {
+      this.name = '';
+      this.reject();
+    });
   }
 
   finished (args, success) {
-    this.$timeout(_ => {
-      this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
-      this.name = '';
-      this.resolve(success);
+    return new Promise((resolve, reject) => {
+      this.$timeout(_ => {
+        this.isOpen = false;
+        if (args) {
+          this.outputArgs = args;
+        }
+        this.name = '';
+        this.resolve(success);
+        return resolve();
+      });
     });
   }
 
   OK (args) {
-    this.finished(args, true);
+    return new Promise((resolve, reject) => {
+      this.finished(args, true).then(_ => resolve());
+    });
   }
 
   open (name, args, successMessage, errorMessage) {

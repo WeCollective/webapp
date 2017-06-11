@@ -13,10 +13,7 @@ class UploadService extends Injectable {
       // fetch a presigned URL to which we can upload an image
       this.API.fetch('/:route', { route: `${route}-upload-url` })
         .then(res => {
-          if (!res.data) {
-            throw new Error();
-          }
-          
+          if (!res.data) throw new Error();
           return resolve(res.data);
         })
         .catch(reject);
