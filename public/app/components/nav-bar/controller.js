@@ -4,23 +4,30 @@ class NavbarController extends Injectable {
   constructor (...injections) {
     super(NavbarController.$inject, injections);
 
+    this.getNotifications = this.getNotifications.bind(this);
+
     this.animationSrc = '';
     this.expanded = false;
     this.notificationCount = 0;
 
-    this.EventService.on(this.EventService.events.CHANGE_USER, _ => {
-      if (this.UserService.user.username) {
-        this.UserService.getNotifications(this.UserService.user.username, true)
-          .then(notificationCount => {
-            this.notificationCount = notificationCount;
-            this.EventService.on('UNREAD_NOTIFICATION_CHANGE', changedBy => this.notificationCount += changedBy);
+    this.getNotifications();
 
-            // Sometimes the notifications badge would not get updated.
-            this.$scope.$apply();
-          })
-          .catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
-      }
-    });
+    this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications);
+
+    this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
+  }
+
+  getNotifications () {
+    if (!this.UserService.user.username) return;
+
+    this.UserService.getNotifications(this.UserService.user.username, true)
+      .then(count => {
+        this.notificationCount = count;
+        
+        // Sometimes the notifications badge would not get updated.
+        this.$scope.$apply();
+      })
+      .catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
   isControlSelected (control) {
