@@ -6,11 +6,11 @@ class BranchNucleusSettingsController extends Injectable {
   }
 
   openModal (modalType) {
-    let title = '',
-      templateName = 'BRANCH_NUCLEUS_SETTINGS',
-      inputs  = [],
-      textareas = [],
+    let inputs = [],
       route = `branch/${this.BranchService.branch.id}/`,
+      templateName = 'BRANCH_NUCLEUS_SETTINGS',
+      textareas = [],
+      title = '',
       type;
 
     if ('profile-picture' === modalType) {
@@ -56,9 +56,9 @@ class BranchNucleusSettingsController extends Injectable {
       default:
         break;
     }
-    
+
     this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title },
-      'Successfully updated branch settings!', 'Unable to update branch settings.' );
+      'Successfully updated branch settings!', 'Unable to update branch settings.');
   }
 }
 
@@ -67,6 +67,7 @@ BranchNucleusSettingsController.$inject = [
   '$timeout',
   'AlertsService',
   'BranchService',
+  'EventService',
   'ModalService'
 ];
 

@@ -33,7 +33,7 @@ class ModalService extends Injectable {
 
   Cancel (args) {
     return new Promise((resolve, reject) => {
-      this.finished(args, false).then(_ => resolve());
+      this.finished(args, false).then(args => resolve(args));
     });
   }
 
@@ -53,39 +53,45 @@ class ModalService extends Injectable {
         }
         this.name = '';
         this.resolve(success);
-        return resolve();
+        return resolve(args);
       });
     });
   }
 
   OK (args) {
     return new Promise((resolve, reject) => {
-      this.finished(args, true).then(_ => resolve());
+      this.finished(args, true).then(args => resolve(args));
     });
   }
 
   open (name, args, successMessage, errorMessage) {
-    this.name = name;
-    // force change the template url so that controllers included on
-    // the template are reloaded
-    this.templateUrl = '';
-    this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
-    this.isOpen = true;
-    this.inputArgs = args;
-    this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
+    return new Promise((resolve, reject) => {
+      this.name = name;
+      // force change the template url so that controllers included on
+      // the template are reloaded
+      this.templateUrl = '';
+      this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
+      this.isOpen = true;
+      this.inputArgs = args;
+      this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
 
-    new Promise((resolve, reject) => {
-      this.resolve = resolve;
-      this.reject = reject;
-    })
-      .then(result => {
-        // force reload if OK was pressed
-        if (result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-          this.AlertsService.push('success', successMessage);
-        }
+      new Promise((resolve, reject) => {
+        this.resolve = resolve;
+        this.reject = reject;
       })
-      .catch(_ => this.AlertsService.push('error', errorMessage));
+        .then(result => this.$timeout(_ => {
+          // force reload if OK was pressed
+          if (result) {
+            this.$state.go(this.$state.current, {}, { reload: true });
+            this.AlertsService.push('success', successMessage);
+            return resolve(this.outputArgs);
+          }
+        }, 1500))
+        .catch(_ => {
+          this.AlertsService.push('error', errorMessage);
+          return reject();
+        });
+    });
   }
 }
 

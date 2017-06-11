@@ -30,14 +30,12 @@ class UploadService extends Injectable {
       this.progress = 0;
 
       this.Upload.http({
-        url,
+        data,
+        headers: { 'Content-Type': 'image/*' },
         method: 'PUT',
-        headers: {
-          'Content-Type': 'image/*'
-        },
-        data
+        url
       })
-        .then(_ => {
+        .then(res => {
           this.isUploading = false;
           this.progress = 0;
           return resolve();
