@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchPostVoteController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchPostVoteController.$inject, injections);
 
     this.answers = [];
@@ -15,6 +15,9 @@ class BranchPostVoteController extends Injectable {
       }
     };
     this.selectedAnswerIndex = -1;
+
+    // Get the initial state.
+    this.getPollAnswers();
 
     let listeners = [];
 
@@ -52,10 +55,8 @@ class BranchPostVoteController extends Injectable {
 
     // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
-      .then(answers => this.$timeout(_ => {
-        // if lastAnswerId was specified we are fetching _more_ answers, so append them
-        this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
-      }))
+      // if lastAnswerId was specified we are fetching _more_ answers, so append them
+      .then(answers => this.$timeout(_ => this.answers = lastAnswerId ? this.answers.concat(answers) : answers))
       .catch(err => {
         if (err.status !== 404) {
           this.AlertsService.push('error', 'Error fetching poll answers.');

@@ -103,7 +103,7 @@ span {
 }
 .clearfix:after {
   clear: both;
-  content: " ";
+  content: ' ';
   display: block;
   height: 0;
   visibility: hidden;
@@ -129,7 +129,7 @@ span {
   }
 }
 #weco-root div.page {
-  background-color: #c8c8c8;
+  background-color: #d7d7d7;
   height: 100%;
   width: 100%;
 }
@@ -3508,8 +3508,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
   display: block;
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
   font-size: 14px;
@@ -3581,8 +3579,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
-    white-space: pre-wrap;
-    word-wrap: break-word;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
@@ -3660,8 +3656,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
-    white-space: pre-wrap;
-    word-wrap: break-word;
   }
   div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;

@@ -62956,26 +62956,39 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     this.openComment = undefined; // the comment which is being replied to
   }
 
-  openReply(comment, isEdit) {
-    this.$timeout(() => {
-      if (this.openComment && this.openComment.meta) {
-        this.openComment.meta.openReply = false;
-      }
-      this.openComment = comment;
-      this.openComment.meta = {
-        openReply: true,
-        update: isEdit
-      };
+  closeReply() {
+    this.$timeout(_ => this.openComment.meta = {
+      openReply: false,
+      update: false
     });
   }
 
-  closeReply() {
-    this.$timeout(() => {
-      this.openComment.meta = {
-        openReply: false,
-        update: false
-      };
-    });
+  // todo delete the comment
+  delete() {
+    //..
+  }
+
+  isOwnComment(comment) {
+    if (!this.UserService.user || !comment.data) {
+      return false;
+    }
+
+    return this.UserService.user.username === comment.data.creator;
+  }
+
+  loadMore(comment) {
+    let lastCommentId = null;
+    if (comment.comments && comment.comments.length) {
+      lastCommentId = comment.comments[comment.comments.length - 1].id;
+    }
+
+    // fetch the replies to this comment, or just the number of replies
+    this.CommentService.getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId).then(comments => {
+      this.$timeout(_ => {
+        // if lastCommentId was specified we are fetching _more_ comments, so append them
+        comment.comments = lastCommentId ? comment.comments.concat(comments) : comments;
+      });
+    }).catch(_ => this.AlertsService.push('error', 'Unable to get replies!'));
   }
 
   // Params: comment
@@ -62984,12 +62997,15 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
       // if the comment was edited
       // reload the comment data
       this.CommentService.fetch(this.openComment.postid, this.openComment.id).then(response => {
-        this.$timeout(() => {
+        this.$timeout(_ => {
           // copy keys over so not to destroy 'openComment' object reference to 'comment' in the comments array
-          for (let key in response) this.openComment[key] = response[key];
+          for (let key in response) {
+            this.openComment[key] = response[key];
+          }
+
           this.closeReply();
         });
-      }).catch(() => {
+      }).catch(_ => {
         this.AlertsService.push('error', 'Unable to reload comment!');
         this.closeReply();
       });
@@ -63001,58 +63017,55 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     }
   }
 
-  timeSince(date) {
-    let msPerMinute = 60 * 1000;
-    let msPerHour = msPerMinute * 60;
-    let msPerDay = msPerHour * 24;
-    let msPerMonth = msPerDay * 30;
-    let msPerYear = msPerDay * 365;
-
-    let elapsed = new Date().getTime() - new Date(date);
-
-    if (elapsed < msPerMinute) {
-      return Math.round(elapsed / 1000) + ' seconds ago';
-    }
-    if (elapsed < msPerHour) {
-      return Math.round(elapsed / msPerMinute) + ' minutes ago';
-    }
-    if (elapsed < msPerDay) {
-      return Math.round(elapsed / msPerHour) + ' hours ago';
-    }
-    if (elapsed < msPerMonth) {
-      return Math.round(elapsed / msPerDay) + ' days ago';
-    }
-    if (elapsed < msPerYear) {
-      return Math.round(elapsed / msPerMonth) + ' months ago';
-    }
-    return Math.round(elapsed / msPerYear) + ' years ago';
+  openCommentPermalink(comment) {
+    this.$state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
   }
 
-  loadMore(comment) {
-    let lastCommentId = null;
-    if (comment.comments && comment.comments.length > 0) lastCommentId = comment.comments[comment.comments.length - 1].id;
+  openReply(comment, isEdit) {
+    this.$timeout(_ => {
+      if (this.openComment && this.openComment.meta) {
+        this.openComment.meta.openReply = false;
+      }
 
-    // fetch the replies to this comment, or just the number of replies
-    this.CommentService.getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId).then(comments => {
-      this.$timeout(() => {
-        // if lastCommentId was specified we are fetching _more_ comments, so append them
-        if (lastCommentId) {
-          comment.comments = comment.comments.concat(comments);
-        } else {
-          comment.comments = comments;
-        }
-      });
-    }).catch(() => {
-      this.AlertsService.push('error', 'Unable to get replies!');
+      this.openComment = comment;
+      this.openComment.meta = {
+        openReply: true,
+        update: isEdit
+      };
     });
   }
 
+  timeSince(date) {
+    const msPerMinute = 60 * 1000;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+    const msPerMonth = msPerDay * 30;
+    const msPerYear = msPerDay * 365;
+
+    const elapsed = new Date().getTime() - new Date(date);
+
+    if (elapsed < msPerMinute) {
+      return `${Math.round(elapsed / 1000)} seconds ago`;
+    }
+    if (elapsed < msPerHour) {
+      return `${Math.round(elapsed / msPerMinute)} minutes ago`;
+    }
+    if (elapsed < msPerDay) {
+      return `${Math.round(elapsed / msPerHour)} hours ago`;
+    }
+    if (elapsed < msPerMonth) {
+      return `${Math.round(elapsed / msPerDay)} days ago`;
+    }
+    if (elapsed < msPerYear) {
+      return `${Math.round(elapsed / msPerMonth)} months ago`;
+    }
+    return `${Math.round(elapsed / msPerYear)} years ago`;
+  }
+
   vote(comment, direction) {
-    this.CommentService.vote(comment.postid, comment.id, direction).then(() => {
-      let inc = direction === 'up' ? 1 : -1;
-      this.$timeout(() => {
-        comment.individual += inc;
-      });
+    this.CommentService.vote(comment.postid, comment.id, direction).then(_ => {
+      const inc = direction === 'up' ? 1 : -1;
+      this.$timeout(_ => comment.individual += inc);
       this.AlertsService.push('success', 'Thanks for voting!');
     }).catch(err => {
       if (err.status === 400) {
@@ -63064,18 +63077,8 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
       }
     });
   }
-
-  isOwnComment(comment) {
-    if (!this.UserService.user || !comment.data) {
-      return false;
-    }
-    return this.UserService.user.username === comment.data.creator;
-  }
-
-  openCommentPermalink(comment) {
-    this.$state.go('weco.branch.post.comment', { postid: comment.postid, commentid: comment.id }, { reload: true });
-  }
 }
+
 CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'UserService', 'AlertsService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
@@ -64176,37 +64179,41 @@ UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService',
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(BranchNucleusSettingsModalController.$inject, injections);
 
-    this.inputValues = [];
-    this.textareaValues = [];
     this.errorMessage = '';
+    this.inputValues = [];
     this.isLoading = false;
+    this.textareaValues = [];
 
     for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
       this.textareaValues[i] = this.ModalService.inputArgs.textareas[i].value;
     }
+
     for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
       this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
     }
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    let listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      console.log('wow.');
       if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
+
       // if not all fields are filled, display message
-      if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.indexOf('') > -1 || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.indexOf('') > -1) {
-        this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
+      if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.includes('') || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.includes('')) {
+        this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
         return;
       }
 
       // construct data to update using the proper fieldnames
       let updateData = {};
+
       for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
         updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.inputValues[i];
 
@@ -64215,41 +64222,42 @@ class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_u
           updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.inputValues[i]).getTime();
         }
       }
+
       for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
         updateData[this.ModalService.inputArgs.textareas[i].fieldname] = this.textareaValues[i];
       }
 
       // perform the update
       this.isLoading = true;
-      this.BranchService.update(this.$state.params.branchid, updateData).then(() => {
-        this.$timeout(() => {
-          this.inputValues = [];
-          this.textareaValues = [];
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
-      this.$timeout(() => {
-        this.inputValues = [];
-        this.textareaValues = [];
+      this.BranchService.update(this.$state.params.branchid, updateData).then(_ => this.$timeout(_ => {
         this.errorMessage = '';
+        this.inputValues = [];
         this.isLoading = false;
+        this.textareaValues = [];
+        this.ModalService.OK();
+      })).catch(err => this.$timeout(_ => {
+        this.errorMessage = err.message;
+        this.isLoading = false;
+      }));
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
+
+      this.$timeout(_ => {
+        this.errorMessage = '';
+        this.inputValues = [];
+        this.isLoading = false;
+        this.textareaValues = [];
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
-BranchNucleusSettingsModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
+
+BranchNucleusSettingsModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchNucleusSettingsModalController);
 
@@ -64273,12 +64281,8 @@ class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   link(scope) {
     scope.ModalService = this.ModalService;
-    scope.OK = () => {
-      this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
-    };
-    scope.Cancel = () => {
-      this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
-    };
+    scope.OK = _ => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
+    scope.Cancel = _ => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
   }
 }
 
@@ -66168,6 +66172,7 @@ class BranchNucleusSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
       default:
         break;
     }
+
     this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title }, 'Successfully updated branch settings!', 'Unable to update branch settings.');
   }
 }
@@ -66393,6 +66398,9 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     };
     this.selectedAnswerIndex = -1;
 
+    // Get the initial state.
+    this.getPollAnswers();
+
     let listeners = [];
 
     listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
@@ -66428,10 +66436,9 @@ class BranchPostVoteController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     }
 
     // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId).then(answers => this.$timeout(_ => {
-      // if lastAnswerId was specified we are fetching _more_ answers, so append them
-      this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
-    })).catch(err => {
+    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
+    // if lastAnswerId was specified we are fetching _more_ answers, so append them
+    .then(answers => this.$timeout(_ => this.answers = lastAnswerId ? this.answers.concat(answers) : answers)).catch(err => {
       if (err.status !== 404) {
         this.AlertsService.push('error', 'Error fetching poll answers.');
       }

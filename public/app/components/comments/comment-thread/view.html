@@ -24,6 +24,12 @@
           <img alt="" src="/assets/images/icons/black/reply.png" />
         </li>
 
+        <li ng-click="CommentThread.openCommentPermalink(comment)"
+          offset-y="25"
+          tooltip-text="'Permalink'">
+          <img alt="" src="/assets/images/icons/black/permalink.png" />
+        </li>
+
         <li ng-click="CommentThread.openReply(comment, true)"
           ng-show="CommentThread.isOwnComment(comment)"
           offset-y="25"
@@ -31,24 +37,11 @@
           <img alt="" src="/assets/images/icons/black/edit.png" />
         </li>
 
-        <li>
-          <img alt=""
-            offset-y="25"
-            src="/assets/images/icons/black/save.png"
-            tooltip-text="'Save'" />
-        </li>
-
-        <li ng-click="CommentThread.openCommentPermalink(comment)"
+        <li ng-click="CommentThread.delete(comment)"
+          ng-show="CommentThread.isOwnComment(comment)"
           offset-y="25"
-          tooltip-text="'Permalink'">
-          <img alt="" src="/assets/images/icons/black/permalink.png" />
-        </li>
-
-        <li>
-          <img alt=""
-            offset-y="25"
-            src="/assets/images/icons/black/flag.png"
-            tooltip-text="'Flag'" />
+          tooltip-text="'Delete'">
+          <img alt="" src="/assets/images/icons/black/delete.png" />
         </li>
       </ul>
       

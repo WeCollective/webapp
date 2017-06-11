@@ -1,10 +1,21 @@
 <div id="nucleus-settings-modal" ng-controller="BranchNucleusSettingsModalController as BranchNucleusSettingsModal">
-  <div loading when="BranchNucleusSettingsModal.isLoading">
-    <h1>Change the Branch {{ BranchNucleusSettingsModal.ModalService.inputArgs.title }}</h1>
-    <p class="error-message">{{ BranchNucleusSettingsModal.errorMessage }}</p>
+  <div loading loading-when="BranchNucleusSettingsModal.isLoading">
+    <h1>
+    	Change the Branch {{ BranchNucleusSettingsModal.ModalService.inputArgs.title }}
+    </h1>
+    <p class="error-message">
+      {{ BranchNucleusSettingsModal.errorMessage }}
+    </p>
     <div id="nucleus-settings-inputs">
-      <input ng-repeat="item in BranchNucleusSettingsModal.ModalService.inputArgs.inputs" ng-model="BranchNucleusSettingsModal.inputValues[$index]" placeholder="{{ item.placeholder }}" type="{{ item.type }}"></input>
-      <textarea ng-repeat="item in BranchNucleusSettingsModal.ModalService.inputArgs.textareas" ng-model="BranchNucleusSettingsModal.textareaValues[$index]" placeholder="{{ item.placeholder }}"></textarea>
+      <input ng-model="BranchNucleusSettingsModal.inputValues[$index]"
+        ng-repeat="item in BranchNucleusSettingsModal.ModalService.inputArgs.inputs"
+        placeholder="{{ item.placeholder }}"
+        type="{{ item.type }}" />
+      
+      <textarea ng-model="BranchNucleusSettingsModal.textareaValues[$index]"
+        ng-repeat="item in BranchNucleusSettingsModal.ModalService.inputArgs.textareas"
+        placeholder="{{ item.placeholder }}">
+      </textarea>
     </div>
   </div>
 </div>

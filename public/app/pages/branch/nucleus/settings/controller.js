@@ -56,6 +56,7 @@ class BranchNucleusSettingsController extends Injectable {
       default:
         break;
     }
+    
     this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title },
       'Successfully updated branch settings!', 'Unable to update branch settings.' );
   }
