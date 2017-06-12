@@ -14,8 +14,14 @@ class BranchService extends Injectable {
         if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
           fetchingBranch = true;
 
+          const tempImages = {
+            coverUrl: this.branch.coverUrl,
+            coverUrlThumb: this.branch.coverUrlThumb,
+          };
+
           if (this.branch.id !== this.$state.params.branchid) {
-            this.branch = { id: this.$state.params.branchid };
+            this.branch = tempImages;
+            this.branch.id = this.$state.params.branchid;
           }
 
           this.fetch(this.$state.params.branchid)

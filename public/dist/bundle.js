@@ -23986,8 +23986,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67293,8 +67293,14 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
         if (this.$state.current.name.includes('weco.branch') && !fetchingBranch) {
           fetchingBranch = true;
 
+          const tempImages = {
+            coverUrl: this.branch.coverUrl,
+            coverUrlThumb: this.branch.coverUrlThumb
+          };
+
           if (this.branch.id !== this.$state.params.branchid) {
-            this.branch = { id: this.$state.params.branchid };
+            this.branch = tempImages;
+            this.branch.id = this.$state.params.branchid;
           }
 
           this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {

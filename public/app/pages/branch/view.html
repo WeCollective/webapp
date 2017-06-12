@@ -6,7 +6,10 @@
 </cover-photo>
 
 <div class="cover-page page">
-  <div id="branch-frame" class="frame" loading when="Branch.isLoading">
+  <div class="frame"
+    id="branch-frame"
+    loading
+    loading-when="Branch.isLoading">
     <div id="branch-info" class="sidebar frame-column" ng-class="{ 'open': Branch.AppService.isSidebarOpen }">
       <div class="sidebar-info">
         <h1>{{ Branch.BranchService.branch.name }}</h1>
