@@ -67290,30 +67290,39 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
     const updateBranch = _ => {
       this.$timeout(_ => {
-        if (this.$state.current.name.includes('weco.branch') && (!fetchingBranch || this.branch.id !== this.$state.params.branchid)) {
-          fetchingBranch = true;
+        if (this.$state.current.name.includes('weco.branch') && (!fetchingBranch || fetchingBranch !== this.$state.params.branchid)) {
+          fetchingBranch = this.$state.params.branchid;
+
+          let fetchedBranch = {};
 
           const tempImages = {
             coverUrl: this.branch.coverUrl,
             coverUrlThumb: this.branch.coverUrlThumb
           };
 
-          if (this.branch.id !== this.$state.params.branchid) {
-            this.branch = tempImages;
-            this.branch.id = this.$state.params.branchid;
+          if (fetchingBranch && this.branch.id !== fetchingBranch) {
+            this.branch = tempImages.coverUrl ? tempImages : {};
+            this.branch.id = fetchingBranch;
           }
 
-          this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
+          this.fetch(fetchingBranch).then(branch => {
+            if (fetchingBranch === branch.id) {
+              fetchedBranch = branch;
+              this.branch = branch;
+            }
+          }).catch(err => {
             if (err.status === 404) {
               this.$state.go('weco.notfound');
             } else {
               this.AlertsService.push('error', 'Unable to fetch branch.');
             }
           }).then(_ => {
-            // Wrap this into timeout to ensure any dependent controller has time to attach listener
-            // before this event fires for the first time.
-            this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
-            fetchingBranch = false;
+            if (fetchingBranch === fetchedBranch.id) {
+              // Wrap this into timeout to ensure any dependent controller has time to attach listener
+              // before this event fires for the first time.
+              this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
+              fetchingBranch = false;
+            }
           });
         }
       });
