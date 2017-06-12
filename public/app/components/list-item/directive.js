@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class ListItemComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(ListItemComponent.$inject, injections);
 
     this.bindToController = {

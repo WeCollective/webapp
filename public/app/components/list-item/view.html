@@ -1,13 +1,13 @@
 <li class="post-entry">
   <span class="list-item-index">{{ ListItem.index + 1 }}</span>
-  <div class="list-item-flags"
+  <div class="list-item-flags ng-hide"
     ng-click="ListItem.openResolveFlagPostModal()"
     ng-show="ListItem.showFlags()">
     <img alt="" src="/assets/images/icons/white/flag.png" />
     <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
   
-  <div class="list-item-votes" ng-show="ListItem.showVotes()">
+  <div class="list-item-votes ng-hide" ng-show="ListItem.showVotes()">
     <img alt=""
       ng-click="ListItem.vote('up')"
       src="/assets/images/icons/black/arrow-up.png" />
@@ -20,14 +20,14 @@
   <!-- Two DOM elements conditionally displayed if the post is a text type.
        One is to perform internal state transition with uisref. (Text posts)
        One is to link to an external site. (Non-text posts) -->
-  <a class="list-item-image"
+  <a class="list-item-image ng-hide"
     ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
     ng-show="ListItem.post.profileUrlThumb"
     ui-sref="weco.branch.post({ postid: ListItem.post.id })">
     <div style="background-image: url('{{ ListItem.post.profileUrlThumb }}')"></div>
   </a>
 
-  <a class="list-item-image"
+  <a class="list-item-image ng-hide"
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     ng-show="ListItem.post.type === 'image' ? ListItem.post.data.text : ListItem.post.profileUrlThumb"
@@ -35,7 +35,7 @@
     <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(post.data.text) : ListItem.post.profileUrlThumb }}'), url('/assets/images/invalid-image-url.jpg')"></div>
   </a>
   
-  <div class="list-item-nsfw-label" ng-show="ListItem.post.nsfw">
+  <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
     <span class="text--uppercase">nsfw</span>
   </div>
 
@@ -68,7 +68,8 @@
       <a ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
         b/{{ ListItem.getOriginalBranches()[0] }}
       </a>
-      <span ng-show="ListItem.getOriginalBranches().length > 1"
+      <span class="ng-hide" 
+        ng-show="ListItem.getOriginalBranches().length > 1"
         offset-x="30"
         offset-y="30"
         text="ListItem.getOriginalBranchesTooltipString()"
@@ -97,7 +98,7 @@
         tooltip />
       
       <img alt="Delete post"
-        class="control"
+        class="control ng-hide"
         ng-click="ListItem.openDeletePostModal()"
         ng-show="ListItem.isOwnPost()"
         offset-y="20"

@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class ListItemController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(ListItemController.$inject, injections);
   }
 
@@ -36,7 +36,7 @@ class ListItemController extends Injectable {
 
     let total = 0;
 
-    counts.forEach( key => {
+    counts.forEach(key => {
       if (this.post[key]) {
         total += (Number.isNaN(this.post[key]) ? 0 : this.post[key]);
       }
@@ -86,7 +86,7 @@ class ListItemController extends Injectable {
       .then( _ => {
         const inc = (direction === 'up') ? 1 : -1;
 
-        this.$timeout( _ => {
+        this.$timeout(_ => {
           this.post.individual += inc;
           this.post.local += inc;
           this.post.global += inc;
@@ -94,7 +94,7 @@ class ListItemController extends Injectable {
 
         this.AlertsService.push('success', 'Thanks for voting!');
       })
-      .catch( err => {
+      .catch(err => {
         if (400 === err.status) {
           this.AlertsService.push('error', 'You have already voted on this post.');
         }
