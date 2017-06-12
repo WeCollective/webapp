@@ -67298,22 +67298,24 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
             coverUrlThumb: this.branch.coverUrlThumb
           };
 
-          if (this.branch.id !== this.$state.params.branchid) {
-            this.branch = tempImages;
-            this.branch.id = this.$state.params.branchid;
-          }
-
-          this.fetch(this.$state.params.branchid).then(branch => this.branch = branch).catch(err => {
-            if (err.status === 404) {
-              this.$state.go('weco.notfound');
-            } else {
-              this.AlertsService.push('error', 'Unable to fetch branch.');
+          this.$timeout(_ => {
+            if (this.branch.id !== this.$state.params.branchid) {
+              this.branch = tempImages;
+              this.branch.id = this.$state.params.branchid;
             }
-          }).then(_ => {
-            // Wrap this into timeout to ensure any dependent controller has time to attach listener
-            // before this event fires for the first time.
-            this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
-            fetchingBranch = false;
+
+            this.fetch(this.$state.params.branchid).then(branch => this.$timeout(_ => this.branch = branch)).catch(err => {
+              if (err.status === 404) {
+                this.$state.go('weco.notfound');
+              } else {
+                this.AlertsService.push('error', 'Unable to fetch branch.');
+              }
+            }).then(_ => {
+              // Wrap this into timeout to ensure any dependent controller has time to attach listener
+              // before this event fires for the first time.
+              this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
+              fetchingBranch = false;
+            });
           });
         }
       });
