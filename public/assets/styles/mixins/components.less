@@ -169,7 +169,7 @@
   flex-direction: row;
   height: @height;
   padding: 10px 0;
-  white-space: nowrap;
+  // white-space: nowrap;
   width: 100%;
 
   span.list-item-index {
@@ -271,9 +271,8 @@
     .list-item-title {
       display: block;
       font-size: @font-size-sm;
-      font-weight: @font-weight-normal;
-      white-space: nowrap;
-      .responsive(@screen-sm, { font-size: @font-size-md; });
+      font-weight: 600;
+      // white-space: nowrap;
 
       &:hover { cursor: pointer; }
     }
@@ -296,8 +295,7 @@
     span.list-item-description {
       color: @primary-6;
       font-size: 13px;
-      white-space: nowrap;
-      .responsive(@screen-sm, { font-size: @font-size-sm; });
+      // white-space: nowrap;
 
       a {
         color: @accent-0;

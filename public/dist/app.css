@@ -1,10 +1,8 @@
-[ng\:cloak],
-[ng-cloak],
-.ng-cloak {
-  display: none !important;
-}
 .text--capitalize {
   text-transform: capitalize;
+}
+.text--center {
+  text-align: center;
 }
 .text--lowercase {
   text-transform: lowercase;
@@ -122,7 +120,8 @@ span {
   width: 100%;
 }
 #weco-root .full-page.full-page-nav {
-  height: calc(100% - 35px);
+  height: calc(100vh - 35px);
+  overflow: hidden;
   padding-top: 35px;
   position: relative;
   width: 100%;
@@ -139,14 +138,16 @@ span {
   width: 100%;
 }
 #weco-root div.page.cover-page {
+  overflow: auto;
   position: relative;
 }
 #weco-root div.page > div.frame {
   background-color: #fff;
   height: 100%;
   margin: auto;
-  position: relative;
   max-width: 1200px;
+  overflow: auto;
+  position: relative;
   width: 100%;
   /*
       > div.frame-column {
@@ -261,7 +262,7 @@ span {
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 700;
   padding-right: 10px;
 }
 @media only screen and (min-width: 576px) {
@@ -270,9 +271,9 @@ span {
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls {
-  align-items: flex-start;
   display: flex;
   flex-direction: row;
+  overflow: auto;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
@@ -714,7 +715,7 @@ div.cover-photo img {
   height: auto;
   opacity: .5;
   position: absolute;
-  width: 22px;
+  width: 30px;
   transition: transform .2s;
 }
 div.cover-photo img:hover {
@@ -731,6 +732,9 @@ div.cover-photo img#cover-photo-edit {
 div.cover-photo.closed {
   height: 0;
 }
+div.cover-photo.closed img {
+  transform: translateY(calc(42px));
+}
 div.cover-photo.closed img.cover-photo-toggle {
   transform: translateY(calc(42px)) rotateZ(0);
 }
@@ -740,13 +744,12 @@ div.cover-photo.closed img.cover-photo-toggle {
   }
 }
 div.dropdown {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
+  flex: none;
   padding: 0 5px;
+  position: relative;
 }
 div.dropdown div.dropdown-container {
-  display: inline-block;
+  display: block;
   position: relative;
 }
 div.dropdown div.dropdown-container ul {
@@ -791,7 +794,7 @@ div.dropdown li.dropdown-item:hover {
   cursor: pointer;
 }
 div.dropdown div.dropdown-title {
-  display: inline-block;
+  display: block;
   line-height: 1;
   padding-left: 10px;
   position: relative;
@@ -1110,6 +1113,15 @@ div[loading] div.loading-container img {
     width: 45px;
   }
 }
+.notification > .notification-index {
+  align-items: center;
+  color: #c8c8c8;
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 12px;
+  margin-right: 12px;
+}
 div.poll-answer-editor {
   margin-bottom: 10px;
   position: relative;
@@ -1257,7 +1269,7 @@ div.poll-answer-editor input {
 }
 .sidebar .sidebar-info h1 {
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 700;
 }
 .sidebar .sidebar-info h2 {
   font-size: 15px;
@@ -1285,7 +1297,7 @@ div.poll-answer-editor input {
   opacity: .8;
   position: absolute;
   right: 10px;
-  width: 20px;
+  width: 30px;
 }
 .sidebar .sidebar-picture img#edit:hover {
   cursor: pointer;
@@ -2264,7 +2276,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
   flex-direction: row;
   height: 70px;
   padding: 10px 0;
-  white-space: nowrap;
   width: 100%;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
@@ -2355,14 +2366,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title,
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
+  font-weight: 600;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
@@ -2396,12 +2400,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
   font-size: 13px;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
-  }
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
@@ -2434,7 +2432,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     flex-direction: row;
     height: 80px;
     padding: 10px 0;
-    white-space: nowrap;
     width: 100%;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
@@ -2525,8 +2522,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
+    font-weight: 600;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
@@ -2560,7 +2556,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
     color: #b3b3b3;
     font-size: 13px;
-    white-space: nowrap;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
@@ -2585,17 +2580,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
     font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title,
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
   }
 }
 div#branch-nucleus div.content-body {
@@ -2770,8 +2754,10 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container {
   width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties {
+  border-bottom: 1px solid #e7e7e7;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   text-align: center;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li {
@@ -2790,7 +2776,10 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log {
   box-sizing: border-box;
-  flex: 1;
+  height: 0px;
+  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  overflow-y: auto;
   position: relative;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div h2 {
@@ -2818,7 +2807,7 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
   float: left;
-  width: calc(100% - 150px);
+  width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
   color: #c8c8c8;
@@ -2842,7 +2831,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   flex-direction: row;
   height: 70px;
   padding: 10px 0;
-  white-space: nowrap;
   width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
@@ -2933,14 +2921,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
-  div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
+  font-weight: 600;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -2974,12 +2955,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
   font-size: 13px;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
-  }
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
@@ -3035,7 +3010,6 @@ div#branch-wall div.content-body ul#post-list li.list-item {
   flex-direction: row;
   height: 60px;
   padding: 10px 0;
-  white-space: nowrap;
   width: 100%;
 }
 div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
@@ -3126,14 +3100,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a 
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
+  font-weight: 600;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -3167,12 +3134,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
   font-size: 13px;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
-  }
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
@@ -3202,7 +3163,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     flex-direction: row;
     height: 60px;
     padding: 10px 0;
-    white-space: nowrap;
     width: 100%;
   }
   div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
@@ -3293,8 +3253,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
+    font-weight: 600;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -3328,7 +3287,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
     color: #b3b3b3;
     font-size: 13px;
-    white-space: nowrap;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
@@ -3350,17 +3308,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
     cursor: pointer;
     opacity: 1;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
   }
 }
 div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
@@ -3715,7 +3662,6 @@ div#branch-post > .list-item {
   flex-direction: row;
   height: 80px;
   padding: 10px 0;
-  white-space: nowrap;
   width: 100%;
 }
 div#branch-post > .list-item div.list-item-controls {
@@ -3812,14 +3758,7 @@ div#branch-post > .list-item div.list-item-info a .list-item-title,
 div#branch-post > .list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-post > .list-item div.list-item-info a .list-item-title,
-  div#branch-post > .list-item div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
+  font-weight: 600;
 }
 div#branch-post > .list-item div.list-item-info a .list-item-title:hover,
 div#branch-post > .list-item div.list-item-info .list-item-title:hover {
@@ -3853,12 +3792,6 @@ div#branch-post > .list-item div.list-item-info span.list-item-post-type-marker.
 div#branch-post > .list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
   font-size: 13px;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-post > .list-item div.list-item-info span.list-item-description {
-    font-size: 14px;
-  }
 }
 div#branch-post > .list-item div.list-item-info span.list-item-description a {
   color: #3498db;
@@ -3968,7 +3901,6 @@ div#branch-post .post-body #answer-list-container #answer-list li {
   flex-direction: row;
   height: 70px;
   padding: 10px 0;
-  white-space: nowrap;
   width: 100%;
   align-items: center;
 }
@@ -4060,14 +3992,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info a .list-item-title,
-  div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
-    font-size: 18px;
-  }
+  font-weight: 600;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info a .list-item-title:hover,
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover {
@@ -4101,12 +4026,6 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
   color: #b3b3b3;
   font-size: 13px;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
-    font-size: 14px;
-  }
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a {
   color: #3498db;

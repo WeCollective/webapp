@@ -27,12 +27,14 @@
     </div>
   </div>
   
-  <div class="content-body"
+  <div
+    class="content-body"
     loading
     loading-when="!BranchWall.posts.length && BranchWall.WallService.isLoading"
     on-scroll-to-bottom="WallScrollToBottom">
     <ul id="post-list">
-      <li class="list-item"
+      <li
+        class="list-item"
         index="$index"
         list-item
         ng-repeat="post in BranchWall.posts"

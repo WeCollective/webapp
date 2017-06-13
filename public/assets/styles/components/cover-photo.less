@@ -19,7 +19,7 @@ div.cover-photo {
     height: auto;
     opacity: .5;
     position: absolute;
-    width: 22px;
+    width: 30px;
     transition: transform .2s;
 
     &:hover {
@@ -38,9 +38,8 @@ div.cover-photo {
   &.closed {
     height: 0;
     
-    img.cover-photo-toggle {
-      transform: translateY(calc(10px + 22px + 10px)) rotateZ(0);
-    }
+    img { transform: translateY(calc(10px + 22px + 10px)); }
+    img.cover-photo-toggle { transform: translateY(calc(10px + 22px + 10px)) rotateZ(0); }
   }
 
   .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });

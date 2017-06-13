@@ -5,8 +5,10 @@ div#nucleus-modtools-container {
   width: 100%;
 
   ul#nucleus-modtools-properties {
+    border-bottom: 1px solid @light-grey;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
     text-align: center;
 
     li {
@@ -28,7 +30,10 @@ div#nucleus-modtools-container {
 
   ul#nucleus-modtools-log {
     box-sizing: border-box;
-    flex: 1;
+    height: 0px;
+    flex: 1 1 auto;
+    -webkit-flex: 1 1 auto;
+    overflow-y: auto;
     position: relative;
 
     div {
@@ -57,7 +62,8 @@ div#nucleus-modtools-container {
 
           &.entry {
             float: left;
-            width: calc(~'100% - 150px');
+            width: 100%;
+            // width: calc(~'100% - 150px');
           }
 
           &.time {

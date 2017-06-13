@@ -73,7 +73,8 @@ span {
     width: 100%;
 
     &.full-page-nav {
-      height: calc(~'100% - @{navbar-h}');
+      height: calc(~'100vh - @{navbar-h}');
+      overflow: hidden;
       padding-top: @navbar-h;
       position: relative;
       width: 100%;
@@ -90,18 +91,21 @@ span {
     height: 100%;
     width: 100%;
 
-    &.cover-page { position: relative; }
+    &.cover-page {
+      overflow: auto;
+      position: relative;
+    }
 
     > div.frame {
       background-color: #fff;
       height: 100%;
       margin: auto;
-      position: relative;
-      //width: calc(~'100% - (2 * @{page-margin-xs})');
-
       max-width: 1200px;
+      overflow: auto;
+      position: relative;
       width: 100%;
-
+      
+      // width: calc(~'100% - (2 * @{page-margin-xs})');
       //.responsive(@screen-sm, { width: calc(~'100% - (2 * @{page-margin-sm})'); });
       //.responsive(@screen-md, { width: calc(~'100% - (2 * @{page-margin-md})'); });
       //.responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
@@ -212,16 +216,16 @@ span {
 
             h1 {
               font-size: @font-size-xl;
-              font-weight: @font-weight-heavy;
+              font-weight: 700;
               padding-right: 10px;
 
               .responsive(@screen-sm, { padding-right: 20px; });
             }
 
             > div.content-controls {
-              align-items: flex-start;
               display: flex;
               flex-direction: row;
+              overflow: auto;
             }
           }
 

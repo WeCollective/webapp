@@ -1,18 +1,26 @@
-<div class="notifications"
+<div
+  class="notifications"
   id="profile-notifications"
   loading
   loading-when="!ProfileNotifications.notifications.length && ProfileNotifications.isLoading"
   on-scroll-to-bottom="NotificationsScrollToBottom">
-  <div id="empty"
+  <div
+    id="empty"
     ng-show="!ProfileNotifications.notifications || !ProfileNotifications.notifications.length">
     No notifications.
   </div>
   
   <ul>
-    <li ng-class="{ 'unread': notification.unread === true }"
+    <li
+      class="notification"
+      ng-class="{ 'unread': notification.unread === true }"
       ng-repeat="notification in ProfileNotifications.notifications">
       <div class="toggle-unread" ng-click="ProfileNotifications.toggleUnreadState(notification)"></div>
       
+      <div class="notification-index">
+        {{ $index + 1 }}
+      </div>
+
       <div class="notification-image">
         <img alt=""
           ng-src="assets/images/notifications/{{ ProfileNotifications.getNotificationImageType(notification) }}.png" />
