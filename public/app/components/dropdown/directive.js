@@ -13,7 +13,7 @@ class DropdownComponent extends Injectable {
     this.controllerAs = 'Dropdown';
     this.replace = true;
     this.restrict = 'E';
-    this.scope = {};
+    this.scope = true;
     this.templateUrl = '/app/components/dropdown/view.html';
   }
 }

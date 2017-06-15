@@ -9,25 +9,15 @@ div.dropdown {
   div.dropdown-container {
     display: block;
     position: relative;
-
-    ul {
-      background-color: #fff;
-      border-radius: 3px;
-      box-shadow: @shadow-2;
-      left: 0;
-      position: absolute;
-      top: 0;
-      z-index: 10;
-
-      li { width: 100%; }
-    }
   }
 
-  div.dropdown-item,
-  li.dropdown-item {
+  div.dropdown--list-item {
+    align-items: center;
     border-radius: 3px;
     box-sizing: border-box;
+    display: flex;
     font-size: @font-size-xs;
+    justify-content: space-around;
     padding: 5px 10px;
     position: relative;
 
@@ -37,21 +27,7 @@ div.dropdown {
       width: auto;
     }
 
-    &.selected,
-    span.selected {
-      font-weight: @font-weight-normal;
-    }
-  }
-
-  div.dropdown-item {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  li.dropdown-item:hover {
-    background-color: @light-grey;
-    cursor: pointer;
+    span.selected { font-weight: @font-weight-normal; }
   }
 
   div.dropdown-title {
@@ -64,5 +40,39 @@ div.dropdown {
       color: @dark-grey;
       font-size: 12px;
     }
+  }
+}
+
+// Global because we inject it into <body> on hover.
+.dropdown--list {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: @shadow-2;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  z-index: 10;
+
+  > .dropdown--list-item {
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: @font-size-xs;
+    padding: 5px 10px;
+    position: relative;
+    width: 100%;
+
+    &:hover {
+      background-color: @light-grey;
+      cursor: pointer;
+    }
+  }
+
+  &.selected { font-weight: @font-weight-normal; }
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
   }
 }
