@@ -4,35 +4,20 @@ class DropdownComponent extends Injectable {
   constructor (...injections) {
     super(DropdownComponent.$inject, injections);
 
-    this.replace = 'true';
-    this.restrict = 'E';
-    this.scope = {
+    this.bindToController = {
       items: '=',
       selected: '=',
-      title: '&'
-    };    
-    this.templateUrl = '/app/components/dropdown/view.html';
-  }
-
-  // Params: scope, element, attrs
-  link (scope) {
-    scope.isOpen = false;
-
-    scope.close = _ => this.$timeout(_ => scope.isOpen = false);
-
-    scope.open = _ => {
-      this.$timeout(_ => scope.isOpen = true);
+      title: '@'
     };
-
-    scope.select = index => this.$timeout(_ => {
-      scope.selected = index;
-      scope.close();
-    });
+    this.controller = 'DropdownController';
+    this.controllerAs = 'Dropdown';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/dropdown/view.html';
   }
 }
 
-DropdownComponent.$inject = [
-  '$timeout'
-];
+DropdownComponent.$inject = [];
 
 export default DropdownComponent;

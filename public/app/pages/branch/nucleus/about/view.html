@@ -43,7 +43,8 @@
   </li>
 </ul>
 
-<div class="button"
+<div
+  class="button"
   ng-class="{ 'ok': !BranchNucleusAbout.isFollowingBranch(), 'cancel': BranchNucleusAbout.isFollowingBranch() }"
   ng-click="BranchNucleusAbout.toggleFollowBranch()"
   ng-show="BranchNucleusAbout.UserService.isAuthenticated()">

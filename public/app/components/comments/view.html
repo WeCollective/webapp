@@ -11,9 +11,10 @@
   	You are viewing a single comment's thread. <a ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })">View all comments</a>
   </p>
 
-  <dropdown items="Comments.controls.sortBy.items"
+  <dropdown
+    items="Comments.controls.sortBy.items"
   	selected="Comments.controls.sortBy.selectedIndex"
-  	title="'SORT BY'">
+  	title="SORT BY">
   </dropdown>
 
   <p id="no-comments" ng-show="Comments.comments.length === 0">No comments yet!</p>

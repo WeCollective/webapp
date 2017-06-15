@@ -1,16 +1,16 @@
 import Injectable from 'utils/injectable';
 
 class CommentsComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(CommentsComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {};
-    this.templateUrl = '/app/components/comments/view.html';
-    this.controllerAs = 'Comments';
     this.controller = 'CommentsController';
+    this.controllerAs = 'Comments';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/comments/view.html';    
   }
 }
 

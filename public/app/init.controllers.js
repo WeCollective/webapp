@@ -30,6 +30,7 @@ import CreateBranchModal from './components/modal/branch/create/controller';
 import CreatePostModal from './components/modal/post/create/controller';
 import DeleteBranchModal from './components/modal/branch/nucleus/modtools/delete-branch/controller';
 import DeletePostModal from './components/modal/post/delete/controller';
+import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
 import ListItem from './components/list-item/controller';
 import Navbar from './components/nav-bar/controller';
@@ -76,6 +77,7 @@ let refs = [
   { name: 'CreatePostModalController', module: CreatePostModal },
   { name: 'DeleteBranchModalController', module: DeleteBranchModal },
   { name: 'DeletePostModalController', module: DeletePostModal },
+  { name: 'DropdownController', module: DropdownController },
   { name: 'FlagPostModalController', module: FlagPostModal },
   { name: 'ListItemController', module: ListItem },
   { name: 'NavbarController', module: Navbar },
