@@ -63425,7 +63425,9 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
 
     scope.close = _ => this.$timeout(_ => scope.isOpen = false);
 
-    scope.open = _ => this.$timeout(_ => scope.isOpen = true);
+    scope.open = _ => {
+      this.$timeout(_ => scope.isOpen = true);
+    };
 
     scope.select = index => this.$timeout(_ => {
       scope.selected = index;
@@ -67284,7 +67286,13 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
   constructor(...injections) {
     super(BranchService.$inject, injections);
 
-    this.branch = { id: 'root' };
+    this.branch = {
+      id: 'root',
+      name: 'All',
+      parent: {
+        id: 'none'
+      }
+    };
 
     let fetchingBranch = false;
 
@@ -67297,12 +67305,25 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
           const tempImages = {
             coverUrl: this.branch.coverUrl,
-            coverUrlThumb: this.branch.coverUrlThumb
+            coverUrlThumb: this.branch.coverUrlThumb,
+            profileUrl: this.branch.profileUrl,
+            profileUrlThumb: this.branch.profileUrlThumb
           };
 
+          this.branch.coverUrl = tempImages.coverUrl;
+          this.branch.coverUrlThumb = tempImages.coverUrlThumb;
+          this.branch.profileUrl = tempImages.profileUrl;
+          this.branch.profileUrlThumb = tempImages.profileUrlThumb;
+
           if (fetchingBranch && this.branch.id !== fetchingBranch) {
-            this.branch = tempImages.coverUrl ? tempImages : {};
-            this.branch.id = fetchingBranch;
+            // Preload the result.
+            if (fetchingBranch !== 'root') {
+              this.branch.id = fetchingBranch;
+              this.branch.name = fetchingBranch;
+            } else {
+              this.branch.name = 'All';
+              this.branch.parent = { id: 'none' };
+            }
           }
 
           this.fetch(fetchingBranch).then(branch => {

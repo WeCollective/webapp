@@ -8,7 +8,6 @@ div.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: @shadow-1;
-  height: @sidebar-w;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -42,5 +41,9 @@ div.cover-photo {
     img.cover-photo-toggle { transform: translateY(calc(10px + 22px + 10px)) rotateZ(0); }
   }
 
-  .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
+  &.open {
+    height: @sidebar-w;
+
+    .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
+  }
 }

@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class DropdownComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(DropdownComponent.$inject, injections);
 
     this.replace = 'true';
@@ -18,11 +18,13 @@ class DropdownComponent extends Injectable {
   link (scope) {
     scope.isOpen = false;
 
-    scope.close = _ => this.$timeout( _ => scope.isOpen = false );
+    scope.close = _ => this.$timeout(_ => scope.isOpen = false);
 
-    scope.open = _ => this.$timeout( _ => scope.isOpen = true );
+    scope.open = _ => {
+      this.$timeout(_ => scope.isOpen = true);
+    };
 
-    scope.select = index => this.$timeout( _ => {
+    scope.select = index => this.$timeout(_ => {
       scope.selected = index;
       scope.close();
     });

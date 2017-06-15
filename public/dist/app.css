@@ -132,6 +132,14 @@ span {
     padding-top: 45px;
   }
 }
+#weco-root .cover-photo:not(.closed) + div.cover-page {
+  height: calc(100% - 201px);
+}
+@media only screen and (min-width: 992px) {
+  #weco-root .cover-photo:not(.closed) + div.cover-page {
+    height: calc(100% - 249px);
+  }
+}
 #weco-root div.page {
   background-color: #d7d7d7;
   height: 100%;
@@ -704,7 +712,6 @@ div.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  height: 201px;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -738,8 +745,11 @@ div.cover-photo.closed img {
 div.cover-photo.closed img.cover-photo-toggle {
   transform: translateY(calc(42px)) rotateZ(0);
 }
+div.cover-photo.open {
+  height: 201px;
+}
 @media only screen and (min-width: 992px) {
-  div.cover-photo {
+  div.cover-photo.open {
     height: 249px;
   }
 }
@@ -1294,7 +1304,7 @@ div.poll-answer-editor input {
 .sidebar .sidebar-picture img#edit {
   bottom: 10px;
   height: auto;
-  opacity: .8;
+  opacity: .5;
   position: absolute;
   right: 10px;
   width: 30px;
@@ -2366,7 +2376,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
@@ -2522,7 +2532,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title:hover,
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
@@ -2921,7 +2931,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -3100,7 +3110,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a 
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -3253,7 +3263,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title:hover,
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
@@ -3758,7 +3768,7 @@ div#branch-post > .list-item div.list-item-info a .list-item-title,
 div#branch-post > .list-item div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-post > .list-item div.list-item-info a .list-item-title:hover,
 div#branch-post > .list-item div.list-item-info .list-item-title:hover {
@@ -3992,7 +4002,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info a .list-item-title:hover,
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover {

@@ -5,7 +5,13 @@ class BranchService extends Injectable {
   constructor (...injections) {
     super(BranchService.$inject, injections);
     
-    this.branch = { id: 'root' };
+    this.branch = {
+      id: 'root',
+      name: 'All',
+      parent: {
+        id: 'none'
+      }
+    };
 
     let fetchingBranch = false;
 
@@ -19,11 +25,25 @@ class BranchService extends Injectable {
           const tempImages = {
             coverUrl: this.branch.coverUrl,
             coverUrlThumb: this.branch.coverUrlThumb,
+            profileUrl: this.branch.profileUrl,
+            profileUrlThumb: this.branch.profileUrlThumb
           };
 
+          this.branch.coverUrl = tempImages.coverUrl;
+          this.branch.coverUrlThumb = tempImages.coverUrlThumb;
+          this.branch.profileUrl = tempImages.profileUrl;
+          this.branch.profileUrlThumb = tempImages.profileUrlThumb;
+
           if (fetchingBranch && this.branch.id !== fetchingBranch) {
-            this.branch = tempImages.coverUrl ? tempImages : {};
-            this.branch.id = fetchingBranch;
+            // Preload the result.
+            if (fetchingBranch !== 'root') {
+              this.branch.id = fetchingBranch;
+              this.branch.name = fetchingBranch;
+            }
+            else {
+              this.branch.name = 'All';
+              this.branch.parent = { id: 'none' };
+            }
           }
 
           this.fetch(fetchingBranch)

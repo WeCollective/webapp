@@ -1,17 +1,22 @@
 <div class="dropdown">
   <div>
     <div class="dropdown-title">
-      <span class="text--uppercase">{{ title() }}</span>
+      <span class="text--uppercase">
+        {{ title() }}
+      </span>
     </div>
     
     <div class="dropdown-container" ng-mouseleave="select(selected)">
       <div class="dropdown-item" ng-mouseover="open()">
-        <span class="selected text--uppercase">{{ items[selected] }}</span>
-        <img src="/assets/images/icons/black/expand.png">
+        <span class="selected text--uppercase">
+          {{ items[selected] }}
+        </span>
+        <img alt="" src="/assets/images/icons/black/expand.png" />
       </div>
       
       <ul ng-show="isOpen">
-        <li class="dropdown-item text--uppercase"
+        <li
+          class="dropdown-item text--uppercase"
           ng-class="{ 'selected': item === items[selected] }"
           ng-click="select($index)"
           ng-repeat="item in items">

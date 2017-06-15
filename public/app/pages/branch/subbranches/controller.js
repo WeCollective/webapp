@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchSubbranchesController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(BranchSubbranchesController.$inject, injections);
 
     this.branches = [];

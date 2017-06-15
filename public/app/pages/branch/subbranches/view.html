@@ -5,19 +5,22 @@
     </h1>
 
     <div class="content-controls">
-      <dropdown items="BranchSubbranches.controls.timeRange.items"
+      <dropdown
+        items="BranchSubbranches.controls.timeRange.items"
         selected="BranchSubbranches.controls.timeRange.selectedIndex"
         title="'time range'">
       </dropdown>
 
-      <dropdown items="BranchSubbranches.controls.sortBy.items"
+      <dropdown
+        items="BranchSubbranches.controls.sortBy.items"
         selected="BranchSubbranches.controls.sortBy.selectedIndex"
         title="'sort by'">
       </dropdown>
     </div>
   </div>
 
-  <div class="content-body"
+  <div
+    class="content-body"
     loading
     loading-when="!BranchSubbranches.branches.length && BranchSubbranches.isLoading"
     on-scroll-to-bottom="BranchSubbranchesScrollToBottom">
