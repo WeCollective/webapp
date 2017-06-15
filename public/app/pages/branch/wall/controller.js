@@ -53,6 +53,7 @@ BranchWallController.$inject = [
   '$rootScope',
   '$scope',
   '$state',
+  'AppService',
   'BranchService',
   'EventService',
   'WallService'

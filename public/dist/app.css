@@ -154,7 +154,7 @@ span {
   height: 100%;
   margin: auto;
   max-width: 1200px;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   width: 100%;
   /*
@@ -237,10 +237,19 @@ span {
     width: calc(100% - 64px);
   }
 }
+#weco-root div.page > div.frame .sidebar.open + div.frame-content {
+  transform: translateX(201px);
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame .sidebar.open + div.frame-content {
+    transform: translateX(249px);
+  }
+}
 #weco-root div.page > div.frame > div.frame-content {
   float: left;
   height: 100%;
   width: 100%;
+  transition: transform 0.3s ease-out;
 }
 #weco-root div.page > div.frame > div.frame-content > div {
   box-sizing: border-box;
@@ -261,16 +270,34 @@ span {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-flow: row wrap;
-  padding: 10px;
+  padding: 10px 10px;
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-content > div div.content-header {
-    padding: 10px 20px 0;
+    padding: 8px 20px;
+  }
+}
+#weco-root div.page > div.frame > div.frame-content > div div.content-header > .content--sidebar-toggle {
+  cursor: pointer;
+  height: auto;
+  margin-right: 10px;
+  opacity: .3;
+  transform: rotateZ(-90deg);
+  width: 30px;
+  transition: transform .2s;
+}
+#weco-root div.page > div.frame > div.frame-content > div div.content-header > .content--sidebar-toggle.toggled {
+  transform: rotateZ(90deg);
+}
+@media only screen and (min-width: 768px) {
+  #weco-root div.page > div.frame > div.frame-content > div div.content-header > .content--sidebar-toggle {
+    display: none;
+    margin-right: 20px;
   }
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
   padding-right: 10px;
 }
 @media only screen and (min-width: 576px) {
@@ -863,27 +890,6 @@ div[loading] div.loading-container img {
   display: flex;
   height: 100%;
 }
-.navbar > .content > div .hamburger-menu {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 10px 0;
-  width: 35px;
-}
-.navbar > .content > div .hamburger-menu > span {
-  background-color: #fff;
-  display: block;
-  height: 1px;
-  opacity: .8;
-  width: 20px;
-}
-@media only screen and (min-width: 768px) {
-  .navbar > .content > div .hamburger-menu {
-    display: none;
-  }
-}
 .navbar > .content > div .logo {
   display: block;
   height: 100%;
@@ -1113,12 +1119,6 @@ div[loading] div.loading-container img {
   .navbar {
     height: 45px;
   }
-  .navbar > .content > div .hamburger-menu {
-    width: 45px;
-  }
-  .navbar > .content > div .hamburger-menu > span {
-    height: 2px;
-  }
   .navbar > .content > div .nav-controls > .navbar--item {
     width: 45px;
   }
@@ -1279,7 +1279,7 @@ div.poll-answer-editor input {
 }
 .sidebar .sidebar-info h1 {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
 }
 .sidebar .sidebar-info h2 {
   font-size: 15px;
@@ -2413,7 +2413,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a:hover {
   cursor: pointer;
@@ -2569,7 +2569,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
-    font-weight: 600;
+    font-weight: 500;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a:hover {
     cursor: pointer;
@@ -2968,7 +2968,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a:hover {
   cursor: pointer;
@@ -3147,7 +3147,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
   color: #3498db;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a:hover {
   cursor: pointer;
@@ -3300,7 +3300,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
     color: #3498db;
-    font-weight: 600;
+    font-weight: 500;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a:hover {
     cursor: pointer;
@@ -3805,7 +3805,7 @@ div#branch-post > .list-item div.list-item-info span.list-item-description {
 }
 div#branch-post > .list-item div.list-item-info span.list-item-description a {
   color: #3498db;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-post > .list-item div.list-item-info span.list-item-description a:hover {
   cursor: pointer;
@@ -4039,7 +4039,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a {
   color: #3498db;
-  font-weight: 600;
+  font-weight: 500;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a:hover {
   cursor: pointer;

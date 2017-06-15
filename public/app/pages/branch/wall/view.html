@@ -1,26 +1,37 @@
 <div id="branch-wall">
   <div class="content-header">
+    <img
+      alt="Toggle sidebar"
+      class="content--sidebar-toggle"
+      ng-class="{ 'toggled': Navbar.AppService.isSidebarOpen }"
+      ng-click="Navbar.AppService.toggleSidebar()"
+      src="/assets/images/icons/black/show.png" />
+
     <h1 class="text--capitalize">
       {{ 'root' === BranchWall.BranchService.branch.id ? 'global ' : '' }}wall
     </h1>
     
     <div class="content-controls">
-      <dropdown items="BranchWall.WallService.controls.timeRange.items"
+      <dropdown
+        items="BranchWall.WallService.controls.timeRange.items"
         selected="BranchWall.WallService.controls.timeRange.selectedIndex"
         title="'time range'">
       </dropdown>
 
-      <dropdown items="BranchWall.WallService.controls.sortBy.items"
+      <dropdown
+        items="BranchWall.WallService.controls.sortBy.items"
         selected="BranchWall.WallService.controls.sortBy.selectedIndex"
         title="'sort by'">
       </dropdown>
       
-      <dropdown items="BranchWall.WallService.controls.postType.items"
+      <dropdown
+        items="BranchWall.WallService.controls.postType.items"
         selected="BranchWall.WallService.controls.postType.selectedIndex"
         title="'post type'">
       </dropdown>
       
-      <dropdown items="BranchWall.WallService.controls.statType.items"
+      <dropdown
+        items="BranchWall.WallService.controls.statType.items"
         selected="BranchWall.WallService.controls.statType.selectedIndex"
         title="'stat type'">
       </dropdown>

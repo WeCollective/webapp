@@ -27,28 +27,6 @@
       display: flex;
       height: 100%;
 
-      .hamburger-menu {
-        @padding-top: 12px;
-
-        align-items: center;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding: 10px 0;
-        width: @navbar-h;
-
-        > span {
-          background-color: #fff;
-          display: block;
-          height: 1px;
-          opacity: .8;
-          width: 20px;
-        }
-
-        .mediaQuery(@screen-md, { display: none; });
-      }
-
       .logo {
         display: block;
         height: 100%;
@@ -287,14 +265,6 @@
   .mediaQuery(@screen-sm, {
     height: @navbar-h-lg;
 
-    > .content > div {
-      .hamburger-menu {
-        width: @navbar-h-lg;
-
-        > span { height: 2px; }
-      }
-
-      .nav-controls > .navbar--item { width: @navbar-h-lg; }
-    }
+    > .content > div .nav-controls > .navbar--item { width: @navbar-h-lg; }
   });
 }
