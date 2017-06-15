@@ -197,7 +197,7 @@ span {
       .sidebar.open + div.frame-content {
         transform: translateX(@sidebar-w);
 
-        .mediaQuery(@screen-md, { transform: translateX(@sidebar-w-lg); });
+        .mediaQuery(@screen-md, { transform: translateX(0); });
       }
 
       > div.frame-content {
@@ -207,6 +207,9 @@ span {
         transition: transform .3s ease-out;
 
         > div {
+          @padding-side: 10px;
+          @padding-side-lg: 20px;
+
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -218,10 +221,26 @@ span {
             .mediaQuery(@screen-md, { padding: 20px 0 0; });
           }
 
-          div.content-header {
-            @padding-side: 10px;
-            @padding-side-lg: 20px;
+          .content--sidebar-toggle {
+            @s-button: 30px;
 
+            cursor: pointer;
+            height: @s-button;
+            margin-right: @padding-side;
+            opacity: .3;
+            transform: rotateZ(-90deg);
+            width: @s-button;
+            transition: transform .2s;
+
+            &.toggled { transform: rotateZ(90deg); }
+
+            .mediaQuery(@screen-md, {
+              display: none;
+              margin-right: @padding-side-lg;
+            });
+          }
+
+          div.content-header {
             align-items: center;
             border-bottom: solid 1px @light-grey;
             display: flex;
@@ -229,25 +248,6 @@ span {
             padding: @padding-side @padding-side;
 
             .mediaQuery(@screen-md, { padding: 8px @padding-side-lg; });
-
-            > .content--sidebar-toggle {
-              cursor: pointer;
-              height: auto;
-              margin-right: @padding-side;
-              opacity: .3;
-              transform: rotateZ(-90deg);
-              width: 30px;
-              transition: transform .2s;
-
-              &.toggled {
-                transform: rotateZ(90deg);
-              }
-
-              .mediaQuery(@screen-md, {
-                display: none;
-                margin-right: @padding-side-lg;
-              });
-            }
 
             h1 {
               font-size: @font-size-xl;

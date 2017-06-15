@@ -1,6 +1,7 @@
 <li class="post-entry">
   <span class="list-item-index">{{ ListItem.index + 1 }}</span>
-  <div class="list-item-flags ng-hide"
+  <div
+    class="list-item-flags ng-hide"
     ng-click="ListItem.openResolveFlagPostModal()"
     ng-show="ListItem.showFlags()">
     <img alt="" src="/assets/images/icons/white/flag.png" />
@@ -8,11 +9,13 @@
   </div>
   
   <div class="list-item-votes ng-hide" ng-show="ListItem.showVotes()">
-    <img alt=""
+    <img
+      alt=""
       ng-click="ListItem.vote('up')"
       src="/assets/images/icons/black/arrow-up.png" />
     <p>{{ ListItem.post[ListItem.stat] }}</p>
-    <img alt=""
+    <img
+      alt=""
       ng-click="ListItem.vote('down')"
       src="/assets/images/icons/black/arrow-down.png" />
   </div>
@@ -20,14 +23,16 @@
   <!-- Two DOM elements conditionally displayed if the post is a text type.
        One is to perform internal state transition with uisref. (Text posts)
        One is to link to an external site. (Non-text posts) -->
-  <a class="list-item-image ng-hide"
+  <a
+    class="list-item-image ng-hide"
     ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
     ng-show="ListItem.post.profileUrlThumb"
     ui-sref="weco.branch.post({ postid: ListItem.post.id })">
     <div style="background-image: url('{{ ListItem.post.profileUrlThumb }}')"></div>
   </a>
 
-  <a class="list-item-image ng-hide"
+  <a
+    class="list-item-image ng-hide"
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     ng-show="ListItem.post.type === 'image' ? ListItem.post.data.text : ListItem.post.profileUrlThumb"
@@ -41,24 +46,28 @@
 
   <div class="list-item-info">
     <!-- Two DOM elements conditionally displayed again - see above. -->
-    <a ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
+    <a
+      ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
       ui-sref="weco.branch.post({ postid: ListItem.post.id })">
       <span class="list-item-title">{{ ListItem.post.data.title }}</span>
     </a>
 
-    <a href="{{ ListItem.post.data.text }}"
+    <a
+      href="{{ ListItem.post.data.text }}"
       ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
       target="_blank">
       <span class="list-item-title">{{ ListItem.post.data.title }}</span>
     </a>
     
-    <span class="list-item-post-type-marker"
+    <span
+      class="list-item-post-type-marker"
       ng-class="ListItem.post.type"
       offset-y="20"
       text="ListItem.post.type | capitalize"
       tooltip></span>
     
-    <span class="list-item-description"
+    <span
+      class="list-item-description"
       ng-class="ListItem.post.type">
       Submitted by
       <a ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">
@@ -68,7 +77,8 @@
       <a ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
         b/{{ ListItem.getOriginalBranches()[0] }}
       </a>
-      <span class="ng-hide" 
+      <span
+        class="ng-hide" 
         ng-show="ListItem.getOriginalBranches().length > 1"
         offset-x="30"
         offset-y="30"
@@ -81,7 +91,8 @@
     
     <div class="list-item-controls">
       <a ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
-        <img alt="View post discussion"
+        <img
+          alt="View post discussion"
           class="control"
           offset-y="20"
           src="/assets/images/icons/black/comment.png"
@@ -89,7 +100,8 @@
           tooltip />
       </a>
       
-      <img alt="Flag post"
+      <img
+        alt="Flag post"
         class="control"
         ng-click="ListItem.openFlagPostModal()"
         offset-y="20"
@@ -97,7 +109,8 @@
         text="'Flag post'"
         tooltip />
       
-      <img alt="Delete post"
+      <img
+        alt="Delete post"
         class="control ng-hide"
         ng-click="ListItem.openDeletePostModal()"
         ng-show="ListItem.isOwnPost()"

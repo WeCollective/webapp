@@ -1,18 +1,33 @@
-<div id="branch-post" loading when="BranchPost.isLoadingPost">
-  <div class="list-item"
-    index="0"
-    list-item
-    post="BranchPost.PostService.post"
-    stat="'local'">
+<div
+  id="branch-post"
+  loading
+  loading-when="BranchPost.isLoadingPost">
+  <div class="branch-post--header">
+    <img
+      alt="Toggle sidebar"
+      class="content--sidebar-toggle"
+      ng-class="{ 'toggled': Navbar.AppService.isSidebarOpen }"
+      ng-click="Navbar.AppService.toggleSidebar()"
+      src="/assets/images/icons/black/show.png" />
+
+    <div
+      class="list-item"
+      index="0"
+      list-item
+      post="BranchPost.PostService.post"
+      stat="'local'">
+    </div>
   </div>
 
   <div id="preview-controls" class="clearfix">
-    <img alt=""
+    <img
+      alt=""
       ng-click="BranchPost.openDeletePostModal()"
       ng-show="BranchPost.isOwnPost()"
       src="/assets/images/icons/black/delete.png" />
 
-    <img alt=""
+    <img
+      alt=""
       ng-click="BranchPost.setPreviewState('hide')"
       ng-show="(BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
       offset-y="40"
@@ -21,7 +36,8 @@
       text="'Hide'"
       tooltip />
 
-    <img alt=""
+    <img
+      alt=""
       ng-click="BranchPost.setPreviewState('show')"
       ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
       offset-y="40"
@@ -29,7 +45,8 @@
       text="'Reveal'"
       tooltip />
 
-    <img alt=""
+    <img
+      alt=""
       ng-click="BranchPost.setPreviewState('maximise')"
       ng-show="BranchPost.previewState === 'show' && (BranchPost.PostService.post.type === 'video' ||
       BranchPost.PostService.post.type === 'image')"
@@ -38,7 +55,8 @@
       text="'Expand'"
       tooltip />
 
-    <img alt=""
+    <img
+      alt=""
       ng-click="BranchPost.setPreviewState('show')"
       ng-show="BranchPost.previewState === 'maximise' && (BranchPost.PostService.post.type === 'video' ||
       BranchPost.PostService.post.type === 'image')"      
@@ -48,18 +66,21 @@
       tooltip />
   </div>
 
-  <ng-include id="post-preview"
+  <ng-include
+    id="post-preview"
     ng-if="BranchPost.showPreview()"
     src="BranchPost.getPreviewTemplate()">
   </ng-include>
 
-  <tabs items="BranchPost.tabItems"
+  <tabs
+    items="BranchPost.tabItems"
     ng-if="BranchPost.shouldShowTabs()"
     states="BranchPost.tabStates"
     state-params="BranchPost.tabStateParams">
   </tabs>
   
-  <div class="post-body"
+  <div
+    class="post-body"
     ng-if="BranchPost.shouldShowTabs()"
     ui-view>
   </div>

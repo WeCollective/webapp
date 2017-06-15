@@ -1,17 +1,27 @@
 <div id="branch-nucleus">
   <div class="content-header">
+    <img
+      alt="Toggle sidebar"
+      class="content--sidebar-toggle"
+      ng-class="{ 'toggled': Navbar.AppService.isSidebarOpen }"
+      ng-click="Navbar.AppService.toggleSidebar()"
+      src="/assets/images/icons/black/show.png" />
+
     <h1 class="text--capitalize">
     	{{ 'root' === Branch.BranchService.branch.id ? 'global ' : '' }}nucleus
     </h1>
+
     <div class="content-controls">
-      <tabs items="BranchNucleus.state.tabItems"
+      <tabs
+        items="BranchNucleus.state.tabItems"
       	states="BranchNucleus.state.tabStates"
       	state-params="BranchNucleus.state.tabStateParams">
       </tabs>
     </div>
   </div>
   
-  <div class="content-body"
+  <div
+    class="content-body"
   	ng-class="BranchNucleus.$state.current.name.slice(BranchNucleus.$state.current.name.lastIndexOf('.') + 1)"
   	ui-view>
   </div>

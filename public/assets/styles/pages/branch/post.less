@@ -5,16 +5,12 @@ div#branch-post {
   padding: 10px 20px 0;
   position: relative;
 
-  .responsive(@screen-md, {
-    padding: 10px 10px 0;
+  > .branch-post--header {
+    align-items: center;
+    display: flex;
+  }
 
-    .loading-container {
-      width: calc(~'100% - 20px');
-      height: calc(~'100% - 20px');
-    }
-  });
-
-  > .list-item {
+  .list-item {
     padding-top: 15px;
     
     div.list-item-controls { display: none; }
@@ -189,4 +185,13 @@ div#branch-post {
       }
     }
   }
+
+  .responsive(@screen-md, {
+    padding: 10px 10px 0;
+
+    .loading-container {
+      width: calc(~'100% - 20px');
+      height: calc(~'100% - 20px');
+    }
+  });
 }
