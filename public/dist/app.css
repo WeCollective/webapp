@@ -123,17 +123,11 @@ span {
   width: 100%;
 }
 #weco-root .full-page.full-page-nav {
-  height: calc(100vh - 35px);
+  height: calc(100vh - 45px);
   overflow: hidden;
-  padding-top: 35px;
+  padding-top: 45px;
   position: relative;
   width: 100%;
-}
-@media only screen and (min-width: 576px) {
-  #weco-root .full-page.full-page-nav {
-    height: calc(100% - 45px);
-    padding-top: 45px;
-  }
 }
 #weco-root .cover-photo:not(.closed) + div.cover-page {
   height: calc(100% - 201px);
@@ -874,7 +868,7 @@ div[loading] div.loading-container img {
 }
 .navbar {
   background: linear-gradient(to bottom, #2a2a2a, #131313);
-  height: 35px;
+  height: 45px;
   left: 0;
   overflow-y: visible;
   position: fixed;
@@ -927,7 +921,7 @@ div[loading] div.loading-container img {
   height: 100%;
 }
 .navbar > .content > div .nav-controls > .navbar--item {
-  width: 35px;
+  width: 45px;
 }
 .navbar > .content > div .navbar--item {
   align-items: center;
@@ -1106,13 +1100,12 @@ div[loading] div.loading-container img {
   background-size: cover;
   border-right-width: 0;
   height: 100%;
-  width: 35px;
+  width: 45px;
 }
 @media only screen and (min-width: 576px) {
   .navbar > .content > div.user-controls .navbar--item div#profile-picture {
     border-right-width: 1px;
     margin-left: 6px;
-    width: 45px;
   }
 }
 @media only screen and (min-width: 576px) {
@@ -1123,14 +1116,6 @@ div[loading] div.loading-container img {
 @media only screen and (min-width: 768px) {
   .navbar > .content {
     width: calc(100% - 64px);
-  }
-}
-@media only screen and (min-width: 576px) {
-  .navbar {
-    height: 45px;
-  }
-  .navbar > .content > div .nav-controls > .navbar--item {
-    width: 45px;
   }
 }
 .notification > .notification-index {

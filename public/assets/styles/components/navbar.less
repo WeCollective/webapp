@@ -248,7 +248,6 @@
             .mediaQuery(@screen-sm, {
               border-right-width: 1px;
               margin-left: 6px;
-              width: @navbar-h-lg;
             });
           }
         }
@@ -261,10 +260,4 @@
 
     .mediaQuery(@screen-md, { width: ~'calc(100% - 64px)'; });
   }
-
-  .mediaQuery(@screen-sm, {
-    height: @navbar-h-lg;
-
-    > .content > div .nav-controls > .navbar--item { width: @navbar-h-lg; }
-  });
 }
