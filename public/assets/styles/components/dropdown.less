@@ -6,9 +6,21 @@ div.dropdown {
   padding: 0 5px;
   position: relative;
 
-  div.dropdown-container {
+  > .dropdown-container {
     display: block;
     position: relative;
+  }
+
+  > .dropdown-title {
+    display: block;
+    line-height: 1;
+    padding-left: 10px;
+    position: relative;
+
+    span {
+      color: @dark-grey;
+      font-size: 12px;
+    }
   }
 
   div.dropdown--list-item {
@@ -28,18 +40,6 @@ div.dropdown {
     }
 
     span.selected { font-weight: @font-weight-normal; }
-  }
-
-  div.dropdown-title {
-    display: block;
-    line-height: 1;
-    padding-left: 10px;
-    position: relative;
-
-    span {
-      color: @dark-grey;
-      font-size: 12px;
-    }
   }
 }
 

@@ -782,9 +782,19 @@ div.dropdown {
   padding: 0 5px;
   position: relative;
 }
-div.dropdown div.dropdown-container {
+div.dropdown > .dropdown-container {
   display: block;
   position: relative;
+}
+div.dropdown > .dropdown-title {
+  display: block;
+  line-height: 1;
+  padding-left: 10px;
+  position: relative;
+}
+div.dropdown > .dropdown-title span {
+  color: #c8c8c8;
+  font-size: 12px;
 }
 div.dropdown div.dropdown--list-item {
   align-items: center;
@@ -803,16 +813,6 @@ div.dropdown div.dropdown--list-item img {
 }
 div.dropdown div.dropdown--list-item span.selected {
   font-weight: 400;
-}
-div.dropdown div.dropdown-title {
-  display: block;
-  line-height: 1;
-  padding-left: 10px;
-  position: relative;
-}
-div.dropdown div.dropdown-title span {
-  color: #c8c8c8;
-  font-size: 12px;
 }
 .dropdown--list {
   background-color: #fff;

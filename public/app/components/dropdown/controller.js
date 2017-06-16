@@ -4,6 +4,7 @@ class DropdownController extends Injectable {
   constructor (...injections) {
     super(DropdownController.$inject, injections);
 
+    this.lastClose = 0;
     this.listNodeCopy = null;
   }
 
@@ -11,11 +12,18 @@ class DropdownController extends Injectable {
     if (this.listNodeCopy) {
       this.listNodeCopy.remove();
       this.listNodeCopy = null;
+      this.lastClose = Date.now();
     }
   }
 
   open () {
     this.close();
+
+    // Might be called if the dropdown does not cover the whole parent and as
+    // we move the cursor out, it calls the enter callback again by accident.
+    if (this.lastClose + 5 > Date.now()) {
+      return;
+    }
 
     const list = this.$element[0].getElementsByTagName('ul')[0];
     this.listNodeCopy = list.cloneNode();
