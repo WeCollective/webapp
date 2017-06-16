@@ -22,27 +22,19 @@ class DropdownController extends Injectable {
     this.listNodeCopy.classList.add('visible');
 
     let div = document.createElement('div');
-    div.innerHTML = `<li
-      class="dropdown--list-item text--uppercase"
-      ng-class="{ 'selected': item === Dropdown.items[Dropdown.selected] }"
-      ng-click="Dropdown.select($index)"
-      ng-repeat="item in Dropdown.items">
-      {{ item }}
-    </li>`;
+    div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
 
-    for (let i = 0; i < div.childNodes.length; i++) {
-      this.listNodeCopy.append(div.childNodes[i]);
+    const divList = div.getElementsByTagName('ul')[0];
+    for (let i = 0; i < divList.children.length; i++) {
+      this.listNodeCopy.append(divList.children[i]);
     }
 
     const rect = list.getBoundingClientRect();
     this.listNodeCopy.style.left = `${rect.left}px`;
     this.listNodeCopy.style.top = `${rect.top}px`;
-    
+
     this.$compile(this.listNodeCopy)(this.$scope);
     document.body.appendChild(this.listNodeCopy);
-
-    // todo get the innerHTML string from the template directly
-    // todo what happens on screen resize?
   }
 
   select (index) {
@@ -57,6 +49,7 @@ DropdownController.$inject = [
   '$compile',
   '$element',
   '$scope',
+  '$templateCache',
 	'$timeout'
 ];
 
