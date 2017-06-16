@@ -24,15 +24,14 @@
        One is to perform internal state transition with uisref. (Text posts)
        One is to link to an external site. (Non-text posts) -->
   <a
-    class="list-item-image ng-hide"
+    class="list-item-image"
     ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
-    ng-show="ListItem.post.profileUrlThumb"
     ui-sref="weco.branch.post({ postid: ListItem.post.id })">
-    <div style="background-image: url('{{ ListItem.post.profileUrlThumb }}')"></div>
+    <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
   </a>
 
   <a
-    class="list-item-image ng-hide"
+    class="list-item-image"
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     ng-show="ListItem.post.type === 'image' ? ListItem.post.data.text : ListItem.post.profileUrlThumb"

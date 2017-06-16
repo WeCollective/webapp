@@ -26,6 +26,14 @@ class ListItemController extends Injectable {
     return string;
   }
 
+  getPostImage () {
+    const IMG_DIR = '/assets/images/placeholders/';
+
+    if (this.post.type === 'text' || this.post.type === 'poll') {
+      return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
+    }
+  }
+
   getTotalFlagCount () {
     const counts = [
       'branch_rules_count',

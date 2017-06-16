@@ -63520,6 +63520,14 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     return string;
   }
 
+  getPostImage() {
+    const IMG_DIR = '/assets/images/placeholders/';
+
+    if (this.post.type === 'text' || this.post.type === 'poll') {
+      return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
+    }
+  }
+
   getTotalFlagCount() {
     const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
 
