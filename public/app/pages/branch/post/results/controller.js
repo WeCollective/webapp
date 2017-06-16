@@ -8,7 +8,11 @@ class BranchPostResultsController extends Injectable {
     this.chart = {
       data: [],
       labels: [],
-      options: {},
+      options: {
+        legend: {
+          display: false
+        }
+      },
       type: 'pie'
     };
 

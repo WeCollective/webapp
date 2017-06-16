@@ -2,7 +2,7 @@ import Injectable from 'utils/injectable';
 import Chart from 'chart.js';
 
 class ChartComponent extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(ChartComponent.$inject, injections);
 
     this.restrict = 'E';
@@ -17,20 +17,23 @@ class ChartComponent extends Injectable {
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
 
-  link(scope, element) {
-    let redrawChart = () => {
-      if(scope.chart) scope.chart.destroy();
+  link (scope, element) {
+    const redrawChart = _ => {
+      if (scope.chart) {
+        scope.chart.destroy();
+      }
+
       scope.chart = new Chart(element[0].querySelector('canvas'), {
-        type: scope.type,
         data: {
-          labels: scope.labels,
           datasets: [{
-            data: scope.chartData,
             backgroundColor: scope.colors || this.ChartColours,
+            data: scope.chartData,
             hoverBackgroundColor: scope.colors || this.ChartColours
-          }]
+          }],
+          labels: scope.labels
         },
-        options: scope.options
+        options: scope.options,
+        type: scope.type
       });
     };
 
