@@ -1,5 +1,6 @@
 <div class="comments">
-  <write-comment id="write-root-comment"
+  <write-comment
+    id="write-root-comment"
   	on-submit="Comments.reloadComments.bind(Comments)"
   	parentid="'none'"
   	placeholder="'Write a comment...'"
@@ -12,6 +13,7 @@
   </p>
 
   <dropdown
+    class="style--horizontal"
     items="Comments.controls.sortBy.items"
   	selected="Comments.controls.sortBy.selectedIndex"
   	title="SORT BY">
@@ -19,12 +21,14 @@
 
   <p id="no-comments" ng-show="Comments.comments.length === 0">No comments yet!</p>
 
-  <div id="post-comments"
+  <div
+    id="post-comments"
   	loading
-  	on-scroll-to-bottom="CommentsScrollToBottom"
-  	when="Comments.isLoading">
+    loading-when="Comments.isLoading"
+  	on-scroll-to-bottom="CommentsScrollToBottom">
     <div id="comment-thread" ng-show="Comments.comments.length > 0">
-      <comment-thread comments="Comments.comments"
+      <comment-thread
+        comments="Comments.comments"
       	sort-by="Comments.controls.sortBy.items[Comments.controls.sortBy.selectedIndex]">
       </comment-thread>
     </div>

@@ -787,8 +787,10 @@ div.dropdown > .dropdown-container {
   position: relative;
 }
 div.dropdown > .dropdown-title {
-  display: block;
+  align-items: center;
+  display: flex;
   line-height: 1;
+  margin-top: 6px;
   padding-left: 10px;
   position: relative;
 }
@@ -813,6 +815,15 @@ div.dropdown div.dropdown--list-item img {
 }
 div.dropdown div.dropdown--list-item span.selected {
   font-weight: 400;
+}
+div.dropdown.style--horizontal {
+  align-items: center;
+  align-self: flex-start;
+  display: flex;
+}
+div.dropdown.style--horizontal > .dropdown-title {
+  line-height: 2;
+  margin-top: 0;
 }
 .dropdown--list {
   background-color: #fff;
@@ -4120,10 +4131,6 @@ div#branch-post #comments-wrapper .comments {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
-}
-div#branch-post #comments-wrapper .comments .dropdown {
-  border-bottom: 1px solid #e7e7e7;
   width: 100%;
 }
 div#branch-post #comments-wrapper .comments #post-comments {

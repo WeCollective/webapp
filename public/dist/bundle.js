@@ -63477,6 +63477,7 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     super(DropdownComponent.$inject, injections);
 
     this.bindToController = {
+      class: '@',
       items: '=',
       selected: '=',
       title: '@'

@@ -1,9 +1,11 @@
-<div class="dropdown">
+<div class="dropdown {{ Dropdown.class || '' }}">
   <div class="dropdown-title">
     <span class="text--uppercase">
       {{ Dropdown.title }}
     </span>
   </div>
+
+  {{ Dropdown.className }}
   
   <div class="dropdown-container">
     <div class="dropdown--list-item" ng-mouseenter="Dropdown.open()">

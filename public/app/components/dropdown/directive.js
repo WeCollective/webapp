@@ -5,6 +5,7 @@ class DropdownComponent extends Injectable {
     super(DropdownComponent.$inject, injections);
 
     this.bindToController = {
+      class: '@',
       items: '=',
       selected: '=',
       title: '@'

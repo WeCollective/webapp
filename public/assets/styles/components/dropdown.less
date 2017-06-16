@@ -12,8 +12,10 @@ div.dropdown {
   }
 
   > .dropdown-title {
-    display: block;
+    align-items: center;
+    display: flex;
     line-height: 1;
+    margin-top: 6px;
     padding-left: 10px;
     position: relative;
 
@@ -40,6 +42,18 @@ div.dropdown {
     }
 
     span.selected { font-weight: @font-weight-normal; }
+  }
+
+  &.style--horizontal {
+    align-items: center;
+    align-self: flex-start;
+    // border-bottom: 1px solid @light-grey;
+    display: flex;
+
+    > .dropdown-title {
+      line-height: 2;
+      margin-top: 0;
+    }
   }
 }
 
