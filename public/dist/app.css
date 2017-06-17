@@ -2378,6 +2378,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   flex: 1;
   height: 100%;
 }
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info > a {
+  display: block;
+}
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title,
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
   display: block;
@@ -2533,6 +2536,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info {
     flex: 1;
     height: 100%;
+  }
+  div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info > a {
+    display: block;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title,
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
@@ -2933,6 +2939,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   flex: 1;
   height: 100%;
 }
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info > a {
+  display: block;
+}
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
@@ -3112,6 +3121,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info > a {
+  display: block;
+}
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
   display: block;
@@ -3264,6 +3276,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
     flex: 1;
     height: 100%;
+  }
+  div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info > a {
+    display: block;
   }
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info a .list-item-title,
   div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
@@ -3675,9 +3690,6 @@ div#branch-post .list-item {
   padding: 10px 0;
   width: 100%;
 }
-div#branch-post .list-item div.list-item-controls {
-  display: none;
-}
 div#branch-post .list-item span.list-item-index {
   display: none;
 }
@@ -3764,6 +3776,9 @@ div#branch-post .list-item div.list-item-nsfw-label span {
 div#branch-post .list-item div.list-item-info {
   flex: 1;
   height: 100%;
+}
+div#branch-post .list-item div.list-item-info > a {
+  display: block;
 }
 div#branch-post .list-item div.list-item-info a .list-item-title,
 div#branch-post .list-item div.list-item-info .list-item-title {
@@ -3998,6 +4013,9 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info {
   flex: 1;
   height: 100%;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info > a {
+  display: block;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info a .list-item-title,
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {

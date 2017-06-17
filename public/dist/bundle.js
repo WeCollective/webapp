@@ -23986,8 +23986,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63427,7 +63427,6 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   open() {
-    console.log('ooh');
     this.close();
 
     // Might be called if the dropdown does not cover the whole parent and as
@@ -63439,8 +63438,6 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     const list = this.$element[0].getElementsByTagName('ul')[0];
     this.listNodeCopy = list.cloneNode();
     this.listNodeCopy.classList.add('visible');
-
-    console.log(this.listNodeCopy);
 
     let div = document.createElement('div');
     div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
@@ -64383,8 +64380,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     this.pollAnswers = [];
     this.postType = {
       items: ['text', 'page', 'image', 'video', 'audio', 'poll'],
-      idx: 0,
-      title: 'post type'
+      selectedIndex: 0
     };
     this.preview = false;
 
@@ -64400,7 +64396,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
 
       // perform the update
       this.isLoading = true;
-      this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
+      this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
       if (this.newPost.type !== 'poll') this.newPost.locked = false;
 
       // create copy of post to not interfere with binding of items on tag-editor
@@ -66372,20 +66368,6 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     }
 
     return '';
-  }
-
-  isOwnPost() {
-    if (!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id }, 'Post deleted.', 'Unable to delete post.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go('weco.home');
-    });
   }
 
   setPreviewState(state) {

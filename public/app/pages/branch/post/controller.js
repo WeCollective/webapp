@@ -103,21 +103,6 @@ class BranchPostController extends Injectable {
     return '';
   }
 
-  isOwnPost () {
-    if (!this.PostService.post || !this.PostService.post.data) return false;
-    return this.UserService.user.username === this.PostService.post.data.creator;
-  }
-
-  openDeletePostModal () {
-    this.ModalService.open('DELETE_POST', { postid: this.PostService.post.id },
-      'Post deleted.', 'Unable to delete post.' );
-    
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go('weco.home');
-    });
-  }
-
   setPreviewState (state) {
     this.previewState = state;
   }

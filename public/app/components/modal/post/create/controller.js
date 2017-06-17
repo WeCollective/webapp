@@ -23,8 +23,7 @@ class CreatePostModalController extends Injectable {
         'audio',
         'poll'
       ],
-      idx: 0,
-      title: 'post type'
+      selectedIndex: 0
     };
     this.preview = false;
 
@@ -48,7 +47,7 @@ class CreatePostModalController extends Injectable {
 
       // perform the update
       this.isLoading = true;
-      this.newPost.type = this.postType.items[this.postType.idx].toLowerCase();
+      this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
       if(this.newPost.type !== 'poll') this.newPost.locked = false;
 
       // create copy of post to not interfere with binding of items on tag-editor

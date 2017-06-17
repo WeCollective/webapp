@@ -17,7 +17,6 @@ class DropdownController extends Injectable {
   }
 
   open () {
-    console.log('ooh');
     this.close();
 
     // Might be called if the dropdown does not cover the whole parent and as
@@ -29,8 +28,6 @@ class DropdownController extends Injectable {
     const list = this.$element[0].getElementsByTagName('ul')[0];
     this.listNodeCopy = list.cloneNode();
     this.listNodeCopy.classList.add('visible');
-
-    console.log(this.listNodeCopy);
 
     let div = document.createElement('div');
     div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
