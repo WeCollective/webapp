@@ -38,6 +38,8 @@ class TooltipComponent extends Injectable {
       offsetY = 0;
     }
 
+    document.addEventListener('click', event => this.$timeout(_ => this.hide()));
+
     el.addEventListener('mouseover', _ => {
       this.$timeout(_ => {
         if (scope.text() === '') return;

@@ -23986,8 +23986,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63427,6 +63427,7 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   open() {
+    console.log('ooh');
     this.close();
 
     // Might be called if the dropdown does not cover the whole parent and as
@@ -63438,6 +63439,8 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     const list = this.$element[0].getElementsByTagName('ul')[0];
     this.listNodeCopy = list.cloneNode();
     this.listNodeCopy.classList.add('visible');
+
+    console.log(this.listNodeCopy);
 
     let div = document.createElement('div');
     div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
@@ -64360,19 +64363,18 @@ ModalComponent.$inject = ['EventService', 'ModalService'];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_generator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_injectable__ = __webpack_require__(1);
 
 
 
-class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(CreatePostModalController.$inject, injections);
 
     this.errorMessage = '';
     this.file = null;
     this.isLoading = false;
-    this.preview = false;
     this.newPost = {
       branchids: [this.ModalService.inputArgs.branchid],
       nsfw: false,
@@ -64380,10 +64382,11 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     };
     this.pollAnswers = [];
     this.postType = {
-      items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
+      items: ['text', 'page', 'image', 'video', 'audio', 'poll'],
       idx: 0,
-      title: 'POST TYPE'
+      title: 'post type'
     };
+    this.preview = false;
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'CREATE_POST') return;
@@ -64404,7 +64407,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
       let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
       post.branchids = JSON.stringify(this.newPost.branchids);
 
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+      __WEBPACK_IMPORTED_MODULE_0_utils_generator__["a" /* default */].run(function* () {
         let postid;
         try {
           postid = yield this.PostService.create(post);
@@ -64466,10 +64469,6 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
     });
   }
 
-  togglePreview() {
-    this.preview = !this.preview;
-  }
-
   getUploadUrl(postid) {
     return new Promise((resolve, reject) => {
       let uploadUrlRoute = `post/${postid}/picture`;
@@ -64480,8 +64479,13 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   setFile(file) {
     this.file = file;
   }
+
+  togglePreview() {
+    this.preview = !this.preview;
+  }
 }
-CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService', 'AppService'];
+
+CreatePostModalController.$inject = ['$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'PostService', 'UploadService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
 
@@ -65441,6 +65445,8 @@ class TooltipComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
       offsetY = 0;
     }
 
+    document.addEventListener('click', event => this.$timeout(_ => this.hide()));
+
     el.addEventListener('mouseover', _ => {
       this.$timeout(_ => {
         if (scope.text() === '') return;
@@ -65768,7 +65774,7 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
       //   $rootScope.$broadcast('add-comment');
     }
 
-    if (!!modalName) {
+    if (modalName) {
       this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
     }
   }

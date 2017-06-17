@@ -34,7 +34,7 @@ class BranchController extends Injectable {
       //   $rootScope.$broadcast('add-comment');
     }
 
-    if (!!modalName) {
+    if (modalName) {
       this.ModalService.open(modalName, { branchid: this.BranchService.branch.id },
         successMessage, errorMessage);
     }

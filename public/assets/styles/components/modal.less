@@ -9,7 +9,7 @@ div#modal-backdrop {
   opacity: 0;
   position: fixed;
   width: 100%;
-  z-index: 1100;
+  z-index: @z-modal;
   transition: opacity .5s ease-out;
   
   &:not(.ng-hide) {
@@ -22,7 +22,7 @@ div#modal-container {
   height: 100%;
   position: fixed;
   width: 100%;
-  z-index: 1200;
+  z-index: @z-modal;
 
   &.ng-hide {
     div#modal-content {

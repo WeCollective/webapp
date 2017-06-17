@@ -1,14 +1,13 @@
-import Injectable from 'utils/injectable.js';
-import Generator from 'utils/generator.js';
+import Generator from 'utils/generator';
+import Injectable from 'utils/injectable';
 
 class CreatePostModalController extends Injectable {
-  constructor(...injections) {
+  constructor (...injections) {
     super(CreatePostModalController.$inject, injections);
 
     this.errorMessage = '';
     this.file = null;
     this.isLoading = false;
-    this.preview = false;
     this.newPost = {
       branchids: [this.ModalService.inputArgs.branchid],
       nsfw: false,
@@ -16,10 +15,18 @@ class CreatePostModalController extends Injectable {
     };
     this.pollAnswers = [];
     this.postType = {
-      items: ['TEXT', 'PAGE', 'IMAGE', 'VIDEO', 'AUDIO', 'POLL'],
+      items: [
+        'text',
+        'page',
+        'image',
+        'video',
+        'audio',
+        'poll'
+      ],
       idx: 0,
-      title: 'POST TYPE'
+      title: 'post type'
     };
+    this.preview = false;
 
     this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'CREATE_POST') return;
@@ -111,11 +118,7 @@ class CreatePostModalController extends Injectable {
     });
   }
 
-  togglePreview() {
-    this.preview = !this.preview;
-  }
-
-  getUploadUrl(postid) {
+  getUploadUrl (postid) {
     return new Promise((resolve, reject) => {
       let uploadUrlRoute = `post/${postid}/picture`;
       this.UploadService.fetchUploadUrl(uploadUrlRoute)
@@ -124,10 +127,23 @@ class CreatePostModalController extends Injectable {
     });
   }
 
-  setFile(file) {
+  setFile (file) {
     this.file = file;
   }
+
+  togglePreview () {
+    this.preview = !this.preview;
+  }
 }
-CreatePostModalController.$inject = ['$timeout', 'ModalService', 'UploadService', 'EventService', 'AlertsService', 'PostService', 'AppService'];
+
+CreatePostModalController.$inject = [
+  '$timeout',
+  'AlertsService',
+  'AppService',
+  'EventService',
+  'ModalService',
+  'PostService',
+  'UploadService'
+];
 
 export default CreatePostModalController;

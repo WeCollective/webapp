@@ -1,36 +1,105 @@
 <div id="create-post-modal" ng-controller="CreatePostModalController as CreatePostModal">
-  <div loading when="CreatePostModal.isLoading" class="clearfix">
+  <div
+    class="clearfix"
+    loading
+    loading-when="CreatePostModal.isLoading">
     <h1>Submit a Post</h1>
+
     <p class="error-message">{{ CreatePostModal.errorMessage }}</p>
+
     <div id="create-post-picture" ng-show="!CreatePostModal.UploadService.isUploading">
-      <div id="dragdrop"
-           ngf-drop="setFile($file)" ngf-drag-over-class="'dragover'" ngf-drop-available="dropSupported"
-           ngf-hide-on-drop-not-available="false" ngf-fix-orientation="true">
-        <img id="graphic" src="/assets/images/image.png" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'">
-        <div id="image-preview" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'IMAGE'"
-             style="background-image: url('{{ CreatePostModal.AppService.getProxyUrl(CreatePostModal.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')"></div>
-        <h2 ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'">Drop an image here!</h2>
+      <div
+        id="dragdrop"
+        ngf-drag-over-class="'dragover'"
+        ngf-drop="setFile($file)"
+        ngf-drop-available="dropSupported"
+        ngf-fix-orientation="true"
+        ngf-hide-on-drop-not-available="false">
+        <img
+          alt=""
+          id="graphic"
+          ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'image'"
+          src="/assets/images/image.png" />
+        
+        <div
+          id="image-preview"
+          ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'image'"
+          style="background-image: url('{{ CreatePostModal.AppService.getProxyUrl(CreatePostModal.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')">
+        </div>
+        
+        <h2 ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'image'">
+          Drop an image here!
+        </h2>
+        
         <div id="preview" ngf-background="CreatePostModal.file"></div>
       </div>
-      <div id="choose-file" ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'IMAGE'" ngf-select="CreatePostModal.setFile($file)"
-           ngf-fix-orientation="true" ngf-accept="'image/*'">
-           {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
+      
+      <div
+        id="choose-file"
+        ng-show="CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'image'"
+        ngf-accept="'image/*'"
+        ngf-fix-orientation="true"
+        ngf-select="CreatePostModal.setFile($file)">
+        {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
       </div>
     </div>
+
     <div id="create-post-inputs" ng-show="!CreatePostModal.UploadService.isUploading">
-      <dropdown title="CreatePostModal.postType.title" items="CreatePostModal.postType.items" selected="CreatePostModal.postType.idx"></dropdown>
-      <label id="nsfw-checkbox">NSFW<input type="checkbox" ng-model="CreatePostModal.newPost.nsfw"></input></label>
-      <label id="locked-checkbox" ng-show="CreatePostModal.postType.idx === 5">LOCK ANSWERS<input type="checkbox" ng-model="CreatePostModal.newPost.locked"></input></label>
-      <input ng-model="CreatePostModal.newPost.title" placeholder="Title" type="text"></input>
+      <dropdown
+        class="style--horizontal"
+        items="CreatePostModal.postType.items"
+        selected="CreatePostModal.postType.idx"
+        title="{{CreatePostModal.postType.title}}">
+      </dropdown>
+
+      <label id="nsfw-checkbox">
+        NSFW
+        <input type="checkbox" ng-model="CreatePostModal.newPost.nsfw" />
+      </label>
+
+      <label id="locked-checkbox" ng-show="CreatePostModal.postType.idx === 5">
+        LOCK ANSWERS
+        <input type="checkbox" ng-model="CreatePostModal.newPost.locked" />
+      </label>
+
+      <input ng-model="CreatePostModal.newPost.title" placeholder="Title" type="text" />
+
       <tag-editor items="CreatePostModal.newPost.branchids" title="'Tag another branch...'" max="5"></tag-editor>
     </div>
+    
     <!-- detach textarea from create-post-inputs so it flows below profile image -->
-    <textarea id="post-description" ng-show="!CreatePostModal.UploadService.isUploading && !CreatePostModal.preview && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'TEXT' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'POLL')" ng-model="CreatePostModal.newPost.text" placeholder="Describe this post..." type="text"></textarea>
-    <input ng-show="!CreatePostModal.UploadService.isUploading && (CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'TEXT' && CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'POLL')" ng-model="CreatePostModal.newPost.text" placeholder="URL" type="text"></input>
-    <div id="preview-content" marked="CreatePostModal.newPost.text" ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.preview && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'TEXT' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'POLL')"></div>
-    <p id="preview-post" ng-click="CreatePostModal.togglePreview()" ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.newPost.text.length > 0 && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'TEXT' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'POLL')">{{ CreatePostModal.preview ? 'Edit...' : 'Preview...' }}</p>
+    <textarea
+      id="post-description"
+      ng-model="CreatePostModal.newPost.text"
+      ng-show="!CreatePostModal.UploadService.isUploading && !CreatePostModal.preview && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'text' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'poll')" 
+      placeholder="Describe this post..."
+      type="text">
+    </textarea>
 
-    <poll-answer-editor ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'POLL'" answers="CreatePostModal.pollAnswers" title="'Create a new Answer'"></poll-answer-editor>
+    <input
+      ng-model="CreatePostModal.newPost.text"
+      ng-show="!CreatePostModal.UploadService.isUploading && (CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'text' && CreatePostModal.postType.items[CreatePostModal.postType.idx] !== 'poll')"
+      placeholder="URL"
+      type="text" />
+
+    <div
+      id="preview-content"
+      marked="CreatePostModal.newPost.text"
+      ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.preview && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'text' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'poll')">
+    </div>
+
+    <p
+      id="preview-post"
+      ng-click="CreatePostModal.togglePreview()"
+      ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.newPost.text.length > 0 && (CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'text' || CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'poll')">
+      {{ CreatePostModal.preview ? 'Edit...' : 'Preview...' }}
+    </p>
+
+    <poll-answer-editor
+      answers="CreatePostModal.pollAnswers"
+      ng-show="!CreatePostModal.UploadService.isUploading && CreatePostModal.postType.items[CreatePostModal.postType.idx] === 'poll'"
+      title="'Create a new Answer'">
+    </poll-answer-editor>
 
     <div id="progress-container" ng-show="CreatePostModal.UploadService.isUploading">
       <div id="progress" style="width:{{ CreatePostModal.UploadService.progress }}%"></div>
