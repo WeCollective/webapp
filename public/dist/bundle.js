@@ -63534,10 +63534,7 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
 
   getPostImage() {
     const IMG_DIR = '/assets/images/placeholders/';
-
-    if (this.post.type === 'text' || this.post.type === 'poll') {
-      return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
-    }
+    return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
   }
 
   getTotalFlagCount() {
