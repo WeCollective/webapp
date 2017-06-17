@@ -89,14 +89,16 @@
     </span>
     
     <div class="list-item-controls">
-      <a ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
+      <a
+        offset-y="20"
+        text="'View post discussion'"
+        tooltip
+        ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
         <img
           alt="View post discussion"
           class="control"
-          offset-y="20"
-          src="/assets/images/icons/black/comment.png"
-          text="'View post discussion'"
-          tooltip />
+          src="/assets/images/icons/black/comment.png" />
+        <span>{{ ListItem.post.comment_count }}</span>
       </a>
       
       <img
