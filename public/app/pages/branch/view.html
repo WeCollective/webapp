@@ -42,6 +42,7 @@
         <img
           alt=""
           id="edit"
+          ng-class="{ 'style--default': !Branch.BranchService.branch.profileUrl }"
           ng-click="Branch.openModal('profile-picture')"
           ng-show="Branch.isModerator()"
           src="/assets/images/icons/black/edit.png" />

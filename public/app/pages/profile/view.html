@@ -18,6 +18,7 @@
       <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
         <img
           id="edit"
+          ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
           ng-click="Profile.openProfilePictureModal()"
           ng-show="Profile.profileUser.username === Profile.UserService.user.username"
           offset-y="30"

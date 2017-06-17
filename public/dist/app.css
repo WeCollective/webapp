@@ -1315,6 +1315,9 @@ div.poll-answer-editor input {
   right: 10px;
   width: 30px;
 }
+.sidebar .sidebar-picture img#edit.style--default {
+  opacity: .2;
+}
 .sidebar .sidebar-picture img#edit:hover {
   cursor: pointer;
   opacity: 1;
