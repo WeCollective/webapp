@@ -4223,8 +4223,30 @@ div#branch-post .post-body #answer-list-container #answer-list li .list-item-ind
   text-align: center;
   width: 40px;
 }
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats {
+  margin-right: 15px;
+}
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > span {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > img {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+}
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-title {
   margin: 0;
+}
+div#branch-post .post-body #answer-list-container #answer-list li .list-item-title:hover {
+  cursor: initial !important;
 }
 div#branch-post .post-body #answer-list-container #answer-list li.selected {
   background-color: #e7e7e7;

@@ -15,13 +15,33 @@
     <p id="no-answers" ng-show="BranchPostResults.answers.length === 0">
       No answers yet!
     </p>
+
     <li ng-repeat="answer in BranchPostResults.answers">
       <div class="list-item-index colour-coded" ng-style="{ 'background-color': BranchPostResults.getAnswerColor($index) }">
-        <span>{{ $index + 1 }}</span>
+        <span>
+          {{ $index + 1 }}
+        </span>
       </div>
+
+      <div class="list-item-stats">
+        <div class="list-item-stats--header">
+          <span>{{ answer.votes }}</span>
+          <img alt="{{ answer.votes + ' votes' }}" src="/assets/images/icons/black/arrow-up.png" />
+        </div>
+
+        <span class="list-item-stats--percentage">
+          {{  answer.ratioOfTotal + '%' }}
+        </span>
+      </div>
+
       <div class="list-item-info">
-        <p class="list-item-title">{{ answer.text }}</p>
-        <span class="list-item-description">Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}</span>
+        <p class="list-item-title">
+          {{ answer.text }}
+        </p>
+
+        <span class="list-item-description">
+          Submitted by <a ui-sref="weco.profile.about({ username: answer.creator })">{{ answer.creator }}</a> at {{ answer.date | date:'HH:mm on dd of MMMM yyyy' }}
+        </span>
       </div>
     </li>
   </ul>

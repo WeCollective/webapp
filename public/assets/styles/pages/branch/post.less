@@ -104,12 +104,14 @@ div#branch-post {
 
       #answer-list {
         li {
+          @margin-right: 15px;
+
           .list-item(70px);
           align-items: center;
 
           .list-item-index {
             margin-left: 10px;
-            margin-right: 15px;
+            margin-right: @margin-right;
 
             span {
               color: #fff;
@@ -129,7 +131,38 @@ div#branch-post {
             }
           }
 
-          .list-item-title { margin: 0; }
+          .list-item-stats {
+            @stat-font-size: 14px;
+
+            margin-right: @margin-right;
+
+            > .list-item-stats--header {
+              > span {
+                color: @primary-3;
+                font-size: @stat-font-size;
+                font-weight: 500;
+              }
+
+              > img {
+                height: 24px;
+                opacity: .3;
+                position: relative;
+                top: 3px;
+                vertical-align: bottom;
+              }
+            }
+
+            > .list-item-stats--percentage {
+              color: @primary-6;
+              font-size: @stat-font-size;
+            }
+          }
+
+          .list-item-title {
+            margin: 0;
+
+            &:hover { cursor: initial !important; }
+          }
 
           &.selected { background-color: @light-grey; }
         }

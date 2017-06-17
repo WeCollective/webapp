@@ -66421,25 +66421,40 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   }
 
   getAnswerColor(index) {
-    return index > this.ChartColours.length - 1 ? '#d3d3d3' : this.ChartColours[index];
+    return this.ChartColours[index] || '#d3d3d3';
   }
 
   // Params: lastAnswerId
   getPollAnswers() {
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(answers => this.$timeout(_ => {
       this.answers = answers;
-      this.chart.labels = [];
       this.chart.data = [];
+      this.chart.labels = [];
 
-      for (let index in answers) {
-        this.chart.labels.push(Number(index) + 1);
-        this.chart.data.push(answers[index].votes);
-      }
+      const totalVotes = this.getTotalVotes(answers);
+
+      answers.forEach((answer, index) => {
+        this.chart.data.push(answer.votes);
+        this.chart.labels.push(index + 1);
+        answer.ratioOfTotal = Math.floor(answer.votes / totalVotes * 100);
+        return answer;
+      });
     })).catch(err => {
       if (err.status !== 404) {
         this.AlertsService.push('error', 'Error fetching poll answers.');
       }
     });
+  }
+
+  getTotalVotes(arr) {
+    let totalVotes = 0;
+    if (arr.length) {
+      totalVotes = arr.length > 1 ? arr.reduce((a, b) => {
+        return { votes: a.votes + b.votes };
+      }) : arr[0];
+      totalVotes = totalVotes.votes;
+    }
+    return totalVotes;
   }
 
   // indicate whether the poll has been voted yet ie. do we have results to show
