@@ -2294,7 +2294,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
   display: flex;
   flex-direction: row;
   height: 70px;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
@@ -2471,7 +2471,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
     display: flex;
     flex-direction: row;
     height: 80px;
-    padding: 10px 0;
+    padding: 8px 0;
     width: 100%;
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
@@ -2891,7 +2891,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   display: flex;
   flex-direction: row;
   height: 70px;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
@@ -3091,7 +3091,7 @@ div#branch-wall div.content-body ul#post-list li.list-item {
   display: flex;
   flex-direction: row;
   height: 60px;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
 }
 div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
@@ -3265,7 +3265,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info di
     display: flex;
     flex-direction: row;
     height: 60px;
-    padding: 10px 0;
+    padding: 8px 0;
     width: 100%;
   }
   div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
@@ -3780,7 +3780,7 @@ div#branch-post .list-item {
   display: flex;
   flex-direction: row;
   height: 80px;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
 }
 div#branch-post .list-item span.list-item-index {
@@ -4037,7 +4037,7 @@ div#branch-post .post-body #answer-list-container #answer-list li {
   display: flex;
   flex-direction: row;
   height: 70px;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
   align-items: center;
 }
