@@ -101,7 +101,7 @@ span {
       background-color: #fff;
       height: 100%;
       margin: auto;
-      max-width: 1200px;
+      max-width: @screen-xxl;
       overflow: hidden;
       position: relative;
       width: 100%;
@@ -112,7 +112,7 @@ span {
       //.responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
       //.responsive(@screen-xl, { width: calc(~'100% - (2 * @{page-margin-xl})'); });
 
-      .responsive(@screen-md, { width: ~'calc(100% - 64px)'; });
+      .responsive(@screen-xxl, { width: ~'calc(100% - 64px)'; });
 
       /*
       > div.frame-column {
@@ -255,6 +255,7 @@ span {
             > div.content-controls {
               display: flex;
               flex-direction: row;
+              height: 100%;
               overflow: auto;
             }
           }

@@ -14,7 +14,7 @@
 
   .sidebar-controls {
     @button-size: @sidebar-w / 4;
-    border-bottom: solid 1px @light-grey;
+    // border-bottom: solid 1px @light-grey;
     border-top: solid 1px @light-grey;
     box-sizing: border-box;
     height: @button-size;
@@ -27,6 +27,7 @@
     // Button.
     > li {
       @number-of-buttons: 4;
+      border-bottom: solid 1px @light-grey;
       border-left: solid 1px transparent;
       border-right: solid 1px @light-grey;
       box-sizing: border-box;
@@ -63,7 +64,7 @@
         }
       }
 
-      &:last-child { border-right-color: transparent; }
+      // &:last-child { border-right-color: transparent; }
 
       // todo What does this do?
       &#add-content:hover { cursor: pointer; }
@@ -111,12 +112,15 @@
     });
 
     img#edit {
-      bottom: 10px;
-      height: auto;
+      @margin: 6px;
+      @size: 26px;
+
+      bottom: @margin;
+      height: @size;
       opacity: .5;
       position: absolute;
-      right: 10px;
-      width: 30px;
+      right: @margin;
+      width: @size;
 
       &.style--default { opacity: .2; }
 

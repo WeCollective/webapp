@@ -36,6 +36,17 @@
         title="stat type">
       </dropdown>
     </div>
+
+    <div class="button">
+      <a
+        id="add-content"
+        ng-class="{ 'disabled': !BranchWall.canAddContent() }"
+        ng-click="BranchWall.addContent()"
+        offset-y="40"
+        text="BranchWall.getAddContentTooltip()"
+        tooltip>
+      </a>
+    </div>
   </div>
   
   <div

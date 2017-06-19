@@ -63414,7 +63414,9 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   constructor(...injections) {
     super(DropdownController.$inject, injections);
 
-    this.lastClose = 0;
+    this.handleClick = this.handleClick.bind(this);
+
+    this.hasListener = false;
     this.listNodeCopy = null;
   }
 
@@ -63422,18 +63424,17 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     if (this.listNodeCopy) {
       this.listNodeCopy.remove();
       this.listNodeCopy = null;
-      this.lastClose = Date.now();
     }
+  }
+
+  handleClick() {
+    this.close();
+    document.removeEventListener('click', this.handleClick);
+    this.hasListener = false;
   }
 
   open() {
     this.close();
-
-    // Might be called if the dropdown does not cover the whole parent and as
-    // we move the cursor out, it calls the enter callback again by accident.
-    if (this.lastClose + 5 > Date.now()) {
-      return;
-    }
 
     const list = this.$element[0].getElementsByTagName('ul')[0];
     this.listNodeCopy = list.cloneNode();
@@ -63453,6 +63454,13 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
 
     this.$compile(this.listNodeCopy)(this.$scope);
     document.body.appendChild(this.listNodeCopy);
+
+    setTimeout(_ => {
+      if (!this.hasListener) {
+        this.hasListener = true;
+        document.addEventListener('click', this.handleClick);
+      }
+    }, 0);
   }
 
   select(index) {
@@ -65745,65 +65753,6 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
   }
 
-  addContent() {
-    let errorMessage, modalName, successMessage;
-
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        modalName = 'CREATE_BRANCH';
-        successMessage = 'Successfully created new branch!';
-        errorMessage = 'Error creating new branch.';
-        break;
-
-      case 'weco.branch.wall':
-        modalName = 'CREATE_POST';
-        successMessage = 'Successfully created post!';
-        errorMessage = 'Error creating post.';
-        break;
-
-      // case 'weco.branch.post':
-      //   // broadcast add comment clicked so that the comment section is scrolled
-      //   // to the top, where the comment box is visible
-      //   $rootScope.$broadcast('add-comment');
-    }
-
-    if (modalName) {
-      this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
-    }
-  }
-
-  // returns boolean indicating whether the add content behaviour has any defined
-  // behaviour in the current state
-  canAddContent() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-      case 'weco.branch.wall':
-      case 'weco.branch.post':
-        return true;
-
-      default:
-        return false;
-    }
-  }
-
-  // dynamic tooltip text for add content button, whose behaviour
-  // is dependent on the current state
-  getAddContentTooltip() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        return 'Create New Branch';
-
-      case 'weco.branch.wall':
-        return 'Add New Post';
-
-      case 'weco.branch.post':
-        return 'Write a Comment';
-
-      default:
-        return '';
-    }
-  }
-
   isControlSelected(control) {
     return this.$state.current.name.includes(control);
   }
@@ -66919,11 +66868,70 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
+  addContent() {
+    let errorMessage, modalName, successMessage;
+
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        modalName = 'CREATE_BRANCH';
+        successMessage = 'Successfully created new branch!';
+        errorMessage = 'Error creating new branch.';
+        break;
+
+      case 'weco.branch.wall':
+        modalName = 'CREATE_POST';
+        successMessage = 'Successfully created post!';
+        errorMessage = 'Error creating post.';
+        break;
+
+      // case 'weco.branch.post':
+      //   // broadcast add comment clicked so that the comment section is scrolled
+      //   // to the top, where the comment box is visible
+      //   $rootScope.$broadcast('add-comment');
+    }
+
+    if (modalName) {
+      this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
+    }
+  }
+
+  // returns boolean indicating whether the add content behaviour has any defined
+  // behaviour in the current state
+  canAddContent() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+      case 'weco.branch.wall':
+      case 'weco.branch.post':
+        return true;
+
+      default:
+        return false;
+    }
+  }
+
   cb() {
     this.WallService.init('weco.branch.wall').then(posts => {
       this.posts = posts;
       this.$scope.$apply();
     });
+  }
+
+  // dynamic tooltip text for add content button, whose behaviour
+  // is dependent on the current state
+  getAddContentTooltip() {
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        return 'Create New Branch';
+
+      case 'weco.branch.wall':
+        return 'Add New Post';
+
+      case 'weco.branch.post':
+        return 'Write a Comment';
+
+      default:
+        return '';
+    }
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -66936,7 +66944,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 }
 
-BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'AppService', 'BranchService', 'EventService', 'WallService'];
+BranchWallController.$inject = ['$rootScope', '$scope', '$state', 'AppService', 'BranchService', 'EventService', 'ModalService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
 

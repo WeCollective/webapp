@@ -8,14 +8,14 @@
   {{ Dropdown.className }}
   
   <div class="dropdown-container">
-    <div class="dropdown--list-item" ng-mouseenter="Dropdown.open()">
+    <div class="dropdown--list-item" ng-click="Dropdown.open()">
       <span class="selected text--uppercase">
         {{ Dropdown.items[Dropdown.selected] }}
       </span>
       <img alt="" src="/assets/images/icons/black/expand.png" />
     </div>
     
-    <ul class="dropdown--list" ng-mouseleave="Dropdown.close()">
+    <ul class="dropdown--list">
       <li
         class="dropdown--list-item text--uppercase"
         ng-class="{ 'selected': item === Dropdown.items[Dropdown.selected] }"
