@@ -6,9 +6,7 @@
 
 // (Legacy) Alias of mediaQuery
 .responsive(@minWidth; @rules) {
-  @media only screen and (min-width: @minWidth) {
-    @rules();
-  }
+  .mediaQuery(@minWidth, @rules);
 }
 
 // set a CSS property to the value given by the appropriate responsive
@@ -70,6 +68,9 @@
 @page-margin-md: 10%;
 @page-margin-lg: 14%;
 @page-margin-xl: 17%;
+
+// Element sizing.
+@s-content-max-w: @screen-xxl;
 
 // Stacking order.
 @z-sidebar: 11;
