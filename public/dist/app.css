@@ -306,7 +306,8 @@ span {
   display: flex;
   flex-direction: row;
   height: 100%;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
