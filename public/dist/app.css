@@ -2229,6 +2229,24 @@ div#notfound div h2 {
   font-size: 28px;
   font-weight: 300;
 }
+.content-header .button {
+  margin: 0;
+}
+.content-header .button > a {
+  background-image: url('/assets/images/icons/black/add.jpg');
+  background-size: cover;
+  display: block;
+  height: 32px;
+  margin-left: 12px;
+  width: 32px;
+}
+.content-header .button > a:not(.disabled):hover {
+  cursor: pointer;
+}
+.content-header .button > a:not(.disabled):hover,
+.content-header .button > a.selected {
+  background-image: url('/assets/images/icons/black/add--hover.jpg');
+}
 div#branch-frame div#branch-info.frame-column {
   /*
     ul#branch-controls {
@@ -3371,24 +3389,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .s
   left: calc(100% + 2px);
   position: absolute;
   top: 0;
-}
-div#branch-wall .button {
-  margin: 0;
-}
-div#branch-wall .button > a {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
-  display: block;
-  height: 32px;
-  margin-left: 12px;
-  width: 32px;
-}
-div#branch-wall .button > a:not(.disabled):hover {
-  cursor: pointer;
-}
-div#branch-wall .button > a:not(.disabled):hover,
-div#branch-wall .button > a.selected {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
 }
 div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
   overflow-x: scroll;

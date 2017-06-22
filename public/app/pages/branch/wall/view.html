@@ -40,10 +40,10 @@
     <div class="button">
       <a
         id="add-content"
-        ng-class="{ 'disabled': !BranchWall.canAddContent() }"
-        ng-click="BranchWall.addContent()"
+        ng-class="{ 'disabled': !BranchWall.WallService.canAddContent() }"
+        ng-click="BranchWall.WallService.addContent()"
         offset-y="40"
-        text="BranchWall.getAddContentTooltip()"
+        text="BranchWall.WallService.getAddContentTooltip()"
         tooltip>
       </a>
     </div>

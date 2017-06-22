@@ -146,7 +146,8 @@ BranchSubbranchesController.$inject = [
   '$timeout',
   'AlertsService',
   'BranchService',
-  'EventService'
+  'EventService',
+  'WallService'
 ];
 
 export default BranchSubbranchesController;
