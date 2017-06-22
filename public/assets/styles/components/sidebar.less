@@ -142,15 +142,9 @@
   }
 
   &.open {
-    box-shadow: @shadow-2;
     transform: translateX(0);
   }
   
-  .mediaQuery(@screen-md, {
-    transform: none;
-
-    &.open { box-shadow: none; }
-  });
-
+  .mediaQuery(@screen-md, { transform: none; });
   .mediaQuery(@screen-lg, { width: @sidebar-w-lg; });
 }
