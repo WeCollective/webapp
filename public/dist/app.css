@@ -264,11 +264,11 @@ span {
 }
 #weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle {
   cursor: pointer;
-  height: 30px;
+  height: 26px;
   margin-right: 10px;
   opacity: .3;
   transform: rotateZ(-90deg);
-  width: 30px;
+  width: 26px;
   transition: transform .2s;
 }
 #weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle.toggled {
