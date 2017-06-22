@@ -2387,7 +2387,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
-  font-size: calc(12px - 2px);
+  font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
@@ -2591,7 +2591,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   }
   div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label span {
     color: #ff8095;
-    font-size: calc(12px - 2px);
+    font-size: 11px;
     font-weight: 600;
     text-orientation: upright;
     writing-mode: tb;
@@ -3038,7 +3038,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
-  font-size: calc(12px - 2px);
+  font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
@@ -3265,7 +3265,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-la
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
-  font-size: calc(12px - 2px);
+  font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
@@ -3809,7 +3809,7 @@ div#branch-post .list-item div.list-item-nsfw-label {
 }
 div#branch-post .list-item div.list-item-nsfw-label span {
   color: #ff8095;
-  font-size: calc(12px - 2px);
+  font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
@@ -4091,7 +4091,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label span {
   color: #ff8095;
-  font-size: calc(12px - 2px);
+  font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
