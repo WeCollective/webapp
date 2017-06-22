@@ -1052,12 +1052,12 @@ div[loading] div.loading-container img {
   border-top: 1px solid #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   color: #fff;
-  left: 0;
   min-width: 200px;
   padding: 10px;
   position: absolute;
+  right: -1px;
   top: 100%;
-  width: calc(100% - (10px * 2));
+  width: auto;
   z-index: -1;
 }
 .navbar > .content > div.user-controls .navbar--item.item--expand ul li,
@@ -1101,13 +1101,6 @@ div[loading] div.loading-container img {
 .navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
   transform: translateY(0);
-}
-@media only screen and (min-width: 768px) {
-  .navbar > .content > div.user-controls .navbar--item.item--expand ul {
-    left: initial;
-    right: -1px;
-    width: auto;
-  }
 }
 .navbar > .content > div.user-controls .navbar--item div#profile-picture {
   background-position: center;

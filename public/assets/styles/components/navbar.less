@@ -178,12 +178,12 @@
               border-top: 1px solid #494949;
               box-shadow: @shadow-2;
               color: #fff;
-              left: 0;
               min-width: 200px;
               padding: @padding;
               position: absolute;
+              right: -1px;
               top: 100%;
-              width: calc(~'100% - (@{padding} * 2)');
+              width: auto;
               // Hide it under the cube.
               z-index: -1;
 
@@ -229,12 +229,6 @@
                   transform: translateY(0);
                 }
               }
-
-              .mediaQuery(@screen-md, {
-                left: initial;
-                right: -1px;
-                width: auto;
-              });
             }
           }
 
