@@ -1,13 +1,24 @@
 <div class="tag-editor">
   <p>{{ errorMessage }}</p>
   <div class="add-item">
-    <input ng-model="data.item" placeholder="{{ title() }}" ng-disabled="items.length >= max()" ng-change="data.item = data.item.split(' ').join('')"></input>
-    <img src="/assets/images/icons/black/add.png" ng-click="addItem()">
+    <input
+      ng-change="data.item = data.item.split(' ').join('')"
+      ng-disabled="items.length >= max()"
+      ng-model="data.item"
+      placeholder="{{ title() }}" />
+    <img
+     alt=""
+     ng-click="addItem()"
+     src="/assets/images/icons/black/add.jpg" />
   </div>
+
   <div class="tagged-items">
     <div class="tagged-item" ng-repeat="item in items">
       <span>{{ item }}</span>
-      <img src="/assets/images/icons/white/close.png" ng-click="removeItem(item)">
+      <img
+        alt=""
+        ng-click="removeItem(item)"
+        src="/assets/images/icons/white/close.png" />
     </div>
   </div>
 </div>

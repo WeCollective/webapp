@@ -1372,7 +1372,6 @@ div.tag-editor div.add-item {
 }
 div.tag-editor div.add-item img {
   height: 20px;
-  opacity: .5;
   position: absolute;
   right: 10px;
   top: calc(50% - 15px);
