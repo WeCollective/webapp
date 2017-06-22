@@ -83,6 +83,8 @@ class BranchNucleusController extends Injectable {
   }
 
   isModerator () {
+    if (!this.BranchService.branch.mods) return false;
+
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
       if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
         return true;

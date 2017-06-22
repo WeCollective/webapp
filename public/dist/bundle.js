@@ -65282,29 +65282,29 @@ TabsController.$inject = ['$state', 'AlertsService'];
 
 
 class TabsComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(TabsComponent.$inject, injections);
+    constructor(...injections) {
+        super(TabsComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
+        this.restrict = 'E';
+        this.replace = true;
+        this.scope = {};
 
-    /* NB: states specified in 'states' array can be a pure state name, e.g. weco.home,
-    **     or they can have parameters, e.g:
-    **        weco.branch.subbranches({ "branchid" : "root" })
-    **     In the latter case, the parameters must be specified in JSON parsable
-    **     format, i.e. with double quotes around property names and values.
-    */
-    this.bindToController = {
-      items: '=',
-      states: '=',
-      stateParams: '=',
-      callbacks: '='
-    };
-    this.templateUrl = '/app/components/tabs/view.html';
-    this.controllerAs = 'Tabs';
-    this.controller = 'TabsController';
-  }
+        /* NB: states specified in 'states' array can be a pure state name, e.g. weco.home,
+        **     or they can have parameters, e.g:
+        **        weco.branch.subbranches({ "branchid" : "root" })
+        **     In the latter case, the parameters must be specified in JSON parsable
+        **     format, i.e. with double quotes around property names and values.
+        */
+        this.bindToController = {
+            items: '=',
+            states: '=',
+            stateParams: '=',
+            callbacks: '='
+        };
+        this.templateUrl = '/app/components/tabs/view.html';
+        this.controllerAs = 'Tabs';
+        this.controller = 'TabsController';
+    }
 }
 TabsComponent.$inject = [];
 
@@ -65909,6 +65909,8 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
   }
 
   isModerator() {
+    if (!this.BranchService.branch.mods) return false;
+
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
       if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
         return true;
