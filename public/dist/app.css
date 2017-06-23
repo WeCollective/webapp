@@ -1120,11 +1120,6 @@ div[loading] div.loading-container img {
     border-right: 1px solid #494949;
   }
 }
-@media only screen and (min-width: 768px) {
-  .navbar > .content {
-    width: calc(100% - 64px);
-  }
-}
 .notification > .notification-index {
   align-items: center;
   color: #c8c8c8;
@@ -2304,7 +2299,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  height: 90px;
+  min-height: 90px;
   padding: 8px 0;
   width: 100%;
 }
@@ -2750,7 +2745,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  height: 70px;
+  min-height: 70px;
   padding: 8px 0;
   width: 100%;
 }
@@ -2977,7 +2972,7 @@ div#branch-wall div.content-body ul#post-list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  height: 70px;
+  min-height: 70px;
   padding: 8px 0;
   width: 100%;
 }
@@ -3518,7 +3513,7 @@ div#branch-post .list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  height: 90px;
+  min-height: 90px;
   padding: 8px 0;
   width: 100%;
 }
@@ -3802,7 +3797,7 @@ div#branch-post .post-body #answer-list-container #answer-list li {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  height: 70px;
+  min-height: 70px;
   padding: 8px 0;
   width: 100%;
   align-items: center;
