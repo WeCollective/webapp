@@ -43,27 +43,31 @@
   </div>
 
   <div class="list-item-info">
-    <!-- Two DOM elements conditionally displayed again - see above. -->
-    <a
-      ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
-      ui-sref="weco.branch.post({ postid: ListItem.post.id })">
-      <span class="list-item-title">{{ ListItem.post.data.title }}</span>
-    </a>
-
-    <a
-      href="{{ ListItem.post.data.text }}"
-      ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
-      target="_blank">
-      <span class="list-item-title">{{ ListItem.post.data.title }}</span>
-    </a>
-    
     <span
-      class="list-item-post-type-marker style--has-separator"
+      class="list-item-post-type-marker"
       ng-class="ListItem.post.type"
       offset-y="20"
       text="ListItem.post.type | capitalize"
       tooltip>
     </span>
+
+    <!-- Two DOM elements conditionally displayed again - see above. -->
+    <a
+      class="list-item-title"
+      ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
+      ui-sref="weco.branch.post({ postid: ListItem.post.id })">
+      {{ ListItem.post.data.title }}
+    </a>
+
+    <a
+      class="list-item-title"
+      href="{{ ListItem.post.data.text }}"
+      ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
+      target="_blank">
+      {{ ListItem.post.data.title }}
+    </a>
+
+    <br>
     
     <span
       class="list-item-description"

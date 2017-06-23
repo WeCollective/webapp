@@ -202,9 +202,6 @@ span {
         transition: transform .3s ease-out;
 
         > div {
-          @padding-side: 10px;
-          @padding-side-lg: 20px;
-
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
@@ -221,7 +218,7 @@ span {
 
             cursor: pointer;
             height: @s-button;
-            margin-right: @padding-side;
+            margin-right: @g-padding-sidebar;
             opacity: .3;
             transform: rotateZ(-90deg);
             width: @s-button;
@@ -229,25 +226,26 @@ span {
 
             &.toggled { transform: rotateZ(90deg); }
 
-            .mediaQuery(@screen-md, {
-              display: none;
-              margin-right: @padding-side-lg;
-            });
+            .mediaQuery(@screen-md, { display: none; });
           }
 
           div.content-header {
+            @title-offset-to-sidebar: -1px;
+            @button-offset-to-content: -5px;
+            @content-offset-to-sidebar: -3px;
+
             align-items: center;
             border-bottom: solid 1px @light-grey;
             display: flex;
             flex-flow: row wrap;
-            padding: @padding-side @padding-side;
-
-            .mediaQuery(@screen-md, { padding: 8px @padding-side-lg; });
+            padding: @g-padding-sidebar;
 
             h1 {
               font-size: @font-size-xl;
               font-weight: 500;
               padding-right: 10px;
+              position: relative;
+              top: @title-offset-to-sidebar;
 
               .mediaQuery(@screen-sm, { padding-right: 20px; });
             }
@@ -258,6 +256,13 @@ span {
               height: 100%;
               overflow-x: auto;
               overflow-y: hidden;
+              position: relative;
+              top: @content-offset-to-sidebar;
+            }
+
+            .button {
+              position: relative;
+              top: @content-offset-to-sidebar + @button-offset-to-content;
             }
           }
 

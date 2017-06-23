@@ -1,8 +1,11 @@
+@dropdown-item-vertical-padding: 3px;
+
 div.dropdown {
   // align-items: flex-start;
   // display: flex;
   // flex-direction: column;
   flex: none;
+  font-size: 11px;
   padding: 0 5px;
   position: relative;
 
@@ -15,14 +18,15 @@ div.dropdown {
   > .dropdown-title {
     align-items: center;
     display: flex;
+    font-size: inherit;
     line-height: 1;
-    margin-top: 6px;
+    // margin-top: 6px;
     padding-left: 10px;
     position: relative;
 
     span {
       color: @dark-grey;
-      font-size: 12px;
+      font-size: inherit;
     }
   }
 
@@ -31,9 +35,9 @@ div.dropdown {
     border-radius: 3px;
     box-sizing: border-box;
     display: flex;
-    font-size: @font-size-xs;
+    font-size: inherit;
     justify-content: space-around;
-    padding: 5px 10px;
+    padding: @dropdown-item-vertical-padding 10px 0;
     position: relative;
 
     img {
@@ -63,6 +67,7 @@ div.dropdown {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: @shadow-2;
+  font-size: 11px;
   left: 0;
   opacity: 0;
   position: absolute;
@@ -73,8 +78,8 @@ div.dropdown {
   > .dropdown--list-item {
     border-radius: 3px;
     box-sizing: border-box;
-    font-size: @font-size-xs;
-    padding: 5px 10px;
+    font-size: inherit;
+    padding: @dropdown-item-vertical-padding 10px;
     position: relative;
     width: 100%;
 
