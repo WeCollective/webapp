@@ -1,5 +1,7 @@
 import Injectable from 'utils/injectable';
 
+const GROUP_ANSWERS_INDEX_LIMIT = 7;
+
 class BranchPostResultsController extends Injectable {
   constructor (...injections) {
     super(BranchPostResultsController.$inject, injections);
@@ -33,18 +35,26 @@ class BranchPostResultsController extends Injectable {
   getPollAnswers () {
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined)
       .then(answers => this.$timeout(_ => {
-        this.answers = answers;
         this.chart.data = [];
         this.chart.labels = [];
 
         const totalVotes = this.getTotalVotes(answers);
 
         answers.forEach((answer, index) => {
-          this.chart.data.push(answer.votes);
-          this.chart.labels.push(index + 1);
+          if (index <= GROUP_ANSWERS_INDEX_LIMIT) {
+            this.chart.data.push(answer.votes);
+            this.chart.labels.push(index + 1);
+          }
+          else {
+            this.chart.data[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
+          }
+
           answer.ratioOfTotal = Math.floor(answer.votes / totalVotes * 100);
+            
           return answer;
         });
+
+        this.answers = answers;
       }))
       .catch(err => {
         if (err.status !== 404) {
