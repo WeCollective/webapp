@@ -1,3 +1,4 @@
+import Chart from 'chart.js';
 import Injectable from 'utils/injectable';
 
 const GROUP_ANSWERS_INDEX_LIMIT = 7;
@@ -13,6 +14,13 @@ class BranchPostResultsController extends Injectable {
       options: {
         legend: {
           display: false
+        },
+        tooltips: {
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          callbacks: {
+            label: (tooltipItem, data) => tooltipItem.index + 1
+          },
+          displayColors: false
         }
       },
       type: 'pie'

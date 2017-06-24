@@ -5,14 +5,14 @@ class ChartComponent extends Injectable {
   constructor (...injections) {
     super(ChartComponent.$inject, injections);
 
-    this.restrict = 'E';
     this.replace = true;
+    this.restrict = 'E';
     this.scope = {
-      type: '=',
       chartData: '=',
-      labels: '=',
       colors: '=',
-      options: '='
+      labels: '=',
+      options: '=',
+      type: '='
     };
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
