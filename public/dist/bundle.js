@@ -66384,7 +66384,7 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   }
 
   getAnswerColor(index) {
-    return this.ChartColours[index] || '#d3d3d3';
+    return this.ChartColours[index] || this.ChartColours[this.ChartColours.length - 1];
   }
 
   // Params: lastAnswerId

@@ -13,6 +13,23 @@
 .text--uppercase {
   text-transform: uppercase;
 }
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+.clearfix {
+  display: inline-block;
+}
+html[xmlns] .clearfix {
+  display: block;
+}
+* html .clearfix {
+  height: 1%;
+}
 /**
  * Material shadows
  * @link https://codepen.io/sdthornton/pen/wBZdXq
@@ -2403,6 +2420,8 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   border-radius: 50%;
   display: inline-block;
   height: 10px;
+  position: relative;
+  top: -2px;
   vertical-align: middle;
   width: 10px;
 }
@@ -2843,6 +2862,8 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   border-radius: 50%;
   display: inline-block;
   height: 10px;
+  position: relative;
+  top: -2px;
   vertical-align: middle;
   width: 10px;
 }
@@ -3064,6 +3085,8 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
   border-radius: 50%;
   display: inline-block;
   height: 10px;
+  position: relative;
+  top: -2px;
   vertical-align: middle;
   width: 10px;
 }
@@ -3487,12 +3510,14 @@ div#branch-post {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: auto;
   padding: 10px 20px 0;
   position: relative;
 }
 div#branch-post > .branch-post--header {
   align-items: center;
   display: flex;
+  min-height: 90px;
 }
 div#branch-post .list-item {
   padding-top: 15px;
@@ -3602,6 +3627,8 @@ div#branch-post .list-item div.list-item-info span.list-item-post-type-marker {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
+  position: relative;
+  top: -2px;
   vertical-align: middle;
   width: 10px;
 }
@@ -3764,11 +3791,6 @@ div#branch-post ng-include#post-preview #video-post.maximised {
 div#branch-post ng-include#post-preview #video-post:not(.ng-hide) {
   transition: width 0.3s ease-out;
 }
-div#branch-post .post-body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
 div#branch-post .post-body #answer-list-container {
   flex: 1;
   overflow-y: scroll;
@@ -3878,6 +3900,8 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   border-radius: 50%;
   display: inline-block;
   height: 10px;
+  position: relative;
+  top: -2px;
   vertical-align: middle;
   width: 10px;
 }

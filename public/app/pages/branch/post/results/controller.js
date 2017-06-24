@@ -26,7 +26,7 @@ class BranchPostResultsController extends Injectable {
   }
 
   getAnswerColor (index) {
-    return this.ChartColours[index] || '#d3d3d3';
+    return this.ChartColours[index] || this.ChartColours[this.ChartColours.length - 1];
   }
 
   // Params: lastAnswerId

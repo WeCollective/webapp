@@ -6,3 +6,24 @@
 .text--center { text-align: center; }
 .text--lowercase { text-transform: lowercase; }
 .text--uppercase { text-transform: uppercase; }
+
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+html[xmlns] .clearfix {
+  display: block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
