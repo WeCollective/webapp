@@ -274,6 +274,8 @@
       display: inline;
       font-size: @font-size-sm;
       font-weight: 500;
+      line-height: 1;
+      vertical-align: top;
       // white-space: nowrap;
 
       &:hover { cursor: pointer; }
@@ -283,9 +285,7 @@
       border-radius: 50%;
       display: inline-block;
       height: 10px;
-      position: relative;
-      top: -2px;
-      vertical-align: middle;
+      vertical-align: top;
       width: 10px;
 
       &.audio { background-color: @post-type-audio; }
@@ -294,8 +294,6 @@
       &.poll { background-color: @post-type-poll; }
       &.text { background-color: @post-type-text; }
       &.video { background-color: @post-type-video; }
-
-      &:after { top: -5px; }
     }
 
     span.list-item-description {

@@ -2409,6 +2409,8 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   display: inline;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
   cursor: pointer;
@@ -2417,9 +2419,7 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   border-radius: 50%;
   display: inline-block;
   height: 10px;
-  position: relative;
-  top: -2px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 10px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
@@ -2439,9 +2439,6 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
   background-color: #99C4E4;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker:after {
-  top: -5px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
@@ -2851,6 +2848,8 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   display: inline;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
   cursor: pointer;
@@ -2859,9 +2858,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   border-radius: 50%;
   display: inline-block;
   height: 10px;
-  position: relative;
-  top: -2px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 10px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
@@ -2881,9 +2878,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
   background-color: #99C4E4;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker:after {
-  top: -5px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
@@ -3074,6 +3068,8 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   display: inline;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
   cursor: pointer;
@@ -3082,9 +3078,7 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
   border-radius: 50%;
   display: inline-block;
   height: 10px;
-  position: relative;
-  top: -2px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 10px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
@@ -3104,9 +3098,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info sp
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
   background-color: #99C4E4;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker:after {
-  top: -5px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
   color: #b3b3b3;
@@ -3635,6 +3626,8 @@ div#branch-post .list-item div.list-item-info .list-item-title,
   display: inline;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
 div#branch-post .list-item div.list-item-info .list-item-title:hover,
 .post .list-item div.list-item-info .list-item-title:hover {
@@ -3645,9 +3638,7 @@ div#branch-post .list-item div.list-item-info span.list-item-post-type-marker,
   border-radius: 50%;
   display: inline-block;
   height: 10px;
-  position: relative;
-  top: -2px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 10px;
 }
 div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.audio,
@@ -3673,10 +3664,6 @@ div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.te
 div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.video,
 .post .list-item div.list-item-info span.list-item-post-type-marker.video {
   background-color: #99C4E4;
-}
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker:after,
-.post .list-item div.list-item-info span.list-item-post-type-marker:after {
-  top: -5px;
 }
 div#branch-post .list-item div.list-item-info span.list-item-description,
 .post .list-item div.list-item-info span.list-item-description {
@@ -4029,6 +4016,8 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   display: inline;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover,
 .post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover {
@@ -4039,9 +4028,7 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   border-radius: 50%;
   display: inline-block;
   height: 10px;
-  position: relative;
-  top: -2px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 10px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.audio,
@@ -4067,10 +4054,6 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video,
 .post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video {
   background-color: #99C4E4;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker:after,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker:after {
-  top: -5px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description,
 .post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
