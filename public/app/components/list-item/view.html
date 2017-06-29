@@ -44,8 +44,8 @@
 
   <div class="list-item-info">
     <span
-      class="list-item-post-type-marker"
-      ng-class="ListItem.post.type"
+      class="list-item__circle"
+      ng-class="'style--{{ ListItem.post.type}}'"
       offset-y="20"
       text="ListItem.post.type | capitalize"
       tooltip>
@@ -53,72 +53,69 @@
 
     <!-- Two DOM elements conditionally displayed again - see above. -->
     <a
-      class="list-item-title"
+      class="list-item__title"
       ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
       ui-sref="weco.branch.post({ postid: ListItem.post.id })">
       {{ ListItem.post.data.title }}
     </a>
 
     <a
-      class="list-item-title"
+      class="list-item__title"
       href="{{ ListItem.post.data.text }}"
       ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
       target="_blank">
       {{ ListItem.post.data.title }}
     </a>
 
-    <br>
+    <br />
     
-    <span
-      class="list-item-description"
-      ng-class="ListItem.post.type">
-      <div class="list-item-controls style--has-separator">
-        <a
-          offset-y="20"
-          text="'View post discussion'"
-          tooltip
-          ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
-          <img
-            alt="View post discussion"
-            class="control"
-            src="/assets/images/icons/black/comment.png" />
-          <span>{{ ListItem.post.comment_count }}</span>
-        </a>
-        
-        <img
-          alt="Flag post"
-          class="control"
-          ng-click="ListItem.openFlagPostModal()"
-          offset-y="20"
-          src="/assets/images/icons/black/flag.png"
-          text="'Flag post'"
-          tooltip />
-        
-        <img
-          alt="Delete post"
-          class="control ng-hide"
-          ng-click="ListItem.openDeletePostModal()"
-          ng-show="ListItem.isOwnPost()"
-          offset-y="20"
-          src="/assets/images/icons/black/delete.png"
-          text="'Delete post'"
-          tooltip />
-      </div>
-
+    <span class="list-item__details">
       <a
-        class="style--has-separator"
-        ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">
+        class="list-item__detail style--has-children"
+        offset-y="20"
+        text="'View post discussion'"
+        tooltip
+        ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
+        <img
+          alt="View post discussion"
+          class="list-item__detail"
+          src="/assets/images/icons/black/comment.png" />
+        <span>{{ ListItem.post.comment_count }}</span>
+      </a>
+      
+      <img
+        alt="Flag post"
+        class="list-item__detail style--icon"
+        ng-click="ListItem.openFlagPostModal()"
+        offset-y="20"
+        src="/assets/images/icons/black/flag.png"
+        text="'Flag post'"
+        tooltip />
+      
+      <img
+        alt="Delete post"
+        class="list-item__detail style--icon ng-hide"
+        ng-click="ListItem.openDeletePostModal()"
+        ng-show="ListItem.isOwnPost()"
+        offset-y="20"
+        src="/assets/images/icons/black/delete.png"
+        text="'Delete post'"
+        tooltip />
+
+      <span class="list-item__separator"></span>
+
+      <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">
         {{ ListItem.post.data.creator }}
       </a>
 
-      <a
-        class="style--has-separator"
-        ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
+      <span class="list-item__separator"></span>
+
+      <a class="list-item__detail" ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
         b/{{ ListItem.getOriginalBranches()[0] }}
       </a>
 
       <span
-        class="ng-hide style--has-separator"
+        class="list-item__detail ng-hide"
         ng-show="ListItem.getOriginalBranches().length > 1"
         offset-x="30"
         offset-y="30"
@@ -127,13 +124,13 @@
         and {{ ListItem.getOriginalBranches().length - 1 }} others
       </span>
 
-      <span class="style--has-separator">
-        {{ ListItem.post.date | date:'HH:mm' }}
-      </span>
+      <span class="list-item__separator"></span>
 
-      <span>
-        {{ ListItem.post.date | date:'dd-MMMM-yyyy' }}
-      </span>
+      <span class="list-item__detail">{{ ListItem.post.date | date:'HH:mm' }}</span>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ ListItem.post.date | date:'dd-MMMM-yyyy' }}</span>
     </span>
   </div>
 </li>

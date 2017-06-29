@@ -2405,106 +2405,89 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   flex: 1;
   height: 100%;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item-title:hover {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__title:hover {
   cursor: pointer;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
   vertical-align: top;
   width: 10px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description {
-  color: #b3b3b3;
-  font-size: 13px;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a {
-  color: #3498db;
-  font-weight: 500;
-  margin-left: 3px;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info span.list-item-description span {
-  margin-left: 3px;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls {
-  display: inline-block;
-  vertical-align: middle;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a {
-  margin-right: 3px;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a > img.control {
-  margin-right: 0;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a > span {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a:hover {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a:hover > img.control {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls > a:hover > span {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
+  text-decoration: none;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
-  width: auto;
+  width: 16px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
+  margin-left: 7px;
+}
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info div.list-item-controls:after {
-  top: -1px;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .style--has-separator {
-  margin-right: 9px;
-  position: relative;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .style--has-separator:after {
-  color: #b3b3b3;
-  content: '|';
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
   display: inline-block;
-  font-size: 13px;
-  left: calc(100% + 2px);
-  position: absolute;
-  top: 0;
+  height: 14px;
+  margin: 0 7px;
+  position: relative;
+  top: -1px;
+  width: 1px;
 }
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
   font-size: 18px;
@@ -2844,106 +2827,89 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   flex: 1;
   height: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title:hover {
   cursor: pointer;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
   vertical-align: top;
   width: 10px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
-  color: #b3b3b3;
-  font-size: 13px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
-  color: #3498db;
-  font-weight: 500;
-  margin-left: 3px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description span {
-  margin-left: 3px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls {
-  display: inline-block;
-  vertical-align: middle;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a {
-  margin-right: 3px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a > img.control {
-  margin-right: 0;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a > span {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover > img.control {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover > span {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
+  text-decoration: none;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
-  width: auto;
+  width: 16px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
+  margin-left: 7px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls:after {
-  top: -1px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .style--has-separator {
-  margin-right: 9px;
-  position: relative;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .style--has-separator:after {
-  color: #b3b3b3;
-  content: '|';
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
   display: inline-block;
-  font-size: 13px;
-  left: calc(100% + 2px);
-  position: absolute;
-  top: 0;
+  height: 14px;
+  margin: 0 7px;
+  position: relative;
+  top: -1px;
+  width: 1px;
 }
 div#branch-nucleus div.content-body.flaggedposts {
   padding: 0px;
@@ -3064,106 +3030,89 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item-title:hover {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title:hover {
   cursor: pointer;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
   vertical-align: top;
   width: 10px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.audio {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.image {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.page {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.poll {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.text {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-post-type-marker.video {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description {
-  color: #b3b3b3;
-  font-size: 13px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a {
-  color: #3498db;
-  font-weight: 500;
-  margin-left: 3px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info span.list-item-description span {
-  margin-left: 3px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls {
-  display: inline-block;
-  vertical-align: middle;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a {
-  margin-right: 3px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a > img.control {
-  margin-right: 0;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a > span {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover > img.control {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls > a:hover > span {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
+  text-decoration: none;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
-  width: auto;
+  width: 16px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls img.control:hover {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
+  margin-left: 7px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info div.list-item-controls:after {
-  top: -1px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .style--has-separator {
-  margin-right: 9px;
-  position: relative;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .style--has-separator:after {
-  color: #b3b3b3;
-  content: '|';
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
   display: inline-block;
-  font-size: 13px;
-  left: calc(100% + 2px);
-  position: absolute;
-  top: 0;
+  height: 14px;
+  margin: 0 7px;
+  position: relative;
+  top: -1px;
+  width: 1px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
   overflow-x: scroll;
@@ -3621,131 +3570,109 @@ div#branch-post .list-item div.list-item-info,
   flex: 1;
   height: 100%;
 }
-div#branch-post .list-item div.list-item-info .list-item-title,
-.post .list-item div.list-item-info .list-item-title {
+div#branch-post .list-item div.list-item-info .list-item__title,
+.post .list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-post .list-item div.list-item-info .list-item-title:hover,
-.post .list-item div.list-item-info .list-item-title:hover {
+div#branch-post .list-item div.list-item-info .list-item__title:hover,
+.post .list-item div.list-item-info .list-item__title:hover {
   cursor: pointer;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker,
-.post .list-item div.list-item-info span.list-item-post-type-marker {
+div#branch-post .list-item div.list-item-info .list-item__circle,
+.post .list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
   vertical-align: top;
   width: 10px;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.audio,
-.post .list-item div.list-item-info span.list-item-post-type-marker.audio {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--audio,
+.post .list-item div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.image,
-.post .list-item div.list-item-info span.list-item-post-type-marker.image {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--image,
+.post .list-item div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.page,
-.post .list-item div.list-item-info span.list-item-post-type-marker.page {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--page,
+.post .list-item div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.poll,
-.post .list-item div.list-item-info span.list-item-post-type-marker.poll {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--poll,
+.post .list-item div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.text,
-.post .list-item div.list-item-info span.list-item-post-type-marker.text {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--text,
+.post .list-item div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-post .list-item div.list-item-info span.list-item-post-type-marker.video,
-.post .list-item div.list-item-info span.list-item-post-type-marker.video {
+div#branch-post .list-item div.list-item-info .list-item__circle.style--video,
+.post .list-item div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-post .list-item div.list-item-info span.list-item-description,
-.post .list-item div.list-item-info span.list-item-description {
-  color: #b3b3b3;
-  font-size: 13px;
-}
-div#branch-post .list-item div.list-item-info span.list-item-description a,
-.post .list-item div.list-item-info span.list-item-description a {
-  color: #3498db;
-  font-weight: 500;
-  margin-left: 3px;
-}
-div#branch-post .list-item div.list-item-info span.list-item-description a:hover,
-.post .list-item div.list-item-info span.list-item-description a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-post .list-item div.list-item-info span.list-item-description span,
-.post .list-item div.list-item-info span.list-item-description span {
-  margin-left: 3px;
-}
-div#branch-post .list-item div.list-item-info div.list-item-controls,
-.post .list-item div.list-item-info div.list-item-controls {
-  display: inline-block;
-  vertical-align: middle;
-}
-div#branch-post .list-item div.list-item-info div.list-item-controls > a,
-.post .list-item div.list-item-info div.list-item-controls > a {
-  margin-right: 3px;
-}
-div#branch-post .list-item div.list-item-info div.list-item-controls > a > img.control,
-.post .list-item div.list-item-info div.list-item-controls > a > img.control {
-  margin-right: 0;
-}
-div#branch-post .list-item div.list-item-info div.list-item-controls > a > span,
-.post .list-item div.list-item-info div.list-item-controls > a > span {
+div#branch-post .list-item div.list-item-info .list-item__details .list-item__detail,
+.post .list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls > a:hover,
-.post .list-item div.list-item-info div.list-item-controls > a:hover {
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail:hover,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls > a:hover > img.control,
-.post .list-item div.list-item-info div.list-item-controls > a:hover > img.control {
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls > a:hover > span,
-.post .list-item div.list-item-info div.list-item-controls > a:hover > span {
+div#branch-post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span,
+.post .list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
+  text-decoration: none;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls img.control,
-.post .list-item div.list-item-info div.list-item-controls img.control {
+div#branch-post .list-item div.list-item-info .list-item__details img.list-item__detail,
+.post .list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
-  width: auto;
+  width: 16px;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls img.control:hover,
-.post .list-item div.list-item-info div.list-item-controls img.control:hover {
+div#branch-post .list-item div.list-item-info .list-item__details img.list-item__detail.style--icon,
+.post .list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
+  margin-left: 7px;
+}
+div#branch-post .list-item div.list-item-info .list-item__details img.list-item__detail:hover,
+.post .list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-post .list-item div.list-item-info div.list-item-controls:after,
-.post .list-item div.list-item-info div.list-item-controls:after {
-  top: -1px;
-}
-div#branch-post .list-item div.list-item-info .style--has-separator,
-.post .list-item div.list-item-info .style--has-separator {
-  margin-right: 9px;
-  position: relative;
-}
-div#branch-post .list-item div.list-item-info .style--has-separator:after,
-.post .list-item div.list-item-info .style--has-separator:after {
-  color: #b3b3b3;
-  content: '|';
+div#branch-post .list-item div.list-item-info .list-item__separator,
+.post .list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
   display: inline-block;
-  font-size: 13px;
-  left: calc(100% + 2px);
-  position: absolute;
-  top: 0;
+  height: 14px;
+  margin: 0 7px;
+  position: relative;
+  top: -1px;
+  width: 1px;
 }
 @media only screen and (min-width: 768px) {
   div#branch-post .list-item,
@@ -4011,131 +3938,109 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   flex: 1;
   height: 100%;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item-title:hover {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title:hover,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title:hover {
   cursor: pointer;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
   vertical-align: top;
   width: 10px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.audio,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.audio {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--audio,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.image,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.image {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--image,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.page,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.page {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--page,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.poll,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.poll {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--poll,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.text,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.text {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--text,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-post-type-marker.video {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--video,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description {
-  color: #b3b3b3;
-  font-size: 13px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a {
-  color: #3498db;
-  font-weight: 500;
-  margin-left: 3px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description span,
-.post .post-body #answer-list-container #answer-list li div.list-item-info span.list-item-description span {
-  margin-left: 3px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls {
-  display: inline-block;
-  vertical-align: middle;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a {
-  margin-right: 3px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a > img.control,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a > img.control {
-  margin-right: 0;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a > span,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a > span {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details .list-item__detail,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail.style--has-children span,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover > img.control,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover > img.control {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover > span,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls > a:hover > span {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
+  text-decoration: none;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
-  width: auto;
+  width: 16px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls img.control:hover {
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail.style--icon,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail.style--icon {
+  margin-left: 7px;
+}
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail:hover,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls:after,
-.post .post-body #answer-list-container #answer-list li div.list-item-info div.list-item-controls:after {
-  top: -1px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .style--has-separator,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .style--has-separator {
-  margin-right: 9px;
-  position: relative;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .style--has-separator:after,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .style--has-separator:after {
-  color: #b3b3b3;
-  content: '|';
+div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__separator,
+.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
   display: inline-block;
-  font-size: 13px;
-  left: calc(100% + 2px);
-  position: absolute;
-  top: 0;
+  height: 14px;
+  margin: 0 7px;
+  position: relative;
+  top: -1px;
+  width: 1px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-index,
 .post .post-body #answer-list-container #answer-list li .list-item-index {
