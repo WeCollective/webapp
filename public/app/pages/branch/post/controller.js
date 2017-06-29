@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchPostController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
     this.isLoadingComments = true;
@@ -71,14 +71,19 @@ class BranchPostController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  getPreviewTemplate () {
+  canPreviewPost() {
+    const allowedPreviewPostTypes = ['image', 'text', 'video', 'poll'];
+    return allowedPreviewPostTypes.includes(this.PostService.post.type);
+  }
+
+  getPreviewTemplate() {
     return `/app/pages/branch/post/templates-preview/${this.PostService.post.type}.html`;
   }
 
-  getVideoEmbedUrl () {
+  getVideoEmbedUrl() {
     const isYouTubeUrl = url => {
       if (url && '' !== url) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -103,16 +108,21 @@ class BranchPostController extends Injectable {
     return '';
   }
 
-  setPreviewState (state) {
+  setPreviewState(state) {
     this.previewState = state;
   }
 
-  shouldShowTabs () {
+  shouldShowTabs() {
     return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
-  showPreview () {
-    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
+  toggleCinemaMode() {
+    this.previewState = this.previewState === 'maximise' ? 'show' : 'maximise';
+  }
+
+  togglePreviewState() {
+    // Needs ternary expression as there is also the 'maximise' state.
+    this.previewState = this.previewState === 'hide' ? 'show' : 'hide';
   }
 }
 

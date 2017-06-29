@@ -1,4 +1,5 @@
 <div
+  class="post"
   id="branch-post"
   loading
   loading-when="BranchPost.isLoadingPost">
@@ -19,52 +20,35 @@
     </div>
   </div>
 
-  <div id="preview-controls" class="clearfix">
-    <img
-      alt=""
-      ng-click="BranchPost.setPreviewState('hide')"
-      ng-show="(BranchPost.previewState === 'show' || BranchPost.previewState === 'maximise') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
-      offset-y="40"
-      src="/assets/images/icons/black/show.png"
-      style="transform: rotateZ(180deg);"
-      text="'Hide'"
-      tooltip />
+  <div class="post__preview">
+    <div class="post__preview-controls">
+      <img
+        alt="Toggle the post preview visibility"
+        class="post__preview-control-btn"
+        ng-class="{ 'toggled': BranchPost.previewState !== 'hide' }"
+        ng-click="BranchPost.togglePreviewState()"
+        ng-hide="BranchPost.PostService.post.type === 'page' || BranchPost.PostService.post.type === 'audio'"
+        offset-y="40"
+        src="/assets/images/icons/black/show.png"
+        text="BranchPost.previewState === 'hide' ? 'Show' : 'Hide'"
+        tooltip />
 
-    <img
-      alt=""
-      ng-click="BranchPost.setPreviewState('show')"
-      ng-show="(BranchPost.previewState === 'hide') && (BranchPost.PostService.post.type !== 'page' && BranchPost.PostService.post.type !== 'audio')"
-      offset-y="40"
-      src="/assets/images/icons/black/show.png"
-      text="'Reveal'"
-      tooltip />
+      <img
+        alt="Toggle the post preview cinema mode"
+        class="post__preview-control-btn"
+        ng-click="BranchPost.toggleCinemaMode()"
+        ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
+        ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
+        offset-y="40"
+        text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
+        tooltip />
+    </div>
 
-    <img
-      alt=""
-      ng-click="BranchPost.setPreviewState('maximise')"
-      ng-show="BranchPost.previewState === 'show' && (BranchPost.PostService.post.type === 'video' ||
-      BranchPost.PostService.post.type === 'image')"
-      offset-y="40"
-      src="/assets/images/icons/black/maximise.png"
-      text="'Expand'"
-      tooltip />
-
-    <img
-      alt=""
-      ng-click="BranchPost.setPreviewState('show')"
-      ng-show="BranchPost.previewState === 'maximise' && (BranchPost.PostService.post.type === 'video' ||
-      BranchPost.PostService.post.type === 'image')"      
-      offset-y="40"
-      src="/assets/images/icons/black/minimise.png"
-      text="'Shrink'"
-      tooltip />
+    <ng-include
+      ng-if="BranchPost.canPreviewPost()"
+      src="BranchPost.getPreviewTemplate()">
+    </ng-include>
   </div>
-
-  <ng-include
-    id="post-preview"
-    ng-if="BranchPost.showPreview()"
-    src="BranchPost.getPreviewTemplate()">
-  </ng-include>
 
   <tabs
     items="BranchPost.tabItems"

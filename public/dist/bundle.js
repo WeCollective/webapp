@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'production',
-   apiEndpoint: 'https://wecoapi.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66371,7 +66371,12 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  canPreviewPost() {
+    const allowedPreviewPostTypes = ['image', 'text', 'video', 'poll'];
+    return allowedPreviewPostTypes.includes(this.PostService.post.type);
   }
 
   getPreviewTemplate() {
@@ -66411,8 +66416,13 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
-  showPreview() {
-    return ['image', 'text', 'video', 'poll'].includes(this.PostService.post.type);
+  toggleCinemaMode() {
+    this.previewState = this.previewState === 'maximise' ? 'show' : 'maximise';
+  }
+
+  togglePreviewState() {
+    // Needs ternary expression as there is also the 'maximise' state.
+    this.previewState = this.previewState === 'hide' ? 'show' : 'hide';
   }
 }
 
@@ -85070,4 +85080,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map

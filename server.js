@@ -13,17 +13,17 @@
 
 // REQUIRE MODULES
 const express = require('express');          // call express
-const app     = express();                   // define our app using express
-const helmet  = require('helmet');           // protect against common web vulnerabilities
-const logger  = require('./console-logger');
+const app = express();                   // define our app using express
+const helmet = require('helmet');           // protect against common web vulnerabilities
+const logger = require('./console-logger');
 
 // SET ENVIRONMENT AND PORT
-const env  = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 8081;
 
-if ('production' === process.env.NODE_ENV) {
+if (process.env.NODE_ENV === 'production') {
   // REDIRECT TRAFFIC ON HTTP TO HTTPS
-  app.use( (req, res, next) => {
+  app.use((req, res, next) => {
     if (!req.secure && 'https' !== req.get('X-Forwarded-Proto')) {
       res.redirect(`https://${req.get('Host') + req.url}`);
     }
@@ -33,7 +33,7 @@ if ('production' === process.env.NODE_ENV) {
   });
 
   // REDIRECT APEX DOMAIN TO WWW. SUBDOMAIN
-  app.use( (req, res, next) => {
+  app.use((req, res, next) => {
     if (req.get('Host').match(/^www\..*/i)) {
       next();
     }
@@ -43,7 +43,7 @@ if ('production' === process.env.NODE_ENV) {
   });
 
   // PRERENDER IO
-  app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
+  // app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
 }
 
 // SECURITY MIDDLEWARE

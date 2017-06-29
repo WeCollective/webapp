@@ -1,4 +1,21 @@
-div#branch-post {
+@post__preview-spacing: 12px;
+@post__preview-control-btn-size: 30px;
+@post__preview-control-btn-opacity: .5;
+
+@post__preview-control-btn-animation-speed: .3s;
+@post__preview-control-btn-animation-easing: ease;
+@post__preview-control-btn-animation-start-opacity: @post__preview-control-btn-opacity;
+@post__preview-control-btn-animation-start-transform: scale(1);
+@post__preview-control-btn-animation-end-opacity: 0;
+@post__preview-control-btn-animation-end-transform: scale(0);
+
+@post__preview-content-animation-start-opacity: 1;
+@post__preview-content-animation-start-transform: translateY(0);
+@post__preview-content-animation-end-opacity: 0;
+@post__preview-content-animation-end-transform: translateY(-100%);
+
+div#branch-post, // Legacy identifier
+.post {
   @header-min-height: 90px;
 
   box-sizing: border-box;
@@ -20,80 +37,147 @@ div#branch-post {
     span.list-item-index { display: none; }
 
     .list-item(@header-min-height);
-    .responsive(@screen-md, { padding-top: 0; });
+    .mediaQuery(@screen-md, { padding-top: 0; });
   }
 
-  div#preview-controls {
-    margin: 5px 0;
+  .post__preview {
+    min-height: @post__preview-control-btn-size + @post__preview-spacing;
+    position: relative;
 
-    img {
-      float: right;
-      height: 30px;
-      opacity: .5;
-      padding-left: 5px;
-      width: auto;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
-    }
-  }
-
-  ng-include#post-preview {
-    width: 100%;
-
-    #image-post {
-      div {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        height: 200px;
-        width: auto;
-      }
-
-      &.maximised div {
-        height: 350px;
-        width: auto;
-        transition: height .3s ease-out;
-      }
-
-      &:not(.ng-hide) div { transition: height .3s ease-out; }
+    ng-include {
+      display: block;
+      overflow: hidden;
+      padding-top: @post__preview-spacing;
     }
 
-    #text-post {
-      max-height: 350px;
-      overflow-y: scroll;
-    }
+    .post__preview-content {
+      &.ng-hide-add,
+      &.ng-hide-remove {
+        transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing,
+          opacity @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
+      }
 
-    #video-post {
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
+      &.ng-hide-add {
+        opacity: @post__preview-content-animation-start-opacity;
+        transform: @post__preview-content-animation-start-transform;
 
-      .responsive(@screen-md, { width: 43.75%; });
-
-      div#video-wrapper {
-        height: 0;
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-        padding-top: 25px;
-
-        iframe {
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 100%;
+        &.ng-hide-add-active {
+          opacity: @post__preview-content-animation-end-opacity;
+          transform: @post__preview-content-animation-end-transform;
         }
       }
 
-      &.maximised {
-        transition: width .3s ease-out;
-        width: 100%;
+      &.ng-hide-remove {
+        opacity: @post__preview-content-animation-end-opacity;
+        transform: @post__preview-content-animation-end-transform;
+
+        &.ng-hide-remove-active {
+          opacity: @post__preview-content-animation-start-opacity;
+          transform: @post__preview-content-animation-start-transform;
+        }
       }
 
-      &:not(.ng-hide) { transition: width .3s ease-out; }
+      &.style--image {
+        div {
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          height: 200px;
+          width: auto;
+          transition: height .3s ease-out;
+        }
+
+        &.maximised div {
+          height: 350px;
+          width: auto;
+        }
+      }
+
+      &.style--poll {}
+
+      &.style--text {
+        max-height: 350px;
+        overflow-y: scroll;
+      }
+
+      &.style--video {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        transition: width .3s ease-out;
+
+        div {
+          height: 0;
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 */
+          padding-top: 25px;
+          transition: width .3s ease-out;
+
+          iframe {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+          }
+        }
+
+        &.maximised { width: 100%; }
+
+        .mediaQuery(@screen-md, { width: 43.75%; });
+      }
+    }
+
+    .post__preview-controls {
+      left: 0;
+      position: absolute;
+      top: @post__preview-spacing;
+      width: 100%;
+
+      .post__preview-control-btn {
+        float: right;
+        height: @post__preview-control-btn-size;
+        margin-left: 5px;
+        opacity: @post__preview-control-btn-opacity;
+        width: @post__preview-control-btn-size;
+        transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
+        // Fix Webkit blur issue.
+        // @source: https://stackoverflow.com/questions/27060690/webkit-transform-scale-blurry-images
+        -webkit-filter: blur(0px);
+
+        &:hover {
+          cursor: pointer;
+          opacity: 1;
+        }
+
+        &.toggled { transform: rotateZ(180deg); }
+
+        &.ng-hide-add,
+        &.ng-hide-remove {
+          transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing,
+            opacity @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
+        }
+
+        &.ng-hide-add {
+          opacity: @post__preview-control-btn-animation-start-opacity;
+          transform: @post__preview-control-btn-animation-start-transform;
+
+          &.ng-hide-add-active {
+            opacity: @post__preview-control-btn-animation-end-opacity;
+            transform: @post__preview-control-btn-animation-end-transform;
+          }
+        }
+
+        &.ng-hide-remove {
+          opacity: @post__preview-control-btn-animation-end-opacity;
+          transform: @post__preview-control-btn-animation-end-transform;
+
+          &.ng-hide-remove-active {
+            opacity: @post__preview-control-btn-animation-start-opacity;
+            transform: @post__preview-control-btn-animation-start-transform;
+          }
+        }
+      }
     }
   }
 
@@ -119,7 +203,7 @@ div#branch-post {
               opacity: 1;
             }
 
-            .responsive(@screen-sm, {
+            .mediaQuery(@screen-sm, {
               margin-left: 0;
             });
 
@@ -213,7 +297,7 @@ div#branch-post {
     }
   }
 
-  .responsive(@screen-md, {
+  .mediaQuery(@screen-md, {
     padding: 10px 10px 0;
 
     .loading-container {

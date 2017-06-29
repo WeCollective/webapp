@@ -1,5 +1,5 @@
 <div
-	id="image-post"
+  class="post__preview-content style--image"
   ng-class="{ 'maximised': BranchPost.previewState === 'maximise' }"
   ng-show="BranchPost.PostService.post.type === 'image' && BranchPost.previewState !== 'hide'">
   <div style="background-image: url('{{ BranchPost.AppService.getProxyUrl(BranchPost.PostService.post.data.text) }}'), url('/assets/images/invalid-image-url.jpg')"></div>
