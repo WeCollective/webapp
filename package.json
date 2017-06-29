@@ -4,14 +4,15 @@
   "description": "The front-end AngularJS app and server for WECO.",
   "main": "server.js",
   "scripts": {
-    "beanstalk-dev": "eb deploy --staged webapp-dev --profile weco-iam",
-    "beanstalk-production": "eb deploy --staged webapp-prod --profile weco-iam",
+    "beanstalk:dev": "eb deploy webapp-dev --profile weco-iam",
+    "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
     "build:dev": "gulp build:dev",
     "build:production": "gulp build:production",
+    "commit": "git add . && git commit -m \"Build commit\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "deploy:dev": "npm-run-all build:dev beanstalk-dev",
-    "deploy:production": "npm-run-all build:production beanstalk-production"
+    "deploy:dev": "npm-run-all build:dev commit beanstalk:dev",
+    "deploy:production": "npm-run-all build:production commit beanstalk:production"
   },
   "repository": {
     "type": "git",
