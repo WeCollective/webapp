@@ -324,10 +324,6 @@ span {
   position: relative;
   top: -3px;
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-header .button {
-  position: relative;
-  top: -8px;
-}
 #weco-root div.page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
   overflow-y: scroll;
@@ -2241,9 +2237,9 @@ div#notfound div h2 {
   background-image: url('/assets/images/icons/black/add.jpg');
   background-size: cover;
   display: block;
-  height: 32px;
-  margin-left: 12px;
-  width: 32px;
+  height: 28px;
+  margin-left: 4px;
+  width: 28px;
 }
 .content-header .button > a:not(.disabled):hover {
   cursor: pointer;

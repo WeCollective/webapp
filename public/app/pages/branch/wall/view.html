@@ -35,17 +35,17 @@
         selected="BranchWall.WallService.controls.statType.selectedIndex"
         title="stat type">
       </dropdown>
-    </div>
 
-    <div class="button">
-      <a
-        id="add-content"
-        ng-class="{ 'disabled': !BranchWall.WallService.canAddContent() }"
-        ng-click="BranchWall.WallService.addContent()"
-        offset-y="40"
-        text="BranchWall.WallService.getAddContentTooltip()"
-        tooltip>
-      </a>
+      <div class="button">
+        <a
+          id="add-content"
+          ng-class="{ 'disabled': !BranchWall.WallService.canAddContent() }"
+          ng-click="BranchWall.WallService.addContent()"
+          offset-y="40"
+          text="BranchWall.WallService.getAddContentTooltip()"
+          tooltip>
+        </a>
+      </div>
     </div>
   </div>
   

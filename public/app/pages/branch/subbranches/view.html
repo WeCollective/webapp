@@ -23,17 +23,17 @@
         selected="BranchSubbranches.controls.sortBy.selectedIndex"
         title="sort by">
       </dropdown>
-    </div>
 
-    <div class="button">
-      <a
-        id="add-content"
-        ng-class="{ 'disabled': !BranchSubbranches.WallService.canAddContent() }"
-        ng-click="BranchSubbranches.WallService.addContent()"
-        offset-y="40"
-        text="BranchSubbranches.WallService.getAddContentTooltip()"
-        tooltip>
-      </a>
+      <div class="button">
+        <a
+          id="add-content"
+          ng-class="{ 'disabled': !BranchSubbranches.WallService.canAddContent() }"
+          ng-click="BranchSubbranches.WallService.addContent()"
+          offset-y="40"
+          text="BranchSubbranches.WallService.getAddContentTooltip()"
+          tooltip>
+        </a>
+      </div>
     </div>
   </div>
 
