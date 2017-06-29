@@ -66321,9 +66321,9 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     // Possible states: show, maximise.
     this.previewState = 'show';
 
-    this.tabItems = ['vote', 'results', 'discussion'];
+    this.tabItems = ['vote', 'discussion', 'results'];
 
-    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.results', 'weco.branch.post.discussion'];
+    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.discussion', 'weco.branch.post.results'];
 
     this.tabStateParams = [{
       branchid: this.BranchService.branch.id,

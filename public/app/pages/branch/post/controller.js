@@ -13,14 +13,14 @@ class BranchPostController extends Injectable {
 
     this.tabItems = [
       'vote',
+      'discussion',
       'results',
-      'discussion'
     ];
 
     this.tabStates = [
       'weco.branch.post.vote',
+      'weco.branch.post.discussion',
       'weco.branch.post.results',
-      'weco.branch.post.discussion'
     ];
     
     this.tabStateParams = [{

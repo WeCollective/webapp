@@ -3782,6 +3782,7 @@ div#branch-post .post__preview ng-include,
   height: 100%;
   overflow: hidden;
   padding-top: 12px;
+  position: relative;
 }
 div#branch-post .post__preview .post__preview-content.ng-hide-add,
 .post .post__preview .post__preview-content.ng-hide-add,
