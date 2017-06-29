@@ -1353,6 +1353,7 @@ div.poll-answer-editor input {
   }
 }
 ul.tabs {
+  border-bottom: 1px solid grey;
   display: inline-block;
 }
 ul.tabs a li {
@@ -3772,11 +3773,13 @@ div#branch-post .list-item div.list-item-info .style--has-separator:after,
 div#branch-post .post__preview,
 .post .post__preview {
   min-height: 42px;
+  overflow: auto;
   position: relative;
 }
 div#branch-post .post__preview ng-include,
 .post .post__preview ng-include {
   display: block;
+  height: 100%;
   overflow: hidden;
   padding-top: 12px;
 }

@@ -42,10 +42,12 @@ div#branch-post, // Legacy identifier
 
   .post__preview {
     min-height: @post__preview-control-btn-size + @post__preview-spacing;
+    overflow: auto;
     position: relative;
 
     ng-include {
       display: block;
+      height: 100%;
       overflow: hidden;
       padding-top: @post__preview-spacing;
     }
