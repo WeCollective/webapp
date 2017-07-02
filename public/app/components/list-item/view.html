@@ -45,7 +45,7 @@
   <div class="list-item-info">
     <span
       class="list-item__circle"
-      ng-class="'style--{{ ListItem.post.type}}'"
+      ng-class="ListItem.getMarkerClass(ListItem.post.type)"
       offset-y="20"
       text="ListItem.post.type | capitalize"
       tooltip>

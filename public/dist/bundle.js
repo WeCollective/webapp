@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63587,6 +63587,33 @@ DropdownComponent.$inject = [];
 class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(ListItemController.$inject, injections);
+  }
+
+  getMarkerClass() {
+    const prefix = 'style--';
+
+    switch (this.post.type) {
+      case 'audio':
+        return `${prefix}audio`;
+
+      case 'image':
+        return `${prefix}image`;
+
+      case 'page':
+        return `${prefix}page`;
+
+      case 'poll':
+        return `${prefix}poll`;
+
+      case 'text':
+        return `${prefix}text`;
+
+      case 'video':
+        return `${prefix}video`;
+
+      default:
+        return '';
+    }
   }
 
   getOriginalBranches() {

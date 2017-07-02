@@ -1,11 +1,38 @@
 import Injectable from 'utils/injectable';
 
 class ListItemController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ListItemController.$inject, injections);
   }
 
-  getOriginalBranches () {
+  getMarkerClass() {
+    const prefix = 'style--';
+
+    switch (this.post.type) {
+      case 'audio':
+        return `${prefix}audio`;
+
+      case 'image':
+        return `${prefix}image`;
+
+      case 'page':
+        return `${prefix}page`;
+
+      case 'poll':
+        return `${prefix}poll`;
+
+      case 'text':
+        return `${prefix}text`;
+
+      case 'video':
+        return `${prefix}video`;
+
+      default:
+        return '';
+    }
+  }
+
+  getOriginalBranches  () {
     let branches = [];
     
     if (this.post.data && this.post.data.original_branches) {
@@ -15,7 +42,7 @@ class ListItemController extends Injectable {
     return branches;
   }
 
-  getOriginalBranchesTooltipString () {
+  getOriginalBranchesTooltipString() {
     const original_branches = this.getOriginalBranches();
     let string = '';
 
@@ -26,17 +53,17 @@ class ListItemController extends Injectable {
     return string;
   }
 
-  getPostImage () {
+  getPostImage() {
     const IMG_DIR = '/assets/images/placeholders/';
     return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
   }
 
-  getTotalFlagCount () {
+  getTotalFlagCount() {
     const counts = [
       'branch_rules_count',
       'nsfw_count',
       'site_rules_count',
-      'wrong_type_count'
+      'wrong_type_count',
     ];
 
     let total = 0;
@@ -50,11 +77,11 @@ class ListItemController extends Injectable {
     return total;
   }
 
-  isOwnPost () {
+  isOwnPost() {
     return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
   }
 
-  openDeletePostModal () {
+  openDeletePostModal() {
     this.ModalService.open('DELETE_POST', { postid: this.post.id },
       'Post deleted.', 'Unable to delete post.' );
 
@@ -64,7 +91,7 @@ class ListItemController extends Injectable {
     });
   }
 
-  openFlagPostModal () {
+  openFlagPostModal() {
     this.ModalService.open('FLAG_POST', {
         post: this.post,
         branchid: this.BranchService.branch.id
@@ -73,20 +100,20 @@ class ListItemController extends Injectable {
       'Unable to flag post.');
   }
 
-  openResolveFlagPostModal () {
+  openResolveFlagPostModal() {
     this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post },
       'Done.', 'Error resolving flags on post.' );
   }
 
-  showFlags () {
+  showFlags() {
     return this.$state.current.name.includes('weco.branch.nucleus');
   }
 
-  showVotes () {
+  showVotes() {
     return !!this.stat;
   }
 
-  vote (direction) {
+  vote(direction) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction)
       .then( _ => {
         const inc = (direction === 'up') ? 1 : -1;
