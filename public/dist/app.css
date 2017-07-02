@@ -2490,6 +2490,9 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   top: -1px;
   width: 1px;
 }
+div#branch-subbranches div.content-body ul#subbranch-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+  font-size: 18px;
+}
 div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
   font-size: 18px;
 }
@@ -2913,6 +2916,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   top: -1px;
   width: 1px;
 }
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+  font-size: 18px;
+}
 div#branch-nucleus div.content-body.flaggedposts {
   padding: 0px;
 }
@@ -3116,6 +3122,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   position: relative;
   top: -1px;
   width: 1px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+  font-size: 18px;
 }
 div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
   overflow-x: scroll;
@@ -3678,6 +3687,10 @@ div#branch-post .list-item div.list-item-info .list-item__separator,
   top: -1px;
   width: 1px;
 }
+div#branch-post .list-item.style--card-branch div.list-item-info .list-item__title,
+.post .list-item.style--card-branch div.list-item-info .list-item__title {
+  font-size: 18px;
+}
 @media only screen and (min-width: 768px) {
   div#branch-post .list-item,
   .post .list-item {
@@ -4046,6 +4059,10 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   position: relative;
   top: -1px;
   width: 1px;
+}
+div#branch-post .post-body #answer-list-container #answer-list li.style--card-branch div.list-item-info .list-item__title,
+.post .post-body #answer-list-container #answer-list li.style--card-branch div.list-item-info .list-item__title {
+  font-size: 18px;
 }
 div#branch-post .post-body #answer-list-container #answer-list li .list-item-index,
 .post .post-body #answer-list-container #answer-list li .list-item-index {

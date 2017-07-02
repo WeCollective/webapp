@@ -7,7 +7,7 @@ class ListItemComponent extends Injectable {
     this.bindToController = {
       index: '=',
       post: '=',
-      stat: '='
+      stat: '=',
     };
     this.controller = 'ListItemController';
     this.controllerAs = 'ListItem';

@@ -1,4 +1,4 @@
-<li class="post-entry">
+<li class="list-item">
   <span class="list-item-index">{{ ListItem.index + 1 }}</span>
   <div
     class="list-item-flags ng-hide"
@@ -6,18 +6,6 @@
     ng-show="ListItem.showFlags()">
     <img alt="" src="/assets/images/icons/white/flag.png" />
     <span>{{ ListItem.getTotalFlagCount() }}</span>
-  </div>
-  
-  <div class="list-item-votes ng-hide" ng-show="ListItem.showVotes()">
-    <img
-      alt=""
-      ng-click="ListItem.vote('up')"
-      src="/assets/images/icons/black/arrow-up.png" />
-    <p>{{ ListItem.post[ListItem.stat] }}</p>
-    <img
-      alt=""
-      ng-click="ListItem.vote('down')"
-      src="/assets/images/icons/black/arrow-down.png" />
   </div>
   
   <!-- Two DOM elements conditionally displayed if the post is a text type.
@@ -35,7 +23,7 @@
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.jpg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.jpg')"></div>
   </a>
   
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">

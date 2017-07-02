@@ -23,6 +23,7 @@ import Verify from './pages/auth/verify/controller';
 // Components.
 import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/controller';
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
+import CardBranch from './components/card-branch/controller';
 import Comments from './components/comments/controller';
 import CommentThread from './components/comments/comment-thread/controller';
 import CoverPhoto from './components/cover-photo/controller';
@@ -70,6 +71,7 @@ let refs = [
   
   { name: 'AddModModalController', module: AddModModal },
   { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },
+  { name: 'CardBranchController', module: CardBranch },
   { name: 'CommentsController', module: Comments },
   { name: 'CommentThreadController', module: CommentThread },
   { name: 'CoverPhotoController', module: CoverPhoto },

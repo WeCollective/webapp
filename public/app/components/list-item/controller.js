@@ -32,7 +32,7 @@ class ListItemController extends Injectable {
     }
   }
 
-  getOriginalBranches  () {
+  getOriginalBranches() {
     let branches = [];
     
     if (this.post.data && this.post.data.original_branches) {
@@ -107,10 +107,6 @@ class ListItemController extends Injectable {
 
   showFlags() {
     return this.$state.current.name.includes('weco.branch.nucleus');
-  }
-
-  showVotes() {
-    return !!this.stat;
   }
 
   vote(direction) {
