@@ -109,6 +109,10 @@ class ListItemController extends Injectable {
     return this.$state.current.name.includes('weco.branch.nucleus');
   }
 
+  showVotes() {
+    return !!this.stat;
+  }
+
   vote(direction) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction)
       .then( _ => {

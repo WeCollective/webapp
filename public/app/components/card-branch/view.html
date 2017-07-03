@@ -1,5 +1,9 @@
 <li class="list-item style--card-branch">
-  <span class="list-item-index">{{ CardBranch.index + 1 }}</span>
+  <span
+    class="list-item-index ng-hide"
+    ng-show="CardBranch.index >= 0">
+    {{ CardBranch.index + 1 }}
+  </span>
   
   <a
     class="list-item-image"

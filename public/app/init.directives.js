@@ -1,5 +1,6 @@
 import Alerts from './components/alerts/directive';
 import CardBranch from './components/card-branch/directive';
+import CardPollAnswer from './components/card-poll-answer/directive';
 import Chart from './components/chart/directive';
 import Comments from './components/comments/directive';
 import CommentThread from './components/comments/comment-thread/directive';
@@ -21,6 +22,7 @@ import WriteComment from './components/comments/write-comment/directive';
 let refs = [
   { name: 'alerts', module: Alerts },
   { name: 'cardBranch', module: CardBranch },
+  { name: 'cardPollAnswer', module: CardPollAnswer },
   { name: 'chart', module: Chart },
   { name: 'comments', module: Comments },
   { name: 'commentThread', module: CommentThread },

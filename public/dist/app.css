@@ -262,6 +262,7 @@ span {
 #weco-root div.page > div.frame > div.frame-content {
   float: left;
   height: 100%;
+  overflow-y: scroll;
   width: 100%;
   transition: transform 0.3s ease-out;
 }
@@ -296,14 +297,14 @@ span {
     display: none;
   }
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-header {
+#weco-root div.page > div.frame > div.frame-content > div .content-header {
   align-items: center;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-flow: row wrap;
   padding: 20px;
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
+#weco-root div.page > div.frame > div.frame-content > div .content-header h1 {
   font-size: 26px;
   font-weight: 500;
   padding-right: 10px;
@@ -311,11 +312,11 @@ span {
   top: -1px;
 }
 @media only screen and (min-width: 576px) {
-  #weco-root div.page > div.frame > div.frame-content > div div.content-header h1 {
+  #weco-root div.page > div.frame > div.frame-content > div .content-header h1 {
     padding-right: 20px;
   }
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-header > div.content-controls {
+#weco-root div.page > div.frame > div.frame-content > div .content-header > div.content-controls {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -1349,25 +1350,33 @@ div.poll-answer-editor input {
   }
 }
 ul.tabs {
-  border-bottom: 1px solid grey;
+  border-bottom: solid 1px #e7e7e7;
   display: inline-block;
+  position: relative;
 }
-ul.tabs a li {
+ul.tabs .tabs__item {
   border-bottom: solid 2px transparent;
+  color: #c8c8c8;
   display: inline-block;
   min-width: 60px;
-  padding: 4px 10px;
   text-align: center;
 }
-ul.tabs a li span {
+ul.tabs .tabs__item span {
   font-size: 12px;
-  text-transform: uppercase;
 }
-ul.tabs a li.selected {
+ul.tabs .tabs__item.selected {
   border-bottom-color: #000;
+  color: #2c2c2c;
 }
-ul.tabs a li.selected span {
+ul.tabs .tabs__item.selected span {
   font-weight: 600;
+}
+ul.tabs .tabs__item:not(.selected):hover {
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+ul.tabs .tabs__link {
+  display: block;
+  padding: 4px 10px;
 }
 div.tag-editor {
   margin-bottom: 10px;
@@ -2310,10 +2319,10 @@ div#branch-frame div#branch-info.frame-column h2#branch-id {
 div#branch-frame div#branch-info.frame-column h2a:hover {
   text-decoration: underline;
 }
-div#branch-subbranches div.content-body ul#subbranch-list {
+div#branch-subbranches div.content-body ul {
   overflow-x: hidden;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
+div#branch-subbranches div.content-body ul li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -2321,13 +2330,13 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item {
   padding: 8px 0;
   width: 100%;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item span.list-item-index {
+div#branch-subbranches div.content-body ul li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 90px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -2337,11 +2346,11 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   position: relative;
   text-align: center;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags:hover {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags img {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -2349,32 +2358,32 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   vertical-align: middle;
   width: 16px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-flags span {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes {
+div#branch-subbranches div.content-body ul li.list-item .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 90px;
   justify-content: space-between;
-  margin: 0 6px;
+  margin-left: 6px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img {
+div#branch-subbranches div.content-body ul li.list-item .list-item-votes img {
   height: 24px;
   opacity: .3;
   width: 24px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes img:hover {
+div#branch-subbranches div.content-body ul li.list-item .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-votes p {
+div#branch-subbranches div.content-body ul li.list-item .list-item-votes p {
   margin: 0;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div {
+div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -2382,10 +2391,10 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-it
   margin: 0 10px 0 12px;
   width: 90px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item a.list-item-image div:hover {
+div#branch-subbranches div.content-body ul li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -2394,28 +2403,18 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-nsfw-label span {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__title:hover {
-  cursor: pointer;
-}
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
@@ -2423,65 +2422,65 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   vertical-align: top;
   width: 10px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--audio {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--image {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--page {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--poll {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--text {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__circle.style--video {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info .list-item__separator {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -2490,11 +2489,64 @@ div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-
   top: -1px;
   width: 1px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__radio-button {
+  height: 28px;
+  margin: 0 12px;
+  width: 28px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-subbranches div.content-body ul#subbranch-list li.list-item div.list-item-info a .list-item-title {
-  font-size: 18px;
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
 }
 div#branch-nucleus div.content-body {
   padding: 10px 20px;
@@ -2780,27 +2832,27 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   justify-content: space-between;
-  margin: 0 6px;
+  margin-left: 6px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes img {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img {
   height: 24px;
   opacity: .3;
   width: 24px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes img:hover {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-votes p {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes p {
   margin: 0;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item a.list-item-image div {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -2808,7 +2860,7 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item a.list-item-image div:hover {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
@@ -2830,16 +2882,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title:hover {
-  cursor: pointer;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
@@ -2916,8 +2958,64 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   top: -1px;
   width: 1px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__radio-button {
+  height: 28px;
+  margin: 0 12px;
+  width: 28px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
 }
 div#branch-nucleus div.content-body.flaggedposts {
   padding: 0px;
@@ -2987,27 +3085,27 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags s
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   justify-content: space-between;
-  margin: 0 6px;
+  margin-left: 6px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img {
   height: 24px;
   opacity: .3;
   width: 24px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes img:hover {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-votes p {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes p {
   margin: 0;
 }
-div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3015,7 +3113,7 @@ div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item a.list-item-image div:hover {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
@@ -3037,16 +3135,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-la
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title:hover {
-  cursor: pointer;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__circle {
   border-radius: 50%;
@@ -3123,8 +3211,64 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   top: -1px;
   width: 1px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch div.list-item-info .list-item__title {
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__radio-button {
+  height: 28px;
+  margin: 0 12px;
+  width: 28px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
 }
 div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
   overflow-x: scroll;
@@ -3461,7 +3605,6 @@ div#branch-post,
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 10px 20px 0;
   position: relative;
 }
 div#branch-post > .branch-post--header,
@@ -3470,19 +3613,44 @@ div#branch-post > .branch-post--header,
   display: flex;
   min-height: 90px;
 }
+@media only screen and (min-width: 768px) {
+  div#branch-post > .branch-post--header,
+  .post > .branch-post--header {
+    display: block;
+  }
+}
+div#branch-post .chart,
+.post .chart {
+  height: 250px;
+  margin: 12px auto;
+  width: 250px;
+}
+div#branch-post .content--sidebar-toggle,
+.post .content--sidebar-toggle {
+  margin-left: 12px;
+  margin-right: 0 !important;
+}
+div#branch-post .dropdown,
+.post .dropdown {
+  margin-right: 12px;
+  padding: 0;
+}
+div#branch-post .dropdown .dropdown-title,
+.post .dropdown .dropdown-title {
+  line-height: 1;
+  padding-left: 0;
+  padding-top: 3px;
+}
 div#branch-post .list-item,
 .post .list-item {
-  padding-top: 15px;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   min-height: 90px;
   padding: 8px 0;
   width: 100%;
-}
-div#branch-post .list-item span.list-item-index,
-.post .list-item span.list-item-index {
-  display: none;
+  margin-top: 12px;
+  padding: 0 0 12px;
 }
 div#branch-post .list-item span.list-item-index,
 .post .list-item span.list-item-index {
@@ -3522,32 +3690,32 @@ div#branch-post .list-item div.list-item-flags span,
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-post .list-item div.list-item-votes,
-.post .list-item div.list-item-votes {
+div#branch-post .list-item .list-item-votes,
+.post .list-item .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 90px;
   justify-content: space-between;
-  margin: 0 6px;
+  margin-left: 6px;
 }
-div#branch-post .list-item div.list-item-votes img,
-.post .list-item div.list-item-votes img {
+div#branch-post .list-item .list-item-votes img,
+.post .list-item .list-item-votes img {
   height: 24px;
   opacity: .3;
   width: 24px;
 }
-div#branch-post .list-item div.list-item-votes img:hover,
-.post .list-item div.list-item-votes img:hover {
+div#branch-post .list-item .list-item-votes img:hover,
+.post .list-item .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div#branch-post .list-item div.list-item-votes p,
-.post .list-item div.list-item-votes p {
+div#branch-post .list-item .list-item-votes p,
+.post .list-item .list-item-votes p {
   margin: 0;
 }
-div#branch-post .list-item a.list-item-image div,
-.post .list-item a.list-item-image div {
+div#branch-post .list-item .list-item-image div,
+.post .list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3555,8 +3723,8 @@ div#branch-post .list-item a.list-item-image div,
   margin: 0 10px 0 12px;
   width: 90px;
 }
-div#branch-post .list-item a.list-item-image div:hover,
-.post .list-item a.list-item-image div:hover {
+div#branch-post .list-item .list-item-image div:hover,
+.post .list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 div#branch-post .list-item div.list-item-nsfw-label,
@@ -3581,18 +3749,6 @@ div#branch-post .list-item div.list-item-info,
 .post .list-item div.list-item-info {
   flex: 1;
   height: 100%;
-}
-div#branch-post .list-item div.list-item-info .list-item__title,
-.post .list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-post .list-item div.list-item-info .list-item__title:hover,
-.post .list-item div.list-item-info .list-item__title:hover {
-  cursor: pointer;
 }
 div#branch-post .list-item div.list-item-info .list-item__circle,
 .post .list-item div.list-item-info .list-item__circle {
@@ -3687,19 +3843,85 @@ div#branch-post .list-item div.list-item-info .list-item__separator,
   top: -1px;
   width: 1px;
 }
-div#branch-post .list-item.style--card-branch div.list-item-info .list-item__title,
-.post .list-item.style--card-branch div.list-item-info .list-item__title {
+div#branch-post .list-item div.list-item-info .list-item__title,
+.post .list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-post .list-item .list-item__radio-button,
+.post .list-item .list-item__radio-button {
+  height: 28px;
+  margin: 0 12px;
+  width: 28px;
+}
+div#branch-post .list-item .list-item__stats,
+.post .list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-post .list-item .list-item__stats .list-item__stats-header .list-item__stats-votes,
+.post .list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-post .list-item .list-item__stats .list-item__stats-header .list-item__stats-icon,
+.post .list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-post .list-item .list-item__stats .list-item__stats-percentage,
+.post .list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-post .list-item.style--card-branch .list-item-info .list-item__title,
+.post .list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-@media only screen and (min-width: 768px) {
-  div#branch-post .list-item,
-  .post .list-item {
-    padding-top: 0;
-  }
+div#branch-post .list-item.style--card-poll-answer,
+.post .list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-post .list-item.style--card-poll-answer .list-item-index.style--colour-coded,
+.post .list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-post .list-item.style--card-poll-answer.style--selected,
+.post .list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-post .list-item.style--card-poll-answer:not(.style--result),
+.post .list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-post .list-item.style--card-poll-answer:not(.style--result):hover,
+.post .list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+div#branch-post .list-item .list-item-votes,
+.post .list-item .list-item-votes {
+  margin-left: 12px;
 }
 div#branch-post .post__preview,
 .post .post__preview {
-  min-height: 42px;
+  border-bottom: solid 1px #e7e7e7;
+  min-height: 54px;
   overflow: auto;
   position: relative;
 }
@@ -3707,9 +3929,14 @@ div#branch-post .post__preview ng-include,
 .post .post__preview ng-include {
   display: block;
   height: 100%;
+  margin: 0 12px 12px;
   overflow: hidden;
   padding-top: 12px;
   position: relative;
+}
+div#branch-post .post__preview .post__preview-content p,
+.post .post__preview .post__preview-content p {
+  margin: 0;
 }
 div#branch-post .post__preview .post__preview-content.ng-hide-add,
 .post .post__preview .post__preview-content.ng-hide-add,
@@ -3792,10 +4019,10 @@ div#branch-post .post__preview .post__preview-content.style--video.maximised,
 }
 div#branch-post .post__preview .post__preview-controls,
 .post .post__preview .post__preview-controls {
-  left: 0;
   position: absolute;
+  right: 12px;
   top: 12px;
-  width: 100%;
+  z-index: 1;
 }
 div#branch-post .post__preview .post__preview-controls .post__preview-control-btn,
 .post .post__preview .post__preview-controls .post__preview-control-btn {
@@ -3842,30 +4069,33 @@ div#branch-post .post__preview .post__preview-controls .post__preview-control-bt
   opacity: 0.5;
   transform: scale(1);
 }
-div#branch-post .post-body #answer-list-container,
-.post .post-body #answer-list-container {
+div#branch-post .post__content-wrapper,
+.post .post__content-wrapper {
   flex: 1;
   overflow-y: scroll;
 }
-div#branch-post .post-body #answer-list-container #answer-list li,
-.post .post-body #answer-list-container #answer-list li {
+div#branch-post .post__content-wrapper .list-item__title,
+.post .post__content-wrapper .list-item__title {
+  line-height: 1.5 !important;
+}
+div#branch-post .post__content-wrapper .style--card-poll-answer,
+.post .post__content-wrapper .style--card-poll-answer {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
   min-height: 70px;
   padding: 8px 0;
   width: 100%;
-  align-items: center;
 }
-div#branch-post .post-body #answer-list-container #answer-list li span.list-item-index,
-.post .post-body #answer-list-container #answer-list li span.list-item-index {
+div#branch-post .post__content-wrapper .style--card-poll-answer span.list-item-index,
+.post .post__content-wrapper .style--card-poll-answer span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags,
-.post .post-body #answer-list-container #answer-list li div.list-item-flags {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-flags,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3875,13 +4105,13 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   position: relative;
   text-align: center;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-flags:hover {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-flags:hover,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags img,
-.post .post-body #answer-list-container #answer-list li div.list-item-flags img {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-flags img,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -3889,38 +4119,38 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   vertical-align: middle;
   width: 16px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-flags span,
-.post .post-body #answer-list-container #answer-list li div.list-item-flags span {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-flags span,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes,
-.post .post-body #answer-list-container #answer-list li div.list-item-votes {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-votes,
+.post .post__content-wrapper .style--card-poll-answer .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   justify-content: space-between;
-  margin: 0 6px;
+  margin-left: 6px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes img,
-.post .post-body #answer-list-container #answer-list li div.list-item-votes img {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-votes img,
+.post .post__content-wrapper .style--card-poll-answer .list-item-votes img {
   height: 24px;
   opacity: .3;
   width: 24px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes img:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-votes img:hover {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-votes img:hover,
+.post .post__content-wrapper .style--card-poll-answer .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-votes p,
-.post .post-body #answer-list-container #answer-list li div.list-item-votes p {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-votes p,
+.post .post__content-wrapper .style--card-poll-answer .list-item-votes p {
   margin: 0;
 }
-div#branch-post .post-body #answer-list-container #answer-list li a.list-item-image div,
-.post .post-body #answer-list-container #answer-list li a.list-item-image div {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-image div,
+.post .post__content-wrapper .style--card-poll-answer .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3928,12 +4158,12 @@ div#branch-post .post-body #answer-list-container #answer-list li a.list-item-im
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li a.list-item-image div:hover,
-.post .post-body #answer-list-container #answer-list li a.list-item-image div:hover {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item-image div:hover,
+.post .post__content-wrapper .style--card-poll-answer .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label,
-.post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-nsfw-label,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -3942,33 +4172,21 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label span,
-.post .post-body #answer-list-container #answer-list li div.list-item-nsfw-label span {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-nsfw-label span,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info,
-.post .post-body #answer-list-container #answer-list li div.list-item-info {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__title:hover {
-  cursor: pointer;
-}
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle {
   border-radius: 50%;
   display: inline-block;
   height: 10px;
@@ -3976,82 +4194,82 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   vertical-align: top;
   width: 10px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--audio,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--audio {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--audio,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--audio {
   background-color: #9DE599;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--image,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--image {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--image,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--image {
   background-color: #C399E5;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--page,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--page {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--page,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--page {
   background-color: #F6C38E;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--poll,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--poll {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--poll,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--poll {
   background-color: #FE939B;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--text,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--text {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--text,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--text {
   background-color: #F3E88E;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--video,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__circle.style--video {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--video,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__circle.style--video {
   background-color: #99C4E4;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details .list-item__detail,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details .list-item__detail {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details .list-item__detail,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail.style--has-children span,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail.style--has-children span,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail.style--icon,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail.style--icon {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail.style--icon,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail:hover,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail:hover,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__separator,
-.post .post-body #answer-list-container #answer-list li div.list-item-info .list-item__separator {
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__separator,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -4060,113 +4278,124 @@ div#branch-post .post-body #answer-list-container #answer-list li div.list-item-
   top: -1px;
   width: 1px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li.style--card-branch div.list-item-info .list-item__title,
-.post .post-body #answer-list-container #answer-list li.style--card-branch div.list-item-info .list-item__title {
-  font-size: 18px;
+div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__title,
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-index,
-.post .post-body #answer-list-container #answer-list li .list-item-index {
-  margin-left: 10px;
-  margin-right: 15px;
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item__radio-button,
+.post .post__content-wrapper .style--card-poll-answer .list-item__radio-button {
+  height: 28px;
+  margin: 0 12px;
+  width: 28px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-index span,
-.post .post-body #answer-list-container #answer-list li .list-item-index span {
-  color: #fff;
-  line-height: 40px;
-  opacity: 1;
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item__stats,
+.post .post__content-wrapper .style--card-poll-answer .list-item__stats {
+  margin-right: 12px;
 }
-@media only screen and (min-width: 576px) {
-  div#branch-post .post-body #answer-list-container #answer-list li .list-item-index,
-  .post .post-body #answer-list-container #answer-list li .list-item-index {
-    margin-left: 0;
-  }
-}
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-index.colour-coded,
-.post .post-body #answer-list-container #answer-list li .list-item-index.colour-coded {
-  height: 40px;
-  border-radius: 3px;
-  text-align: center;
-  width: 40px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats,
-.post .post-body #answer-list-container #answer-list li .list-item-stats {
-  margin-right: 15px;
-}
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > span,
-.post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > span {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-header .list-item__stats-votes,
+.post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > img,
-.post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--header > img {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-header .list-item__stats-icon,
+.post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
+  width: 24px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--percentage,
-.post .post-body #answer-list-container #answer-list li .list-item-stats > .list-item-stats--percentage {
+div#branch-post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-percentage,
+.post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-title,
-.post .post-body #answer-list-container #answer-list li .list-item-title {
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-branch .list-item-info .list-item__title,
+.post .post__content-wrapper .style--card-poll-answer.style--card-branch .list-item-info .list-item__title {
+  font-size: 18px;
+}
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer,
+.post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
   margin: 0;
+  padding: 0 12px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li .list-item-title:hover,
-.post .post-body #answer-list-container #answer-list li .list-item-title:hover {
-  cursor: initial !important;
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer .list-item-index.style--colour-coded,
+.post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
 }
-div#branch-post .post-body #answer-list-container #answer-list li.selected,
-.post .post-body #answer-list-container #answer-list li.selected {
-  background-color: #e7e7e7;
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer.style--selected,
+.post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
 }
-div#branch-post .post-body #answer-list-container #answer-list p#no-answers,
-.post .post-body #answer-list-container #answer-list p#no-answers {
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer:not(.style--result),
+.post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer:not(.style--result):hover,
+.post .post__content-wrapper .style--card-poll-answer.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+div#branch-post .post__content-wrapper p#no-answers,
+.post .post__content-wrapper p#no-answers {
   font-style: italic;
 }
-div#branch-post .post-body .content-header,
-.post .post-body .content-header {
-  align-items: center;
-  display: flex;
-  justify-content: flex-start;
+div#branch-post .post__content-header,
+.post .post__content-header {
+  align-items: center !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  padding: 12px !important;
 }
-div#branch-post .post-body .content-header .button.ok,
-.post .post-body .content-header .button.ok {
-  background-color: #92bedb;
+div#branch-post .post__content-header .button.ok,
+.post .post__content-header .button.ok {
+  background-color: transparent;
   border-radius: 3px;
-  color: #fff;
+  color: #c8c8c8;
   display: inline-block;
-  height: 26px;
+  height: auto;
   text-align: center;
   transition: all 0.3s ease-out;
-  margin: 0 5px;
-  padding: 0 5px;
+  border: none;
+  display: flex;
+  line-height: 1;
+  padding: 5px 8px;
 }
-div#branch-post .post-body .content-header .button.ok:hover,
-.post .post-body .content-header .button.ok:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+div#branch-post .post__content-header .button.ok:hover,
+.post .post__content-header .button.ok:hover {
+  background-color: #c8c8c8;
+  box-shadow: none;
+  color: #fff;
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div#branch-post .post-body .content-header .button.ok span,
-.post .post-body .content-header .button.ok span {
+div#branch-post .post__content-header .button.ok span,
+.post .post__content-header .button.ok span {
   font-size: 14px;
   font-weight: 500;
-  line-height: 26px;
+  line-height: auto;
 }
-div#branch-post .post-body div.chart,
-.post .post-body div.chart {
-  height: 250px;
-  width: 250px;
-  margin: auto;
+div#branch-post .post__content-header .button.ok span,
+.post .post__content-header .button.ok span {
+  font-size: 11px;
+  line-height: inherit;
 }
-div#branch-post .post-body p#no-results,
-.post .post-body p#no-results {
-  font-style: italic;
+div#branch-post .post__content-header .button.ok ~ .button,
+.post .post__content-header .button.ok ~ .button {
+  margin-left: 8px;
 }
 div#branch-post #comments-wrapper,
 .post #comments-wrapper {
@@ -4185,14 +4414,21 @@ div#branch-post #comments-wrapper .comments #post-comments,
   flex: 1;
   overflow-y: scroll;
 }
+div#branch-post .tabs,
+.post .tabs {
+  display: block;
+}
+@media only screen and (min-width: 768px) {
+  div#branch-post .loading-container,
+  .post .loading-container {
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+  }
+}
 @media only screen and (min-width: 768px) {
   div#branch-post,
   .post {
-    padding: 10px 10px 0;
-  }
-  div#branch-post .loading-container,
-  .post .loading-container {
-    width: calc(100% - 20px);
-    height: calc(100% - 20px);
+    display: block !important;
+    height: auto !important;
   }
 }

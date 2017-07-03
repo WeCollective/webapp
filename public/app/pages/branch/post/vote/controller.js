@@ -1,10 +1,13 @@
 import Injectable from 'utils/injectable';
 
 class BranchPostVoteController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchPostVoteController.$inject, injections);
 
-    this.answers = [];
+    let cache = this.LocalStorageService.getObject('cache').postPoll || {};
+    cache = cache[this.PostService.post.id] || {};
+
+    this.answers = cache.answers || [];
     this.controls = {
       sortBy: {
         items: [
@@ -21,20 +24,20 @@ class BranchPostVoteController extends Injectable {
 
     let listeners = [];
 
-    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.getPollAnswers();
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  canSubmitNewAnswer () {
+  canSubmitNewAnswer() {
     const post = this.PostService.post;
     const user = this.UserService.user;
     return !(post.locked && post.data.creator !== user.username);
   }
 
-  getPollAnswers (lastAnswerId) {
+  getPollAnswers(lastAnswerId) {
     this.selectedAnswerIndex = -1;
 
     let sortBy;
@@ -56,7 +59,15 @@ class BranchPostVoteController extends Injectable {
     // fetch the poll answers
     this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
       // if lastAnswerId was specified we are fetching _more_ answers, so append them
-      .then(answers => this.$timeout(_ => this.answers = lastAnswerId ? this.answers.concat(answers) : answers))
+      .then(answers => this.$timeout(() => {
+        this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
+
+        const cache = this.LocalStorageService.getObject('cache');
+        cache.postPoll = cache.postPoll || {};
+        cache.postPoll[this.PostService.post.id] = cache.postPoll[this.PostService.post.id] || {};
+        cache.postPoll[this.PostService.post.id].answers = this.answers;
+        this.LocalStorageService.setObject('cache', cache);
+      }))
       .catch(err => {
         if (err.status !== 404) {
           this.AlertsService.push('error', 'Error fetching poll answers.');
@@ -64,7 +75,7 @@ class BranchPostVoteController extends Injectable {
       });
   }
 
-  openSubmitPollAnswerModal () {
+  openSubmitPollAnswerModal() {
     this.ModalService.open('SUBMIT_POLL_ANSWER', { postid: this.PostService.post.id },
       'Answer submitted.', 'Unable to submit answer.');
 
@@ -74,17 +85,17 @@ class BranchPostVoteController extends Injectable {
     });
   }
 
-  selectAnswer (index) {
-    this.selectedAnswerIndex = index;
+  selectAnswer(index) {
+    this.selectedAnswerIndex = this.selectedAnswerIndex !== index ? index : -1;
   }
 
-  vote () {
+  vote() {
     const answer = this.answers[this.selectedAnswerIndex];
     
     if (!answer) return;
     
     this.PostService.votePollAnswer(answer.postid, answer.id)
-      .then(_ => this.AlertsService.push('success', 'Your vote has been cast!'))
+      .then(() => this.AlertsService.push('success', 'Your vote has been cast!'))
       .catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
   }
 }
@@ -95,6 +106,7 @@ BranchPostVoteController.$inject = [
   '$timeout',
   'AlertsService',
   'EventService',
+  'LocalStorageService',
   'ModalService',
   'PostService',
   'UserService'

@@ -1,11 +1,30 @@
 <li class="list-item">
-  <span class="list-item-index">{{ ListItem.index + 1 }}</span>
+  <span
+    class="list-item-index ng-hide"
+    ng-show="ListItem.index >= 0">
+    {{ ListItem.index + 1 }}
+  </span>
+  
   <div
     class="list-item-flags ng-hide"
     ng-click="ListItem.openResolveFlagPostModal()"
     ng-show="ListItem.showFlags()">
     <img alt="" src="/assets/images/icons/white/flag.png" />
     <span>{{ ListItem.getTotalFlagCount() }}</span>
+  </div>
+
+  <div class="list-item-votes ng-hide" ng-show="ListItem.showVotes()">
+    <img
+      alt="Upvote post"
+      ng-click="ListItem.vote('up')"
+      src="/assets/images/icons/black/arrow-up.png" />
+
+    <p>{{ ListItem.post[ListItem.stat] }}</p>
+
+    <img
+      alt="Downvote post"
+      ng-click="ListItem.vote('down')"
+      src="/assets/images/icons/black/arrow-down.png" />
   </div>
   
   <!-- Two DOM elements conditionally displayed if the post is a text type.

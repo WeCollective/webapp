@@ -1,4 +1,4 @@
-@post__preview-spacing: 12px;
+@post__preview-spacing: @g-padding-post;
 @post__preview-control-btn-size: 30px;
 @post__preview-control-btn-opacity: .5;
 
@@ -22,38 +22,69 @@ div#branch-post, // Legacy identifier
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 10px 20px 0;
+  // padding: 10px 20px 0;
   position: relative;
 
   > .branch-post--header {
     align-items: center;
     display: flex;
     min-height: @header-min-height;
+
+    .mediaQuery(@screen-md, { display: block; });
+  }
+
+  .chart {
+    @size: 250px;
+
+    height: @size;
+    margin: @post__preview-spacing auto;
+    width: @size;
+  }
+
+  .content--sidebar-toggle {
+    margin-left: @g-padding-post;
+    margin-right: 0 !important;
+  }
+
+  .dropdown {
+    margin-right: @post__preview-spacing;
+    padding: 0;
+
+    .dropdown-title {
+      line-height: 1;
+      padding-left: 0;
+      padding-top: 3px;
+    }
   }
 
   .list-item {
-    padding-top: 15px;
-
-    span.list-item-index { display: none; }
-
     .list-item(@header-min-height);
-    .mediaQuery(@screen-md, { padding-top: 0; });
+
+    margin-top: @g-padding-post;
+    padding: 0 0 @g-padding-post;
+
+    .list-item-votes { margin-left: @post__preview-spacing; }
   }
 
   .post__preview {
-    min-height: @post__preview-control-btn-size + @post__preview-spacing;
+    border-bottom: solid 1px @primary-8;
+    min-height: @post__preview-control-btn-size + (@post__preview-spacing * 2);
     overflow: auto;
     position: relative;
 
     ng-include {
       display: block;
       height: 100%;
+      margin: 0 @post__preview-spacing @post__preview-spacing;
       overflow: hidden;
+      // Must be padding so the content animation goes to the top edge.
       padding-top: @post__preview-spacing;
       position: relative;
     }
 
     .post__preview-content {
+      p { margin: 0; }
+
       &.ng-hide-add,
       &.ng-hide-remove {
         transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing,
@@ -132,10 +163,10 @@ div#branch-post, // Legacy identifier
     }
 
     .post__preview-controls {
-      left: 0;
       position: absolute;
+      right: @post__preview-spacing;
       top: @post__preview-spacing;
-      width: 100%;
+      z-index: 1;
 
       .post__preview-control-btn {
         float: right;
@@ -184,103 +215,44 @@ div#branch-post, // Legacy identifier
     }
   }
 
-  .post-body {
-    #answer-list-container {
-      flex: 1;
-      overflow-y: scroll;
+  .post__content-wrapper {
+    flex: 1;
+    overflow-y: scroll;
 
-      #answer-list {
-        li {
-          @margin-right: 15px;
+    .list-item__title { line-height: 1.5 !important; }
 
-          .list-item(70px);
-          align-items: center;
-
-          .list-item-index {
-            margin-left: 10px;
-            margin-right: @margin-right;
-
-            span {
-              color: #fff;
-              line-height: 40px;
-              opacity: 1;
-            }
-
-            .mediaQuery(@screen-sm, {
-              margin-left: 0;
-            });
-
-            &.colour-coded {
-              height: 40px;
-              border-radius: 3px;
-              text-align: center;
-              width: 40px;
-            }
-          }
-
-          .list-item-stats {
-            @stat-font-size: 14px;
-
-            margin-right: @margin-right;
-
-            > .list-item-stats--header {
-              > span {
-                color: @primary-3;
-                font-size: @stat-font-size;
-                font-weight: 500;
-              }
-
-              > img {
-                height: 24px;
-                opacity: .3;
-                position: relative;
-                top: 3px;
-                vertical-align: bottom;
-              }
-            }
-
-            > .list-item-stats--percentage {
-              color: @primary-6;
-              font-size: @stat-font-size;
-            }
-          }
-
-          .list-item-title {
-            margin: 0;
-
-            &:hover { cursor: initial !important; }
-          }
-
-          &.selected { background-color: @light-grey; }
-        }
-
-        p#no-answers { font-style: italic; }
-      }
+    .style--card-poll-answer {
+      .list-item(70px);
     }
 
-    .content-header {
-      align-items: center;
+    p#no-answers { font-style: italic; }
+  }
+
+  .post__content-header {
+    align-items: center !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    padding: @post__preview-spacing !important;
+
+    .button.ok {
+      .button(@primary-7, transparent, auto, {
+        background-color: @primary-7;
+        box-shadow: none;
+        color: #fff;
+      });
+
+      border: none;
       display: flex;
-      justify-content: flex-start;
+      line-height: 1;
+      padding: 5px 8px;
 
-      .button.ok {
-        .button(#fff, @accent-1, 26px, {
-          background-color: @accent-0;
-          box-shadow: @shadow-2;
-        });
-
-        margin: 0 5px;
-        padding: 0 5px;
+      span {
+        font-size: 11px;
+        line-height: inherit;
       }
-    }
 
-    div.chart {
-      height: 250px;
-      width: 250px;
-      margin: auto;
+      & ~ .button { margin-left: 8px; }
     }
-
-    p#no-results { font-style: italic; }
   }
 
   #comments-wrapper {
@@ -300,12 +272,18 @@ div#branch-post, // Legacy identifier
     }
   }
 
-  .mediaQuery(@screen-md, {
-    padding: 10px 10px 0;
+  .tabs { display: block; }
 
+  .mediaQuery(@screen-md, {
     .loading-container {
-      width: calc(~'100% - 20px');
       height: calc(~'100% - 20px');
+      width: calc(~'100% - 20px');
     }
+  });
+
+  // Need to overwrite more specific styles from core.less
+  .mediaQuery(@screen-md, {
+    display: block !important;
+    height: auto !important;
   });
 }

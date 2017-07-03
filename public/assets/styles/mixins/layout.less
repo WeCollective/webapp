@@ -9,24 +9,6 @@
   .mediaQuery(@minWidth, @rules);
 }
 
-// set a CSS property to the value given by the appropriate responsive
-// Less mixin without having to supply the screen size suffix
-.set-responsively(@prop, @value-name) {
-  // intermediate values required for correct Less compilation
-  @xs: "@{value-name}-xs";
-  @sm: "@{value-name}-sm";
-  @md: "@{value-name}-md";
-  @lg: "@{value-name}-lg";
-  @xl: "@{value-name}-xl";
-
-  // set the property responsively
-  @{prop}: @@xs;
-  .responsive(@screen-sm, { @{prop}: @@sm; });
-  .responsive(@screen-md, { @{prop}: @@md; });
-  .responsive(@screen-lg, { @{prop}: @@lg; });
-  .responsive(@screen-xl, { @{prop}: @@xl; });
-}
-
 // Responsive screen sizes, default is < 576px
 @screen-sm: 576px;
 @screen-md: 768px;
@@ -49,9 +31,6 @@
 // Component specific mixins
 
 // Sidebar
-// Width must be divisible by the number of
-// control buttons for pixel-perfect placement.
-// Then we add the width of the borders = 1px.
 @sidebar-w: 201px;
 @sidebar-w-lg: 249px;
 @frame-column-width-xs: @sidebar-w;
@@ -68,6 +47,9 @@
 @page-margin-md: 10%;
 @page-margin-lg: 14%;
 @page-margin-xl: 17%;
+
+// Spacing.
+@g-padding-post: 12px;
 
 // Element sizing.
 @s-content-max-w: @screen-xxl;
