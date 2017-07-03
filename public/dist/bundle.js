@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63610,6 +63610,33 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     }
   }
 
+  getMarkerClass(item) {
+    const prefix = 'style--';
+
+    switch (item.toLowerCase()) {
+      case 'audio':
+        return `${prefix}audio`;
+
+      case 'images':
+        return `${prefix}image`;
+
+      case 'pages':
+        return `${prefix}page`;
+
+      case 'polls':
+        return `${prefix}poll`;
+
+      case 'text':
+        return `${prefix}text`;
+
+      case 'videos':
+        return `${prefix}video`;
+
+      default:
+        return '';
+    }
+  }
+
   handleClick() {
     this.close();
     document.removeEventListener('click', this.handleClick);
@@ -63638,7 +63665,7 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     this.$compile(this.listNodeCopy)(this.$scope);
     document.body.appendChild(this.listNodeCopy);
 
-    setTimeout(_ => {
+    setTimeout(() => {
       if (!this.hasListener) {
         this.hasListener = true;
         document.addEventListener('click', this.handleClick);
@@ -63647,7 +63674,7 @@ class DropdownController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   select(index) {
-    this.$timeout(_ => {
+    this.$timeout(() => {
       this.selected = index;
       this.close();
     });
@@ -63673,6 +63700,7 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.bindToController = {
       class: '@',
       items: '=',
+      postTypes: '@',
       selected: '=',
       title: '@'
     };
@@ -66908,7 +66936,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
       // fetch the posts for this branch and timefilter
       this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, this.flaggedOnly).then(newPosts => {
-        this.$timeout(_ => {
+        this.$timeout(() => {
           // If lastPostId was specified, we are fetching more posts, so append them.
           posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
           this.posts = lastPostId ? this.posts.concat(newPosts) : newPosts;
@@ -66916,7 +66944,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
           this.isLoadingMore = false;
           return resolve(posts);
         });
-      }).catch(_ => {
+      }).catch(() => {
         this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
         return resolve(posts);
@@ -67181,25 +67209,25 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     let listeners = [];
 
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => this.WallService.controls.postType.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => this.WallService.controls.sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => this.WallService.controls.statType.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.$rootScope.$watch(_ => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => this.WallService.controls.timeRange.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   cb() {
@@ -67211,7 +67239,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
   // return the correct ui-sref string for when the specified post is clicked
   getLink(post) {
-    if ('text' === post.type || 'poll' === post.type) {
+    if (post.type === 'text' || post.type === 'poll') {
       return this.$state.href('weco.branch.post', { postid: post.id });
     }
 

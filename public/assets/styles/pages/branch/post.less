@@ -21,14 +21,14 @@ div#branch-post, // Legacy identifier
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  // overflow: auto;
   // padding: 10px 20px 0;
   position: relative;
 
   > .branch-post--header {
     align-items: center;
     display: flex;
-    min-height: @header-min-height;
+    min-height: @header-min-height + (@g-padding-post * 2);
 
     .mediaQuery(@screen-md, { display: block; });
   }
@@ -40,6 +40,8 @@ div#branch-post, // Legacy identifier
     margin: @post__preview-spacing auto;
     width: @size;
   }
+
+  .comments { padding: @post__preview-spacing; }
 
   .content--sidebar-toggle {
     margin-left: @g-padding-post;
@@ -64,6 +66,13 @@ div#branch-post, // Legacy identifier
     padding: 0 0 @g-padding-post;
 
     .list-item-votes { margin-left: @post__preview-spacing; }
+  }
+
+  .post__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: hidden;
   }
 
   .post__preview {
@@ -255,23 +264,6 @@ div#branch-post, // Legacy identifier
     }
   }
 
-  #comments-wrapper {
-    flex: 1;
-    overflow: hidden;
-
-    .comments {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-
-      #post-comments {
-        flex: 1;
-        overflow-y: scroll;
-      }
-    }
-  }
-
   .tabs { display: block; }
 
   .mediaQuery(@screen-md, {
@@ -279,11 +271,5 @@ div#branch-post, // Legacy identifier
       height: calc(~'100% - 20px');
       width: calc(~'100% - 20px');
     }
-  });
-
-  // Need to overwrite more specific styles from core.less
-  .mediaQuery(@screen-md, {
-    display: block !important;
-    height: auto !important;
   });
 }

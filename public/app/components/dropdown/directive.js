@@ -7,8 +7,9 @@ class DropdownComponent extends Injectable {
     this.bindToController = {
       class: '@',
       items: '=',
+      postTypes: '@',
       selected: '=',
-      title: '@'
+      title: '@',
     };
     this.controller = 'DropdownController';
     this.controllerAs = 'Dropdown';

@@ -1,4 +1,15 @@
 div.comments {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  #post-comments {
+    flex: 1;
+    overflow-y: scroll;
+  }
+
   div.comment { .comment(80px); }
 
   p {
@@ -26,8 +37,6 @@ div.comments {
     .write-comment();
 
     &#write-root-comment {
-      margin-top: 10px;
-      
       [loading] {
         align-items: center;
         display: flex;
@@ -35,7 +44,7 @@ div.comments {
         .button.cancel { display: none; }
         .button.ok { margin-left: 10px; }
 
-        textarea { height: 50px; }
+        textarea { height: 32px; }
       }
     }
   }

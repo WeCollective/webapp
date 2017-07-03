@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class DropdownController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(DropdownController.$inject, injections);
 
     this.handleClick = this.handleClick.bind(this);
@@ -10,20 +10,47 @@ class DropdownController extends Injectable {
     this.listNodeCopy = null;
   }
 
-  close () {
+  close() {
     if (this.listNodeCopy) {
       this.listNodeCopy.remove();
       this.listNodeCopy = null;
     }
   }
 
-  handleClick () {
+  getMarkerClass(item) {
+    const prefix = 'style--';
+
+    switch (item.toLowerCase()) {
+      case 'audio':
+        return `${prefix}audio`;
+
+      case 'images':
+        return `${prefix}image`;
+
+      case 'pages':
+        return `${prefix}page`;
+
+      case 'polls':
+        return `${prefix}poll`;
+
+      case 'text':
+        return `${prefix}text`;
+
+      case 'videos':
+        return `${prefix}video`;
+
+      default:
+        return '';
+    }
+  }
+
+  handleClick() {
     this.close();
     document.removeEventListener('click', this.handleClick);
     this.hasListener = false;
   }
 
-  open () {
+  open() {
     this.close();
 
     const list = this.$element[0].getElementsByTagName('ul')[0];
@@ -45,7 +72,7 @@ class DropdownController extends Injectable {
     this.$compile(this.listNodeCopy)(this.$scope);
     document.body.appendChild(this.listNodeCopy);
 
-    setTimeout(_ => {
+    setTimeout(() => {
       if (!this.hasListener) {
         this.hasListener = true;
         document.addEventListener('click', this.handleClick);
@@ -53,8 +80,8 @@ class DropdownController extends Injectable {
     }, 0);
   }
 
-  select (index) {
-    this.$timeout(_ => {
+  select(index) {
+    this.$timeout(() => {
       this.selected = index;
       this.close();
     });
