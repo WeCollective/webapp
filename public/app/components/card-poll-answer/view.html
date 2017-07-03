@@ -35,9 +35,15 @@
     <br />
 
     <span class="list-item__details">
-      <span class="list-item__detail">
-        Submitted by <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardPollAnswer.answer.creator })">{{ CardPollAnswer.answer.creator }}</a> at {{ CardPollAnswer.answer.date | date:'HH:mm on dd of MMMM yyyy' }}
-      </span>
+      <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardPollAnswer.answer.creator })">{{ CardPollAnswer.answer.creator }}</a>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ CardPollAnswer.answer.date | date:'HH:mm' }}</span>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ CardPollAnswer.answer.date | date:'dd-MMMM-yyyy' }}</span>
     </span>
   </div>
 </li>

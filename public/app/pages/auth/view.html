@@ -26,7 +26,7 @@
 
     <input name="username"
       ng-model="Auth.credentials.username"
-      placeholder="Username{{ Auth.isLoginForm() ? '' : ' (must be lowercase)' }}"
+      placeholder="{{ Auth.isLoginForm() ? 'Username' : 'Unique Username (Must be lowercase)' }}"
       required
       type="text" />
 

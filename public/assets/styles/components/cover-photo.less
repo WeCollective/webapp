@@ -44,8 +44,9 @@ div.cover-photo {
   }
 
   &.open {
-    height: @sidebar-w;
+    height: @sidebar-w-sm;
 
+    .mediaQuery(@screen-md, { height: @sidebar-w; });
     .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
   }
 }

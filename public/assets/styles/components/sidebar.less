@@ -8,12 +8,12 @@
   overflow: hidden;
   position: absolute;
   transform: translateX(-100%);
-  width: @sidebar-w;
+  width: @sidebar-w-sm;
   z-index: @z-sidebar;
   transition: transform .3s ease-out;
 
   .sidebar-controls {
-    @button-size: @sidebar-w / 4;
+    @button-size: @sidebar-w-sm / 4;
     // border-bottom: solid 1px @light-grey;
     border-top: solid 1px @light-grey;
     box-sizing: border-box;
@@ -70,6 +70,11 @@
       &#add-content:hover { cursor: pointer; }
     }
     
+    .mediaQuery(@screen-md, {
+      @button-size: @sidebar-w / 4;
+      height: @button-size;
+    });
+
     .mediaQuery(@screen-lg, {
       @button-size: @sidebar-w-lg / 4;
       height: @button-size;
@@ -93,7 +98,7 @@
   }
 
   .sidebar-picture {
-    @picture-size: @sidebar-w;
+    @picture-size: @sidebar-w-sm;
     background-position: center;
     background-size: cover;
     border-top: solid 1px @light-grey;
@@ -104,6 +109,12 @@
     // Relative because of the edit button (below).
     position: relative;
     width: @picture-size;
+
+    .mediaQuery(@screen-md, {
+      @picture-size: @sidebar-w;
+      height: @picture-size;
+      width: @picture-size;
+    });
 
     .mediaQuery(@screen-lg, {
       @picture-size: @sidebar-w-lg;
@@ -145,6 +156,9 @@
     transform: translateX(0);
   }
   
-  .mediaQuery(@screen-md, { transform: none; });
+  .mediaQuery(@screen-md, {
+    transform: none;
+    width: @sidebar-w;
+  });
   .mediaQuery(@screen-lg, { width: @sidebar-w-lg; });
 }

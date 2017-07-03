@@ -21,9 +21,11 @@
     <br />
 
     <span class="list-item__details">
-      <span class="list-item__detail">
-        Created by <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardBranch.branch.creator })">{{ CardBranch.branch.creator }}</a> on {{ CardBranch.branch.date | date:'dd MMMM yyyy' }}
-      </span>
+      <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardBranch.branch.creator })">{{ CardBranch.branch.creator }}</a>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ CardBranch.branch.date | date:'dd-MMMM-yyyy' }}</span>
     </span>
   </div>
 </li>

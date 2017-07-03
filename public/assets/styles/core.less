@@ -190,7 +190,7 @@ span {
       */
 
       .sidebar.open + div.frame-content {
-        transform: translateX(@sidebar-w);
+        transform: translateX(@sidebar-w-sm);
 
         .mediaQuery(@screen-md, { transform: translateX(0); });
       }
@@ -239,22 +239,23 @@ span {
             border-bottom: solid 1px @light-grey;
             display: flex;
             flex-flow: row wrap;
-            padding: @g-padding-sidebar;
+            padding: @g-padding-sidebar @g-padding-sidebar 4px;
 
             h1 {
               font-size: @font-size-xl;
               font-weight: 500;
-              padding-right: 10px;
+              padding-right: 35px;
               position: relative;
               top: @title-offset-to-sidebar;
-
-              .mediaQuery(@screen-sm, { padding-right: 20px; });
             }
 
             > div.content-controls {
               display: flex;
               flex-direction: row;
               height: 100%;
+              // Account for padding in dropdowns...
+              left: -15px;
+              margin-top: 8px;
               overflow-x: auto;
               overflow-y: hidden;
               position: relative;

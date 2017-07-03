@@ -252,7 +252,7 @@ span {
   }
 }
 #weco-root div.page > div.frame .sidebar.open + div.frame-content {
-  transform: translateX(201px);
+  transform: translateX(149px);
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame .sidebar.open + div.frame-content {
@@ -283,7 +283,7 @@ span {
 #weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle {
   cursor: pointer;
   height: 26px;
-  margin-right: 20px;
+  margin-right: 16px;
   opacity: .3;
   transform: rotateZ(-90deg);
   width: 26px;
@@ -302,24 +302,21 @@ span {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-flow: row wrap;
-  padding: 20px;
+  padding: 16px 16px 4px;
 }
 #weco-root div.page > div.frame > div.frame-content > div .content-header h1 {
   font-size: 26px;
   font-weight: 500;
-  padding-right: 10px;
+  padding-right: 35px;
   position: relative;
   top: -1px;
-}
-@media only screen and (min-width: 576px) {
-  #weco-root div.page > div.frame > div.frame-content > div .content-header h1 {
-    padding-right: 20px;
-  }
 }
 #weco-root div.page > div.frame > div.frame-content > div .content-header > div.content-controls {
   display: flex;
   flex-direction: row;
   height: 100%;
+  left: -15px;
+  margin-top: 8px;
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
@@ -788,7 +785,12 @@ div.cover-photo.closed img.cover-photo-toggle {
   transform: translateY(calc(42px)) rotateZ(0);
 }
 div.cover-photo.open {
-  height: 201px;
+  height: 149px;
+}
+@media only screen and (min-width: 768px) {
+  div.cover-photo.open {
+    height: 201px;
+  }
 }
 @media only screen and (min-width: 992px) {
   div.cover-photo.open {
@@ -1227,14 +1229,14 @@ div.poll-answer-editor input {
   overflow: hidden;
   position: absolute;
   transform: translateX(-100%);
-  width: 201px;
+  width: 149px;
   z-index: 11;
   transition: transform 0.3s ease-out;
 }
 .sidebar .sidebar-controls {
   border-top: solid 1px #e7e7e7;
   box-sizing: border-box;
-  height: 50.25px;
+  height: 37.25px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -1278,13 +1280,18 @@ div.poll-answer-editor input {
 .sidebar .sidebar-controls > li#add-content:hover {
   cursor: pointer;
 }
+@media only screen and (min-width: 768px) {
+  .sidebar .sidebar-controls {
+    height: 50.25px;
+  }
+}
 @media only screen and (min-width: 992px) {
   .sidebar .sidebar-controls {
     height: 62.25px;
   }
 }
 .sidebar .sidebar-info {
-  padding: 20px;
+  padding: 16px;
 }
 .sidebar .sidebar-info #inf-symbol {
   font-size: 22px;
@@ -1302,10 +1309,16 @@ div.poll-answer-editor input {
   background-size: cover;
   border-top: solid 1px #e7e7e7;
   box-sizing: border-box;
-  height: 201px;
+  height: 149px;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
-  width: 201px;
+  width: 149px;
+}
+@media only screen and (min-width: 768px) {
+  .sidebar .sidebar-picture {
+    height: 201px;
+    width: 201px;
+  }
 }
 @media only screen and (min-width: 992px) {
   .sidebar .sidebar-picture {
@@ -1342,6 +1355,7 @@ div.poll-answer-editor input {
 @media only screen and (min-width: 768px) {
   .sidebar {
     transform: none;
+    width: 201px;
   }
 }
 @media only screen and (min-width: 992px) {
@@ -3611,7 +3625,7 @@ div#branch-post > .branch-post--header,
 .post > .branch-post--header {
   align-items: center;
   display: flex;
-  min-height: 90px;
+  min-height: 70px;
 }
 @media only screen and (min-width: 768px) {
   div#branch-post > .branch-post--header,
@@ -3646,7 +3660,7 @@ div#branch-post .list-item,
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  min-height: 90px;
+  min-height: 70px;
   padding: 8px 0;
   width: 100%;
   margin-top: 12px;
@@ -3657,7 +3671,7 @@ div#branch-post .list-item span.list-item-index,
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 90px;
+  line-height: 70px;
 }
 div#branch-post .list-item div.list-item-flags,
 .post .list-item div.list-item-flags {
@@ -3695,7 +3709,7 @@ div#branch-post .list-item .list-item-votes,
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 90px;
+  height: 70px;
   justify-content: space-between;
   margin-left: 6px;
 }
@@ -3719,9 +3733,9 @@ div#branch-post .list-item .list-item-image div,
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 90px;
+  height: 70px;
   margin: 0 10px 0 12px;
-  width: 90px;
+  width: 70px;
 }
 div#branch-post .list-item .list-item-image div:hover,
 .post .list-item .list-item-image div:hover {
@@ -3733,7 +3747,7 @@ div#branch-post .list-item div.list-item-nsfw-label,
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 90px;
+  height: 70px;
   margin-right: 10px;
   padding: 2px;
 }
