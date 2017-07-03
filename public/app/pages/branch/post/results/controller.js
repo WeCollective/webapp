@@ -42,18 +42,20 @@ class BranchPostResultsController extends Injectable {
   getPollAnswers() {
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined)
       .then(answers => this.$timeout(() => {
-        this.chart.data = [];
-        this.chart.labels = [];
+        const chartData = [];
+        const chartLabels = [];
+        // Check if the chart data is different - prevent the laggy render effect on data change.
+        let isDiff = false;
 
         const totalVotes = this.getTotalVotes(answers);
 
         answers.forEach((answer, index) => {
           if (index <= GROUP_ANSWERS_INDEX_LIMIT) {
-            this.chart.data.push(answer.votes);
-            this.chart.labels.push(index + 1);
+            chartData.push(answer.votes);
+            chartLabels.push(index + 1);
           }
           else {
-            this.chart.data[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
+            chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
           }
 
           answer.ratioOfTotal = Math.floor(answer.votes / totalVotes * 100);
@@ -61,7 +63,28 @@ class BranchPostResultsController extends Injectable {
           return answer;
         });
 
+        if (answers.length !== this.answers.length ||
+          chartData.length !== this.chart.data.length ||
+          chartLabels.length !== this.chart.labels.length) {
+          isDiff = true;
+        }
+
+        if (!isDiff) {
+          for (let i = 0; i < chartData.length; i += 1) {
+            if (chartData[i] !== this.chart.data[i] ||
+              chartLabels[i] !== this.chart.labels[i]) {
+              isDiff = true;
+              break;
+            }
+          }
+        }
+
         this.answers = answers;
+
+        if (isDiff) {
+          this.chart.data = chartData;
+          this.chart.labels = chartLabels;
+        }
 
         const cache = this.LocalStorageService.getObject('cache');
         cache.postPoll = cache.postPoll || {};
