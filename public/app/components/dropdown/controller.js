@@ -93,7 +93,7 @@ DropdownController.$inject = [
   '$element',
   '$scope',
   '$templateCache',
-	'$timeout'
+	'$timeout',
 ];
 
 export default DropdownController;

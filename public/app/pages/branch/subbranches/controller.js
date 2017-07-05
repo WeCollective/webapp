@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchSubbranchesController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchSubbranchesController.$inject, injections);
 
     this.branches = [];
@@ -11,9 +11,9 @@ class BranchSubbranchesController extends Injectable {
           'total points',
           '# of posts',
           '# of comments',
-          'date created'
+          'date created',
         ],
-        selectedIndex: 0
+        selectedIndex: 0,
       },
       timeRange: {
         items: [
@@ -22,9 +22,9 @@ class BranchSubbranchesController extends Injectable {
           'past month',
           'past week',
           'past 24 hrs',
-          'past hour'
+          'past hour',
         ],
-        selectedIndex: 0
+        selectedIndex: 0,
       }
     };
     this.isLoading = false;
@@ -34,11 +34,11 @@ class BranchSubbranchesController extends Injectable {
 
     let listeners = [];
 
-    listeners.push(this.$scope.$watch(_ => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.init();
     }));
 
-    listeners.push(this.$scope.$watch(_ => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.init();
     }));
 
@@ -56,10 +56,10 @@ class BranchSubbranchesController extends Injectable {
       }
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  getSortBy () {
+  getSortBy() {
     switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
       case 'total points':
         return 'post_points';
@@ -76,7 +76,7 @@ class BranchSubbranchesController extends Injectable {
     }
   }
 
-  getSubbranches (lastBranchId) {
+  getSubbranches(lastBranchId) {
     if (this.isLoading === true) return;
 
     this.isLoading = true;
@@ -87,7 +87,7 @@ class BranchSubbranchesController extends Injectable {
     // fetch the subbranches for this branch and timefilter
     this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId)
       .then(branches => {
-        this.$timeout(_ => {
+        this.$timeout(() => {
           // if lastBranchId was specified we are fetching _more_ branches, so append them
           this.branches = lastBranchId ? this.branches.concat(branches) : branches;
 
@@ -97,14 +97,14 @@ class BranchSubbranchesController extends Injectable {
           this.$scope.$apply();
         });
       })
-      .catch(_ => {
+      .catch(() => {
         this.AlertsService.push('error', 'Error fetching branches.');
-        this.$timeout(_ => this.isLoading = false);
+        this.$timeout(() => this.isLoading = false);
       });
   }
 
   // compute the appropriate timeafter for the selected time filter
-  getTimeafter () {
+  getTimeafter() {
     switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
@@ -127,7 +127,7 @@ class BranchSubbranchesController extends Injectable {
     }
   }
 
-  init () {
+  init() {
     if (!this.$state.current.name.includes('weco.branch.subbranches')) {
       return;
     }
@@ -147,7 +147,7 @@ BranchSubbranchesController.$inject = [
   'AlertsService',
   'BranchService',
   'EventService',
-  'WallService'
+  'WallService',
 ];
 
 export default BranchSubbranchesController;

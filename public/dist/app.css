@@ -1400,7 +1400,6 @@ div.poll-answer-editor input {
   }
 }
 ul.tabs {
-  border-bottom: solid 1px #e7e7e7;
   display: inline-block;
   position: relative;
 }
@@ -1427,6 +1426,9 @@ ul.tabs .tabs__item:not(.selected):hover {
 ul.tabs .tabs__link {
   display: block;
   padding: 4px 10px;
+}
+ul.tabs.style--border {
+  border-bottom: solid 1px #e7e7e7;
 }
 div.tag-editor {
   margin-bottom: 10px;

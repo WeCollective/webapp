@@ -1,12 +1,12 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchNucleusController.$inject, injections);
 
     this.state = this.getInitialState();
 
-    const init = _ => {
+    const init = () => {
       if (!this.$state.current.name.includes('weco.branch.nucleus')) {
         return;
       }
@@ -56,23 +56,23 @@ class BranchNucleusController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  addHTMLLineBreaks (str) {
+  addHTMLLineBreaks(str) {
     return str ? str.split('\n').join('<br>') : str;
   }
 
-  getInitialState () {
+  getInitialState() {
     const branchid = this.BranchService.branch.id;
     return {
       tabItems: [
         'about',
-        'moderators'
+        'moderators',
       ],
       tabStates: [
         'weco.branch.nucleus.about',
-        'weco.branch.nucleus.moderators'
+        'weco.branch.nucleus.moderators',
       ],
       tabStateParams: [{
         branchid
@@ -82,7 +82,7 @@ class BranchNucleusController extends Injectable {
     };
   }
 
-  isModerator () {
+  isModerator() {
     if (!this.BranchService.branch.mods) return false;
 
     for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
@@ -100,7 +100,7 @@ BranchNucleusController.$inject = [
   '$timeout',
   'BranchService',
   'EventService',
-  'UserService'
+  'UserService',
 ];
 
 export default BranchNucleusController;

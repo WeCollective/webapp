@@ -3,15 +3,15 @@
     <div class="content-controls">
       <dropdown
         class="text--uppercase"
-        items="BranchNucleusFlaggedPosts.WallService.controls.timeRange.items"
-        selected="BranchNucleusFlaggedPosts.WallService.controls.timeRange.selectedIndex"
+        items="BranchNucleusFlaggedPosts.controls.timeRange.items"
+        selected="BranchNucleusFlaggedPosts.controls.timeRange.selectedIndex"
         title="time range">
       </dropdown>
 
       <dropdown
         class="text--uppercase"
-        items="BranchNucleusFlaggedPosts.WallService.controls.postType.items"
-        selected="BranchNucleusFlaggedPosts.WallService.controls.postType.selectedIndex"
+        items="BranchNucleusFlaggedPosts.controls.postType.items"
+        selected="BranchNucleusFlaggedPosts.controls.postType.selectedIndex"
         title="post type">
       </dropdown>
     </div>
@@ -20,8 +20,8 @@
   <div
     class="content-body"
     loading
-    loading-when="!BranchNucleusFlaggedPosts.posts.length && BranchNucleusFlaggedPosts.WallService.isLoading"
-    on-scroll-to-bottom="WallScrollToBottom">
+    loading-when="!BranchNucleusFlaggedPosts.posts.length && BranchNucleusFlaggedPosts.isLoading"
+    on-scroll-to-bottom="FlaggedPostsScrollToBottom">
     <ul id="post-list">
       <li
         class="list-item"

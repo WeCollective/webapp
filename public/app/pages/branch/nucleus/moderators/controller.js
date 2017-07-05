@@ -67,7 +67,7 @@ BranchNucleusModeratorsController.$inject = [
   'BranchService',
   'EventService',
   'LocalStorageService',
-  'UserService'
+  'UserService',
 ];
 
 export default BranchNucleusModeratorsController;

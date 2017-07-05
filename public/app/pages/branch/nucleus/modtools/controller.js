@@ -103,7 +103,7 @@ BranchNucleusModtoolsController.$inject = [
   'EventService',
   'LocalStorageService',
   'ModalService',
-  'UserService'
+  'UserService',
 ];
 
 export default BranchNucleusModtoolsController;

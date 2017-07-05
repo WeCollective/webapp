@@ -68,7 +68,7 @@ BranchNucleusSettingsController.$inject = [
   'AlertsService',
   'BranchService',
   'EventService',
-  'ModalService'
+  'ModalService',
 ];
 
 export default BranchNucleusSettingsController;
