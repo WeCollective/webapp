@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'production',
-   apiEndpoint: 'https://wecoapi.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66193,7 +66193,7 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
 
     this.controls = {
       postType: {
-        items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
+        items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
         selectedIndex: 0
       },
       sortBy: {
@@ -67228,7 +67228,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     this.controls = {
       postType: {
-        items: ['all', 'text', 'images', 'videos', 'audio', 'pages', 'polls'],
+        items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
         selectedIndex: 0
       },
       sortBy: {
@@ -85460,4 +85460,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map

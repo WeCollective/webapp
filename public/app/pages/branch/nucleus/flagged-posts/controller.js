@@ -10,10 +10,10 @@ class BranchNucleusFlaggedPostsController extends Injectable {
       postType: {
         items: [
           'all',
-          'text',
           'images',
           'videos',
           'audio',
+          'text',
           'pages',
           'polls',
         ],
