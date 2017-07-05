@@ -352,12 +352,7 @@ span {
   overflow-y: scroll;
 }
 #weco-root div.page > div.frame > div.frame-content > div div.content-body > ul {
-  padding: 0 10px;
-}
-@media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-content > div div.content-body > ul {
-    padding: 0 20px;
-  }
+  padding: 0;
 }
 @media only screen and (min-width: 768px) {
   #weco-root div.page > div.frame > div.frame-column {
