@@ -2384,10 +2384,11 @@ div#branch-subbranches div.content-body ul li.list-item {
 }
 div#branch-subbranches div.content-body ul li.list-item span.list-item-index {
   color: #c8c8c8;
-  font-family: monospace;
   font-size: 18px;
   font-weight: 500;
   line-height: 90px;
+  text-align: right;
+  width: 3ex;
 }
 div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
   align-self: center;
@@ -2828,10 +2829,11 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
   color: #c8c8c8;
-  font-family: monospace;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
+  text-align: right;
+  width: 3ex;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags {
   align-self: center;
@@ -3056,10 +3058,11 @@ div#branch-wall div.content-body ul#post-list li.list-item {
 }
 div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
   color: #c8c8c8;
-  font-family: monospace;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
+  text-align: right;
+  width: 3ex;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
   align-self: center;
@@ -3635,10 +3638,11 @@ div#branch-post .list-item,
 div#branch-post .list-item span.list-item-index,
 .post .list-item span.list-item-index {
   color: #c8c8c8;
-  font-family: monospace;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
+  text-align: right;
+  width: 3ex;
 }
 div#branch-post .list-item div.list-item-flags,
 .post .list-item div.list-item-flags {
@@ -4044,10 +4048,11 @@ div#branch-post .post__content-wrapper .style--card-poll-answer,
 div#branch-post .post__content-wrapper .style--card-poll-answer span.list-item-index,
 .post .post__content-wrapper .style--card-poll-answer span.list-item-index {
   color: #c8c8c8;
-  font-family: monospace;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
+  text-align: right;
+  width: 3ex;
 }
 div#branch-post .post__content-wrapper .style--card-poll-answer div.list-item-flags,
 .post .post__content-wrapper .style--card-poll-answer div.list-item-flags {

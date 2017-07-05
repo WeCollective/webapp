@@ -5,16 +5,6 @@ class ListItemController extends Injectable {
     super(ListItemController.$inject, injections);
   }
 
-  formatIndex() {
-    const index = this.index + 1;
-    const digits = 3 - index.toString().length;
-    let pad = '';
-    for (let i = 0; i < digits; i += 1) {
-      pad += `\u00A0`;
-    }
-    return `${pad}${index}`;
-  }
-
   getMarkerClass() {
     const prefix = 'style--';
 
