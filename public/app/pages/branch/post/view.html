@@ -29,6 +29,16 @@
   <div class="post__preview">
     <div class="post__preview-controls">
       <img
+        alt="Toggle the post preview cinema mode"
+        class="post__preview-control-btn"
+        ng-click="BranchPost.toggleCinemaMode()"
+        ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
+        ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
+        offset-y="40"
+        text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
+        tooltip />
+
+      <img
         alt="Toggle the post preview visibility"
         class="post__preview-control-btn"
         ng-class="{ 'toggled': BranchPost.previewState !== 'hide' }"
@@ -37,16 +47,6 @@
         offset-y="40"
         src="/assets/images/icons/black/show.png"
         text="BranchPost.previewState === 'hide' ? 'Show' : 'Hide'"
-        tooltip />
-
-      <img
-        alt="Toggle the post preview cinema mode"
-        class="post__preview-control-btn"
-        ng-click="BranchPost.toggleCinemaMode()"
-        ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
-        ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
-        offset-y="40"
-        text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
         tooltip />
     </div>
 

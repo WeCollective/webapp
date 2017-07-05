@@ -3872,7 +3872,7 @@ div#branch-post .post__body,
 div#branch-post .post__preview,
 .post .post__preview {
   border-bottom: solid 1px #e7e7e7;
-  min-height: 54px;
+  min-height: 50px;
   overflow: auto;
   position: relative;
 }
@@ -3885,15 +3885,13 @@ div#branch-post .post__preview ng-include,
   padding-top: 12px;
   position: relative;
 }
+div#branch-post .post__preview .post__preview-content,
+.post .post__preview .post__preview-content {
+  transition: all 0.3s ease;
+}
 div#branch-post .post__preview .post__preview-content p,
 .post .post__preview .post__preview-content p {
   margin: 0;
-}
-div#branch-post .post__preview .post__preview-content.ng-hide-add,
-.post .post__preview .post__preview-content.ng-hide-add,
-div#branch-post .post__preview .post__preview-content.ng-hide-remove,
-.post .post__preview .post__preview-content.ng-hide-remove {
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 div#branch-post .post__preview .post__preview-content.ng-hide-add,
 .post .post__preview .post__preview-content.ng-hide-add {
@@ -3939,7 +3937,6 @@ div#branch-post .post__preview .post__preview-content.style--video,
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  transition: width 0.3s ease-out;
 }
 div#branch-post .post__preview .post__preview-content.style--video div,
 .post .post__preview .post__preview-content.style--video div {
@@ -3977,13 +3974,15 @@ div#branch-post .post__preview .post__preview-controls,
 }
 div#branch-post .post__preview .post__preview-controls .post__preview-control-btn,
 .post .post__preview .post__preview-controls .post__preview-control-btn {
-  float: right;
-  height: 30px;
-  margin-left: 5px;
+  height: 26px;
   opacity: 0.5;
-  width: 30px;
+  width: 26px;
   transition: transform 0.3s ease;
   -webkit-filter: blur(0px);
+}
+div#branch-post .post__preview .post__preview-controls .post__preview-control-btn:not(:last-child),
+.post .post__preview .post__preview-controls .post__preview-control-btn:not(:last-child) {
+  margin-right: 8px;
 }
 div#branch-post .post__preview .post__preview-controls .post__preview-control-btn:hover,
 .post .post__preview .post__preview-controls .post__preview-control-btn:hover {

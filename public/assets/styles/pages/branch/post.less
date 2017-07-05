@@ -1,5 +1,5 @@
 @post__preview-spacing: @g-padding-post;
-@post__preview-control-btn-size: 30px;
+@post__preview-control-btn-size: 26px;
 @post__preview-control-btn-opacity: .5;
 
 @post__preview-control-btn-animation-speed: .3s;
@@ -92,13 +92,9 @@ div#branch-post, // Legacy identifier
     }
 
     .post__preview-content {
-      p { margin: 0; }
+      transition: all @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
 
-      &.ng-hide-add,
-      &.ng-hide-remove {
-        transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing,
-          opacity @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
-      }
+      p { margin: 0; }
 
       &.ng-hide-add {
         opacity: @post__preview-content-animation-start-opacity;
@@ -147,7 +143,6 @@ div#branch-post, // Legacy identifier
         margin-left: auto;
         margin-right: auto;
         width: 100%;
-        transition: width .3s ease-out;
 
         div {
           height: 0;
@@ -178,15 +173,15 @@ div#branch-post, // Legacy identifier
       z-index: 1;
 
       .post__preview-control-btn {
-        float: right;
         height: @post__preview-control-btn-size;
-        margin-left: 5px;
         opacity: @post__preview-control-btn-opacity;
         width: @post__preview-control-btn-size;
         transition: transform @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
         // Fix Webkit blur issue.
         // @source: https://stackoverflow.com/questions/27060690/webkit-transform-scale-blurry-images
         -webkit-filter: blur(0px);
+
+        &:not(:last-child) { margin-right: 8px; }
 
         &:hover {
           cursor: pointer;
