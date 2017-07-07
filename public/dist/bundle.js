@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63311,8 +63311,6 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   constructor(...injections) {
     super(CommentsController.$inject, injections);
 
-    this.isLoading = false;
-    this.isLoadingMore = false;
     this.comments = [];
     this.controls = {
       sortBy: {
@@ -63320,6 +63318,8 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
         selectedIndex: 0
       }
     };
+    this.isLoading = false;
+    this.isLoadingMore = false;
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'CommentsScrollToBottom') return;
@@ -63333,9 +63333,15 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       }
     });
 
+    this.reloadComments = this.reloadComments.bind(this);
+
     this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
 
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
+
+    this.$scope.$on('$destroy', () => {
+      console.log('oh nooo');
+    });
   }
 
   getComments(lastCommentId) {
@@ -63386,7 +63392,7 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 }
 
-CommentsController.$inject = ['$rootScope', '$state', '$timeout', 'CommentService', 'EventService', 'PostService'];
+CommentsController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'CommentService', 'EventService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentsController);
 

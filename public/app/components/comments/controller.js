@@ -4,8 +4,6 @@ class CommentsController extends Injectable {
   constructor(...injections) {
     super(CommentsController.$inject, injections);
 
-    this.isLoading = false;
-    this.isLoadingMore = false;
     this.comments = [];
     this.controls = {
       sortBy: {
@@ -17,6 +15,8 @@ class CommentsController extends Injectable {
         selectedIndex: 0,
       }
     };
+    this.isLoading = false;
+    this.isLoadingMore = false;
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'CommentsScrollToBottom') return;
@@ -30,9 +30,15 @@ class CommentsController extends Injectable {
       }
     });
 
+    this.reloadComments = this.reloadComments.bind(this);
+
     this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
 
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
+
+    this.$scope.$on('$destroy', () => {
+      console.log('oh nooo');
+    });
   }
 
   getComments(lastCommentId) {
@@ -90,6 +96,7 @@ class CommentsController extends Injectable {
 
 CommentsController.$inject = [
   '$rootScope',
+  '$scope',
   '$state',
   '$timeout',
   'CommentService',
