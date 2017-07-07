@@ -208,12 +208,6 @@ span {
           flex-direction: column;
           height: 100%;
 
-          &:not(div#branch-post) {
-            padding: 10px 0 0;
-
-            .mediaQuery(@screen-md, { padding: 20px 0 0; });
-          }
-
           .content--sidebar-toggle {
             @s-button: 26px;
 
@@ -268,7 +262,7 @@ span {
             // Needs to be set explicitly to scroll for the scrolling directive to work.
             overflow-y: scroll;
 
-            > ul { padding: 0; }
+            > ul { padding: 0 16px; }
           }
         }
       }

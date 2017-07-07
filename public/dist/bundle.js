@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63316,28 +63316,26 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     this.comments = [];
     this.controls = {
       sortBy: {
-        selectedIndex: 0,
-        items: ['POINTS', 'REPLIES', 'DATE']
+        items: ['points', 'replies', 'date'],
+        selectedIndex: 0
       }
     };
 
     this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'CommentsScrollToBottom') return;
+
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
-        if (this.comments.length > 0) this.getComments(this.comments[this.comments.length - 1].id);
+
+        if (this.comments.length > 0) {
+          this.getComments(this.comments[this.comments.length - 1].id);
+        }
       }
     });
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => {
-      this.reloadComments();
-    });
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => {
-      this.reloadComments();
-    });
-  }
 
-  isCommentPermalink() {
-    return this.$state.current.name === 'weco.branch.post.comment';
+    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
+
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
   }
 
   getComments(lastCommentId) {
@@ -63352,29 +63350,33 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
         if (err.status != 404) {
           this.AlertsService.push('error', 'Error loading comments.');
         }
+
         this.isLoading = false;
       });
     } else {
       // fetch all the comments for this post
-      let sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+      const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+
       this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then(comments => {
         this.$timeout(() => {
           // if lastCommentId was specified we are fetching _more_ comments, so append them
-          if (lastCommentId) {
-            this.comments = this.comments.concat(comments);
-          } else {
-            this.comments = comments;
-          }
-          this.isLoadingMore = false;
+          this.comments = lastCommentId ? this.comments.concat(comments) : comments;
+
           this.isLoading = false;
+          this.isLoadingMore = false;
         });
       }).catch(err => {
         if (err.status !== 404) {
           this.AlertsService.push('error', 'Error loading comments.');
         }
+
         this.isLoading = false;
       });
     }
+  }
+
+  isCommentPermalink() {
+    return this.$state.current.name === 'weco.branch.post.comment';
   }
 
   reloadComments() {
@@ -63383,7 +63385,8 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     this.getComments();
   }
 }
-CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService', 'EventService', 'CommentService'];
+
+CommentsController.$inject = ['$rootScope', '$state', '$timeout', 'CommentService', 'EventService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentsController);
 
@@ -66743,7 +66746,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.previewState = state;
   }
 
-  shouldShowTabs() {
+  showPollTabs() {
     return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 

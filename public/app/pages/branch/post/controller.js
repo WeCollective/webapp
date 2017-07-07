@@ -25,13 +25,13 @@ class BranchPostController extends Injectable {
     
     this.tabStateParams = [{
       branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
+      postid: this.$state.params.postid,
     }, {
       branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
+      postid: this.$state.params.postid,
     }, {
       branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid
+      postid: this.$state.params.postid,
     }];
 
     const redirect = () => {
@@ -112,7 +112,7 @@ class BranchPostController extends Injectable {
     this.previewState = state;
   }
 
-  shouldShowTabs() {
+  showPollTabs() {
     return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
   }
 
@@ -137,7 +137,7 @@ BranchPostController.$inject = [
   'ModalService',
   'PostService',
   'UserService',
-  'WallService'
+  'WallService',
 ];
 
 export default BranchPostController;

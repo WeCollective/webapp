@@ -1,4 +1,3 @@
-@post__preview-spacing: @g-padding-post;
 @post__preview-control-btn-size: 26px;
 @post__preview-control-btn-opacity: .5;
 
@@ -14,7 +13,6 @@
 @post__preview-content-animation-end-opacity: 0;
 @post__preview-content-animation-end-transform: translateY(-100%);
 
-div#branch-post, // Legacy identifier
 .post {
   @header-min-height: 70px;
 
@@ -37,11 +35,9 @@ div#branch-post, // Legacy identifier
     @size: 250px;
 
     height: @size;
-    margin: @post__preview-spacing auto;
+    margin: @g-padding-post auto;
     width: @size;
   }
-
-  .comments { padding: @post__preview-spacing; }
 
   .content--sidebar-toggle {
     margin-left: @g-padding-post;
@@ -49,7 +45,7 @@ div#branch-post, // Legacy identifier
   }
 
   .dropdown {
-    margin-right: @post__preview-spacing;
+    margin-right: @g-padding-post;
     padding: 0;
 
     .dropdown-title {
@@ -65,7 +61,7 @@ div#branch-post, // Legacy identifier
     margin-top: @g-padding-post;
     padding: 0 0 @g-padding-post;
 
-    .list-item-votes { margin-left: @post__preview-spacing; }
+    .list-item-votes { margin-left: @g-padding-post; }
   }
 
   .post__body {
@@ -77,17 +73,17 @@ div#branch-post, // Legacy identifier
 
   .post__preview {
     border-bottom: solid 1px @primary-8;
-    min-height: @post__preview-control-btn-size + (@post__preview-spacing * 2);
+    min-height: @post__preview-control-btn-size + (@g-padding-post * 2);
     overflow: hidden;
     position: relative;
 
     ng-include {
       display: block;
       height: 100%;
-      margin: 0 @post__preview-spacing @post__preview-spacing;
+      margin: 0 @g-padding-post @g-padding-post;
       overflow: hidden;
       // Must be padding so the content animation goes to the top edge.
-      padding-top: @post__preview-spacing;
+      padding-top: @g-padding-post;
       position: relative;
     }
 
@@ -168,8 +164,8 @@ div#branch-post, // Legacy identifier
 
     .post__preview-controls {
       position: absolute;
-      right: @post__preview-spacing;
-      top: @post__preview-spacing;
+      right: @g-padding-post;
+      top: @g-padding-post;
       z-index: 1;
 
       .post__preview-control-btn {
@@ -236,7 +232,7 @@ div#branch-post, // Legacy identifier
     align-items: center !important;
     display: flex !important;
     justify-content: flex-start !important;
-    padding: @post__preview-spacing !important;
+    padding: @g-padding-post !important;
 
     .button.ok {
       .button(@primary-7, transparent, auto, {

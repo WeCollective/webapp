@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class CommentsComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CommentsComponent.$inject, injections);
 
     this.bindToController = {};

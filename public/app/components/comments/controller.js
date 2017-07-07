@@ -9,61 +9,76 @@ class CommentsController extends Injectable {
     this.comments = [];
     this.controls = {
       sortBy: {
+        items: [
+          'points',
+          'replies',
+          'date',
+        ],
         selectedIndex: 0,
-        items: ['POINTS', 'REPLIES', 'DATE']
       }
     };
 
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, (name) => {
-      if(name !== 'CommentsScrollToBottom') return;
-      if(!this.isLoadingMore) {
+    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'CommentsScrollToBottom') return;
+
+      if (!this.isLoadingMore) {
         this.isLoadingMore = true;
-        if(this.comments.length > 0) this.getComments(this.comments[this.comments.length - 1].id);
+
+        if (this.comments.length > 0) {
+          this.getComments(this.comments[this.comments.length - 1].id);
+        }
       }
     });
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, () => { this.reloadComments(); });
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => { this.reloadComments(); });
+
+    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
+
+    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
+  }
+
+  getComments(lastCommentId) {
+    if (this.isCommentPermalink()) {
+      // fetch the permalinked comment
+      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid)
+        .then(comment => {
+          this.$timeout(() => {
+            this.comments = [comment];
+            this.isLoading = false;
+          });
+        })
+        .catch(err => {
+          if (err.status != 404) {
+            this.AlertsService.push('error', 'Error loading comments.');
+          }
+
+          this.isLoading = false;
+        });
+    }
+    else {
+      // fetch all the comments for this post
+      const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+
+      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId)
+        .then(comments => {
+          this.$timeout(() => {
+            // if lastCommentId was specified we are fetching _more_ comments, so append them
+            this.comments = lastCommentId ? this.comments.concat(comments) : comments;
+
+            this.isLoading = false;
+            this.isLoadingMore = false;
+          });
+        })
+        .catch(err => {
+          if (err.status !== 404) {
+            this.AlertsService.push('error', 'Error loading comments.');
+          }
+
+          this.isLoading = false;
+        });
+    }
   }
 
   isCommentPermalink() {
     return this.$state.current.name === 'weco.branch.post.comment';
-  }
-
-  getComments(lastCommentId) {
-    if(this.isCommentPermalink()) {
-      // fetch the permalinked comment
-      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid).then((comment) => {
-        this.$timeout(() => {
-          this.comments = [comment];
-          this.isLoading = false;
-        });
-      }).catch((err) => {
-        if(err.status != 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
-        this.isLoading = false;
-      });
-    } else {
-      // fetch all the comments for this post
-      let sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
-      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then((comments) => {
-        this.$timeout(() => {
-          // if lastCommentId was specified we are fetching _more_ comments, so append them
-          if(lastCommentId) {
-            this.comments = this.comments.concat(comments);
-          } else {
-            this.comments = comments;
-          }
-          this.isLoadingMore = false;
-          this.isLoading = false;
-        });
-      }).catch((err) => {
-        if(err.status !== 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
-        this.isLoading = false;
-      });
-    }
   }
 
   reloadComments() {
@@ -72,6 +87,14 @@ class CommentsController extends Injectable {
     this.getComments();
   }
 }
-CommentsController.$inject = ['$timeout', '$rootScope', '$state', 'PostService', 'EventService', 'CommentService'];
+
+CommentsController.$inject = [
+  '$rootScope',
+  '$state',
+  '$timeout',
+  'CommentService',
+  'EventService',
+  'PostService',
+];
 
 export default CommentsController;

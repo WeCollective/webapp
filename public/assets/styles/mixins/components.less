@@ -20,104 +20,6 @@
   }
 }
 
-.comment(@height) {
-  padding: 5px 0;
-  width: 100%;
-
-  div.comment-content {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    div.comment-votes {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      height: @height;
-      justify-content: space-between;
-      margin: 0 10px;
-
-      img {
-        height: 22px;
-        opacity: .3;
-        width: 22px;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 1;
-        }
-      }
-      p { margin: 0; }
-    }
-
-    div.comment-info {
-      flex: 1;
-      height: 100%;
-
-      .comment-title {
-        display: block;
-        font-size: @font-size-xs;
-        font-weight: @font-weight-normal;
-        white-space: nowrap;
-        .responsive(@screen-sm, { font-size: @font-size-sm; });
-
-        &:hover { cursor: pointer; }
-
-        a {
-          color: @accent-0;
-          font-weight: @font-weight-heavy;
-
-          &:hover { text-decoration: underline; }
-        }
-      }
-
-      ul.comment-controls {
-        margin-top: 2px;
-
-        li {
-          display: inline-block;
-          height: 16px;
-          padding: 0 2px 0 0;
-          width: 16px;
-
-          &:hover {
-            cursor: pointer;
-            
-            img { opacity: 1; }
-          }
-
-          img {
-            height: 100%;
-            opacity: .4;
-            width: 100%;
-          }
-        }
-      }
-
-      .write-comment();
-    }
-  }
-
-  div.comment-replies {
-    border-left: 1px solid @light-grey;
-    box-sizing: border-box;
-    margin-left: 14px;
-    padding-left: 15px;
-
-    span.load-more {
-      color: @accent-0;
-      font-size: @font-size-xs;
-      font-weight: @font-weight-heavy;
-      vertical-align: bottom;
-
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
 // List styles as they appear in e.g. branch nucleus or profile tabs
 .field-value-list() {
   > li {
@@ -177,8 +79,6 @@
     font-size: @font-size-md;
     font-weight: @font-weight-heavy;
     line-height: @height;
-    text-align: right;
-    width: 3ex;
   }
 
   div.list-item-flags {
@@ -343,14 +243,14 @@
     @size: 20px;
 
     height: @size;
-    margin: 0 @post__preview-spacing;
+    margin: 0 @g-padding-post;
     width: @size;
   }
 
   .list-item__stats {
     @stat-font-size: 14px;
 
-    margin-right: @post__preview-spacing;
+    margin-right: @g-padding-post;
 
     .list-item__stats-header {
       .list-item__stats-votes {
@@ -397,7 +297,7 @@
         height: @size;
         border-radius: 3px;
         line-height: @size;
-        margin-right: @post__preview-spacing;
+        margin-right: @g-padding-post;
         text-align: center;
         width: @size;
       }
@@ -487,47 +387,6 @@
     p.message {
       font-style: italic;
       font-weight: @font-weight-light;
-    }
-  }
-}
-
-.write-comment() {
-  textarea {
-    border-radius: 3px;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: @font-size-xs;
-    max-height: 150px;
-    max-width: 100%;
-    padding: 5px 10px;
-    resize: vertical;
-    width: 100%;
-    .responsive(@screen-sm, { font-size: @font-size-sm; });
-
-    &:focus { outline: none; }
-  }
-
-  .button-container {
-    text-align: right;
-
-    .button {
-      font-size: @font-size-sm;
-      font-weight: @font-weight-normal;
-      padding: 0 10px;
-      
-      &.cancel {
-        .button(white, @primary-6, 30px, {
-          background-color: @primary-5;
-          box-shadow: @shadow-2;
-        });
-      }
-      
-      &.ok {
-        .button(white, @accent-1, 30px, {
-          background-color: @accent-0;
-          box-shadow: @shadow-2;
-        });
-      }
     }
   }
 }
