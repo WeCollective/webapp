@@ -21,7 +21,7 @@
   <tabs
     class="style--border"
     items="BranchPost.tabItems"
-    ng-if="BranchPost.shouldShowTabs()"
+    ng-if="BranchPost.showPollTabs()"
     states="BranchPost.tabStates"
     state-params="BranchPost.tabStateParams">
   </tabs>
@@ -58,11 +58,14 @@
   
   <div
     class="post__body"
-    ng-if="BranchPost.shouldShowTabs()"
+    ng-if="BranchPost.showPollTabs()"
     ui-view>
   </div>
 
-  <div id="comments-wrapper" ng-if="!BranchPost.shouldShowTabs()">
+  <div
+    class="post__body"
+    id="comments-wrapper"
+    ng-if="!BranchPost.showPollTabs()">
     <comments></comments>
   </div>
 </div>

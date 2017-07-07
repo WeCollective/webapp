@@ -3876,7 +3876,7 @@ div#branch-post .post__preview,
 .post .post__preview {
   border-bottom: solid 1px #e7e7e7;
   min-height: 50px;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
 }
 div#branch-post .post__preview ng-include,
