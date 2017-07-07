@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63450,7 +63450,7 @@ class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
 
   postComment() {
     this.$timeout(() => this.isLoading = true);
-    this.comment.postid = this.postid();
+    this.comment.postid = this.postid;
     this.comment.parentid = this.parentid;
 
     // update an existing comment
@@ -63522,7 +63522,7 @@ class WriteCommentComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
       originalCommentText: '&',
       parentid: '@',
       placeholder: '@',
-      postid: '&',
+      postid: '@',
       update: '='
     };
     this.controller = 'WriteCommentController';

@@ -15,7 +15,7 @@ class WriteCommentController extends Injectable {
 
   postComment() {
     this.$timeout(() => this.isLoading = true);
-    this.comment.postid = this.postid();
+    this.comment.postid = this.postid;
     this.comment.parentid = this.parentid;
 
     // update an existing comment

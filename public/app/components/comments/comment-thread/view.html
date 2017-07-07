@@ -57,7 +57,7 @@
         original-comment-text="comment.data.text"
         parentid="{{ comment.id }}"
         placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
-        postid="comment.postid"
+        postid="{{ comment.postid }}"
         update="comment.meta.update">
       </write-comment>
     </div>

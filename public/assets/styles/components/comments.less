@@ -13,8 +13,7 @@ div.comments {
 
   div.comment {
     @height: 80px;
-    
-    margin-bottom: @g-padding-post;
+
     width: 100%;
 
     div.comment-content {
@@ -149,6 +148,8 @@ div.comments {
         }
       }
     }
+
+    &:not(:last-child) { margin-bottom: @g-padding-post; }
   }
 
   p {

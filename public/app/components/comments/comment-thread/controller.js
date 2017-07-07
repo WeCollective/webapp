@@ -64,7 +64,8 @@ class CommentThreadController extends Injectable {
           this.closeReply();
         });
     }
-    else {  // if the comment was replied to
+    else {
+      // if the comment was replied to
       // load the replies
       this.loadMore(this.openComment);
       this.closeReply();

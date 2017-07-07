@@ -9,7 +9,7 @@ class WriteCommentComponent extends Injectable {
       originalCommentText: '&',
       parentid: '@',
       placeholder: '@',
-      postid: '&',
+      postid: '@',
       update: '=',
     };
     this.controller = 'WriteCommentController';

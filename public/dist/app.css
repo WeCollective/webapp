@@ -509,7 +509,6 @@ div.comments #post-comments {
   overflow-y: scroll;
 }
 div.comments div.comment {
-  margin-bottom: 12px;
   width: 100%;
 }
 div.comments div.comment div.comment-content {
@@ -664,6 +663,9 @@ div.comments div.comment div.comment-replies span.load-more {
 div.comments div.comment div.comment-replies span.load-more:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+div.comments div.comment:not(:last-child) {
+  margin-bottom: 12px;
 }
 div.comments p#no-comments {
   font-style: italic;
