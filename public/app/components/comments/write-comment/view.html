@@ -1,13 +1,11 @@
-<div class="write-comment clearfix">
-  <div loading when="WriteComment.isLoading">
-    <textarea placeholder="{{ WriteComment.placeholder() }}" ng-model="WriteComment.comment.text"></textarea>
-    <div class="button-container">
-      <div class="button cancel" ng-click="WriteComment.cancelComment()">
-      	<span>CANCEL</span>
-      </div>
-      <div class="button ok" ng-click="WriteComment.postComment()">
-      	<span>POST</span>
-      </div>
+<div class="write-comment">
+  <textarea
+    ng-model="WriteComment.comment.text"
+    placeholder="{{ WriteComment.placeholder }}"></textarea>
+
+  <div class="button-container">
+    <div class="button ok" ng-click="WriteComment.postComment()">
+    	<span class="text--uppercase">post</span>
     </div>
   </div>
 </div>

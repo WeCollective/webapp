@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class EventService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(EventService.$inject, injections);
 
     this.events = {
@@ -13,11 +13,11 @@ class EventService extends Injectable {
       MODAL_OPEN: 'MODAL_OPEN',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
       STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
-      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
+      UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE',
     };
   }
 
-  emit (event, args) {
+  emit(event, args) {
     for (let i in this.events) {
       if (this.events[i] === event) {
         return this.$rootScope.$broadcast(event, args);
@@ -26,14 +26,14 @@ class EventService extends Injectable {
   }
 
   // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
-  on (event, callback) {
-    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
+  on(event, callback) {
+    return this.$rootScope.$on(event, (e, args) => this.$timeout(() => callback(args)));
   }
 }
 
 EventService.$inject = [
   '$rootScope',
-  '$timeout'
+  '$timeout',
 ];
 
 export default EventService;

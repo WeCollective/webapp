@@ -28,9 +28,9 @@ class BranchSubbranchesController extends Injectable {
       }
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
 
     this.init = this.init.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
     let listeners = [];
 
@@ -44,17 +44,7 @@ class BranchSubbranchesController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
     
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'BranchSubbranchesScrollToBottom') return;
-      
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.branches.length) {
-          this.getSubbranches(this.branches[this.branches.length - 1].id);
-        }
-      }
-    }));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -92,7 +82,6 @@ class BranchSubbranchesController extends Injectable {
           this.branches = lastBranchId ? this.branches.concat(branches) : branches;
 
           this.isLoading = false;
-          this.isLoadingMore = false;
 
           this.$scope.$apply();
         });
@@ -137,6 +126,14 @@ class BranchSubbranchesController extends Injectable {
     }
 
     this.getSubbranches();
+  }
+
+  scrollCb(name) {
+    if (name !== 'BranchSubbranchesScrollToBottom') return;
+    
+    if (this.branches.length > 0) {
+      this.getSubbranches(this.branches[this.branches.length - 1].id);
+    }
   }
 }
 

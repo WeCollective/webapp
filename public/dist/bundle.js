@@ -23975,7 +23975,7 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* defau
     super(AppRun.$inject, injections);
 
     // Tell Prerender.io to cache when DOM is loaded
-    this.$timeout(_ => this.$window.prerenderReady = true);
+    this.$timeout(() => this.$window.prerenderReady = true);
 
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
@@ -23991,7 +23991,7 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* defau
         }, cb);
       };
 
-      const doChecks = _ => {
+      const doChecks = () => {
         // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
         this.UserService.fetch('me').then(me => {
@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63267,7 +63267,7 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
   }
 }
 
-CommentThreadController.$inject = ['$state', '$timeout', 'CommentService', 'UserService', 'AlertsService'];
+CommentThreadController.$inject = ['$state', '$timeout', 'AlertsService', 'CommentService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
 
@@ -63283,18 +63283,19 @@ class CommentThreadComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
   constructor(...injections) {
     super(CommentThreadComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = false;
-    this.scope = {};
     this.bindToController = {
       comments: '=',
       sortBy: '='
     };
-    this.templateUrl = '/app/components/comments/comment-thread/view.html';
     this.controller = 'CommentThreadController';
     this.controllerAs = 'CommentThread';
+    this.replace = false;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/comments/comment-thread/view.html';
   }
 }
+
 CommentThreadComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
@@ -63319,65 +63320,62 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       }
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'CommentsScrollToBottom') return;
-
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.comments.length > 0) {
-          this.getComments(this.comments[this.comments.length - 1].id);
-        }
-      }
-    });
 
     this.reloadComments = this.reloadComments.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
+    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.reloadComments();
+    }));
 
-    this.$scope.$on('$destroy', () => {
-      console.log('oh nooo');
-    });
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+    this.reloadComments();
   }
 
   getComments(lastCommentId) {
-    if (this.isCommentPermalink()) {
-      // fetch the permalinked comment
-      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid).then(comment => {
-        this.$timeout(() => {
-          this.comments = [comment];
-          this.isLoading = false;
-        });
-      }).catch(err => {
-        if (err.status != 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
+    const errorCb = err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error loading comments.');
+      }
 
-        this.isLoading = false;
-      });
+      this.isLoading = false;
+    };
+
+    const successCb = response => this.$timeout(() => {
+      const isSingleComment = !Array.isArray(response);
+
+      let comments = [];
+
+      if (isSingleComment) {
+        comments.push(response);
+      } else {
+        // if lastCommentId was specified we are fetching _more_ comments, so append them
+        comments = this.comments;
+        comments = comments.concat(response);
+      }
+
+      this.comments = comments;
+      this.isLoading = false;
+    });
+
+    if (this.isLoading === true) return;
+
+    this.isLoading = true;
+
+    if (this.isCommentPermalink()) {
+      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid).then(successCb).catch(errorCb);
     } else {
       // fetch all the comments for this post
       const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
 
-      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then(comments => {
-        this.$timeout(() => {
-          // if lastCommentId was specified we are fetching _more_ comments, so append them
-          this.comments = lastCommentId ? this.comments.concat(comments) : comments;
-
-          this.isLoading = false;
-          this.isLoadingMore = false;
-        });
-      }).catch(err => {
-        if (err.status !== 404) {
-          this.AlertsService.push('error', 'Error loading comments.');
-        }
-
-        this.isLoading = false;
-      });
+      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId).then(successCb).catch(errorCb);
     }
   }
 
@@ -63386,9 +63384,16 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   }
 
   reloadComments() {
-    this.isLoading = true;
     this.comments = [];
     this.getComments();
+  }
+
+  scrollCb(name) {
+    if (name !== 'CommentsScrollToBottom') return;
+
+    if (this.comments.length > 0) {
+      this.getComments(this.comments[this.comments.length - 1].id);
+    }
   }
 }
 
@@ -63434,24 +63439,19 @@ class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
   constructor(...injections) {
     super(WriteCommentController.$inject, injections);
 
-    this.isLoading = false;
     this.comment = { text: '' };
+    // todo make sure when loading, cannot double post as we deleted the node from the markup
+    this.isLoading = false;
 
     this.$rootScope.$watch(() => this.update, () => {
-      if (this.update) {
-        this.comment.text = this.originalCommentText();
-      } else {
-        this.comment.text = '';
-      }
+      this.comment.text = this.update ? this.originalCommentText() : '';
     });
   }
 
   postComment() {
-    this.$timeout(() => {
-      this.isLoading = true;
-    });
+    this.$timeout(() => this.isLoading = true);
     this.comment.postid = this.postid();
-    this.comment.parentid = this.parentid();
+    this.comment.parentid = this.parentid;
 
     // update an existing comment
     if (this.update) {
@@ -63490,6 +63490,7 @@ class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
     }
   }
 
+  /*
   cancelComment() {
     this.$timeout(() => {
       this.isLoading = false;
@@ -63497,8 +63498,10 @@ class WriteCommentController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
       this.onCancel()();
     });
   }
+  */
 }
-WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'AlertsService'];
+
+WriteCommentController.$inject = ['$rootScope', '$timeout', 'AlertsService', 'CommentService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentController);
 
@@ -63514,23 +63517,23 @@ class WriteCommentComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
   constructor(...injections) {
     super(WriteCommentComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {
-      parentid: '&',
-      postid: '&',
       onSubmit: '&',
-      onCancel: '&',
-      update: '=',
-      placeholder: '&',
-      originalCommentText: '&'
+      originalCommentText: '&',
+      parentid: '@',
+      placeholder: '@',
+      postid: '&',
+      update: '='
     };
-    this.templateUrl = '/app/components/comments/write-comment/view.html';
     this.controller = 'WriteCommentController';
     this.controllerAs = 'WriteComment';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/comments/write-comment/view.html';
   }
 }
+
 WriteCommentComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (WriteCommentComponent);
@@ -66654,9 +66657,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
-    this.isLoadingComments = true;
-    this.isLoadingMore = false;
-    this.isLoadingPost = true;
+    this.isLoading = true;
 
     // Possible states: show, maximise.
     this.previewState = 'show';
@@ -66676,40 +66677,12 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       postid: this.$state.params.postid
     }];
 
-    const redirect = () => {
-      // post not updated yet, wait for CHANGE_POST event
-      if (this.$state.params.postid !== this.PostService.post.id) {
-        return;
-      }
-
-      // update state params for tabs
-      for (let i in this.tabStateParams) {
-        this.tabStateParams[i].branchid = this.PostService.post.branchid;
-        this.tabStateParams[i].postid = this.PostService.post.id;
-      }
-
-      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
-        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
-
-        if (tabIndex !== -1) {
-          this.$state.go(this.tabStates[tabIndex], {
-            branchid: this.PostService.post.branchid,
-            postid: this.$state.params.postid
-          }, {
-            location: 'replace'
-          });
-        } else {
-          console.warn(`Invalid tab name!`);
-        }
-      } else {
-        this.isLoadingPost = false;
-      }
-    };
+    this.redirect = this.redirect.bind(this);
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.redirect));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, this.redirect));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -66746,6 +66719,36 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     }
 
     return '';
+  }
+
+  redirect() {
+    // post not updated yet, wait for CHANGE_POST event
+    if (this.$state.params.postid !== this.PostService.post.id) {
+      return;
+    }
+
+    // update state params for tabs
+    for (let i in this.tabStateParams) {
+      this.tabStateParams[i].branchid = this.PostService.post.branchid;
+      this.tabStateParams[i].postid = this.PostService.post.id;
+    }
+
+    if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
+      const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+
+      if (tabIndex !== -1) {
+        this.$state.go(this.tabStates[tabIndex], {
+          branchid: this.PostService.post.branchid,
+          postid: this.$state.params.postid
+        }, {
+          location: 'replace'
+        });
+      } else {
+        console.warn(`Invalid tab name!`);
+      }
+    } else {
+      this.isLoading = false;
+    }
   }
 
   setPreviewState(state) {
@@ -67107,9 +67110,9 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
       }
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
 
     this.init = this.init.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
     let listeners = [];
 
@@ -67123,17 +67126,7 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
 
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'BranchSubbranchesScrollToBottom') return;
-
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.branches.length) {
-          this.getSubbranches(this.branches[this.branches.length - 1].id);
-        }
-      }
-    }));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -67170,7 +67163,6 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
         this.branches = lastBranchId ? this.branches.concat(branches) : branches;
 
         this.isLoading = false;
-        this.isLoadingMore = false;
 
         this.$scope.$apply();
       });
@@ -67215,6 +67207,14 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
     this.getSubbranches();
   }
+
+  scrollCb(name) {
+    if (name !== 'BranchSubbranchesScrollToBottom') return;
+
+    if (this.branches.length > 0) {
+      this.getSubbranches(this.branches[this.branches.length - 1].id);
+    }
+  }
 }
 
 BranchSubbranchesController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'WallService'];
@@ -67254,18 +67254,17 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       }
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
     // To stop sending requests once we hit the bottom of posts.
     this.lastFetchedPostId = false;
     this.posts = cache[this.BranchService.branch.id] || [];
 
     this.cb = this.cb.bind(this);
     this.getPosts = this.getPosts.bind(this);
-    this.getPostsCb = this.getPostsCb.bind(this);
     this.getPostType = this.getPostType.bind(this);
     this.getSortBy = this.getSortBy.bind(this);
     this.getStatType = this.getStatType.bind(this);
     this.getTimeafter = this.getTimeafter.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
     let listeners = [];
 
@@ -67287,7 +67286,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
 
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.getPostsCb));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -67348,25 +67347,14 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
           this.LocalStorageService.setObject('cache', cache);
 
           this.isLoading = false;
-          this.isLoadingMore = false;
           return resolve();
         });
       }).catch(() => {
         this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
-        this.isLoadingMore = false;
         return reject();
       });
     });
-  }
-
-  getPostsCb(name) {
-    if ('WallScrollToBottom' !== name) return;
-
-    if (!this.isLoadingMore) {
-      this.isLoadingMore = true;
-      this.getPosts(this.posts[this.posts.length - 1].id);
-    }
   }
 
   getPostType() {
@@ -67446,6 +67434,12 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       default:
         return 0;
     }
+  }
+
+  scrollCb(name) {
+    if ('WallScrollToBottom' !== name) return;
+
+    this.getPosts(this.posts[this.posts.length - 1].id);
   }
 }
 
@@ -68159,7 +68153,7 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
 
   // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
   on(event, callback) {
-    return this.$rootScope.$on(event, (e, args) => this.$timeout(_ => callback(args)));
+    return this.$rootScope.$on(event, (e, args) => this.$timeout(() => callback(args)));
   }
 }
 

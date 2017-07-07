@@ -4,22 +4,19 @@ class WriteCommentController extends Injectable {
   constructor(...injections) {
     super(WriteCommentController.$inject, injections);
 
-    this.isLoading = false;
     this.comment = { text: '' };
+    // todo make sure when loading, cannot double post as we deleted the node from the markup
+    this.isLoading = false;
 
     this.$rootScope.$watch(() => this.update, () => {
-      if(this.update) {
-        this.comment.text = this.originalCommentText();
-      } else {
-        this.comment.text = '';
-      }
+      this.comment.text = this.update ? this.originalCommentText() : '';
     });
   }
 
   postComment() {
-    this.$timeout(() => { this.isLoading = true; });
+    this.$timeout(() => this.isLoading = true);
     this.comment.postid = this.postid();
-    this.comment.parentid = this.parentid();
+    this.comment.parentid = this.parentid;
 
     // update an existing comment
     if(this.update) {
@@ -55,6 +52,7 @@ class WriteCommentController extends Injectable {
     }
   }
 
+  /*
   cancelComment() {
     this.$timeout(() => {
       this.isLoading = false;
@@ -62,7 +60,14 @@ class WriteCommentController extends Injectable {
       this.onCancel()();
     });
   }
+  */
 }
-WriteCommentController.$inject = ['$timeout', '$rootScope', 'CommentService', 'AlertsService'];
+
+WriteCommentController.$inject = [
+  '$rootScope',
+  '$timeout',
+  'AlertsService',
+  'CommentService',
+];
 
 export default WriteCommentController;

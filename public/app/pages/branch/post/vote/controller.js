@@ -12,9 +12,9 @@ class BranchPostVoteController extends Injectable {
       sortBy: {
         items: [
           'date posted',
-          'votes'
+          'votes',
         ],
-        selectedIndex: 0
+        selectedIndex: 0,
       }
     };
     this.selectedAnswerIndex = -1;
@@ -109,7 +109,7 @@ BranchPostVoteController.$inject = [
   'LocalStorageService',
   'ModalService',
   'PostService',
-  'UserService'
+  'UserService',
 ];
 
 export default BranchPostVoteController;

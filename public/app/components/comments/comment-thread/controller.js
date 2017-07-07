@@ -140,9 +140,9 @@ class CommentThreadController extends Injectable {
 CommentThreadController.$inject = [
   '$state',
   '$timeout',
+  'AlertsService',
   'CommentService',
   'UserService',
-  'AlertsService'
 ];
 
 export default CommentThreadController;

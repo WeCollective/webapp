@@ -4,18 +4,19 @@ class CommentThreadComponent extends Injectable {
   constructor(...injections) {
     super(CommentThreadComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = false;
-    this.scope = {};
     this.bindToController = {
       comments: '=',
-      sortBy: '='
+      sortBy: '=',
     };
-    this.templateUrl = '/app/components/comments/comment-thread/view.html';
     this.controller = 'CommentThreadController';
     this.controllerAs = 'CommentThread';
+    this.replace = false;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/comments/comment-thread/view.html';
   }
 }
+
 CommentThreadComponent.$inject = [];
 
 export default CommentThreadComponent;

@@ -16,70 +16,68 @@ class CommentsController extends Injectable {
       }
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
-
-    this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if (name !== 'CommentsScrollToBottom') return;
-
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-
-        if (this.comments.length > 0) {
-          this.getComments(this.comments[this.comments.length - 1].id);
-        }
-      }
-    });
 
     this.reloadComments = this.reloadComments.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
-    this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.reloadComments);
+    let listeners = [];
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments);
+    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+      if (newValue !== oldValue) this.reloadComments();
+    }));
 
-    this.$scope.$on('$destroy', () => {
-      console.log('oh nooo');
-    });
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
+
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+    this.reloadComments();
   }
 
   getComments(lastCommentId) {
-    if (this.isCommentPermalink()) {
-      // fetch the permalinked comment
-      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid)
-        .then(comment => {
-          this.$timeout(() => {
-            this.comments = [comment];
-            this.isLoading = false;
-          });
-        })
-        .catch(err => {
-          if (err.status != 404) {
-            this.AlertsService.push('error', 'Error loading comments.');
-          }
+    const errorCb = err => {
+      if (err.status !== 404) {
+        this.AlertsService.push('error', 'Error loading comments.');
+      }
 
-          this.isLoading = false;
-        });
+      this.isLoading = false;
+    };
+
+    const successCb = response => this.$timeout(() => {
+      const isSingleComment = !Array.isArray(response);
+
+      let comments = [];
+
+      if (isSingleComment) {
+        comments.push(response);
+      }
+      else {
+        // if lastCommentId was specified we are fetching _more_ comments, so append them
+        comments = this.comments;
+        comments = comments.concat(response);
+      }
+
+      this.comments = comments;
+      this.isLoading = false;
+    });
+
+    if (this.isLoading === true) return;
+
+    this.isLoading = true;
+
+    if (this.isCommentPermalink()) {
+      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid)
+        .then(successCb)
+        .catch(errorCb);
     }
     else {
       // fetch all the comments for this post
       const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
 
       this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId)
-        .then(comments => {
-          this.$timeout(() => {
-            // if lastCommentId was specified we are fetching _more_ comments, so append them
-            this.comments = lastCommentId ? this.comments.concat(comments) : comments;
-
-            this.isLoading = false;
-            this.isLoadingMore = false;
-          });
-        })
-        .catch(err => {
-          if (err.status !== 404) {
-            this.AlertsService.push('error', 'Error loading comments.');
-          }
-
-          this.isLoading = false;
-        });
+        .then(successCb)
+        .catch(errorCb);
     }
   }
 
@@ -88,9 +86,16 @@ class CommentsController extends Injectable {
   }
 
   reloadComments() {
-    this.isLoading = true;
     this.comments = [];
     this.getComments();
+  }
+
+  scrollCb(name) {
+    if (name !== 'CommentsScrollToBottom') return;
+
+    if (this.comments.length > 0) {
+      this.getComments(this.comments[this.comments.length - 1].id);
+    }
   }
 }
 

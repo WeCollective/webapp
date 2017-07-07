@@ -1,4 +1,4 @@
-<div class="comment clearfix" ng-repeat="comment in CommentThread.comments">
+<div class="comment" ng-repeat="comment in CommentThread.comments">
   <div class="comment-content">
     <div class="comment-votes">
       <img
@@ -54,10 +54,9 @@
       <write-comment
         ng-show="comment.meta.openReply"
         on-submit="CommentThread.onSubmitComment.bind(CommentThread)"
-        on-cancel="CommentThread.closeReply.bind(CommentThread)"
         original-comment-text="comment.data.text"
-        parentid="comment.id"
-        placeholder="comment.meta.update ? 'Edit your comment...' : 'Write a reply...'"
+        parentid="{{ comment.id }}"
+        placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
         postid="comment.postid"
         update="comment.meta.update">
       </write-comment>

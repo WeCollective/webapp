@@ -4,9 +4,7 @@ class BranchPostController extends Injectable {
   constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
-    this.isLoadingComments = true;
-    this.isLoadingMore = false;
-    this.isLoadingPost = true;
+    this.isLoading = true;
     
     // Possible states: show, maximise.
     this.previewState = 'show';
@@ -34,42 +32,12 @@ class BranchPostController extends Injectable {
       postid: this.$state.params.postid,
     }];
 
-    const redirect = () => {
-      // post not updated yet, wait for CHANGE_POST event
-      if (this.$state.params.postid !== this.PostService.post.id) {
-        return;
-      }
-
-      // update state params for tabs
-      for (let i in this.tabStateParams) {
-        this.tabStateParams[i].branchid = this.PostService.post.branchid;
-        this.tabStateParams[i].postid = this.PostService.post.id;
-      }
-
-      if ('poll' === this.PostService.post.type && 'weco.branch.post' === this.$state.current.name) {
-        const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
-
-        if (tabIndex !== -1) {
-          this.$state.go(this.tabStates[tabIndex], {
-            branchid: this.PostService.post.branchid,
-            postid: this.$state.params.postid
-          }, {
-            location: 'replace'
-          });
-        }
-        else {
-          console.warn(`Invalid tab name!`);
-        }
-      }
-      else {
-        this.isLoadingPost = false;
-      }
-    };
+    this.redirect = this.redirect.bind(this);
 
     let listeners = [];
 
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, redirect));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, redirect));
+    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.redirect));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, this.redirect));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -106,6 +74,38 @@ class BranchPostController extends Injectable {
     }
 
     return '';
+  }
+
+  redirect() {
+    // post not updated yet, wait for CHANGE_POST event
+    if (this.$state.params.postid !== this.PostService.post.id) {
+      return;
+    }
+
+    // update state params for tabs
+    for (let i in this.tabStateParams) {
+      this.tabStateParams[i].branchid = this.PostService.post.branchid;
+      this.tabStateParams[i].postid = this.PostService.post.id;
+    }
+
+    if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
+      const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+
+      if (tabIndex !== -1) {
+        this.$state.go(this.tabStates[tabIndex], {
+          branchid: this.PostService.post.branchid,
+          postid: this.$state.params.postid,
+        }, {
+          location: 'replace',
+        });
+      }
+      else {
+        console.warn(`Invalid tab name!`);
+      }
+    }
+    else {
+      this.isLoading = false;
+    }
   }
 
   setPreviewState(state) {

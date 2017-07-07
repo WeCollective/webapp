@@ -4,23 +4,23 @@ class WriteCommentComponent extends Injectable {
   constructor(...injections) {
     super(WriteCommentComponent.$inject, injections);
 
-    this.restrict = 'E';
-    this.replace = true;
-    this.scope = {};
     this.bindToController = {
-      parentid: '&',
-      postid: '&',
       onSubmit: '&',
-      onCancel: '&',
+      originalCommentText: '&',
+      parentid: '@',
+      placeholder: '@',
+      postid: '&',
       update: '=',
-      placeholder: '&',
-      originalCommentText: '&'
     };
-    this.templateUrl = '/app/components/comments/write-comment/view.html';
     this.controller = 'WriteCommentController';
     this.controllerAs = 'WriteComment';
+    this.replace = true;
+    this.restrict = 'E';
+    this.scope = {};
+    this.templateUrl = '/app/components/comments/write-comment/view.html';
   }
 }
+
 WriteCommentComponent.$inject = [];
 
 export default WriteCommentComponent;

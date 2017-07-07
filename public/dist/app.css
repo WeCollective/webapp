@@ -509,7 +509,7 @@ div.comments #post-comments {
   overflow-y: scroll;
 }
 div.comments div.comment {
-  padding: 5px 0;
+  margin-bottom: 12px;
   width: 100%;
 }
 div.comments div.comment div.comment-content {
@@ -523,7 +523,7 @@ div.comments div.comment div.comment-content div.comment-votes {
   flex-direction: column;
   height: 80px;
   justify-content: space-between;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 div.comments div.comment div.comment-content div.comment-votes img {
   height: 22px;
@@ -547,14 +547,6 @@ div.comments div.comment div.comment-content div.comment-info .comment-title {
   font-weight: 400;
   white-space: nowrap;
 }
-@media only screen and (min-width: 576px) {
-  div.comments div.comment div.comment-content div.comment-info .comment-title {
-    font-size: 14px;
-  }
-}
-div.comments div.comment div.comment-content div.comment-info .comment-title:hover {
-  cursor: pointer;
-}
 div.comments div.comment div.comment-content div.comment-info .comment-title a {
   color: #3498db;
   font-weight: 500;
@@ -562,8 +554,13 @@ div.comments div.comment div.comment-content div.comment-info .comment-title a {
 div.comments div.comment div.comment-content div.comment-info .comment-title a:hover {
   text-decoration: underline;
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls {
-  margin-top: 2px;
+div.comments div.comment div.comment-content div.comment-info .comment-title:hover {
+  cursor: pointer;
+}
+@media only screen and (min-width: 576px) {
+  div.comments div.comment div.comment-content div.comment-info .comment-title {
+    font-size: 14px;
+  }
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li {
   display: inline-block;
@@ -571,16 +568,19 @@ div.comments div.comment div.comment-content div.comment-info ul.comment-control
   padding: 0 2px 0 0;
   width: 16px;
 }
+div.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
+  height: 100%;
+  opacity: .4;
+  width: 100%;
+}
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover {
   cursor: pointer;
 }
 div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover img {
   opacity: 1;
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
-  height: 100%;
-  opacity: .4;
-  width: 100%;
+div.comments div.comment div.comment-content div.comment-info .write-comment {
+  margin-top: 6px;
 }
 div.comments div.comment div.comment-content div.comment-info textarea {
   border-radius: 3px;
@@ -682,54 +682,39 @@ div.comments p#permalink-notice a:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div.comments > .write-comment textarea {
+div.comments .write-comment {
+  align-items: center;
+  display: flex;
+}
+div.comments .write-comment textarea {
   border-radius: 3px;
   box-sizing: border-box;
   font-family: inherit;
   font-size: 12px;
-  max-height: 150px;
+  height: 32px;
   max-width: 100%;
   padding: 5px 10px;
   resize: vertical;
   width: 100%;
 }
+div.comments .write-comment textarea:focus {
+  outline: none;
+}
 @media only screen and (min-width: 576px) {
-  div.comments > .write-comment textarea {
+  div.comments .write-comment textarea {
     font-size: 14px;
   }
 }
-div.comments > .write-comment textarea:focus {
-  outline: none;
-}
-div.comments > .write-comment .button-container {
+div.comments .write-comment .button-container {
   text-align: right;
 }
-div.comments > .write-comment .button-container .button {
+div.comments .write-comment .button-container .button {
   font-size: 14px;
   font-weight: 400;
+  margin-left: 10px;
   padding: 0 10px;
 }
-div.comments > .write-comment .button-container .button.cancel {
-  background-color: #b3b3b3;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.cancel:hover {
-  background-color: #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div.comments > .write-comment .button-container .button.cancel span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div.comments > .write-comment .button-container .button.ok {
+div.comments .write-comment .button-container .button.ok {
   background-color: #92bedb;
   border-radius: 3px;
   color: white;
@@ -738,29 +723,16 @@ div.comments > .write-comment .button-container .button.ok {
   text-align: center;
   transition: all 0.3s ease-out;
 }
-div.comments > .write-comment .button-container .button.ok:hover {
+div.comments .write-comment .button-container .button.ok:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div.comments > .write-comment .button-container .button.ok span {
+div.comments .write-comment .button-container .button.ok span {
   font-size: 14px;
   font-weight: 500;
   line-height: 30px;
-}
-div.comments > .write-comment#write-root-comment [loading] {
-  align-items: center;
-  display: flex;
-}
-div.comments > .write-comment#write-root-comment [loading] .button.cancel {
-  display: none;
-}
-div.comments > .write-comment#write-root-comment [loading] .button.ok {
-  margin-left: 10px;
-}
-div.comments > .write-comment#write-root-comment [loading] textarea {
-  height: 32px;
 }
 div.cover-frame {
   height: 100%;

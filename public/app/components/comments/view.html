@@ -1,16 +1,16 @@
 <div class="post__content-wrapper">
   <div class="comments">
     <write-comment
-      id="write-root-comment"
     	on-submit="Comments.reloadComments.bind(Comments)"
-    	parentid="'none'"
-    	placeholder="'Write a comment...'"
+    	parentid="none"
+    	placeholder="Write a comment..."
     	postid="Comments.PostService.post.id"
     	update="false">
     </write-comment>
     
     <p id="permalink-notice" ng-show="Comments.isCommentPermalink()">
     	You are viewing a single comment's thread. <a ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })">View all comments</a>
+      <!-- in polls, go directly to discussion -->
     </p>
 
     <dropdown
@@ -20,14 +20,20 @@
     	title="sort by">
     </dropdown>
 
-    <p id="no-comments" ng-show="Comments.comments.length === 0">No comments yet!</p>
+    <p
+      id="no-comments"
+      ng-show="Comments.comments.length === 0">
+      No comments yet!
+    </p>
 
     <div
       id="post-comments"
     	loading
       loading-when="Comments.isLoading"
     	on-scroll-to-bottom="CommentsScrollToBottom">
-      <div id="comment-thread" ng-show="Comments.comments.length > 0">
+      <div
+        id="comment-thread"
+        ng-show="Comments.comments.length > 0">
         <comment-thread
           comments="Comments.comments"
         	sort-by="Comments.controls.sortBy.items[Comments.controls.sortBy.selectedIndex]">

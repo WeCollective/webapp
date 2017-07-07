@@ -48,18 +48,17 @@ class BranchWallController extends Injectable {
       },
     };
     this.isLoading = false;
-    this.isLoadingMore = false;
     // To stop sending requests once we hit the bottom of posts.
     this.lastFetchedPostId = false;
     this.posts = cache[this.BranchService.branch.id] || [];
 
     this.cb = this.cb.bind(this);
     this.getPosts = this.getPosts.bind(this);
-    this.getPostsCb = this.getPostsCb.bind(this);
     this.getPostType = this.getPostType.bind(this);
     this.getSortBy = this.getSortBy.bind(this);
     this.getStatType = this.getStatType.bind(this);
     this.getTimeafter = this.getTimeafter.bind(this);
+    this.scrollCb = this.scrollCb.bind(this);
 
     let listeners = [];
     
@@ -81,7 +80,7 @@ class BranchWallController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
 
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.getPostsCb));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -143,26 +142,15 @@ class BranchWallController extends Injectable {
             this.LocalStorageService.setObject('cache', cache);
 
             this.isLoading = false;
-            this.isLoadingMore = false;
             return resolve();
           });
         })
         .catch(() => {
           this.AlertsService.push('error', 'Error fetching posts.');
           this.isLoading = false;
-          this.isLoadingMore = false;
           return reject();
         });
     });
-  }
-
-  getPostsCb(name) {
-    if ('WallScrollToBottom' !== name) return;
-    
-    if (!this.isLoadingMore) {
-      this.isLoadingMore = true;
-      this.getPosts(this.posts[this.posts.length - 1].id);
-    }
   }
 
   getPostType() {
@@ -242,6 +230,12 @@ class BranchWallController extends Injectable {
       default:
         return 0;
     }
+  }
+
+  scrollCb(name) {
+    if ('WallScrollToBottom' !== name) return;
+    
+    this.getPosts(this.posts[this.posts.length - 1].id);
   }
 }
 

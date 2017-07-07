@@ -5,7 +5,7 @@ class AppRun extends Injectable {
     super(AppRun.$inject, injections);
 
     // Tell Prerender.io to cache when DOM is loaded
-    this.$timeout(_ => this.$window.prerenderReady = true);
+    this.$timeout(() => this.$window.prerenderReady = true);
 
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
@@ -22,7 +22,7 @@ class AppRun extends Injectable {
           }, cb);
       };
 
-      const doChecks = _ => {
+      const doChecks = () => {
         // If state requires authenticated user to be the user specified in the URL,
         // transition to the specified redirection state
         this.UserService.fetch('me')
@@ -77,7 +77,7 @@ AppRun.$inject = [
   '$window',
   'EventService',
   'ModService',
-  'UserService'
+  'UserService',
 ];
 
 export default AppRun;
