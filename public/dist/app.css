@@ -604,9 +604,13 @@ ul#alerts li.success span {
 .comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover img {
   opacity: 1;
 }
+.comments div.comment div.comment-content div.comment-info .comment__input-wrapper {
+  margin: 6px 0;
+}
 .comments div.comment div.comment-replies {
   border-left: 1px solid #e7e7e7;
   box-sizing: border-box;
+  margin-bottom: 12px;
   margin-left: 14px;
   padding-left: 15px;
 }
@@ -623,20 +627,24 @@ ul#alerts li.success span {
 .comments div.comment:not(:last-child) {
   margin-bottom: 12px;
 }
-.comments p#no-comments {
-  font-style: italic;
+.comments .comments__text-wrapper {
+  margin-top: 12px;
 }
-.comments p#permalink-notice {
+.comments .comments__text-wrapper .comments__text {
+  margin: 0;
+  padding: 0;
+}
+.comments .comments__text-wrapper.comments__text-wrapper--bg {
   background-color: #e7e7e7;
   border: 1px solid #c8c8c8;
   border-radius: 3px;
   padding: 5px 10px;
 }
-.comments p#permalink-notice a {
+.comments .comments__text-wrapper.comments__text-wrapper--bg a {
   color: #3498db;
   font-weight: 500;
 }
-.comments p#permalink-notice a:hover {
+.comments .comments__text-wrapper.comments__text-wrapper--bg a:hover {
   cursor: pointer;
   text-decoration: underline;
 }

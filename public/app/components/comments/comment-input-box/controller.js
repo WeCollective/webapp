@@ -4,37 +4,51 @@ class CommentInputBoxController extends Injectable {
   constructor(...injections) {
     super(CommentInputBoxController.$inject, injections);
 
-    this.comment = this.getInitialState();
-    // todo make sure when loading, cannot double post as we deleted the node from the markup
+    this.input = '';
     this.isLoading = false;
 
-    this.$rootScope.$watch(() => this.update, () => {
-      this.comment.text = this.update ? this.originalCommentText() : '';
+    let listeners = [];
+
+    listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        this.input = newValue ? this.originalCommentText() : '';
+      }
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  /*
+  // method inaccessible at the moment
+  cancelComment() {
+    this.$timeout(() => {
+      this.isLoading = false;
+      this.inout = '';
+      this.onCancel()();
     });
   }
+  */
 
-  getInitialState() {
-    return {
-      parentid: '',
-      postid: 0,
-      text: '',
-    };
-  }
+  handleSubmit() {
+    if (this.isLoading === true) return;
 
-  postComment() {
     this.isLoading = true;
-    this.comment.postid = this.postid;
-    this.comment.parentid = this.parentid;
+
+    const comment = {
+      parentid: this.parentid || '',
+      postid: this.postid || 0,
+      text: this.input || '',
+    };
 
     // update an existing comment
     if (this.update) {
       // NB: if we are editing the existing comment, the supplied "parentid" is
       // actually the id of the comment to be edited
-      this.CommentService.update(this.comment.postid, this.comment.parentid, this.comment.text)
+      this.CommentService.update(comment.postid, comment.parentid, comment.text)
         .then(() => this.$timeout(() => {
           this.isLoading = false;
-          this.comment = this.getInitialState();
-          this.onSubmit()(this.comment.id);
+          this.input = '';
+          this.onSubmit()(comment.id);
         }))
         .catch(() => {
           this.AlertsService.push('error', 'Error editing comment.');
@@ -42,10 +56,10 @@ class CommentInputBoxController extends Injectable {
         });
     }
     else {
-      this.CommentService.create(this.comment)
+      this.CommentService.create(comment)
         .then(id => this.$timeout(() => {
           this.isLoading = false;
-          this.comment = { text: '' };
+          this.input = '';
           this.onSubmit()(id);
         }))
         .catch(err => {
@@ -60,19 +74,10 @@ class CommentInputBoxController extends Injectable {
         });
     }
   }
-
-  /*
-  cancelComment() {
-    this.$timeout(() => {
-      this.isLoading = false;
-      this.comment = { text: '' };
-      this.onCancel()();
-    });
-  }
-  */
 }
 
 CommentInputBoxController.$inject = [
+  '$scope',
   '$rootScope',
   '$timeout',
   'AlertsService',

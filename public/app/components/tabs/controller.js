@@ -5,8 +5,18 @@ class TabsController extends Injectable {
     super(TabsController.$inject, injections);
   }
 
+  getLink(index) {
+    const state = Array.isArray(this.states[index]) ? this.states[index][0] : this.states[index];
+    const params = this.stateParams[index];
+    return this.$state.href(state, params);
+  }
+
   isSelected(index) {
-    return this.$state.current.name === this.states[index];
+    if (Array.isArray(this.states[index])) {
+      return this.states[index].includes(this.$state.current.name);
+    }
+
+    return this.states[index] === this.$state.current.name;
   }
 }
 

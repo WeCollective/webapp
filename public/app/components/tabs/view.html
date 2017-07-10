@@ -5,7 +5,7 @@
     ng-repeat="item in Tabs.items">
     <a
      class="tabs__link"
-     ng-href="{{ Tabs.$state.href(Tabs.states[$index], Tabs.stateParams[$index]) }}">
+     ng-href="{{ Tabs.getLink($index) }}">
       <span class="text--uppercase">{{ item }}</span>
     </a>
   </li>

@@ -86,12 +86,15 @@
             }
           }
         }
+
+        .comment__input-wrapper { margin: (@g-padding-post / 2) 0; }
       }
     }
 
     div.comment-replies {
       border-left: 1px solid @light-grey;
       box-sizing: border-box;
+      margin-bottom: @g-padding-post;
       margin-left: 14px;
       padding-left: 15px;
 
@@ -111,10 +114,15 @@
     &:not(:last-child) { margin-bottom: @g-padding-post; }
   }
 
-  p {
-    &#no-comments { font-style: italic; }
-    
-    &#permalink-notice {
+  .comments__text-wrapper {
+    margin-top: @g-padding-post;
+
+    .comments__text {
+      margin: 0;
+      padding: 0;
+    }
+
+    &.comments__text-wrapper--bg {
       background-color: @light-grey;
       border: 1px solid @dark-grey;
       border-radius: 3px;

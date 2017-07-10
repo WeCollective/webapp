@@ -8,10 +8,13 @@
     	update="false">
     </comment-input-box>
     
-    <p id="permalink-notice" ng-show="Comments.isCommentPermalink()">
-    	You are viewing a single comment's thread. <a ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })">View all comments</a>
-      <!-- in polls, go directly to discussion -->
-    </p>
+    <div
+      class="comments__text-wrapper comments__text-wrapper--bg"
+      ng-if="Comments.isCommentPermalink()">
+      <p class="comments__text">
+      	You are viewing a single comment's thread. <a ng-if="Comments.PostService.post.type !== 'poll'" ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })"><a ng-if="Comments.PostService.post.type === 'poll'" ui-sref="weco.branch.post.discussion({ postid: Comments.PostService.post.id})">View all comments</a>
+      </p>
+    </div>
 
     <dropdown
       class="style--horizontal"
@@ -20,11 +23,13 @@
     	title="sort by">
     </dropdown>
 
-    <p
-      id="no-comments"
-      ng-show="Comments.comments.length === 0">
-      No comments yet!
-    </p>
+    <div
+      class="comments__text-wrapper"
+      ng-if="Comments.comments.length === 0">
+      <p class="comments__text">
+        No comments yet!
+      </p>
+    </div>
 
     <div
       id="post-comments"

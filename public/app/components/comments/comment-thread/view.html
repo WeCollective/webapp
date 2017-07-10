@@ -65,11 +65,14 @@
 
   <div class="comment-replies">
     <!-- Comment replies -->
-    <comment-thread comments="comment.comments" sort-by="CommentThread.sortBy"></comment-thread>
+    <comment-thread
+      comments="comment.comments"
+      ng-if="comment.comments.length > 0"
+      sort-by="CommentThread.sortBy"></comment-thread>
     <span
       class="load-more"
       ng-click="CommentThread.loadMore(comment)"
-      ng-show="(comment.replies > 0 && (!comment.comments || comment.comments.length == 0)) || comment.replies > comment.comments.length">
+      ng-if="(comment.replies > 0 && (!comment.comments || comment.comments.length == 0)) || comment.replies > comment.comments.length">
       LOAD {{ comment.replies - (comment.comments ? comment.comments.length : 0) }} MORE
     </span>
   </div>

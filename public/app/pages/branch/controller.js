@@ -1,20 +1,20 @@
 import Injectable from 'utils/injectable';
 
 class BranchController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchController.$inject, injections);
 
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
 
     // update the view when the branch changes
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.$timeout(() => this.isLoading = false));
   }
 
-  isControlSelected (control) {
+  isControlSelected(control) {
     return this.$state.current.name.includes(control);
   }
 
-  isModerator () {
+  isModerator() {
     if (!this.BranchService.branch.mods) {
       return false;
     }
@@ -28,7 +28,7 @@ class BranchController extends Injectable {
     return false;
   }
 
-  openModal (modalType) {
+  openModal(modalType) {
     const route = `branch/${this.BranchService.branch.id}/`,
       messageType = ('profile-picture' === modalType) ? 'profile' : 'cover',
       type = ('profile-picture' === modalType) ? 'picture' : 'cover';
@@ -45,7 +45,7 @@ BranchController.$inject = [
   'BranchService',
   'EventService',
   'ModalService',
-  'UserService'
+  'UserService',
 ];
 
 export default BranchController;

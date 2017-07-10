@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63141,44 +63141,58 @@ class CommentInputBoxController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   constructor(...injections) {
     super(CommentInputBoxController.$inject, injections);
 
-    this.comment = this.getInitialState();
-    // todo make sure when loading, cannot double post as we deleted the node from the markup
+    this.input = '';
     this.isLoading = false;
 
-    this.$rootScope.$watch(() => this.update, () => {
-      this.comment.text = this.update ? this.originalCommentText() : '';
+    let listeners = [];
+
+    listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        this.input = newValue ? this.originalCommentText() : '';
+      }
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  /*
+  // method inaccessible at the moment
+  cancelComment() {
+    this.$timeout(() => {
+      this.isLoading = false;
+      this.inout = '';
+      this.onCancel()();
     });
   }
+  */
 
-  getInitialState() {
-    return {
-      parentid: '',
-      postid: 0,
-      text: ''
-    };
-  }
+  handleSubmit() {
+    if (this.isLoading === true) return;
 
-  postComment() {
     this.isLoading = true;
-    this.comment.postid = this.postid;
-    this.comment.parentid = this.parentid;
+
+    const comment = {
+      parentid: this.parentid || '',
+      postid: this.postid || 0,
+      text: this.input || ''
+    };
 
     // update an existing comment
     if (this.update) {
       // NB: if we are editing the existing comment, the supplied "parentid" is
       // actually the id of the comment to be edited
-      this.CommentService.update(this.comment.postid, this.comment.parentid, this.comment.text).then(() => this.$timeout(() => {
+      this.CommentService.update(comment.postid, comment.parentid, comment.text).then(() => this.$timeout(() => {
         this.isLoading = false;
-        this.comment = this.getInitialState();
-        this.onSubmit()(this.comment.id);
+        this.input = '';
+        this.onSubmit()(comment.id);
       })).catch(() => {
         this.AlertsService.push('error', 'Error editing comment.');
         this.isLoading = false;
       });
     } else {
-      this.CommentService.create(this.comment).then(id => this.$timeout(() => {
+      this.CommentService.create(comment).then(id => this.$timeout(() => {
         this.isLoading = false;
-        this.comment = { text: '' };
+        this.input = '';
         this.onSubmit()(id);
       })).catch(err => {
         if (err.status === 403) {
@@ -63191,19 +63205,9 @@ class CommentInputBoxController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
       });
     }
   }
-
-  /*
-  cancelComment() {
-    this.$timeout(() => {
-      this.isLoading = false;
-      this.comment = { text: '' };
-      this.onCancel()();
-    });
-  }
-  */
 }
 
-CommentInputBoxController.$inject = ['$rootScope', '$timeout', 'AlertsService', 'CommentService'];
+CommentInputBoxController.$inject = ['$scope', '$rootScope', '$timeout', 'AlertsService', 'CommentService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentInputBoxController);
 
@@ -65529,8 +65533,18 @@ class TabsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
     super(TabsController.$inject, injections);
   }
 
+  getLink(index) {
+    const state = Array.isArray(this.states[index]) ? this.states[index][0] : this.states[index];
+    const params = this.stateParams[index];
+    return this.$state.href(state, params);
+  }
+
   isSelected(index) {
-    return this.$state.current.name === this.states[index];
+    if (Array.isArray(this.states[index])) {
+      return this.states[index].includes(this.$state.current.name);
+    }
+
+    return this.states[index] === this.$state.current.name;
   }
 }
 
@@ -66015,7 +66029,7 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
 
     // update the view when the branch changes
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, _ => this.$timeout(_ => this.isLoading = false));
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.$timeout(() => this.isLoading = false));
   }
 
   isControlSelected(control) {
@@ -66664,7 +66678,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     this.tabItems = ['vote', 'discussion', 'results'];
 
-    this.tabStates = ['weco.branch.post.vote', 'weco.branch.post.discussion', 'weco.branch.post.results'];
+    this.tabStates = ['weco.branch.post.vote', ['weco.branch.post.discussion', 'weco.branch.post.comment'], 'weco.branch.post.results'];
 
     this.tabStateParams = [{
       branchid: this.BranchService.branch.id,
@@ -66737,7 +66751,8 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
 
       if (tabIndex !== -1) {
-        this.$state.go(this.tabStates[tabIndex], {
+        const state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
+        this.$state.go(state, {
           branchid: this.PostService.post.branchid,
           postid: this.$state.params.postid
         }, {
@@ -66756,7 +66771,7 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   showPollTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+    return this.PostService.post.type === 'poll';
   }
 
   toggleCinemaMode() {

@@ -17,7 +17,7 @@ class BranchPostController extends Injectable {
 
     this.tabStates = [
       'weco.branch.post.vote',
-      'weco.branch.post.discussion',
+      ['weco.branch.post.discussion', 'weco.branch.post.comment'],
       'weco.branch.post.results',
     ];
     
@@ -92,7 +92,8 @@ class BranchPostController extends Injectable {
       const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
 
       if (tabIndex !== -1) {
-        this.$state.go(this.tabStates[tabIndex], {
+        const state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
+        this.$state.go(state, {
           branchid: this.PostService.post.branchid,
           postid: this.$state.params.postid,
         }, {
@@ -113,7 +114,7 @@ class BranchPostController extends Injectable {
   }
 
   showPollTabs() {
-    return this.PostService.post.type === 'poll' && this.$state.current.name !== 'weco.branch.post.comment';
+    return this.PostService.post.type === 'poll';
   }
 
   toggleCinemaMode() {
