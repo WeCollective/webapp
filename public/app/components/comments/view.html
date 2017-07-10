@@ -32,18 +32,15 @@
     </div>
 
     <div
-      id="post-comments"
+      class="comments__wrapper"
     	loading
       loading-when="Comments.isLoading"
     	on-scroll-to-bottom="CommentsScrollToBottom">
-      <div
-        id="comment-thread"
-        ng-show="Comments.comments.length > 0">
-        <comment-thread
-          comments="Comments.comments"
-        	sort-by="Comments.controls.sortBy.items[Comments.controls.sortBy.selectedIndex]">
-        </comment-thread>
-      </div>
+      <comment-thread
+        comments="Comments.comments"
+        ng-if="Comments.comments.length > 0"
+      	sort-by="Comments.controls.sortBy.items[Comments.controls.sortBy.selectedIndex]">
+      </comment-thread>
     </div>
   </div>
 </div>

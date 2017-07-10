@@ -140,7 +140,7 @@
       background-size: cover;
       border-radius: 4px;
       height: @height;
-      margin: 0 10px 0 12px;
+      margin: 0 10px 0 @g-padding-post;
       width: @height;
 
       &:hover { box-shadow: @shadow-2; }
@@ -176,6 +176,8 @@
         font-size: 13px;
         font-weight: 500;
         vertical-align: top;
+
+        &.style--icon { margin-left: @spacing; }
       }
 
       a.list-item__detail {
@@ -213,8 +215,6 @@
         height: @size;
         opacity: .3;
         width: @size;
-
-        &.style--icon { margin-left: @spacing; }
 
         &:hover { opacity: 1; }
       }

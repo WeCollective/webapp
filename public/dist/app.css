@@ -530,129 +530,225 @@ ul#alerts li.success span {
   padding: 12px;
   width: 100%;
 }
-.comments #post-comments {
-  flex: 1;
-  overflow-y: scroll;
+.comments .comment .comment__input-wrapper {
+  margin-top: 6px;
 }
-.comments div.comment {
-  width: 100%;
+.comments .comment .comment__input-wrapper + .comment__replies {
+  margin-top: 12px;
 }
-.comments div.comment div.comment-content {
+.comments .comment:not(:last-child) {
+  margin-bottom: 12px;
+}
+.comments .comment__content {
+  border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
+  min-height: 80px;
+  padding: 8px 0;
   width: 100%;
 }
-.comments div.comment div.comment-content div.comment-votes {
+.comments .comment__content span.list-item-index {
+  color: #c8c8c8;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 80px;
+}
+.comments .comment__content div.list-item-flags {
+  align-self: center;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
+}
+.comments .comment__content div.list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
+}
+.comments .comment__content div.list-item-flags img {
+  height: auto;
+  left: 12px;
+  opacity: 1;
+  top: 0;
+  vertical-align: middle;
+  width: 16px;
+}
+.comments .comment__content div.list-item-flags span {
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+}
+.comments .comment__content .list-item-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 80px;
   justify-content: space-between;
-  margin-right: 10px;
+  margin-left: 6px;
 }
-.comments div.comment div.comment-content div.comment-votes img {
-  height: 22px;
+.comments .comment__content .list-item-votes img {
+  height: 24px;
   opacity: .3;
-  width: 22px;
+  width: 24px;
 }
-.comments div.comment div.comment-content div.comment-votes img:hover {
+.comments .comment__content .list-item-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-.comments div.comment div.comment-content div.comment-votes p {
+.comments .comment__content .list-item-votes p {
   margin: 0;
 }
-.comments div.comment div.comment-content div.comment-info {
+.comments .comment__content .list-item-image div {
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  height: 80px;
+  margin: 0 10px 0 12px;
+  width: 80px;
+}
+.comments .comment__content .list-item-image div:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.comments .comment__content div.list-item-nsfw-label {
+  background-color: #ffecee;
+  border: 2px solid #ff8095;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 80px;
+  margin-right: 10px;
+  padding: 2px;
+}
+.comments .comment__content div.list-item-nsfw-label span {
+  color: #ff8095;
+  font-size: 11px;
+  font-weight: 600;
+  text-orientation: upright;
+  writing-mode: tb;
+}
+.comments .comment__content div.list-item-info {
   flex: 1;
   height: 100%;
 }
-.comments div.comment div.comment-content div.comment-info .comment-title {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-.comments div.comment div.comment-content div.comment-info .comment-title a {
-  color: #3498db;
+.comments .comment__content div.list-item-info .list-item__details .list-item__detail {
+  color: #b3b3b3;
+  font-size: 13px;
   font-weight: 500;
+  vertical-align: top;
 }
-.comments div.comment div.comment-content div.comment-info .comment-title a:hover {
+.comments .comment__content div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
-.comments div.comment div.comment-content div.comment-info .comment-title:hover {
-  cursor: pointer;
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+  text-decoration: none;
 }
-@media only screen and (min-width: 576px) {
-  .comments div.comment div.comment-content div.comment-info .comment-title {
-    font-size: 14px;
-  }
-}
-.comments div.comment div.comment-content div.comment-info ul.comment-controls li {
-  display: inline-block;
-  height: 16px;
-  padding: 0 2px 0 0;
-  width: 16px;
-}
-.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
-  height: 100%;
-  opacity: .4;
-  width: 100%;
-}
-.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover {
-  cursor: pointer;
-}
-.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover img {
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-.comments div.comment div.comment-content div.comment-info .comment__input-wrapper {
-  margin: 6px 0;
+.comments .comment__content div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+  color: #2c2c2c;
+  text-decoration: none;
 }
-.comments div.comment div.comment-replies {
-  border-left: 1px solid #e7e7e7;
-  box-sizing: border-box;
-  margin-bottom: 12px;
-  margin-left: 14px;
-  padding-left: 15px;
+.comments .comment__content div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
+  cursor: pointer;
+  height: 16px;
+  opacity: .3;
+  width: 16px;
 }
-.comments div.comment div.comment-replies span.load-more {
-  color: #3498db;
-  font-size: 12px;
+.comments .comment__content div.list-item-info .list-item__details img.list-item__detail:hover {
+  opacity: 1;
+}
+.comments .comment__content div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
+  display: inline-block;
+  height: 14px;
+  margin: 0 4px;
+  position: relative;
+  top: -1px;
+  width: 1px;
+}
+.comments .comment__content div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+.comments .comment__content .list-item__radio-button {
+  height: 20px;
+  margin: 0 12px;
+  width: 20px;
+}
+.comments .comment__content .list-item__stats {
+  margin-right: 12px;
+}
+.comments .comment__content .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+.comments .comment__content .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
   vertical-align: bottom;
+  width: 24px;
 }
-.comments div.comment div.comment-replies span.load-more:hover {
-  cursor: pointer;
-  text-decoration: underline;
+.comments .comment__content .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
 }
-.comments div.comment:not(:last-child) {
-  margin-bottom: 12px;
+.comments .comment__content.style--card-branch .list-item-info .list-item__title {
+  font-size: 18px;
 }
-.comments .comments__text-wrapper {
-  margin-top: 12px;
-}
-.comments .comments__text-wrapper .comments__text {
+.comments .comment__content.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 0 12px;
 }
-.comments .comments__text-wrapper.comments__text-wrapper--bg {
-  background-color: #e7e7e7;
-  border: 1px solid #c8c8c8;
+.comments .comment__content.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
   border-radius: 3px;
-  padding: 5px 10px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
 }
-.comments .comments__text-wrapper.comments__text-wrapper--bg a {
-  color: #3498db;
-  font-weight: 500;
+.comments .comment__content.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
 }
-.comments .comments__text-wrapper.comments__text-wrapper--bg a:hover {
+.comments .comment__content.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
-  text-decoration: underline;
+}
+.comments .comment__content.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+.comments .comment__content .list-item-votes {
+  margin-left: 0;
+  margin-right: 12px;
 }
 .comments .comment__input-wrapper {
   align-items: center;
   display: flex;
 }
 .comments .comment__input-wrapper .comment__input {
+  border-color: #b3b3b3;
   border-radius: 3px;
   box-sizing: border-box;
   font-family: inherit;
@@ -670,6 +766,47 @@ ul#alerts li.success span {
   .comments .comment__input-wrapper .comment__input {
     font-size: 14px;
   }
+}
+.comments .comment__replies {
+  border-left: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  margin-top: 6px;
+  padding-left: 12px;
+}
+.comments .comment__replies .comment__replies-text {
+  color: #3498db;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  vertical-align: bottom;
+}
+.comments .comment__replies .comment__replies-text:hover {
+  text-decoration: underline;
+}
+.comments .comments__text-wrapper {
+  margin-top: 12px;
+}
+.comments .comments__text-wrapper a {
+  color: #3498db;
+  cursor: pointer;
+  font-weight: 500;
+}
+.comments .comments__text-wrapper a:hover {
+  text-decoration: underline;
+}
+.comments .comments__text-wrapper .comments__text {
+  margin: 0;
+  padding: 0;
+}
+.comments .comments__text-wrapper.comments__text-wrapper--bg {
+  background-color: #e7e7e7;
+  border: 1px solid #c8c8c8;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+.comments .comments__wrapper {
+  flex: 1;
+  overflow-y: scroll;
 }
 div.cover-frame {
   height: 100%;
@@ -2371,6 +2508,9 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list
   font-weight: 500;
   vertical-align: top;
 }
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
 div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
@@ -2398,9 +2538,6 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list
   height: 16px;
   opacity: .3;
   width: 16px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
-  margin-left: 4px;
 }
 div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
@@ -2814,6 +2951,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   font-weight: 500;
   vertical-align: top;
 }
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
@@ -2841,9 +2981,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   height: 16px;
   opacity: .3;
   width: 16px;
-}
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
-  margin-left: 4px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
@@ -3041,6 +3178,9 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   font-weight: 500;
   vertical-align: top;
 }
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
@@ -3068,9 +3208,6 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   height: 16px;
   opacity: .3;
   width: 16px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
-  margin-left: 4px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
@@ -3606,6 +3743,9 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   font-weight: 500;
   vertical-align: top;
 }
+.post .list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
 .post .list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
@@ -3633,9 +3773,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   height: 16px;
   opacity: .3;
   width: 16px;
-}
-.post .list-item div.list-item-info .list-item__details img.list-item__detail.style--icon {
-  margin-left: 4px;
 }
 .post .list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
@@ -3945,6 +4082,9 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   font-weight: 500;
   vertical-align: top;
 }
+.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
 .post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
@@ -3972,9 +4112,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   height: 16px;
   opacity: .3;
   width: 16px;
-}
-.post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail.style--icon {
-  margin-left: 4px;
 }
 .post .post__content-wrapper .style--card-poll-answer div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;

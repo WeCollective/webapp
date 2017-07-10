@@ -13,11 +13,11 @@ class CommentInputBoxComponent extends Injectable {
       update: '=',
     };
     this.controller = 'CommentInputBoxController';
-    this.controllerAs = 'CommentInput';
+    this.controllerAs = 'Input';
     this.replace = true;
     this.restrict = 'E';
     this.scope = {};
-    this.templateUrl = '/app/components/comments/comment-input-box/view.html';
+    this.templateUrl = '/app/components/comments/input/view.html';
   }
 }
 

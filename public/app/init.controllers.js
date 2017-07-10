@@ -25,9 +25,9 @@ import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/cont
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
 import CardBranch from './components/card-branch/controller';
 import CardPollAnswer from './components/card-poll-answer/controller';
-import CommentInputBox from './components/comments/comment-input-box/controller';
+import CommentInputBox from './components/comments/input/controller';
 import Comments from './components/comments/controller';
-import CommentThread from './components/comments/comment-thread/controller';
+import CommentThread from './components/comments/thread/controller';
 import CoverPhoto from './components/cover-photo/controller';
 import CreateBranchModal from './components/modal/branch/create/controller';
 import CreatePostModal from './components/modal/post/create/controller';

@@ -1,0 +1,117 @@
+<div class="comment" ng-repeat="comment in Thread.comments">
+  <div class="comment__content">
+    <div class="list-item-votes">
+      <img
+        alt="Upvote comment"
+        ng-click="Thread.vote(comment, 'up')"
+        src="/assets/images/icons/black/arrow-up.png" />
+
+      <p>{{ comment.individual }}</p>
+
+      <img
+        alt="Downvote comment"
+        ng-click="Thread.vote(comment, 'down')"
+        src="/assets/images/icons/black/arrow-down.png" />
+    </div>
+
+    <div class="list-item-info">
+      <span class="list-item__title">
+        {{ comment.data.text }}
+      </span>
+
+      <br />
+      
+      <span class="list-item__details">
+        <img
+          alt="Reply"
+          class="list-item__detail"
+          ng-click="Thread.openReply(comment, false)"
+          offset-y="20"
+          src="/assets/images/icons/black/reply.png"
+          text="'Reply'"
+          tooltip />
+
+        <img
+          alt="Permalink"
+          class="list-item__detail style--icon"
+          ng-click="Thread.commentPermalink(comment)"
+          offset-y="20"
+          src="/assets/images/icons/black/permalink.png"
+          text="'Permalink'"
+          tooltip />
+
+        <img
+          alt="Edit"
+          class="list-item__detail style--icon"
+          ng-click="Thread.openReply(comment, true)"
+          ng-if="Thread.isOwnComment(comment)"
+          offset-y="20"
+          src="/assets/images/icons/black/edit--comment.png"
+          text="'Edit'"
+          tooltip />
+
+        <!--
+        <img
+          alt="Delete comment"
+          class="list-item__detail style--icon ng-hide"
+          ng-click="Thread.delete(comment)"
+          ng-if="Thread.isOwnComment(comment)"
+          offset-y="20"
+          src="/assets/images/icons/black/delete.png"
+          text="'Delete comment'"
+          tooltip />
+        -->
+
+        <!--
+        <a
+          class="list-item__detail style--has-children style--icon"
+          offset-y="20"
+          text="'View post discussion'"
+          tooltip
+          ui-sref="weco.branch.post.discussion({ postid: comment.postid })">
+          <img
+            alt="View post discussion"
+            class="list-item__detail"
+            src="/assets/images/icons/black/comment.png" />
+          <span>{{ 0 }}</span>
+        </a>
+        -->
+
+        <span class="list-item__separator"></span>
+
+        <a class="list-item__detail" ui-sref="weco.profile.about({ username: comment.data.creator })">
+          {{ comment.data.creator }}
+        </a>
+
+        <span class="list-item__separator"></span>
+
+        <span class="list-item__detail">{{ Thread.timeSince(comment.date) }}
+          <span class="list-item__detail" ng-if="comment.data.edited">(edited)</span>
+        </span>
+      </span>
+
+      <comment-input-box
+        ng-if="comment.meta.openReply"
+        on-submit="Thread.onSubmitComment.bind(Thread)"
+        original-comment-text="comment.data.text"
+        parentid="{{ comment.id }}"
+        placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
+        postid="{{ comment.postid }}"
+        update="comment.meta.update">
+      </comment-input-box>
+
+      <div class="comment__replies">
+        <comment-thread
+          comments="comment.comments"
+          ng-if="comment.comments.length > 0"
+          sort-by="Thread.sortBy"></comment-thread>
+        <span
+          class="comment__replies-text text--uppercase"
+          ng-click="Thread.loadMore(comment)"
+          ng-if="(comment.replies > 0 && (!comment.comments || comment.comments.length === 0)) || comment.replies > comment.comments.length">
+          load {{ comment.replies - (comment.comments ? comment.comments.length : 0) }} more
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,11 +9,11 @@ class CommentThreadComponent extends Injectable {
       sortBy: '=',
     };
     this.controller = 'CommentThreadController';
-    this.controllerAs = 'CommentThread';
+    this.controllerAs = 'Thread';
     this.replace = false;
     this.restrict = 'E';
     this.scope = {};
-    this.templateUrl = '/app/components/comments/comment-thread/view.html';
+    this.templateUrl = '/app/components/comments/thread/view.html';
   }
 }
 
