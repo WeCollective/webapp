@@ -27,10 +27,10 @@ let refs = [
   { name: 'TooltipService', module: Tooltip },
   { name: 'UploadService', module: Upload },
   { name: 'UserService', module: User },
-  { name: 'WallService', module: Wall }
+  { name: 'WallService', module: Wall },
 ];
 
-const services = (registrar) => {
+const services = registrar => {
   if (!registrar) throw new Error('Cannot register services - no registrar provided.');
   refs.forEach(ref => registrar.service(ref.name, ref.module));
 };

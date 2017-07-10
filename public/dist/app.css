@@ -496,7 +496,33 @@ ul#alerts li.success {
 ul#alerts li.success span {
   color: #0d532a;
 }
-div.comments {
+.btn {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+  padding: 0 10px;
+}
+.btn.btn--primary {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.btn.btn--primary .btn__label {
+  font-size: inherit;
+}
+.btn.btn--primary:hover {
+  background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.comments {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -504,19 +530,19 @@ div.comments {
   padding: 12px;
   width: 100%;
 }
-div.comments #post-comments {
+.comments #post-comments {
   flex: 1;
   overflow-y: scroll;
 }
-div.comments div.comment {
+.comments div.comment {
   width: 100%;
 }
-div.comments div.comment div.comment-content {
+.comments div.comment div.comment-content {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
-div.comments div.comment div.comment-content div.comment-votes {
+.comments div.comment div.comment-content div.comment-votes {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -524,171 +550,101 @@ div.comments div.comment div.comment-content div.comment-votes {
   justify-content: space-between;
   margin-right: 10px;
 }
-div.comments div.comment div.comment-content div.comment-votes img {
+.comments div.comment div.comment-content div.comment-votes img {
   height: 22px;
   opacity: .3;
   width: 22px;
 }
-div.comments div.comment div.comment-content div.comment-votes img:hover {
+.comments div.comment div.comment-content div.comment-votes img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div.comments div.comment div.comment-content div.comment-votes p {
+.comments div.comment div.comment-content div.comment-votes p {
   margin: 0;
 }
-div.comments div.comment div.comment-content div.comment-info {
+.comments div.comment div.comment-content div.comment-info {
   flex: 1;
   height: 100%;
 }
-div.comments div.comment div.comment-content div.comment-info .comment-title {
+.comments div.comment div.comment-content div.comment-info .comment-title {
   display: block;
   font-size: 12px;
   font-weight: 400;
   white-space: nowrap;
 }
-div.comments div.comment div.comment-content div.comment-info .comment-title a {
+.comments div.comment div.comment-content div.comment-info .comment-title a {
   color: #3498db;
   font-weight: 500;
 }
-div.comments div.comment div.comment-content div.comment-info .comment-title a:hover {
+.comments div.comment div.comment-content div.comment-info .comment-title a:hover {
   text-decoration: underline;
 }
-div.comments div.comment div.comment-content div.comment-info .comment-title:hover {
+.comments div.comment div.comment-content div.comment-info .comment-title:hover {
   cursor: pointer;
 }
 @media only screen and (min-width: 576px) {
-  div.comments div.comment div.comment-content div.comment-info .comment-title {
+  .comments div.comment div.comment-content div.comment-info .comment-title {
     font-size: 14px;
   }
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls li {
+.comments div.comment div.comment-content div.comment-info ul.comment-controls li {
   display: inline-block;
   height: 16px;
   padding: 0 2px 0 0;
   width: 16px;
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
+.comments div.comment div.comment-content div.comment-info ul.comment-controls li img {
   height: 100%;
   opacity: .4;
   width: 100%;
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover {
+.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover {
   cursor: pointer;
 }
-div.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover img {
+.comments div.comment div.comment-content div.comment-info ul.comment-controls li:hover img {
   opacity: 1;
 }
-div.comments div.comment div.comment-content div.comment-info .write-comment {
-  margin-top: 6px;
-}
-div.comments div.comment div.comment-content div.comment-info textarea {
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: 12px;
-  max-height: 150px;
-  max-width: 100%;
-  padding: 5px 10px;
-  resize: vertical;
-  width: 100%;
-}
-@media only screen and (min-width: 576px) {
-  div.comments div.comment div.comment-content div.comment-info textarea {
-    font-size: 14px;
-  }
-}
-div.comments div.comment div.comment-content div.comment-info textarea:focus {
-  outline: none;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container {
-  text-align: right;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button {
-  font-size: 14px;
-  font-weight: 400;
-  padding: 0 10px;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel {
-  background-color: #b3b3b3;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel:hover {
-  background-color: #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.cancel span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.ok {
-  background-color: #92bedb;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.ok:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div.comments div.comment div.comment-content div.comment-info .button-container .button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div.comments div.comment div.comment-replies {
+.comments div.comment div.comment-replies {
   border-left: 1px solid #e7e7e7;
   box-sizing: border-box;
   margin-left: 14px;
   padding-left: 15px;
 }
-div.comments div.comment div.comment-replies span.load-more {
+.comments div.comment div.comment-replies span.load-more {
   color: #3498db;
   font-size: 12px;
   font-weight: 500;
   vertical-align: bottom;
 }
-div.comments div.comment div.comment-replies span.load-more:hover {
+.comments div.comment div.comment-replies span.load-more:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div.comments div.comment:not(:last-child) {
+.comments div.comment:not(:last-child) {
   margin-bottom: 12px;
 }
-div.comments p#no-comments {
+.comments p#no-comments {
   font-style: italic;
 }
-div.comments p#permalink-notice {
+.comments p#permalink-notice {
   background-color: #e7e7e7;
   border: 1px solid #c8c8c8;
   border-radius: 3px;
   padding: 5px 10px;
 }
-div.comments p#permalink-notice a {
+.comments p#permalink-notice a {
   color: #3498db;
   font-weight: 500;
 }
-div.comments p#permalink-notice a:hover {
+.comments p#permalink-notice a:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div.comments .write-comment {
+.comments .comment__input-wrapper {
   align-items: center;
   display: flex;
 }
-div.comments .write-comment textarea {
+.comments .comment__input-wrapper .comment__input {
   border-radius: 3px;
   box-sizing: border-box;
   font-family: inherit;
@@ -699,42 +655,13 @@ div.comments .write-comment textarea {
   resize: vertical;
   width: 100%;
 }
-div.comments .write-comment textarea:focus {
+.comments .comment__input-wrapper .comment__input:focus {
   outline: none;
 }
 @media only screen and (min-width: 576px) {
-  div.comments .write-comment textarea {
+  .comments .comment__input-wrapper .comment__input {
     font-size: 14px;
   }
-}
-div.comments .write-comment .button-container {
-  text-align: right;
-}
-div.comments .write-comment .button-container .button {
-  font-size: 14px;
-  font-weight: 400;
-  margin-left: 10px;
-  padding: 0 10px;
-}
-div.comments .write-comment .button-container .button.ok {
-  background-color: #92bedb;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-div.comments .write-comment .button-container .button.ok:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div.comments .write-comment .button-container .button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
 }
 div.cover-frame {
   height: 100%;

@@ -25,6 +25,7 @@ import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/cont
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
 import CardBranch from './components/card-branch/controller';
 import CardPollAnswer from './components/card-poll-answer/controller';
+import CommentInputBox from './components/comments/comment-input-box/controller';
 import Comments from './components/comments/controller';
 import CommentThread from './components/comments/comment-thread/controller';
 import CoverPhoto from './components/cover-photo/controller';
@@ -45,7 +46,6 @@ import SubmitSubbranchRequestModal from './components/modal/branch/nucleus/modto
 import Tabs from './components/tabs/controller';
 import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
 import UploadImageModal from './components/modal/upload-image/controller';
-import WriteComment from './components/comments/write-comment/controller';
 
 let refs = [
   { name: 'AppController', module: App },
@@ -74,6 +74,7 @@ let refs = [
   { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },
   { name: 'CardBranchController', module: CardBranch },
   { name: 'CardPollAnswerController', module: CardPollAnswer },
+  { name: 'CommentInputBoxController', module: CommentInputBox },
   { name: 'CommentsController', module: Comments },
   { name: 'CommentThreadController', module: CommentThread },
   { name: 'CoverPhotoController', module: CoverPhoto },
@@ -94,10 +95,9 @@ let refs = [
   { name: 'TabsController', module: Tabs },
   { name: 'UpdateHomepageStatsModalController', module: UpdateHomepageStatsModal },
   { name: 'UploadImageModalController', module: UploadImageModal },
-  { name: 'WriteCommentController', module: WriteComment }
 ];
 
-const controllers = (registrar) => {
+const controllers = registrar => {
   if (!registrar) throw new Error('Cannot register controllers - no registrar provided.');
   refs.forEach(ref => registrar.controller(ref.name, ref.module));
 };

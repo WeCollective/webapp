@@ -51,7 +51,7 @@
         </li>
       </ul>
       
-      <write-comment
+      <comment-input-box
         ng-show="comment.meta.openReply"
         on-submit="CommentThread.onSubmitComment.bind(CommentThread)"
         original-comment-text="comment.data.text"
@@ -59,7 +59,7 @@
         placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
         postid="{{ comment.postid }}"
         update="comment.meta.update">
-      </write-comment>
+      </comment-input-box>
     </div>
   </div>
 

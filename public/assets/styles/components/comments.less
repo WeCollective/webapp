@@ -1,4 +1,4 @@
-div.comments {
+.comments {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -86,47 +86,6 @@ div.comments {
             }
           }
         }
-
-        .write-comment { margin-top: @g-padding-post / 2; }
-
-        textarea {
-          border-radius: 3px;
-          box-sizing: border-box;
-          font-family: inherit;
-          font-size: @font-size-xs;
-          max-height: 150px;
-          max-width: 100%;
-          padding: 5px 10px;
-          resize: vertical;
-          width: 100%;
-          .mediaQuery(@screen-sm, { font-size: @font-size-sm; });
-
-          &:focus { outline: none; }
-        }
-
-        .button-container {
-          text-align: right;
-
-          .button {
-            font-size: @font-size-sm;
-            font-weight: @font-weight-normal;
-            padding: 0 10px;
-            
-            &.cancel {
-              .button(white, @primary-6, 30px, {
-                background-color: @primary-5;
-                box-shadow: @shadow-2;
-              });
-            }
-            
-            &.ok {
-              .button(white, @accent-1, 30px, {
-                background-color: @accent-0;
-                box-shadow: @shadow-2;
-              });
-            }
-          }
-        }
       }
     }
 
@@ -173,11 +132,11 @@ div.comments {
     }
   }
 
-  .write-comment {
+  .comment__input-wrapper {
     align-items: center;
     display: flex;
 
-    textarea {
+    .comment__input {
       border-radius: 3px;
       box-sizing: border-box;
       font-family: inherit;
@@ -192,24 +151,6 @@ div.comments {
       &:focus { outline: none; }
 
       .mediaQuery(@screen-sm, { font-size: @font-size-sm; });
-    }
-
-    .button-container {
-      text-align: right;
-
-      .button {
-        font-size: @font-size-sm;
-        font-weight: @font-weight-normal;
-        margin-left: 10px;
-        padding: 0 10px;
-        
-        &.ok {
-          .button(white, @accent-1, 30px, {
-            background-color: @accent-0;
-            box-shadow: @shadow-2;
-          });
-        }
-      }
     }
   }
 }

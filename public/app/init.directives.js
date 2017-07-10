@@ -2,6 +2,7 @@ import Alerts from './components/alerts/directive';
 import CardBranch from './components/card-branch/directive';
 import CardPollAnswer from './components/card-poll-answer/directive';
 import Chart from './components/chart/directive';
+import CommentInputBox from './components/comments/comment-input-box/directive';
 import Comments from './components/comments/directive';
 import CommentThread from './components/comments/comment-thread/directive';
 import CoverPhoto from './components/cover-photo/directive';
@@ -17,13 +18,13 @@ import PollAnswerEditor from './components/poll-answer-editor/directive';
 import Tabs from './components/tabs/directive';
 import TagEditor from './components/tag-editor/directive';
 import Tooltip from './components/tooltip/directive';
-import WriteComment from './components/comments/write-comment/directive';
 
 let refs = [
   { name: 'alerts', module: Alerts },
   { name: 'cardBranch', module: CardBranch },
   { name: 'cardPollAnswer', module: CardPollAnswer },
   { name: 'chart', module: Chart },
+  { name: 'commentInputBox', module: CommentInputBox },
   { name: 'comments', module: Comments },
   { name: 'commentThread', module: CommentThread },
   { name: 'coverPhoto', module: CoverPhoto },
@@ -39,10 +40,9 @@ let refs = [
   { name: 'tabs', module: Tabs },
   { name: 'tagEditor', module: TagEditor },
   { name: 'tooltip', module: Tooltip },
-  { name: 'writeComment', module: WriteComment }
 ];
 
-const directives = (registrar) => {
+const directives = registrar => {
   if (!registrar) throw new Error('Cannot register directives - no registrar provided.');
   refs.forEach(ref => registrar.directive(ref.name, ref.module));
 };

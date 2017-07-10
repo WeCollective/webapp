@@ -1,0 +1,30 @@
+.btn {
+  display: inline-block;
+  font-size: @font-size-sm;
+  font-weight: @font-weight-normal;
+  margin-left: 10px;
+  padding: 0 10px;
+  
+  &.btn--primary {
+    @btn-height: 30px;
+
+    background-color: @accent-1;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: @font-size-sm;
+    font-weight: @font-weight-heavy;
+    height: @btn-height;
+    line-height: @btn-height;
+    text-align: center;
+    transition: background-color .3s ease-out,
+      box-shadow .3s ease-out;
+
+    .btn__label { font-size: inherit; }
+
+    &:hover {
+      background-color: @accent-0;
+      box-shadow: @shadow-2;
+    }
+  }
+}

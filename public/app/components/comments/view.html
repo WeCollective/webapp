@@ -1,12 +1,12 @@
 <div class="post__content-wrapper">
   <div class="comments">
-    <write-comment
+    <comment-input-box
     	on-submit="Comments.reloadComments.bind(Comments)"
     	parentid="none"
     	placeholder="Write a comment..."
     	postid="{{ Comments.PostService.post.id }}"
     	update="false">
-    </write-comment>
+    </comment-input-box>
     
     <p id="permalink-notice" ng-show="Comments.isCommentPermalink()">
     	You are viewing a single comment's thread. <a ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })">View all comments</a>
