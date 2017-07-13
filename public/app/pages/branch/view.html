@@ -24,13 +24,13 @@
             ng-show="Branch.BranchService.branch.parent.id && Branch.BranchService.branch.parent.id !== 'root'">
             ... /
           </span>
-          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.parent.id })">
+          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.parent.id })">
             {{ Branch.BranchService.branch.parent.name || 'All' }}
           </a>
           <span>
             /
           </span>
-          <a ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })">
+          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
             {{ Branch.BranchService.branch.name }}
           </a>
         </h2>
