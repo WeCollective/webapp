@@ -17,14 +17,6 @@
     </div>
   </div>
 
-  <tabs
-    class="style--border"
-    items="BranchPost.tabItems"
-    ng-if="BranchPost.showPollTabs()"
-    states="BranchPost.tabStates"
-    state-params="BranchPost.tabStateParams">
-  </tabs>
-
   <div class="post__preview">
     <div class="post__preview-controls">
       <img
@@ -54,6 +46,14 @@
       src="BranchPost.getPreviewTemplate()">
     </ng-include>
   </div>
+
+  <tabs
+    class="style--border"
+    items="BranchPost.tabItems"
+    ng-if="BranchPost.showPollTabs()"
+    states="BranchPost.tabStates"
+    state-params="BranchPost.tabStateParams">
+  </tabs>
   
   <div
     class="post__body"
