@@ -497,7 +497,6 @@ ul#alerts li.success span {
   display: flex;
   flex-direction: column;
   height: 80px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 .comments .comment__content .list-item-votes img {
@@ -2309,7 +2308,6 @@ div#branch-subbranches div.content-body ul li.list-item .list-item-votes {
   display: flex;
   flex-direction: column;
   height: 90px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item-votes img {
@@ -2752,7 +2750,6 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   display: flex;
   flex-direction: column;
   height: 70px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img {
@@ -2979,7 +2976,6 @@ div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes {
   display: flex;
   flex-direction: column;
   height: 70px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img {
@@ -3544,7 +3540,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   display: flex;
   flex-direction: column;
   height: 70px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 .post .list-item .list-item-votes img {
@@ -3883,7 +3878,6 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   display: flex;
   flex-direction: column;
   height: 70px;
-  justify-content: space-between;
   margin-left: 6px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item-votes img {

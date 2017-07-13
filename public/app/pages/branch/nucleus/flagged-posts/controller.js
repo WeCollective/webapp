@@ -120,7 +120,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
             this.posts = posts;
 
             // 30 is the length of the posts response sent back by server.
-            if (newPosts.length < 30) {
+            if (newPosts.length > 0 && newPosts.length < 30) {
               this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
             }
 
