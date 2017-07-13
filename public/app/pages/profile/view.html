@@ -8,14 +8,14 @@
 
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
-    <div id="profile-info" class="sidebar frame-column" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
+    <div id="profile-info" class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
       <div class="sidebar-info">
         <h1>{{ Profile.profileUser.name }}</h1>
         
         <h2>{{ Profile.profileUser.username }}</h2>
       </div>
       
-      <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+      <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
         <img
           id="edit"
           ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"

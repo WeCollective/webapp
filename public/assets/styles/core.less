@@ -105,89 +105,9 @@ span {
       overflow: hidden;
       position: relative;
       width: 100%;
-      
-      // width: calc(~'100% - (2 * @{page-margin-xs})');
-      //.responsive(@screen-sm, { width: calc(~'100% - (2 * @{page-margin-sm})'); });
-      //.responsive(@screen-md, { width: calc(~'100% - (2 * @{page-margin-md})'); });
-      //.responsive(@screen-lg, { width: calc(~'100% - (2 * @{page-margin-lg})'); });
-      //.responsive(@screen-xl, { width: calc(~'100% - (2 * @{page-margin-xl})'); });
 
-      .responsive(@screen-xxl, { width: ~'calc(100% - 64px)'; });
-
-      /*
-      > div.frame-column {
-        background-color: #fff;
-        border-right: solid 1px @light-grey;
-        box-sizing: border-box;
-        height: 100%;
-        overflow: hidden;
-        padding: 20px;
-        position: absolute;
-        z-index: 1300;
-
-        > div.frame-column-picture {
-          @sidebar-picture-size: @sidebar-w;
-          background-position: center;
-          background-size: cover;
-          border-right: solid 1px @light-grey;
-          border-top: solid 1px @light-grey;
-          box-sizing: border-box;
-          height: @sidebar-picture-size;
-          margin: 20px 0 0 -20px;
-          position: relative;
-          width: @sidebar-picture-size;
-          z-index: 0;
-
-          .responsive(@screen-lg, {
-            @sidebar-picture-size: @sidebar-w-lg;
-            height: @sidebar-picture-size;
-            width: @sidebar-picture-size;
-          });
-
-          img#edit {
-            bottom: 10px;
-            height: auto;
-            opacity: .8;
-            position: absolute;
-            right: 10px;
-            width: 20px;
-
-            &:hover {
-              cursor: pointer;
-              opacity: 1;
-            }
-          }
-        }
-
-        h1 {
-          font-size: @font-size-lg;
-          font-weight: @font-weight-heavy;
-        }
-
-        h2 {
-          font-size: @font-size-sm;
-          font-weight: @font-weight-heavy;
-        }
-
-        // hide column left offscreen
-        box-shadow: none;
-        left: -@frame-column-width-xs;
-        transition: left .3s ease-out;
-
-        .responsive(@screen-sm, { left: -@frame-column-width-sm; });
-        .responsive(@screen-md, { left: -@frame-column-width-md; });
-        .responsive(@screen-lg, { left: -@frame-column-width-lg; });
-        .responsive(@screen-xl, { left: -@frame-column-width-xl; });
-        .responsive(@screen-md, { &, &.open { box-shadow: none; } });
-        .set-responsively(width, frame-column-width);
-
-        &.open {
-          box-shadow: @shadow-2;
-          left: 0;
-          transition: left .3s ease-out;
-        }
-      }
-      */
+      // What's 64px?
+      .mediaQuery(@screen-xxl, { width: ~'calc(100% - 64px)'; });
 
       .sidebar.open + div.frame-content {
         transform: translateX(@sidebar-w-sm);
@@ -268,26 +188,16 @@ span {
       }
 
       .mediaQuery(@screen-md, {
-        > div.frame-column {
+        .sidebar {
           float: left;
           position: static;
         }
 
-        > div.frame-content {
-          width: calc(~'100% - @{frame-column-width-md}');
-        }
+        > div.frame-content { width: calc(~'100% - @{sidebar-w}'); }
       });
 
       .mediaQuery(@screen-lg, {
-        > div.frame-content {
-          width: calc(~'100% - @{frame-column-width-lg}');
-        }
-      });
-
-      .mediaQuery(@screen-xl, {
-        > div.frame-content {
-          width: calc(~'100% - @{frame-column-width-xl}');
-        }
+        > div.frame-content { width: calc(~'100% - @{sidebar-w-lg}'); }
       });
     }
   }

@@ -8,12 +8,10 @@
 <div class="cover-page page">
   <div
     class="frame"
-    id="branch-frame"
     loading
     loading-when="Branch.isLoading">
     <div
-      class="sidebar frame-column"
-      id="branch-info"
+      class="sidebar"
       ng-class="{ 'open': Branch.AppService.isSidebarOpen }">
       <div class="sidebar-info">
         <h1>{{ Branch.BranchService.branch.name }}</h1>
@@ -38,7 +36,7 @@
         </h2>
       </div>
       
-      <div class="sidebar-picture frame-column-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+      <div class="sidebar-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
         <img
           alt=""
           id="edit"
@@ -48,7 +46,7 @@
           src="/assets/images/icons/black/edit.png" />
       </div>
       
-      <ul id="branch-controls" class="sidebar-controls">
+      <ul class="sidebar-controls">
         <li>
           <a
             ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }"
