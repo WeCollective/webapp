@@ -729,13 +729,7 @@ ul#alerts li.success span {
   flex: 1;
   overflow-y: scroll;
 }
-div.cover-frame {
-  height: 100%;
-}
-div.cover-frame.coverOpen {
-  height: 65%;
-}
-div.cover-photo {
+.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -744,7 +738,7 @@ div.cover-photo {
   z-index: 1;
   transition: height .4s;
 }
-div.cover-photo img {
+.cover-photo img {
   bottom: 10px;
   height: 26px;
   opacity: .5;
@@ -752,37 +746,37 @@ div.cover-photo img {
   width: 26px;
   transition: transform .2s;
 }
-div.cover-photo img:hover {
+.cover-photo img:hover {
   cursor: pointer;
   opacity: 1;
 }
-div.cover-photo img.cover-photo-toggle {
+.cover-photo img.cover-photo-toggle {
   right: 6px;
   transform: rotateZ(180deg);
 }
-div.cover-photo img#cover-photo-edit {
+.cover-photo img#cover-photo-edit {
   right: 38px;
 }
-div.cover-photo.closed {
+.cover-photo.closed {
   height: 0;
 }
-div.cover-photo.closed img {
+.cover-photo.closed img {
   transform: translateY(calc(42px));
 }
-div.cover-photo.closed img.cover-photo-toggle {
+.cover-photo.closed img.cover-photo-toggle {
   transform: translateY(calc(42px)) rotateZ(0);
 }
-div.cover-photo.open {
-  height: 149px;
+.cover-photo.open {
+  height: 70px;
 }
 @media only screen and (min-width: 768px) {
-  div.cover-photo.open {
-    height: 201px;
+  .cover-photo.open {
+    height: 100px;
   }
 }
 @media only screen and (min-width: 992px) {
-  div.cover-photo.open {
-    height: 249px;
+  .cover-photo.open {
+    height: 150px;
   }
 }
 div.dropdown {

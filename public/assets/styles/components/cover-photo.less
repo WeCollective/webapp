@@ -1,10 +1,4 @@
-div.cover-frame {
-  height: 100%;
-  
-  &.coverOpen { height: 65%; }
-}
-
-div.cover-photo {
+.cover-photo {
   background-position: center;
   background-size: cover;
   box-shadow: @shadow-1;
@@ -39,14 +33,15 @@ div.cover-photo {
   &.closed {
     height: 0;
     
+    // Where are these "random" values coming from?
     img { transform: translateY(calc(10px + 22px + 10px)); }
     img.cover-photo-toggle { transform: translateY(calc(10px + 22px + 10px)) rotateZ(0); }
   }
 
   &.open {
-    height: @sidebar-w-sm;
+    height: @cover-w;
 
-    .mediaQuery(@screen-md, { height: @sidebar-w; });
-    .mediaQuery(@screen-lg, { height: @sidebar-w-lg; });
+    .mediaQuery(@screen-md, { height: @cover-w-md; });
+    .mediaQuery(@screen-lg, { height: @cover-w-lg; });
   }
 }
