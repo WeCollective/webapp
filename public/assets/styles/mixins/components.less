@@ -120,9 +120,11 @@
     margin-left: 6px;
 
     img {
-      height: 24px;
+      @size: 26px;
+
+      height: @size;
       opacity: .3;
-      width: 24px;
+      width: @size;
 
       &:hover {
         cursor: pointer;

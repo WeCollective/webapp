@@ -500,9 +500,9 @@ ul#alerts li.success span {
   margin-left: 6px;
 }
 .comments .comment__content .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 .comments .comment__content .list-item-votes img:hover {
   cursor: pointer;
@@ -2314,9 +2314,9 @@ div#branch-subbranches div.content-body ul li.list-item .list-item-votes {
   margin-left: 6px;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item-votes img:hover {
   cursor: pointer;
@@ -2756,9 +2756,9 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   margin-left: 6px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img:hover {
   cursor: pointer;
@@ -2982,9 +2982,9 @@ div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes {
   margin-left: 6px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img:hover {
   cursor: pointer;
@@ -3546,9 +3546,9 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   margin-left: 6px;
 }
 .post .list-item .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 .post .list-item .list-item-votes img:hover {
   cursor: pointer;
@@ -3884,9 +3884,9 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   margin-left: 6px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item-votes img {
-  height: 24px;
+  height: 26px;
   opacity: .3;
-  width: 24px;
+  width: 26px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item-votes img:hover {
   cursor: pointer;

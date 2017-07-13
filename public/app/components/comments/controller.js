@@ -35,6 +35,32 @@ class CommentsController extends Injectable {
     this.reloadComments();
   }
 
+  getAllCommentReplies(commentsArr) {
+    return new Promise((resolve, reject) => {
+      let promises = [];
+
+      commentsArr.forEach(comment => {
+        promises.push(new Promise((resolve2, reject2) => {
+          this.getSingleCommentReplies(comment)
+            .then(() => {
+              if (comment.comments) {
+                return this.getAllCommentReplies(comment.comments)
+                  .then(resolve2)
+                  .catch(reject2);
+              }
+
+              return resolve2();
+            })
+            .catch(reject2);
+        }));
+      });
+
+      return Promise.all(promises)
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
   getComments(lastCommentId) {
     const errorCb = err => {
       if (err.status !== 404) {
@@ -51,15 +77,19 @@ class CommentsController extends Injectable {
 
       if (isSingleComment) {
         comments.push(response);
-      }
-      else {
-        // if lastCommentId was specified we are fetching _more_ comments, so append them
-        comments = this.comments;
-        comments = comments.concat(response);
+        this.comments = comments;
+        this.isLoading = false;
+        return;
       }
 
-      this.comments = comments;
-      this.isLoading = false;
+      comments = this.comments;
+      comments = comments.concat(response);
+
+      this.getAllCommentReplies(comments)
+        .then(() => this.$scope.$apply(() => {
+          this.comments = comments;
+          this.isLoading = false;
+        }));
     });
 
     if (this.isLoading === true) return;
@@ -79,6 +109,24 @@ class CommentsController extends Injectable {
         .then(successCb)
         .catch(errorCb);
     }
+  }
+
+  getSingleCommentReplies(comment) {
+    return new Promise((resolve, reject) => {
+      const lastCommentId = false;
+      const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+
+      // fetch the replies to this comment, or just the number of replies
+      return this.CommentService.getMany(comment.postid, comment.id, sortBy, lastCommentId)
+        .then(replies => this.$timeout(() => {
+          comment.comments = replies;
+          return resolve();
+        }))
+        .catch(() => {
+          this.AlertsService.push('error', 'Unable to get replies!');
+          return reject();
+        });
+    });
   }
 
   isCommentPermalink() {
