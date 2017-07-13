@@ -81,15 +81,8 @@ span {
     }
   }
 
-  .cover-photo:not(.closed) + div.cover-page {
-    height: calc(~'100% - @{sidebar-w}');
-
-    .mediaQuery(@screen-lg, { height: calc(~'100% - @{sidebar-w-lg}'); })
-  }
-
-  div.page {
+  .page {
     background-color: @primary-8;
-    height: 100%;
     width: 100%;
 
     &.cover-page {

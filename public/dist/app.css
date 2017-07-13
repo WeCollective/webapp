@@ -172,24 +172,15 @@ span {
   position: relative;
   width: 100%;
 }
-#weco-root .cover-photo:not(.closed) + div.cover-page {
-  height: calc(100% - 201px);
-}
-@media only screen and (min-width: 992px) {
-  #weco-root .cover-photo:not(.closed) + div.cover-page {
-    height: calc(100% - 249px);
-  }
-}
-#weco-root div.page {
+#weco-root .page {
   background-color: #e7e7e7;
-  height: 100%;
   width: 100%;
 }
-#weco-root div.page.cover-page {
+#weco-root .page.cover-page {
   overflow: auto;
   position: relative;
 }
-#weco-root div.page > div.frame {
+#weco-root .page > div.frame {
   background-color: #fff;
   height: 100%;
   margin: auto;
@@ -199,31 +190,31 @@ span {
   width: 100%;
 }
 @media only screen and (min-width: 1260px) {
-  #weco-root div.page > div.frame {
+  #weco-root .page > div.frame {
     width: calc(100% - 64px);
   }
 }
-#weco-root div.page > div.frame .sidebar.open + div.frame-content {
+#weco-root .page > div.frame .sidebar.open + div.frame-content {
   transform: translateX(149px);
 }
 @media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame .sidebar.open + div.frame-content {
+  #weco-root .page > div.frame .sidebar.open + div.frame-content {
     transform: translateX(0);
   }
 }
-#weco-root div.page > div.frame > div.frame-content {
+#weco-root .page > div.frame > div.frame-content {
   float: left;
   height: 100%;
   width: 100%;
   transition: transform 0.3s ease-out;
 }
-#weco-root div.page > div.frame > div.frame-content > div {
+#weco-root .page > div.frame > div.frame-content > div {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-#weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle {
+#weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle {
   cursor: pointer;
   height: 26px;
   margin-right: 16px;
@@ -232,29 +223,29 @@ span {
   width: 26px;
   transition: transform .2s;
 }
-#weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle.toggled {
+#weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle.toggled {
   transform: rotateZ(90deg);
 }
 @media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame > div.frame-content > div .content--sidebar-toggle {
+  #weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle {
     display: none;
   }
 }
-#weco-root div.page > div.frame > div.frame-content > div .content-header {
+#weco-root .page > div.frame > div.frame-content > div .content-header {
   align-items: center;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-flow: row wrap;
   padding: 16px 16px 4px;
 }
-#weco-root div.page > div.frame > div.frame-content > div .content-header h1 {
+#weco-root .page > div.frame > div.frame-content > div .content-header h1 {
   font-size: 26px;
   font-weight: 500;
   padding-right: 35px;
   position: relative;
   top: -1px;
 }
-#weco-root div.page > div.frame > div.frame-content > div .content-header > div.content-controls {
+#weco-root .page > div.frame > div.frame-content > div .content-header > div.content-controls {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -265,24 +256,24 @@ span {
   position: relative;
   top: -3px;
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-body {
+#weco-root .page > div.frame > div.frame-content > div div.content-body {
   flex: 1;
   overflow-y: scroll;
 }
-#weco-root div.page > div.frame > div.frame-content > div div.content-body > ul {
+#weco-root .page > div.frame > div.frame-content > div div.content-body > ul {
   padding: 0 16px;
 }
 @media only screen and (min-width: 768px) {
-  #weco-root div.page > div.frame .sidebar {
+  #weco-root .page > div.frame .sidebar {
     float: left;
     position: static;
   }
-  #weco-root div.page > div.frame > div.frame-content {
+  #weco-root .page > div.frame > div.frame-content {
     width: calc(100% - 201px);
   }
 }
 @media only screen and (min-width: 992px) {
-  #weco-root div.page > div.frame > div.frame-content {
+  #weco-root .page > div.frame > div.frame-content {
     width: calc(100% - 249px);
   }
 }
@@ -769,14 +760,23 @@ ul#alerts li.success span {
 .cover-photo.open {
   height: 70px;
 }
+.cover-photo.open + div.cover-page {
+  height: calc(100% - 70px);
+}
 @media only screen and (min-width: 768px) {
   .cover-photo.open {
     height: 100px;
+  }
+  .cover-photo.open + div.cover-page {
+    height: calc(100% - 100px);
   }
 }
 @media only screen and (min-width: 992px) {
   .cover-photo.open {
     height: 150px;
+  }
+  .cover-photo.open + div.cover-page {
+    height: calc(100% - 150px);
   }
 }
 div.dropdown {

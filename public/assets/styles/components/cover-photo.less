@@ -41,7 +41,18 @@
   &.open {
     height: @cover-w;
 
-    .mediaQuery(@screen-md, { height: @cover-w-md; });
-    .mediaQuery(@screen-lg, { height: @cover-w-lg; });
+    & + div.cover-page { height: calc(~'100% - @{cover-w}'); }
+
+    .mediaQuery(@screen-md, {
+      height: @cover-w-md;
+
+      & + div.cover-page { height: calc(~'100% - @{cover-w-md}'); }
+    });
+
+    .mediaQuery(@screen-lg, {
+      height: @cover-w-lg;
+
+      & + div.cover-page { height: calc(~'100% - @{cover-w-lg}'); }
+    });
   }
 }
