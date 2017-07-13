@@ -32,7 +32,8 @@
 
   &.closed {
     height: 0;
-    
+
+    & + .cover-page { height: 100%; }
     // Where are these "random" values coming from?
     img { transform: translateY(calc(10px + 22px + 10px)); }
     img.cover-photo-toggle { transform: translateY(calc(10px + 22px + 10px)) rotateZ(0); }
@@ -41,18 +42,18 @@
   &.open {
     height: @cover-w;
 
-    & + div.cover-page { height: calc(~'100% - @{cover-w}'); }
+    & + .cover-page { height: calc(~'100% - @{cover-w}'); }
 
     .mediaQuery(@screen-md, {
       height: @cover-w-md;
 
-      & + div.cover-page { height: calc(~'100% - @{cover-w-md}'); }
+      & + .cover-page { height: calc(~'100% - @{cover-w-md}'); }
     });
 
     .mediaQuery(@screen-lg, {
       height: @cover-w-lg;
 
-      & + div.cover-page { height: calc(~'100% - @{cover-w-lg}'); }
+      & + .cover-page { height: calc(~'100% - @{cover-w-lg}'); }
     });
   }
 }
