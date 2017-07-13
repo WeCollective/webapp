@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67881,18 +67881,18 @@ API.$inject = ['$http', 'ENV'];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_generator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_injectable__ = __webpack_require__(1);
 
 
 
-class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(BranchService.$inject, injections);
 
     this.branch = {
-      id: 'root',
-      name: 'All',
+      id: this.$stateParams.branchid || 'root',
+      name: this.$stateParams.branchid || 'All',
       parent: {
         id: 'none'
       }
@@ -67900,58 +67900,58 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
     let fetchingBranch = false;
 
-    const updateBranch = () => {
-      this.$timeout(() => {
-        if (this.$state.current.name.includes('weco.branch') && (!fetchingBranch || fetchingBranch !== this.$state.params.branchid)) {
-          fetchingBranch = this.$state.params.branchid;
+    const updateBranch = () => this.$timeout(() => {
+      if (!this.$state.current.name.includes('weco.branch') || fetchingBranch && fetchingBranch === this.$state.params.branchid) {
+        return;
+      }
 
-          let fetchedBranch = {};
+      fetchingBranch = this.$state.params.branchid;
 
-          const tempImages = {
-            coverUrl: this.branch.coverUrl,
-            coverUrlThumb: this.branch.coverUrlThumb,
-            profileUrl: this.branch.profileUrl,
-            profileUrlThumb: this.branch.profileUrlThumb
-          };
+      let fetchedBranch = {};
 
-          this.branch.coverUrl = tempImages.coverUrl;
-          this.branch.coverUrlThumb = tempImages.coverUrlThumb;
-          this.branch.profileUrl = tempImages.profileUrl;
-          this.branch.profileUrlThumb = tempImages.profileUrlThumb;
+      const tempImages = {
+        coverUrl: this.branch.coverUrl,
+        coverUrlThumb: this.branch.coverUrlThumb,
+        profileUrl: this.branch.profileUrl,
+        profileUrlThumb: this.branch.profileUrlThumb
+      };
 
-          if (fetchingBranch && this.branch.id !== fetchingBranch) {
-            // Preload the result.
-            if (fetchingBranch !== 'root') {
-              this.branch.id = fetchingBranch;
-              this.branch.name = fetchingBranch;
-            } else {
-              this.branch.name = 'All';
-              this.branch.parent = { id: 'none' };
-            }
-          }
+      this.branch.coverUrl = tempImages.coverUrl;
+      this.branch.coverUrlThumb = tempImages.coverUrlThumb;
+      this.branch.profileUrl = tempImages.profileUrl;
+      this.branch.profileUrlThumb = tempImages.profileUrlThumb;
 
-          this.fetch(fetchingBranch).then(branch => {
-            if (fetchingBranch === branch.id) {
-              fetchedBranch = branch;
-              this.branch = branch;
-            }
-          }).catch(err => {
-            if (err.status === 404) {
-              this.$state.go('weco.notfound');
-            } else {
-              this.AlertsService.push('error', 'Unable to fetch branch.');
-            }
-          }).then(() => {
-            if (fetchingBranch === fetchedBranch.id) {
-              // Wrap this into timeout to ensure any dependent controller has time to attach listener
-              // before this event fires for the first time.
-              this.$timeout(() => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
-              fetchingBranch = false;
-            }
-          });
+      if (fetchingBranch && this.branch.id !== fetchingBranch) {
+        // Preload the result.
+        if (fetchingBranch !== 'root') {
+          this.branch.id = fetchingBranch;
+          this.branch.name = fetchingBranch;
+        } else {
+          this.branch.name = 'All';
+          this.branch.parent = { id: 'none' };
+        }
+      }
+
+      this.fetch(fetchingBranch).then(branch => {
+        if (fetchingBranch === branch.id) {
+          fetchedBranch = branch;
+          this.branch = branch;
+        }
+      }).catch(err => {
+        if (err.status === 404) {
+          this.$state.go('weco.notfound');
+        } else {
+          this.AlertsService.push('error', 'Unable to fetch branch.');
+        }
+      }).then(() => {
+        if (fetchingBranch === fetchedBranch.id) {
+          // Wrap this into timeout to ensure any dependent controller has time to attach listener
+          // before this event fires for the first time.
+          this.$timeout(() => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
+          fetchingBranch = false;
         }
       });
-    };
+    });
 
     updateBranch();
 
@@ -67972,7 +67972,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
   fetch(branchid) {
     return new Promise((resolve, reject) => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+      __WEBPACK_IMPORTED_MODULE_0_utils_generator__["a" /* default */].run(function* () {
         try {
           let res = yield this.API.fetch('/branch/:branchid', { branchid });
           let branch = res.data;
@@ -68029,7 +68029,10 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
   getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
     return new Promise((resolve, reject) => {
-      let params = { sortBy, timeafter };
+      let params = {
+        sortBy,
+        timeafter
+      };
 
       if (lastBranchId) {
         params.lastBranchId = lastBranchId;
@@ -68053,7 +68056,10 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
 
   resolveFlaggedPost(branchid, postid, action, data, message) {
     return new Promise((resolve, reject) => {
-      let body = { action, message };
+      let body = {
+        action,
+        message
+      };
 
       body['change_type' === action ? 'type' : 'reason'] = data;
 
@@ -68074,7 +68080,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
   }
 }
 
-BranchService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'EventService', 'ModService'];
+BranchService.$inject = ['$state', '$stateParams', '$timeout', 'AlertsService', 'API', 'EventService', 'ModService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchService);
 
