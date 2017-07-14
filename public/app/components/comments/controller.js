@@ -70,20 +70,20 @@ class CommentsController extends Injectable {
       this.isLoading = false;
     };
 
-    const successCb = response => this.$timeout(() => {
-      const isSingleComment = !Array.isArray(response);
+    const successCb = res => this.$timeout(() => {
+      const isSingleComment = !Array.isArray(res);
 
       let comments = [];
 
       if (isSingleComment) {
-        comments.push(response);
+        comments.push(res);
         this.comments = comments;
         this.isLoading = false;
         return;
       }
 
       comments = this.comments;
-      comments = comments.concat(response);
+      comments = comments.concat(res);
 
       this.getAllCommentReplies(comments)
         .then(() => this.$scope.$apply(() => {

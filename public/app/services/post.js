@@ -2,7 +2,7 @@ import Injectable from 'utils/injectable';
 import Generator from 'utils/generator';
 
 class PostService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(PostService.$inject, injections);
     
     this.post = {};
@@ -15,16 +15,15 @@ class PostService extends Injectable {
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.updatePost);
   }
 
-  create (data) {
+  create(data) {
     return new Promise((resolve, reject) => {
       this.API.save('/post', {}, data)
-        // pass on the returned postid
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
   }
 
-  createPollAnswer (postid, data) {
+  createPollAnswer(postid, data) {
     return new Promise((resolve, reject) => {
       this.API.save('/poll/:postid/answer', { postid }, data)
         .then(resolve)
@@ -32,7 +31,7 @@ class PostService extends Injectable {
     });
   }
 
-  delete (postid) {
+  delete(postid) {
     return new Promise((resolve, reject) => {
       this.API.remove('/post/:postid', { postid })
         .then(resolve)
@@ -40,7 +39,7 @@ class PostService extends Injectable {
     });
   }
 
-  fetch (postid) {
+  fetch(postid) {
     return new Promise((resolve, reject) => {
       this.API.fetch('/post/:postid', { postid }, {})
         .then(res => resolve(res.data))
@@ -48,7 +47,7 @@ class PostService extends Injectable {
     });
   }
 
-  flag (postid, branchid, flag_type) {
+  flag(postid, branchid, flag_type) {
     return new Promise((resolve, reject) => {
       this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type })
         .then(resolve)
@@ -56,11 +55,11 @@ class PostService extends Injectable {
     });
   }
 
-  getPictureUrl (postid, thumbnail) {
+  getPictureUrl(postid, thumbnail) {
     return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
   }
 
-  getPollAnswers (postid, sortBy, lastAnswerId) {
+  getPollAnswers(postid, sortBy, lastAnswerId) {
     return new Promise( (resolve, reject) => {
       this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
         .then(res => resolve(res.data))
@@ -68,7 +67,7 @@ class PostService extends Injectable {
     });
   }
 
-  updatePost () {
+  updatePost() {
     if (!this.$state.current.name.includes('weco.branch.post') || this.updating === true) {
       return;
     }
@@ -90,23 +89,23 @@ class PostService extends Injectable {
           this.AlertsService.push('error', 'Unable to fetch post.');
         }
       })
-      .then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST))
+      .then(() => this.EventService.emit(this.EventService.events.CHANGE_POST))
       .then(this.$timeout);
   }
 
-  vote (branchid, postid, vote) {
+  vote(branchid, postid, vote) {
     return new Promise( (resolve, reject) => {
       if (vote !== 'up' && vote !== 'down') {
         return reject();
       }
 
-      this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true)
-        .then(resolve)
+      this.API.put('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true)
+        .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
   }
 
-  votePollAnswer (postid, answerid) {
+  votePollAnswer(postid, answerid) {
     return new Promise( (resolve, reject) => {
       this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
         .then(resolve)
@@ -121,7 +120,7 @@ PostService.$inject = [
   'AlertsService',
   'API',
   'BranchService',
-  'EventService'
+  'EventService',
 ];
 
 export default PostService;

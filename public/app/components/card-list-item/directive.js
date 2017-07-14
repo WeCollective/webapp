@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class ListItemComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ListItemComponent.$inject, injections);
 
     this.bindToController = {
@@ -14,7 +14,7 @@ class ListItemComponent extends Injectable {
     this.replace = true;
     this.restrict = 'A';
     this.scope = {};
-    this.templateUrl = '/app/components/list-item/view.html';
+    this.templateUrl = '/app/components/card-list-item/view.html';
   }
 }
 

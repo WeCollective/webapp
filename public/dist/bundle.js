@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'production',
-   apiEndpoint: 'https://wecoapi.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -24091,18 +24091,18 @@ let ENV = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_card_branch_controller__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_card_poll_answer_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_comments_input_controller__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_comments_controller__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_comments_thread_controller__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_cover_photo_controller__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_modal_branch_create_controller__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_modal_post_create_controller__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_modal_branch_nucleus_modtools_delete_branch_controller__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_modal_post_delete_controller__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_dropdown_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_modal_post_flag_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_list_item_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_card_list_item_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_card_poll_answer_controller__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_comments_input_controller__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_comments_controller__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_comments_thread_controller__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_cover_photo_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_modal_branch_create_controller__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_modal_post_create_controller__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_nucleus_modtools_delete_branch_controller__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_modal_post_delete_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_dropdown_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_controller__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_nav_bar_controller__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_modal_profile_settings_controller__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_remove_mod_controller__ = __webpack_require__(170);
@@ -24162,7 +24162,7 @@ let ENV = {
 
 
 
-let refs = [{ name: 'AppController', module: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */] }, { name: 'AuthController', module: __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__["a" /* default */] }, { name: 'BranchController', module: __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__["a" /* default */] }, { name: 'BranchNucleusAboutController', module: __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__["a" /* default */] }, { name: 'BranchNucleusController', module: __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__["a" /* default */] }, { name: 'BranchNucleusFlaggedPostsController', module: __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__["a" /* default */] }, { name: 'BranchNucleusModeratorsController', module: __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__["a" /* default */] }, { name: 'BranchNucleusModtoolsController', module: __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsController', module: __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'BranchPostController', module: __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__["a" /* default */] }, { name: 'BranchPostResultsController', module: __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__["a" /* default */] }, { name: 'BranchPostVoteController', module: __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__["a" /* default */] }, { name: 'BranchSubbranchesController', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__["a" /* default */] }, { name: 'BranchWallController', module: __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__["a" /* default */] }, { name: 'HomeController', module: __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__["a" /* default */] }, { name: 'ProfileController', module: __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__["a" /* default */] }, { name: 'ProfileNotificationsController', module: __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__["a" /* default */] }, { name: 'ProfileSettingsController', module: __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__["a" /* default */] }, { name: 'ResetPasswordController', module: __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__["a" /* default */] }, { name: 'TooltipController', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__["a" /* default */] }, { name: 'VerifyController', module: __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__["a" /* default */] }, { name: 'AddModModalController', module: __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'CardBranchController', module: __WEBPACK_IMPORTED_MODULE_23__components_card_branch_controller__["a" /* default */] }, { name: 'CardPollAnswerController', module: __WEBPACK_IMPORTED_MODULE_24__components_card_poll_answer_controller__["a" /* default */] }, { name: 'CommentInputBoxController', module: __WEBPACK_IMPORTED_MODULE_25__components_comments_input_controller__["a" /* default */] }, { name: 'CommentsController', module: __WEBPACK_IMPORTED_MODULE_26__components_comments_controller__["a" /* default */] }, { name: 'CommentThreadController', module: __WEBPACK_IMPORTED_MODULE_27__components_comments_thread_controller__["a" /* default */] }, { name: 'CoverPhotoController', module: __WEBPACK_IMPORTED_MODULE_28__components_cover_photo_controller__["a" /* default */] }, { name: 'CreateBranchModalController', module: __WEBPACK_IMPORTED_MODULE_29__components_modal_branch_create_controller__["a" /* default */] }, { name: 'CreatePostModalController', module: __WEBPACK_IMPORTED_MODULE_30__components_modal_post_create_controller__["a" /* default */] }, { name: 'DeleteBranchModalController', module: __WEBPACK_IMPORTED_MODULE_31__components_modal_branch_nucleus_modtools_delete_branch_controller__["a" /* default */] }, { name: 'DeletePostModalController', module: __WEBPACK_IMPORTED_MODULE_32__components_modal_post_delete_controller__["a" /* default */] }, { name: 'DropdownController', module: __WEBPACK_IMPORTED_MODULE_33__components_dropdown_controller__["a" /* default */] }, { name: 'FlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_34__components_modal_post_flag_controller__["a" /* default */] }, { name: 'ListItemController', module: __WEBPACK_IMPORTED_MODULE_35__components_list_item_controller__["a" /* default */] }, { name: 'NavbarController', module: __WEBPACK_IMPORTED_MODULE_36__components_nav_bar_controller__["a" /* default */] }, { name: 'ProfileSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_37__components_modal_profile_settings_controller__["a" /* default */] }, { name: 'RemoveModModalController', module: __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_remove_mod_controller__["a" /* default */] }, { name: 'ResolveFlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_39__components_modal_post_flag_resolve_controller__["a" /* default */] }, { name: 'ReviewSubbranchRequestsModalController', module: __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__["a" /* default */] }, { name: 'SubmitPollAnswerModalController', module: __WEBPACK_IMPORTED_MODULE_41__components_modal_post_submit_poll_answer_controller__["a" /* default */] }, { name: 'SubmitSubbranchRequestModalController', module: __WEBPACK_IMPORTED_MODULE_42__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__["a" /* default */] }, { name: 'TabsController', module: __WEBPACK_IMPORTED_MODULE_43__components_tabs_controller__["a" /* default */] }, { name: 'UpdateHomepageStatsModalController', module: __WEBPACK_IMPORTED_MODULE_44__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__["a" /* default */] }, { name: 'UploadImageModalController', module: __WEBPACK_IMPORTED_MODULE_45__components_modal_upload_image_controller__["a" /* default */] }];
+let refs = [{ name: 'AppController', module: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */] }, { name: 'AuthController', module: __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__["a" /* default */] }, { name: 'BranchController', module: __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__["a" /* default */] }, { name: 'BranchNucleusAboutController', module: __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__["a" /* default */] }, { name: 'BranchNucleusController', module: __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__["a" /* default */] }, { name: 'BranchNucleusFlaggedPostsController', module: __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__["a" /* default */] }, { name: 'BranchNucleusModeratorsController', module: __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__["a" /* default */] }, { name: 'BranchNucleusModtoolsController', module: __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsController', module: __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'BranchPostController', module: __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__["a" /* default */] }, { name: 'BranchPostResultsController', module: __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__["a" /* default */] }, { name: 'BranchPostVoteController', module: __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__["a" /* default */] }, { name: 'BranchSubbranchesController', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__["a" /* default */] }, { name: 'BranchWallController', module: __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__["a" /* default */] }, { name: 'HomeController', module: __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__["a" /* default */] }, { name: 'ProfileController', module: __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__["a" /* default */] }, { name: 'ProfileNotificationsController', module: __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__["a" /* default */] }, { name: 'ProfileSettingsController', module: __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__["a" /* default */] }, { name: 'ResetPasswordController', module: __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__["a" /* default */] }, { name: 'TooltipController', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__["a" /* default */] }, { name: 'VerifyController', module: __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__["a" /* default */] }, { name: 'AddModModalController', module: __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'CardBranchController', module: __WEBPACK_IMPORTED_MODULE_23__components_card_branch_controller__["a" /* default */] }, { name: 'CardPollAnswerController', module: __WEBPACK_IMPORTED_MODULE_25__components_card_poll_answer_controller__["a" /* default */] }, { name: 'CommentInputBoxController', module: __WEBPACK_IMPORTED_MODULE_26__components_comments_input_controller__["a" /* default */] }, { name: 'CommentsController', module: __WEBPACK_IMPORTED_MODULE_27__components_comments_controller__["a" /* default */] }, { name: 'CommentThreadController', module: __WEBPACK_IMPORTED_MODULE_28__components_comments_thread_controller__["a" /* default */] }, { name: 'CoverPhotoController', module: __WEBPACK_IMPORTED_MODULE_29__components_cover_photo_controller__["a" /* default */] }, { name: 'CreateBranchModalController', module: __WEBPACK_IMPORTED_MODULE_30__components_modal_branch_create_controller__["a" /* default */] }, { name: 'CreatePostModalController', module: __WEBPACK_IMPORTED_MODULE_31__components_modal_post_create_controller__["a" /* default */] }, { name: 'DeleteBranchModalController', module: __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_nucleus_modtools_delete_branch_controller__["a" /* default */] }, { name: 'DeletePostModalController', module: __WEBPACK_IMPORTED_MODULE_33__components_modal_post_delete_controller__["a" /* default */] }, { name: 'DropdownController', module: __WEBPACK_IMPORTED_MODULE_34__components_dropdown_controller__["a" /* default */] }, { name: 'FlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_controller__["a" /* default */] }, { name: 'ListItemController', module: __WEBPACK_IMPORTED_MODULE_24__components_card_list_item_controller__["a" /* default */] }, { name: 'NavbarController', module: __WEBPACK_IMPORTED_MODULE_36__components_nav_bar_controller__["a" /* default */] }, { name: 'ProfileSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_37__components_modal_profile_settings_controller__["a" /* default */] }, { name: 'RemoveModModalController', module: __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_remove_mod_controller__["a" /* default */] }, { name: 'ResolveFlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_39__components_modal_post_flag_resolve_controller__["a" /* default */] }, { name: 'ReviewSubbranchRequestsModalController', module: __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__["a" /* default */] }, { name: 'SubmitPollAnswerModalController', module: __WEBPACK_IMPORTED_MODULE_41__components_modal_post_submit_poll_answer_controller__["a" /* default */] }, { name: 'SubmitSubbranchRequestModalController', module: __WEBPACK_IMPORTED_MODULE_42__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__["a" /* default */] }, { name: 'TabsController', module: __WEBPACK_IMPORTED_MODULE_43__components_tabs_controller__["a" /* default */] }, { name: 'UpdateHomepageStatsModalController', module: __WEBPACK_IMPORTED_MODULE_44__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__["a" /* default */] }, { name: 'UploadImageModalController', module: __WEBPACK_IMPORTED_MODULE_45__components_modal_upload_image_controller__["a" /* default */] }];
 
 const controllers = registrar => {
   if (!registrar) throw new Error('Cannot register controllers - no registrar provided.');
@@ -24178,14 +24178,14 @@ const controllers = registrar => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_alerts_directive__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_card_branch_directive__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_card_poll_answer_directive__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_chart_directive__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_comments_input_directive__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_comments_directive__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_comments_thread_directive__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_cover_photo_directive__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_dropdown_directive__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_list_item_directive__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_card_list_item_directive__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_card_poll_answer_directive__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_directive__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_comments_input_directive__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_comments_directive__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_comments_thread_directive__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_cover_photo_directive__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_dropdown_directive__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_loading_directive__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_modal_directive__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_mod_log_entry_directive__ = __webpack_require__(166);
@@ -24217,7 +24217,7 @@ const controllers = registrar => {
 
 
 
-let refs = [{ name: 'alerts', module: __WEBPACK_IMPORTED_MODULE_0__components_alerts_directive__["a" /* default */] }, { name: 'cardBranch', module: __WEBPACK_IMPORTED_MODULE_1__components_card_branch_directive__["a" /* default */] }, { name: 'cardPollAnswer', module: __WEBPACK_IMPORTED_MODULE_2__components_card_poll_answer_directive__["a" /* default */] }, { name: 'chart', module: __WEBPACK_IMPORTED_MODULE_3__components_chart_directive__["a" /* default */] }, { name: 'commentInputBox', module: __WEBPACK_IMPORTED_MODULE_4__components_comments_input_directive__["a" /* default */] }, { name: 'comments', module: __WEBPACK_IMPORTED_MODULE_5__components_comments_directive__["a" /* default */] }, { name: 'commentThread', module: __WEBPACK_IMPORTED_MODULE_6__components_comments_thread_directive__["a" /* default */] }, { name: 'coverPhoto', module: __WEBPACK_IMPORTED_MODULE_7__components_cover_photo_directive__["a" /* default */] }, { name: 'dropdown', module: __WEBPACK_IMPORTED_MODULE_8__components_dropdown_directive__["a" /* default */] }, { name: 'listItem', module: __WEBPACK_IMPORTED_MODULE_9__components_list_item_directive__["a" /* default */] }, { name: 'loading', module: __WEBPACK_IMPORTED_MODULE_10__components_loading_directive__["a" /* default */] }, { name: 'modal', module: __WEBPACK_IMPORTED_MODULE_11__components_modal_directive__["a" /* default */] }, { name: 'modLogEntry', module: __WEBPACK_IMPORTED_MODULE_12__components_mod_log_entry_directive__["a" /* default */] }, { name: 'navBar', module: __WEBPACK_IMPORTED_MODULE_13__components_nav_bar_directive__["a" /* default */] }, { name: 'notification', module: __WEBPACK_IMPORTED_MODULE_14__components_notification_directive__["a" /* default */] }, { name: 'onScrollToBottom', module: __WEBPACK_IMPORTED_MODULE_15__components_on_scroll_to_bottom_directive__["a" /* default */] }, { name: 'pollAnswerEditor', module: __WEBPACK_IMPORTED_MODULE_16__components_poll_answer_editor_directive__["a" /* default */] }, { name: 'tabs', module: __WEBPACK_IMPORTED_MODULE_17__components_tabs_directive__["a" /* default */] }, { name: 'tagEditor', module: __WEBPACK_IMPORTED_MODULE_18__components_tag_editor_directive__["a" /* default */] }, { name: 'tooltip', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_directive__["a" /* default */] }];
+let refs = [{ name: 'alerts', module: __WEBPACK_IMPORTED_MODULE_0__components_alerts_directive__["a" /* default */] }, { name: 'cardBranch', module: __WEBPACK_IMPORTED_MODULE_1__components_card_branch_directive__["a" /* default */] }, { name: 'cardPollAnswer', module: __WEBPACK_IMPORTED_MODULE_3__components_card_poll_answer_directive__["a" /* default */] }, { name: 'chart', module: __WEBPACK_IMPORTED_MODULE_4__components_chart_directive__["a" /* default */] }, { name: 'commentInputBox', module: __WEBPACK_IMPORTED_MODULE_5__components_comments_input_directive__["a" /* default */] }, { name: 'comments', module: __WEBPACK_IMPORTED_MODULE_6__components_comments_directive__["a" /* default */] }, { name: 'commentThread', module: __WEBPACK_IMPORTED_MODULE_7__components_comments_thread_directive__["a" /* default */] }, { name: 'coverPhoto', module: __WEBPACK_IMPORTED_MODULE_8__components_cover_photo_directive__["a" /* default */] }, { name: 'dropdown', module: __WEBPACK_IMPORTED_MODULE_9__components_dropdown_directive__["a" /* default */] }, { name: 'listItem', module: __WEBPACK_IMPORTED_MODULE_2__components_card_list_item_directive__["a" /* default */] }, { name: 'loading', module: __WEBPACK_IMPORTED_MODULE_10__components_loading_directive__["a" /* default */] }, { name: 'modal', module: __WEBPACK_IMPORTED_MODULE_11__components_modal_directive__["a" /* default */] }, { name: 'modLogEntry', module: __WEBPACK_IMPORTED_MODULE_12__components_mod_log_entry_directive__["a" /* default */] }, { name: 'navBar', module: __WEBPACK_IMPORTED_MODULE_13__components_nav_bar_directive__["a" /* default */] }, { name: 'notification', module: __WEBPACK_IMPORTED_MODULE_14__components_notification_directive__["a" /* default */] }, { name: 'onScrollToBottom', module: __WEBPACK_IMPORTED_MODULE_15__components_on_scroll_to_bottom_directive__["a" /* default */] }, { name: 'pollAnswerEditor', module: __WEBPACK_IMPORTED_MODULE_16__components_poll_answer_editor_directive__["a" /* default */] }, { name: 'tabs', module: __WEBPACK_IMPORTED_MODULE_17__components_tabs_directive__["a" /* default */] }, { name: 'tagEditor', module: __WEBPACK_IMPORTED_MODULE_18__components_tag_editor_directive__["a" /* default */] }, { name: 'tooltip', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_directive__["a" /* default */] }];
 
 const directives = registrar => {
   if (!registrar) throw new Error('Cannot register directives - no registrar provided.');
@@ -63019,6 +63019,173 @@ CardBranchComponent.$inject = [];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
+class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ListItemController.$inject, injections);
+  }
+
+  getMarkerClass() {
+    const prefix = 'style--';
+
+    switch (this.post.type) {
+      case 'audio':
+        return `${prefix}audio`;
+
+      case 'image':
+        return `${prefix}image`;
+
+      case 'page':
+        return `${prefix}page`;
+
+      case 'poll':
+        return `${prefix}poll`;
+
+      case 'text':
+        return `${prefix}text`;
+
+      case 'video':
+        return `${prefix}video`;
+
+      default:
+        return '';
+    }
+  }
+
+  getOriginalBranches() {
+    let branches = [];
+
+    if (this.post.data && this.post.data.original_branches) {
+      branches = JSON.parse(this.post.data.original_branches);
+    }
+
+    return branches;
+  }
+
+  getOriginalBranchesTooltipString() {
+    const original_branches = this.getOriginalBranches();
+    let string = '';
+
+    for (let i = 1; i < original_branches.length; i++) {
+      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
+    }
+
+    return string;
+  }
+
+  getPostImage() {
+    const IMG_DIR = '/assets/images/placeholders/';
+    return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
+  }
+
+  getTotalFlagCount() {
+    const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
+
+    let total = 0;
+
+    counts.forEach(key => {
+      if (this.post[key]) {
+        total += Number.isNaN(this.post[key]) ? 0 : this.post[key];
+      }
+    });
+
+    return total;
+  }
+
+  isOwnPost() {
+    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
+  }
+
+  openDeletePostModal() {
+    this.ModalService.open('DELETE_POST', { postid: this.post.id }, 'Post deleted.', 'Unable to delete post.');
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if ('DELETE_POST' !== name) return;
+      this.$state.go(this.$state.current.name, { reload: true });
+    });
+  }
+
+  openFlagPostModal() {
+    this.ModalService.open('FLAG_POST', {
+      post: this.post,
+      branchid: this.BranchService.branch.id
+    }, 'Post flagged. The branch moderators will be informed.', 'Unable to flag post.');
+  }
+
+  openResolveFlagPostModal() {
+    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post }, 'Done.', 'Error resolving flags on post.');
+  }
+
+  showFlags() {
+    return this.$state.current.name.includes('weco.branch.nucleus');
+  }
+
+  showVotes() {
+    return !!this.stat;
+  }
+
+  vote(direction) {
+    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(res => this.$timeout(() => {
+      const inc = direction === 'up' ? 1 : -1;
+
+      this.post.individual += inc;
+      this.post.local += inc;
+      this.post.global += inc;
+
+      this.AlertsService.push('success', 'Thanks for voting!');
+    })).catch(err => {
+      if (err.status === 400) {
+        this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
+      } else if (err.status === 403) {
+        this.AlertsService.push('error', 'Please log in or create an account to vote.');
+      } else {
+        this.AlertsService.push('error', 'Error voting on post.');
+      }
+    });
+  }
+}
+
+ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (ListItemController);
+
+/***/ }),
+/* 151 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
+class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
+  constructor(...injections) {
+    super(ListItemComponent.$inject, injections);
+
+    this.bindToController = {
+      index: '=',
+      post: '=',
+      stat: '='
+    };
+    this.controller = 'ListItemController';
+    this.controllerAs = 'ListItem';
+    this.replace = true;
+    this.restrict = 'A';
+    this.scope = {};
+    this.templateUrl = '/app/components/card-list-item/view.html';
+  }
+}
+
+ListItemComponent.$inject = [];
+
+/* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
+
+/***/ }),
+/* 152 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+
+
 class CardPollAnswerController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(CardPollAnswerController.$inject, injections);
@@ -63039,7 +63206,7 @@ CardPollAnswerController.$inject = ['ChartColours'];
 /* harmony default export */ __webpack_exports__["a"] = (CardPollAnswerController);
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63070,7 +63237,7 @@ CardPollAnswerComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CardPollAnswerComponent);
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63130,7 +63297,7 @@ ChartComponent.$inject = ['$compile', 'ChartColours'];
 /* harmony default export */ __webpack_exports__["a"] = (ChartComponent);
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63197,20 +63364,20 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       this.isLoading = false;
     };
 
-    const successCb = response => this.$timeout(() => {
-      const isSingleComment = !Array.isArray(response);
+    const successCb = res => this.$timeout(() => {
+      const isSingleComment = !Array.isArray(res);
 
       let comments = [];
 
       if (isSingleComment) {
-        comments.push(response);
+        comments.push(res);
         this.comments = comments;
         this.isLoading = false;
         return;
       }
 
       comments = this.comments;
-      comments = comments.concat(response);
+      comments = comments.concat(res);
 
       this.getAllCommentReplies(comments).then(() => this.$scope.$apply(() => {
         this.comments = comments;
@@ -63271,7 +63438,7 @@ CommentsController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'Com
 /* harmony default export */ __webpack_exports__["a"] = (CommentsController);
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63297,7 +63464,7 @@ CommentsComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentsComponent);
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63379,7 +63546,7 @@ CommentInputBoxController.$inject = ['$scope', '$rootScope', '$timeout', 'Alerts
 /* harmony default export */ __webpack_exports__["a"] = (CommentInputBoxController);
 
 /***/ }),
-/* 156 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63412,7 +63579,7 @@ CommentInputBoxComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentInputBoxComponent);
 
 /***/ }),
-/* 157 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63566,7 +63733,7 @@ CommentThreadController.$inject = ['$state', '$timeout', 'AlertsService', 'Comme
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadController);
 
 /***/ }),
-/* 158 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63595,7 +63762,7 @@ CommentThreadComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CommentThreadComponent);
 
 /***/ }),
-/* 159 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63623,7 +63790,7 @@ CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService', 'Wall
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 
 /***/ }),
-/* 160 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63654,7 +63821,7 @@ CoverPhotoComponent.$inject = [];
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoComponent);
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63754,7 +63921,7 @@ DropdownController.$inject = ['$compile', '$element', '$scope', '$templateCache'
 /* harmony default export */ __webpack_exports__["a"] = (DropdownController);
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63784,175 +63951,6 @@ class DropdownComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
 DropdownComponent.$inject = [];
 
 /* harmony default export */ __webpack_exports__["a"] = (DropdownComponent);
-
-/***/ }),
-/* 163 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ListItemController.$inject, injections);
-  }
-
-  getMarkerClass() {
-    const prefix = 'style--';
-
-    switch (this.post.type) {
-      case 'audio':
-        return `${prefix}audio`;
-
-      case 'image':
-        return `${prefix}image`;
-
-      case 'page':
-        return `${prefix}page`;
-
-      case 'poll':
-        return `${prefix}poll`;
-
-      case 'text':
-        return `${prefix}text`;
-
-      case 'video':
-        return `${prefix}video`;
-
-      default:
-        return '';
-    }
-  }
-
-  getOriginalBranches() {
-    let branches = [];
-
-    if (this.post.data && this.post.data.original_branches) {
-      branches = JSON.parse(this.post.data.original_branches);
-    }
-
-    return branches;
-  }
-
-  getOriginalBranchesTooltipString() {
-    const original_branches = this.getOriginalBranches();
-    let string = '';
-
-    for (let i = 1; i < original_branches.length; i++) {
-      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
-    }
-
-    return string;
-  }
-
-  getPostImage() {
-    const IMG_DIR = '/assets/images/placeholders/';
-    return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
-  }
-
-  getTotalFlagCount() {
-    const counts = ['branch_rules_count', 'nsfw_count', 'site_rules_count', 'wrong_type_count'];
-
-    let total = 0;
-
-    counts.forEach(key => {
-      if (this.post[key]) {
-        total += Number.isNaN(this.post[key]) ? 0 : this.post[key];
-      }
-    });
-
-    return total;
-  }
-
-  isOwnPost() {
-    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
-  }
-
-  openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', { postid: this.post.id }, 'Post deleted.', 'Unable to delete post.');
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
-      this.$state.go(this.$state.current.name, { reload: true });
-    });
-  }
-
-  openFlagPostModal() {
-    this.ModalService.open('FLAG_POST', {
-      post: this.post,
-      branchid: this.BranchService.branch.id
-    }, 'Post flagged. The branch moderators will be informed.', 'Unable to flag post.');
-  }
-
-  openResolveFlagPostModal() {
-    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post }, 'Done.', 'Error resolving flags on post.');
-  }
-
-  showFlags() {
-    return this.$state.current.name.includes('weco.branch.nucleus');
-  }
-
-  showVotes() {
-    return !!this.stat;
-  }
-
-  vote(direction) {
-    this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(_ => {
-      const inc = direction === 'up' ? 1 : -1;
-
-      this.$timeout(_ => {
-        this.post.individual += inc;
-        this.post.local += inc;
-        this.post.global += inc;
-      });
-
-      this.AlertsService.push('success', 'Thanks for voting!');
-    }).catch(err => {
-      if (400 === err.status) {
-        this.AlertsService.push('error', 'You have already voted on this post.');
-      } else if (403 === err.status) {
-        this.AlertsService.push('error', 'Please log in or create an account to vote.');
-      } else {
-        this.AlertsService.push('error', 'Error voting on post.');
-      }
-    });
-  }
-}
-
-ListItemController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UserService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (ListItemController);
-
-/***/ }),
-/* 164 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
-
-
-class ListItemComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
-  constructor(...injections) {
-    super(ListItemComponent.$inject, injections);
-
-    this.bindToController = {
-      index: '=',
-      post: '=',
-      stat: '='
-    };
-    this.controller = 'ListItemController';
-    this.controllerAs = 'ListItem';
-    this.replace = true;
-    this.restrict = 'A';
-    this.scope = {};
-    this.templateUrl = '/app/components/list-item/view.html';
-  }
-}
-
-ListItemComponent.$inject = [];
-
-/* harmony default export */ __webpack_exports__["a"] = (ListItemComponent);
 
 /***/ }),
 /* 165 */
@@ -67863,12 +67861,12 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
     return new Promise((resolve, reject) => {
       // ensure url has a leading slash
       if (url[0] !== '/') {
-        url = '/' + url;
+        url = `/${url}`;
       }
 
       // replace :params in the url with their specified values
       for (let paramName of Object.keys(params)) {
-        url = url.replace(new RegExp(':' + paramName, 'g'), params[paramName]);
+        url = url.replace(new RegExp(`:${paramName}`, 'g'), params[paramName]);
       }
 
       url = this.ENV.apiEndpoint + url;
@@ -67891,11 +67889,11 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
         };
       }
 
-      if ('PUT' === method || 'POST' === method) {
+      if (method === 'PUT' || method === 'POST') {
         req.data = data;
       }
 
-      if ('GET' === method || 'DELETE' === method) {
+      if (method === 'GET' || method === 'DELETE') {
         req.params = data;
       }
 
@@ -68139,20 +68137,18 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   create(data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/comments', { postid: data.postid }, data)
-      // pass on the returned commentid
-      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.save('/post/:postid/comments', { postid: data.postid }, data).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
   fetch(postid, commentid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(comment => {
-        if (!comment || !comment.data) {
+      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(res => {
+        if (!res || !res.data) {
           return reject();
         }
 
-        return resolve(comment.data);
+        return resolve(res.data);
       }).catch(err => reject(err.data || err));
     });
   }
@@ -68160,13 +68156,16 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   // get the comments on a post or replies to another comment
   getMany(postid, parentid, sort, lastCommentId) {
     return new Promise((resolve, reject) => {
-      let params = { parentid, sort };
+      let params = {
+        parentid,
+        sort
+      };
 
       if (lastCommentId) {
         params.lastCommentId = lastCommentId;
       }
 
-      this.API.fetch('/post/:postid/comments', { postid }, params).then(comments => resolve(comments.data)).catch(err => reject(err.data || err));
+      this.API.fetch('/post/:postid/comments', { postid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -68182,7 +68181,7 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
         return reject();
       }
 
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
+      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 }
@@ -68329,9 +68328,7 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
 
   create(data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post', {}, data)
-      // pass on the returned postid
-      .then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.save('/post', {}, data).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -68387,7 +68384,7 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
       } else {
         this.AlertsService.push('error', 'Unable to fetch post.');
       }
-    }).then(_ => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
+    }).then(() => this.EventService.emit(this.EventService.events.CHANGE_POST)).then(this.$timeout);
   }
 
   vote(branchid, postid, vote) {
@@ -68396,7 +68393,7 @@ class PostService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         return reject();
       }
 
-      this.API.update('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true).then(resolve).catch(err => reject(err.data || err));
+      this.API.put('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
@@ -85536,4 +85533,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map

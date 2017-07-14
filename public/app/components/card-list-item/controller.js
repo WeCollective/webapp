@@ -115,22 +115,20 @@ class ListItemController extends Injectable {
 
   vote(direction) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction)
-      .then( _ => {
+      .then(res => this.$timeout(() => {
         const inc = (direction === 'up') ? 1 : -1;
 
-        this.$timeout(_ => {
-          this.post.individual += inc;
-          this.post.local += inc;
-          this.post.global += inc;
-        });
+        this.post.individual += inc;
+        this.post.local += inc;
+        this.post.global += inc;
 
         this.AlertsService.push('success', 'Thanks for voting!');
-      })
+      }))
       .catch(err => {
-        if (400 === err.status) {
-          this.AlertsService.push('error', 'You have already voted on this post.');
+        if (err.status === 400) {
+          this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
         }
-        else if (403 === err.status) {
+        else if (err.status === 403) {
           this.AlertsService.push('error', 'Please log in or create an account to vote.');
         }
         else {
@@ -149,7 +147,7 @@ ListItemController.$inject = [
   'EventService',
   'ModalService',
   'PostService',
-  'UserService'
+  'UserService',
 ];
 
 export default ListItemController;

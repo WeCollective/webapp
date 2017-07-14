@@ -1,5 +1,6 @@
 import Alerts from './components/alerts/directive';
 import CardBranch from './components/card-branch/directive';
+import CardListItem from './components/card-list-item/directive';
 import CardPollAnswer from './components/card-poll-answer/directive';
 import Chart from './components/chart/directive';
 import CommentInputBox from './components/comments/input/directive';
@@ -7,7 +8,6 @@ import Comments from './components/comments/directive';
 import CommentThread from './components/comments/thread/directive';
 import CoverPhoto from './components/cover-photo/directive';
 import Dropdown from './components/dropdown/directive';
-import ListItem from './components/list-item/directive';
 import Loading from './components/loading/directive';
 import Modal from './components/modal/directive';
 import ModLogEntry from './components/mod-log-entry/directive';
@@ -29,7 +29,7 @@ let refs = [
   { name: 'commentThread', module: CommentThread },
   { name: 'coverPhoto', module: CoverPhoto },
   { name: 'dropdown', module: Dropdown },
-  { name: 'listItem', module: ListItem },
+  { name: 'listItem', module: CardListItem },
   { name: 'loading', module: Loading },
   { name: 'modal', module: Modal },
   { name: 'modLogEntry', module: ModLogEntry },

@@ -24,6 +24,7 @@ import Verify from './pages/auth/verify/controller';
 import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/controller';
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
 import CardBranch from './components/card-branch/controller';
+import CardListItem from './components/card-list-item/controller';
 import CardPollAnswer from './components/card-poll-answer/controller';
 import CommentInputBox from './components/comments/input/controller';
 import Comments from './components/comments/controller';
@@ -35,7 +36,6 @@ import DeleteBranchModal from './components/modal/branch/nucleus/modtools/delete
 import DeletePostModal from './components/modal/post/delete/controller';
 import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
-import ListItem from './components/list-item/controller';
 import Navbar from './components/nav-bar/controller';
 import ProfileSettingsModal from './components/modal/profile/settings/controller';
 import RemoveModModal from './components/modal/branch/nucleus/modtools/remove-mod/controller';
@@ -84,7 +84,7 @@ let refs = [
   { name: 'DeletePostModalController', module: DeletePostModal },
   { name: 'DropdownController', module: DropdownController },
   { name: 'FlagPostModalController', module: FlagPostModal },
-  { name: 'ListItemController', module: ListItem },
+  { name: 'ListItemController', module: CardListItem },
   { name: 'NavbarController', module: Navbar },
   { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },
   { name: 'RemoveModModalController', module: RemoveModModal },
