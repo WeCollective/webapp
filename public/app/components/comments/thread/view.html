@@ -1,8 +1,9 @@
 <div class="comment" ng-repeat="comment in Thread.comments">
   <div class="comment__content">
-    <div class="list-item-votes">
+    <div class="list-item__votes">
       <img
         alt="Upvote comment"
+        class="list-item__vote-icon"
         ng-click="Thread.vote(comment, 'up')"
         src="/assets/images/icons/black/arrow-up.png" />
 

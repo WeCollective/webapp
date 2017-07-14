@@ -13,10 +13,11 @@
     <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
 
-  <div class="list-item-votes ng-hide" ng-show="ListItem.showVotes()">
+  <div class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
     <img
       alt="Upvote post"
-      ng-click="ListItem.vote('up')"
+      class="list-item__vote-icon"
+      ng-click="ListItem.vote('up', $event.target)"
       src="/assets/images/icons/black/arrow-up.png" />
 
     <p>{{ ListItem.post[ListItem.stat] }}</p>
@@ -24,7 +25,7 @@
     <!--
     <img
       alt="Downvote post"
-      ng-click="ListItem.vote('down')"
+      ng-click="ListItem.vote('down', $event.target)"
       src="/assets/images/icons/black/arrow-down.png" />
     -->
   </div>

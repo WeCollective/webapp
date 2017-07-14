@@ -492,23 +492,24 @@ ul#alerts li.success span {
   font-size: 14px;
   line-height: 30px;
 }
-.comments .comment__content .list-item-votes {
+.comments .comment__content .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 80px;
   margin-left: 6px;
 }
-.comments .comment__content .list-item-votes img {
+.comments .comment__content .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-.comments .comment__content .list-item-votes img:hover {
-  cursor: pointer;
+.comments .comment__content .list-item__votes .list-item__vote-icon.style--active,
+.comments .comment__content .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-.comments .comment__content .list-item-votes p {
+.comments .comment__content .list-item__votes p {
   margin: 0;
 }
 .comments .comment__content .list-item-image div {
@@ -650,7 +651,7 @@ ul#alerts li.success span {
 .comments .comment__content.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
-.comments .comment__content .list-item-votes {
+.comments .comment__content .list-item__votes {
   margin-left: 0;
   margin-right: 12px;
 }
@@ -2306,23 +2307,24 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-flags span
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-votes {
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 90px;
   margin-left: 6px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-votes img {
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-votes img:hover {
-  cursor: pointer;
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-votes p {
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes p {
   margin: 0;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
@@ -2748,23 +2750,24 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes img:hover {
-  cursor: pointer;
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-votes p {
+div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-image div {
@@ -2974,23 +2977,24 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags s
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes img:hover {
-  cursor: pointer;
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-votes p {
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div {
@@ -3538,23 +3542,24 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   font-size: 14px;
   line-height: 30px;
 }
-.post .list-item .list-item-votes {
+.post .list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-.post .list-item .list-item-votes img {
+.post .list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-.post .list-item .list-item-votes img:hover {
-  cursor: pointer;
+.post .list-item .list-item__votes .list-item__vote-icon.style--active,
+.post .list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-.post .list-item .list-item-votes p {
+.post .list-item .list-item__votes p {
   margin: 0;
 }
 .post .list-item .list-item-image div {
@@ -3696,7 +3701,7 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 .post .list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
-.post .list-item .list-item-votes {
+.post .list-item .list-item__votes {
   margin-left: 12px;
 }
 .post .post__body {
@@ -3876,23 +3881,24 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   font-size: 14px;
   line-height: 30px;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item-votes {
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item-votes img {
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
   height: 26px;
   opacity: .3;
   width: 26px;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item-votes img:hover {
-  cursor: pointer;
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--active,
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:hover {
   opacity: 1;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item-votes p {
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes p {
   margin: 0;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item-image div {

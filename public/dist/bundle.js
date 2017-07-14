@@ -63123,13 +63123,23 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     return !!this.stat;
   }
 
-  vote(direction) {
+  vote(direction, iconNode) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(res => this.$timeout(() => {
       const delta = res.delta || 0;
 
       this.post.individual += delta;
       this.post.local += delta;
       this.post.global += delta;
+
+      if (iconNode) {
+        if (direction === 'up') {
+          if (delta > 0) {
+            iconNode.classList.add('style--active');
+          } else {
+            iconNode.classList.remove('style--active');
+          }
+        }
+      }
     })).catch(err => {
       if (err.status === 400) {
         this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');

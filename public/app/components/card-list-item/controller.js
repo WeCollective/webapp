@@ -113,7 +113,7 @@ class ListItemController extends Injectable {
     return !!this.stat;
   }
 
-  vote(direction) {
+  vote(direction, iconNode) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction)
       .then(res => this.$timeout(() => {
         const delta = res.delta || 0;
@@ -121,6 +121,17 @@ class ListItemController extends Injectable {
         this.post.individual += delta;
         this.post.local += delta;
         this.post.global += delta;
+
+        if (iconNode) {
+          if (direction === 'up') {
+            if (delta > 0) {
+              iconNode.classList.add('style--active');
+            }
+            else {
+              iconNode.classList.remove('style--active');
+            }
+          }
+        }
       }))
       .catch(err => {
         if (err.status === 400) {

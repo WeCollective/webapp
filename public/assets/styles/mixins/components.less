@@ -112,22 +112,23 @@
     }
   }
 
-  .list-item-votes {
+  .list-item__votes {
     align-items: center;
     display: flex;
     flex-direction: column;
     height: @height;
     margin-left: 6px;
 
-    img {
+    .list-item__vote-icon {
       @size: 26px;
 
+      cursor: pointer;
       height: @size;
       opacity: .3;
       width: @size;
 
+      &.style--active,
       &:hover {
-        cursor: pointer;
         opacity: 1;
       }
     }
