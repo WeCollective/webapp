@@ -1,65 +1,62 @@
-ul#alerts {
+.alerts {
+  @spacing: 10px;
+
+  box-sizing: border-box;
   left: 15px;
+  max-width: 480px;
   position: fixed;
   right: 15px;
   top: 60px;
   z-index: 1200;
 
-  .responsive(@screen-sm, {
+  .alerts__icon {
+    @size: 10px;
+
+    cursor: pointer;
+    height: @size;
+    opacity: .3;
+    padding: (@spacing / 2) (@spacing / 2) (@spacing / 2) @spacing;
+    width: @size;
+
+    &:hover { opacity: .8; }
+  }
+
+  .alerts__item {
+    background-color: #fff;
+    border: none;
+    border-left: 4px solid transparent;
+    box-shadow: @shadow-3;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto @spacing;
+    padding: @spacing;
+    transition: all .3s ease-out;
+    
+    &.ng-hide { opacity: 0; }
+
+    &.style--error {
+      border-left-color: @caution-0;
+
+      .alerts__text { color: #6a0f06; }
+    }
+
+    &.style--success {
+      border-left-color: @success-0;
+
+      .alerts__text { color: #0d532a; }
+    }
+  }
+
+  .alerts__text {
+    flex: 1;
+    font-size: @font-size-sm;
+    white-space: normal;
+  }
+
+  .mediaQuery(@screen-sm, {
     left: 50%;
-    min-width: 300px;
+    min-width: 360px;
     right: auto;
     transform: translateX(-50%);
   });
-
-  li {
-    align-items: center;
-    border-radius: 5px;
-    box-shadow: @shadow-3;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto 10px auto;
-    max-width: calc(~'100% - 30px');
-    opacity: 1;
-    padding: 10px;
-    transition: all .5s ease-out;
-
-    img {
-      height: 10px;
-      opacity: .3;
-      width: auto;
-
-      &:hover {
-        cursor: pointer;
-        opacity: .8;
-      }
-    }
-
-    span {
-      flex: 1;
-      font-size: @font-size-sm;
-      padding-right: 20px;
-      white-space: normal;
-    }
-
-    &.error {
-      background-color: @caution-1;
-      border: 1px solid @caution-0;
-
-      span { color: #6a0f06; }
-    }
-    
-    &.ng-hide {
-      box-shadow: none;
-      opacity: 0;
-      transition: all .5s ease-out;
-    }
-
-    &.success {
-      background-color: @success-1;
-      border: 1px solid @success-0;
-
-      span { color: #0d532a; }
-    }
-  }
 }

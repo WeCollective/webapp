@@ -347,66 +347,63 @@ div[marked] table td {
 div[marked] ul {
   list-style-type: disc;
 }
-ul#alerts {
+.alerts {
+  box-sizing: border-box;
   left: 15px;
+  max-width: 480px;
   position: fixed;
   right: 15px;
   top: 60px;
   z-index: 1200;
 }
+.alerts .alerts__icon {
+  cursor: pointer;
+  height: 10px;
+  opacity: .3;
+  padding: 5px 5px 5px 10px;
+  width: 10px;
+}
+.alerts .alerts__icon:hover {
+  opacity: .8;
+}
+.alerts .alerts__item {
+  background-color: #fff;
+  border: none;
+  border-left: 4px solid transparent;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-sizing: border-box;
+  display: flex;
+  margin: 0 auto 10px;
+  padding: 10px;
+  transition: all 0.3s ease-out;
+}
+.alerts .alerts__item.ng-hide {
+  opacity: 0;
+}
+.alerts .alerts__item.style--error {
+  border-left-color: #c0392b;
+}
+.alerts .alerts__item.style--error .alerts__text {
+  color: #6a0f06;
+}
+.alerts .alerts__item.style--success {
+  border-left-color: #27ae60;
+}
+.alerts .alerts__item.style--success .alerts__text {
+  color: #0d532a;
+}
+.alerts .alerts__text {
+  flex: 1;
+  font-size: 14px;
+  white-space: normal;
+}
 @media only screen and (min-width: 576px) {
-  ul#alerts {
+  .alerts {
     left: 50%;
-    min-width: 300px;
+    min-width: 360px;
     right: auto;
     transform: translateX(-50%);
   }
-}
-ul#alerts li {
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto 10px auto;
-  max-width: calc(100% - 30px);
-  opacity: 1;
-  padding: 10px;
-  transition: all 0.5s ease-out;
-}
-ul#alerts li img {
-  height: 10px;
-  opacity: .3;
-  width: auto;
-}
-ul#alerts li img:hover {
-  cursor: pointer;
-  opacity: .8;
-}
-ul#alerts li span {
-  flex: 1;
-  font-size: 14px;
-  padding-right: 20px;
-  white-space: normal;
-}
-ul#alerts li.error {
-  background-color: #e74c3c;
-  border: 1px solid #c0392b;
-}
-ul#alerts li.error span {
-  color: #6a0f06;
-}
-ul#alerts li.ng-hide {
-  box-shadow: none;
-  opacity: 0;
-  transition: all 0.5s ease-out;
-}
-ul#alerts li.success {
-  background-color: #2ecc71;
-  border: 1px solid #27ae60;
-}
-ul#alerts li.success span {
-  color: #0d532a;
 }
 .btn {
   display: inline-block;

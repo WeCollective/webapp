@@ -16,7 +16,7 @@ class AlertsComponent extends Injectable {
 }
 
 AlertsComponent.$inject = [
-  'AlertsService'
+  'AlertsService',
 ];
 
 export default AlertsComponent;

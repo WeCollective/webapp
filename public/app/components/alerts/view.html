@@ -1,9 +1,14 @@
-<ul id="alerts">
-  <li ng-class="alert.type"
+<ul class="alerts">
+  <li
+    class="alerts__item"
+    ng-class="{ 'style--{{alert.type}}': alert.type }"
     ng-hide="!alert.alive"
     ng-repeat="alert in AlertsService.queue">
-    <span>{{ alert.text }}</span>
-    <img alt=""
+    <span class="alerts__text">{{ alert.text }}</span>
+
+    <img
+      alt="Close notification"
+      class="alerts__icon"
       ng-click="AlertsService.close($index)"
     	src="assets/images/icons/black/close.png" />
   </li>

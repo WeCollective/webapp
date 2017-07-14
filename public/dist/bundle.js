@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'production',
-   apiEndpoint: 'https://wecoapi.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -62925,41 +62925,41 @@ class AlertsService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /
   constructor(...injections) {
     super(AlertsService.$inject, injections);
 
-    this.queue = [];
     this.duration = 5000;
-  }
-
-  purge() {
-    this.queue = this.queue.filter(function (alert) {
-      return alert.alive === true;
-    });
+    this.queue = [];
   }
 
   close(idx) {
     if (this.queue[idx]) {
       this.queue[idx].alive = false;
     }
+
     this.$timeout(() => {
       this.purge();
     }, 600);
   }
 
+  purge() {
+    this.queue = this.queue.filter(alert => alert.alive === true);
+  }
+
   push(type, text, persist) {
-    let alert = {
-      type: type,
-      text: text,
-      alive: true
+    const alert = {
+      alive: true,
+      text,
+      type
     };
+
     this.$timeout(() => {
       this.queue = [alert].concat(this.queue);
+
       if (!persist) {
-        this.$timeout(() => {
-          this.close(0);
-        }, this.duration);
+        this.$timeout(() => this.close(0), this.duration);
       }
     });
   }
 }
+
 AlertsService.$inject = ['$timeout'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AlertsService);
@@ -67368,6 +67368,9 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+    this.AlertsService.push('error', 'Error', true);
+    this.AlertsService.push('success', 'Success', true);
   }
 
   cb() {
@@ -85545,4 +85548,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map
