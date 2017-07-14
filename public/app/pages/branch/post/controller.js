@@ -43,7 +43,12 @@ class BranchPostController extends Injectable {
   }
 
   canPreviewPost() {
-    const allowedPreviewPostTypes = ['image', 'text', 'video', 'poll'];
+    const allowedPreviewPostTypes = [
+      'image',
+      'text',
+      'video',
+      'poll',
+    ];
     return allowedPreviewPostTypes.includes(this.PostService.post.type);
   }
 
