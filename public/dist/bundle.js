@@ -63125,13 +63125,11 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
 
   vote(direction) {
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(res => this.$timeout(() => {
-      const inc = direction === 'up' ? 1 : -1;
+      const delta = res.delta || 0;
 
-      this.post.individual += inc;
-      this.post.local += inc;
-      this.post.global += inc;
-
-      this.AlertsService.push('success', 'Thanks for voting!');
+      this.post.individual += delta;
+      this.post.local += delta;
+      this.post.global += delta;
     })).catch(err => {
       if (err.status === 400) {
         this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
