@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63127,9 +63127,15 @@ class ListItemController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     this.PostService.vote(this.BranchService.branch.id, this.post.id, direction).then(res => this.$timeout(() => {
       const delta = res.delta || 0;
 
-      this.post.individual += delta;
-      this.post.local += delta;
-      this.post.global += delta;
+      this.post.votes.individual += delta;
+      this.post.votes.local += delta;
+      this.post.votes.global += delta;
+
+      if (this.post.votes.userVoted) {
+        delete this.post.votes.userVoted;
+      } else {
+        this.post.votes.userVoted = direction;
+      }
 
       if (iconNode) {
         if (direction === 'up') {
@@ -67403,26 +67409,24 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
       const timeafter = this.getTimeafter();
 
       // fetch the posts for this branch and timefilter
-      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false).then(newPosts => {
-        this.$timeout(() => {
-          // If lastPostId was specified, we are fetching more posts, so append them.
-          posts = lastPostId ? posts.concat(newPosts) : newPosts;
-          this.posts = posts;
+      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false).then(newPosts => this.$timeout(() => {
+        // If lastPostId was specified, we are fetching more posts, so append them.
+        posts = lastPostId ? posts.concat(newPosts) : newPosts;
+        this.posts = posts;
 
-          // 30 is the length of the posts response sent back by server.
-          if (newPosts.length > 0 && newPosts.length < 30) {
-            this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-          }
+        // 30 is the length of the posts response sent back by server.
+        if (newPosts.length > 0 && newPosts.length < 30) {
+          this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
+        }
 
-          let cache = this.LocalStorageService.getObject('cache');
-          cache.branchWallPosts = cache.branchWallPosts || {};
-          cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
-          this.LocalStorageService.setObject('cache', cache);
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.branchWallPosts = cache.branchWallPosts || {};
+        cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
+        this.LocalStorageService.setObject('cache', cache);
 
-          this.isLoading = false;
-          return resolve();
-        });
-      }).catch(() => {
+        this.isLoading = false;
+        return resolve();
+      })).catch(() => {
         this.AlertsService.push('error', 'Error fetching posts.');
         this.isLoading = false;
         return reject();

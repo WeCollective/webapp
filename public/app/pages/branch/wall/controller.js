@@ -125,26 +125,24 @@ class BranchWallController extends Injectable {
 
       // fetch the posts for this branch and timefilter
       this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false)
-        .then(newPosts => {
-          this.$timeout(() => {
-            // If lastPostId was specified, we are fetching more posts, so append them.
-            posts = lastPostId ? posts.concat(newPosts) : newPosts;
-            this.posts = posts;
+        .then(newPosts => this.$timeout(() => {
+          // If lastPostId was specified, we are fetching more posts, so append them.
+          posts = lastPostId ? posts.concat(newPosts) : newPosts;
+          this.posts = posts;
 
-            // 30 is the length of the posts response sent back by server.
-            if (newPosts.length > 0 && newPosts.length < 30) {
-              this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-            }
+          // 30 is the length of the posts response sent back by server.
+          if (newPosts.length > 0 && newPosts.length < 30) {
+            this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
+          }
 
-            let cache = this.LocalStorageService.getObject('cache');
-            cache.branchWallPosts = cache.branchWallPosts || {};
-            cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
-            this.LocalStorageService.setObject('cache', cache);
+          let cache = this.LocalStorageService.getObject('cache');
+          cache.branchWallPosts = cache.branchWallPosts || {};
+          cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
+          this.LocalStorageService.setObject('cache', cache);
 
-            this.isLoading = false;
-            return resolve();
-          });
-        })
+          this.isLoading = false;
+          return resolve();
+        }))
         .catch(() => {
           this.AlertsService.push('error', 'Error fetching posts.');
           this.isLoading = false;

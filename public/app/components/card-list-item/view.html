@@ -17,10 +17,11 @@
     <img
       alt="Upvote post"
       class="list-item__vote-icon"
+      ng-class="{ 'style--active': ListItem.post.votes.userVoted === 'up' }"
       ng-click="ListItem.vote('up', $event.target)"
       src="/assets/images/icons/black/arrow-up.png" />
 
-    <p>{{ ListItem.post[ListItem.stat] }}</p>
+    <p>{{ ListItem.post.votes[ListItem.stat] }}</p>
 
     <!--
     <img

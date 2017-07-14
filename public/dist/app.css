@@ -502,12 +502,13 @@ ul#alerts li.success span {
 .comments .comment__content .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon.style--active,
 .comments .comment__content .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 .comments .comment__content .list-item__votes p {
   margin: 0;
@@ -2317,12 +2318,13 @@ div#branch-subbranches div.content-body ul li.list-item .list-item__votes {
 div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
 div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 div#branch-subbranches div.content-body ul li.list-item .list-item__votes p {
   margin: 0;
@@ -2760,12 +2762,13 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
@@ -2987,12 +2990,13 @@ div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes {
 div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
 div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
@@ -3552,12 +3556,13 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 .post .list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 .post .list-item .list-item__votes .list-item__vote-icon.style--active,
 .post .list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 .post .list-item .list-item__votes p {
   margin: 0;
@@ -3891,12 +3896,13 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
-  opacity: .3;
+  opacity: .2;
   width: 26px;
+  transition: opacity .2s;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--active,
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:hover {
-  opacity: 1;
+  opacity: .6;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes p {
   margin: 0;

@@ -118,9 +118,16 @@ class ListItemController extends Injectable {
       .then(res => this.$timeout(() => {
         const delta = res.delta || 0;
 
-        this.post.individual += delta;
-        this.post.local += delta;
-        this.post.global += delta;
+        this.post.votes.individual += delta;
+        this.post.votes.local += delta;
+        this.post.votes.global += delta;
+
+        if (this.post.votes.userVoted) {
+          delete this.post.votes.userVoted;
+        }
+        else {
+          this.post.votes.userVoted = direction;
+        }
 
         if (iconNode) {
           if (direction === 'up') {
