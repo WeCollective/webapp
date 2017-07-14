@@ -83,9 +83,6 @@ class BranchWallController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
-
-    this.AlertsService.push('error', 'Error', true);
-    this.AlertsService.push('success', 'Success', true);
   }
 
   cb() {
