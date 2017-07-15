@@ -75,6 +75,8 @@ AppRun.$inject = [
   '$state',
   '$timeout',
   '$window',
+  // Analytics must be injected at least once to work properly, even if unused.
+  'Analytics',
   'EventService',
   'ModService',
   'UserService',

@@ -23689,15 +23689,12 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /* de
     this.$sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**']);
 
     // Google Analytics
-    this.AnalyticsProvider.setAccount('UA-84400255-1');
-    this.AnalyticsProvider.setDomainName('production' === this.ENV.name ? 'weco.io' : 'none');
-    this.AnalyticsProvider.setPageEvent('$stateChangeSuccess');
-    this.AnalyticsProvider.logAllCalls(true);
+    this.AnalyticsProvider.setAccount('UA-84400255-1').setDomainName(this.ENV.name === 'production' ? 'weco.io' : 'none').setPageEvent('$stateChangeSuccess').logAllCalls(true).enterDebugMode(this.ENV.name !== 'production');
 
     // cache
     __WEBPACK_IMPORTED_MODULE_0_angular___default.a.extend(this.CacheFactoryProvider.defaults, {
-      maxAge: 3600000,
       deleteOnExpire: 'aggressive',
+      maxAge: 3600000,
       onExpire: key => {
         __WEBPACK_IMPORTED_MODULE_0_angular___default.a.injector(['ng']).get('$http').get(key).success(function (data) {
           this.put(key, data);
@@ -23722,16 +23719,11 @@ AppConfig.$inject = ['$sceDelegateProvider', 'AnalyticsProvider', 'CacheFactoryP
 
 const AppFilters = {
   capitalize() {
-    return input => {
-      return !!input ? input[0].toUpperCase() + input.substr(1).toLowerCase() : '';
-    };
+    return str => !!str ? str[0].toUpperCase() + str.substr(1).toLowerCase() : '';
   },
 
-  // reverse an array
   reverse() {
-    return items => {
-      return !items || !__WEBPACK_IMPORTED_MODULE_0_angular___default.a.isArray(items) ? false : items.slice().reverse();
-    };
+    return arr => !arr || !__WEBPACK_IMPORTED_MODULE_0_angular___default.a.isArray(arr) ? false : arr.slice().reverse();
   }
 };
 
@@ -24036,7 +24028,9 @@ class AppRun extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* defau
   }
 }
 
-AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window', 'EventService', 'ModService', 'UserService'];
+AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window',
+// Analytics must be injected at least once to work properly, even if unused.
+'Analytics', 'EventService', 'ModService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AppRun);
 
@@ -24056,8 +24050,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+  apiEndpoint: 'http://localhost:8080/v1',
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -62835,6 +62829,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const appName = 'wecoApp';
 
 const app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(appName, [__WEBPACK_IMPORTED_MODULE_1_angular_cache___default.a, __WEBPACK_IMPORTED_MODULE_2_angular_animate___default.a, __WEBPACK_IMPORTED_MODULE_3_ng_file_upload___default.a, __WEBPACK_IMPORTED_MODULE_4_angular_google_analytics___default.a, __WEBPACK_IMPORTED_MODULE_5_angular_marked___default.a, __WEBPACK_IMPORTED_MODULE_6_angular_sanitize___default.a, __WEBPACK_IMPORTED_MODULE_7_angular_ui_router___default.a]);
+
 const registrar = new __WEBPACK_IMPORTED_MODULE_18_utils_component_registrar__["a" /* default */](appName);
 
 // Constants.

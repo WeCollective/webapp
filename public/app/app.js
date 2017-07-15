@@ -32,8 +32,9 @@ const app = angular.module(appName, [
   ngGoogleAnalytics,
   ngMarked,
   ngSanitize,
-  UIRouter
+  UIRouter,
 ]);
+
 const registrar = new Registrar(appName);
 
 // Constants.
