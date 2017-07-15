@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class NavbarController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(NavbarController.$inject, injections);
 
     this.getNotifications = this.getNotifications.bind(this);
@@ -17,7 +17,7 @@ class NavbarController extends Injectable {
     this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
   }
 
-  getNotifications () {
+  getNotifications() {
     if (!this.UserService.user.username) return;
 
     this.UserService.getNotifications(this.UserService.user.username, true)
@@ -27,34 +27,38 @@ class NavbarController extends Injectable {
         // Sometimes the notifications badge would not get updated.
         this.$scope.$apply();
       })
-      .catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+      .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
-  isControlSelected (control) {
+  isControlSelected(control) {
     return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
   }
 
-  logout () {
+  logout() {
     this.expanded = false;
     this.UserService.logout()
-      .then(_ => this.$state.go('auth.login'))
-      .catch(_ => this.AlertsService.push('error', 'Unable to log out.'));
+      .then(() => this.$state.go('auth.login'))
+      .catch(() => this.AlertsService.push('error', 'Unable to log out.'));
   }
 
-  onHomePage () {
+  onHomePage() {
     return this.$state.current.name === 'weco.home';
   }
 
-  toggleNav () {
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
+  toggleNav() {
     this.expanded = !this.expanded;
   }
 
-  triggerAnimation () {
-    // set animation src to the animated gif
-    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation.gif');
-    
-    // cancel after 1 sec
-    this.$timeout(_ => this.animationSrc = '', 1000);
+  triggerAnimation() {
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation.gif';
+
+      this.$timeout(() => this.animationSrc = '', 1000);
+    });
   }
 }
 
@@ -65,7 +69,7 @@ NavbarController.$inject = [
   'AlertsService',
   'AppService',
   'EventService',
-  'UserService'
+  'UserService',
 ];
 
 export default NavbarController;

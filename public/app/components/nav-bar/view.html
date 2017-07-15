@@ -24,7 +24,7 @@
           ng-class="{ 'opaque' : Navbar.isControlSelected('nucleus') }"
           ui-sref="weco.branch.nucleus.about({ branchid: 'root' })">
           <img
-            alt=""
+            alt="Go to Global Nucleus"
             class="navbar--icon"
             offset-y="40"
             src="/assets/images/icons/white/nucleus.png"
@@ -37,7 +37,7 @@
           ng-class="{ 'opaque' : Navbar.isControlSelected('subbranches') }"
           ui-sref="weco.branch.subbranches({ branchid: 'root' })">
           <img
-            alt=""
+            alt="Go to Root Branches"
             class="navbar--icon"
             offset-y="40"
             src="/assets/images/icons/white/branch.png"
@@ -50,7 +50,7 @@
           ng-class="{ 'opaque' : Navbar.isControlSelected('wall') }"
           ui-sref="weco.branch.wall({ branchid: 'root' })">
           <img
-            alt=""
+            alt="Go to Global Wall"
             class="navbar--icon"
             offset-y="40"
             src="/assets/images/icons/white/wall.png"
@@ -107,16 +107,18 @@
       
       <div
         class="navbar--item item--expand"
+        ng-click="Navbar.toggleNav()"
         ng-show="Navbar.UserService.isAuthenticated()">
         <img
-          alt=""
+          alt="Toggle menu navigation"
           class="navbar--icon"
           ng-class="{ 'opaque': Navbar.expanded }"
-          ng-click="Navbar.toggleNav()"
           src="assets/images/icons/white/nav-expand.png" />
 
         <!-- Expandable Items -->
-        <ul ng-show="Navbar.expanded">
+        <ul
+          ng-click="Navbar.stopPropagation($event)"
+          ng-show="Navbar.expanded">
           <li
             id="logout"
             ng-click="Navbar.logout()">

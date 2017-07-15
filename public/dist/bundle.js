@@ -24050,8 +24050,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
-  name: 'development'
+  apiEndpoint: 'http://localhost:8080/v1',
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -65394,7 +65394,7 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
       // Sometimes the notifications badge would not get updated.
       this.$scope.$apply();
-    }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+    }).catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
   isControlSelected(control) {
@@ -65403,11 +65403,15 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
   logout() {
     this.expanded = false;
-    this.UserService.logout().then(_ => this.$state.go('auth.login')).catch(_ => this.AlertsService.push('error', 'Unable to log out.'));
+    this.UserService.logout().then(() => this.$state.go('auth.login')).catch(() => this.AlertsService.push('error', 'Unable to log out.'));
   }
 
   onHomePage() {
     return this.$state.current.name === 'weco.home';
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
   toggleNav() {
@@ -65415,11 +65419,11 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
   }
 
   triggerAnimation() {
-    // set animation src to the animated gif
-    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation.gif');
+    this.$timeout(() => {
+      this.animationSrc = '/assets/images/logo-animation.gif';
 
-    // cancel after 1 sec
-    this.$timeout(_ => this.animationSrc = '', 1000);
+      this.$timeout(() => this.animationSrc = '', 1000);
+    });
   }
 }
 
