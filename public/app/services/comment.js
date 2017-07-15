@@ -15,7 +15,7 @@ class CommentService extends Injectable {
 
   fetch(postid, commentid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid })
+      this.API.get('/post/:postid/comments/:commentid', { commentid, postid })
         .then(res => {
           if (!res || !res.data) {
             return reject();
@@ -39,7 +39,7 @@ class CommentService extends Injectable {
         params.lastCommentId = lastCommentId;
       }
 
-      this.API.fetch('/post/:postid/comments', { postid }, params)
+      this.API.get('/post/:postid/comments', { postid }, params)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });

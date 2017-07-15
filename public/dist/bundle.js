@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'local',
-   apiEndpoint: 'http://localhost:8080/v1'
+   name: 'development',
+   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -68169,7 +68169,7 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   fetch(postid, commentid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid/comments/:commentid', { commentid, postid }).then(res => {
+      this.API.get('/post/:postid/comments/:commentid', { commentid, postid }).then(res => {
         if (!res || !res.data) {
           return reject();
         }
@@ -68191,7 +68191,7 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
         params.lastCommentId = lastCommentId;
       }
 
-      this.API.fetch('/post/:postid/comments', { postid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.get('/post/:postid/comments', { postid }, params).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 
