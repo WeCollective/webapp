@@ -4,7 +4,8 @@
       <img
         alt="Upvote comment"
         class="list-item__vote-icon"
-        ng-click="Thread.vote(comment, 'up')"
+        ng-class="{ 'style--active': comment.votes.userVoted === 'up' }"
+        ng-click="Thread.vote(comment, 'up', $event.target)"
         src="/assets/images/icons/black/arrow-up.png" />
 
       <p>{{ comment.individual }}</p>

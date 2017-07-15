@@ -375,7 +375,7 @@ div[marked] ul {
   display: flex;
   margin: 0 auto 10px;
   padding: 10px;
-  transition: all 0.3s ease-out;
+  transition: opacity 0.3s ease-out, border-left-color 0.3s ease-out;
 }
 .alerts .alerts__item.ng-hide {
   opacity: 0;

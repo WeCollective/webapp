@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63723,16 +63723,30 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     return `${int} year${int !== 1 ? 's' : ''} ago`;
   }
 
-  vote(comment, direction) {
-    this.CommentService.vote(comment.postid, comment.id, direction).then(() => this.$timeout(() => {
-      const inc = direction === 'up' ? 1 : -1;
+  vote(comment, direction, iconNode) {
+    this.CommentService.vote(comment.postid, comment.id, direction).then(res => this.$timeout(() => {
+      const delta = res.delta || 0;
 
-      comment.individual += inc;
+      comment.individual += delta;
 
-      this.AlertsService.push('success', 'Thanks for voting!');
+      if (comment.votes.userVoted) {
+        delete comment.votes.userVoted;
+      } else {
+        comment.votes.userVoted = direction;
+      }
+
+      if (iconNode) {
+        if (direction === 'up') {
+          if (delta > 0) {
+            iconNode.classList.add('style--active');
+          } else {
+            iconNode.classList.remove('style--active');
+          }
+        }
+      }
     })).catch(err => {
       if (err.status === 400) {
-        this.AlertsService.push('error', 'You have already voted on this comment.');
+        this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
       } else if (err.status === 403) {
         this.AlertsService.push('error', 'Please log in or create an account to vote.');
       } else {
@@ -67368,9 +67382,6 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
-
-    this.AlertsService.push('error', 'Error', true);
-    this.AlertsService.push('success', 'Success', true);
   }
 
   cb() {
@@ -68196,7 +68207,7 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
         return reject();
       }
 
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.put('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 }

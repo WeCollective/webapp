@@ -59,7 +59,7 @@ class CommentService extends Injectable {
         return reject();
       }
 
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true)
+      this.API.put('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });

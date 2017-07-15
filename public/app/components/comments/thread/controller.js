@@ -127,18 +127,34 @@ class CommentThreadController extends Injectable {
     return `${int} year${int !== 1 ? 's' : ''} ago`;
   }
 
-  vote(comment, direction) {
+  vote(comment, direction, iconNode) {
     this.CommentService.vote(comment.postid, comment.id, direction)
-      .then(() => this.$timeout(() => {
-        const inc = (direction === 'up') ? 1 : -1;
+      .then(res => this.$timeout(() => {
+        const delta = res.delta || 0;
 
-        comment.individual += inc;
+        comment.individual += delta;
 
-        this.AlertsService.push('success', 'Thanks for voting!');
+        if (comment.votes.userVoted) {
+          delete comment.votes.userVoted;
+        }
+        else {
+          comment.votes.userVoted = direction;
+        }
+
+        if (iconNode) {
+          if (direction === 'up') {
+            if (delta > 0) {
+              iconNode.classList.add('style--active');
+            }
+            else {
+              iconNode.classList.remove('style--active');
+            }
+          }
+        }
       }))
       .catch(err => {
         if (err.status === 400) {
-          this.AlertsService.push('error', 'You have already voted on this comment.');
+          this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
         }
         else if (err.status === 403) {
           this.AlertsService.push('error', 'Please log in or create an account to vote.');
