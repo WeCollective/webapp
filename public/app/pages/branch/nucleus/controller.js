@@ -4,57 +4,15 @@ class BranchNucleusController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusController.$inject, injections);
 
+    this.run = 0;
     this.state = this.getInitialState();
 
-    const init = () => {
-      if (!this.$state.current.name.includes('weco.branch.nucleus')) {
-        return;
-      }
-
-      if (Object.keys(this.BranchService.branch).length < 2) {
-        return;
-      }
-
-      const branchid = this.BranchService.branch.id;
-
-      this.state = this.getInitialState();
-
-      if (this.UserService.isAuthenticated() && this.isModerator()) {
-        // add settings tab
-        if (!this.state.tabItems.includes('settings')) {
-          this.state.tabItems.push('settings');
-          this.state.tabStates.push('weco.branch.nucleus.settings');
-          this.state.tabStateParams.push({ branchid });
-        }
-        
-        // add mod tools tab
-        if (!this.state.tabItems.includes('mod tools')) {
-          this.state.tabItems.push('mod tools');
-          this.state.tabStates.push('weco.branch.nucleus.modtools');
-          this.state.tabStateParams.push({ branchid });
-        }
-
-        // add flagged posts tab
-        if (!this.state.tabItems.includes('flagged posts')) {
-          this.state.tabItems.push('flagged posts');
-          this.state.tabStates.push('weco.branch.nucleus.flaggedposts');
-          this.state.tabStateParams.push({ branchid });
-        }
-      }
-      else {
-        if (this.$state.current.name !== 'weco.branch.nucleus.about' &&
-           this.$state.current.name !== 'weco.branch.nucleus.moderators') {
-          this.$state.go('weco.branch.nucleus.about', { branchid }).then(init);
-        }
-      }
-    };
-
-    init();
+    this.renderTabs = this.renderTabs.bind(this);
 
     let listeners = [];
     
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, init));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, init));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -75,9 +33,9 @@ class BranchNucleusController extends Injectable {
         'weco.branch.nucleus.moderators',
       ],
       tabStateParams: [{
-        branchid
+        branchid,
       }, {
-        branchid
+        branchid,
       }],
     };
   }
@@ -85,12 +43,53 @@ class BranchNucleusController extends Injectable {
   isModerator() {
     if (!this.BranchService.branch.mods) return false;
 
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
       if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
         return true;
       }
     }
+
     return false;
+  }
+
+  renderTabs() {
+    const branchid = this.BranchService.branch.id;
+    const state = this.$state.current.name;
+
+    this.run += 1;
+
+    if (!state.includes('weco.branch.nucleus') ||
+      Object.keys(this.BranchService.branch).length < 2) {
+      return;
+    }
+
+    const newState = this.getInitialState();
+
+    // Add moderator tabs.
+    if (this.UserService.isAuthenticated() && this.isModerator()) {
+      // Settings.
+      newState.tabItems.push('settings');
+      newState.tabStates.push('weco.branch.nucleus.settings');
+      newState.tabStateParams.push({ branchid });
+      
+      // Mod tools.
+      newState.tabItems.push('mod tools');
+      newState.tabStates.push('weco.branch.nucleus.modtools');
+      newState.tabStateParams.push({ branchid });
+
+      // Flagged posts.
+      newState.tabItems.push('flagged posts');
+      newState.tabStates.push('weco.branch.nucleus.flaggedposts');
+      newState.tabStateParams.push({ branchid });
+    }
+    else if (state !== 'weco.branch.nucleus.about' && state !== 'weco.branch.nucleus.moderators') {
+      // NB: This would send us to the About page even if we are actually logged in
+      // and a moderator. If we are not allowed here, let's redirect the intruder.
+      if (this.run === 1 && Object.keys(this.UserService.user).length > 0) return;
+      this.$state.go('weco.branch.nucleus.about', { branchid });
+    }
+
+    this.state = newState;
   }
 }
 

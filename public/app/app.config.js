@@ -1,4 +1,5 @@
 import angular from 'angular';
+import constEnvironment from 'env.config';
 import Injectable from 'utils/injectable';
 
 class AppConfig extends Injectable {
@@ -17,13 +18,14 @@ class AppConfig extends Injectable {
       '*://www.youtube.com/**',
     ]);
 
-    // Google Analytics
+    // Google Analytics.
     this.AnalyticsProvider
+      // This line apparently does not matter...
+      .enterDebugMode(constEnvironment.debugAnalytics === true && this.ENV.name !== 'production')
       .setAccount('UA-84400255-1')
       .setDomainName(this.ENV.name === 'production' ? 'weco.io' : 'none')
       .setPageEvent('$stateChangeSuccess')
-      .logAllCalls(true)
-      .enterDebugMode(this.ENV.name !== 'production');
+      .logAllCalls(true);
 
     // cache
     angular.extend(this.CacheFactoryProvider.defaults, {

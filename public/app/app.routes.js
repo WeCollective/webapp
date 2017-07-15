@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class AppRoutes extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(AppRoutes.$inject, injections);
 
     this.$httpProvider.defaults.withCredentials = true;
@@ -22,22 +22,22 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/auth/view.html',
         controller: 'AuthController',
-        controllerAs: 'Auth'
+        controllerAs: 'Auth',
       })
       
       .state('auth.login', {
-        url: '/login'
+        url: '/login',
       })
       
       .state('auth.signup', {
-        url: '/signup'
+        url: '/signup',
       })
       
       .state('verify', {
         url: '/:username/verify/:token',
         templateUrl: '/app/pages/auth/verify/view.html',
         controller: 'VerifyController',
-        controllerAs: 'Verify'
+        controllerAs: 'Verify',
       })
       
       .state('reset-password', {
@@ -45,17 +45,17 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/auth/reset-password/view.html',
         controller: 'ResetPasswordController',
-        controllerAs: 'ResetPassword'
+        controllerAs: 'ResetPassword',
       })
       
       .state('reset-password.request', {
         url: '/request',
-        templateUrl: '/app/pages/auth/reset-password/request/view.html'
+        templateUrl: '/app/pages/auth/reset-password/request/view.html',
       })
       
       .state('reset-password.confirm', {
         url: '/:username/:token',
-        templateUrl: '/app/pages/auth/reset-password/confirm/view.html'
+        templateUrl: '/app/pages/auth/reset-password/confirm/view.html',
       })
       
       // Abstract root state contains nav-bar
@@ -64,12 +64,12 @@ class AppRoutes extends Injectable {
         template: `
           <nav-bar></nav-bar>
           <div class="full-page" ng-class="{ 'full-page-nav': App.hasNavBar() }" ui-view>
-          </div>`
+          </div>`,
       })
       
       // 404 Not Found
       .state('weco.notfound', {
-        templateUrl: '/app/pages/notfound/view.html'
+        templateUrl: '/app/pages/notfound/view.html',
       })
       
       // Homepage state
@@ -78,7 +78,7 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/home/view.html',
         controller: 'HomeController',
         controllerAs: 'Home',
-        pageTrack: '/'
+        pageTrack: '/',
       })
       
       // Profile page
@@ -87,13 +87,13 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/profile/view.html',
         controller: 'ProfileController',
-        controllerAs: 'Profile'
+        controllerAs: 'Profile',
       })
       
       .state('weco.profile.about', {
         url: '/about',
         templateUrl: '/app/pages/profile/about/view.html',
-        pageTrack: '/u/:username/about'
+        pageTrack: '/u/:username/about',
       })
       
       .state('weco.profile.settings', {
@@ -103,7 +103,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'ProfileSettings',
         selfOnly: true,
         redirectTo: 'auth.login',
-        pageTrack: '/u/:username/settings'
+        pageTrack: '/u/:username/settings',
       })
       
       .state('weco.profile.notifications', {
@@ -113,7 +113,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'ProfileNotifications',
         selfOnly: true,
         redirectTo: 'auth.login',
-        pageTrack: '/u/:username/notifications'
+        pageTrack: '/u/:username/notifications',
       })
       
       // Branches
@@ -122,7 +122,7 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/branch/view.html',
         controller: 'BranchController',
-        controllerAs: 'Branch'
+        controllerAs: 'Branch',
       })
       
       // Branch Nucleus
@@ -132,14 +132,14 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/nucleus/view.html',
         controller: 'BranchNucleusController',
         controllerAs: 'BranchNucleus',
-        pageTrack: '/b/:branchid/nucleus'
+        pageTrack: '/b/:branchid/nucleus',
       })
       
       .state('weco.branch.nucleus.about', {
         url: '/about',
         templateUrl: '/app/pages/branch/nucleus/about/view.html',
         controller: 'BranchNucleusAboutController',
-        controllerAs: 'BranchNucleusAbout'
+        controllerAs: 'BranchNucleusAbout',
       })
       
       .state('weco.branch.nucleus.settings', {
@@ -147,15 +147,13 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/nucleus/settings/view.html',
         controller: 'BranchNucleusSettingsController',
         controllerAs: 'BranchNucleusSettings',
-        modOnly: true,
-        redirectTo: 'auth.login'
       })
       
       .state('weco.branch.nucleus.moderators', {
         url: '/moderators',
         templateUrl: '/app/pages/branch/nucleus/moderators/view.html',
         controller: 'BranchNucleusModeratorsController',
-        controllerAs: 'BranchNucleusModerators'
+        controllerAs: 'BranchNucleusModerators',
       })
       
       .state('weco.branch.nucleus.modtools', {
@@ -163,8 +161,6 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
         controller: 'BranchNucleusModtoolsController',
         controllerAs: 'BranchNucleusModtools',
-        modOnly: true,
-        redirectTo: 'auth.login'
       })
       
       .state('weco.branch.nucleus.flaggedposts', {
@@ -172,8 +168,6 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
         controller: 'BranchNucleusFlaggedPostsController',
         controllerAs: 'BranchNucleusFlaggedPosts',
-        modOnly: true,
-        redirectTo: 'auth.login'
       })
       
       // Subbranches
@@ -182,7 +176,7 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/subbranches/view.html',
         controller: 'BranchSubbranchesController',
         controllerAs: 'BranchSubbranches',
-        pageTrack: '/b/:branchid/childbranches'
+        pageTrack: '/b/:branchid/childbranches',
       })
       
       // Branch wall
@@ -191,7 +185,7 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/wall/view.html',
         controller: 'BranchWallController',
         controllerAs: 'BranchWall',
-        pageTrack: '/b/:branchid/wall'
+        pageTrack: '/b/:branchid/wall',
       })
       
       // Posts
@@ -200,14 +194,14 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/post/view.html',
         controller: 'BranchPostController',
         controllerAs: 'BranchPost',
-        pageTrack: '/p/:postid'
+        pageTrack: '/p/:postid',
       })
       
       // Comment Permalink
       .state('weco.branch.post.comment', {
         url: '/c/:commentid',
         templateUrl: '/app/pages/branch/post/discussion/view.html',
-        pageTrack: '/p/:postid/c/:commentid'
+        pageTrack: '/p/:postid/c/:commentid',
       })
       
       // Poll Tabs
@@ -216,7 +210,7 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/post/vote/view.html',
         controller: 'BranchPostVoteController',
         controllerAs: 'BranchPostVote',
-        pageTrack: '/p/:postid/vote'
+        pageTrack: '/p/:postid/vote',
       })
       
       .state('weco.branch.post.results', {
@@ -224,13 +218,13 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/branch/post/results/view.html',
         controller: 'BranchPostResultsController',
         controllerAs: 'BranchPostResults',
-        pageTrack: '/p/:postid/results'
+        pageTrack: '/p/:postid/results',
       })
       
       .state('weco.branch.post.discussion', {
         url: '/discussion',
         templateUrl: '/app/pages/branch/post/discussion/view.html',
-        pageTrack: '/p/:postid/discussion'
+        pageTrack: '/p/:postid/discussion',
       });
 
     // Default child states.
@@ -250,7 +244,7 @@ AppRoutes.$inject = [
   '$httpProvider',
   '$locationProvider',
   '$stateProvider',
-  '$urlRouterProvider'
+  '$urlRouterProvider',
 ];
 
 export default AppRoutes;

@@ -1,19 +1,18 @@
-import Injectable from 'utils/injectable';
 import Generator from 'utils/generator';
+import Injectable from 'utils/injectable';
 
 class UserService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(UserService.$inject, injections);
+
     this.user = {};
 
     this.fetch('me')
-      .then(user => this.user = user)
-      .catch(_ => {})
-      .then(this.$timeout)
-      .then(_ => this.EventService.emit(this.EventService.events.CHANGE_USER));
+      .then(user => this.set(user))
+      .catch(() => this.EventService.emit(this.EventService.events.CHANGE_USER));
   }
 
-  fetch (username) {
+  fetch(username) {
     return new Promise((resolve, reject) => {
       this.API.fetch('/user/:username', { username })
         .then(res => resolve(res.data))
@@ -21,7 +20,7 @@ class UserService extends Injectable {
     });
   }
 
-  followBranch (username, branchid) {
+  followBranch(username, branchid) {
     return new Promise((resolve, reject) => {
       this.API.save('/user/:username/branches/followed', { username }, { branchid }, true)
         .then(resolve)
@@ -29,7 +28,7 @@ class UserService extends Injectable {
     });
   }
 
-  getNotifications (username, unreadCount, lastNotificationId) {
+  getNotifications(username, unreadCount, lastNotificationId) {
     return new Promise((resolve, reject) => {
       this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId })
         .then(res => resolve(res.data))
@@ -37,43 +36,43 @@ class UserService extends Injectable {
     });
   }
 
-  isAuthenticated () {
+  isAuthenticated() {
     return !!this.user && Object.keys(this.user).length;
   }
 
-  login (credentials) {
+  login(credentials) {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
           yield this.API.request('POST', '/user/login', {}, credentials, true);
-          let user = yield this.fetch('me');
-          this.user = user;
-          
-          // Add delay for navbar to trigger constructor and attach listener for this event.
-          this.$timeout(_ => this.EventService.emit(this.EventService.events.CHANGE_USER), 100);
-          
+          const user = yield this.fetch('me');
+
+          this.set(user);
+
           return resolve();
         }
-        catch(err) { return reject(err.data || err); }
+        catch (err) {
+          return reject(err.data || err);
+        }
       }, this);
     });
   }
 
-  logout () {
+  logout() {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/logout', {})
-        .then(_ => {
+        .then(() => {
           this.LocalStorageService.setObject('cache', {});
 
-          this.user = {};
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
+          this.set({});
+
           return resolve();
         })
         .catch(err => reject(err));
     });
   }
 
-  markNotification (username, notificationid, unread) {
+  markNotification(username, notificationid, unread) {
     return new Promise((resolve, reject) => {
       this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true)
         .then(resolve)
@@ -82,7 +81,7 @@ class UserService extends Injectable {
   }
 
   // send a reset password link to the users inbox
-  requestResetPassword (username) {
+  requestResetPassword(username) {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/:username/reset-password', { username })
         .then(resolve)
@@ -91,7 +90,7 @@ class UserService extends Injectable {
   }
 
   // send a reset password link to the users inbox
-  resetPassword (username, password, token) {
+  resetPassword(username, password, token) {
     return new Promise((resolve, reject) => {
       this.API.request('POST', '/user/:username/reset-password/:token', { username, token }, { password })
         .then(resolve)
@@ -100,7 +99,7 @@ class UserService extends Injectable {
   }
 
   // resend the user verification email
-  resendVerification (username) {
+  resendVerification(username) {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/:username/reverify', { username })
         .then(resolve)
@@ -108,7 +107,14 @@ class UserService extends Injectable {
     });
   }
 
-  signup (credentials) {
+  set(userDataObj) {
+    this.$timeout(() => {
+      this.user = userDataObj;
+      this.EventService.emit(this.EventService.events.CHANGE_USER);
+    });
+  }
+
+  signup(credentials) {
     return new Promise((resolve, reject) => {
       this.API.request('POST', '/user', {}, credentials)
         .then(resolve)
@@ -116,7 +122,7 @@ class UserService extends Injectable {
     });
   }
 
-  unfollowBranch (username, branchid) {
+  unfollowBranch(username, branchid) {
     return new Promise((resolve, reject) => {
       this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true)
         .then(resolve)
@@ -124,26 +130,26 @@ class UserService extends Injectable {
     });
   }
 
-  update (data) {
+  update(data) {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
-          // update self
           yield this.API.update('/user/me', {}, data, true);
-          // fetch the updated self
-          this.user = yield this.fetch('me');
-          
-          this.EventService.emit(this.EventService.events.CHANGE_USER);
-          
+
+          const user = yield this.fetch('me');
+          this.set(user);
+
           return resolve();
         }
-        catch(err) { return reject(err.data || err); }
+        catch (err) {
+          return reject(err.data || err);
+        }
       }, this);
     });
   }
 
   // verify user account
-  verify (username, token) {
+  verify(username, token) {
     return new Promise((resolve, reject) => {
       this.API.request('GET', '/user/:username/verify/:token', { username, token })
         .then(resolve)
@@ -157,7 +163,7 @@ UserService.$inject = [
   'API',
   'ENV',
   'EventService',
-  'LocalStorageService'
+  'LocalStorageService',
 ];
 
 export default UserService;
