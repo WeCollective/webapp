@@ -24056,8 +24056,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-   name: 'development',
-   apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1'
+   name: 'local',
+   apiEndpoint: 'http://localhost:8080/v1'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63727,7 +63727,7 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     this.CommentService.vote(comment.postid, comment.id, direction).then(res => this.$timeout(() => {
       const delta = res.delta || 0;
 
-      comment.individual += delta;
+      comment.votes.individual += delta;
 
       if (comment.votes.userVoted) {
         delete comment.votes.userVoted;
