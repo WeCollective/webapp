@@ -24050,8 +24050,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
-  name: 'local'
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  name: 'development'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
