@@ -1363,6 +1363,7 @@ ul.tabs .tabs__item:not(.selected):hover {
   border-bottom-color: rgba(0, 0, 0, 0.3);
 }
 ul.tabs .tabs__link {
+  cursor: pointer;
   display: block;
   padding: 4px 10px;
 }

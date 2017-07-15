@@ -24050,8 +24050,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
-  name: 'development'
+  apiEndpoint: 'http://localhost:8080/v1',
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -65384,10 +65384,6 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications);
 
     this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
-
-    this.$timeout(() => {
-      this.UserService.user.followed_branches = ['one', 'two', 'three', 'four', 'five'];
-    }, 1000);
   }
 
   getNotifications() {
