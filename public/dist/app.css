@@ -888,7 +888,7 @@ div[loading] div.loading-container img {
 .notifications .loading-container {
   height: 100px !important;
 }
-.navbar {
+.nav {
   background: linear-gradient(to bottom, #2a2a2a, #131313);
   height: 45px;
   left: 0;
@@ -898,13 +898,12 @@ div[loading] div.loading-container img {
   width: 100%;
   z-index: 12;
 }
-.navbar > .content,
-.navbar > ul {
+.nav .nav__content {
   margin: 0 auto;
   max-width: 1260px;
   width: 100%;
 }
-.navbar > .content {
+.nav .nav__content {
   display: flex;
   font-size: 12px;
   font-weight: 600;
@@ -912,55 +911,84 @@ div[loading] div.loading-container img {
   justify-content: space-between;
   position: relative;
 }
-.navbar > .content > div {
-  display: flex;
-  height: 100%;
+.nav .nav__expand-menu {
+  background-color: #131313;
+  border-top: 1px solid #494949;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  color: #fff;
+  min-width: 200px;
+  padding: 12px;
+  position: absolute;
+  right: -1px;
+  top: 100%;
+  width: auto;
+  z-index: -1;
 }
-.navbar > .content > div .logo {
-  display: block;
-  height: 100%;
+.nav .nav__expand-menu.ng-hide-add,
+.nav .nav__expand-menu.ng-hide-remove {
+  transition: transform .3s, opacity .3s;
+}
+.nav .nav__expand-menu.ng-hide-add {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav .nav__expand-menu.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.nav .nav__expand-menu.ng-hide-remove {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.nav .nav__expand-menu.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav .nav__expand-menu-item {
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+.nav .nav__expand-menu-item.style--separator {
+  border-top: 1px solid #494949;
+  left: -12px;
+  margin: 12px 0;
+  padding: 0;
+  position: relative;
+  width: calc(100% + (12px * 2));
+}
+.nav .nav__expand-menu-item:hover {
+  background-color: #494949;
+}
+.nav .nav__icon {
+  display: flex;
+  height: 55%;
+  justify-content: center;
+  opacity: .5;
+  padding: 0 6px;
   position: relative;
 }
-.navbar > .content > div .logo > img {
-  height: initial;
-  max-height: calc(100% + 14px);
-  max-width: 100%;
-}
-.navbar > .content > div .logo > img.animation {
-  display: none;
-  position: absolute;
-}
-.navbar > .content > div .logo > img.animation[src] {
-  display: block;
-}
-@media only screen and (min-width: 576px) {
-  .navbar > .content > div .logo > img {
-    max-height: calc(100% + 17px);
-  }
-}
-.navbar > .content > div .nav-controls {
-  display: flex;
-  height: 100%;
-}
-.navbar > .content > div .nav-controls > .navbar--item {
-  width: 45px;
-}
-.navbar > .content > div .navbar--item {
+.nav .nav__item {
   align-items: center;
   cursor: pointer;
   display: flex;
   height: 100%;
   justify-content: center;
   position: relative;
+  width: 45px;
 }
-.navbar > .content > div .navbar--item .navbar--icon {
-  display: flex;
-  height: 55%;
-  justify-content: center;
-  opacity: .5;
-  padding: 0 6px;
+.nav .nav__item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
-.navbar > .content > div .navbar--item .navbar--item--badge {
+.nav .nav__item.style--opaque,
+.nav .nav__item:hover {
+  color: #fff !important;
+}
+.nav .nav__item.style--opaque .nav__icon,
+.nav .nav__item:hover .nav__icon {
+  opacity: 1;
+}
+.nav .nav__item-badge {
   background-color: #e74c3c;
   border-radius: 50%;
   box-sizing: border-box;
@@ -975,157 +1003,116 @@ div[loading] div.loading-container img {
   text-align: center;
   top: -4px;
 }
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add,
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove {
+.nav .nav__item-badge.ng-hide-add,
+.nav .nav__item-badge.ng-hide-remove {
   transition: transform .3s, opacity .3s;
 }
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add {
+.nav .nav__item-badge.ng-hide-add {
   opacity: 1;
   transform: scale(1);
 }
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-add.ng-hide-add-active {
+.nav .nav__item-badge.ng-hide-add.ng-hide-add-active {
   opacity: 0;
   transform: scale(0);
 }
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove {
+.nav .nav__item-badge.ng-hide-remove {
   opacity: 0;
   transform: scale(0);
 }
-.navbar > .content > div .navbar--item .navbar--item--badge.ng-hide-remove.ng-hide-remove-active {
+.nav .nav__item-badge.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
   transform: scale(1);
 }
-.navbar > .content > div .navbar--item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.nav .nav__item-text {
+  font-size: 14px;
+  margin: 0 8px;
 }
-.navbar > .content > div .navbar--item.opaque,
-.navbar > .content > div .navbar--item:hover {
-  color: #fff !important;
+.nav .nav__logo {
+  display: block;
+  height: 100%;
+  position: relative;
 }
-.navbar > .content > div .navbar--item.opaque .navbar--icon,
-.navbar > .content > div .navbar--item:hover .navbar--icon {
-  opacity: 1;
+.nav .nav__logo-icon {
+  height: initial;
+  max-height: calc(100% + 14px);
+  max-width: 100%;
 }
-.navbar > .content > div.user-controls {
+.nav .nav__logo-icon.style--animate {
+  display: none;
+  position: absolute;
+}
+.nav .nav__logo-icon.style--animate[src] {
+  display: block;
+}
+@media only screen and (min-width: 576px) {
+  .nav .nav__logo-icon {
+    max-height: calc(100% + 17px);
+  }
+}
+.nav .nav__menu {
+  display: flex;
+  height: 100%;
+}
+.nav .nav__public-menu {
+  display: flex;
+  height: 100%;
+}
+.nav .nav__user-menu {
   color: #b3b3b3;
   display: flex;
   height: 100%;
 }
-.navbar > .content > div.user-controls .navbar--item {
+.nav .nav__user-menu .nav__item {
   border-left: 1px solid #494949;
   color: #b3b3b3;
   font-weight: 600;
   padding: 0 6px;
+  width: auto;
 }
-.navbar > .content > div.user-controls .navbar--item.item--notification {
+.nav .nav__user-menu .nav__item.style--notification {
   border-left-width: 0;
 }
-.navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon {
-  position: relative;
-}
-.navbar > .content > div.user-controls .navbar--item.item--notification .navbar--icon img {
+.nav .nav__user-menu .nav__item.style--notification .nav__icon img {
   height: 100%;
 }
-.navbar > .content > div.user-controls .navbar--item span.text {
-  font-size: 14px;
-  margin: 0 8px;
-}
-.navbar > .content > div.user-controls .navbar--item.item--profile {
+.nav .nav__user-menu .nav__item.style--profile {
   padding-left: 0;
   padding-right: 0;
 }
-.navbar > .content > div.user-controls .navbar--item.item--profile span.text {
+.nav .nav__user-menu .nav__item.style--profile .nav__item-text {
   display: none;
+  padding-left: 6px;
 }
 @media only screen and (min-width: 576px) {
-  .navbar > .content > div.user-controls .navbar--item.item--profile {
-    padding-left: 6px;
-  }
-  .navbar > .content > div.user-controls .navbar--item.item--profile span.text {
+  .nav .nav__user-menu .nav__item.style--profile .nav__item-text {
     display: inline-block;
   }
 }
-.navbar > .content > div.user-controls .navbar--item.item--expand {
+.nav .nav__user-menu .nav__item.style--expand {
   border-left-width: 0;
 }
-.navbar > .content > div.user-controls .navbar--item.item--expand img {
+.nav .nav__user-menu .nav__item.style--expand img {
   height: 50%;
   opacity: .5;
 }
-.navbar > .content > div.user-controls .navbar--item.item--expand img:hover {
+.nav .nav__user-menu .nav__item.style--expand img:hover {
   opacity: 1;
 }
-.navbar > .content > div.user-controls .navbar--item.item--expand ul {
-  background-color: #131313;
-  border-top: 1px solid #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  color: #fff;
-  min-width: 200px;
-  padding: 10px;
-  position: absolute;
-  right: -1px;
-  top: 100%;
-  width: auto;
-  z-index: -1;
+@media only screen and (min-width: 576px) {
+  .nav .nav__user-menu {
+    border-right: 1px solid #494949;
+  }
 }
-.navbar > .content > div.user-controls .navbar--item.item--expand ul li,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul a li {
-  cursor: pointer;
-  padding: 5px 10px;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul li#logout,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul a li#logout {
-  border-radius: 3px;
-  text-transform: uppercase;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul li#logout:hover,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul a li#logout:hover {
-  background-color: #494949;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul li.followed-branch#followed-branch-title,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul a li.followed-branch#followed-branch-title {
-  font-weight: 400;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul li.followed-branch:not(#followed-branch-title):hover,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul a li.followed-branch:not(#followed-branch-title):hover {
-  text-decoration: underline;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-add,
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-remove {
-  transition: transform .3s, opacity .3s;
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-add {
-  opacity: 1;
-  transform: translateY(0);
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-add.ng-hide-add-active {
-  opacity: 0;
-  transform: translateY(-100%);
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-remove {
-  opacity: 0;
-  transform: translateY(-100%);
-}
-.navbar > .content > div.user-controls .navbar--item.item--expand ul.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-.navbar > .content > div.user-controls .navbar--item div#profile-picture {
+.nav .nav__user-picture {
   background-position: center;
   background-size: cover;
-  border-right-width: 0;
   height: 100%;
   width: 45px;
 }
 @media only screen and (min-width: 576px) {
-  .navbar > .content > div.user-controls .navbar--item div#profile-picture {
+  .nav .nav__user-picture {
     border-right-width: 1px;
     margin-left: 6px;
-  }
-}
-@media only screen and (min-width: 576px) {
-  .navbar > .content > div.user-controls {
-    border-right: 1px solid #494949;
   }
 }
 .notification > .notification-index {

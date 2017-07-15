@@ -65384,6 +65384,10 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications);
 
     this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
+
+    this.$timeout(() => {
+      this.UserService.user.followed_branches = ['one', 'two', 'three', 'four', 'five'];
+    }, 1000);
   }
 
   getNotifications() {
