@@ -50,20 +50,20 @@
   <tabs
     class="style--border"
     items="BranchPost.tabItems"
-    ng-if="BranchPost.showPollTabs()"
+    ng-if="BranchPost.isPostType('poll')"
     states="BranchPost.tabStates"
     state-params="BranchPost.tabStateParams">
   </tabs>
   
   <div
     class="post__body"
-    ng-if="BranchPost.showPollTabs()"
+    ng-if="BranchPost.isPostType('poll')"
     ui-view>
   </div>
 
   <div
     class="post__body"
-    ng-if="!BranchPost.showPollTabs()">
+    ng-if="!BranchPost.isPostType('poll')">
     <comments></comments>
   </div>
 </div>

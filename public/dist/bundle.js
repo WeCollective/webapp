@@ -24050,8 +24050,8 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 "use strict";
 /* Template file from which env.config.js is generated */
 let ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
-  name: 'development'
+  apiEndpoint: 'http://localhost:8080/v1',
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66746,8 +66746,8 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
     this.isLoading = true;
 
-    // Possible states: show, maximise.
-    this.previewState = 'show';
+    // Possible states: show, maximise, hide.
+    this.previewState = false;
 
     this.tabItems = ['vote', 'discussion', 'results'];
 
@@ -66808,25 +66808,33 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     return '';
   }
 
+  isPostType(type) {
+    return this.PostService.post.type === type;
+  }
+
   redirect() {
     // post not updated yet, wait for CHANGE_POST event
     if (this.$state.params.postid !== this.PostService.post.id) {
       return;
     }
 
+    const post = this.PostService.post;
+
+    this.previewState = post.type === 'text' ? 'hide' : 'show';
+
     // update state params for tabs
     for (let i in this.tabStateParams) {
-      this.tabStateParams[i].branchid = this.PostService.post.branchid;
-      this.tabStateParams[i].postid = this.PostService.post.id;
+      this.tabStateParams[i].branchid = post.branchid;
+      this.tabStateParams[i].postid = post.id;
     }
 
-    if (this.PostService.post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
+    if (post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
       const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
 
       if (tabIndex !== -1) {
         const state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
         this.$state.go(state, {
-          branchid: this.PostService.post.branchid,
+          branchid: post.branchid,
           postid: this.$state.params.postid
         }, {
           location: 'replace'
@@ -66841,10 +66849,6 @@ class BranchPostController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
   setPreviewState(state) {
     this.previewState = state;
-  }
-
-  showPollTabs() {
-    return this.PostService.post.type === 'poll';
   }
 
   toggleCinemaMode() {

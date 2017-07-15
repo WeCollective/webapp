@@ -3761,8 +3761,11 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   width: auto;
 }
 .post .post__preview .post__preview-content.style--text {
-  max-height: 350px;
+  max-height: 1.5em;
   overflow-y: scroll;
+}
+.post .post__preview .post__preview-content.style--text.style--expanded {
+  max-height: 350px;
 }
 .post .post__preview .post__preview-content.style--video {
   margin-left: auto;
