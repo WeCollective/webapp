@@ -10,6 +10,8 @@ class ProfileController extends Injectable {
     this.showCover = true;
     this.state = this.getInitialState();
 
+    this.renderTabs(true);
+
     this.renderTabs = this.renderTabs.bind(this);
 
     const listeners = [];
@@ -70,21 +72,21 @@ class ProfileController extends Injectable {
       'Unable to update profile picture.');
   }
 
-  renderTabs() {
+  renderTabs(fromConstructor) {
     const publicAccessStates = this.getInitialState().tabStates;
     const state = this.$state.current.name;
     const username = this.$state.params.username;
 
-    this.run += 1;
+    if (!fromConstructor) {
+      this.run += 1;
+    }
 
     if (!state.includes('weco.profile')) return;
 
     const newState = this.getInitialState();
-    
-    // Add user tabs.
-    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
-      this.profileUser = this.UserService.user;
 
+    // Add user tabs.
+    if (this.UserService.user.username === username) {
       // Settings.
       newState.tabItems.push('settings');
       newState.tabStates.push('weco.profile.settings');
@@ -93,7 +95,12 @@ class ProfileController extends Injectable {
       newState.tabItems.push('notifications');
       newState.tabStates.push('weco.profile.notifications');
     }
-    else if (!publicAccessStates.includes(state)) {
+
+    // Display the viewed user's profile.
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
+      this.profileUser = this.UserService.user;
+    }
+    else if (!publicAccessStates.includes(state) && !fromConstructor) {
       if (this.run === 1 &&
         Object.keys(this.UserService.user).length > 0 &&
         this.UserService.user.username === username) return;

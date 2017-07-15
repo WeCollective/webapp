@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67598,6 +67598,8 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.showCover = true;
     this.state = this.getInitialState();
 
+    this.renderTabs(true);
+
     this.renderTabs = this.renderTabs.bind(this);
 
     const listeners = [];
@@ -67646,21 +67648,21 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
   }
 
-  renderTabs() {
+  renderTabs(fromConstructor) {
     const publicAccessStates = this.getInitialState().tabStates;
     const state = this.$state.current.name;
     const username = this.$state.params.username;
 
-    this.run += 1;
+    if (!fromConstructor) {
+      this.run += 1;
+    }
 
     if (!state.includes('weco.profile')) return;
 
     const newState = this.getInitialState();
 
     // Add user tabs.
-    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
-      this.profileUser = this.UserService.user;
-
+    if (this.UserService.user.username === username) {
       // Settings.
       newState.tabItems.push('settings');
       newState.tabStates.push('weco.profile.settings');
@@ -67668,7 +67670,12 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
       // Notifications.
       newState.tabItems.push('notifications');
       newState.tabStates.push('weco.profile.notifications');
-    } else if (!publicAccessStates.includes(state)) {
+    }
+
+    // Display the viewed user's profile.
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
+      this.profileUser = this.UserService.user;
+    } else if (!publicAccessStates.includes(state) && !fromConstructor) {
       if (this.run === 1 && Object.keys(this.UserService.user).length > 0 && this.UserService.user.username === username) return;
 
       this.$state.go('weco.profile.about', { username });
