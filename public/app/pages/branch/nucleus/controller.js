@@ -9,7 +9,7 @@ class BranchNucleusController extends Injectable {
 
     this.renderTabs = this.renderTabs.bind(this);
 
-    let listeners = [];
+    const listeners = [];
     
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
@@ -54,6 +54,7 @@ class BranchNucleusController extends Injectable {
 
   renderTabs() {
     const branchid = this.BranchService.branch.id;
+    const publicAccessStates = this.getInitialState().tabStates;
     const state = this.$state.current.name;
 
     this.run += 1;
@@ -82,7 +83,7 @@ class BranchNucleusController extends Injectable {
       newState.tabStates.push('weco.branch.nucleus.flaggedposts');
       newState.tabStateParams.push({ branchid });
     }
-    else if (state !== 'weco.branch.nucleus.about' && state !== 'weco.branch.nucleus.moderators') {
+    else if (!publicAccessStates.includes(state)) {
       // NB: This would send us to the About page even if we are actually logged in
       // and a moderator. If we are not allowed here, let's redirect the intruder.
       if (this.run === 1 && Object.keys(this.UserService.user).length > 0) return;

@@ -23839,16 +23839,12 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
       templateUrl: '/app/pages/profile/settings/view.html',
       controller: 'ProfileSettingsController',
       controllerAs: 'ProfileSettings',
-      selfOnly: true,
-      redirectTo: 'auth.login',
       pageTrack: '/u/:username/settings'
     }).state('weco.profile.notifications', {
       url: '/notifications',
       templateUrl: '/app/pages/profile/notifications/view.html',
       controller: 'ProfileNotificationsController',
       controllerAs: 'ProfileNotifications',
-      selfOnly: true,
-      redirectTo: 'auth.login',
       pageTrack: '/u/:username/notifications'
     })
 
@@ -65611,7 +65607,7 @@ class TabsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
 
   getLink(index) {
     const state = Array.isArray(this.states[index]) ? this.states[index][0] : this.states[index];
-    const params = this.stateParams[index];
+    const params = this.stateParams ? this.stateParams[index] : {};
     return this.$state.href(state, params);
   }
 
@@ -66198,7 +66194,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
 
     this.renderTabs = this.renderTabs.bind(this);
 
-    let listeners = [];
+    const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
@@ -66237,6 +66233,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
 
   renderTabs() {
     const branchid = this.BranchService.branch.id;
+    const publicAccessStates = this.getInitialState().tabStates;
     const state = this.$state.current.name;
 
     this.run += 1;
@@ -66263,7 +66260,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
       newState.tabItems.push('flagged posts');
       newState.tabStates.push('weco.branch.nucleus.flaggedposts');
       newState.tabStateParams.push({ branchid });
-    } else if (state !== 'weco.branch.nucleus.about' && state !== 'weco.branch.nucleus.moderators') {
+    } else if (!publicAccessStates.includes(state)) {
       // NB: This would send us to the About page even if we are actually logged in
       // and a moderator. If we are not allowed here, let's redirect the intruder.
       if (this.run === 1 && Object.keys(this.UserService.user).length > 0) return;
@@ -67597,54 +67594,30 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
 
     this.isLoading = false;
     this.profileUser = {};
+    this.run = 0;
     this.showCover = true;
-    this.tabItems = ['about'];
-    this.tabStates = ['weco.profile.about'];
+    this.state = this.getInitialState();
 
-    this.init = this.init.bind(this);
-    this.loadOtherUser = this.loadOtherUser.bind(this);
+    this.renderTabs = this.renderTabs.bind(this);
 
-    this.init();
+    const listeners = [];
 
-    let listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  init() {
-    if (!this.$state.current.name.includes('weco.profile')) return;
-
-    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-      this.$timeout(_ => {
-        this.profileUser = this.UserService.user;
-
-        if (this.UserService.user.username === this.$state.params.username) {
-          if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
-            this.tabItems.push('settings');
-            this.tabStates.push('weco.profile.settings');
-          }
-
-          if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
-            this.tabItems.push('notifications');
-            this.tabStates.push('weco.profile.notifications');
-          }
-        }
-      });
-    } else {
-      this.loadOtherUser();
-    }
+  getInitialState() {
+    return {
+      tabItems: ['about'],
+      tabStates: ['weco.profile.about']
+    };
   }
 
-  loadOtherUser() {
-    if (this.$state.current.name !== 'weco.profile.about') {
-      this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(this.init);
-      return;
-    }
-
+  getUser(username) {
     this.isLoading = true;
-    this.UserService.fetch(this.$state.params.username).then(user => {
+
+    this.UserService.fetch(username).then(user => {
       this.profileUser = user;
       this.isLoading = false;
     }).catch(err => {
@@ -67671,6 +67644,43 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
       route: 'user/me/',
       type: 'picture'
     }, 'Successfully updated profile picture.', 'Unable to update profile picture.');
+  }
+
+  renderTabs() {
+    const publicAccessStates = this.getInitialState().tabStates;
+    const state = this.$state.current.name;
+    const username = this.$state.params.username;
+
+    this.run += 1;
+
+    if (!state.includes('weco.profile')) return;
+
+    const newState = this.getInitialState();
+
+    // Add user tabs.
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
+      this.profileUser = this.UserService.user;
+
+      // Settings.
+      newState.tabItems.push('settings');
+      newState.tabStates.push('weco.profile.settings');
+
+      // Notifications.
+      newState.tabItems.push('notifications');
+      newState.tabStates.push('weco.profile.notifications');
+    } else if (!publicAccessStates.includes(state)) {
+      if (this.run === 1 && Object.keys(this.UserService.user).length > 0 && this.UserService.user.username === username) return;
+
+      this.$state.go('weco.profile.about', { username });
+
+      if (this.UserService.user.username !== username) {
+        this.getUser(username);
+      }
+    } else if (this.UserService.user.username !== username) {
+      this.getUser(username);
+    }
+
+    this.state = newState;
   }
 }
 
@@ -67899,7 +67909,7 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
       url = this.ENV.apiEndpoint + url;
 
       // make the request
-      let req = {
+      const req = {
         method,
         transformResponse: this.normaliseResponse,
         url
@@ -67924,7 +67934,7 @@ class API extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default 
         req.params = data;
       }
 
-      this.$http(req).then(res => resolve(res.data || res)).catch(reject);
+      this.$http(req).then(res => resolve(res.data || res)).catch(err => reject(err.data || err));
     });
   }
 
@@ -68512,12 +68522,14 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /* 
 
     this.user = {};
 
-    this.fetch('me').then(user => this.set(user)).catch(() => this.EventService.emit(this.EventService.events.CHANGE_USER));
+    this.fetch('me').then(user => this.set(user)).catch(() => this.$timeout(() => {
+      this.EventService.emit(this.EventService.events.CHANGE_USER);
+    }, 500));
   }
 
   fetch(username) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username', { username }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.get('/user/:username', { username }).then(res => resolve(res.data || res)).catch(err => reject(err.data || err));
     });
   }
 
@@ -68529,7 +68541,7 @@ class UserService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /* 
 
   getNotifications(username, unreadCount, lastNotificationId) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
+      this.API.get('/user/:username/notifications', { username }, { unreadCount, lastNotificationId }).then(res => resolve(res.data)).catch(err => reject(err.data || err));
     });
   }
 

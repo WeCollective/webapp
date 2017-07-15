@@ -64,7 +64,7 @@ class API extends Injectable {
       url = this.ENV.apiEndpoint + url;
 
       // make the request
-      let req = {
+      const req = {
         method,
         transformResponse: this.normaliseResponse,
         url,
@@ -92,7 +92,7 @@ class API extends Injectable {
 
       this.$http(req)
         .then(res => resolve(res.data || res))
-        .catch(reject);
+        .catch(err => reject(err.data || err));
     });
   }
 

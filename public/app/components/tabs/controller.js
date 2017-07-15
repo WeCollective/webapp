@@ -7,7 +7,7 @@ class TabsController extends Injectable {
 
   getLink(index) {
     const state = Array.isArray(this.states[index]) ? this.states[index][0] : this.states[index];
-    const params = this.stateParams[index];
+    const params = this.stateParams ? this.stateParams[index] : {};
     return this.$state.href(state, params);
   }
 

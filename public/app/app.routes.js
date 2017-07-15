@@ -101,8 +101,6 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/profile/settings/view.html',
         controller: 'ProfileSettingsController',
         controllerAs: 'ProfileSettings',
-        selfOnly: true,
-        redirectTo: 'auth.login',
         pageTrack: '/u/:username/settings',
       })
       
@@ -111,8 +109,6 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/profile/notifications/view.html',
         controller: 'ProfileNotificationsController',
         controllerAs: 'ProfileNotifications',
-        selfOnly: true,
-        redirectTo: 'auth.login',
         pageTrack: '/u/:username/notifications',
       })
       

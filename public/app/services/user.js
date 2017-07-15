@@ -9,13 +9,15 @@ class UserService extends Injectable {
 
     this.fetch('me')
       .then(user => this.set(user))
-      .catch(() => this.EventService.emit(this.EventService.events.CHANGE_USER));
+      .catch(() => this.$timeout(() => {
+        this.EventService.emit(this.EventService.events.CHANGE_USER);
+      }, 500));
   }
 
   fetch(username) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username', { username })
-        .then(res => resolve(res.data))
+      this.API.get('/user/:username', { username })
+        .then(res => resolve(res.data || res))
         .catch(err => reject(err.data || err));
     });
   }
@@ -30,7 +32,7 @@ class UserService extends Injectable {
 
   getNotifications(username, unreadCount, lastNotificationId) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/user/:username/notifications', { username }, { unreadCount, lastNotificationId })
+      this.API.get('/user/:username/notifications', { username }, { unreadCount, lastNotificationId })
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });

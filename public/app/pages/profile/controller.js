@@ -6,55 +6,34 @@ class ProfileController extends Injectable {
 
     this.isLoading = false;
     this.profileUser = {};
+    this.run = 0;
     this.showCover = true;
-    this.tabItems = ['about'];
-    this.tabStates = ['weco.profile.about'];
+    this.state = this.getInitialState();
 
-    this.init = this.init.bind(this);
-    this.loadOtherUser = this.loadOtherUser.bind(this);
+    this.renderTabs = this.renderTabs.bind(this);
 
-    this.init();
+    const listeners = [];
 
-    let listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  init () {
-    if (!this.$state.current.name.includes('weco.profile')) return;
-    
-    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-      this.$timeout(_ => {
-        this.profileUser = this.UserService.user;
-
-        if (this.UserService.user.username === this.$state.params.username) {
-          if (!this.tabItems.includes('settings') && !this.tabStates.includes('weco.profile.settings')) {
-            this.tabItems.push('settings');
-            this.tabStates.push('weco.profile.settings');
-          }
-
-          if (!this.tabItems.includes('notifications') && !this.tabStates.includes('weco.profile.notifications')) {
-            this.tabItems.push('notifications');
-            this.tabStates.push('weco.profile.notifications');
-          }
-        }
-      });
-    }
-    else {
-      this.loadOtherUser();
-    }
+  getInitialState() {
+    return {
+      tabItems: [
+        'about',
+      ],
+      tabStates: [
+        'weco.profile.about',
+      ],
+    };
   }
 
-  loadOtherUser () {
-    if (this.$state.current.name !== 'weco.profile.about') {
-      this.$state.go('weco.profile.about', { username: this.$state.params.username }).then(this.init);
-      return;
-    }
-
+  getUser(username) {
     this.isLoading = true;
-    this.UserService.fetch(this.$state.params.username)
+
+    this.UserService.fetch(username)
       .then(user => {
         this.profileUser = user;
         this.isLoading = false;
@@ -73,22 +52,63 @@ class ProfileController extends Injectable {
       .then(this.$timeout);
   }
 
-  openCoverPictureModal () {
+  openCoverPictureModal() {
     this.ModalService.open('UPLOAD_IMAGE', {
         route: 'user/me/',
-        type: 'cover'
+        type: 'cover',
       },
       'Successfully updated cover picture.',
       'Unable to update cover picture.');
   }
 
-  openProfilePictureModal () {
+  openProfilePictureModal() {
     this.ModalService.open('UPLOAD_IMAGE', {
         route: 'user/me/',
-        type: 'picture'
+        type: 'picture',
       },
       'Successfully updated profile picture.',
       'Unable to update profile picture.');
+  }
+
+  renderTabs() {
+    const publicAccessStates = this.getInitialState().tabStates;
+    const state = this.$state.current.name;
+    const username = this.$state.params.username;
+
+    this.run += 1;
+
+    if (!state.includes('weco.profile')) return;
+
+    const newState = this.getInitialState();
+    
+    // Add user tabs.
+    if (this.UserService.isAuthenticated() && this.UserService.user.username === username) {
+      this.profileUser = this.UserService.user;
+
+      // Settings.
+      newState.tabItems.push('settings');
+      newState.tabStates.push('weco.profile.settings');
+
+      // Notifications.
+      newState.tabItems.push('notifications');
+      newState.tabStates.push('weco.profile.notifications');
+    }
+    else if (!publicAccessStates.includes(state)) {
+      if (this.run === 1 &&
+        Object.keys(this.UserService.user).length > 0 &&
+        this.UserService.user.username === username) return;
+
+      this.$state.go('weco.profile.about', { username });
+
+      if (this.UserService.user.username !== username) {
+        this.getUser(username);
+      }
+    }
+    else if (this.UserService.user.username !== username) {
+      this.getUser(username);
+    }
+
+    this.state = newState;
   }
 }
 
@@ -100,7 +120,7 @@ ProfileController.$inject = [
   'AppService',
   'EventService',
   'ModalService',
-  'UserService'
+  'UserService',
 ];
 
 export default ProfileController;
