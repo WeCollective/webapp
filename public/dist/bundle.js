@@ -67715,6 +67715,8 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
 
     this.init();
 
+    this.init = this.init.bind(this);
+
     let listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
@@ -67727,7 +67729,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       }
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getNotificationImageType(notification) {
@@ -67759,7 +67761,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
-      this.$timeout(_ => {
+      this.$timeout(() => {
         this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
         this.isLoading = false;
 
@@ -67767,22 +67769,22 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
         cache.profileNotifications = this.notifications;
         this.LocalStorageService.setObject('cache', cache);
       });
-    }).catch(_ => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+    }).catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
   init() {
     if (!this.$state.current.name.includes('weco.profile')) return;
 
     if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
-      this.$timeout(_ => this.getNotifications());
+      this.$timeout(() => this.getNotifications());
     }
   }
 
   toggleUnreadState(notification) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread).then(_ => {
+    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread).then(() => {
       this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
-      this.$timeout(_ => notification.unread = !notification.unread);
-    }).catch(_ => this.AlertsService.push('error', 'Unable to mark notification.'));
+      this.$timeout(() => notification.unread = !notification.unread);
+    }).catch(() => this.AlertsService.push('error', 'Unable to mark notification.'));
   }
 }
 
