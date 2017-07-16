@@ -1557,7 +1557,7 @@ body.style--modal-open {
   }
 }
 .modal div#modal-injected-content {
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 20px;
 }
 .modal div#modal-injected-content > div,
