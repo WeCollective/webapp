@@ -20,11 +20,13 @@ class AppConfig extends Injectable {
 
     // Google Analytics.
     this.AnalyticsProvider
-      // This line apparently does not matter...
-      .enterDebugMode(constEnvironment.debugAnalytics === true && this.ENV.name !== 'production')
       .setAccount(this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2')
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
+
+    if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
+      this.AnalyticsProvider.enterDebugMode(true)
+    }
 
     // cache
     angular.extend(this.CacheFactoryProvider.defaults, {
