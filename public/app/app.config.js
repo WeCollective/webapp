@@ -22,7 +22,7 @@ class AppConfig extends Injectable {
     this.AnalyticsProvider
       // This line apparently does not matter...
       .enterDebugMode(constEnvironment.debugAnalytics === true && this.ENV.name !== 'production')
-      .setAccount('UA-84400255-1')
+      .setAccount(this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2')
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
 

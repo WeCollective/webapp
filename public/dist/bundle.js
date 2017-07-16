@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -23707,7 +23707,7 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_2_utils_injectable__["a" /* de
     // Google Analytics.
     this.AnalyticsProvider
     // This line apparently does not matter...
-    .enterDebugMode(__WEBPACK_IMPORTED_MODULE_1_env_config__["a" /* default */].debugAnalytics === true && this.ENV.name !== 'production').setAccount('UA-84400255-1').setPageEvent('$stateChangeSuccess').logAllCalls(true);
+    .enterDebugMode(__WEBPACK_IMPORTED_MODULE_1_env_config__["a" /* default */].debugAnalytics === true && this.ENV.name !== 'production').setAccount(this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2').setPageEvent('$stateChangeSuccess').logAllCalls(true);
 
     // cache
     __WEBPACK_IMPORTED_MODULE_0_angular___default.a.extend(this.CacheFactoryProvider.defaults, {
