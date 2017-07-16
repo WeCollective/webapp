@@ -1461,104 +1461,10 @@ body.style--modal-open {
 }
 .modal {
   background-color: #fff;
-  height: 100%;
-  width: 100%;
-}
-.modal div#modal-buttons {
-  align-items: center;
-  display: flex;
-  height: 50px;
-  justify-content: flex-end;
-}
-.modal div#modal-buttons div.button {
-  margin-right: 15px;
-  width: 80px;
-}
-.modal div#modal-buttons div.button.cancel {
-  background-color: #b3b3b3;
-  border-radius: 3px;
-  color: #fff;
-  display: inline-block;
-  height: 26px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-.modal div#modal-buttons div.button.cancel:hover {
-  background-color: #494949;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-.modal div#modal-buttons div.button.cancel span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
-}
-.modal div#modal-buttons div.button.ok {
-  background-color: #92bedb;
-  border-radius: 3px;
-  color: #fff;
-  display: inline-block;
-  height: 26px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-}
-.modal div#modal-buttons div.button.ok:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-.modal div#modal-buttons div.button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 26px;
-}
-@media only screen and (min-width: 768px) {
-  .modal div#modal-buttons div.button.cancel {
-    background-color: #b3b3b3;
-    border-radius: 3px;
-    color: #fff;
-    display: inline-block;
-    height: 30px;
-    text-align: center;
-    transition: all 0.3s ease-out;
-  }
-  .modal div#modal-buttons div.button.cancel:hover {
-    background-color: #494949;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-  }
-  .modal div#modal-buttons div.button.cancel span {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 30px;
-  }
-  .modal div#modal-buttons div.button.ok {
-    background-color: #92bedb;
-    border-radius: 3px;
-    color: #fff;
-    display: inline-block;
-    height: 30px;
-    text-align: center;
-    transition: all 0.3s ease-out;
-  }
-  .modal div#modal-buttons div.button.ok:hover {
-    background-color: #3498db;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-  }
-  .modal div#modal-buttons div.button.ok span {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 30px;
-  }
 }
 .modal div#modal-injected-content {
   overflow-y: auto;
-  padding: 20px;
+  padding: 20px 20px 0;
 }
 .modal div#modal-injected-content > div,
 .modal div#modal-injected-content {
@@ -1619,6 +1525,100 @@ body.style--modal-open {
 @media only screen and (min-width: 768px) {
   .modal {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+.modal__controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px;
+}
+.modal__controls div.button {
+  width: 80px;
+}
+.modal__controls div.button.cancel {
+  background-color: #b3b3b3;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 26px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+.modal__controls div.button.cancel:hover {
+  background-color: #494949;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.modal__controls div.button.cancel span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+.modal__controls div.button.ok {
+  background-color: #92bedb;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  height: 26px;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+.modal__controls div.button.ok:hover {
+  background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.modal__controls div.button.ok span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+}
+.modal__controls div.button:not(:first-child) {
+  margin-left: 12px;
+}
+@media only screen and (min-width: 768px) {
+  .modal__controls div.button.cancel {
+    background-color: #b3b3b3;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    transition: all 0.3s ease-out;
+  }
+  .modal__controls div.button.cancel:hover {
+    background-color: #494949;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  .modal__controls div.button.cancel span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+  .modal__controls div.button.ok {
+    background-color: #92bedb;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    transition: all 0.3s ease-out;
+  }
+  .modal__controls div.button.ok:hover {
+    background-color: #3498db;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  .modal__controls div.button.ok span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
   }
 }
 .modal__overlay {

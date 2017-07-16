@@ -5,54 +5,10 @@ body.style--modal-open {
 
 .modal {
   background-color: #fff;
-  height: 100%;
-  width: 100%;
-
-  div#modal-buttons {
-    align-items: center;
-    display: flex;
-    height: 50px;
-    justify-content: flex-end;
-
-    div.button {
-      margin-right: 15px;
-      width: 80px;
-
-      &.cancel {
-        .button(#fff, @primary-6, 26px, {
-          background-color: @primary-5;
-          box-shadow: @shadow-2;
-        });
-      }
-      
-      &.ok {
-        .button(#fff, @accent-1, 26px, {
-          background-color: @accent-0;
-          box-shadow: @shadow-2;
-        });
-      }
-
-      .responsive(@screen-md, {
-        &.cancel {
-          .button(#fff, @primary-6, 30px, {
-            background-color: @primary-5;
-            box-shadow: @shadow-2;
-          });
-        }
-        
-        &.ok {
-          .button(#fff, @accent-1, 30px, {
-            background-color: @accent-0;
-            box-shadow: @shadow-2;
-          });
-        }
-      });
-    }
-  }
 
   div#modal-injected-content {
     overflow-y: auto;
-    padding: 20px;
+    padding: 20px 20px 0;
 
     > div,
     & {
@@ -113,6 +69,49 @@ body.style--modal-open {
   }
 
   .mediaQuery(@screen-md, { box-shadow: @shadow-3; });
+}
+
+.modal__controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: @g-padding-post;
+
+  div.button {
+    width: 80px;
+
+    &.cancel {
+      .button(#fff, @primary-6, 26px, {
+        background-color: @primary-5;
+        box-shadow: @shadow-2;
+      });
+    }
+    
+    &.ok {
+      .button(#fff, @accent-1, 26px, {
+        background-color: @accent-0;
+        box-shadow: @shadow-2;
+      });
+    }
+
+    &:not(:first-child) { margin-left: @g-padding-post; }
+
+    .responsive(@screen-md, {
+      &.cancel {
+        .button(#fff, @primary-6, 30px, {
+          background-color: @primary-5;
+          box-shadow: @shadow-2;
+        });
+      }
+      
+      &.ok {
+        .button(#fff, @accent-1, 30px, {
+          background-color: @accent-0;
+          box-shadow: @shadow-2;
+        });
+      }
+    });
+  }
 }
 
 .modal__overlay {
