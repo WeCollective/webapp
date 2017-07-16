@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66930,7 +66930,7 @@ class BranchPostResultsController extends __WEBPACK_IMPORTED_MODULE_1_utils_inje
           chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
         }
 
-        answer.ratioOfTotal = Math.floor(answer.votes / totalVotes * 100);
+        answer.ratioOfTotal = totalVotes ? Math.floor(answer.votes / totalVotes * 100) : 0;
 
         return answer;
       });

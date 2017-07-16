@@ -58,7 +58,7 @@ class BranchPostResultsController extends Injectable {
             chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
           }
 
-          answer.ratioOfTotal = Math.floor(answer.votes / totalVotes * 100);
+          answer.ratioOfTotal = totalVotes ? Math.floor(answer.votes / totalVotes * 100) : 0;
             
           return answer;
         });
