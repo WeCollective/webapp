@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class ModalComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ModalComponent.$inject, injections);
 
     this.replace = false;
@@ -10,16 +10,16 @@ class ModalComponent extends Injectable {
     this.templateUrl = '/app/components/modal/view.html';
   }
   
-  link (scope) {
+  link(scope) {
+    scope.Cancel = () => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
     scope.ModalService = this.ModalService;
-    scope.OK = _ => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
-    scope.Cancel = _ => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
+    scope.OK = () => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
   }
 }
 
 ModalComponent.$inject = [
   'EventService',
-  'ModalService'
+  'ModalService',
 ];
 
 export default ModalComponent;

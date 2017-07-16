@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64672,9 +64672,9 @@ class ModalComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   }
 
   link(scope) {
+    scope.Cancel = () => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
     scope.ModalService = this.ModalService;
-    scope.OK = _ => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
-    scope.Cancel = _ => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
+    scope.OK = () => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
   }
 }
 
@@ -65201,8 +65201,8 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.isOpen = false;
     this.name = '';
     this.outputArgs = {};
-    this.reject = _ => {};
-    this.resolve = _ => {};
+    this.reject = () => {};
+    this.resolve = () => {};
     this.templateUrl = '';
     this.templateUrls = {
       ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
@@ -65239,7 +65239,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
 
   finished(args, success) {
     return new Promise((resolve, reject) => {
-      this.$timeout(_ => {
+      this.$timeout(() => {
         this.isOpen = false;
         if (args) {
           this.outputArgs = args;
@@ -65263,24 +65263,28 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       // force change the template url so that controllers included on
       // the template are reloaded
       this.templateUrl = '';
-      this.$timeout(_ => this.templateUrl = this.templateUrls[name]);
-      this.isOpen = true;
-      this.inputArgs = args;
-      this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
+      this.$timeout(() => {
+        this.inputArgs = args;
+        this.isOpen = true;
+        this.templateUrl = this.templateUrls[name];
+        this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
 
-      new Promise((resolve, reject) => {
-        this.resolve = resolve;
-        this.reject = reject;
-      }).then(result => this.$timeout(_ => {
-        // force reload if OK was pressed
-        if (result) {
-          this.$state.go(this.$state.current, {}, { reload: true });
-          this.AlertsService.push('success', successMessage);
-          return resolve(this.outputArgs);
-        }
-      }, 1500)).catch(_ => {
-        this.AlertsService.push('error', errorMessage);
-        return reject();
+        new Promise((resolve, reject) => {
+          this.resolve = resolve;
+          this.reject = reject;
+        })
+        // todo Investigate why is this timeout set to 1500ms.
+        .then(result => this.$timeout(() => {
+          // force reload if OK was pressed
+          if (result) {
+            this.$state.go(this.$state.current, {}, { reload: true });
+            this.AlertsService.push('success', successMessage);
+            return resolve(this.outputArgs);
+          }
+        }, 1500)).catch(() => {
+          this.AlertsService.push('error', errorMessage);
+          return reject();
+        });
       });
     });
   }

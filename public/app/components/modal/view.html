@@ -1,16 +1,22 @@
-<div id="modal-backdrop" ng-show="ModalService.isOpen"></div>
+<div
+  class="modal__overlay ng-hide"
+  ng-show="ModalService.isOpen">
+</div>
 
-<div id="modal-container" ng-show="ModalService.isOpen">
-  <div id="modal-content">
-    <div id="modal-content-wrapper">
-      <div id="modal-injected-content" ng-include="ModalService.templateUrl"></div>
-      <div id="modal-buttons">
-        <div class="button cancel" ng-click="Cancel()">
-        	<span>CANCEL</span>
-        </div>
-        <div class="button ok" ng-click="OK()">
-          <span>OK</span>
-        </div>
+<div
+  class="modal__wrapper"
+  ng-show="ModalService.isOpen">
+  <div
+    class="modal ng-hide"
+    ng-show="ModalService.isOpen">
+    <div id="modal-injected-content" ng-include="ModalService.templateUrl"></div>
+
+    <div id="modal-buttons">
+      <div class="button cancel" ng-click="Cancel()">
+        <span>CANCEL</span>
+      </div>
+      <div class="button ok" ng-click="OK()">
+        <span>OK</span>
       </div>
     </div>
   </div>

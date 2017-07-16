@@ -1455,77 +1455,26 @@ div.tag-editor p {
 .tooltip:empty {
   display: none;
 }
-body.modalOpen {
+body.style--modal-open {
   overflow: hidden;
   position: fixed;
 }
-div#modal-backdrop {
-  background-color: #000;
-  height: 100%;
-  opacity: 0;
-  position: fixed;
-  width: 100%;
-  z-index: 13;
-  transition: opacity 0.5s ease-out;
-}
-div#modal-backdrop:not(.ng-hide) {
-  opacity: .5;
-  transition: opacity 0.5s ease-out;
-}
-div#modal-container {
-  height: 100%;
-  position: fixed;
-  width: 100%;
-  z-index: 13;
-}
-div#modal-container.ng-hide div#modal-content {
-  margin-top: 50px;
-  opacity: 0;
-  transition: all 0.5s ease-out;
-}
-div#modal-container:not(.ng-hide) div#modal-content {
-  margin-top: 0;
-  opacity: 1;
-  transition: all 0.5s ease-out;
-}
-div#modal-container div#modal-content {
+.modal {
   background-color: #fff;
-  display: inline-block;
   height: 100%;
-  position: relative;
   width: 100%;
 }
-@media only screen and (min-width: 768px) {
-  div#modal-container div#modal-content {
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    height: auto;
-    left: 50%;
-    max-height: 90%;
-    max-width: 90%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-  }
-}
-div#modal-container div#modal-content div#modal-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  width: 100%;
-}
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons {
+.modal div#modal-buttons {
   align-items: center;
   display: flex;
   height: 50px;
   justify-content: flex-end;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button {
+.modal div#modal-buttons div.button {
   margin-right: 15px;
   width: 80px;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
+.modal div#modal-buttons div.button.cancel {
   background-color: #b3b3b3;
   border-radius: 3px;
   color: #fff;
@@ -1534,18 +1483,18 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
   text-align: center;
   transition: all 0.3s ease-out;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
+.modal div#modal-buttons div.button.cancel:hover {
   background-color: #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
+.modal div#modal-buttons div.button.cancel span {
   font-size: 14px;
   font-weight: 500;
   line-height: 26px;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
+.modal div#modal-buttons div.button.ok {
   background-color: #92bedb;
   border-radius: 3px;
   color: #fff;
@@ -1554,19 +1503,19 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
   text-align: center;
   transition: all 0.3s ease-out;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
+.modal div#modal-buttons div.button.ok:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
+.modal div#modal-buttons div.button.ok span {
   font-size: 14px;
   font-weight: 500;
   line-height: 26px;
 }
 @media only screen and (min-width: 768px) {
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel {
+  .modal div#modal-buttons div.button.cancel {
     background-color: #b3b3b3;
     border-radius: 3px;
     color: #fff;
@@ -1575,18 +1524,18 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
     text-align: center;
     transition: all 0.3s ease-out;
   }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel:hover {
+  .modal div#modal-buttons div.button.cancel:hover {
     background-color: #494949;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.cancel span {
+  .modal div#modal-buttons div.button.cancel span {
     font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok {
+  .modal div#modal-buttons div.button.ok {
     background-color: #92bedb;
     border-radius: 3px;
     color: #fff;
@@ -1595,41 +1544,40 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-button
     text-align: center;
     transition: all 0.3s ease-out;
   }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok:hover {
+  .modal div#modal-buttons div.button.ok:hover {
     background-color: #3498db;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
-  div#modal-container div#modal-content div#modal-content-wrapper div#modal-buttons div.button.ok span {
+  .modal div#modal-buttons div.button.ok span {
     font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content {
-  flex: 1;
+.modal div#modal-injected-content {
   overflow-y: scroll;
   padding: 20px;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content {
+.modal div#modal-injected-content > div,
+.modal div#modal-injected-content {
   position: relative;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div h1,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content h1 {
+.modal div#modal-injected-content > div h1,
+.modal div#modal-injected-content h1 {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 15px;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div p.error-message,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content p.error-message {
+.modal div#modal-injected-content > div p.error-message,
+.modal div#modal-injected-content p.error-message {
   color: #c0392b;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div input:not([type="checkbox"]),
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content input:not([type="checkbox"]),
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div textarea:not([type="checkbox"]),
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content textarea:not([type="checkbox"]) {
+.modal div#modal-injected-content > div input:not([type="checkbox"]),
+.modal div#modal-injected-content input:not([type="checkbox"]),
+.modal div#modal-injected-content > div textarea:not([type="checkbox"]),
+.modal div#modal-injected-content textarea:not([type="checkbox"]) {
   border: 1px solid #e7e7e7;
   border-radius: 3px;
   box-sizing: border-box;
@@ -1642,11 +1590,96 @@ div#modal-container div#modal-content div#modal-content-wrapper div#modal-inject
   padding: 10px 15px;
   width: 100%;
 }
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div input:focus,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content input:focus,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content > div textarea:focus,
-div#modal-container div#modal-content div#modal-content-wrapper div#modal-injected-content textarea:focus {
+.modal div#modal-injected-content > div input:focus,
+.modal div#modal-injected-content input:focus,
+.modal div#modal-injected-content > div textarea:focus,
+.modal div#modal-injected-content textarea:focus {
   outline: none;
+}
+.modal.ng-hide-add,
+.modal.ng-hide-remove {
+  transition: opacity .5s, transform .5s;
+}
+.modal.ng-hide-add {
+  opacity: 1;
+  transform: scale(1);
+}
+.modal.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  transform: scale(0.75);
+}
+.modal.ng-hide-remove {
+  opacity: 0;
+  transform: scale(0.75);
+}
+.modal.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  transform: scale(1);
+}
+@media only screen and (min-width: 768px) {
+  .modal {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+.modal__overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 13;
+}
+.modal__overlay.ng-hide-add,
+.modal__overlay.ng-hide-remove {
+  transition: opacity .5s;
+}
+.modal__overlay.ng-hide-add {
+  opacity: 1;
+}
+.modal__overlay.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.modal__overlay.ng-hide-remove {
+  opacity: 0;
+}
+.modal__overlay.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+.modal__wrapper {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 13;
+}
+@media only screen and (min-width: 768px) {
+  .modal__wrapper {
+    height: auto;
+    left: 50%;
+    max-height: 400px;
+    max-width: 480px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+  }
+}
+.modal__wrapper.ng-hide-add,
+.modal__wrapper.ng-hide-remove {
+  transition: opacity .5s;
+}
+.modal__wrapper.ng-hide-add {
+  opacity: 1;
+}
+.modal__wrapper.ng-hide-add.ng-hide-add-active {
+  opacity: 1;
+}
+.modal__wrapper.ng-hide-remove {
+  opacity: 1;
+}
+.modal__wrapper.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
 }
 div#upload-image-modal div#dragdrop {
   background-color: #e7e7e7;
@@ -2106,132 +2139,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: pointer;
   text-decoration: underline;
 }
-div#home-content {
-  left: 50%;
-  margin-top: -60px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-}
-@media only screen and (min-width: 576px) {
-  div#home-content {
-    width: 400px;
-  }
-}
-div#home-content form {
-  height: 40px;
-  position: relative;
-  width: 100%;
-}
-div#home-content form img {
-  height: 20px;
-  opacity: .5;
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: auto;
-}
-div#home-content form input {
-  background-color: #c8c8c8;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  padding: 0 20px;
-  width: 100%;
-}
-div#home-content form input:focus {
-  outline: none;
-}
-div#home-content img {
-  height: auto;
-  margin-bottom: 20px;
-  width: 80%;
-}
-div#home-footer {
-  bottom: 0;
-  font-size: 12px;
-  position: fixed;
-  width: 100%;
-}
-@media only screen and (min-width: 768px) {
-  div#home-footer {
-    font-size: 14px;
-  }
-}
-div#home-footer div#footer-stats {
-  background-color: #ebebeb;
-  box-sizing: border-box;
-  padding: 10px 0;
-  position: relative;
-  white-space: nowrap;
-  width: 100%;
-}
-div#home-footer div#footer-stats ul {
-  box-sizing: border-box;
-  display: inline-block;
-  font-weight: 500;
-  white-space: normal;
-  width: 50%;
-}
-div#home-footer div#footer-stats ul#fields {
-  color: #494949;
-  padding-right: 5px;
-  text-align: right;
-}
-div#home-footer div#footer-stats ul#values {
-  padding-left: 5px;
-}
-div#home-footer ul#footer-links {
-  background-color: #d9d9d9;
-  box-sizing: border-box;
-  padding: 10px 0;
-  text-align: center;
-}
-div#home-footer ul#footer-links li {
-  display: inline-block;
-  margin: 5px 10px;
-  position: relative;
-}
-div#home-footer ul#footer-links li a {
-  display: inline-block;
-}
-div#home-footer ul#footer-links li a:hover {
-  text-decoration: underline;
-}
-div#home-footer ul#footer-links li span {
-  font-weight: 500;
-}
-div#home-footer ul#footer-links li:not(:last-child):after {
-  content: '|';
-  display: inline-block;
-  left: calc(100% + 8px);
-  line-height: 1.3;
-  position: absolute;
-  top: 0;
-}
-div#notfound {
-  background: #fff;
-  background: radial-gradient(#fff, #e7e7e7);
-  text-align: center;
-}
-div#notfound div {
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-div#notfound div h1 {
-  font-size: 100px;
-  font-weight: 300;
-}
-div#notfound div h2 {
-  font-size: 28px;
-  font-weight: 300;
-}
 .content-header .button {
   margin: 0;
 }
@@ -2249,210 +2156,6 @@ div#notfound div h2 {
 .content-header .button > a:not(.disabled):hover,
 .content-header .button > a.selected {
   background-image: url('/assets/images/icons/black/add--hover.jpg');
-}
-div#branch-subbranches div.content-body ul {
-  overflow-x: hidden;
-}
-div#branch-subbranches div.content-body ul li.list-item {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-direction: row;
-  min-height: 90px;
-  padding: 8px 0;
-  width: 100%;
-}
-div#branch-subbranches div.content-body ul li.list-item span.list-item-index {
-  color: #c8c8c8;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 90px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
-  align-self: center;
-  background-color: #e74c3c;
-  border-radius: 5px;
-  height: 30px;
-  margin: 0 10px;
-  min-width: 50px;
-  position: relative;
-  text-align: center;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
-  width: 16px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags span {
-  color: #fff;
-  font-size: 14px;
-  line-height: 30px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 90px;
-  margin-left: 6px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon {
-  cursor: pointer;
-  height: 26px;
-  opacity: .2;
-  width: 26px;
-  transition: opacity .2s;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes p {
-  margin: 0;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
-  background-position: center;
-  background-size: cover;
-  border-radius: 4px;
-  height: 90px;
-  margin: 0 10px 0 12px;
-  width: 90px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item-image div:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label {
-  background-color: #ffecee;
-  border: 2px solid #ff8095;
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 90px;
-  margin-right: 10px;
-  padding: 2px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label span {
-  color: #ff8095;
-  font-size: 11px;
-  font-weight: 600;
-  text-orientation: upright;
-  writing-mode: tb;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info {
-  flex: 1;
-  height: 100%;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 500;
-  vertical-align: top;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
-  margin-left: 4px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
-  color: #3498db;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
-  color: #b3b3b3;
-  vertical-align: top;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
-  text-decoration: none;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
-  opacity: 1;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
-  color: #2c2c2c;
-  text-decoration: none;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
-  color: #b3b3b3;
-  cursor: pointer;
-  height: 16px;
-  opacity: .3;
-  width: 16px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
-  opacity: 1;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__separator {
-  background-color: #b3b3b3;
-  display: inline-block;
-  height: 14px;
-  margin: 0 4px;
-  position: relative;
-  top: -1px;
-  width: 1px;
-}
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats {
-  margin-right: 12px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
-  color: #2c2c2c;
-  font-size: 14px;
-  font-weight: 500;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
-  height: 24px;
-  opacity: .3;
-  position: relative;
-  top: 3px;
-  vertical-align: bottom;
-  width: 24px;
-}
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-percentage {
-  color: #b3b3b3;
-  font-size: 14px;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-branch .list-item-info .list-item__title {
-  font-size: 18px;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer {
-  align-items: center;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0 12px;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
-  color: #fff;
-  height: 40px;
-  border-radius: 3px;
-  line-height: 40px;
-  margin-right: 12px;
-  text-align: center;
-  width: 40px;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer.style--selected {
-  background-color: #eff2f7;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result) {
-  cursor: pointer;
-}
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
-  background-color: #eff2f7;
 }
 div#branch-nucleus div.content-body {
   padding: 10px 20px;
@@ -2916,543 +2619,6 @@ div#branch-nucleus div.content-header div.content-controls ul.tabs {
   }
   div#branch-nucleus div.content-header div.content-controls ul.tabs {
     white-space: normal;
-  }
-}
-div#branch-wall {
-  box-sizing: border-box;
-  position: relative;
-}
-div#branch-wall div.content-body ul#post-list {
-  overflow: hidden;
-}
-div#branch-wall div.content-body ul#post-list li.list-item {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-direction: row;
-  min-height: 70px;
-  padding: 8px 0;
-  width: 100%;
-}
-div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
-  color: #c8c8c8;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 70px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
-  align-self: center;
-  background-color: #e74c3c;
-  border-radius: 5px;
-  height: 30px;
-  margin: 0 10px;
-  min-width: 50px;
-  position: relative;
-  text-align: center;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
-  width: 16px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags span {
-  color: #fff;
-  font-size: 14px;
-  line-height: 30px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 70px;
-  margin-left: 6px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
-  cursor: pointer;
-  height: 26px;
-  opacity: .2;
-  width: 26px;
-  transition: opacity .2s;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes p {
-  margin: 0;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div {
-  background-position: center;
-  background-size: cover;
-  border-radius: 4px;
-  height: 70px;
-  margin: 0 10px 0 12px;
-  width: 70px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
-  background-color: #ffecee;
-  border: 2px solid #ff8095;
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 70px;
-  margin-right: 10px;
-  padding: 2px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
-  color: #ff8095;
-  font-size: 11px;
-  font-weight: 600;
-  text-orientation: upright;
-  writing-mode: tb;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
-  flex: 1;
-  height: 100%;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 500;
-  vertical-align: top;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
-  margin-left: 4px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
-  color: #3498db;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
-  color: #b3b3b3;
-  vertical-align: top;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
-  text-decoration: none;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
-  opacity: 1;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
-  color: #2c2c2c;
-  text-decoration: none;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
-  color: #b3b3b3;
-  cursor: pointer;
-  height: 16px;
-  opacity: .3;
-  width: 16px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
-  opacity: 1;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
-  background-color: #b3b3b3;
-  display: inline-block;
-  height: 14px;
-  margin: 0 4px;
-  position: relative;
-  top: -1px;
-  width: 1px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats {
-  margin-right: 12px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
-  color: #2c2c2c;
-  font-size: 14px;
-  font-weight: 500;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
-  height: 24px;
-  opacity: .3;
-  position: relative;
-  top: 3px;
-  vertical-align: bottom;
-  width: 24px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
-  color: #b3b3b3;
-  font-size: 14px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
-  font-size: 18px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer {
-  align-items: center;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0 12px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
-  color: #fff;
-  height: 40px;
-  border-radius: 3px;
-  line-height: 40px;
-  margin-right: 12px;
-  text-align: center;
-  width: 40px;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
-  background-color: #eff2f7;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
-  cursor: pointer;
-}
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
-  background-color: #eff2f7;
-}
-div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
-  overflow-x: scroll;
-}
-div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
-    overflow-x: auto;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
-    white-space: normal;
-  }
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li {
-  padding: 5px 0;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span {
-  font-weight: 500;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span:hover,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span {
-  font-size: 14px;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.field {
-  color: #c8c8c8;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
-  color: #3498db;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.marked-title {
-  display: block;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span {
-  font-weight: 500;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li {
-  padding: 5px 0;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span:hover,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span {
-  font-size: 14px;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
-  color: #c8c8c8;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
-  color: #3498db;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.marked-title {
-  display: block;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
-  height: 100%;
-  overflow-y: scroll;
-  position: relative;
-  width: 100%;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications div#empty {
-  font-style: italic;
-  margin: 10px;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  overflow: hidden;
-  padding: 10px 20px 10px 10px;
-  position: relative;
-  transition: background-color 0.3s;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
-  background-color: #eff2f7;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-  background-color: #d8d9de;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-  background-color: transparent;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-  background-color: transparent;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-  border: 1px solid #c8c8c8;
-  border-radius: 50%;
-  height: 15px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-  cursor: pointer;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-  height: 40px;
-  margin-right: 10px;
-  width: 40px;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-  display: block;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-  color: #3498db;
-  font-weight: 500;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-  text-decoration: underline;
-}
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-  font-style: italic;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-    height: 50px;
-    margin-right: 10px;
-    width: 50px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-    height: 65px;
-    margin-right: 10px;
-    width: 65px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
   }
 }
 .post {
@@ -4083,5 +3249,872 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   .post .loading-container {
     height: calc(100% - 20px);
     width: calc(100% - 20px);
+  }
+}
+div#branch-subbranches div.content-body ul {
+  overflow-x: hidden;
+}
+div#branch-subbranches div.content-body ul li.list-item {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-direction: row;
+  min-height: 90px;
+  padding: 8px 0;
+  width: 100%;
+}
+div#branch-subbranches div.content-body ul li.list-item span.list-item-index {
+  color: #c8c8c8;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 90px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
+  align-self: center;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags img {
+  height: auto;
+  left: 12px;
+  opacity: 1;
+  top: 0;
+  vertical-align: middle;
+  width: 16px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-flags span {
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  margin-left: 6px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
+  height: 26px;
+  opacity: .2;
+  width: 26px;
+  transition: opacity .2s;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
+  opacity: .6;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__votes p {
+  margin: 0;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  height: 90px;
+  margin: 0 10px 0 12px;
+  width: 90px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item-image div:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label {
+  background-color: #ffecee;
+  border: 2px solid #ff8095;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 90px;
+  margin-right: 10px;
+  padding: 2px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label span {
+  color: #ff8095;
+  font-size: 11px;
+  font-weight: 600;
+  text-orientation: upright;
+  writing-mode: tb;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info {
+  flex: 1;
+  height: 100%;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 500;
+  vertical-align: top;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+  text-decoration: none;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+  opacity: 1;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+  color: #2c2c2c;
+  text-decoration: none;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
+  cursor: pointer;
+  height: 16px;
+  opacity: .3;
+  width: 16px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+  opacity: 1;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
+  display: inline-block;
+  height: 14px;
+  margin: 0 4px;
+  position: relative;
+  top: -1px;
+  width: 1px;
+}
+div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__radio-button {
+  height: 20px;
+  margin: 0 12px;
+  width: 20px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-branch .list-item-info .list-item__title {
+  font-size: 18px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+div#branch-wall {
+  box-sizing: border-box;
+  position: relative;
+}
+div#branch-wall div.content-body ul#post-list {
+  overflow: hidden;
+}
+div#branch-wall div.content-body ul#post-list li.list-item {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-direction: row;
+  min-height: 70px;
+  padding: 8px 0;
+  width: 100%;
+}
+div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
+  color: #c8c8c8;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 70px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
+  align-self: center;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags img {
+  height: auto;
+  left: 12px;
+  opacity: 1;
+  top: 0;
+  vertical-align: middle;
+  width: 16px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags span {
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  margin-left: 6px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
+  height: 26px;
+  opacity: .2;
+  width: 26px;
+  transition: opacity .2s;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
+  opacity: .6;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes p {
+  margin: 0;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div {
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  height: 70px;
+  margin: 0 10px 0 12px;
+  width: 70px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
+  background-color: #ffecee;
+  border: 2px solid #ff8095;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 70px;
+  margin-right: 10px;
+  padding: 2px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
+  color: #ff8095;
+  font-size: 11px;
+  font-weight: 600;
+  text-orientation: upright;
+  writing-mode: tb;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
+  flex: 1;
+  height: 100%;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 500;
+  vertical-align: top;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+  text-decoration: none;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+  opacity: 1;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+  color: #2c2c2c;
+  text-decoration: none;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
+  cursor: pointer;
+  height: 16px;
+  opacity: .3;
+  width: 16px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+  opacity: 1;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
+  display: inline-block;
+  height: 14px;
+  margin: 0 4px;
+  position: relative;
+  top: -1px;
+  width: 1px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__radio-button {
+  height: 20px;
+  margin: 0 12px;
+  width: 20px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats {
+  margin-right: 12px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
+  font-size: 18px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+div#home-content {
+  left: 50%;
+  margin-top: -60px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+@media only screen and (min-width: 576px) {
+  div#home-content {
+    width: 400px;
+  }
+}
+div#home-content form {
+  height: 40px;
+  position: relative;
+  width: 100%;
+}
+div#home-content form img {
+  height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: auto;
+}
+div#home-content form input {
+  background-color: #c8c8c8;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  padding: 0 20px;
+  width: 100%;
+}
+div#home-content form input:focus {
+  outline: none;
+}
+div#home-content img {
+  height: auto;
+  margin-bottom: 20px;
+  width: 80%;
+}
+div#home-footer {
+  bottom: 0;
+  font-size: 12px;
+  position: fixed;
+  width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  div#home-footer {
+    font-size: 14px;
+  }
+}
+div#home-footer div#footer-stats {
+  background-color: #ebebeb;
+  box-sizing: border-box;
+  padding: 10px 0;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
+}
+div#home-footer div#footer-stats ul {
+  box-sizing: border-box;
+  display: inline-block;
+  font-weight: 500;
+  white-space: normal;
+  width: 50%;
+}
+div#home-footer div#footer-stats ul#fields {
+  color: #494949;
+  padding-right: 5px;
+  text-align: right;
+}
+div#home-footer div#footer-stats ul#values {
+  padding-left: 5px;
+}
+div#home-footer ul#footer-links {
+  background-color: #d9d9d9;
+  box-sizing: border-box;
+  padding: 10px 0;
+  text-align: center;
+}
+div#home-footer ul#footer-links li {
+  display: inline-block;
+  margin: 5px 10px;
+  position: relative;
+}
+div#home-footer ul#footer-links li a {
+  display: inline-block;
+}
+div#home-footer ul#footer-links li a:hover {
+  text-decoration: underline;
+}
+div#home-footer ul#footer-links li span {
+  font-weight: 500;
+}
+div#home-footer ul#footer-links li:not(:last-child):after {
+  content: '|';
+  display: inline-block;
+  left: calc(100% + 8px);
+  line-height: 1.3;
+  position: absolute;
+  top: 0;
+}
+div#notfound {
+  background: #fff;
+  background: radial-gradient(#fff, #e7e7e7);
+  text-align: center;
+}
+div#notfound div {
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+div#notfound div h1 {
+  font-size: 100px;
+  font-weight: 300;
+}
+div#notfound div h2 {
+  font-size: 28px;
+  font-weight: 300;
+}
+div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
+  overflow-x: scroll;
+}
+div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
+  white-space: nowrap;
+}
+@media only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
+    overflow-x: auto;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
+    white-space: normal;
+  }
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li {
+  padding: 5px 0;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span,
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span {
+  font-weight: 500;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span:hover,
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span {
+  font-size: 14px;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.field {
+  color: #c8c8c8;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
+  color: #3498db;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a:hover {
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.marked-title {
+  display: block;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span {
+  font-weight: 500;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li div.value {
+  font-size: 14px;
+  width: 100%;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li {
+  padding: 5px 0;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span,
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span {
+  font-weight: 500;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span:hover,
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span {
+  font-size: 14px;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
+  color: #c8c8c8;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
+  color: #3498db;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a:hover {
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.marked-title {
+  display: block;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span {
+  font-weight: 500;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
+  font-size: 14px;
+  width: 100%;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications div#empty {
+  font-style: italic;
+  margin: 10px;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 20px 10px 10px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+@media only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+  background-color: #eff2f7;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+  background-color: #d8d9de;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+  background-color: transparent;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+  background-color: transparent;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+  border: 1px solid #c8c8c8;
+  border-radius: 50%;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+  cursor: pointer;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+  display: block;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+@media only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+  color: #3498db;
+  font-weight: 500;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+  text-decoration: underline;
+}
+div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+  font-style: italic;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+    height: 50px;
+    margin-right: 10px;
+    width: 50px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+    height: 65px;
+    margin-right: 10px;
+    width: 65px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
   }
 }

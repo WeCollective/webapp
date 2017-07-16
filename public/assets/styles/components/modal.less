@@ -1,150 +1,181 @@
-body.modalOpen {
+body.style--modal-open {
   overflow: hidden;
   position: fixed;
 }
 
-div#modal-backdrop {
-  background-color: #000;
+.modal {
+  background-color: #fff;
   height: 100%;
-  opacity: 0;
+  width: 100%;
+
+  div#modal-buttons {
+    align-items: center;
+    display: flex;
+    height: 50px;
+    justify-content: flex-end;
+
+    div.button {
+      margin-right: 15px;
+      width: 80px;
+
+      &.cancel {
+        .button(#fff, @primary-6, 26px, {
+          background-color: @primary-5;
+          box-shadow: @shadow-2;
+        });
+      }
+      
+      &.ok {
+        .button(#fff, @accent-1, 26px, {
+          background-color: @accent-0;
+          box-shadow: @shadow-2;
+        });
+      }
+
+      .responsive(@screen-md, {
+        &.cancel {
+          .button(#fff, @primary-6, 30px, {
+            background-color: @primary-5;
+            box-shadow: @shadow-2;
+          });
+        }
+        
+        &.ok {
+          .button(#fff, @accent-1, 30px, {
+            background-color: @accent-0;
+            box-shadow: @shadow-2;
+          });
+        }
+      });
+    }
+  }
+
+  div#modal-injected-content {
+    overflow-y: scroll;
+    padding: 20px;
+
+    > div,
+    & {
+      position: relative;
+
+      h1 {
+        font-size: @font-size-md;
+        font-weight: @font-weight-heavy;
+        margin-bottom: 15px;
+      }
+
+      p.error-message { color: @caution-0; }
+
+      input,
+      textarea {
+        &:not([type="checkbox"]) {
+          border: 1px solid @light-grey;
+          border-radius: 3px;
+          box-sizing: border-box;
+          font-size: @font-size-sm;
+          font-weight: @font-weight-light;
+          display: block;
+          margin: 10px 0;
+          max-height: 500px;
+          max-width: 100%;
+          padding: 10px 15px;
+          width: 100%;
+        }
+
+        &:focus { outline: none; }
+      }
+    }
+  }
+
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: opacity .5s, transform .5s;
+  }
+
+  &.ng-hide-add {
+    opacity: 1;
+    transform: scale(1);
+
+    &.ng-hide-add-active {
+      opacity: 0;
+      transform: scale(.75);
+    }
+  }
+
+  &.ng-hide-remove {
+    opacity: 0;
+    transform: scale(.75);
+
+    &.ng-hide-remove-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .mediaQuery(@screen-md, { box-shadow: @shadow-3; });
+}
+
+.modal__overlay {
+  background-color: rgba(0, 0, 0, .75);
+  height: 100%;
+  left: 0;
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: @z-modal;
-  transition: opacity .5s ease-out;
-  
-  &:not(.ng-hide) {
-    opacity: .5;
-    transition: opacity .5s ease-out;
+
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: opacity .5s;
+  }
+
+  &.ng-hide-add {
+    opacity: 1;
+
+    &.ng-hide-add-active { opacity: 0; }
+  }
+
+  &.ng-hide-remove {
+    opacity: 0;
+
+    &.ng-hide-remove-active { opacity: 1; }
   }
 }
 
-div#modal-container {
+.modal__wrapper {
   height: 100%;
+  left: 0;
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: @z-modal;
 
-  &.ng-hide {
-    div#modal-content {
-      margin-top: 50px;
-      opacity: 0;
-      transition: all .5s ease-out;
-    }
+  .mediaQuery(@screen-md, {
+    height: auto;
+    left: 50%;
+    max-height: 400px;
+    max-width: 480px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+  });
+
+  // These are here only so that the correct
+  // animation plays on the child modal content.
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: opacity .5s;
   }
 
-  &:not(.ng-hide) {
-    div#modal-content {
-      margin-top: 0;
-      opacity: 1;
-      transition: all .5s ease-out;
-    }
+  &.ng-hide-add {
+    opacity: 1;
+
+    &.ng-hide-add-active { opacity: 1; }
   }
 
-  div#modal-content {
-    background-color: #fff;
-    display: inline-block;
-    height: 100%;
-    position: relative;
-    width: 100%;
+  &.ng-hide-remove {
+    opacity: 1;
 
-    .responsive(@screen-md, {
-      border-radius: 8px;
-      box-shadow: @shadow-3;
-      height: auto;
-      left: 50%;
-      max-height: 90%;
-      max-width: 90%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: auto;
-    });
-
-    div#modal-content-wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      position: relative;
-      width: 100%;
-
-      div#modal-buttons {
-        align-items: center;
-        display: flex;
-        height: 50px;
-        justify-content: flex-end;
-
-        div.button {
-          margin-right: 15px;
-          width: 80px;
-
-          &.cancel {
-            .button(#fff, @primary-6, 26px, {
-              background-color: @primary-5;
-              box-shadow: @shadow-2;
-            });
-          }
-          
-          &.ok {
-            .button(#fff, @accent-1, 26px, {
-              background-color: @accent-0;
-              box-shadow: @shadow-2;
-            });
-          }
-
-          .responsive(@screen-md, {
-            &.cancel {
-              .button(#fff, @primary-6, 30px, {
-                background-color: @primary-5;
-                box-shadow: @shadow-2;
-              });
-            }
-            
-            &.ok {
-              .button(#fff, @accent-1, 30px, {
-                background-color: @accent-0;
-                box-shadow: @shadow-2;
-              });
-            }
-          });
-        }
-      }
-
-      div#modal-injected-content {
-        flex: 1;
-        overflow-y: scroll;
-        padding: 20px;
-
-        > div,
-        & {
-          position: relative;
-
-          h1 {
-            font-size: @font-size-md;
-            font-weight: @font-weight-heavy;
-            margin-bottom: 15px;
-          }
-
-          p.error-message { color: @caution-0; }
-
-          input,
-          textarea {
-            &:not([type="checkbox"]) {
-              border: 1px solid @light-grey;
-              border-radius: 3px;
-              box-sizing: border-box;
-              font-size: @font-size-sm;
-              font-weight: @font-weight-light;
-              display: block;
-              margin: 10px 0;
-              max-height: 500px;
-              max-width: 100%;
-              padding: 10px 15px;
-              width: 100%;
-            }
-
-            &:focus { outline: none; }
-          }
-        }
-      }
-    }
+    &.ng-hide-remove-active { opacity: 1; }
   }
 }
