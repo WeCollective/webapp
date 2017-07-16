@@ -23,7 +23,6 @@ class AppConfig extends Injectable {
       // This line apparently does not matter...
       .enterDebugMode(constEnvironment.debugAnalytics === true && this.ENV.name !== 'production')
       .setAccount('UA-84400255-1')
-      .setDomainName(this.ENV.name === 'production' ? 'weco.io' : 'none')
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
 

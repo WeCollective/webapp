@@ -1504,7 +1504,7 @@ body.style--modal-open {
 }
 .modal.ng-hide-add,
 .modal.ng-hide-remove {
-  transition: opacity .5s, transform .5s;
+  transition: opacity 0.4s, transform 0.4s;
 }
 .modal.ng-hide-add {
   opacity: 1;
@@ -1527,16 +1527,10 @@ body.style--modal-open {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }
-.modal__controls {
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px;
-}
-.modal__controls div.button {
+.modal__button {
   width: 80px;
 }
-.modal__controls div.button.cancel {
+.modal__button.style--secondary {
   background-color: #b3b3b3;
   border-radius: 3px;
   color: #fff;
@@ -1545,18 +1539,18 @@ body.style--modal-open {
   text-align: center;
   transition: all 0.3s ease-out;
 }
-.modal__controls div.button.cancel:hover {
+.modal__button.style--secondary:hover {
   background-color: #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-.modal__controls div.button.cancel span {
+.modal__button.style--secondary span {
   font-size: 14px;
   font-weight: 500;
   line-height: 26px;
 }
-.modal__controls div.button.ok {
+.modal__button.style--primary {
   background-color: #92bedb;
   border-radius: 3px;
   color: #fff;
@@ -1565,22 +1559,22 @@ body.style--modal-open {
   text-align: center;
   transition: all 0.3s ease-out;
 }
-.modal__controls div.button.ok:hover {
+.modal__button.style--primary:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-.modal__controls div.button.ok span {
+.modal__button.style--primary span {
   font-size: 14px;
   font-weight: 500;
   line-height: 26px;
 }
-.modal__controls div.button:not(:first-child) {
+.modal__button:not(:first-child) {
   margin-left: 12px;
 }
 @media only screen and (min-width: 768px) {
-  .modal__controls div.button.cancel {
+  .modal__button.style--secondary {
     background-color: #b3b3b3;
     border-radius: 3px;
     color: #fff;
@@ -1589,18 +1583,18 @@ body.style--modal-open {
     text-align: center;
     transition: all 0.3s ease-out;
   }
-  .modal__controls div.button.cancel:hover {
+  .modal__button.style--secondary:hover {
     background-color: #494949;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
-  .modal__controls div.button.cancel span {
+  .modal__button.style--secondary span {
     font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
-  .modal__controls div.button.ok {
+  .modal__button.style--primary {
     background-color: #92bedb;
     border-radius: 3px;
     color: #fff;
@@ -1609,17 +1603,23 @@ body.style--modal-open {
     text-align: center;
     transition: all 0.3s ease-out;
   }
-  .modal__controls div.button.ok:hover {
+  .modal__button.style--primary:hover {
     background-color: #3498db;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
-  .modal__controls div.button.ok span {
+  .modal__button.style--primary span {
     font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
+}
+.modal__controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px;
 }
 .modal__overlay {
   background-color: rgba(0, 0, 0, 0.75);
@@ -1632,7 +1632,7 @@ body.style--modal-open {
 }
 .modal__overlay.ng-hide-add,
 .modal__overlay.ng-hide-remove {
-  transition: opacity .5s;
+  transition: opacity 0.4s;
 }
 .modal__overlay.ng-hide-add {
   opacity: 1;
@@ -1667,7 +1667,7 @@ body.style--modal-open {
 }
 .modal__wrapper.ng-hide-add,
 .modal__wrapper.ng-hide-remove {
-  transition: opacity .5s;
+  transition: opacity 0.4s;
 }
 .modal__wrapper.ng-hide-add {
   opacity: 1;

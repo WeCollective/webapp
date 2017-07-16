@@ -1,3 +1,5 @@
+@modal__animation__speed: .4s;
+
 body.style--modal-open {
   overflow: hidden;
   position: fixed;
@@ -45,7 +47,8 @@ body.style--modal-open {
 
   &.ng-hide-add,
   &.ng-hide-remove {
-    transition: opacity .5s, transform .5s;
+    transition: opacity @modal__animation__speed,
+      transform @modal__animation__speed;
   }
 
   &.ng-hide-add {
@@ -71,47 +74,51 @@ body.style--modal-open {
   .mediaQuery(@screen-md, { box-shadow: @shadow-3; });
 }
 
-.modal__controls {
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  padding: @g-padding-post;
+.modal__button {
+  @height: 26px;
 
-  div.button {
-    width: 80px;
+  width: 80px;
 
-    &.cancel {
-      .button(#fff, @primary-6, 26px, {
+  &.style--secondary {
+    .button(#fff, @primary-6, @height, {
+      background-color: @primary-5;
+      box-shadow: @shadow-2;
+    });
+  }
+  
+  &.style--primary {
+    .button(#fff, @accent-1, @height, {
+      background-color: @accent-0;
+      box-shadow: @shadow-2;
+    });
+  }
+
+  &:not(:first-child) { margin-left: @g-padding-post; }
+
+  .mediaQuery(@screen-md, {
+    @height: 30px;
+
+    &.style--secondary {
+      .button(#fff, @primary-6, @height, {
         background-color: @primary-5;
         box-shadow: @shadow-2;
       });
     }
     
-    &.ok {
-      .button(#fff, @accent-1, 26px, {
+    &.style--primary {
+      .button(#fff, @accent-1, @height, {
         background-color: @accent-0;
         box-shadow: @shadow-2;
       });
     }
+  });
+}
 
-    &:not(:first-child) { margin-left: @g-padding-post; }
-
-    .responsive(@screen-md, {
-      &.cancel {
-        .button(#fff, @primary-6, 30px, {
-          background-color: @primary-5;
-          box-shadow: @shadow-2;
-        });
-      }
-      
-      &.ok {
-        .button(#fff, @accent-1, 30px, {
-          background-color: @accent-0;
-          box-shadow: @shadow-2;
-        });
-      }
-    });
-  }
+.modal__controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: @g-padding-post;
 }
 
 .modal__overlay {
@@ -125,7 +132,7 @@ body.style--modal-open {
 
   &.ng-hide-add,
   &.ng-hide-remove {
-    transition: opacity .5s;
+    transition: opacity @modal__animation__speed;
   }
 
   &.ng-hide-add {
@@ -163,7 +170,7 @@ body.style--modal-open {
   // animation plays on the child modal content.
   &.ng-hide-add,
   &.ng-hide-remove {
-    transition: opacity .5s;
+    transition: opacity @modal__animation__speed;
   }
 
   &.ng-hide-add {
