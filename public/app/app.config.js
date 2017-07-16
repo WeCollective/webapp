@@ -18,14 +18,20 @@ class AppConfig extends Injectable {
       '*://www.youtube.com/**',
     ]);
 
+    if (this.ENV.name === 'production') {
+      this.AnalyticsProvider.setAccount('UA-84400255-1');
+    }
+    else {
+      this.AnalyticsProvider.setAccount('UA-84400255-2');
+    }
+
     // Google Analytics.
     this.AnalyticsProvider
-      .setAccount(this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2')
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
 
     if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
-      this.AnalyticsProvider.enterDebugMode(true)
+      this.AnalyticsProvider.enterDebugMode(true);
     }
 
     // cache
