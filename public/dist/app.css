@@ -1035,7 +1035,7 @@ div[loading] div.loading-container img {
 }
 .nav .nav__logo-icon {
   height: initial;
-  max-height: calc(100% + 14px);
+  max-height: calc(100% + 17px);
   max-width: 100%;
 }
 .nav .nav__logo-icon.style--animate {
@@ -1044,11 +1044,6 @@ div[loading] div.loading-container img {
 }
 .nav .nav__logo-icon.style--animate[src] {
   display: block;
-}
-@media only screen and (min-width: 576px) {
-  .nav .nav__logo-icon {
-    max-height: calc(100% + 17px);
-  }
 }
 .nav .nav__menu {
   display: flex;
