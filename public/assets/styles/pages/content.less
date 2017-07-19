@@ -4,7 +4,8 @@
   width: 100%;
   transition: transform .3s ease-out;
 
-  > div {
+  > div,
+  .content__wrapper {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -21,5 +22,7 @@
   .content__list {
     overflow: hidden;
     padding: 0 @g-padding-sidebar;
+
+    &.style--full-padding { padding: @g-padding-sidebar; }
   }
 }

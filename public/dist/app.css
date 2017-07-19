@@ -323,18 +323,25 @@ div[marked] ul {
   }
 }
 .btn {
+  cursor: pointer;
   display: inline-block;
   font-size: 14px;
   font-weight: 400;
   margin-left: 10px;
   padding: 0 10px;
 }
+.btn.btn--block {
+  display: block;
+  margin: 12px auto;
+  max-width: 150px;
+}
+.btn.btn--large {
+  padding: 10px;
+}
 .btn.btn--primary {
   background-color: #92bedb;
   border-radius: 3px;
   color: #fff;
-  cursor: pointer;
-  font-size: 14px;
   font-weight: 500;
   height: 30px;
   line-height: 30px;
@@ -346,6 +353,22 @@ div[marked] ul {
 }
 .btn.btn--primary:hover {
   background-color: #3498db;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.btn.btn--secondary {
+  background-color: #b3b3b3;
+  border-radius: 3px;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.btn.btn--secondary .btn__label {
+  font-size: inherit;
+}
+.btn.btn--secondary:hover {
+  background-color: #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .comments {
@@ -2070,84 +2093,56 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties {
-  margin-bottom: 20px;
-  padding: 0;
-  text-align: center;
-}
-div#branch-nucleus .content__body ul#nucleus-about-properties > li {
+ul#nucleus-about-properties > li {
   padding: 5px 0;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-cover span,
-div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-picture span {
+ul#nucleus-about-properties > li#change-cover span,
+ul#nucleus-about-properties > li#change-picture span {
   font-weight: 500;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-cover span:hover,
-div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-picture span:hover {
+ul#nucleus-about-properties > li#change-cover span:hover,
+ul#nucleus-about-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span {
+ul#nucleus-about-properties > li span {
   font-size: 14px;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.field {
+ul#nucleus-about-properties > li span.field {
   color: #c8c8c8;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.value a {
+ul#nucleus-about-properties > li span.value a {
   color: #3498db;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.value a:hover {
+ul#nucleus-about-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.marked-title {
+ul#nucleus-about-properties > li span.marked-title {
   display: block;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.change-value span {
+ul#nucleus-about-properties > li span.change-value span {
   font-weight: 500;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li span.change-value span:hover {
+ul#nucleus-about-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-about-properties > li div.value {
+ul#nucleus-about-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus .content__body > .button {
-  background-color: #92bedb;
-  border-radius: 3px;
-  color: #fff;
-  display: inline-block;
-  height: 30px;
-  text-align: center;
-  transition: all 0.3s ease-out;
-  display: block;
-  margin: auto;
-  max-width: 150px;
-  padding: 10px;
-}
-div#branch-nucleus .content__body > .button:hover {
-  background-color: #3498db;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-div#branch-nucleus .content__body > .button span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-}
-div#branch-nucleus .content__body div#nucleus-moderators-list-container {
+div#nucleus-moderators-list-container {
   height: 100%;
   position: relative;
   width: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li {
+div#nucleus-moderators-list-container ul a li {
+  cursor: pointer;
   display: inline-block;
   margin-right: 5px;
   text-align: center;
 }
-div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
+div#nucleus-moderators-list-container ul a li div.mod-picture {
   background-position: center;
   background-size: cover;
   border-radius: 3px;
@@ -2156,110 +2151,99 @@ div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li 
   width: 80px;
 }
 @media only screen and (min-width: 576px) {
-  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#nucleus-moderators-list-container ul a li div.mod-picture {
+    height: 120px;
     width: 120px;
   }
 }
 @media only screen and (min-width: 768px) {
-  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#nucleus-moderators-list-container ul a li div.mod-picture {
+    height: 150px;
     width: 150px;
   }
 }
-@media only screen and (min-width: 576px) {
-  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
-    height: 120px;
-  }
+div#nucleus-moderators-list-container ul a li div.mod-picture:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-@media only screen and (min-width: 768px) {
-  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
-    height: 150px;
-  }
-}
-div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li span {
+div#nucleus-moderators-list-container ul a li span {
   font-size: 12px;
   font-weight: 500;
 }
 @media only screen and (min-width: 576px) {
-  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li span {
+  div#nucleus-moderators-list-container ul a li span {
     font-size: 14px;
   }
 }
-div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li:hover {
-  cursor: pointer;
-}
-div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li:hover div.mod-picture {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#branch-nucleus .content__body ul#nucleus-settings-properties {
+ul#nucleus-settings-properties {
   padding: 0;
   text-align: center;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li {
+ul#nucleus-settings-properties > li {
   padding: 5px 0;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-cover span,
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-picture span {
+ul#nucleus-settings-properties > li#change-cover span,
+ul#nucleus-settings-properties > li#change-picture span {
   font-weight: 500;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-cover span:hover,
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-picture span:hover {
+ul#nucleus-settings-properties > li#change-cover span:hover,
+ul#nucleus-settings-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span {
+ul#nucleus-settings-properties > li span {
   font-size: 14px;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.field {
+ul#nucleus-settings-properties > li span.field {
   color: #c8c8c8;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.value a {
+ul#nucleus-settings-properties > li span.value a {
   color: #3498db;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.value a:hover {
+ul#nucleus-settings-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.marked-title {
+ul#nucleus-settings-properties > li span.marked-title {
   display: block;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.change-value span {
+ul#nucleus-settings-properties > li span.change-value span {
   font-weight: 500;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.change-value span:hover {
+ul#nucleus-settings-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body ul#nucleus-settings-properties > li div.value {
+ul#nucleus-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container {
+div#nucleus-modtools-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties {
+div#nucleus-modtools-container ul#nucleus-modtools-properties {
   border-bottom: 1px solid #e7e7e7;
   box-sizing: border-box;
   margin-bottom: 16px;
   padding-bottom: 12px;
   text-align: center;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li {
+div#nucleus-modtools-container ul#nucleus-modtools-properties li {
   padding: 5px 0;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span {
+div#nucleus-modtools-container ul#nucleus-modtools-properties li span {
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
+div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
   color: #c0392b;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
+div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log {
+ul#nucleus-modtools-log {
   box-sizing: border-box;
   height: 0px;
   flex: 1 1 auto;
@@ -2267,54 +2251,37 @@ div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modt
   overflow-y: auto;
   position: relative;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div h2 {
+ul#nucleus-modtools-log div h2 {
   font-size: 18px;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div h3 {
+ul#nucleus-modtools-log div h3 {
   color: #c8c8c8;
   font-size: 14px;
   font-style: italic;
   font-weight: 400;
   margin-top: 10px;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li {
+ul#nucleus-modtools-log div li {
   padding: 10px 0;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div {
+ul#nucleus-modtools-log div li div {
   font-size: 14px;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a {
+ul#nucleus-modtools-log div li div a {
   color: #3498db;
   font-weight: 500;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a:hover {
+ul#nucleus-modtools-log div li div a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
+ul#nucleus-modtools-log div li div.entry {
   float: left;
   width: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
+ul#nucleus-modtools-log div li div.time {
   color: #c8c8c8;
   float: left;
   width: 150px;
-}
-div#branch-nucleus .content__body div#nucleus-flagged-posts {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body {
-  overflow-y: visible;
-}
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list {
-  padding: 0;
-}
-div#branch-nucleus .content__body.flaggedposts {
-  padding: 0px;
-}
-div#branch-nucleus .content__body.moderators {
-  padding: 10px;
 }
 .branch__subbranch {
   border-bottom: solid 1px #e7e7e7;
@@ -2724,7 +2691,8 @@ div#branch-nucleus .content__body.moderators {
   width: 100%;
   transition: transform 0.3s ease-out;
 }
-.content > div {
+.content > div,
+.content .content__wrapper {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -2738,6 +2706,9 @@ div#branch-nucleus .content__body.moderators {
 .content .content__list {
   overflow: hidden;
   padding: 0 16px;
+}
+.content .content__list.style--full-padding {
+  padding: 16px;
 }
 .header {
   align-items: flex-start;

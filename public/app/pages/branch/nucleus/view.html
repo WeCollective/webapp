@@ -1,4 +1,4 @@
-<div id="branch-nucleus">
+<div class="content__wrapper">
   <div class="header">
     <img
       alt="Toggle sidebar"
@@ -20,9 +20,5 @@
     </div>
   </div>
   
-  <div
-    class="content__body"
-  	ng-class="BranchNucleus.$state.current.name.slice(BranchNucleus.$state.current.name.lastIndexOf('.') + 1)"
-  	ui-view>
-  </div>
+  <div class="content__body" ui-view></div>
 </div>

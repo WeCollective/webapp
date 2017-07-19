@@ -1,4 +1,4 @@
-<ul id="nucleus-about-properties">
+<ul class="text--center" id="nucleus-about-properties">
   <li ng-show="Branch.BranchService.branch.name">
     <span class="field">
       Visible Name:
@@ -44,11 +44,11 @@
 </ul>
 
 <div
-  class="btn button"
-  ng-class="{ 'ok': !BranchNucleusAbout.isFollowingBranch(), 'cancel': BranchNucleusAbout.isFollowingBranch() }"
+  class="btn btn--block btn--large"
+  ng-class="{ 'btn--primary': !BranchNucleusAbout.isFollowingBranch(), 'btn--secondary': BranchNucleusAbout.isFollowingBranch() }"
   ng-click="BranchNucleusAbout.toggleFollowBranch()"
   ng-show="BranchNucleusAbout.UserService.isAuthenticated()">
-  <span class="text--uppercase">
+  <span class="btn__label text--uppercase">
     {{ BranchNucleusAbout.isFollowingBranch() ? 'un' : '' }}follow branch
   </span>
 </div>
