@@ -63799,7 +63799,9 @@ class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(CoverPhotoController.$inject, injections);
 
-    this.WallService.isCoverOpen = true;
+    // Load the cached state.
+    const cache = this.LocalStorageService.getObject('cache').cover || {};
+    this.WallService.isCoverOpen = cache.isOpen !== undefined ? cache.isOpen : true;
   }
 
   hasUrls() {
@@ -63808,10 +63810,16 @@ class CoverPhotoController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
 
   toggleCoverPicture() {
     this.WallService.isCoverOpen = !this.WallService.isCoverOpen;
+
+    // Cache the state.
+    let cache = this.LocalStorageService.getObject('cache');
+    cache.cover = cache.cover || {};
+    cache.cover.isOpen = this.WallService.isCoverOpen;
+    this.LocalStorageService.setObject('cache', cache);
   }
 }
 
-CoverPhotoController.$inject = ['$state', 'BranchService', 'ModalService', 'WallService'];
+CoverPhotoController.$inject = ['$state', 'BranchService', 'LocalStorageService', 'ModalService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CoverPhotoController);
 

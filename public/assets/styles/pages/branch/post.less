@@ -46,6 +46,7 @@
     align-items: center;
     display: flex;
     min-height: @header-min-height + (@g-padding-post * 2);
+    padding: @g-padding-post 0;
 
     .header__button.style--sidebar-toggle {
       margin-left: @g-padding-post;
@@ -58,8 +59,7 @@
   .list-item {
     .list-item(@header-min-height);
 
-    margin-top: @g-padding-post;
-    padding: 0 0 @g-padding-post;
+    padding: 0;
 
     .list-item__votes { margin-left: @g-padding-post; }
   }

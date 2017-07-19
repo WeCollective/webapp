@@ -3027,6 +3027,7 @@ div#branch-nucleus .content__body.moderators {
   align-items: center;
   display: flex;
   min-height: 94px;
+  padding: 12px 0;
 }
 .post .header .header__button.style--sidebar-toggle {
   margin-left: 12px;
@@ -3044,8 +3045,7 @@ div#branch-nucleus .content__body.moderators {
   min-height: 70px;
   padding: 8px 0;
   width: 100%;
-  margin-top: 12px;
-  padding: 0 0 12px;
+  padding: 0;
 }
 .post .list-item span.list-item-index {
   color: #c8c8c8;

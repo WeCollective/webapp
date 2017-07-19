@@ -1,26 +1,35 @@
 import Injectable from 'utils/injectable';
 
 class CoverPhotoController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CoverPhotoController.$inject, injections);
 
-    this.WallService.isCoverOpen = true;
+    // Load the cached state.
+    const cache = this.LocalStorageService.getObject('cache').cover || {};
+    this.WallService.isCoverOpen = cache.isOpen !== undefined ? cache.isOpen : true;
   }
 
-  hasUrls () {
+  hasUrls() {
   	return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
   }
 
-  toggleCoverPicture () {
+  toggleCoverPicture() {
     this.WallService.isCoverOpen = !this.WallService.isCoverOpen;
+
+    // Cache the state.
+    let cache = this.LocalStorageService.getObject('cache');
+    cache.cover = cache.cover || {};
+    cache.cover.isOpen = this.WallService.isCoverOpen;
+    this.LocalStorageService.setObject('cache', cache);
   }
 }
 
 CoverPhotoController.$inject = [
 	'$state',
   'BranchService',
+  'LocalStorageService',
 	'ModalService',
-  'WallService'
+  'WallService',
 ];
 
 export default CoverPhotoController;
