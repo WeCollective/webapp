@@ -6,37 +6,33 @@ class BranchNucleusAboutController extends Injectable {
   }
 
   isFollowingBranch() {
-    if (this.UserService.isAuthenticated()) {
-      return this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
-    }
-
-    return false;
+    return this.UserService.isAuthenticated() &&
+      this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
   }
 
   toggleFollowBranch() {
-     let errorMessage,
-      successMessage,
-      toggle;
+    let errMsg,
+      promise,
+      successMsg;
      
-     if (this.isFollowingBranch()) {
-       errorMessage = 'Error unfollowing branch.';
-       successMessage = `You're no longer following this branch!`;
-       toggle = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-     }
-     else {
-       errorMessage = 'Error following branch.';
-       successMessage = `You're now following this branch!`;
-       toggle = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
-     }
+    if (this.isFollowingBranch()) {
+      errMsg = 'Error unfollowing branch.';
+      successMsg = `You're no longer following b/${this.BranchService.branch.id}!`;
+      promise = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    }
+    else {
+      errMsg = 'Error following branch.';
+      successMsg = `You're now following b/${this.BranchService.branch.id}!`;
+      promise = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    }
 
-     toggle
-       .then(() => this.AlertsService.push('success', successMessage))
-       .catch(() => this.AlertsService.push('error', errorMessage));
+    promise
+      .then(() => this.AlertsService.push('success', successMsg))
+      .catch(() => this.AlertsService.push('error', errMsg));
    }
 }
 
 BranchNucleusAboutController.$inject = [
-  '$timeout',
   'AlertsService',
   'BranchService',
   'UserService',

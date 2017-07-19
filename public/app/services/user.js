@@ -24,8 +24,13 @@ class UserService extends Injectable {
 
   followBranch(username, branchid) {
     return new Promise((resolve, reject) => {
-      this.API.save('/user/:username/branches/followed', { username }, { branchid }, true)
-        .then(resolve)
+      this.API.post('/user/:username/branches/followed', { username }, { branchid }, true)
+        .then(res => {
+          if (username === this.user.username || username === 'me') {
+            this.user.followed_branches.push(branchid);
+          }
+          return resolve(res);
+        })
         .catch(err => reject(err.data || err));
     });
   }
@@ -127,7 +132,15 @@ class UserService extends Injectable {
   unfollowBranch(username, branchid) {
     return new Promise((resolve, reject) => {
       this.API.delete('/user/:username/branches/followed', { username }, { branchid }, true)
-        .then(resolve)
+        .then(res => {
+          if (username === this.user.username || username === 'me') {
+            const index = this.user.followed_branches.indexOf(branchid);
+            if (index !== -1) {
+              this.user.followed_branches.splice(index, 1);
+            }
+          }
+          return resolve(res);
+        })
         .catch(err => reject(err.data || err));
     });
   }
