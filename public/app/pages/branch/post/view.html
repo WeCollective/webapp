@@ -2,11 +2,11 @@
   class="post"
   loading
   loading-when="BranchPost.isLoading">
-  <div class="branch-post--header">
+  <div class="header">
     <img
       alt="Toggle sidebar"
-      class="content--sidebar-toggle"
-      ng-class="{ 'toggled': Navbar.AppService.isSidebarOpen }"
+      class="header__button style--sidebar-toggle"
+      ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
       ng-click="Navbar.AppService.toggleSidebar()"
       src="/assets/images/icons/black/show.png" />
 
@@ -48,7 +48,7 @@
   </div>
 
   <tabs
-    class="style--border"
+    class="style--border style--content-block"
     items="BranchPost.tabItems"
     ng-if="BranchPost.isPostType('poll')"
     states="BranchPost.tabStates"

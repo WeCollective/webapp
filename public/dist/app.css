@@ -1272,6 +1272,7 @@ ul.tabs .tabs__item {
   color: #c8c8c8;
   display: inline-block;
   min-width: 60px;
+  padding-bottom: 6px;
   text-align: center;
 }
 ul.tabs .tabs__item span {
@@ -1291,6 +1292,12 @@ ul.tabs .tabs__link {
   cursor: pointer;
   display: block;
   padding: 4px 10px;
+}
+ul.tabs.style--content-block {
+  display: block;
+}
+ul.tabs.style--content-block .tabs__item {
+  padding-bottom: 0;
 }
 ul.tabs.style--border {
   border-bottom: solid 1px #e7e7e7;
@@ -2083,11 +2090,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   padding: 0 16px;
 }
 .header {
-  align-items: center;
+  align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-flow: row wrap;
-  padding: 16px 16px 4px;
+  padding: 16px 16px 0;
 }
 .header .header__button {
   background-image: url('/assets/images/icons/black/add.jpg');
@@ -2095,6 +2102,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: pointer;
   display: block;
   height: 28px;
+  margin-top: 4px;
   width: 28px;
   transition: transform .2s;
 }
@@ -2118,18 +2126,16 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   display: flex;
   flex-direction: row;
   height: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
   overflow-x: auto;
   overflow-y: hidden;
-  position: relative;
-  top: -3px;
 }
 .header .header__title {
   font-size: 26px;
   font-weight: 500;
+  padding-bottom: 6px;
   padding-right: 24px;
   position: relative;
-  top: -1px;
 }
 div#home-content {
   left: 50%;
@@ -2547,53 +2553,53 @@ div#notfound div h2 {
     font-size: 14px;
   }
 }
-div#branch-nucleus div.content-body {
+div#branch-nucleus .content__body {
   padding: 10px 20px;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties {
+div#branch-nucleus .content__body ul#nucleus-about-properties {
   margin-bottom: 20px;
   padding: 0;
   text-align: center;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li {
   padding: 5px 0;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li#change-cover span,
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li#change-picture span {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-cover span,
+div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-picture span {
   font-weight: 500;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li#change-cover span:hover,
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li#change-picture span:hover {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-cover span:hover,
+div#branch-nucleus .content__body ul#nucleus-about-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span {
   font-size: 14px;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.field {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.field {
   color: #c8c8c8;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.value a {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.value a {
   color: #3498db;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.value a:hover {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.marked-title {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.marked-title {
   display: block;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.change-value span {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.change-value span {
   font-weight: 500;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li span.change-value span:hover {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-about-properties > li div.value {
+div#branch-nucleus .content__body ul#nucleus-about-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus div.content-body > div.button {
+div#branch-nucleus .content__body > div.button {
   background-color: #92bedb;
   border-radius: 3px;
   color: #fff;
@@ -2606,28 +2612,28 @@ div#branch-nucleus div.content-body > div.button {
   max-width: 150px;
   padding: 10px;
 }
-div#branch-nucleus div.content-body > div.button:hover {
+div#branch-nucleus .content__body > div.button:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div#branch-nucleus div.content-body > div.button span {
+div#branch-nucleus .content__body > div.button span {
   font-size: 14px;
   font-weight: 500;
   line-height: 30px;
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container {
   height: 100%;
   position: relative;
   width: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li {
   display: inline-block;
   margin-right: 5px;
   text-align: center;
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
   background-position: center;
   background-size: cover;
   border-radius: 3px;
@@ -2636,110 +2642,110 @@ div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a l
   width: 80px;
 }
 @media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
     width: 120px;
   }
 }
 @media only screen and (min-width: 768px) {
-  div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
     width: 150px;
   }
 }
 @media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
     height: 120px;
   }
 }
 @media only screen and (min-width: 768px) {
-  div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li div.mod-picture {
+  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li div.mod-picture {
     height: 150px;
   }
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li span {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li span {
   font-size: 12px;
   font-weight: 500;
 }
 @media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li span {
+  div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li span {
     font-size: 14px;
   }
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li:hover {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li:hover {
   cursor: pointer;
 }
-div#branch-nucleus div.content-body div#nucleus-moderators-list-container ul a li:hover div.mod-picture {
+div#branch-nucleus .content__body div#nucleus-moderators-list-container ul a li:hover div.mod-picture {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties {
+div#branch-nucleus .content__body ul#nucleus-settings-properties {
   padding: 0;
   text-align: center;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li {
   padding: 5px 0;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li#change-cover span,
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li#change-picture span {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-cover span,
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-picture span {
   font-weight: 500;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li#change-cover span:hover,
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li#change-picture span:hover {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-cover span:hover,
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span {
   font-size: 14px;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.field {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.field {
   color: #c8c8c8;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.value a {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.value a {
   color: #3498db;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.value a:hover {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.marked-title {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.marked-title {
   display: block;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.change-value span {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.change-value span {
   font-weight: 500;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li span.change-value span:hover {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body ul#nucleus-settings-properties > li div.value {
+div#branch-nucleus .content__body ul#nucleus-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container {
+div#branch-nucleus .content__body div#nucleus-modtools-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties {
   border-bottom: 1px solid #e7e7e7;
   box-sizing: border-box;
   margin-bottom: 16px;
   padding-bottom: 12px;
   text-align: center;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li {
   padding: 5px 0;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span {
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
   color: #c0392b;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log {
   box-sizing: border-box;
   height: 0px;
   flex: 1 1 auto;
@@ -2747,50 +2753,50 @@ div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-mo
   overflow-y: auto;
   position: relative;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div h2 {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div h2 {
   font-size: 18px;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div h3 {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div h3 {
   color: #c8c8c8;
   font-size: 14px;
   font-style: italic;
   font-weight: 400;
   margin-top: 10px;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li {
   padding: 10px 0;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div {
   font-size: 14px;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a {
   color: #3498db;
   font-weight: 500;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a:hover {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div a:hover {
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.entry {
   float: left;
   width: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
+div#branch-nucleus .content__body div#nucleus-modtools-container ul#nucleus-modtools-log div li div.time {
   color: #c8c8c8;
   float: left;
   width: 150px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts {
+div#branch-nucleus .content__body div#nucleus-flagged-posts {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body {
   overflow-y: visible;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list {
   padding: 0;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -2798,13 +2804,13 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   padding: 8px 0;
   width: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item span.list-item-index {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -2814,11 +2820,11 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   position: relative;
   text-align: center;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags:hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags img {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -2826,33 +2832,33 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   vertical-align: middle;
   width: 16px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-flags span {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__votes p {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-image div {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -2860,10 +2866,10 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item-image div:hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -2872,58 +2878,58 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -2932,27 +2938,27 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   top: -1px;
   width: 1px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__radio-button {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats {
   margin-right: 12px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -2960,20 +2966,20 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -2982,34 +2988,20 @@ div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body u
   text-align: center;
   width: 40px;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-nucleus div.content-body div#nucleus-flagged-posts div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
-div#branch-nucleus div.content-body.flaggedposts {
+div#branch-nucleus .content__body.flaggedposts {
   padding: 0px;
 }
-div#branch-nucleus div.content-body.moderators {
+div#branch-nucleus .content__body.moderators {
   padding: 10px;
-}
-div#branch-nucleus div.content-header div.content-controls {
-  overflow-x: scroll;
-}
-div#branch-nucleus div.content-header div.content-controls ul.tabs {
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#branch-nucleus div.content-header div.content-controls {
-    overflow-x: visible;
-  }
-  div#branch-nucleus div.content-header div.content-controls ul.tabs {
-    white-space: normal;
-  }
 }
 .post {
   box-sizing: border-box;
@@ -3017,24 +3009,10 @@ div#branch-nucleus div.content-header div.content-controls ul.tabs {
   flex-direction: column;
   position: relative;
 }
-.post > .branch-post--header {
-  align-items: center;
-  display: flex;
-  min-height: 94px;
-}
-@media only screen and (min-width: 768px) {
-  .post > .branch-post--header {
-    display: block;
-  }
-}
 .post .chart {
   height: 250px;
   margin: 12px auto;
   width: 250px;
-}
-.post .content--sidebar-toggle {
-  margin-left: 12px;
-  margin-right: 0 !important;
 }
 .post .dropdown {
   margin-right: 12px;
@@ -3044,6 +3022,20 @@ div#branch-nucleus div.content-header div.content-controls ul.tabs {
   line-height: 1;
   padding-left: 0;
   padding-top: 3px;
+}
+.post .header {
+  align-items: center;
+  display: flex;
+  min-height: 94px;
+}
+.post .header .header__button.style--sidebar-toggle {
+  margin-left: 12px;
+  margin-right: 0 !important;
+}
+@media only screen and (min-width: 768px) {
+  .post .header {
+    display: block;
+  }
 }
 .post .list-item {
   border-bottom: solid 1px #e7e7e7;
@@ -3632,19 +3624,16 @@ div#branch-nucleus div.content-header div.content-controls ul.tabs {
 .post .post__content-header .button.ok ~ .button {
   margin-left: 8px;
 }
-.post .tabs {
-  display: block;
-}
 @media only screen and (min-width: 768px) {
   .post .loading-container {
     height: calc(100% - 20px);
     width: calc(100% - 20px);
   }
 }
-div#branch-subbranches div.content-body ul {
+div#branch-subbranches .content__body ul {
   overflow-x: hidden;
 }
-div#branch-subbranches div.content-body ul li.list-item {
+div#branch-subbranches .content__body ul li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -3652,13 +3641,13 @@ div#branch-subbranches div.content-body ul li.list-item {
   padding: 8px 0;
   width: 100%;
 }
-div#branch-subbranches div.content-body ul li.list-item span.list-item-index {
+div#branch-subbranches .content__body ul li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 90px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
+div#branch-subbranches .content__body ul li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3668,11 +3657,11 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-flags {
   position: relative;
   text-align: center;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags:hover {
+div#branch-subbranches .content__body ul li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags img {
+div#branch-subbranches .content__body ul li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -3680,33 +3669,33 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-flags img 
   vertical-align: middle;
   width: 16px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-flags span {
+div#branch-subbranches .content__body ul li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes {
+div#branch-subbranches .content__body ul li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 90px;
   margin-left: 6px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon {
+div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
+div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__votes p {
+div#branch-subbranches .content__body ul li.list-item .list-item__votes p {
   margin: 0;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
+div#branch-subbranches .content__body ul li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3714,10 +3703,10 @@ div#branch-subbranches div.content-body ul li.list-item .list-item-image div {
   margin: 0 10px 0 12px;
   width: 90px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item-image div:hover {
+div#branch-subbranches .content__body ul li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label {
+div#branch-subbranches .content__body ul li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -3726,58 +3715,58 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-nsfw-label span {
+div#branch-subbranches .content__body ul li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__separator {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -3786,27 +3775,27 @@ div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list
   top: -1px;
   width: 1px;
 }
-div#branch-subbranches div.content-body ul li.list-item div.list-item-info .list-item__title {
+div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__radio-button {
+div#branch-subbranches .content__body ul li.list-item .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats {
+div#branch-subbranches .content__body ul li.list-item .list-item__stats {
   margin-right: 12px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -3814,20 +3803,20 @@ div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-subbranches div.content-body ul li.list-item .list-item__stats .list-item__stats-percentage {
+div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-branch .list-item-info .list-item__title {
+div#branch-subbranches .content__body ul li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer {
+div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -3836,23 +3825,23 @@ div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer 
   text-align: center;
   width: 40px;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer.style--selected {
+div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result) {
+div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-subbranches div.content-body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
+div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
 div#branch-wall {
   box-sizing: border-box;
   position: relative;
 }
-div#branch-wall div.content-body ul#post-list {
+div#branch-wall .content__body ul#post-list {
   overflow: hidden;
 }
-div#branch-wall div.content-body ul#post-list li.list-item {
+div#branch-wall .content__body ul#post-list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -3860,13 +3849,13 @@ div#branch-wall div.content-body ul#post-list li.list-item {
   padding: 8px 0;
   width: 100%;
 }
-div#branch-wall div.content-body ul#post-list li.list-item span.list-item-index {
+div#branch-wall .content__body ul#post-list li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3876,11 +3865,11 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags {
   position: relative;
   text-align: center;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags:hover {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags img {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -3888,33 +3877,33 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags i
   vertical-align: middle;
   width: 16px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-flags span {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__votes p {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__votes p {
   margin: 0;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div {
+div#branch-wall .content__body ul#post-list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3922,10 +3911,10 @@ div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div 
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item-image div:hover {
+div#branch-wall .content__body ul#post-list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -3934,58 +3923,58 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-la
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-nsfw-label span {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__separator {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -3994,27 +3983,27 @@ div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .l
   top: -1px;
   width: 1px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item div.list-item-info .list-item__title {
+div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__radio-button {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__stats {
   margin-right: 12px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -4022,20 +4011,20 @@ div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .li
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -4044,12 +4033,12 @@ div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answ
   text-align: center;
   width: 40px;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }

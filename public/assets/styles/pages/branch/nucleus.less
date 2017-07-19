@@ -1,5 +1,5 @@
 div#branch-nucleus {
-  div.content-body {
+  .content__body {
     @import './nucleus/about.less';
     @import './nucleus/moderators.less';
     @import './nucleus/settings.less';
@@ -13,19 +13,5 @@ div#branch-nucleus {
     
     &.flaggedposts { padding: 0px; }
     &.moderators { padding: 10px; }
-  }
-
-  div.content-header {
-    div.content-controls {
-      overflow-x: scroll;
-
-      ul.tabs { white-space: nowrap; }
-      
-      .responsive(@screen-sm, {
-        overflow-x: visible;
-
-        ul.tabs { white-space: normal; }
-      });
-    }
   }
 }

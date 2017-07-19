@@ -1,13 +1,11 @@
 .header {
-  @title-offset-to-sidebar: -1px;
-  @button-offset-to-content: -5px;
-  @content-offset-to-sidebar: -3px;
+  @button-offset: 4px;
 
-  align-items: center;
+  align-items: flex-start;
   border-bottom: solid 1px @light-grey;
   display: flex;
   flex-flow: row wrap;
-  padding: @g-padding-sidebar @g-padding-sidebar 4px;
+  padding: @g-padding-sidebar @g-padding-sidebar 0;
 
   .header__button {
     @size: 28px;
@@ -17,6 +15,7 @@
     cursor: pointer;
     display: block;
     height: @size;
+    margin-top: @button-offset;
     width: @size;
     transition: transform .2s;
 
@@ -38,18 +37,16 @@
     flex-direction: row;
     height: 100%;
     // Account for padding in dropdowns...
-    margin-top: 8px;
+    margin-top: @button-offset;
     overflow-x: auto;
     overflow-y: hidden;
-    position: relative;
-    top: @content-offset-to-sidebar;
   }
 
   .header__title {
     font-size: @font-size-xl;
     font-weight: 500;
+    padding-bottom: @g-padding-post / 2;
     padding-right: @g-padding-post * 2;
     position: relative;
-    top: @title-offset-to-sidebar;
   }
 }

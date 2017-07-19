@@ -7,6 +7,7 @@ ul.tabs {
     color: @primary-7;
     display: inline-block;
     min-width: 60px;
+    padding-bottom: @g-padding-post / 2;
     text-align: center;
 
     span { font-size: @font-size-xs; }
@@ -27,6 +28,12 @@ ul.tabs {
     cursor: pointer;
     display: block;
     padding: 4px 10px;
+  }
+
+  &.style--content-block {
+    display: block;
+
+    .tabs__item { padding-bottom: 0; }
   }
 
   &.style--border { border-bottom: solid 1px @primary-8; }
