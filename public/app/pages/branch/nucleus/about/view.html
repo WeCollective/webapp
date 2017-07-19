@@ -1,45 +1,61 @@
-<ul class="content__list style--full-padding text--center" id="nucleus-about-properties">
-  <li ng-show="Branch.BranchService.branch.name">
-    <span class="field">
+<ul class="branch__list content__list style--full-padding text--center">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.name">
+    <span class="branch__text">
       Visible Name:
     </span>
-    <span class="value">
+    <span class="branch__text style--dark">
       {{ Branch.BranchService.branch.name }}
     </span>
   </li>
 
-  <li ng-show="Branch.BranchService.branch.date">
-    <span class="field">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.date">
+    <span class="branch__text">
       Created on:
     </span>
-    <span class="value">
+    <span class="branch__text style--dark">
       {{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}
     </span>
   </li>
 
-  <li ng-show="Branch.BranchService.branch.creator">
-    <span class="field">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.creator">
+    <span class="branch__text">
       Created by:
     </span>
-    <span class="value">
-      <a ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
-        {{ Branch.BranchService.branch.creator }}
-      </a>
-    </span>
+    <a
+      class="branch__link branch__text"
+      ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
+      {{ Branch.BranchService.branch.creator }}
+    </a>
   </li>
 
-  <li ng-show="Branch.BranchService.branch.description">
-    <span class="field marked-title">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.description">
+    <div class="branch__text">
       Description:
-    </span>
-    <div class="value" marked="Branch.BranchService.branch.description || 'Not Set'"></div>
+    </div>
+    <div
+      class="branch__text"
+      marked="Branch.BranchService.branch.description || 'Not Set'">
+    </div>
   </li>
 
-  <li ng-show="Branch.BranchService.branch.rules">
-    <span class="field marked-title">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.rules">
+    <div class="branch__text">
       Rules &amp; Etiquette:
-    </span>
-    <div class="value" marked="Branch.BranchService.branch.rules || 'Not Set'"></div>
+    </div>
+    <div
+      class="branch__text"
+      marked="Branch.BranchService.branch.rules || 'Not Set'">
+    </div>
   </li>
 </ul>
 

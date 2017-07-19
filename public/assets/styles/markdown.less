@@ -54,18 +54,21 @@ div[marked] {
 
   ol { list-style-type: decimal; }
 
-  p { color: @primary-dark; }
+  p {
+    color: @primary-dark;
+    margin: 6px 0;
+  }
 
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
 
-  table th,
-  table td {
-    border: 1px solid @light-grey;
-    margin: 0;
-    padding: 6px 13px;
+    th,
+    td {
+      border: 1px solid @light-grey;
+      margin: 0;
+      padding: 6px 13px;
+    }
   }
 
   ul { list-style-type: disc; }

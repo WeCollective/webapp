@@ -7,13 +7,12 @@
 
 .branch__link {
   color: @accent-0;
+  cursor: pointer;
   font-weight: @font-weight-heavy;
-  
-  &:hover { text-decoration: underline; }
-}
 
-.branch__list {
-  // ...
+  &.style--colorless { color: inherit; }
+
+  &:hover { text-decoration: underline; }
 }
 
 .branch__post {
@@ -28,12 +27,6 @@
   font-size: @font-size-sm;
   font-weight: @font-weight-heavy;
 
+  &.style--dark { color: @dark-grey; }
   &.style--red { color: @caution-0; }
-
-  &:hover { text-decoration: underline; }
-}
-
-ul#nucleus-about-properties,
-ul#nucleus-settings-properties {
-  .field-value-list();
 }

@@ -1,6 +1,9 @@
 .hidden {
   display: none;
 }
+.text--block {
+  display: block;
+}
 .text--capitalize {
   text-transform: capitalize;
 }
@@ -250,6 +253,7 @@ div[marked] ol {
 }
 div[marked] p {
   color: #222222;
+  margin: 6px 0;
 }
 div[marked] table {
   border-collapse: collapse;
@@ -2105,7 +2109,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .branch__link {
   color: #3498db;
+  cursor: pointer;
   font-weight: 500;
+}
+.branch__link.style--colorless {
+  color: inherit;
 }
 .branch__link:hover {
   text-decoration: underline;
@@ -2516,62 +2524,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-size: 14px;
   font-weight: 500;
 }
-.branch__text.style--red {
-  color: #c0392b;
-}
-.branch__text:hover {
-  text-decoration: underline;
-}
-ul#nucleus-about-properties > li,
-ul#nucleus-settings-properties > li {
-  padding: 5px 0;
-}
-ul#nucleus-about-properties > li#change-cover span,
-ul#nucleus-settings-properties > li#change-cover span,
-ul#nucleus-about-properties > li#change-picture span,
-ul#nucleus-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-ul#nucleus-about-properties > li#change-cover span:hover,
-ul#nucleus-settings-properties > li#change-cover span:hover,
-ul#nucleus-about-properties > li#change-picture span:hover,
-ul#nucleus-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-ul#nucleus-about-properties > li span,
-ul#nucleus-settings-properties > li span {
-  font-size: 14px;
-}
-ul#nucleus-about-properties > li span.field,
-ul#nucleus-settings-properties > li span.field {
+.branch__text.style--dark {
   color: #c8c8c8;
 }
-ul#nucleus-about-properties > li span.value a,
-ul#nucleus-settings-properties > li span.value a {
-  color: #3498db;
-}
-ul#nucleus-about-properties > li span.value a:hover,
-ul#nucleus-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-ul#nucleus-about-properties > li span.marked-title,
-ul#nucleus-settings-properties > li span.marked-title {
-  display: block;
-}
-ul#nucleus-about-properties > li span.change-value span,
-ul#nucleus-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-ul#nucleus-about-properties > li span.change-value span:hover,
-ul#nucleus-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-ul#nucleus-about-properties > li div.value,
-ul#nucleus-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
+.branch__text.style--red {
+  color: #c0392b;
 }
 .content {
   float: left;
@@ -2579,7 +2536,6 @@ ul#nucleus-settings-properties > li div.value {
   width: 100%;
   transition: transform 0.3s ease-out;
 }
-.content > div,
 .content .content__wrapper {
   box-sizing: border-box;
   display: flex;
