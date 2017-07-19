@@ -2089,6 +2089,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .content .content__body > ul {
   padding: 0 16px;
 }
+.content .content__list {
+  overflow: hidden;
+}
 .header {
   align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
@@ -3629,10 +3632,7 @@ div#branch-nucleus .content__body.moderators {
     width: calc(100% - 20px);
   }
 }
-div#branch-subbranches .content__body ul {
-  overflow-x: hidden;
-}
-div#branch-subbranches .content__body ul li.list-item {
+div#branch-subbranches .content__body .content__list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -3640,13 +3640,13 @@ div#branch-subbranches .content__body ul li.list-item {
   padding: 8px 0;
   width: 100%;
 }
-div#branch-subbranches .content__body ul li.list-item span.list-item-index {
+div#branch-subbranches .content__body .content__list li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 90px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-flags {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3656,11 +3656,11 @@ div#branch-subbranches .content__body ul li.list-item div.list-item-flags {
   position: relative;
   text-align: center;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-flags:hover {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-flags img {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -3668,33 +3668,33 @@ div#branch-subbranches .content__body ul li.list-item div.list-item-flags img {
   vertical-align: middle;
   width: 16px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-flags span {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__votes {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 90px;
   margin-left: 6px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-subbranches .content__body ul li.list-item .list-item__votes .list-item__vote-icon:hover {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__votes p {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__votes p {
   margin: 0;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item-image div {
+div#branch-subbranches .content__body .content__list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3702,10 +3702,10 @@ div#branch-subbranches .content__body ul li.list-item .list-item-image div {
   margin: 0 10px 0 12px;
   width: 90px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item-image div:hover {
+div#branch-subbranches .content__body .content__list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-nsfw-label {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -3714,58 +3714,58 @@ div#branch-subbranches .content__body ul li.list-item div.list-item-nsfw-label {
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-nsfw-label span {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__separator {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -3774,27 +3774,27 @@ div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-i
   top: -1px;
   width: 1px;
 }
-div#branch-subbranches .content__body ul li.list-item div.list-item-info .list-item__title {
+div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__radio-button {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__stats {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__stats {
   margin-right: 12px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -3802,20 +3802,20 @@ div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-it
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-subbranches .content__body ul li.list-item .list-item__stats .list-item__stats-percentage {
+div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-branch .list-item-info .list-item__title {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -3824,23 +3824,20 @@ div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer .l
   text-align: center;
   width: 40px;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer.style--selected {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer:not(.style--result) {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-subbranches .content__body ul li.list-item.style--card-poll-answer:not(.style--result):hover {
+div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
 div#branch-wall {
   box-sizing: border-box;
   position: relative;
 }
-div#branch-wall .content__body ul#post-list {
-  overflow: hidden;
-}
-div#branch-wall .content__body ul#post-list li.list-item {
+div#branch-wall .content__body .content__list li.list-item {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
@@ -3848,13 +3845,13 @@ div#branch-wall .content__body ul#post-list li.list-item {
   padding: 8px 0;
   width: 100%;
 }
-div#branch-wall .content__body ul#post-list li.list-item span.list-item-index {
+div#branch-wall .content__body .content__list li.list-item span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
   line-height: 70px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags {
+div#branch-wall .content__body .content__list li.list-item div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3864,11 +3861,11 @@ div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags {
   position: relative;
   text-align: center;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags:hover {
+div#branch-wall .content__body .content__list li.list-item div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags img {
+div#branch-wall .content__body .content__list li.list-item div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -3876,33 +3873,33 @@ div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags img
   vertical-align: middle;
   width: 16px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-flags span {
+div#branch-wall .content__body .content__list li.list-item div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__votes {
+div#branch-wall .content__body .content__list li.list-item .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 70px;
   margin-left: 6px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-wall .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
+div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon.style--active,
+div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__votes p {
+div#branch-wall .content__body .content__list li.list-item .list-item__votes p {
   margin: 0;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item-image div {
+div#branch-wall .content__body .content__list li.list-item .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
@@ -3910,10 +3907,10 @@ div#branch-wall .content__body ul#post-list li.list-item .list-item-image div {
   margin: 0 10px 0 12px;
   width: 70px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item-image div:hover {
+div#branch-wall .content__body .content__list li.list-item .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-nsfw-label {
+div#branch-wall .content__body .content__list li.list-item div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
@@ -3922,58 +3919,58 @@ div#branch-wall .content__body ul#post-list li.list-item div.list-item-nsfw-labe
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-nsfw-label span {
+div#branch-wall .content__body .content__list li.list-item div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__separator {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -3982,27 +3979,27 @@ div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .lis
   top: -1px;
   width: 1px;
 }
-div#branch-wall .content__body ul#post-list li.list-item div.list-item-info .list-item__title {
+div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__radio-button {
+div#branch-wall .content__body .content__list li.list-item .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__stats {
+div#branch-wall .content__body .content__list li.list-item .list-item__stats {
   margin-right: 12px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -4010,20 +4007,20 @@ div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-wall .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
+div#branch-wall .content__body .content__list li.list-item.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer {
+div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -4032,12 +4029,12 @@ div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer
   text-align: center;
   width: 40px;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-wall .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }

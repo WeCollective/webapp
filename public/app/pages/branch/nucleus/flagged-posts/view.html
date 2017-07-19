@@ -1,6 +1,10 @@
 <div id="nucleus-flagged-posts">
-  <div class="content-header">
-    <div class="content-controls">
+  <div class="header">
+    <h1 class="header__title text--capitalize">
+      Flagged posts
+    </h1>
+
+    <div class="header__controls">
       <dropdown
         class="text--uppercase"
         items="BranchNucleusFlaggedPosts.controls.timeRange.items"
@@ -18,11 +22,11 @@
   </div>
 
   <div
-    class="content-body"
+    class="content__body"
     loading
     loading-when="!BranchNucleusFlaggedPosts.posts.length && BranchNucleusFlaggedPosts.isLoading"
     on-scroll-to-bottom="FlaggedPostsScrollToBottom">
-    <ul id="post-list">
+    <ul class="content__list">
       <li
         class="list-item"
         index="$index"
