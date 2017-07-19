@@ -8,7 +8,7 @@
 
 <div class="cover-page page">
   <div id="profile-frame" class="frame" loading when="Profile.isLoading">
-    <div id="profile-info" class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
+    <div class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
       <div class="sidebar-info">
         <h1>{{ Profile.profileUser.name }}</h1>
         
@@ -37,7 +37,14 @@
     
     <div class="content">
       <div id="profile-content">
-        <div class="content-header">
+        <div class="header">
+          <img
+            alt="Toggle sidebar"
+            class="header__button style--sidebar-toggle"
+            ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+            ng-click="Navbar.AppService.toggleSidebar()"
+            src="/assets/images/icons/black/show.png" />
+
           <h1 class="header__title">Profile</h1>
           
           <div class="header__controls">
@@ -45,7 +52,7 @@
           </div>
         </div>
         
-        <div class="content-body" ui-view></div>
+        <div class="content__body" ui-view></div>
       </div>
     </div>
   </div>

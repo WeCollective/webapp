@@ -1,0 +1,55 @@
+.header {
+  @title-offset-to-sidebar: -1px;
+  @button-offset-to-content: -5px;
+  @content-offset-to-sidebar: -3px;
+
+  align-items: center;
+  border-bottom: solid 1px @light-grey;
+  display: flex;
+  flex-flow: row wrap;
+  padding: @g-padding-sidebar @g-padding-sidebar 4px;
+
+  .header__button {
+    @size: 28px;
+
+    background-image: url('/assets/images/icons/black/add.jpg');
+    background-size: cover;
+    cursor: pointer;
+    display: block;
+    height: @size;
+    width: @size;
+    transition: transform .2s;
+
+    &.style--sidebar-toggle {
+      margin-right: @g-padding-sidebar;
+      opacity: .3;
+      transform: rotateZ(-90deg);
+
+      &.style--toggled { transform: rotateZ(90deg); }
+
+      .mediaQuery(@screen-md, { display: none; });
+    }
+
+    &:hover { background-image: url('/assets/images/icons/black/add--hover.jpg'); }
+  }
+
+  .header__controls {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    // Account for padding in dropdowns...
+    margin-top: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    top: @content-offset-to-sidebar;
+  }
+
+  .header__title {
+    font-size: @font-size-xl;
+    font-weight: 500;
+    padding-right: @g-padding-post * 2;
+    position: relative;
+    top: @title-offset-to-sidebar;
+  }
+}

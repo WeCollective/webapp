@@ -1,9 +1,9 @@
 <div id="branch-subbranches">
-  <div class="content-header">
+  <div class="header">
     <img
       alt="Toggle sidebar"
-      class="content--sidebar-toggle"
-      ng-class="{ 'toggled': Navbar.AppService.isSidebarOpen }"
+      class="header__button style--sidebar-toggle"
+      ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
       ng-click="Navbar.AppService.toggleSidebar()"
       src="/assets/images/icons/black/show.png" />
 
@@ -36,7 +36,7 @@
   </div>
 
   <div
-    class="content-body"
+    class="content__body"
     loading
     loading-when="!BranchSubbranches.branches.length && BranchSubbranches.isLoading"
     on-scroll-to-bottom="BranchSubbranchesScrollToBottom">

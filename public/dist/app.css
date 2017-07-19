@@ -1954,78 +1954,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-bottom: 15px;
   margin-left: 30px;
 }
-.content {
-  float: left;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.3s ease-out;
-}
-.content > div {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.content > div .content--sidebar-toggle {
-  cursor: pointer;
-  height: 26px;
-  margin-right: 16px;
-  opacity: .3;
-  transform: rotateZ(-90deg);
-  width: 26px;
-  transition: transform .2s;
-}
-.content > div .content--sidebar-toggle.toggled {
-  transform: rotateZ(90deg);
-}
-@media only screen and (min-width: 768px) {
-  .content > div .content--sidebar-toggle {
-    display: none;
-  }
-}
-.content > div .content-header {
-  align-items: center;
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-flow: row wrap;
-  padding: 16px 16px 4px;
-}
-.content > div .content-header .header__button {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
-  cursor: pointer;
-  display: block;
-  height: 28px;
-  width: 28px;
-}
-.content > div .content-header .header__button:hover,
-.content > div .content-header .header__button.selected {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
-}
-.content > div .content-header .header__controls {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  margin-top: 8px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  position: relative;
-  top: -3px;
-}
-.content > div .content-header .header__title {
-  font-size: 26px;
-  font-weight: 500;
-  padding-right: 24px;
-  position: relative;
-  top: -1px;
-}
-.content > div div.content-body {
-  flex: 1;
-  overflow-y: scroll;
-}
-.content > div div.content-body > ul {
-  padding: 0 16px;
-}
 .full-page.dark-bg {
   background: #444444;
   background: radial-gradient(#444444, #222222);
@@ -2134,6 +2062,490 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .full-page.dark-bg p#resend-verification {
   cursor: pointer;
   text-decoration: underline;
+}
+.content {
+  float: left;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-out;
+}
+.content > div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content .content__body {
+  flex: 1;
+  overflow-y: scroll;
+}
+.content .content__body > ul {
+  padding: 0 16px;
+}
+.header {
+  align-items: center;
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px 16px 4px;
+}
+.header .header__button {
+  background-image: url('/assets/images/icons/black/add.jpg');
+  background-size: cover;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  width: 28px;
+  transition: transform .2s;
+}
+.header .header__button.style--sidebar-toggle {
+  margin-right: 16px;
+  opacity: .3;
+  transform: rotateZ(-90deg);
+}
+.header .header__button.style--sidebar-toggle.style--toggled {
+  transform: rotateZ(90deg);
+}
+@media only screen and (min-width: 768px) {
+  .header .header__button.style--sidebar-toggle {
+    display: none;
+  }
+}
+.header .header__button:hover {
+  background-image: url('/assets/images/icons/black/add--hover.jpg');
+}
+.header .header__controls {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin-top: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  top: -3px;
+}
+.header .header__title {
+  font-size: 26px;
+  font-weight: 500;
+  padding-right: 24px;
+  position: relative;
+  top: -1px;
+}
+div#home-content {
+  left: 50%;
+  margin-top: -60px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+@media only screen and (min-width: 576px) {
+  div#home-content {
+    width: 400px;
+  }
+}
+div#home-content form {
+  height: 40px;
+  position: relative;
+  width: 100%;
+}
+div#home-content form img {
+  height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: auto;
+}
+div#home-content form input {
+  background-color: #c8c8c8;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  padding: 0 20px;
+  width: 100%;
+}
+div#home-content form input:focus {
+  outline: none;
+}
+div#home-content img {
+  height: auto;
+  margin-bottom: 20px;
+  width: 80%;
+}
+div#home-footer {
+  bottom: 0;
+  font-size: 12px;
+  position: fixed;
+  width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  div#home-footer {
+    font-size: 14px;
+  }
+}
+div#home-footer div#footer-stats {
+  background-color: #ebebeb;
+  box-sizing: border-box;
+  padding: 10px 0;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
+}
+div#home-footer div#footer-stats ul {
+  box-sizing: border-box;
+  display: inline-block;
+  font-weight: 500;
+  white-space: normal;
+  width: 50%;
+}
+div#home-footer div#footer-stats ul#fields {
+  color: #494949;
+  padding-right: 5px;
+  text-align: right;
+}
+div#home-footer div#footer-stats ul#values {
+  padding-left: 5px;
+}
+div#home-footer ul#footer-links {
+  background-color: #d9d9d9;
+  box-sizing: border-box;
+  padding: 10px 0;
+  text-align: center;
+}
+div#home-footer ul#footer-links li {
+  display: inline-block;
+  margin: 5px 10px;
+  position: relative;
+}
+div#home-footer ul#footer-links li a {
+  display: inline-block;
+}
+div#home-footer ul#footer-links li a:hover {
+  text-decoration: underline;
+}
+div#home-footer ul#footer-links li span {
+  font-weight: 500;
+}
+div#home-footer ul#footer-links li:not(:last-child):after {
+  content: '|';
+  display: inline-block;
+  left: calc(100% + 8px);
+  line-height: 1.3;
+  position: absolute;
+  top: 0;
+}
+div#notfound {
+  background: #fff;
+  background: radial-gradient(#fff, #e7e7e7);
+  text-align: center;
+}
+div#notfound div {
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+div#notfound div h1 {
+  font-size: 100px;
+  font-weight: 300;
+}
+div#notfound div h2 {
+  font-size: 28px;
+  font-weight: 300;
+}
+#profile-frame .content__body ul#profile-about-properties > li,
+#profile-frame .content__body ul#profile-settings-properties > li {
+  padding: 5px 0;
+}
+#profile-frame .content__body ul#profile-about-properties > li#change-cover span,
+#profile-frame .content__body ul#profile-settings-properties > li#change-cover span,
+#profile-frame .content__body ul#profile-about-properties > li#change-picture span,
+#profile-frame .content__body ul#profile-settings-properties > li#change-picture span {
+  font-weight: 500;
+}
+#profile-frame .content__body ul#profile-about-properties > li#change-cover span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li#change-cover span:hover,
+#profile-frame .content__body ul#profile-about-properties > li#change-picture span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li#change-picture span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+#profile-frame .content__body ul#profile-about-properties > li span,
+#profile-frame .content__body ul#profile-settings-properties > li span {
+  font-size: 14px;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.field,
+#profile-frame .content__body ul#profile-settings-properties > li span.field {
+  color: #c8c8c8;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.value a,
+#profile-frame .content__body ul#profile-settings-properties > li span.value a {
+  color: #3498db;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.value a:hover,
+#profile-frame .content__body ul#profile-settings-properties > li span.value a:hover {
+  text-decoration: underline;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.marked-title,
+#profile-frame .content__body ul#profile-settings-properties > li span.marked-title {
+  display: block;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.change-value span,
+#profile-frame .content__body ul#profile-settings-properties > li span.change-value span {
+  font-weight: 500;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.change-value span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li span.change-value span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+#profile-frame .content__body ul#profile-about-properties > li div.value,
+#profile-frame .content__body ul#profile-settings-properties > li div.value {
+  font-size: 14px;
+  width: 100%;
+}
+#profile-frame .content__body #profile-notifications {
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+}
+#profile-frame .content__body #profile-notifications div#empty {
+  font-style: italic;
+  margin: 10px;
+}
+#profile-frame .content__body #profile-notifications ul li {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 20px 10px 10px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li.unread {
+  background-color: #eff2f7;
+}
+#profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+  background-color: #d8d9de;
+}
+#profile-frame .content__body #profile-notifications ul li:not(.unread) {
+  background-color: transparent;
+}
+#profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+  background-color: transparent;
+}
+#profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+  border: 1px solid #c8c8c8;
+  border-radius: 50%;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+#profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+  cursor: pointer;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-image img {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+  display: block;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+  color: #3498db;
+  font-weight: 500;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+  text-decoration: underline;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+  font-style: italic;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+    height: 50px;
+    margin-right: 10px;
+    width: 50px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+    height: 65px;
+    margin-right: 10px;
+    width: 65px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
 }
 div#branch-nucleus div.content-body {
   padding: 10px 20px;
@@ -3640,459 +4052,4 @@ div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answ
 }
 div#branch-wall div.content-body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
-}
-div#home-content {
-  left: 50%;
-  margin-top: -60px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-}
-@media only screen and (min-width: 576px) {
-  div#home-content {
-    width: 400px;
-  }
-}
-div#home-content form {
-  height: 40px;
-  position: relative;
-  width: 100%;
-}
-div#home-content form img {
-  height: 20px;
-  opacity: .5;
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: auto;
-}
-div#home-content form input {
-  background-color: #c8c8c8;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  padding: 0 20px;
-  width: 100%;
-}
-div#home-content form input:focus {
-  outline: none;
-}
-div#home-content img {
-  height: auto;
-  margin-bottom: 20px;
-  width: 80%;
-}
-div#home-footer {
-  bottom: 0;
-  font-size: 12px;
-  position: fixed;
-  width: 100%;
-}
-@media only screen and (min-width: 768px) {
-  div#home-footer {
-    font-size: 14px;
-  }
-}
-div#home-footer div#footer-stats {
-  background-color: #ebebeb;
-  box-sizing: border-box;
-  padding: 10px 0;
-  position: relative;
-  white-space: nowrap;
-  width: 100%;
-}
-div#home-footer div#footer-stats ul {
-  box-sizing: border-box;
-  display: inline-block;
-  font-weight: 500;
-  white-space: normal;
-  width: 50%;
-}
-div#home-footer div#footer-stats ul#fields {
-  color: #494949;
-  padding-right: 5px;
-  text-align: right;
-}
-div#home-footer div#footer-stats ul#values {
-  padding-left: 5px;
-}
-div#home-footer ul#footer-links {
-  background-color: #d9d9d9;
-  box-sizing: border-box;
-  padding: 10px 0;
-  text-align: center;
-}
-div#home-footer ul#footer-links li {
-  display: inline-block;
-  margin: 5px 10px;
-  position: relative;
-}
-div#home-footer ul#footer-links li a {
-  display: inline-block;
-}
-div#home-footer ul#footer-links li a:hover {
-  text-decoration: underline;
-}
-div#home-footer ul#footer-links li span {
-  font-weight: 500;
-}
-div#home-footer ul#footer-links li:not(:last-child):after {
-  content: '|';
-  display: inline-block;
-  left: calc(100% + 8px);
-  line-height: 1.3;
-  position: absolute;
-  top: 0;
-}
-div#notfound {
-  background: #fff;
-  background: radial-gradient(#fff, #e7e7e7);
-  text-align: center;
-}
-div#notfound div {
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-div#notfound div h1 {
-  font-size: 100px;
-  font-weight: 300;
-}
-div#notfound div h2 {
-  font-size: 28px;
-  font-weight: 300;
-}
-div#profile-frame .content div#profile-content div.content-header div.content-controls {
-  overflow-x: scroll;
-}
-div#profile-frame .content div#profile-content div.content-header div.content-controls ul.tabs {
-  white-space: nowrap;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-header div.content-controls {
-    overflow-x: auto;
-  }
-  div#profile-frame .content div#profile-content div.content-header div.content-controls ul.tabs {
-    white-space: normal;
-  }
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li {
-  padding: 5px 0;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span,
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span {
-  font-weight: 500;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span:hover,
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span {
-  font-size: 14px;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.field {
-  color: #c8c8c8;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
-  color: #3498db;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.marked-title {
-  display: block;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span {
-  font-weight: 500;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li {
-  padding: 5px 0;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span,
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span:hover,
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span {
-  font-size: 14px;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
-  color: #c8c8c8;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
-  color: #3498db;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.marked-title {
-  display: block;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications {
-  height: 100%;
-  overflow-y: scroll;
-  position: relative;
-  width: 100%;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications div#empty {
-  font-style: italic;
-  margin: 10px;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  overflow: hidden;
-  padding: 10px 20px 10px 10px;
-  position: relative;
-  transition: background-color 0.3s;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
-  background-color: #eff2f7;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-  background-color: #d8d9de;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-  background-color: transparent;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-  background-color: transparent;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-  border: 1px solid #c8c8c8;
-  border-radius: 50%;
-  height: 15px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-  cursor: pointer;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-  height: 40px;
-  margin-right: 10px;
-  width: 40px;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-  display: block;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-  color: #3498db;
-  font-weight: 500;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-  text-decoration: underline;
-}
-div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-  font-style: italic;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-    height: 50px;
-    margin-right: 10px;
-    width: 50px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
-    height: 65px;
-    margin-right: 10px;
-    width: 65px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
 }
