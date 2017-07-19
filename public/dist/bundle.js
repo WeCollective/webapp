@@ -67177,7 +67177,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
   isHeaderButtonVisible() {
     const allowedStates = ['weco.branch.subbranches', 'weco.branch.wall', 'weco.branch.post'];
 
-    return this.UserService.isAuthenticated() && allowedStates.contains(this.$state.current.name);
+    return this.UserService.isAuthenticated() && allowedStates.includes(this.$state.current.name);
   }
 }
 

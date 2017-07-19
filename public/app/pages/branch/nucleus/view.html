@@ -7,11 +7,11 @@
       ng-click="Navbar.AppService.toggleSidebar()"
       src="/assets/images/icons/black/show.png" />
 
-    <h1 class="text--capitalize">
+    <h1 class="header__title text--capitalize">
     	{{ 'root' === Branch.BranchService.branch.id ? 'global ' : '' }}nucleus
     </h1>
 
-    <div class="content-controls">
+    <div class="header__controls">
       <tabs
         items="BranchNucleus.state.tabItems"
       	states="BranchNucleus.state.tabStates"

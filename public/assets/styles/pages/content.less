@@ -1,7 +1,6 @@
 .content {
   float: left;
   height: 100%;
-  // overflow-y: scroll;
   width: 100%;
   transition: transform .3s ease-out;
 
@@ -38,15 +37,7 @@
       flex-flow: row wrap;
       padding: @g-padding-sidebar @g-padding-sidebar 4px;
 
-      h1 {
-        font-size: @font-size-xl;
-        font-weight: 500;
-        padding-right: 35px;
-        position: relative;
-        top: @title-offset-to-sidebar;
-      }
-
-      .button--header {
+      .header__button {
         @icon-size: 28px;
 
         background-image: url('/assets/images/icons/black/add.jpg');
@@ -54,7 +45,7 @@
         cursor: pointer;
         display: block;
         height: @icon-size;
-        margin-left: 4px;
+        // margin-left: 4px;
         width: @icon-size;
 
         &:hover,
@@ -63,17 +54,25 @@
         }
       }
 
-      > div.content-controls {
+      .header__controls {
         display: flex;
         flex-direction: row;
         height: 100%;
         // Account for padding in dropdowns...
-        left: -15px;
+        // left: -15px;
         margin-top: 8px;
         overflow-x: auto;
         overflow-y: hidden;
         position: relative;
         top: @content-offset-to-sidebar;
+      }
+
+      .header__title {
+        font-size: @font-size-xl;
+        font-weight: 500;
+        padding-right: @g-padding-post * 2;
+        position: relative;
+        top: @title-offset-to-sidebar;
       }
     }
 

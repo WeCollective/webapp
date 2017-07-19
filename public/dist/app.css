@@ -1990,36 +1990,34 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   flex-flow: row wrap;
   padding: 16px 16px 4px;
 }
-.content > div .content-header h1 {
-  font-size: 26px;
-  font-weight: 500;
-  padding-right: 35px;
-  position: relative;
-  top: -1px;
-}
-.content > div .content-header .button--header {
+.content > div .content-header .header__button {
   background-image: url('/assets/images/icons/black/add.jpg');
   background-size: cover;
   cursor: pointer;
   display: block;
   height: 28px;
-  margin-left: 4px;
   width: 28px;
 }
-.content > div .content-header .button--header:hover,
-.content > div .content-header .button--header.selected {
+.content > div .content-header .header__button:hover,
+.content > div .content-header .header__button.selected {
   background-image: url('/assets/images/icons/black/add--hover.jpg');
 }
-.content > div .content-header > div.content-controls {
+.content > div .content-header .header__controls {
   display: flex;
   flex-direction: row;
   height: 100%;
-  left: -15px;
   margin-top: 8px;
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
   top: -3px;
+}
+.content > div .content-header .header__title {
+  font-size: 26px;
+  font-weight: 500;
+  padding-right: 24px;
+  position: relative;
+  top: -1px;
 }
 .content > div div.content-body {
   flex: 1;

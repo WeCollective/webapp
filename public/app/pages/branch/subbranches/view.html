@@ -7,12 +7,12 @@
       ng-click="Navbar.AppService.toggleSidebar()"
       src="/assets/images/icons/black/show.png" />
 
-    <h1 class="text--capitalize">
+    <h1 class="header__title text--capitalize">
       {{ BranchSubbranches.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
     </h1>
 
     <a
-      class="button--header ng-hide"
+      class="header__button ng-hide"
       ng-click="BranchSubbranches.WallService.handleHeaderButtonClick()"
       ng-show="BranchSubbranches.WallService.isHeaderButtonVisible()"
       offset-y="40"
@@ -20,7 +20,7 @@
       tooltip>
     </a>
 
-    <div class="content-controls">
+    <div class="header__controls">
       <dropdown
         items="BranchSubbranches.controls.timeRange.items"
         selected="BranchSubbranches.controls.timeRange.selectedIndex"

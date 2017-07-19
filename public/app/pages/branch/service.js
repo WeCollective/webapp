@@ -63,7 +63,7 @@ class WallService extends Injectable {
       'weco.branch.post',
     ];
 
-    return this.UserService.isAuthenticated() && allowedStates.contains(this.$state.current.name);
+    return this.UserService.isAuthenticated() && allowedStates.includes(this.$state.current.name);
   }
 }
 
