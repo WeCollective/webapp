@@ -154,11 +154,25 @@
 
   &.open {
     transform: translateX(0);
+
+    & + .content { transform: translateX(@sidebar-w-sm); }
   }
   
   .mediaQuery(@screen-md, {
+    float: left;
+    position: static;
     transform: none;
     width: @sidebar-w;
+
+    & + .content {
+      transform: translateX(0);
+      width: calc(~'100% - @{sidebar-w}');
+    }
   });
-  .mediaQuery(@screen-lg, { width: @sidebar-w-lg; });
+
+  .mediaQuery(@screen-lg, {
+    width: @sidebar-w-lg;
+
+    & + .content { width: calc(~'100% - @{sidebar-w-lg}'); }
+  });
 }

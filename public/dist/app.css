@@ -194,102 +194,6 @@ span {
     width: calc(100% - 64px);
   }
 }
-#weco-root .page > div.frame .sidebar.open + div.frame-content {
-  transform: translateX(149px);
-}
-@media only screen and (min-width: 768px) {
-  #weco-root .page > div.frame .sidebar.open + div.frame-content {
-    transform: translateX(0);
-  }
-}
-#weco-root .page > div.frame > div.frame-content {
-  float: left;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.3s ease-out;
-}
-#weco-root .page > div.frame > div.frame-content > div {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-#weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle {
-  cursor: pointer;
-  height: 26px;
-  margin-right: 16px;
-  opacity: .3;
-  transform: rotateZ(-90deg);
-  width: 26px;
-  transition: transform .2s;
-}
-#weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle.toggled {
-  transform: rotateZ(90deg);
-}
-@media only screen and (min-width: 768px) {
-  #weco-root .page > div.frame > div.frame-content > div .content--sidebar-toggle {
-    display: none;
-  }
-}
-#weco-root .page > div.frame > div.frame-content > div .content-header {
-  align-items: center;
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-flow: row wrap;
-  padding: 16px 16px 4px;
-}
-#weco-root .page > div.frame > div.frame-content > div .content-header h1 {
-  font-size: 26px;
-  font-weight: 500;
-  padding-right: 35px;
-  position: relative;
-  top: -1px;
-}
-#weco-root .page > div.frame > div.frame-content > div .content-header .button--header {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
-  cursor: pointer;
-  display: block;
-  height: 28px;
-  margin-left: 4px;
-  width: 28px;
-}
-#weco-root .page > div.frame > div.frame-content > div .content-header .button--header:hover,
-#weco-root .page > div.frame > div.frame-content > div .content-header .button--header.selected {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
-}
-#weco-root .page > div.frame > div.frame-content > div .content-header > div.content-controls {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  left: -15px;
-  margin-top: 8px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  position: relative;
-  top: -3px;
-}
-#weco-root .page > div.frame > div.frame-content > div div.content-body {
-  flex: 1;
-  overflow-y: scroll;
-}
-#weco-root .page > div.frame > div.frame-content > div div.content-body > ul {
-  padding: 0 16px;
-}
-@media only screen and (min-width: 768px) {
-  #weco-root .page > div.frame .sidebar {
-    float: left;
-    position: static;
-  }
-  #weco-root .page > div.frame > div.frame-content {
-    width: calc(100% - 201px);
-  }
-}
-@media only screen and (min-width: 992px) {
-  #weco-root .page > div.frame > div.frame-content {
-    width: calc(100% - 249px);
-  }
-}
 div[marked] {
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 14px;
@@ -1336,15 +1240,27 @@ div.poll-answer-editor input {
 .sidebar.open {
   transform: translateX(0);
 }
+.sidebar.open + .content {
+  transform: translateX(149px);
+}
 @media only screen and (min-width: 768px) {
   .sidebar {
+    float: left;
+    position: static;
     transform: none;
     width: 201px;
+  }
+  .sidebar + .content {
+    transform: translateX(0);
+    width: calc(100% - 201px);
   }
 }
 @media only screen and (min-width: 992px) {
   .sidebar {
     width: 249px;
+  }
+  .sidebar + .content {
+    width: calc(100% - 249px);
   }
 }
 ul.tabs {
@@ -2037,6 +1953,80 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   list-style-type: disc;
   margin-bottom: 15px;
   margin-left: 30px;
+}
+.content {
+  float: left;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-out;
+}
+.content > div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content > div .content--sidebar-toggle {
+  cursor: pointer;
+  height: 26px;
+  margin-right: 16px;
+  opacity: .3;
+  transform: rotateZ(-90deg);
+  width: 26px;
+  transition: transform .2s;
+}
+.content > div .content--sidebar-toggle.toggled {
+  transform: rotateZ(90deg);
+}
+@media only screen and (min-width: 768px) {
+  .content > div .content--sidebar-toggle {
+    display: none;
+  }
+}
+.content > div .content-header {
+  align-items: center;
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px 16px 4px;
+}
+.content > div .content-header h1 {
+  font-size: 26px;
+  font-weight: 500;
+  padding-right: 35px;
+  position: relative;
+  top: -1px;
+}
+.content > div .content-header .button--header {
+  background-image: url('/assets/images/icons/black/add.jpg');
+  background-size: cover;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  margin-left: 4px;
+  width: 28px;
+}
+.content > div .content-header .button--header:hover,
+.content > div .content-header .button--header.selected {
+  background-image: url('/assets/images/icons/black/add--hover.jpg');
+}
+.content > div .content-header > div.content-controls {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  left: -15px;
+  margin-top: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  top: -3px;
+}
+.content > div div.content-body {
+  flex: 1;
+  overflow-y: scroll;
+}
+.content > div div.content-body > ul {
+  padding: 0 16px;
 }
 .full-page.dark-bg {
   background: #444444;
@@ -3779,107 +3769,107 @@ div#notfound div h2 {
   font-size: 28px;
   font-weight: 300;
 }
-div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
+div#profile-frame .content div#profile-content div.content-header div.content-controls {
   overflow-x: scroll;
 }
-div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
+div#profile-frame .content div#profile-content div.content-header div.content-controls ul.tabs {
   white-space: nowrap;
 }
 @media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls {
+  div#profile-frame .content div#profile-content div.content-header div.content-controls {
     overflow-x: auto;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-header div.content-controls ul.tabs {
+  div#profile-frame .content div#profile-content div.content-header div.content-controls ul.tabs {
     white-space: normal;
   }
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li {
   padding: 5px 0;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span,
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span {
   font-weight: 500;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span:hover,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-cover span:hover,
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span {
   font-size: 14px;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.field {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.field {
   color: #c8c8c8;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.value a {
   color: #3498db;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.value a:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.marked-title {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.marked-title {
   display: block;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span {
   font-weight: 500;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-about-properties > li div.value {
+div#profile-frame .content div#profile-content div.content-body ul#profile-about-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li {
   padding: 5px 0;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span,
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span {
   font-weight: 500;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span:hover,
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-cover span:hover,
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span {
   font-size: 14px;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.field {
   color: #c8c8c8;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.value a {
   color: #3498db;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.value a:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.value a:hover {
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.marked-title {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.marked-title {
   display: block;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span {
   font-weight: 500;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span:hover {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
+div#profile-frame .content div#profile-content div.content-body ul#profile-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications {
   height: 100%;
   overflow-y: scroll;
   position: relative;
   width: 100%;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications div#empty {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications div#empty {
   font-style: italic;
   margin: 10px;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   overflow: hidden;
@@ -3888,23 +3878,23 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   transition: background-color 0.3s;
 }
 @media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
     padding: 10px 20px;
   }
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
   background-color: #eff2f7;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
   background-color: #d8d9de;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
   background-color: transparent;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
   background-color: transparent;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
   border: 1px solid #c8c8c8;
   border-radius: 50%;
   height: 15px;
@@ -3913,49 +3903,49 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
   top: 10px;
   width: 15px;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
   cursor: pointer;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
   height: 40px;
   margin-right: 10px;
   width: 40px;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
   display: block;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
   font-size: 14px;
   margin-bottom: 5px;
 }
 @media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 300;
 }
 @media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
   color: #3498db;
   font-weight: 500;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
   text-decoration: underline;
 }
-div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
   font-style: italic;
   font-weight: 300;
 }
 @media only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
     border-bottom: solid 1px #e7e7e7;
     display: flex;
     overflow: hidden;
@@ -3963,19 +3953,19 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     position: relative;
     transition: background-color 0.3s;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
     background-color: #d8d9de;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
     background-color: transparent;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
     background-color: transparent;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
     border: 1px solid #c8c8c8;
     border-radius: 50%;
     height: 15px;
@@ -3984,55 +3974,55 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     top: 10px;
     width: 15px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
     height: 50px;
     margin-right: 10px;
     width: 50px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
     color: #3498db;
     font-weight: 500;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
     font-style: italic;
     font-weight: 300;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
     padding: 10px 20px;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }
 @media only screen and (min-width: 768px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
     border-bottom: solid 1px #e7e7e7;
     display: flex;
     overflow: hidden;
@@ -4040,19 +4030,19 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     position: relative;
     transition: background-color 0.3s;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread {
     background-color: #eff2f7;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li.unread div.toggle-unread {
     background-color: #d8d9de;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) {
     background-color: transparent;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li:not(.unread) div.toggle-unread {
     background-color: transparent;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread {
     border: 1px solid #c8c8c8;
     border-radius: 50%;
     height: 15px;
@@ -4061,50 +4051,50 @@ div#profile-frame div.frame-content div#profile-content div.content-body div#pro
     top: 10px;
     width: 15px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-image img {
     height: 65px;
     margin-right: 10px;
     width: 65px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div {
     display: block;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a {
     color: #3498db;
     font-weight: 500;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
   }
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry p.message {
     font-style: italic;
     font-weight: 300;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li {
     padding: 10px 20px;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  div#profile-frame div.frame-content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
+  div#profile-frame .content div#profile-content div.content-body div#profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }

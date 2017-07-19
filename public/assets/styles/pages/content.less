@@ -1,0 +1,88 @@
+.content {
+  float: left;
+  height: 100%;
+  // overflow-y: scroll;
+  width: 100%;
+  transition: transform .3s ease-out;
+
+  > div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .content--sidebar-toggle {
+      @s-button: 26px;
+
+      cursor: pointer;
+      height: @s-button;
+      margin-right: @g-padding-sidebar;
+      opacity: .3;
+      transform: rotateZ(-90deg);
+      width: @s-button;
+      transition: transform .2s;
+
+      &.toggled { transform: rotateZ(90deg); }
+
+      .mediaQuery(@screen-md, { display: none; });
+    }
+
+    .content-header {
+      @title-offset-to-sidebar: -1px;
+      @button-offset-to-content: -5px;
+      @content-offset-to-sidebar: -3px;
+
+      align-items: center;
+      border-bottom: solid 1px @light-grey;
+      display: flex;
+      flex-flow: row wrap;
+      padding: @g-padding-sidebar @g-padding-sidebar 4px;
+
+      h1 {
+        font-size: @font-size-xl;
+        font-weight: 500;
+        padding-right: 35px;
+        position: relative;
+        top: @title-offset-to-sidebar;
+      }
+
+      .button--header {
+        @icon-size: 28px;
+
+        background-image: url('/assets/images/icons/black/add.jpg');
+        background-size: cover;
+        cursor: pointer;
+        display: block;
+        height: @icon-size;
+        margin-left: 4px;
+        width: @icon-size;
+
+        &:hover,
+        &.selected {
+          background-image: url('/assets/images/icons/black/add--hover.jpg');
+        }
+      }
+
+      > div.content-controls {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        // Account for padding in dropdowns...
+        left: -15px;
+        margin-top: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        top: @content-offset-to-sidebar;
+      }
+    }
+
+    div.content-body {
+      flex: 1;
+      // Needs to be set explicitly to scroll for the scrolling directive to work.
+      overflow-y: scroll;
+
+      > ul { padding: 0 @g-padding-sidebar; }
+    }
+  }
+}
