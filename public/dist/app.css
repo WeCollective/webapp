@@ -2093,47 +2093,55 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: pointer;
   text-decoration: underline;
 }
-ul#nucleus-about-properties > li {
+ul#nucleus-about-properties > li,
+ul#nucleus-settings-properties > li {
   padding: 5px 0;
 }
 ul#nucleus-about-properties > li#change-cover span,
-ul#nucleus-about-properties > li#change-picture span {
+ul#nucleus-settings-properties > li#change-cover span,
+ul#nucleus-about-properties > li#change-picture span,
+ul#nucleus-settings-properties > li#change-picture span {
   font-weight: 500;
 }
 ul#nucleus-about-properties > li#change-cover span:hover,
-ul#nucleus-about-properties > li#change-picture span:hover {
+ul#nucleus-settings-properties > li#change-cover span:hover,
+ul#nucleus-about-properties > li#change-picture span:hover,
+ul#nucleus-settings-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-ul#nucleus-about-properties > li span {
+ul#nucleus-about-properties > li span,
+ul#nucleus-settings-properties > li span {
   font-size: 14px;
 }
-ul#nucleus-about-properties > li span.field {
+ul#nucleus-about-properties > li span.field,
+ul#nucleus-settings-properties > li span.field {
   color: #c8c8c8;
 }
-ul#nucleus-about-properties > li span.value a {
+ul#nucleus-about-properties > li span.value a,
+ul#nucleus-settings-properties > li span.value a {
   color: #3498db;
 }
-ul#nucleus-about-properties > li span.value a:hover {
+ul#nucleus-about-properties > li span.value a:hover,
+ul#nucleus-settings-properties > li span.value a:hover {
   text-decoration: underline;
 }
-ul#nucleus-about-properties > li span.marked-title {
+ul#nucleus-about-properties > li span.marked-title,
+ul#nucleus-settings-properties > li span.marked-title {
   display: block;
 }
-ul#nucleus-about-properties > li span.change-value span {
+ul#nucleus-about-properties > li span.change-value span,
+ul#nucleus-settings-properties > li span.change-value span {
   font-weight: 500;
 }
-ul#nucleus-about-properties > li span.change-value span:hover {
+ul#nucleus-about-properties > li span.change-value span:hover,
+ul#nucleus-settings-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-ul#nucleus-about-properties > li div.value {
+ul#nucleus-about-properties > li div.value,
+ul#nucleus-settings-properties > li div.value {
   font-size: 14px;
-  width: 100%;
-}
-div#nucleus-moderators-list-container {
-  height: 100%;
-  position: relative;
   width: 100%;
 }
 div#nucleus-moderators-list-container ul a li {
@@ -2174,111 +2182,40 @@ div#nucleus-moderators-list-container ul a li span {
     font-size: 14px;
   }
 }
-ul#nucleus-settings-properties {
-  padding: 0;
-  text-align: center;
-}
-ul#nucleus-settings-properties > li {
+ul#nucleus-modtools-properties li {
   padding: 5px 0;
 }
-ul#nucleus-settings-properties > li#change-cover span,
-ul#nucleus-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-ul#nucleus-settings-properties > li#change-cover span:hover,
-ul#nucleus-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-ul#nucleus-settings-properties > li span {
-  font-size: 14px;
-}
-ul#nucleus-settings-properties > li span.field {
-  color: #c8c8c8;
-}
-ul#nucleus-settings-properties > li span.value a {
-  color: #3498db;
-}
-ul#nucleus-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-ul#nucleus-settings-properties > li span.marked-title {
-  display: block;
-}
-ul#nucleus-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-ul#nucleus-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-ul#nucleus-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-div#nucleus-modtools-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-div#nucleus-modtools-container ul#nucleus-modtools-properties {
-  border-bottom: 1px solid #e7e7e7;
-  box-sizing: border-box;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  text-align: center;
-}
-div#nucleus-modtools-container ul#nucleus-modtools-properties li {
-  padding: 5px 0;
-}
-div#nucleus-modtools-container ul#nucleus-modtools-properties li span {
+ul#nucleus-modtools-properties li span {
   font-size: 14px;
   font-weight: 500;
 }
-div#nucleus-modtools-container ul#nucleus-modtools-properties li span.danger {
+ul#nucleus-modtools-properties li span.danger {
   color: #c0392b;
 }
-div#nucleus-modtools-container ul#nucleus-modtools-properties li span:hover {
+ul#nucleus-modtools-properties li:hover {
   cursor: pointer;
+}
+ul#nucleus-modtools-properties li:hover span {
   text-decoration: underline;
 }
-ul#nucleus-modtools-log {
-  box-sizing: border-box;
-  height: 0px;
-  flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  overflow-y: auto;
-  position: relative;
-}
-ul#nucleus-modtools-log div h2 {
-  font-size: 18px;
-}
-ul#nucleus-modtools-log div h3 {
-  color: #c8c8c8;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 400;
-  margin-top: 10px;
-}
-ul#nucleus-modtools-log div li {
+ul#nucleus-modtools-log li {
   padding: 10px 0;
 }
-ul#nucleus-modtools-log div li div {
+ul#nucleus-modtools-log li div {
   font-size: 14px;
 }
-ul#nucleus-modtools-log div li div a {
+ul#nucleus-modtools-log li div a {
   color: #3498db;
   font-weight: 500;
 }
-ul#nucleus-modtools-log div li div a:hover {
+ul#nucleus-modtools-log li div a:hover {
   text-decoration: underline;
 }
-ul#nucleus-modtools-log div li div.entry {
+ul#nucleus-modtools-log li div.entry {
   float: left;
   width: 100%;
 }
-ul#nucleus-modtools-log div li div.time {
+ul#nucleus-modtools-log li div.time {
   color: #c8c8c8;
   float: left;
   width: 150px;
@@ -2710,6 +2647,9 @@ ul#nucleus-modtools-log div li div.time {
 .content .content__list.style--full-padding {
   padding: 16px;
 }
+.content .content__list + .content__list {
+  border-top: 1px solid #e7e7e7;
+}
 .header {
   align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
@@ -2750,6 +2690,17 @@ ul#nucleus-modtools-log div li div.time {
   margin-top: 4px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+.header .header__empty-state {
+  color: #c8c8c8;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+}
+.header .header__subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  position: relative;
 }
 .header .header__title {
   font-size: 26px;

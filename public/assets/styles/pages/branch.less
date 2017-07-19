@@ -1,14 +1,10 @@
-// About
-ul#nucleus-about-properties {
+ul#nucleus-about-properties,
+ul#nucleus-settings-properties {
   .field-value-list();
 }
 
 // Moderators
 div#nucleus-moderators-list-container {
-  height: 100%;
-  position: relative;
-  width: 100%;
-
   ul {
     a {
       li {
@@ -53,89 +49,49 @@ div#nucleus-moderators-list-container {
   }
 }
 
-// Settings
-ul#nucleus-settings-properties {
-  .field-value-list();
-  
-  padding: 0;
-  text-align: center;
-}
+ul#nucleus-modtools-properties {
+  li {
+    padding: 5px 0;
 
-// Mod tools
-div#nucleus-modtools-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
+    span {
+      font-size: @font-size-sm;
+      font-weight: @font-weight-heavy;
 
-  ul#nucleus-modtools-properties {
-    border-bottom: 1px solid @light-grey;
-    box-sizing: border-box;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    text-align: center;
+      &.danger { color: @caution-0; }
+    }
 
-    li {
-      padding: 5px 0;
+    &:hover {
+      cursor: pointer;
 
-      span {
-        font-size: @font-size-sm;
-        font-weight: @font-weight-heavy;
-
-        &.danger { color: @caution-0; }
-
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-        }
-      }
+      span { text-decoration: underline; }
     }
   }
 }
 
 ul#nucleus-modtools-log {
-  box-sizing: border-box;
-  height: 0px;
-  flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  overflow-y: auto;
-  position: relative;
+  li {
+    padding: 10px 0;
 
-  div {
-    h2 { font-size: @font-size-md; }
-
-    h3 {
-      color: @dark-grey;
+    div {
       font-size: @font-size-sm;
-      font-style: italic;
-      font-weight: @font-weight-normal;
-      margin-top: 10px;
-    }
 
-    li {
-      padding: 10px 0;
+      a {
+        color: @accent-0;
+        font-weight: @font-weight-heavy;
+        
+        &:hover { text-decoration: underline; }
+      }
 
-      div {
-        font-size: @font-size-sm;
+      &.entry {
+        float: left;
+        width: 100%;
+        // width: calc(~'100% - 150px');
+      }
 
-        a {
-          color: @accent-0;
-          font-weight: @font-weight-heavy;
-          
-          &:hover { text-decoration: underline; }
-        }
-
-        &.entry {
-          float: left;
-          width: 100%;
-          // width: calc(~'100% - 150px');
-        }
-
-        &.time {
-          color: @dark-grey;
-          float: left;
-          width: 150px;
-        }
+      &.time {
+        color: @dark-grey;
+        float: left;
+        width: 150px;
       }
     }
   }
