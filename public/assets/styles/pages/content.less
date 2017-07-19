@@ -9,17 +9,17 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
   }
 
   .content__body {
     flex: 1;
     // Needs to be set explicitly to scroll for the scrolling directive to work.
     overflow-y: scroll;
-
-    > ul { padding: 0 @g-padding-sidebar; }
   }
 
   .content__list {
     overflow: hidden;
+    padding: 0 @g-padding-sidebar;
   }
 }

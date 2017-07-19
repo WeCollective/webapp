@@ -2070,495 +2070,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: pointer;
   text-decoration: underline;
 }
-.content {
-  float: left;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.3s ease-out;
-}
-.content > div {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.content .content__body {
-  flex: 1;
-  overflow-y: scroll;
-}
-.content .content__body > ul {
-  padding: 0 16px;
-}
-.content .content__list {
-  overflow: hidden;
-}
-.header {
-  align-items: flex-start;
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-flow: row wrap;
-  padding: 16px 16px 0;
-}
-.header .header__button {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
-  cursor: pointer;
-  display: block;
-  height: 28px;
-  margin-top: 4px;
-  width: 28px;
-  transition: transform .2s;
-}
-.header .header__button.style--sidebar-toggle {
-  margin-right: 16px;
-  opacity: .3;
-  transform: rotateZ(-90deg);
-}
-.header .header__button.style--sidebar-toggle.style--toggled {
-  transform: rotateZ(90deg);
-}
-@media only screen and (min-width: 768px) {
-  .header .header__button.style--sidebar-toggle {
-    display: none;
-  }
-}
-.header .header__button:hover {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
-}
-.header .header__controls {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  margin-top: 4px;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-.header .header__title {
-  font-size: 26px;
-  font-weight: 500;
-  padding-bottom: 6px;
-  padding-right: 24px;
-  position: relative;
-}
-div#home-content {
-  left: 50%;
-  margin-top: -60px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-}
-@media only screen and (min-width: 576px) {
-  div#home-content {
-    width: 400px;
-  }
-}
-div#home-content form {
-  height: 40px;
-  position: relative;
-  width: 100%;
-}
-div#home-content form img {
-  height: 20px;
-  opacity: .5;
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: auto;
-}
-div#home-content form input {
-  background-color: #c8c8c8;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  padding: 0 20px;
-  width: 100%;
-}
-div#home-content form input:focus {
-  outline: none;
-}
-div#home-content img {
-  height: auto;
-  margin-bottom: 20px;
-  width: 80%;
-}
-div#home-footer {
-  bottom: 0;
-  font-size: 12px;
-  position: fixed;
-  width: 100%;
-}
-@media only screen and (min-width: 768px) {
-  div#home-footer {
-    font-size: 14px;
-  }
-}
-div#home-footer div#footer-stats {
-  background-color: #ebebeb;
-  box-sizing: border-box;
-  padding: 10px 0;
-  position: relative;
-  white-space: nowrap;
-  width: 100%;
-}
-div#home-footer div#footer-stats ul {
-  box-sizing: border-box;
-  display: inline-block;
-  font-weight: 500;
-  white-space: normal;
-  width: 50%;
-}
-div#home-footer div#footer-stats ul#fields {
-  color: #494949;
-  padding-right: 5px;
-  text-align: right;
-}
-div#home-footer div#footer-stats ul#values {
-  padding-left: 5px;
-}
-div#home-footer ul#footer-links {
-  background-color: #d9d9d9;
-  box-sizing: border-box;
-  padding: 10px 0;
-  text-align: center;
-}
-div#home-footer ul#footer-links li {
-  display: inline-block;
-  margin: 5px 10px;
-  position: relative;
-}
-div#home-footer ul#footer-links li a {
-  display: inline-block;
-}
-div#home-footer ul#footer-links li a:hover {
-  text-decoration: underline;
-}
-div#home-footer ul#footer-links li span {
-  font-weight: 500;
-}
-div#home-footer ul#footer-links li:not(:last-child):after {
-  content: '|';
-  display: inline-block;
-  left: calc(100% + 8px);
-  line-height: 1.3;
-  position: absolute;
-  top: 0;
-}
-div#notfound {
-  background: #fff;
-  background: radial-gradient(#fff, #e7e7e7);
-  text-align: center;
-}
-div#notfound div {
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-}
-div#notfound div h1 {
-  font-size: 100px;
-  font-weight: 300;
-}
-div#notfound div h2 {
-  font-size: 28px;
-  font-weight: 300;
-}
-#profile-frame .content__body ul#profile-about-properties > li,
-#profile-frame .content__body ul#profile-settings-properties > li {
-  padding: 5px 0;
-}
-#profile-frame .content__body ul#profile-about-properties > li#change-cover span,
-#profile-frame .content__body ul#profile-settings-properties > li#change-cover span,
-#profile-frame .content__body ul#profile-about-properties > li#change-picture span,
-#profile-frame .content__body ul#profile-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-#profile-frame .content__body ul#profile-about-properties > li#change-cover span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li#change-cover span:hover,
-#profile-frame .content__body ul#profile-about-properties > li#change-picture span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li span,
-#profile-frame .content__body ul#profile-settings-properties > li span {
-  font-size: 14px;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.field,
-#profile-frame .content__body ul#profile-settings-properties > li span.field {
-  color: #c8c8c8;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.value a,
-#profile-frame .content__body ul#profile-settings-properties > li span.value a {
-  color: #3498db;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.value a:hover,
-#profile-frame .content__body ul#profile-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.marked-title,
-#profile-frame .content__body ul#profile-settings-properties > li span.marked-title {
-  display: block;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.change-value span,
-#profile-frame .content__body ul#profile-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.change-value span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li div.value,
-#profile-frame .content__body ul#profile-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-#profile-frame .content__body #profile-notifications {
-  height: 100%;
-  overflow-y: scroll;
-  position: relative;
-  width: 100%;
-}
-#profile-frame .content__body #profile-notifications div#empty {
-  font-style: italic;
-  margin: 10px;
-}
-#profile-frame .content__body #profile-notifications ul li {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  overflow: hidden;
-  padding: 10px 20px 10px 10px;
-  position: relative;
-  transition: background-color 0.3s;
-}
-@media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-#profile-frame .content__body #profile-notifications ul li.unread {
-  background-color: #eff2f7;
-}
-#profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
-  background-color: #d8d9de;
-}
-#profile-frame .content__body #profile-notifications ul li:not(.unread) {
-  background-color: transparent;
-}
-#profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
-  background-color: transparent;
-}
-#profile-frame .content__body #profile-notifications ul li div.toggle-unread {
-  border: 1px solid #c8c8c8;
-  border-radius: 50%;
-  height: 15px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-}
-#profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
-  cursor: pointer;
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-image img {
-  height: 40px;
-  margin-right: 10px;
-  width: 40px;
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div {
-  display: block;
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-@media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
-  color: #3498db;
-  font-weight: 500;
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
-  text-decoration: underline;
-}
-#profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
-  font-style: italic;
-  font-weight: 300;
-}
-@media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  #profile-frame .content__body #profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
-    height: 50px;
-    margin-right: 10px;
-    width: 50px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #profile-frame .content__body #profile-notifications ul li {
-    border-bottom: solid 1px #e7e7e7;
-    display: flex;
-    overflow: hidden;
-    padding: 10px 20px 10px 10px;
-    position: relative;
-    transition: background-color 0.3s;
-  }
-  #profile-frame .content__body #profile-notifications ul li.unread {
-    background-color: #eff2f7;
-  }
-  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
-    background-color: #d8d9de;
-  }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
-    background-color: transparent;
-  }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
-    background-color: transparent;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
-    border: 1px solid #c8c8c8;
-    border-radius: 50%;
-    height: 15px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 15px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
-    cursor: pointer;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
-    height: 65px;
-    margin-right: 10px;
-    width: 65px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
-    display: block;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-    color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
-    color: #3498db;
-    font-weight: 500;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
-    text-decoration: underline;
-  }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
-    font-style: italic;
-    font-weight: 300;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
-    padding: 10px 20px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
-    font-size: 18px;
-  }
-}
-@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
-    font-size: 14px;
-  }
-}
-div#branch-nucleus .content__body {
-  padding: 10px 20px;
-}
 div#branch-nucleus .content__body ul#nucleus-about-properties {
   margin-bottom: 20px;
   padding: 0;
@@ -2602,7 +2113,7 @@ div#branch-nucleus .content__body ul#nucleus-about-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#branch-nucleus .content__body > div.button {
+div#branch-nucleus .content__body > .button {
   background-color: #92bedb;
   border-radius: 3px;
   color: #fff;
@@ -2615,13 +2126,13 @@ div#branch-nucleus .content__body > div.button {
   max-width: 150px;
   padding: 10px;
 }
-div#branch-nucleus .content__body > div.button:hover {
+div#branch-nucleus .content__body > .button:hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.3s ease-out;
 }
-div#branch-nucleus .content__body > div.button span {
+div#branch-nucleus .content__body > .button span {
   font-size: 14px;
   font-weight: 500;
   line-height: 30px;
@@ -2799,21 +2310,27 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body {
 div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list {
   padding: 0;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item {
+div#branch-nucleus .content__body.flaggedposts {
+  padding: 0px;
+}
+div#branch-nucleus .content__body.moderators {
+  padding: 10px;
+}
+.branch__subbranch {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   flex-direction: row;
-  min-height: 70px;
+  min-height: 90px;
   padding: 8px 0;
   width: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item span.list-item-index {
+.branch__subbranch span.list-item-index {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 70px;
+  line-height: 90px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags {
+.branch__subbranch div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -2823,11 +2340,11 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#po
   position: relative;
   text-align: center;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags:hover {
+.branch__subbranch div.list-item-flags:hover {
   background-color: #c0392b;
   cursor: pointer;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags img {
+.branch__subbranch div.list-item-flags img {
   height: auto;
   left: 12px;
   opacity: 1;
@@ -2835,104 +2352,104 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#po
   vertical-align: middle;
   width: 16px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-flags span {
+.branch__subbranch div.list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes {
+.branch__subbranch .list-item__votes {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 70px;
+  height: 90px;
   margin-left: 6px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon {
+.branch__subbranch .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 26px;
   opacity: .2;
   width: 26px;
   transition: opacity .2s;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes .list-item__vote-icon:hover {
+.branch__subbranch .list-item__votes .list-item__vote-icon.style--active,
+.branch__subbranch .list-item__votes .list-item__vote-icon:hover {
   opacity: .6;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__votes p {
+.branch__subbranch .list-item__votes p {
   margin: 0;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item-image div {
+.branch__subbranch .list-item-image div {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 70px;
+  height: 90px;
   margin: 0 10px 0 12px;
-  width: 70px;
+  width: 90px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item-image div:hover {
+.branch__subbranch .list-item-image div:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-nsfw-label {
+.branch__subbranch div.list-item-nsfw-label {
   background-color: #ffecee;
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 70px;
+  height: 90px;
   margin-right: 10px;
   padding: 2px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-nsfw-label span {
+.branch__subbranch div.list-item-nsfw-label span {
   color: #ff8095;
   font-size: 11px;
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info {
+.branch__subbranch div.list-item-info {
   flex: 1;
   height: 100%;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail {
+.branch__subbranch div.list-item-info .list-item__details .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 500;
   vertical-align: top;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
+.branch__subbranch div.list-item-info .list-item__details .list-item__detail.style--icon {
   margin-left: 4px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail {
   color: #3498db;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
   color: #b3b3b3;
   vertical-align: top;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
   text-decoration: none;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
   opacity: 1;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+.branch__subbranch div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
   color: #2c2c2c;
   text-decoration: none;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail {
+.branch__subbranch div.list-item-info .list-item__details img.list-item__detail {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
   opacity: .3;
   width: 16px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
+.branch__subbranch div.list-item-info .list-item__details img.list-item__detail:hover {
   opacity: 1;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__separator {
+.branch__subbranch div.list-item-info .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
   height: 14px;
@@ -2941,27 +2458,27 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#po
   top: -1px;
   width: 1px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item div.list-item-info .list-item__title {
+.branch__subbranch div.list-item-info .list-item__title {
   display: inline;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__radio-button {
+.branch__subbranch .list-item__radio-button {
   height: 20px;
   margin: 0 12px;
   width: 20px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats {
+.branch__subbranch .list-item__stats {
   margin-right: 12px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
+.branch__subbranch .list-item__stats .list-item__stats-header .list-item__stats-votes {
   color: #2c2c2c;
   font-size: 14px;
   font-weight: 500;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
+.branch__subbranch .list-item__stats .list-item__stats-header .list-item__stats-icon {
   height: 24px;
   opacity: .3;
   position: relative;
@@ -2969,20 +2486,20 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#po
   vertical-align: bottom;
   width: 24px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item .list-item__stats .list-item__stats-percentage {
+.branch__subbranch .list-item__stats .list-item__stats-percentage {
   color: #b3b3b3;
   font-size: 14px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-branch .list-item-info .list-item__title {
+.branch__subbranch.style--card-branch .list-item-info .list-item__title {
   font-size: 18px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer {
+.branch__subbranch.style--card-poll-answer {
   align-items: center;
   box-sizing: border-box;
   margin: 0;
   padding: 0 12px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
+.branch__subbranch.style--card-poll-answer .list-item-index.style--colour-coded {
   color: #fff;
   height: 40px;
   border-radius: 3px;
@@ -2991,20 +2508,410 @@ div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#po
   text-align: center;
   width: 40px;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer.style--selected {
+.branch__subbranch.style--card-poll-answer.style--selected {
   background-color: #eff2f7;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result) {
+.branch__subbranch.style--card-poll-answer:not(.style--result) {
   cursor: pointer;
 }
-div#branch-nucleus .content__body div#nucleus-flagged-posts .content__body ul#post-list li.list-item.style--card-poll-answer:not(.style--result):hover {
+.branch__subbranch.style--card-poll-answer:not(.style--result):hover {
   background-color: #eff2f7;
 }
-div#branch-nucleus .content__body.flaggedposts {
-  padding: 0px;
+.branch__post {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-direction: row;
+  min-height: 70px;
+  padding: 8px 0;
+  width: 100%;
 }
-div#branch-nucleus .content__body.moderators {
-  padding: 10px;
+.branch__post span.list-item-index {
+  color: #c8c8c8;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 70px;
+}
+.branch__post div.list-item-flags {
+  align-self: center;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  height: 30px;
+  margin: 0 10px;
+  min-width: 50px;
+  position: relative;
+  text-align: center;
+}
+.branch__post div.list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
+}
+.branch__post div.list-item-flags img {
+  height: auto;
+  left: 12px;
+  opacity: 1;
+  top: 0;
+  vertical-align: middle;
+  width: 16px;
+}
+.branch__post div.list-item-flags span {
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+}
+.branch__post .list-item__votes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  margin-left: 6px;
+}
+.branch__post .list-item__votes .list-item__vote-icon {
+  cursor: pointer;
+  height: 26px;
+  opacity: .2;
+  width: 26px;
+  transition: opacity .2s;
+}
+.branch__post .list-item__votes .list-item__vote-icon.style--active,
+.branch__post .list-item__votes .list-item__vote-icon:hover {
+  opacity: .6;
+}
+.branch__post .list-item__votes p {
+  margin: 0;
+}
+.branch__post .list-item-image div {
+  background-position: center;
+  background-size: cover;
+  border-radius: 4px;
+  height: 70px;
+  margin: 0 10px 0 12px;
+  width: 70px;
+}
+.branch__post .list-item-image div:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.branch__post div.list-item-nsfw-label {
+  background-color: #ffecee;
+  border: 2px solid #ff8095;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 70px;
+  margin-right: 10px;
+  padding: 2px;
+}
+.branch__post div.list-item-nsfw-label span {
+  color: #ff8095;
+  font-size: 11px;
+  font-weight: 600;
+  text-orientation: upright;
+  writing-mode: tb;
+}
+.branch__post div.list-item-info {
+  flex: 1;
+  height: 100%;
+}
+.branch__post div.list-item-info .list-item__details .list-item__detail {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 500;
+  vertical-align: top;
+}
+.branch__post div.list-item-info .list-item__details .list-item__detail.style--icon {
+  margin-left: 4px;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail {
+  color: #3498db;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
+  color: #b3b3b3;
+  vertical-align: top;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
+  text-decoration: none;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
+  opacity: 1;
+}
+.branch__post div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
+  color: #2c2c2c;
+  text-decoration: none;
+}
+.branch__post div.list-item-info .list-item__details img.list-item__detail {
+  color: #b3b3b3;
+  cursor: pointer;
+  height: 16px;
+  opacity: .3;
+  width: 16px;
+}
+.branch__post div.list-item-info .list-item__details img.list-item__detail:hover {
+  opacity: 1;
+}
+.branch__post div.list-item-info .list-item__separator {
+  background-color: #b3b3b3;
+  display: inline-block;
+  height: 14px;
+  margin: 0 4px;
+  position: relative;
+  top: -1px;
+  width: 1px;
+}
+.branch__post div.list-item-info .list-item__title {
+  display: inline;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: top;
+}
+.branch__post .list-item__radio-button {
+  height: 20px;
+  margin: 0 12px;
+  width: 20px;
+}
+.branch__post .list-item__stats {
+  margin-right: 12px;
+}
+.branch__post .list-item__stats .list-item__stats-header .list-item__stats-votes {
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+}
+.branch__post .list-item__stats .list-item__stats-header .list-item__stats-icon {
+  height: 24px;
+  opacity: .3;
+  position: relative;
+  top: 3px;
+  vertical-align: bottom;
+  width: 24px;
+}
+.branch__post .list-item__stats .list-item__stats-percentage {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+.branch__post.style--card-branch .list-item-info .list-item__title {
+  font-size: 18px;
+}
+.branch__post.style--card-poll-answer {
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px;
+}
+.branch__post.style--card-poll-answer .list-item-index.style--colour-coded {
+  color: #fff;
+  height: 40px;
+  border-radius: 3px;
+  line-height: 40px;
+  margin-right: 12px;
+  text-align: center;
+  width: 40px;
+}
+.branch__post.style--card-poll-answer.style--selected {
+  background-color: #eff2f7;
+}
+.branch__post.style--card-poll-answer:not(.style--result) {
+  cursor: pointer;
+}
+.branch__post.style--card-poll-answer:not(.style--result):hover {
+  background-color: #eff2f7;
+}
+.content {
+  float: left;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-out;
+}
+.content > div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.content .content__body {
+  flex: 1;
+  overflow-y: scroll;
+}
+.content .content__list {
+  overflow: hidden;
+  padding: 0 16px;
+}
+.header {
+  align-items: flex-start;
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px 16px 0;
+}
+.header .header__button {
+  background-image: url('/assets/images/icons/black/add.jpg');
+  background-size: cover;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  margin-top: 4px;
+  width: 28px;
+  transition: transform .2s;
+}
+.header .header__button.style--sidebar-toggle {
+  margin-right: 16px;
+  opacity: .3;
+  transform: rotateZ(-90deg);
+}
+.header .header__button.style--sidebar-toggle.style--toggled {
+  transform: rotateZ(90deg);
+}
+@media only screen and (min-width: 768px) {
+  .header .header__button.style--sidebar-toggle {
+    display: none;
+  }
+}
+.header .header__button:hover {
+  background-image: url('/assets/images/icons/black/add--hover.jpg');
+}
+.header .header__controls {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin-top: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.header .header__title {
+  font-size: 26px;
+  font-weight: 500;
+  padding-bottom: 6px;
+  padding-right: 24px;
+  position: relative;
+}
+div#home-content {
+  left: 50%;
+  margin-top: -60px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+@media only screen and (min-width: 576px) {
+  div#home-content {
+    width: 400px;
+  }
+}
+div#home-content form {
+  height: 40px;
+  position: relative;
+  width: 100%;
+}
+div#home-content form img {
+  height: 20px;
+  opacity: .5;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: auto;
+}
+div#home-content form input {
+  background-color: #c8c8c8;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  padding: 0 20px;
+  width: 100%;
+}
+div#home-content form input:focus {
+  outline: none;
+}
+div#home-content img {
+  height: auto;
+  margin-bottom: 20px;
+  width: 80%;
+}
+div#home-footer {
+  bottom: 0;
+  font-size: 12px;
+  position: fixed;
+  width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  div#home-footer {
+    font-size: 14px;
+  }
+}
+div#home-footer div#footer-stats {
+  background-color: #ebebeb;
+  box-sizing: border-box;
+  padding: 10px 0;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
+}
+div#home-footer div#footer-stats ul {
+  box-sizing: border-box;
+  display: inline-block;
+  font-weight: 500;
+  white-space: normal;
+  width: 50%;
+}
+div#home-footer div#footer-stats ul#fields {
+  color: #494949;
+  padding-right: 5px;
+  text-align: right;
+}
+div#home-footer div#footer-stats ul#values {
+  padding-left: 5px;
+}
+div#home-footer ul#footer-links {
+  background-color: #d9d9d9;
+  box-sizing: border-box;
+  padding: 10px 0;
+  text-align: center;
+}
+div#home-footer ul#footer-links li {
+  display: inline-block;
+  margin: 5px 10px;
+  position: relative;
+}
+div#home-footer ul#footer-links li a {
+  display: inline-block;
+}
+div#home-footer ul#footer-links li a:hover {
+  text-decoration: underline;
+}
+div#home-footer ul#footer-links li span {
+  font-weight: 500;
+}
+div#home-footer ul#footer-links li:not(:last-child):after {
+  content: '|';
+  display: inline-block;
+  left: calc(100% + 8px);
+  line-height: 1.3;
+  position: absolute;
+  top: 0;
+}
+div#notfound {
+  background: #fff;
+  background: radial-gradient(#fff, #e7e7e7);
+  text-align: center;
+}
+div#notfound div {
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+div#notfound div h1 {
+  font-size: 100px;
+  font-weight: 300;
+}
+div#notfound div h2 {
+  font-size: 28px;
+  font-weight: 300;
 }
 .post {
   box-sizing: border-box;
@@ -3632,409 +3539,293 @@ div#branch-nucleus .content__body.moderators {
     width: calc(100% - 20px);
   }
 }
-div#branch-subbranches .content__body .content__list li.list-item {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-direction: row;
-  min-height: 90px;
-  padding: 8px 0;
-  width: 100%;
+#profile-frame .content__body ul#profile-about-properties > li,
+#profile-frame .content__body ul#profile-settings-properties > li {
+  padding: 5px 0;
 }
-div#branch-subbranches .content__body .content__list li.list-item span.list-item-index {
-  color: #c8c8c8;
-  font-size: 18px;
+#profile-frame .content__body ul#profile-about-properties > li#change-cover span,
+#profile-frame .content__body ul#profile-settings-properties > li#change-cover span,
+#profile-frame .content__body ul#profile-about-properties > li#change-picture span,
+#profile-frame .content__body ul#profile-settings-properties > li#change-picture span {
   font-weight: 500;
-  line-height: 90px;
 }
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags {
-  align-self: center;
-  background-color: #e74c3c;
-  border-radius: 5px;
-  height: 30px;
-  margin: 0 10px;
-  min-width: 50px;
-  position: relative;
-  text-align: center;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
-  width: 16px;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-flags span {
-  color: #fff;
-  font-size: 14px;
-  line-height: 30px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__votes {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 90px;
-  margin-left: 6px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon {
-  cursor: pointer;
-  height: 26px;
-  opacity: .2;
-  width: 26px;
-  transition: opacity .2s;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-subbranches .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__votes p {
-  margin: 0;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item-image div {
-  background-position: center;
-  background-size: cover;
-  border-radius: 4px;
-  height: 90px;
-  margin: 0 10px 0 12px;
-  width: 90px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item-image div:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-nsfw-label {
-  background-color: #ffecee;
-  border: 2px solid #ff8095;
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 90px;
-  margin-right: 10px;
-  padding: 2px;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-nsfw-label span {
-  color: #ff8095;
-  font-size: 11px;
-  font-weight: 600;
-  text-orientation: upright;
-  writing-mode: tb;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info {
-  flex: 1;
-  height: 100%;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 500;
-  vertical-align: top;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
-  margin-left: 4px;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail {
-  color: #3498db;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
-  color: #b3b3b3;
-  vertical-align: top;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+#profile-frame .content__body ul#profile-about-properties > li#change-cover span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li#change-cover span:hover,
+#profile-frame .content__body ul#profile-about-properties > li#change-picture span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li#change-picture span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
-  text-decoration: none;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
-  opacity: 1;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
-  color: #2c2c2c;
-  text-decoration: none;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail {
-  color: #b3b3b3;
-  cursor: pointer;
-  height: 16px;
-  opacity: .3;
-  width: 16px;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
-  opacity: 1;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__separator {
-  background-color: #b3b3b3;
-  display: inline-block;
-  height: 14px;
-  margin: 0 4px;
-  position: relative;
-  top: -1px;
-  width: 1px;
-}
-div#branch-subbranches .content__body .content__list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__stats {
-  margin-right: 12px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
-  color: #2c2c2c;
-  font-size: 14px;
-  font-weight: 500;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
-  height: 24px;
-  opacity: .3;
-  position: relative;
-  top: 3px;
-  vertical-align: bottom;
-  width: 24px;
-}
-div#branch-subbranches .content__body .content__list li.list-item .list-item__stats .list-item__stats-percentage {
-  color: #b3b3b3;
+#profile-frame .content__body ul#profile-about-properties > li span,
+#profile-frame .content__body ul#profile-settings-properties > li span {
   font-size: 14px;
 }
-div#branch-subbranches .content__body .content__list li.list-item.style--card-branch .list-item-info .list-item__title {
-  font-size: 18px;
-}
-div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer {
-  align-items: center;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0 12px;
-}
-div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
-  color: #fff;
-  height: 40px;
-  border-radius: 3px;
-  line-height: 40px;
-  margin-right: 12px;
-  text-align: center;
-  width: 40px;
-}
-div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer.style--selected {
-  background-color: #eff2f7;
-}
-div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result) {
-  cursor: pointer;
-}
-div#branch-subbranches .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result):hover {
-  background-color: #eff2f7;
-}
-div#branch-wall {
-  box-sizing: border-box;
-  position: relative;
-}
-div#branch-wall .content__body .content__list li.list-item {
-  border-bottom: solid 1px #e7e7e7;
-  display: flex;
-  flex-direction: row;
-  min-height: 70px;
-  padding: 8px 0;
-  width: 100%;
-}
-div#branch-wall .content__body .content__list li.list-item span.list-item-index {
+#profile-frame .content__body ul#profile-about-properties > li span.field,
+#profile-frame .content__body ul#profile-settings-properties > li span.field {
   color: #c8c8c8;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 70px;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-flags {
-  align-self: center;
-  background-color: #e74c3c;
-  border-radius: 5px;
-  height: 30px;
-  margin: 0 10px;
-  min-width: 50px;
-  position: relative;
-  text-align: center;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
-  width: 16px;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-flags span {
-  color: #fff;
-  font-size: 14px;
-  line-height: 30px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__votes {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 70px;
-  margin-left: 6px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon {
-  cursor: pointer;
-  height: 26px;
-  opacity: .2;
-  width: 26px;
-  transition: opacity .2s;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon.style--active,
-div#branch-wall .content__body .content__list li.list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__votes p {
-  margin: 0;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item-image div {
-  background-position: center;
-  background-size: cover;
-  border-radius: 4px;
-  height: 70px;
-  margin: 0 10px 0 12px;
-  width: 70px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item-image div:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-nsfw-label {
-  background-color: #ffecee;
-  border: 2px solid #ff8095;
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 70px;
-  margin-right: 10px;
-  padding: 2px;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-nsfw-label span {
-  color: #ff8095;
-  font-size: 11px;
-  font-weight: 600;
-  text-orientation: upright;
-  writing-mode: tb;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info {
-  flex: 1;
-  height: 100%;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail {
-  color: #b3b3b3;
-  font-size: 13px;
-  font-weight: 500;
-  vertical-align: top;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details .list-item__detail.style--icon {
-  margin-left: 4px;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail {
+#profile-frame .content__body ul#profile-about-properties > li span.value a,
+#profile-frame .content__body ul#profile-settings-properties > li span.value a {
   color: #3498db;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail.style--has-children span {
-  color: #b3b3b3;
-  vertical-align: top;
+#profile-frame .content__body ul#profile-about-properties > li span.value a:hover,
+#profile-frame .content__body ul#profile-settings-properties > li span.value a:hover {
+  text-decoration: underline;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover {
+#profile-frame .content__body ul#profile-about-properties > li span.marked-title,
+#profile-frame .content__body ul#profile-settings-properties > li span.marked-title {
+  display: block;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.change-value span,
+#profile-frame .content__body ul#profile-settings-properties > li span.change-value span {
+  font-weight: 500;
+}
+#profile-frame .content__body ul#profile-about-properties > li span.change-value span:hover,
+#profile-frame .content__body ul#profile-settings-properties > li span.change-value span:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children {
-  text-decoration: none;
+#profile-frame .content__body ul#profile-about-properties > li div.value,
+#profile-frame .content__body ul#profile-settings-properties > li div.value {
+  font-size: 14px;
+  width: 100%;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children img {
-  opacity: 1;
+#profile-frame .content__body #profile-notifications {
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details a.list-item__detail:hover.style--has-children span {
-  color: #2c2c2c;
-  text-decoration: none;
+#profile-frame .content__body #profile-notifications div#empty {
+  font-style: italic;
+  margin: 10px;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail {
-  color: #b3b3b3;
+#profile-frame .content__body #profile-notifications ul li {
+  border-bottom: solid 1px #e7e7e7;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 20px 10px 10px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li.unread {
+  background-color: #eff2f7;
+}
+#profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+  background-color: #d8d9de;
+}
+#profile-frame .content__body #profile-notifications ul li:not(.unread) {
+  background-color: transparent;
+}
+#profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+  background-color: transparent;
+}
+#profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+  border: 1px solid #c8c8c8;
+  border-radius: 50%;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+#profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
   cursor: pointer;
-  height: 16px;
-  opacity: .3;
-  width: 16px;
 }
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__details img.list-item__detail:hover {
-  opacity: 1;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__separator {
-  background-color: #b3b3b3;
-  display: inline-block;
-  height: 14px;
-  margin: 0 4px;
-  position: relative;
-  top: -1px;
-  width: 1px;
-}
-div#branch-wall .content__body .content__list li.list-item div.list-item-info .list-item__title {
-  display: inline;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  vertical-align: top;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__stats {
-  margin-right: 12px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-votes {
-  color: #2c2c2c;
-  font-size: 14px;
-  font-weight: 500;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
-  height: 24px;
-  opacity: .3;
-  position: relative;
-  top: 3px;
-  vertical-align: bottom;
-  width: 24px;
-}
-div#branch-wall .content__body .content__list li.list-item .list-item__stats .list-item__stats-percentage {
-  color: #b3b3b3;
-  font-size: 14px;
-}
-div#branch-wall .content__body .content__list li.list-item.style--card-branch .list-item-info .list-item__title {
-  font-size: 18px;
-}
-div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer {
-  align-items: center;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0 12px;
-}
-div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer .list-item-index.style--colour-coded {
-  color: #fff;
+#profile-frame .content__body #profile-notifications ul li div.notification-image img {
   height: 40px;
-  border-radius: 3px;
-  line-height: 40px;
-  margin-right: 12px;
-  text-align: center;
+  margin-right: 10px;
   width: 40px;
 }
-div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer.style--selected {
-  background-color: #eff2f7;
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+  display: block;
 }
-div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result) {
-  cursor: pointer;
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  font-size: 14px;
+  margin-bottom: 5px;
 }
-div#branch-wall .content__body .content__list li.list-item.style--card-poll-answer:not(.style--result):hover {
-  background-color: #eff2f7;
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+  color: #3498db;
+  font-weight: 500;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+  text-decoration: underline;
+}
+#profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+  font-style: italic;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+    height: 50px;
+    margin-right: 10px;
+    width: 50px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    border-bottom: solid 1px #e7e7e7;
+    display: flex;
+    overflow: hidden;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread {
+    background-color: #eff2f7;
+  }
+  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+    background-color: #d8d9de;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+    background-color: transparent;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 15px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+    cursor: pointer;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+    height: 65px;
+    margin-right: 10px;
+    width: 65px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+    display: block;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+    color: #3498db;
+    font-weight: 500;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+    text-decoration: underline;
+  }
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li {
+    padding: 10px 20px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
+  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+    font-size: 14px;
+  }
 }
