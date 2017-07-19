@@ -10,6 +10,15 @@
     <h1 class="text--capitalize">
       {{ 'root' === BranchWall.BranchService.branch.id ? 'global ' : '' }}wall
     </h1>
+
+    <a
+      class="button--header ng-hide"
+      ng-click="BranchWall.WallService.handleHeaderButtonClick()"
+      ng-show="BranchWall.WallService.isHeaderButtonVisible()"
+      offset-y="40"
+      text="BranchWall.WallService.getHeaderButtonTooltip()"
+      tooltip>
+    </a>
     
     <div class="content-controls">
       <dropdown
@@ -36,17 +45,6 @@
         selected="BranchWall.controls.statType.selectedIndex"
         title="stat type">
       </dropdown>
-
-      <div class="button">
-        <a
-          id="add-content"
-          ng-class="{ 'disabled': !BranchWall.WallService.canAddContent() }"
-          ng-click="BranchWall.WallService.addContent()"
-          offset-y="40"
-          text="BranchWall.WallService.getAddContentTooltip()"
-          tooltip>
-        </a>
-      </div>
     </div>
   </div>
   

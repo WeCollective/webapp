@@ -156,6 +156,23 @@ span {
               top: @title-offset-to-sidebar;
             }
 
+            .button--header {
+              @icon-size: 28px;
+
+              background-image: url('/assets/images/icons/black/add.jpg');
+              background-size: cover;
+              cursor: pointer;
+              display: block;
+              height: @icon-size;
+              margin-left: 4px;
+              width: @icon-size;
+
+              &:hover,
+              &.selected {
+                background-image: url('/assets/images/icons/black/add--hover.jpg');
+              }
+            }
+
             > div.content-controls {
               display: flex;
               flex-direction: row;
@@ -175,7 +192,7 @@ span {
             // Needs to be set explicitly to scroll for the scrolling directive to work.
             overflow-y: scroll;
 
-            > ul { padding: 0 16px; }
+            > ul { padding: 0 @g-padding-sidebar; }
           }
         }
       }

@@ -245,6 +245,19 @@ span {
   position: relative;
   top: -1px;
 }
+#weco-root .page > div.frame > div.frame-content > div .content-header .button--header {
+  background-image: url('/assets/images/icons/black/add.jpg');
+  background-size: cover;
+  cursor: pointer;
+  display: block;
+  height: 28px;
+  margin-left: 4px;
+  width: 28px;
+}
+#weco-root .page > div.frame > div.frame-content > div .content-header .button--header:hover,
+#weco-root .page > div.frame > div.frame-content > div .content-header .button--header.selected {
+  background-image: url('/assets/images/icons/black/add--hover.jpg');
+}
 #weco-root .page > div.frame > div.frame-content > div .content-header > div.content-controls {
   display: flex;
   flex-direction: row;
@@ -2133,24 +2146,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .full-page.dark-bg p#resend-verification {
   cursor: pointer;
   text-decoration: underline;
-}
-.content-header .button {
-  margin: 0;
-}
-.content-header .button > a {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
-  display: block;
-  height: 28px;
-  margin-left: 4px;
-  width: 28px;
-}
-.content-header .button > a:not(.disabled):hover {
-  cursor: pointer;
-}
-.content-header .button > a:not(.disabled):hover,
-.content-header .button > a.selected {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
 }
 div#branch-nucleus div.content-body {
   padding: 10px 20px;

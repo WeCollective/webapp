@@ -11,6 +11,15 @@
       {{ BranchSubbranches.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
     </h1>
 
+    <a
+      class="button--header ng-hide"
+      ng-click="BranchSubbranches.WallService.handleHeaderButtonClick()"
+      ng-show="BranchSubbranches.WallService.isHeaderButtonVisible()"
+      offset-y="40"
+      text="BranchSubbranches.WallService.getHeaderButtonTooltip()"
+      tooltip>
+    </a>
+
     <div class="content-controls">
       <dropdown
         items="BranchSubbranches.controls.timeRange.items"
@@ -23,17 +32,6 @@
         selected="BranchSubbranches.controls.sortBy.selectedIndex"
         title="sort by">
       </dropdown>
-
-      <div class="button">
-        <a
-          id="add-content"
-          ng-class="{ 'disabled': !BranchSubbranches.WallService.canAddContent() }"
-          ng-click="BranchSubbranches.WallService.addContent()"
-          offset-y="40"
-          text="BranchSubbranches.WallService.getAddContentTooltip()"
-          tooltip>
-        </a>
-      </div>
     </div>
   </div>
 

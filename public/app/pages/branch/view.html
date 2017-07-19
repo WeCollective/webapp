@@ -54,7 +54,7 @@
             text="'Nucleus'"
             tooltip
             ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })">
-            <img alt="" src="/assets/images/icons/black/nucleus.png" />
+            <img alt="Go to branch nucleus" src="/assets/images/icons/black/nucleus.png" />
           </a>
         </li>
 
@@ -65,7 +65,7 @@
             text="'Child Branches'"
             tooltip
             ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" >
-            <img alt="" src="/assets/images/icons/black/branch.png" />
+            <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
           </a>
         </li>
 
@@ -76,26 +76,12 @@
             text="'Wall'"
             tooltip
             ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-            <img alt="" src="/assets/images/icons/black/wall.png" />
+            <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
           </a>
         </li>
-
-        <!--
-        <li>
-          <a
-            id="add-content"
-            ng-class="{ 'disabled': !Branch.canAddContent() }"
-            ng-click="Branch.addContent()"
-            offset-y="60"
-            text="Branch.getAddContentTooltip()"
-            tooltip>
-            <img alt="" src="/assets/images/icons/black/add.png" />
-          </a>
-        </li>
-        -->
       </ul>
     </div>
     
-    <div class="frame-content" ui-view></div>
+    <div class="frame-content content" ui-view></div>
   </div>
 </div>

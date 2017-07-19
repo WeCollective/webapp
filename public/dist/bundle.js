@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'https://wecoapi.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'production'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67125,50 +67125,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     this.isCoverOpen = false;
   }
 
-  addContent() {
-    let errorMessage, modalName, successMessage;
-
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-        modalName = 'CREATE_BRANCH';
-        successMessage = 'Successfully created new branch!';
-        errorMessage = 'Error creating new branch.';
-        break;
-
-      case 'weco.branch.wall':
-        modalName = 'CREATE_POST';
-        successMessage = 'Successfully created post!';
-        errorMessage = 'Error creating post.';
-        break;
-
-      // case 'weco.branch.post':
-      //   // broadcast add comment clicked so that the comment section is scrolled
-      //   // to the top, where the comment box is visible
-      //   $rootScope.$broadcast('add-comment');
-    }
-
-    if (modalName) {
-      this.ModalService.open(modalName, { branchid: this.BranchService.branch.id }, successMessage, errorMessage);
-    }
-  }
-
-  // returns boolean indicating whether the add content behaviour has any defined
-  // behaviour in the current state
-  canAddContent() {
-    switch (this.$state.current.name) {
-      case 'weco.branch.subbranches':
-      case 'weco.branch.wall':
-      case 'weco.branch.post':
-        return true;
-
-      default:
-        return false;
-    }
-  }
-
-  // dynamic tooltip text for add content button, whose behaviour
-  // is dependent on the current state
-  getAddContentTooltip() {
+  getHeaderButtonTooltip() {
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
         return 'Create New Branch';
@@ -67183,9 +67140,48 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
         return '';
     }
   }
+
+  handleHeaderButtonClick() {
+    const branchid = this.BranchService.branch.id;
+
+    let errMsg;
+    let name;
+    let successMsg;
+
+    switch (this.$state.current.name) {
+      case 'weco.branch.subbranches':
+        name = 'CREATE_BRANCH';
+        successMsg = 'Successfully created new branch!';
+        errMsg = 'Error creating new branch.';
+        break;
+
+      case 'weco.branch.wall':
+        name = 'CREATE_POST';
+        successMsg = 'Successfully created post!';
+        errMsg = 'Error creating post.';
+        break;
+
+      /*
+      // broadcast add comment clicked so that the comment section is scrolled
+      // to the top, where the comment box is visible
+      case 'weco.branch.post':
+        $rootScope.$broadcast('add-comment');
+      */
+    }
+
+    if (name) {
+      this.ModalService.open(name, { branchid }, successMsg, errMsg);
+    }
+  }
+
+  isHeaderButtonVisible() {
+    const allowedStates = ['weco.branch.subbranches', 'weco.branch.wall', 'weco.branch.post'];
+
+    return this.UserService.isAuthenticated() && allowedStates.contains(this.$state.current.name);
+  }
 }
 
-WallService.$inject = ['$state', 'BranchService', 'ModalService'];
+WallService.$inject = ['$state', 'BranchService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (WallService);
 
@@ -85597,4 +85593,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map
