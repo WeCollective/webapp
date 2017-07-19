@@ -3,52 +3,6 @@ ul#nucleus-settings-properties {
   .field-value-list();
 }
 
-// Moderators
-div#nucleus-moderators-list-container {
-  ul {
-    a {
-      li {
-        cursor: pointer;
-        display: inline-block;
-        margin-right: 5px;
-        text-align: center;
-
-        div.mod-picture {
-          @size: 80px;
-
-          background-position: center;
-          background-size: cover;
-          border-radius: 3px;
-          height: @size;
-          margin: 0 auto 5px;
-          width: @size;
-
-          .responsive(@screen-sm, {
-            @size: 120px;
-            height: @size;
-            width: @size;
-          });
-
-          .responsive(@screen-md, {
-            @size: 150px;
-            height: @size;
-            width: @size;
-          });
-
-          &:hover { box-shadow: @shadow-2; }
-        }
-
-        span {
-          font-size: @font-size-xs;
-          font-weight: @font-weight-heavy;
-
-          .responsive(@screen-sm, { font-size: @font-size-sm; });
-        }
-      }
-    }
-  }
-}
-
 ul#nucleus-modtools-properties {
   li {
     padding: 5px 0;

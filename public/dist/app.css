@@ -1289,6 +1289,7 @@ div.poll-answer-editor input {
 ul.tabs {
   display: inline-block;
   position: relative;
+  white-space: nowrap;
 }
 ul.tabs .tabs__item {
   border-bottom: solid 2px transparent;
@@ -2144,44 +2145,6 @@ ul#nucleus-settings-properties > li div.value {
   font-size: 14px;
   width: 100%;
 }
-div#nucleus-moderators-list-container ul a li {
-  cursor: pointer;
-  display: inline-block;
-  margin-right: 5px;
-  text-align: center;
-}
-div#nucleus-moderators-list-container ul a li div.mod-picture {
-  background-position: center;
-  background-size: cover;
-  border-radius: 3px;
-  height: 80px;
-  margin: 0 auto 5px;
-  width: 80px;
-}
-@media only screen and (min-width: 576px) {
-  div#nucleus-moderators-list-container ul a li div.mod-picture {
-    height: 120px;
-    width: 120px;
-  }
-}
-@media only screen and (min-width: 768px) {
-  div#nucleus-moderators-list-container ul a li div.mod-picture {
-    height: 150px;
-    width: 150px;
-  }
-}
-div#nucleus-moderators-list-container ul a li div.mod-picture:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-div#nucleus-moderators-list-container ul a li span {
-  font-size: 12px;
-  font-weight: 500;
-}
-@media only screen and (min-width: 576px) {
-  div#nucleus-moderators-list-container ul a li span {
-    font-size: 14px;
-  }
-}
 ul#nucleus-modtools-properties li {
   padding: 5px 0;
 }
@@ -2644,11 +2607,54 @@ ul#nucleus-modtools-log li div.time {
   overflow: hidden;
   padding: 0 16px;
 }
-.content .content__list.style--full-padding {
-  padding: 16px;
+.content .content__list .content__list-item {
+  cursor: pointer;
+  display: inline-block;
+  margin: 16px 6px;
+}
+.content .content__list .content__list-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  padding-top: 4px;
+}
+@media only screen and (min-width: 576px) {
+  .content .content__list .content__list-label {
+    font-size: 14px;
+    padding-top: 6px;
+  }
+}
+.content .content__list .content__list-link {
+  display: block;
+}
+.content .content__list .content__list-picture {
+  background-position: center;
+  background-size: cover;
+  border-radius: 3px;
+  height: 80px;
+  width: 80px;
+  transition: box-shadow 0.3s;
+}
+@media only screen and (min-width: 576px) {
+  .content .content__list .content__list-picture {
+    height: 120px;
+    width: 120px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .content .content__list .content__list-picture {
+    height: 150px;
+    width: 150px;
+  }
+}
+.content .content__list .content__list-picture:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .content .content__list + .content__list {
   border-top: 1px solid #e7e7e7;
+}
+.content .content__list.style--full-padding {
+  padding: 16px;
 }
 .header {
   align-items: flex-start;
