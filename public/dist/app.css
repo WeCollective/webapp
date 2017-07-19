@@ -1251,7 +1251,7 @@ div.poll-answer-editor input {
     width: 201px;
   }
   .sidebar + .content {
-    transform: translateX(0);
+    transform: translateX(0) !important;
     width: calc(100% - 201px);
   }
 }
