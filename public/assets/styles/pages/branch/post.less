@@ -45,12 +45,10 @@
   .header {
     align-items: center;
     display: flex;
-    min-height: @header-min-height + (@g-padding-post * 2);
     padding: @g-padding-post 0;
 
     .header__button.style--sidebar-toggle {
-      margin-left: @g-padding-post;
-      margin-right: 0 !important;
+      margin: @g-padding-post;
     }
 
     .mediaQuery(@screen-md, { display: block; });
@@ -59,6 +57,7 @@
   .list-item {
     .list-item(@header-min-height);
 
+    border-bottom: none;
     padding: 0;
 
     .list-item__votes { margin-left: @g-padding-post; }

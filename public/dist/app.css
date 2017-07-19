@@ -3026,12 +3026,10 @@ div#branch-nucleus .content__body.moderators {
 .post .header {
   align-items: center;
   display: flex;
-  min-height: 94px;
   padding: 12px 0;
 }
 .post .header .header__button.style--sidebar-toggle {
-  margin-left: 12px;
-  margin-right: 0 !important;
+  margin: 12px;
 }
 @media only screen and (min-width: 768px) {
   .post .header {
@@ -3045,6 +3043,7 @@ div#branch-nucleus .content__body.moderators {
   min-height: 70px;
   padding: 8px 0;
   width: 100%;
+  border-bottom: none;
   padding: 0;
 }
 .post .list-item span.list-item-index {
