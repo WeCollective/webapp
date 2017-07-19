@@ -1,47 +1,47 @@
 import Injectable from 'utils/injectable';
 
 class ProfileSettingsController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ProfileSettingsController.$inject, injections);
   }
 
-  openDOBModal () {
+  openDOBModal() {
     this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Date of Birth',
         inputs: [{
           placeholder: 'Date of Birth',
           type: 'date',
-          fieldname: 'dob'
+          fieldname: 'dob',
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
 
-  openEmailModal () {
+  openEmailModal() {
     this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Email',
         inputs: [{
           placeholder: 'Email',
           type: 'email',
-          fieldname: 'email'
+          fieldname: 'email',
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
 
-  openNameModal () {
+  openNameModal() {
     this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Name',
         inputs: [{
           fieldname: 'name',
           placeholder: 'Name',
-          type: 'text'
+          type: 'text',
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
   }
 
-  updateNSFW () {
+  updateNSFW() {
     this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw })
-      .then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!'))
-      .catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
+      .then(() => this.AlertsService.push('success', 'Successfully updated profile settings!'))
+      .catch(() => this.AlertsService.push('error', 'Unable to update profile settings.'));
   }
 }
 
@@ -49,7 +49,7 @@ ProfileSettingsController.$inject = [
   '$state',
   'AlertsService',
   'ModalService',
-  'UserService'
+  'UserService',
 ];
 
 export default ProfileSettingsController;

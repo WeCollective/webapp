@@ -1,31 +1,20 @@
-#profile-frame {
-  .content__body {
-    ul {
-      &#profile-about-properties,
-      &#profile-settings-properties {
-        .field-value-list();
-      }
-    }
+#profile-notifications {
+  height: 100%;
+  // Needs to be set explicitly to scroll for the scrolling directive to work.
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+  
+  div#empty {
+    font-style: italic;
+    margin: 10px;
+  }
 
-    #profile-notifications {
-      height: 100%;
-      // Needs to be set explicitly to scroll for the scrolling directive to work.
-      overflow-y: scroll;
-      position: relative;
-      width: 100%;
-      
-      div#empty {
-        font-style: italic;
-        margin: 10px;
-      }
-
-      ul {
-        li {
-          .notification(40px);
-          .responsive(@screen-sm, { .notification(50px); });
-          .responsive(@screen-md, { .notification(65px); });
-        }
-      }
+  ul {
+    li {
+      .notification(40px);
+      .responsive(@screen-sm, { .notification(50px); });
+      .responsive(@screen-md, { .notification(65px); });
     }
   }
 }

@@ -3411,68 +3411,17 @@ div#notfound div h2 {
     width: calc(100% - 20px);
   }
 }
-#profile-frame .content__body ul#profile-about-properties > li,
-#profile-frame .content__body ul#profile-settings-properties > li {
-  padding: 5px 0;
-}
-#profile-frame .content__body ul#profile-about-properties > li#change-cover span,
-#profile-frame .content__body ul#profile-settings-properties > li#change-cover span,
-#profile-frame .content__body ul#profile-about-properties > li#change-picture span,
-#profile-frame .content__body ul#profile-settings-properties > li#change-picture span {
-  font-weight: 500;
-}
-#profile-frame .content__body ul#profile-about-properties > li#change-cover span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li#change-cover span:hover,
-#profile-frame .content__body ul#profile-about-properties > li#change-picture span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li#change-picture span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li span,
-#profile-frame .content__body ul#profile-settings-properties > li span {
-  font-size: 14px;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.field,
-#profile-frame .content__body ul#profile-settings-properties > li span.field {
-  color: #c8c8c8;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.value a,
-#profile-frame .content__body ul#profile-settings-properties > li span.value a {
-  color: #3498db;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.value a:hover,
-#profile-frame .content__body ul#profile-settings-properties > li span.value a:hover {
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.marked-title,
-#profile-frame .content__body ul#profile-settings-properties > li span.marked-title {
-  display: block;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.change-value span,
-#profile-frame .content__body ul#profile-settings-properties > li span.change-value span {
-  font-weight: 500;
-}
-#profile-frame .content__body ul#profile-about-properties > li span.change-value span:hover,
-#profile-frame .content__body ul#profile-settings-properties > li span.change-value span:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-#profile-frame .content__body ul#profile-about-properties > li div.value,
-#profile-frame .content__body ul#profile-settings-properties > li div.value {
-  font-size: 14px;
-  width: 100%;
-}
-#profile-frame .content__body #profile-notifications {
+#profile-notifications {
   height: 100%;
   overflow-y: scroll;
   position: relative;
   width: 100%;
 }
-#profile-frame .content__body #profile-notifications div#empty {
+#profile-notifications div#empty {
   font-style: italic;
   margin: 10px;
 }
-#profile-frame .content__body #profile-notifications ul li {
+#profile-notifications ul li {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   overflow: hidden;
@@ -3481,23 +3430,23 @@ div#notfound div h2 {
   transition: background-color 0.3s;
 }
 @media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
+  #profile-notifications ul li {
     padding: 10px 20px;
   }
 }
-#profile-frame .content__body #profile-notifications ul li.unread {
+#profile-notifications ul li.unread {
   background-color: #eff2f7;
 }
-#profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+#profile-notifications ul li.unread div.toggle-unread {
   background-color: #d8d9de;
 }
-#profile-frame .content__body #profile-notifications ul li:not(.unread) {
+#profile-notifications ul li:not(.unread) {
   background-color: transparent;
 }
-#profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+#profile-notifications ul li:not(.unread) div.toggle-unread {
   background-color: transparent;
 }
-#profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+#profile-notifications ul li div.toggle-unread {
   border: 1px solid #c8c8c8;
   border-radius: 50%;
   height: 15px;
@@ -3506,49 +3455,49 @@ div#notfound div h2 {
   top: 10px;
   width: 15px;
 }
-#profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+#profile-notifications ul li div.toggle-unread:hover {
   cursor: pointer;
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-image img {
+#profile-notifications ul li div.notification-image img {
   height: 40px;
   margin-right: 10px;
   width: 40px;
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+#profile-notifications ul li div.notification-entry div {
   display: block;
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+#profile-notifications ul li div.notification-entry div.title {
   font-size: 14px;
   margin-bottom: 5px;
 }
 @media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  #profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+#profile-notifications ul li div.notification-entry div.description {
   color: #b3b3b3;
   font-size: 13px;
   font-weight: 300;
 }
 @media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  #profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+#profile-notifications ul li div.notification-entry div a {
   color: #3498db;
   font-weight: 500;
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+#profile-notifications ul li div.notification-entry div a:hover {
   text-decoration: underline;
 }
-#profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+#profile-notifications ul li div.notification-entry p.message {
   font-style: italic;
   font-weight: 300;
 }
 @media only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
+  #profile-notifications ul li {
     border-bottom: solid 1px #e7e7e7;
     display: flex;
     overflow: hidden;
@@ -3556,19 +3505,19 @@ div#notfound div h2 {
     position: relative;
     transition: background-color 0.3s;
   }
-  #profile-frame .content__body #profile-notifications ul li.unread {
+  #profile-notifications ul li.unread {
     background-color: #eff2f7;
   }
-  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+  #profile-notifications ul li.unread div.toggle-unread {
     background-color: #d8d9de;
   }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+  #profile-notifications ul li:not(.unread) {
     background-color: transparent;
   }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+  #profile-notifications ul li:not(.unread) div.toggle-unread {
     background-color: transparent;
   }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+  #profile-notifications ul li div.toggle-unread {
     border: 1px solid #c8c8c8;
     border-radius: 50%;
     height: 15px;
@@ -3577,55 +3526,55 @@ div#notfound div h2 {
     top: 10px;
     width: 15px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+  #profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+  #profile-notifications ul li div.notification-image img {
     height: 50px;
     margin-right: 10px;
     width: 50px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+  #profile-notifications ul li div.notification-entry div {
     display: block;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  #profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  #profile-notifications ul li div.notification-entry div.description {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+  #profile-notifications ul li div.notification-entry div a {
     color: #3498db;
     font-weight: 500;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+  #profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+  #profile-notifications ul li div.notification-entry p.message {
     font-style: italic;
     font-weight: 300;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
+  #profile-notifications ul li {
     padding: 10px 20px;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  #profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
 @media only screen and (min-width: 576px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  #profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }
 @media only screen and (min-width: 768px) {
-  #profile-frame .content__body #profile-notifications ul li {
+  #profile-notifications ul li {
     border-bottom: solid 1px #e7e7e7;
     display: flex;
     overflow: hidden;
@@ -3633,19 +3582,19 @@ div#notfound div h2 {
     position: relative;
     transition: background-color 0.3s;
   }
-  #profile-frame .content__body #profile-notifications ul li.unread {
+  #profile-notifications ul li.unread {
     background-color: #eff2f7;
   }
-  #profile-frame .content__body #profile-notifications ul li.unread div.toggle-unread {
+  #profile-notifications ul li.unread div.toggle-unread {
     background-color: #d8d9de;
   }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) {
+  #profile-notifications ul li:not(.unread) {
     background-color: transparent;
   }
-  #profile-frame .content__body #profile-notifications ul li:not(.unread) div.toggle-unread {
+  #profile-notifications ul li:not(.unread) div.toggle-unread {
     background-color: transparent;
   }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread {
+  #profile-notifications ul li div.toggle-unread {
     border: 1px solid #c8c8c8;
     border-radius: 50%;
     height: 15px;
@@ -3654,50 +3603,50 @@ div#notfound div h2 {
     top: 10px;
     width: 15px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.toggle-unread:hover {
+  #profile-notifications ul li div.toggle-unread:hover {
     cursor: pointer;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-image img {
+  #profile-notifications ul li div.notification-image img {
     height: 65px;
     margin-right: 10px;
     width: 65px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div {
+  #profile-notifications ul li div.notification-entry div {
     display: block;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  #profile-notifications ul li div.notification-entry div.title {
     font-size: 14px;
     margin-bottom: 5px;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  #profile-notifications ul li div.notification-entry div.description {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: 300;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a {
+  #profile-notifications ul li div.notification-entry div a {
     color: #3498db;
     font-weight: 500;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div a:hover {
+  #profile-notifications ul li div.notification-entry div a:hover {
     text-decoration: underline;
   }
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry p.message {
+  #profile-notifications ul li div.notification-entry p.message {
     font-style: italic;
     font-weight: 300;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li {
+  #profile-notifications ul li {
     padding: 10px 20px;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.title {
+  #profile-notifications ul li div.notification-entry div.title {
     font-size: 18px;
   }
 }
 @media only screen and (min-width: 768px) and only screen and (min-width: 576px) {
-  #profile-frame .content__body #profile-notifications ul li div.notification-entry div.description {
+  #profile-notifications ul li div.notification-entry div.description {
     font-size: 14px;
   }
 }

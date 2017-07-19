@@ -6,6 +6,8 @@ class AppConfig extends Injectable {
   constructor(...injections) {
     super(AppConfig.$inject, injections);
 
+    const UA = this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2';
+
     // GitHub flavoured markdown
     this.markedProvider.setOptions({
       gfm: true,
@@ -18,17 +20,13 @@ class AppConfig extends Injectable {
       '*://www.youtube.com/**',
     ]);
 
-    if (this.ENV.name === 'production') {
-      this.AnalyticsProvider.setAccount('UA-84400255-1');
-    }
-    else {
-      this.AnalyticsProvider.setAccount('UA-84400255-2');
-    }
-
     // Google Analytics.
     this.AnalyticsProvider
+      .setAccount(UA)
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
+
+    console.log(`Setting Google Analytics account to ${UA}.`);
 
     if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
       this.AnalyticsProvider.enterDebugMode(true);

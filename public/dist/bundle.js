@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -23695,6 +23695,8 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_2_utils_injectable__["a" /* de
   constructor(...injections) {
     super(AppConfig.$inject, injections);
 
+    const UA = this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2';
+
     // GitHub flavoured markdown
     this.markedProvider.setOptions({
       gfm: true,
@@ -23704,14 +23706,10 @@ class AppConfig extends __WEBPACK_IMPORTED_MODULE_2_utils_injectable__["a" /* de
     // whitelist YouTube urls with Angular's sanitizer to allow video embedding
     this.$sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**']);
 
-    if (this.ENV.name === 'production') {
-      this.AnalyticsProvider.setAccount('UA-84400255-1');
-    } else {
-      this.AnalyticsProvider.setAccount('UA-84400255-2');
-    }
-
     // Google Analytics.
-    this.AnalyticsProvider.setPageEvent('$stateChangeSuccess').logAllCalls(true);
+    this.AnalyticsProvider.setAccount(UA).setPageEvent('$stateChangeSuccess').logAllCalls(true);
+
+    console.log(`Setting Google Analytics account to ${UA}.`);
 
     if (__WEBPACK_IMPORTED_MODULE_1_env_config__["a" /* default */].debugAnalytics === true && this.ENV.name !== 'production') {
       this.AnalyticsProvider.enterDebugMode(true);
@@ -67851,7 +67849,7 @@ class ProfileSettingsController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   }
 
   updateNSFW() {
-    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(_ => this.AlertsService.push('success', 'Successfully updated profile settings!')).catch(_ => this.AlertsService.push('error', 'Unable to update profile settings.'));
+    this.UserService.update({ show_nsfw: this.UserService.user.show_nsfw }).then(() => this.AlertsService.push('success', 'Successfully updated profile settings!')).catch(() => this.AlertsService.push('error', 'Unable to update profile settings.'));
   }
 }
 

@@ -2,10 +2,10 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.name">
-    <span class="branch__text">
+    <span class="branch__text style--dark">
       Visible Name:
     </span>
-    <span class="branch__text style--dark">
+    <span class="branch__text">
       {{ Branch.BranchService.branch.name }}
     </span>
   </li>
@@ -13,10 +13,10 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.date">
-    <span class="branch__text">
+    <span class="branch__text style--dark">
       Created on:
     </span>
-    <span class="branch__text style--dark">
+    <span class="branch__text">
       {{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}
     </span>
   </li>
@@ -24,7 +24,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.creator">
-    <span class="branch__text">
+    <span class="branch__text style--dark">
       Created by:
     </span>
     <a
@@ -37,7 +37,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.description">
-    <div class="branch__text">
+    <div class="branch__text style--dark">
       Description:
     </div>
     <div
@@ -49,7 +49,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.rules">
-    <div class="branch__text">
+    <div class="branch__text style--dark">
       Rules &amp; Etiquette:
     </div>
     <div
