@@ -1,32 +1,42 @@
 <div>
   <div class="content__list style--full-padding text--center">
-    <ul id="nucleus-modtools-properties">
+    <ul class="branch__list">
       <li
+        class="branch__item style--clickable"
         ng-click="BranchNucleusModtools.openUpdateHomepageStatsModal()"
         ng-show="BranchNucleusModtools.BranchService.branch.id === 'root'">
-        <span class="danger">Edit the Homepage Stats</span>
-      </li>
-
-      <li ng-click="BranchNucleusModtools.openAddModModal()">
-        <span>Add a Moderator</span>
-      </li>
-
-      <li ng-click="BranchNucleusModtools.openRemoveModModal()">
-        <span>Remove a Moderator</span>
-      </li>
-
-      <li ng-click="BranchNucleusModtools.openReviewSubbranchRequestsModal()">
-        <span>Review Child Branch Requests</span>
-      </li>
-
-      <li ng-click="BranchNucleusModtools.openDeleteBranchModal()">
-        <span class="danger">Remove a {{ BranchNucleusModtools.BranchService.branch.id === 'root' ? 'Root' : 'Child' }} Branch</span>
+        <span class="branch__text style--red">Edit the Homepage Stats</span>
       </li>
 
       <li
+        class="branch__item style--clickable"
+        ng-click="BranchNucleusModtools.openAddModModal()">
+        <span class="branch__text">Add a Moderator</span>
+      </li>
+
+      <li
+        class="branch__item style--clickable"
+        ng-click="BranchNucleusModtools.openRemoveModModal()">
+        <span class="branch__text">Remove a Moderator</span>
+      </li>
+
+      <li
+        class="branch__item style--clickable"
+        ng-click="BranchNucleusModtools.openReviewSubbranchRequestsModal()">
+        <span class="branch__text">Review Child Branch Requests</span>
+      </li>
+
+      <li
+        class="branch__item style--clickable"
+        ng-click="BranchNucleusModtools.openDeleteBranchModal()">
+        <span class="branch__text style--red">Remove a {{ BranchNucleusModtools.BranchService.branch.id === 'root' ? 'Root' : 'Child' }} Branch</span>
+      </li>
+
+      <li
+        class="branch__item style--clickable"
         ng-click="BranchNucleusModtools.openSubmitSubbranchRequestModal()"
         ng-hide="BranchNucleusModtools.BranchService.branch.id === 'root'">
-        <span>Submit Parent Branch Request</span>
+        <span class="branch__text">Submit Parent Branch Request</span>
       </li>
     </ul>
   </div>
@@ -43,9 +53,9 @@
       No entries to display
     </h3>
 
-    <ul id="nucleus-modtools-log">
+    <ul class="branch__list">
       <li
-        class="clearfix"
+        class="branch__item style--small-text"
         entry="entry"
         mod-log-entry
         ng-repeat="entry in BranchNucleusModtools.log">

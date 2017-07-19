@@ -1,13 +1,13 @@
 import Injectable from 'utils/injectable';
 
 class ModLogEntryComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ModLogEntryComponent.$inject, injections);
 
     this.replace = false;
     this.restrict = 'A';
     this.scope = {
-      entry: '='
+      entry: '=',
     };
   }
 
@@ -22,13 +22,13 @@ class ModLogEntryComponent extends Injectable {
         element.html(template);
         this.$compile(element.contents())(scope);
       })
-      .catch(_ => console.error('Unable to get mod-log-entry template.'));
+      .catch(() => console.error('Unable to get mod-log-entry template.'));
   }
 }
 
 ModLogEntryComponent.$inject = [
   '$compile',
-  '$templateRequest'
+  '$templateRequest',
 ];
 
 export default ModLogEntryComponent;

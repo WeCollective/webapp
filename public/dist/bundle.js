@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64068,7 +64068,7 @@ class ModLogEntryComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.$templateRequest(`/app/components/mod-log-entry/templates/${scope.entry.action}.html`).then(template => {
       element.html(template);
       this.$compile(element.contents())(scope);
-    }).catch(_ => console.error('Unable to get mod-log-entry template.'));
+    }).catch(() => console.error('Unable to get mod-log-entry template.'));
   }
 }
 
