@@ -1,25 +1,25 @@
 import angular from 'angular';
 
 class ComponentRegistrar {
-  constructor (appName) {
+  constructor(appName) {
     this.app = angular.module(appName);
   }
 
-  config (contructorFn) {
-    this.app.config(contructorFn);
+  config(constructorFn) {
+    this.app.config(constructorFn);
     return this;
   }
 
-  controller (name, contructorFn) {
-    this.app.controller(name, contructorFn);
+  controller(name, constructorFn) {
+    this.register(name, constructorFn, 'controller');
     return this;
   }
 
-  directive (name, constructorFn) {
+  directive(name, constructorFn) {
     constructorFn = this._normalizeConstructor(constructorFn);
     if (!constructorFn.prototype.compile) {
       // create an empty compile function if none was defined.
-      constructorFn.prototype.compile = _ => {};
+      constructorFn.prototype.compile = () => {};
     }
 
     let originalCompileFn = this._cloneFunction(constructorFn.prototype.compile);
@@ -39,31 +39,40 @@ class ComponentRegistrar {
 
     const factoryArray = this._createFactoryArray(constructorFn);
 
-    this.app.directive(name, factoryArray);
+    this.register(name, factoryArray, 'directive');
     return this;
   }
 
-  factory (name, constructorFn) {
+  factory(name, constructorFn) {
     constructorFn = this._normalizeConstructor(constructorFn);
     const factoryArray = this._createFactoryArray(constructorFn);
-    this.app.factory(name, factoryArray);
+    this.register(name, factoryArray, 'factory');
     return this;
   }
 
-  provider (name, constructorFn) {
-    this.app.provider(name, constructorFn);
+  provider(name, constructorFn) {
+    this.register(name, constructorFn, 'provider');
     return this;
   }
 
-  service (name, contructorFn) {
-    this.app.service(name, contructorFn);
+  register(name, constructorFn, type) {
+    if (name && constructorFn) {
+      this.app[type](name, constructorFn);
+    }
+    else {
+      console.warn(`Couldn't register ${type} ${name}: undefined constructor function.`);
+    }
+  }
+
+  service(name, constructorFn) {
+    this.register(name, constructorFn, 'service');
     return this;
   }
 
   /*
    * Clone a function
    */
-  _cloneFunction (original) {
+  _cloneFunction(original) {
     return function () {
       return original.apply(this, arguments);
     };
@@ -76,7 +85,7 @@ class ComponentRegistrar {
    * In order to inject the dependencies, they must be attached to the constructor function with the
    * `$inject` property annotation.
    */
-  _createFactoryArray (constructorFn) {
+  _createFactoryArray(constructorFn) {
     // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
     const args = constructorFn.$inject || [];
     let factoryArray = args.slice(); // create a copy of the array
@@ -102,7 +111,7 @@ class ComponentRegistrar {
    * we need to pull out the array of dependencies and add it as an $inject property of the
    * actual constructor function.
    */
-  _normalizeConstructor (input) {
+  _normalizeConstructor(input) {
     let constructorFn;
     
     if (input.constructor === Array) {
@@ -120,7 +129,7 @@ class ComponentRegistrar {
   /**
    * Override an object's method with a new one specified by `callback`.
    */
-  _override (object, methodName, callback) {
+  _override(object, methodName, callback) {
     object[methodName] = callback(object[methodName]);
   }
 }

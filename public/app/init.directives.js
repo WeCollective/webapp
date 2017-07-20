@@ -19,7 +19,7 @@ import Tabs from './components/tabs/directive';
 import TagEditor from './components/tag-editor/directive';
 import Tooltip from './components/tooltip/directive';
 
-let refs = [
+const refs = [
   { name: 'alerts', module: Alerts },
   { name: 'cardBranch', module: CardBranch },
   { name: 'cardPollAnswer', module: CardPollAnswer },

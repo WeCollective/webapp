@@ -45,10 +45,11 @@ import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/co
 import SubmitSubbranchRequestModal from './components/modal/branch/nucleus/modtools/submit-subbranch-request/controller';
 import Tabs from './components/tabs/controller';
 import TagEditor from './components/tag-editor/controller';
+import PollAnswerEditor from './components/poll-answer-editor/controller';
 import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
 import UploadImageModal from './components/modal/upload-image/controller';
 
-let refs = [
+const refs = [
   { name: 'AppController', module: App },
   { name: 'AuthController', module: Auth },
   { name: 'BranchController', module: Branch },
@@ -87,6 +88,7 @@ let refs = [
   { name: 'FlagPostModalController', module: FlagPostModal },
   { name: 'ListItemController', module: CardListItem },
   { name: 'NavbarController', module: Navbar },
+  { name: 'PollAnswerEditorController', module: PollAnswerEditor },
   { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },
   { name: 'RemoveModModalController', module: RemoveModModal },
   { name: 'ResolveFlagPostModalController', module: ResolveFlagPostModal },

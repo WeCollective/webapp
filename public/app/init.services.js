@@ -13,7 +13,7 @@ import Upload from './services/upload';
 import User from './services/user';
 import Wall from './pages/branch/service';
 
-let refs = [
+const refs = [
   { name: 'AlertsService', module: Alerts },
   { name: 'API', module: API },
   { name: 'AppService', module: App },

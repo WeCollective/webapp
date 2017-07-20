@@ -1,15 +1,24 @@
 <div class="poll-answer-editor">
   <div class="add-item">
-    <input ng-model="newAnswer" placeholder="Create a new Answer" type="text"></input>
-    <img src="/assets/images/icons/black/add.jpg" ng-click="addItem()">
+    <input
+      ng-model="Editor.newAnswer"
+      placeholder="Create a new Answer"
+      type="text" />
+    <img
+      alt=""
+      ng-click="Editor.addAnswer()"
+      src="/assets/images/icons/black/add.jpg" />
   </div>
   <div class="answers">
     <h2>Answers</h2>
     <ul>
-      <p ng-show="answers.length === 0">No answers yet.</p>
-      <li ng-repeat="answer in answers">
+      <p ng-show="Editor.answers.length === 0">No answers yet.</p>
+      <li ng-repeat="answer in Editor.answers">
         <h3>{{ answer }}</h3>
-        <img src="/assets/images/icons/black/close.png" ng-click="removeItem(answer)">
+        <img
+          alt=""
+          ng-click="Editor.removeAnswer(answer)"
+          src="/assets/images/icons/black/close.png" />
       </li>
     </ul>
   </div>
