@@ -2596,13 +2596,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   background-size: cover;
   cursor: pointer;
   display: block;
-  height: 28px;
+  height: 26px;
+  margin-right: 15px;
   margin-top: 4px;
-  width: 28px;
+  width: 26px;
   transition: transform .2s;
 }
 .header .header__button.style--sidebar-toggle {
-  margin-right: 16px;
   opacity: .3;
   transform: rotateZ(-90deg);
 }
@@ -2621,9 +2621,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   display: flex;
   flex-direction: row;
   height: 100%;
+  margin-left: -15px;
   margin-top: 4px;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 6px;
 }
 .header .header__empty-state {
   color: #c8c8c8;
@@ -2640,7 +2642,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-size: 26px;
   font-weight: 500;
   padding-bottom: 6px;
-  padding-right: 24px;
+  padding-right: 15px;
   position: relative;
 }
 div#home-content {
