@@ -2,7 +2,7 @@ import Generator from 'utils/generator';
 import Injectable from 'utils/injectable';
 
 class CreatePostModalController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CreatePostModalController.$inject, injections);
 
     this.handleModalCancel = this.handleModalCancel.bind(this);
@@ -12,9 +12,11 @@ class CreatePostModalController extends Injectable {
     this.file = null;
     this.isLoading = false;
     this.newPost = {
-      branchids: [this.ModalService.inputArgs.branchid],
+      branchids: [
+        this.ModalService.inputArgs.branchid,
+      ],
+      locked: false,
       nsfw: false,
-      locked: false
     };
     this.pollAnswers = [];
     this.postType = {
@@ -24,41 +26,38 @@ class CreatePostModalController extends Injectable {
         'image',
         'video',
         'audio',
-        'poll'
+        'poll',
       ],
-      selectedIndex: 0
+      selectedIndex: 0,
     };
     this.preview = false;
 
-    let listeners = [];
-
+    const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
-
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  getUploadUrl (postid) {
+  getUploadUrl(postid) {
     return new Promise((resolve, reject) => {
-      let uploadUrlRoute = `post/${postid}/picture`;
+      const uploadUrlRoute = `post/${postid}/picture`;
       this.UploadService.fetchUploadUrl(uploadUrlRoute)
         .then(resolve)
         .catch(reject);
     });
   }
 
-  handleModalCancel (name) {
+  handleModalCancel(name) {
     if (name !== 'CREATE_POST') return;
 
-    this.$timeout(_ => {
+    this.$timeout(() => {
       this.errorMessage = '';
       this.isLoading = false;
       this.ModalService.Cancel();
     });
   }
 
-  handleModalSubmit (name) {
+  handleModalSubmit(name) {
     if (name !== 'CREATE_POST') return;
 
     // If not all fields are filled, display error.
@@ -66,7 +65,7 @@ class CreatePostModalController extends Injectable {
       !this.newPost.branchids || this.newPost.branchids.length === 0 ||
       !this.newPost.text || this.newPost.nsfw === undefined ||
       this.newPost.locked === undefined) {
-      return this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
+      return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
     }
 
     // Perform the update.
@@ -87,7 +86,7 @@ class CreatePostModalController extends Injectable {
         postid = yield this.PostService.create(post);
       }
       catch (err) {
-        return this.$timeout(_ => {
+        return this.$timeout(() => {
           this.errorMessage = err.message || 'Error creating post!';
           this.isLoading = false;
         });
@@ -100,7 +99,7 @@ class CreatePostModalController extends Injectable {
             yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
           }
           catch (err) {
-            return this.$timeout(_ => {
+            return this.$timeout(() => {
               this.errorMessage = err.message || 'Error creating poll answers!';
               this.isLoading = false;
             });
@@ -108,7 +107,7 @@ class CreatePostModalController extends Injectable {
         }
       }
 
-      this.$timeout(_ => {
+      this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
       });
@@ -140,11 +139,11 @@ class CreatePostModalController extends Injectable {
     }, this);
   }
 
-  setFile (file) {
+  setFile(file) {
     this.file = file;
   }
 
-  togglePreview () {
+  togglePreview() {
     this.preview = !this.preview;
   }
 }
@@ -157,7 +156,7 @@ CreatePostModalController.$inject = [
   'EventService',
   'ModalService',
   'PostService',
-  'UploadService'
+  'UploadService',
 ];
 
 export default CreatePostModalController;

@@ -44,6 +44,7 @@ import ReviewSubbranchRequestsModal from './components/modal/branch/nucleus/modt
 import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/controller';
 import SubmitSubbranchRequestModal from './components/modal/branch/nucleus/modtools/submit-subbranch-request/controller';
 import Tabs from './components/tabs/controller';
+import TagEditor from './components/tag-editor/controller';
 import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
 import UploadImageModal from './components/modal/upload-image/controller';
 
@@ -93,6 +94,7 @@ let refs = [
   { name: 'SubmitPollAnswerModalController', module: SubmitPollAnswerModal },
   { name: 'SubmitSubbranchRequestModalController', module: SubmitSubbranchRequestModal },
   { name: 'TabsController', module: Tabs },
+  { name: 'TagEditorController', module: TagEditor },
   { name: 'UpdateHomepageStatsModalController', module: UpdateHomepageStatsModal },
   { name: 'UploadImageModalController', module: UploadImageModal },
 ];

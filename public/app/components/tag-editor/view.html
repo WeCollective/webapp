@@ -1,23 +1,23 @@
 <div class="tag-editor">
-  <p>{{ errorMessage }}</p>
+  <p>{{ TagEditor.errorMessage }}</p>
   <div class="add-item">
     <input
-      ng-change="data.item = data.item.split(' ').join('')"
-      ng-disabled="items.length >= max()"
-      ng-model="data.item"
-      placeholder="{{ title() }}" />
+      ng-change="TagEditor.handleInputChange()"
+      ng-disabled="TagEditor.items.length >= TagEditor.max()"
+      ng-model="TagEditor.tag"
+      placeholder="{{ TagEditor.title() }}" />
     <img
-     alt=""
-     ng-click="addItem()"
+     alt="Add {{ TagEditor.tag }} to the tags"
+     ng-click="TagEditor.addTag()"
      src="/assets/images/icons/black/add.jpg" />
   </div>
 
   <div class="tagged-items">
-    <div class="tagged-item" ng-repeat="item in items">
-      <span>{{ item }}</span>
+    <div class="tagged-item" ng-repeat="tag in TagEditor.items">
+      <span>{{ tag }}</span>
       <img
         alt=""
-        ng-click="removeItem(item)"
+        ng-click="TagEditor.removeTag(tag)"
         src="/assets/images/icons/white/close.png" />
     </div>
   </div>

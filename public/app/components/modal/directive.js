@@ -11,9 +11,9 @@ class ModalComponent extends Injectable {
   }
   
   link(scope) {
-    scope.Cancel = () => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
+    scope.handleCancel = () => this.EventService.emit(this.EventService.events.MODAL_CANCEL, this.ModalService.name);
     scope.ModalService = this.ModalService;
-    scope.OK = () => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
+    scope.handleSubmit = () => this.EventService.emit(this.EventService.events.MODAL_OK, this.ModalService.name);
   }
 }
 

@@ -32,9 +32,7 @@ class ModalService extends Injectable {
   }
 
   Cancel(args) {
-    return new Promise((resolve, reject) => {
-      this.finished(args, false).then(args => resolve(args));
-    });
+    return this.handleControlButtonClick(false, args);
   }
 
   Error() {
@@ -45,26 +43,28 @@ class ModalService extends Injectable {
   }
 
   finished(args, success) {
+    return new Promise((resolve, reject) => this.$timeout(() => {
+      this.isOpen = false;
+      if (args) {
+        this.outputArgs = args;
+      }
+      this.name = '';
+      this.resolve(success);
+      return resolve(args);
+    }));
+  }
+
+  handleControlButtonClick(isSubmit, args) {
     return new Promise((resolve, reject) => {
-      this.$timeout(() => {
-        this.isOpen = false;
-        if (args) {
-          this.outputArgs = args;
-        }
-        this.name = '';
-        this.resolve(success);
-        return resolve(args);
-      });
+      return this.finished(args, isSubmit).then(args => resolve(args));
     });
   }
 
   OK(args) {
-    return new Promise((resolve, reject) => {
-      this.finished(args, true).then(args => resolve(args));
-    });
+    return this.handleControlButtonClick(true, args);
   }
 
-  open(name, args, successMessage, errorMessage) {
+  open(name, args, successMsg, errMsg) {
     return new Promise((resolve, reject) => {
       this.name = name;
       // force change the template url so that controllers included on
@@ -82,15 +82,16 @@ class ModalService extends Injectable {
         })
           // todo Investigate why is this timeout set to 1500ms.
           .then(result => this.$timeout(() => {
+            console.log('wow.');
             // force reload if OK was pressed
             if (result) {
               this.$state.go(this.$state.current, {}, { reload: true });
-              this.AlertsService.push('success', successMessage);
+              this.AlertsService.push('success', successMsg);
               return resolve(this.outputArgs);
             }
           }, 1500))
           .catch(() => {
-            this.AlertsService.push('error', errorMessage);
+            this.AlertsService.push('error', errMsg);
             return reject();
           });
       });
