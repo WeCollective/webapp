@@ -1420,6 +1420,25 @@ body.style--modal-open {
 }
 .modal {
   background-color: #fff;
+  height: 100%;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 13;
+}
+@media only screen and (min-width: 768px) {
+  .modal {
+    height: auto;
+    left: 0;
+    margin: 0 auto;
+    max-height: calc(100% - 10%);
+    max-width: 540px;
+    right: 0;
+    top: 10%;
+    width: auto;
+  }
 }
 .modal div#modal-injected-content {
   overflow-y: auto;
@@ -1603,42 +1622,6 @@ body.style--modal-open {
   opacity: 0;
 }
 .modal__overlay.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
-}
-.modal__wrapper {
-  height: 100%;
-  left: 0;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 13;
-}
-@media only screen and (min-width: 768px) {
-  .modal__wrapper {
-    height: auto;
-    left: 50%;
-    max-height: 400px;
-    max-width: 540px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-  }
-}
-.modal__wrapper.ng-hide-add,
-.modal__wrapper.ng-hide-remove {
-  transition: opacity 0.4s;
-}
-.modal__wrapper.ng-hide-add {
-  opacity: 1;
-}
-.modal__wrapper.ng-hide-add.ng-hide-add-active {
-  opacity: 1;
-}
-.modal__wrapper.ng-hide-remove {
-  opacity: 1;
-}
-.modal__wrapper.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
 div#upload-image-modal div#dragdrop {

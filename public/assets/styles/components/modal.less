@@ -7,6 +7,26 @@ body.style--modal-open {
 
 .modal {
   background-color: #fff;
+  height: 100%;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: @z-modal;
+
+  .mediaQuery(@screen-md, {
+    @offset-top: 10%;
+
+    height: auto;
+    left: 0;
+    margin: 0 auto;
+    max-height: calc(~'100% - @{offset-top}');
+    max-width: 540px;
+    right: 0;
+    top: @offset-top;
+    width: auto;
+  });
 
   div#modal-injected-content {
     overflow-y: auto;
@@ -143,45 +163,6 @@ body.style--modal-open {
 
   &.ng-hide-remove {
     opacity: 0;
-
-    &.ng-hide-remove-active { opacity: 1; }
-  }
-}
-
-.modal__wrapper {
-  height: 100%;
-  left: 0;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: @z-modal;
-
-  .mediaQuery(@screen-md, {
-    height: auto;
-    left: 50%;
-    max-height: 400px;
-    max-width: 540px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-  });
-
-  // These are here only so that the correct
-  // animation plays on the child modal content.
-  &.ng-hide-add,
-  &.ng-hide-remove {
-    transition: opacity @modal__animation__speed;
-  }
-
-  &.ng-hide-add {
-    opacity: 1;
-
-    &.ng-hide-add-active { opacity: 1; }
-  }
-
-  &.ng-hide-remove {
-    opacity: 1;
 
     &.ng-hide-remove-active { opacity: 1; }
   }
