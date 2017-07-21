@@ -5,7 +5,6 @@ class WallService extends Injectable {
     super(WallService.$inject, injections);
 
     this.isCoverOpen = false;
-    console.log(this.BranchService.branch);
   }
 
   getHeaderButtonTooltip() {
