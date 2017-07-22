@@ -29,24 +29,31 @@ class BranchSubbranchesController extends Injectable {
     };
     this.isLoading = false;
 
-    this.init = this.init.bind(this);
-    this.scrollCb = this.scrollCb.bind(this);
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.callbackLoad = this.callbackLoad.bind(this);
+    this.callbackScroll = this.callbackScroll.bind(this);
 
-    let listeners = [];
-
-    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.init();
-    }));
-
-    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.init();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
-    
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
-
+    const listeners = [];
+    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.callbackLoad));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  callbackDropdown(newValue, oldValue) {
+    if (newValue !== oldValue) this.callbackLoad();
+  }
+
+  callbackLoad() {
+    if (!this.$state.current.name.includes('weco.branch.subbranches')) return;
+    this.getSubbranches();
+  }
+
+  callbackScroll(name) {
+    if (name === 'BranchSubbranchesScrollToBottom' && this.branches.length > 0) {
+      this.getSubbranches(this.branches[this.branches.length - 1].id);
+    }
   }
 
   getSortBy() {
@@ -76,20 +83,18 @@ class BranchSubbranchesController extends Injectable {
 
     // fetch the subbranches for this branch and timefilter
     this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId)
-      .then(branches => {
-        this.$timeout(() => {
-          // if lastBranchId was specified we are fetching _more_ branches, so append them
-          this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+      .then(branches => this.$timeout(() => {
+        // if lastBranchId was specified we are fetching _more_ branches, so append them
+        this.branches = lastBranchId ? this.branches.concat(branches) : branches;
 
-          this.isLoading = false;
+        this.isLoading = false;
 
-          this.$scope.$apply();
-        });
-      })
-      .catch(() => {
+        this.$scope.$apply();
+      }))
+      .catch(() => this.$timeout(() => {
         this.AlertsService.push('error', 'Error fetching branches.');
-        this.$timeout(() => this.isLoading = false);
-      });
+        this.isLoading = false;
+      }));
   }
 
   // compute the appropriate timeafter for the selected time filter
@@ -113,26 +118,6 @@ class BranchSubbranchesController extends Injectable {
       case 'all time':
       default:
         return 0;
-    }
-  }
-
-  init() {
-    if (!this.$state.current.name.includes('weco.branch.subbranches')) {
-      return;
-    }
-
-    if (Object.keys(this.BranchService.branch).length < 2) {
-      return;
-    }
-
-    this.getSubbranches();
-  }
-
-  scrollCb(name) {
-    if (name !== 'BranchSubbranchesScrollToBottom') return;
-    
-    if (this.branches.length > 0) {
-      this.getSubbranches(this.branches[this.branches.length - 1].id);
     }
   }
 }

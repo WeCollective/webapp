@@ -53,7 +53,9 @@
     loading
     loading-when="!BranchWall.posts.length && BranchWall.isLoading"
     on-scroll-to-bottom="WallScrollToBottom">
-    <ul class="content__list">
+    <ul
+      class="content__list"
+      ng-if="BranchWall.posts.length > 0">
       <li
         class="branch__post"
         index="$index"
@@ -63,5 +65,23 @@
         stat="BranchWall.getStatType()">
       </li>
     </ul>
+
+    <div
+      class="text--center"
+      ng-if="BranchWall.posts.length === 0">
+      <p class="branch__empty-title">
+        There don't seem to be any posts to this branch that match the current filter settings
+      </p>
+      <img
+        alt="Empty state icon"
+        class="branch__empty-icon"
+        src="/assets/images/empty-state.jpg" />
+      <p class="branch__empty-text">
+        To create the first post: <br>
+        Click the 'Add New Content' button (+) above <br>
+        <span class="text--italic">or</span><br>
+        Tag a post you submit elsewhere on the site with this branches unique name ('b/...')
+      </p>
+    </div>
   </div>
 </div>

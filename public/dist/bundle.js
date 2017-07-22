@@ -67255,24 +67255,31 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     };
     this.isLoading = false;
 
-    this.init = this.init.bind(this);
-    this.scrollCb = this.scrollCb.bind(this);
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.callbackLoad = this.callbackLoad.bind(this);
+    this.callbackScroll = this.callbackScroll.bind(this);
 
-    let listeners = [];
-
-    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.init();
-    }));
-
-    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.init();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.init));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
-
+    const listeners = [];
+    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.callbackLoad));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  callbackDropdown(newValue, oldValue) {
+    if (newValue !== oldValue) this.callbackLoad();
+  }
+
+  callbackLoad() {
+    if (!this.$state.current.name.includes('weco.branch.subbranches')) return;
+    this.getSubbranches();
+  }
+
+  callbackScroll(name) {
+    if (name === 'BranchSubbranchesScrollToBottom' && this.branches.length > 0) {
+      this.getSubbranches(this.branches[this.branches.length - 1].id);
+    }
   }
 
   getSortBy() {
@@ -67301,19 +67308,17 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     const timeafter = this.getTimeafter();
 
     // fetch the subbranches for this branch and timefilter
-    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => {
-      this.$timeout(() => {
-        // if lastBranchId was specified we are fetching _more_ branches, so append them
-        this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => this.$timeout(() => {
+      // if lastBranchId was specified we are fetching _more_ branches, so append them
+      this.branches = lastBranchId ? this.branches.concat(branches) : branches;
 
-        this.isLoading = false;
+      this.isLoading = false;
 
-        this.$scope.$apply();
-      });
-    }).catch(() => {
+      this.$scope.$apply();
+    })).catch(() => this.$timeout(() => {
       this.AlertsService.push('error', 'Error fetching branches.');
-      this.$timeout(() => this.isLoading = false);
-    });
+      this.isLoading = false;
+    }));
   }
 
   // compute the appropriate timeafter for the selected time filter
@@ -67337,26 +67342,6 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
       case 'all time':
       default:
         return 0;
-    }
-  }
-
-  init() {
-    if (!this.$state.current.name.includes('weco.branch.subbranches')) {
-      return;
-    }
-
-    if (Object.keys(this.BranchService.branch).length < 2) {
-      return;
-    }
-
-    this.getSubbranches();
-  }
-
-  scrollCb(name) {
-    if (name !== 'BranchSubbranchesScrollToBottom') return;
-
-    if (this.branches.length > 0) {
-      this.getSubbranches(this.branches[this.branches.length - 1].id);
     }
   }
 }
@@ -67426,17 +67411,14 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   callbackLoad() {
-    return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes('weco.branch.wall')) {
-        return reject();
-      }
-
-      return this.getPosts();
-    });
+    if (!this.$state.current.name.includes('weco.branch.wall')) return;
+    this.getPosts();
   }
 
   callbackScroll(name) {
-    if ('WallScrollToBottom' === name) this.getPosts(this.posts[this.posts.length - 1].id);
+    if (name === 'WallScrollToBottom' && this.posts.length > 0) {
+      this.getPosts(this.posts[this.posts.length - 1].id);
+    }
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -67449,47 +67431,43 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 
   getPosts(lastPostId) {
-    return new Promise((resolve, reject) => {
-      let posts = this.posts;
+    let posts = this.posts;
 
-      if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
-        return resolve();
+    if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    if (lastPostId) {
+      this.lastFetchedPostId = lastPostId;
+    }
+
+    const postType = this.getPostType();
+    const sortBy = this.getSortBy();
+    const statType = this.getStatType();
+    const timeafter = this.getTimeafter();
+
+    // fetch the posts for this branch and timefilter
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false).then(newPosts => this.$timeout(() => {
+      // If lastPostId was specified, we are fetching more posts, so append them.
+      posts = lastPostId ? posts.concat(newPosts) : newPosts;
+      this.posts = posts;
+
+      // 30 is the length of the posts response sent back by server.
+      if (newPosts.length > 0 && newPosts.length < 30) {
+        this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
       }
 
-      this.isLoading = true;
+      let cache = this.LocalStorageService.getObject('cache');
+      cache.branchWallPosts = cache.branchWallPosts || {};
+      cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
+      this.LocalStorageService.setObject('cache', cache);
 
-      if (lastPostId) {
-        this.lastFetchedPostId = lastPostId;
-      }
-
-      const postType = this.getPostType();
-      const sortBy = this.getSortBy();
-      const statType = this.getStatType();
-      const timeafter = this.getTimeafter();
-
-      // fetch the posts for this branch and timefilter
-      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false).then(newPosts => this.$timeout(() => {
-        // If lastPostId was specified, we are fetching more posts, so append them.
-        posts = lastPostId ? posts.concat(newPosts) : newPosts;
-        this.posts = posts;
-
-        // 30 is the length of the posts response sent back by server.
-        if (newPosts.length > 0 && newPosts.length < 30) {
-          this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-        }
-
-        let cache = this.LocalStorageService.getObject('cache');
-        cache.branchWallPosts = cache.branchWallPosts || {};
-        cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
-        this.LocalStorageService.setObject('cache', cache);
-
-        this.isLoading = false;
-        return resolve();
-      })).catch(() => {
-        this.AlertsService.push('error', 'Error fetching posts.');
-        this.isLoading = false;
-        return reject();
-      });
+      this.isLoading = false;
+    })).catch(() => {
+      this.AlertsService.push('error', 'Error fetching posts.');
+      this.isLoading = false;
     });
   }
 

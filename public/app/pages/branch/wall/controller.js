@@ -76,17 +76,14 @@ class BranchWallController extends Injectable {
   }
 
   callbackLoad() {
-    return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes('weco.branch.wall')) {
-        return reject();
-      }
-
-      return this.getPosts();
-    });
+    if (!this.$state.current.name.includes('weco.branch.wall')) return;
+    this.getPosts();
   }
 
   callbackScroll(name) {
-    if ('WallScrollToBottom' === name) this.getPosts(this.posts[this.posts.length - 1].id);
+    if (name === 'WallScrollToBottom' && this.posts.length > 0) {
+      this.getPosts(this.posts[this.posts.length - 1].id);
+    }
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -99,50 +96,46 @@ class BranchWallController extends Injectable {
   }
 
   getPosts(lastPostId) {
-    return new Promise((resolve, reject) => {
-      let posts = this.posts;
+    let posts = this.posts;
 
-      if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
-        return resolve();
-      }
+    if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
+      return;
+    }
 
-      this.isLoading = true;
+    this.isLoading = true;
 
-      if (lastPostId) {
-        this.lastFetchedPostId = lastPostId;
-      }
+    if (lastPostId) {
+      this.lastFetchedPostId = lastPostId;
+    }
 
-      const postType = this.getPostType();
-      const sortBy = this.getSortBy();
-      const statType = this.getStatType();
-      const timeafter = this.getTimeafter();
+    const postType = this.getPostType();
+    const sortBy = this.getSortBy();
+    const statType = this.getStatType();
+    const timeafter = this.getTimeafter();
 
-      // fetch the posts for this branch and timefilter
-      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false)
-        .then(newPosts => this.$timeout(() => {
-          // If lastPostId was specified, we are fetching more posts, so append them.
-          posts = lastPostId ? posts.concat(newPosts) : newPosts;
-          this.posts = posts;
+    // fetch the posts for this branch and timefilter
+    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false)
+      .then(newPosts => this.$timeout(() => {
+        // If lastPostId was specified, we are fetching more posts, so append them.
+        posts = lastPostId ? posts.concat(newPosts) : newPosts;
+        this.posts = posts;
 
-          // 30 is the length of the posts response sent back by server.
-          if (newPosts.length > 0 && newPosts.length < 30) {
-            this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-          }
+        // 30 is the length of the posts response sent back by server.
+        if (newPosts.length > 0 && newPosts.length < 30) {
+          this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
+        }
 
-          let cache = this.LocalStorageService.getObject('cache');
-          cache.branchWallPosts = cache.branchWallPosts || {};
-          cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
-          this.LocalStorageService.setObject('cache', cache);
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.branchWallPosts = cache.branchWallPosts || {};
+        cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
+        this.LocalStorageService.setObject('cache', cache);
 
-          this.isLoading = false;
-          return resolve();
-        }))
-        .catch(() => {
-          this.AlertsService.push('error', 'Error fetching posts.');
-          this.isLoading = false;
-          return reject();
-        });
-    });
+        this.isLoading = false;
+      }))
+      .catch(() => {
+        this.AlertsService.push('error', 'Error fetching posts.');
+        this.isLoading = false;
+      });
   }
 
   getPostType() {

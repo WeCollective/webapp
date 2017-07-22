@@ -15,6 +15,9 @@
 .text--center {
   text-align: center;
 }
+.text--italic {
+  font-style: italic;
+}
 .text--lowercase {
   text-transform: lowercase;
 }
@@ -2086,6 +2089,24 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .full-page.dark-bg p#resend-verification {
   cursor: pointer;
   text-decoration: underline;
+}
+.branch__empty-icon {
+  height: 240px;
+  width: 240px;
+}
+.branch__empty-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 2.2;
+  padding: 0 16px;
+}
+.branch__empty-title {
+  font-weight: 600;
+  line-height: 1.8;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 420px;
+  padding: 0 16px;
 }
 .branch__item {
   padding: 4px 0;

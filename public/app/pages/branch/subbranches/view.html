@@ -40,7 +40,9 @@
     loading
     loading-when="!BranchSubbranches.branches.length && BranchSubbranches.isLoading"
     on-scroll-to-bottom="BranchSubbranchesScrollToBottom">
-    <ul class="content__list">
+    <ul
+      class="content__list"
+      ng-if="BranchSubbranches.branches.length > 0">
       <li
         branch="subbranch"
         card-branch
@@ -49,5 +51,23 @@
         ng-repeat="subbranch in BranchSubbranches.branches">
       </li>
     </ul>
+
+    <div
+      class="text--center"
+      ng-if="BranchSubbranches.branches.length === 0">
+      <p class="branch__empty-title">
+        There don't seem to be any child branches attached to this branch that match the current filter settings
+      </p>
+      <img
+        alt="Empty state icon"
+        class="branch__empty-icon"
+        src="/assets/images/empty-state.jpg" />
+      <p class="branch__empty-text">
+        To attach a new branch: <br>
+        Click the 'Add New Content' button (+) above and create a new branch. <br>
+        <span class="text--italic">or</span><br>
+        Submit a 'Parent Branch Request' from the Mod Tools section in the Nucleus of a branch you already moderate.
+      </p>
+    </div>
   </div>
 </div>
