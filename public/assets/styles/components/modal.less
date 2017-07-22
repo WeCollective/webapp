@@ -15,56 +15,6 @@ body.style--modal-open {
   width: 100%;
   z-index: @z-modal;
 
-  .mediaQuery(@screen-md, {
-    @offset-top: 10%;
-
-    height: auto;
-    left: 0;
-    margin: 0 auto;
-    max-height: calc(~'100% - @{offset-top}');
-    max-width: 540px;
-    right: 0;
-    top: @offset-top;
-    width: auto;
-  });
-
-  div#modal-injected-content {
-    overflow-y: auto;
-    padding: 20px 20px 0;
-
-    > div,
-    & {
-      position: relative;
-
-      h1 {
-        font-size: @font-size-md;
-        font-weight: @font-weight-heavy;
-        margin-bottom: 15px;
-      }
-
-      p.error-message { color: @caution-0; }
-
-      input,
-      textarea {
-        &:not([type="checkbox"]) {
-          border: 1px solid @light-grey;
-          border-radius: 3px;
-          box-sizing: border-box;
-          font-size: @font-size-sm;
-          font-weight: @font-weight-light;
-          display: block;
-          margin: 10px 0;
-          max-height: 500px;
-          max-width: 100%;
-          padding: 10px 15px;
-          width: 100%;
-        }
-
-        &:focus { outline: none; }
-      }
-    }
-  }
-
   &.ng-hide-add,
   &.ng-hide-remove {
     transition: opacity @modal__animation__speed,
@@ -91,7 +41,19 @@ body.style--modal-open {
     }
   }
 
-  .mediaQuery(@screen-md, { box-shadow: @shadow-3; });
+  .mediaQuery(@screen-md, {
+    @offset-top: 10%;
+
+    box-shadow: @shadow-3;
+    height: auto;
+    left: 0;
+    margin: 0 auto;
+    max-height: calc(~'100% - @{offset-top}');
+    max-width: 540px;
+    right: 0;
+    top: @offset-top;
+    width: auto;
+  });
 }
 
 .modal__button {
@@ -132,6 +94,43 @@ body.style--modal-open {
       });
     }
   });
+}
+
+.modal__content {
+  overflow-y: auto;
+  padding: 20px 20px 0;
+
+  > div,
+  & {
+    position: relative;
+
+    h1 {
+      font-size: @font-size-md;
+      font-weight: @font-weight-heavy;
+      margin-bottom: 15px;
+    }
+
+    p.error-message { color: @caution-0; }
+
+    input,
+    textarea {
+      &:not([type="checkbox"]) {
+        border: 1px solid @light-grey;
+        border-radius: 3px;
+        box-sizing: border-box;
+        font-size: @font-size-sm;
+        font-weight: @font-weight-light;
+        display: block;
+        margin: 10px 0;
+        max-height: 500px;
+        max-width: 100%;
+        padding: 10px 15px;
+        width: 100%;
+      }
+
+      &:focus { outline: none; }
+    }
+  }
 }
 
 .modal__controls {
