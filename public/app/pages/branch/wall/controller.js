@@ -52,47 +52,41 @@ class BranchWallController extends Injectable {
     this.lastFetchedPostId = false;
     this.posts = cache[this.BranchService.branch.id] || [];
 
-    this.cb = this.cb.bind(this);
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.callbackLoad = this.callbackLoad.bind(this);
+    this.callbackScroll = this.callbackScroll.bind(this);
     this.getPosts = this.getPosts.bind(this);
     this.getPostType = this.getPostType.bind(this);
     this.getSortBy = this.getSortBy.bind(this);
     this.getStatType = this.getStatType.bind(this);
     this.getTimeafter = this.getTimeafter.bind(this);
-    this.scrollCb = this.scrollCb.bind(this);
 
-    let listeners = [];
-    
-    listeners.push(this.$rootScope.$watch(() => this.controls.postType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.cb();
-    }));
-
-    listeners.push(this.$rootScope.$watch(() => this.controls.statType.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.cb();
-    }));
-    
-    listeners.push(this.$rootScope.$watch(() => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.cb();
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
-
+    const listeners = [];
+    listeners.push(this.$rootScope.$watch(() => this.controls.postType.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => this.controls.statType.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH_PREFETCH, this.callbackLoad));
+    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  cb() {
+  callbackDropdown(newValue, oldValue) {
+    if (newValue !== oldValue) this.callbackLoad();
+  }
+
+  callbackLoad() {
     return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes('weco.branch.wall') || Object.keys(this.BranchService.branch).length < 2) {
+      if (!this.$state.current.name.includes('weco.branch.wall')) {
         return reject();
       }
 
       return this.getPosts();
     });
+  }
+
+  callbackScroll(name) {
+    if ('WallScrollToBottom' === name) this.getPosts(this.posts[this.posts.length - 1].id);
   }
 
   // return the correct ui-sref string for when the specified post is clicked
@@ -228,12 +222,6 @@ class BranchWallController extends Injectable {
       default:
         return 0;
     }
-  }
-
-  scrollCb(name) {
-    if ('WallScrollToBottom' !== name) return;
-    
-    this.getPosts(this.posts[this.posts.length - 1].id);
   }
 }
 

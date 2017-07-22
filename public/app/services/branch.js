@@ -39,8 +39,9 @@ class BranchService extends Injectable {
 
       if (fetchingBranch && this.branch.id !== fetchingBranch) {
         // Preload the result.
+        this.branch.id = fetchingBranch;
+
         if (fetchingBranch !== 'root') {
-          this.branch.id = fetchingBranch;
           this.branch.name = fetchingBranch;
         }
         else {
@@ -48,6 +49,8 @@ class BranchService extends Injectable {
           this.branch.parent = { id: 'none' };
         }
       }
+
+      this.EventService.emit(this.EventService.events.CHANGE_BRANCH_PREFETCH, this.branch.id);
 
       this.fetch(fetchingBranch)
         .then(branch => {

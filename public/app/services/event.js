@@ -6,6 +6,7 @@ class EventService extends Injectable {
 
     this.events = {
       CHANGE_BRANCH: 'CHANGE_BRANCH',
+      CHANGE_BRANCH_PREFETCH: 'CHANGE_BRANCH_PREFETCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
       MODAL_CANCEL: 'MODAL_CANCEL',
@@ -23,6 +24,7 @@ class EventService extends Injectable {
         return this.$rootScope.$broadcast(event, args);
       }
     }
+    console.warn(`Tried to broadcast an undefined event "${event}."`);
   }
 
   // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!
