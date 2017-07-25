@@ -3069,53 +3069,48 @@ div#notfound div h2 {
   padding-top: 12px;
   position: relative;
 }
-.post .post__preview .post__preview-content {
+.post .post__preview-content {
   transition: all 0.3s ease;
 }
-.post .post__preview .post__preview-content p {
+.post .post__preview-content p {
   margin: 0;
 }
-.post .post__preview .post__preview-content.ng-hide-add {
+.post .post__preview-content.ng-hide-add {
   opacity: 1;
   transform: translateY(0);
 }
-.post .post__preview .post__preview-content.ng-hide-add.ng-hide-add-active {
+.post .post__preview-content.ng-hide-add.ng-hide-add-active {
   opacity: 0;
   transform: translateY(-100%);
 }
-.post .post__preview .post__preview-content.ng-hide-remove {
+.post .post__preview-content.ng-hide-remove {
   opacity: 0;
   transform: translateY(-100%);
 }
-.post .post__preview .post__preview-content.ng-hide-remove.ng-hide-remove-active {
+.post .post__preview-content.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
   transform: translateY(0);
 }
-.post .post__preview .post__preview-content.style--image div {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 200px;
-  width: auto;
-  transition: height 0.3s ease-out;
+.post .post__preview-content.style--image {
+  text-align: center;
 }
-.post .post__preview .post__preview-content.style--image.maximised div {
+.post .post__preview-content.style--image.maximised .post__preview-image-container {
   height: 350px;
   width: auto;
 }
-.post .post__preview .post__preview-content.style--text {
+.post .post__preview-content.style--text {
   max-height: 1.5em;
   overflow-y: scroll;
 }
-.post .post__preview .post__preview-content.style--text.style--expanded {
+.post .post__preview-content.style--text.style--expanded {
   max-height: 350px;
 }
-.post .post__preview .post__preview-content.style--video {
+.post .post__preview-content.style--video {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
 }
-.post .post__preview .post__preview-content.style--video div {
+.post .post__preview-content.style--video div {
   height: 0;
   position: relative;
   padding-bottom: 56.25%;
@@ -3123,63 +3118,81 @@ div#notfound div h2 {
   padding-top: 25px;
   transition: width 0.3s ease-out;
 }
-.post .post__preview .post__preview-content.style--video div iframe {
+.post .post__preview-content.style--video div iframe {
   height: 100%;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
 }
-.post .post__preview .post__preview-content.style--video.maximised {
+.post .post__preview-content.style--video.maximised {
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
-  .post .post__preview .post__preview-content.style--video {
+  .post .post__preview-content.style--video {
     width: 43.75%;
   }
 }
-.post .post__preview .post__preview-controls {
+.post .post__preview-controls {
   position: absolute;
   right: 12px;
   top: 12px;
   z-index: 1;
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn {
+.post .post__preview-controls .post__preview-control-btn {
   height: 26px;
   opacity: 0.5;
   width: 26px;
   transition: transform 0.3s ease;
   -webkit-filter: blur(0px);
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn:not(:last-child) {
+.post .post__preview-controls .post__preview-control-btn:not(:last-child) {
   margin-right: 8px;
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn:hover {
+.post .post__preview-controls .post__preview-control-btn:hover {
   cursor: pointer;
   opacity: 1;
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.toggled {
+.post .post__preview-controls .post__preview-control-btn.toggled {
   transform: rotateZ(180deg);
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-add,
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-remove {
+.post .post__preview-controls .post__preview-control-btn.ng-hide-add,
+.post .post__preview-controls .post__preview-control-btn.ng-hide-remove {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-add {
+.post .post__preview-controls .post__preview-control-btn.ng-hide-add {
   opacity: 0.5;
   transform: scale(1);
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-add.ng-hide-add-active {
+.post .post__preview-controls .post__preview-control-btn.ng-hide-add.ng-hide-add-active {
   opacity: 0;
   transform: scale(0);
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-remove {
+.post .post__preview-controls .post__preview-control-btn.ng-hide-remove {
   opacity: 0;
   transform: scale(0);
 }
-.post .post__preview .post__preview-controls .post__preview-control-btn.ng-hide-remove.ng-hide-remove-active {
+.post .post__preview-controls .post__preview-control-btn.ng-hide-remove.ng-hide-remove-active {
   opacity: 0.5;
   transform: scale(1);
+}
+.post .post__preview-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: inherit;
+  width: inherit;
+}
+.post .post__preview-image-container {
+  background-image: url('/assets/images/invalid-image-url.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  height: 200px;
+  min-width: 200px;
+  width: auto;
+  transition: height 0.3s ease-out;
 }
 .post .post__content-wrapper {
   flex: 1;
