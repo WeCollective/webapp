@@ -12,9 +12,7 @@ class CreatePostModalController extends Injectable {
     this.file = null;
     this.isLoading = false;
     this.newPost = {
-      branchids: [
-        this.ModalService.inputArgs.branchid,
-      ],
+      branchids: [],
       locked: false,
       nsfw: false,
     };
@@ -32,10 +30,25 @@ class CreatePostModalController extends Injectable {
     };
     this.preview = false;
 
+    const parentBranch = this.ModalService.inputArgs.branchid;
+    if (parentBranch !== 'root') {
+      this.newPost.branchids.push({
+        isRemovable: false,
+        label: parentBranch,
+      });
+    }
+
+    this.tags = this.newPost.branchids;
+
     const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  flattenTagsArray(array) {
+    if (array.length === 0 || typeof array[0] !== 'object') return array;
+    return array.map(item => item.label);
   }
 
   getUploadUrl(postid) {
@@ -77,8 +90,8 @@ class CreatePostModalController extends Injectable {
     }
 
     // create copy of post to not interfere with binding of items on tag-editor
-    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
-    post.branchids = JSON.stringify(this.newPost.branchids);
+    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
+    post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
 
     Generator.run(function* () {
       let postid;

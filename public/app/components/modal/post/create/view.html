@@ -20,20 +20,20 @@
           id="graphic"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
           src="/assets/images/image.png" />
-        
+
         <div
           id="image-preview"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'image'"
           style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')">
         </div>
-        
+
         <h2 ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'">
           Drop an image here!
         </h2>
-        
+
         <div id="preview" ngf-background="CPMCtrl.file"></div>
       </div>
-      
+
       <div
         id="choose-file"
         ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
@@ -68,13 +68,12 @@
       <input ng-model="CPMCtrl.newPost.title" placeholder="Title" type="text" />
 
       <tag-editor
-        items="CPMCtrl.newPost.branchids"
+        items="CPMCtrl.tags"
         max="5"
         title="'Tag another branch, max 5 tags'">
       </tag-editor>
     </div>
-    
-    <!-- detach textarea from create-post-inputs so it flows below profile image -->
+
     <textarea
       id="post-description"
       ng-model="CPMCtrl.newPost.text"

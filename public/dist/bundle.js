@@ -64729,7 +64729,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     this.file = null;
     this.isLoading = false;
     this.newPost = {
-      branchids: [this.ModalService.inputArgs.branchid],
+      branchids: [],
       locked: false,
       nsfw: false
     };
@@ -64740,10 +64740,25 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     };
     this.preview = false;
 
+    const parentBranch = this.ModalService.inputArgs.branchid;
+    if (parentBranch !== 'root') {
+      this.newPost.branchids.push({
+        isRemovable: false,
+        label: parentBranch
+      });
+    }
+
+    this.tags = this.newPost.branchids;
+
     const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  flattenTagsArray(array) {
+    if (array.length === 0 || typeof array[0] !== 'object') return array;
+    return array.map(item => item.label);
   }
 
   getUploadUrl(postid) {
@@ -64780,8 +64795,8 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     }
 
     // create copy of post to not interfere with binding of items on tag-editor
-    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing faciltates shallow copy
-    post.branchids = JSON.stringify(this.newPost.branchids);
+    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
+    post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
 
     __WEBPACK_IMPORTED_MODULE_0_utils_generator__["a" /* default */].run(function* () {
       let postid;
@@ -65729,10 +65744,38 @@ class TagEditorController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__
     // Do not allow spaces in the tags.
     this.tag = this.tag.split(' ').join('').toLowerCase();
 
-    if (this.items.includes(this.tag)) return;
+    if (this.getTagIndex(this.tag) !== -1) return;
 
-    this.items.push(this.tag);
+    if (this.items.length === 0 || typeof this.items[0] === 'object') {
+      this.items.push({
+        isRemovable: true,
+        label: this.tag
+      });
+    } else {
+      this.items.push(this.tag);
+    }
+
     this.tag = '';
+  }
+
+  getTagIndex(tag) {
+    if (this.items.length === 0) {
+      return -1;
+    }
+
+    if (typeof this.items[0] === 'object') {
+      for (let i = 0; i < this.items.length; i += 1) {
+        const label = this.items[i].label;
+
+        if (typeof tag === 'object' && label === tag.label || label === tag) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
+    return this.items.indexOf(typeof tag === 'object' ? tag.label : tag);
   }
 
   handleInputChange() {
@@ -65747,10 +65790,18 @@ class TagEditorController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__
     }
   }
 
-  removeTag(tag) {
-    const tagIndex = this.items.indexOf(tag);
+  isRemovable(tag) {
+    return typeof tag === 'object' ? tag.isRemovable : true;
+  }
 
-    if (tagIndex !== -1) {
+  renderTagLabel(tag) {
+    return typeof tag === 'object' ? tag.label : tag;
+  }
+
+  removeTag(tag) {
+    const tagIndex = this.getTagIndex(tag);
+
+    if (tagIndex !== -1 && this.isRemovable(tag)) {
       this.items.splice(tagIndex, 1);
     }
 
@@ -66739,7 +66790,6 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
         break;
 
       default:
-        // statements_def
         break;
     }
 

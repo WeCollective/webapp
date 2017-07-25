@@ -1347,56 +1347,28 @@ ul.tabs.style--content-block .tabs__item {
 ul.tabs.style--border {
   border-bottom: solid 1px #e7e7e7;
 }
-div.tag-editor {
+.tags__editor {
   position: relative;
   width: 100%;
 }
-div.tag-editor div.add-item {
-  height: 100%;
-  position: relative;
-  width: 100%;
+.tags__error {
+  color: #c0392b;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0;
 }
-div.tag-editor div.add-item img {
-  height: 20px;
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 15px);
-  width: auto;
-}
-div.tag-editor div.add-item img:hover {
+.tags__icon {
   cursor: pointer;
-  opacity: 1;
-}
-div.tag-editor div.tagged-items {
-  max-width: 100%;
-}
-div.tag-editor div.tagged-items div.tagged-item {
-  background-color: #444444;
-  border-radius: 3px;
-  box-sizing: border-box;
-  display: inline-block;
-  margin-bottom: 10px;
-  margin-right: 4px;
-  padding: 2px 10px;
-  word-wrap: break-word;
-}
-div.tag-editor div.tagged-items div.tagged-item img {
   height: 10px;
   opacity: .6;
+  padding-left: 5px;
   vertical-align: middle;
+  width: auto;
 }
-div.tag-editor div.tagged-items div.tagged-item img:hover {
-  cursor: pointer;
+.tags__icon:hover {
   opacity: 1;
 }
-div.tag-editor div.tagged-items div.tagged-item span {
-  color: #fff;
-  font-size: 14px;
-  line-height: 2;
-  padding-right: 10px;
-  vertical-align: middle;
-}
-div.tag-editor input {
+.tags__input {
   border: 1px solid #e7e7e7;
   border-radius: 3px;
   box-sizing: border-box;
@@ -1407,11 +1379,40 @@ div.tag-editor input {
   text-transform: lowercase;
   width: 100%;
 }
-div.tag-editor p {
-  color: #c0392b;
+.tags__input-icon {
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 15px);
+  width: auto;
+}
+.tags__input-icon:hover {
+  opacity: 1;
+}
+.tags__input-wrapper {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.tags__item {
+  background-color: #444444;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 4px;
+  padding: 2px 10px;
+  word-wrap: break-word;
+}
+.tags__label {
+  color: #fff;
   font-size: 14px;
-  font-style: italic;
-  margin: 0;
+  line-height: 2;
+  vertical-align: middle;
+}
+.tags__list {
+  max-width: 100%;
 }
 .tooltip {
   background-color: #222222;

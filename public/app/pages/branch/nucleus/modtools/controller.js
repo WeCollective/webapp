@@ -117,7 +117,6 @@ class BranchNucleusModtoolsController extends Injectable {
         break;
 
       default:
-        // statements_def
         break;
     }
 

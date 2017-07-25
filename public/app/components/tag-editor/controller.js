@@ -16,10 +16,39 @@ class TagEditorController extends Injectable {
     // Do not allow spaces in the tags.
     this.tag = this.tag.split(' ').join('').toLowerCase();
 
-    if (this.items.includes(this.tag)) return;
+    if (this.getTagIndex(this.tag) !== -1) return;
 
-    this.items.push(this.tag);
+    if (this.items.length === 0 || typeof this.items[0] === 'object') {
+      this.items.push({
+        isRemovable: true,
+        label: this.tag,
+      });
+    }
+    else {
+      this.items.push(this.tag);
+    }
+
     this.tag = '';
+  }
+
+  getTagIndex(tag) {
+    if (this.items.length === 0) {
+      return -1;
+    }
+
+    if (typeof this.items[0] === 'object') {
+      for (let i = 0; i < this.items.length; i += 1) {
+        const label = this.items[i].label;
+
+        if ((typeof tag === 'object' && label === tag.label) || label === tag) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+    
+    return this.items.indexOf(typeof tag === 'object' ? tag.label : tag);
   }
 
   handleInputChange() {
@@ -34,10 +63,18 @@ class TagEditorController extends Injectable {
     }
   }
 
-  removeTag(tag) {
-    const tagIndex = this.items.indexOf(tag);
+  isRemovable(tag) {
+    return typeof tag === 'object' ? tag.isRemovable : true;
+  }
 
-    if (tagIndex !== -1) {
+  renderTagLabel(tag) {
+    return typeof tag === 'object' ? tag.label : tag;
+  }
+
+  removeTag(tag) {
+    const tagIndex = this.getTagIndex(tag);
+
+    if (tagIndex !== -1 && this.isRemovable(tag)) {
       this.items.splice(tagIndex, 1);
     }
 
