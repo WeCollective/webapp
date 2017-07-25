@@ -3,43 +3,86 @@
 *:before {
   -webkit-overflow-scrolling: touch;
 }
-.hidden {
-  display: none;
+html,
+body {
+  color: #2c2c2c;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  width: 100%;
 }
-.text--block {
-  display: block;
+a {
+  color: inherit;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
 }
-.text--capitalize {
-  text-transform: capitalize;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
 }
-.text--center {
-  text-align: center;
+h1 {
+  font-size: 26px;
 }
-.text--italic {
-  font-style: italic;
+h2 {
+  font-size: 22px;
 }
-.text--lowercase {
-  text-transform: lowercase;
+h3 {
+  font-size: 18px;
 }
-.text--uppercase {
-  text-transform: uppercase;
+h4 {
+  font-size: 14px;
+}
+h5 {
+  font-size: 12px;
+}
+input,
+textarea {
+  font-family: inherit;
+  text-rendering: optimizeLegibility;
+}
+li {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+span {
+  text-rendering: optimizeLegibility;
+}
+.clearfix {
+  display: inline-block;
+  max-width: 100%;
 }
 .clearfix:after {
   clear: both;
-  content: ".";
+  content: ' ';
   display: block;
   height: 0;
   line-height: 0;
   visibility: hidden;
-}
-.clearfix {
-  display: inline-block;
 }
 html[xmlns] .clearfix {
   display: block;
 }
 * html .clearfix {
   height: 1%;
+}
+.hidden {
+  display: none;
 }
 .list-item__circle {
   border-radius: 50%;
@@ -66,6 +109,24 @@ html[xmlns] .clearfix {
 }
 .list-item__circle.style--video {
   background-color: #99C4E4;
+}
+.text--block {
+  display: block;
+}
+.text--capitalize {
+  text-transform: capitalize;
+}
+.text--center {
+  text-align: center;
+}
+.text--italic {
+  font-style: italic;
+}
+.text--lowercase {
+  text-transform: lowercase;
+}
+.text--uppercase {
+  text-transform: uppercase;
 }
 /**
  * Material shadows
@@ -100,73 +161,6 @@ html[xmlns] .clearfix {
   font-style: normal;
   font-weight: 700;
   src: url('../../fonts/OpenSans-ExtraBold.woff') format('woff'), url('../../fonts/OpenSans-ExtraBbold.ttf') format('ttf');
-}
-html,
-body {
-  color: #2c2c2c;
-  font-family: 'Open Sans', sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-  width: 100%;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-}
-h1 {
-  font-size: 26px;
-}
-h2 {
-  font-size: 22px;
-}
-h3 {
-  font-size: 18px;
-}
-h4 {
-  font-size: 14px;
-}
-h5 {
-  font-size: 12px;
-}
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-}
-li {
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-  text-rendering: optimizeLegibility;
-}
-input,
-textarea {
-  font-family: inherit;
-  text-rendering: optimizeLegibility;
-}
-span {
-  text-rendering: optimizeLegibility;
-}
-.clearfix:after {
-  clear: both;
-  content: ' ';
-  display: block;
-  height: 0;
-  visibility: hidden;
 }
 #weco-root {
   height: 100%;
@@ -1354,7 +1348,6 @@ ul.tabs.style--border {
   border-bottom: solid 1px #e7e7e7;
 }
 div.tag-editor {
-  margin-bottom: 10px;
   position: relative;
   width: 100%;
 }
@@ -1380,10 +1373,12 @@ div.tag-editor div.tagged-items {
 div.tag-editor div.tagged-items div.tagged-item {
   background-color: #444444;
   border-radius: 3px;
+  box-sizing: border-box;
   display: inline-block;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  padding: 5px 10px;
+  margin-bottom: 10px;
+  margin-right: 4px;
+  padding: 2px 10px;
+  word-wrap: break-word;
 }
 div.tag-editor div.tagged-items div.tagged-item img {
   height: 10px;
@@ -1397,7 +1392,9 @@ div.tag-editor div.tagged-items div.tagged-item img:hover {
 div.tag-editor div.tagged-items div.tagged-item span {
   color: #fff;
   font-size: 14px;
+  line-height: 2;
   padding-right: 10px;
+  vertical-align: middle;
 }
 div.tag-editor input {
   border: 1px solid #e7e7e7;
@@ -1849,6 +1846,7 @@ div#nucleus-reviewsubbranchrequests-modal div#nucleus-reviewsubbranchrequests-in
   line-height: 25px;
 }
 div#create-post-modal {
+  overflow: hidden;
   position: relative;
 }
 div#create-post-modal div[loading] div#create-post-inputs {

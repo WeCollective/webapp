@@ -1,5 +1,4 @@
 div.tag-editor {
-  margin-bottom: 10px;
   position: relative;
   width: 100%;
 
@@ -28,10 +27,12 @@ div.tag-editor {
     div.tagged-item {
       background-color: @primary-light;
       border-radius: 3px;
+      box-sizing: border-box;
       display: inline-block;
-      margin-bottom: 5px;
-      margin-right: 5px;
-      padding: 5px 10px;
+      margin-bottom: 10px;
+      margin-right: 4px;
+      padding: 2px 10px;
+      word-wrap: break-word;
 
       img {
         height: 10px;
@@ -47,7 +48,9 @@ div.tag-editor {
       span {
         color: #fff;
         font-size: @font-size-sm;
+        line-height: 2;
         padding-right: 10px;
+        vertical-align: middle;
       }
     }
   }
