@@ -21,8 +21,10 @@ import Tooltip from './components/tooltip/controller';
 import Verify from './pages/auth/verify/controller';
 
 // Components.
-import AddModModal from './components/modal/branch/nucleus/modtools/add-mod/controller';
+import BranchDeleteModal from './components/modal/branch/nucleus/modtools/branch-delete/controller';
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
+import BranchRequestModal from './components/modal/branch/nucleus/modtools/branch-request/controller';
+import BranchReviewModal from './components/modal/branch/nucleus/modtools/branch-review/controller';
 import CardBranch from './components/card-branch/controller';
 import CardListItem from './components/card-list-item/controller';
 import CardPollAnswer from './components/card-poll-answer/controller';
@@ -32,21 +34,19 @@ import CommentThread from './components/comments/thread/controller';
 import CoverPhoto from './components/cover-photo/controller';
 import CreateBranchModal from './components/modal/branch/create/controller';
 import CreatePostModal from './components/modal/post/create/controller';
-import DeleteBranchModal from './components/modal/branch/nucleus/modtools/delete-branch/controller';
 import DeletePostModal from './components/modal/post/delete/controller';
 import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
+import ModAddModal from './components/modal/branch/nucleus/modtools/mod-add/controller';
+import ModDeleteModal from './components/modal/branch/nucleus/modtools/mod-delete/controller';
 import Navbar from './components/nav-bar/controller';
 import ProfileSettingsModal from './components/modal/profile/settings/controller';
-import RemoveModModal from './components/modal/branch/nucleus/modtools/remove-mod/controller';
 import ResolveFlagPostModal from './components/modal/post/flag/resolve/controller';
-import ReviewSubbranchRequestsModal from './components/modal/branch/nucleus/modtools/review-subbranch-requests/controller';
 import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/controller';
-import SubmitSubbranchRequestModal from './components/modal/branch/nucleus/modtools/submit-subbranch-request/controller';
 import Tabs from './components/tabs/controller';
 import TagEditor from './components/tag-editor/controller';
 import PollAnswerEditor from './components/poll-answer-editor/controller';
-import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/update-homepage-stats/controller';
+import UpdateHomepageStatsModal from './components/modal/branch/nucleus/modtools/homepage-stats/controller';
 import UploadImageModal from './components/modal/upload-image/controller';
 
 const refs = [
@@ -72,7 +72,7 @@ const refs = [
   { name: 'TooltipController', module: Tooltip },
   { name: 'VerifyController', module: Verify },
   
-  { name: 'AddModModalController', module: AddModModal },
+  { name: 'AddModModalController', module: ModAddModal },
   { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },
   { name: 'CardBranchController', module: CardBranch },
   { name: 'CardPollAnswerController', module: CardPollAnswer },
@@ -82,7 +82,7 @@ const refs = [
   { name: 'CoverPhotoController', module: CoverPhoto },
   { name: 'CreateBranchModalController', module: CreateBranchModal },
   { name: 'CreatePostModalController', module: CreatePostModal },
-  { name: 'DeleteBranchModalController', module: DeleteBranchModal },
+  { name: 'DeleteBranchModalController', module: BranchDeleteModal },
   { name: 'DeletePostModalController', module: DeletePostModal },
   { name: 'DropdownController', module: DropdownController },
   { name: 'FlagPostModalController', module: FlagPostModal },
@@ -90,11 +90,11 @@ const refs = [
   { name: 'NavbarController', module: Navbar },
   { name: 'PollAnswerEditorController', module: PollAnswerEditor },
   { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },
-  { name: 'RemoveModModalController', module: RemoveModModal },
+  { name: 'RemoveModModalController', module: ModDeleteModal },
   { name: 'ResolveFlagPostModalController', module: ResolveFlagPostModal },
-  { name: 'ReviewSubbranchRequestsModalController', module: ReviewSubbranchRequestsModal },
+  { name: 'ReviewSubbranchRequestsModalController', module: BranchReviewModal },
   { name: 'SubmitPollAnswerModalController', module: SubmitPollAnswerModal },
-  { name: 'SubmitSubbranchRequestModalController', module: SubmitSubbranchRequestModal },
+  { name: 'SubmitSubbranchRequestModalController', module: BranchRequestModal },
   { name: 'TabsController', module: Tabs },
   { name: 'TagEditorController', module: TagEditor },
   { name: 'UpdateHomepageStatsModalController', module: UpdateHomepageStatsModal },

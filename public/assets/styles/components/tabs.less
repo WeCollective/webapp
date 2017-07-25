@@ -23,6 +23,24 @@ ul.tabs {
     &:not(.selected):hover {
       border-bottom-color: rgba(0, 0, 0, .3);
     }
+
+    &.ng-enter,
+    &.ng-leave,
+    &.ng-move {
+      transition: opacity .5s;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active,
+    &.ng-move {
+      opacity: 0;
+    }
+
+    &.ng-enter.ng-enter-active,
+    &.ng-leave,
+    &.ng-move.ng-move-active {
+      opacity: 1;
+    }
   }
   
   .tabs__link {

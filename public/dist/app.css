@@ -680,9 +680,9 @@ div[marked] ul {
   transition: height .4s;
 }
 .cover-photo img {
-  bottom: 10px;
+  bottom: 6px;
   height: 26px;
-  opacity: .5;
+  opacity: .4;
   position: absolute;
   width: 26px;
   transition: transform .2s;
@@ -705,10 +705,10 @@ div[marked] ul {
   height: 100%;
 }
 .cover-photo.closed img {
-  transform: translateY(calc(42px));
+  transform: translateY(calc(38px));
 }
 .cover-photo.closed img.cover-photo-toggle {
-  transform: translateY(calc(42px)) rotateZ(0);
+  transform: translateY(calc(38px)) rotateZ(0);
 }
 .cover-photo.open {
   height: 70px;
@@ -1252,7 +1252,7 @@ div.poll-answer-editor input {
 .sidebar .sidebar-picture img#edit {
   bottom: 6px;
   height: 26px;
-  opacity: .5;
+  opacity: .4;
   position: absolute;
   right: 6px;
   width: 26px;
@@ -1323,6 +1323,21 @@ ul.tabs .tabs__item.selected span {
 }
 ul.tabs .tabs__item:not(.selected):hover {
   border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+ul.tabs .tabs__item.ng-enter,
+ul.tabs .tabs__item.ng-leave,
+ul.tabs .tabs__item.ng-move {
+  transition: opacity .5s;
+}
+ul.tabs .tabs__item.ng-enter,
+ul.tabs .tabs__item.ng-leave.ng-leave-active,
+ul.tabs .tabs__item.ng-move {
+  opacity: 0;
+}
+ul.tabs .tabs__item.ng-enter.ng-enter-active,
+ul.tabs .tabs__item.ng-leave,
+ul.tabs .tabs__item.ng-move.ng-move-active {
+  opacity: 1;
 }
 ul.tabs .tabs__link {
   cursor: pointer;
@@ -2643,10 +2658,12 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   display: flex;
   flex-direction: row;
   height: 100%;
-  margin-left: -15px;
   margin-top: 4px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+.header .header__controls.style--has-dropdown {
+  margin-left: -15px;
   padding-bottom: 6px;
 }
 .header .header__empty-state {

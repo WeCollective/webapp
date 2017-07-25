@@ -156,7 +156,7 @@ class AppRoutes extends Injectable {
         url: '/modtools',
         templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
         controller: 'BranchNucleusModtoolsController',
-        controllerAs: 'BranchNucleusModtools',
+        controllerAs: 'ToolsCtrl',
       })
       
       .state('weco.branch.nucleus.flaggedposts', {

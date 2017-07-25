@@ -10,10 +10,8 @@ class BranchNucleusController extends Injectable {
     this.renderTabs = this.renderTabs.bind(this);
 
     const listeners = [];
-    
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
-
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -59,8 +57,7 @@ class BranchNucleusController extends Injectable {
 
     this.run += 1;
 
-    if (!state.includes('weco.branch.nucleus') ||
-      Object.keys(this.BranchService.branch).length < 2) {
+    if (!state.includes('weco.branch.nucleus')) {
       return;
     }
 

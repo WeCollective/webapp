@@ -37,12 +37,14 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    // Account for padding in dropdowns...
-    margin-left: -@dropdown-padding-left;
     margin-top: @button-offset;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: @g-padding-post / 2;
+
+    &.style--has-dropdown {
+      margin-left: -@dropdown-padding-left;
+      padding-bottom: @g-padding-post / 2;
+    }
   }
 
   .header__empty-state {

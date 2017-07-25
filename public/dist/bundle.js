@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -23890,7 +23890,7 @@ class AppRoutes extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* de
       url: '/modtools',
       templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
       controller: 'BranchNucleusModtoolsController',
-      controllerAs: 'BranchNucleusModtools'
+      controllerAs: 'ToolsCtrl'
     }).state('weco.branch.nucleus.flaggedposts', {
       url: '/flaggedposts',
       templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
@@ -24083,32 +24083,32 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_branch_delete_controller__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_card_branch_controller__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_card_list_item_controller__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_card_poll_answer_controller__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_comments_input_controller__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_comments_controller__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_comments_thread_controller__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_cover_photo_controller__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_modal_branch_create_controller__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_modal_post_create_controller__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_nucleus_modtools_delete_branch_controller__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_modal_post_delete_controller__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_dropdown_controller__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_controller__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_nav_bar_controller__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_modal_profile_settings_controller__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_remove_mod_controller__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_modal_post_flag_resolve_controller__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_modal_post_submit_poll_answer_controller__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_modal_branch_nucleus_modtools_branch_request_controller__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_modal_branch_nucleus_modtools_branch_review_controller__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_card_branch_controller__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_card_list_item_controller__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_card_poll_answer_controller__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_comments_input_controller__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_comments_controller__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_comments_thread_controller__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_cover_photo_controller__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_create_controller__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_modal_post_create_controller__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_modal_post_delete_controller__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_dropdown_controller__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_modal_post_flag_controller__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_modal_branch_nucleus_modtools_mod_add_controller__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_mod_delete_controller__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_nav_bar_controller__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_modal_profile_settings_controller__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_modal_post_flag_resolve_controller__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_modal_post_submit_poll_answer_controller__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_tabs_controller__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_tag_editor_controller__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_poll_answer_editor_controller__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_modal_branch_nucleus_modtools_homepage_stats_controller__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__components_modal_upload_image_controller__ = __webpack_require__(183);
 
 
@@ -24161,7 +24161,7 @@ const constants = ['#9ac2e5', '#4684c1', '#96c483', '#389978', '#70cdd4', '#2276
 
 
 
-const refs = [{ name: 'AppController', module: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */] }, { name: 'AuthController', module: __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__["a" /* default */] }, { name: 'BranchController', module: __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__["a" /* default */] }, { name: 'BranchNucleusAboutController', module: __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__["a" /* default */] }, { name: 'BranchNucleusController', module: __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__["a" /* default */] }, { name: 'BranchNucleusFlaggedPostsController', module: __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__["a" /* default */] }, { name: 'BranchNucleusModeratorsController', module: __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__["a" /* default */] }, { name: 'BranchNucleusModtoolsController', module: __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsController', module: __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'BranchPostController', module: __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__["a" /* default */] }, { name: 'BranchPostResultsController', module: __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__["a" /* default */] }, { name: 'BranchPostVoteController', module: __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__["a" /* default */] }, { name: 'BranchSubbranchesController', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__["a" /* default */] }, { name: 'BranchWallController', module: __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__["a" /* default */] }, { name: 'HomeController', module: __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__["a" /* default */] }, { name: 'ProfileController', module: __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__["a" /* default */] }, { name: 'ProfileNotificationsController', module: __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__["a" /* default */] }, { name: 'ProfileSettingsController', module: __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__["a" /* default */] }, { name: 'ResetPasswordController', module: __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__["a" /* default */] }, { name: 'TooltipController', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__["a" /* default */] }, { name: 'VerifyController', module: __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__["a" /* default */] }, { name: 'AddModModalController', module: __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_add_mod_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'CardBranchController', module: __WEBPACK_IMPORTED_MODULE_23__components_card_branch_controller__["a" /* default */] }, { name: 'CardPollAnswerController', module: __WEBPACK_IMPORTED_MODULE_25__components_card_poll_answer_controller__["a" /* default */] }, { name: 'CommentInputBoxController', module: __WEBPACK_IMPORTED_MODULE_26__components_comments_input_controller__["a" /* default */] }, { name: 'CommentsController', module: __WEBPACK_IMPORTED_MODULE_27__components_comments_controller__["a" /* default */] }, { name: 'CommentThreadController', module: __WEBPACK_IMPORTED_MODULE_28__components_comments_thread_controller__["a" /* default */] }, { name: 'CoverPhotoController', module: __WEBPACK_IMPORTED_MODULE_29__components_cover_photo_controller__["a" /* default */] }, { name: 'CreateBranchModalController', module: __WEBPACK_IMPORTED_MODULE_30__components_modal_branch_create_controller__["a" /* default */] }, { name: 'CreatePostModalController', module: __WEBPACK_IMPORTED_MODULE_31__components_modal_post_create_controller__["a" /* default */] }, { name: 'DeleteBranchModalController', module: __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_nucleus_modtools_delete_branch_controller__["a" /* default */] }, { name: 'DeletePostModalController', module: __WEBPACK_IMPORTED_MODULE_33__components_modal_post_delete_controller__["a" /* default */] }, { name: 'DropdownController', module: __WEBPACK_IMPORTED_MODULE_34__components_dropdown_controller__["a" /* default */] }, { name: 'FlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_35__components_modal_post_flag_controller__["a" /* default */] }, { name: 'ListItemController', module: __WEBPACK_IMPORTED_MODULE_24__components_card_list_item_controller__["a" /* default */] }, { name: 'NavbarController', module: __WEBPACK_IMPORTED_MODULE_36__components_nav_bar_controller__["a" /* default */] }, { name: 'PollAnswerEditorController', module: __WEBPACK_IMPORTED_MODULE_45__components_poll_answer_editor_controller__["a" /* default */] }, { name: 'ProfileSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_37__components_modal_profile_settings_controller__["a" /* default */] }, { name: 'RemoveModModalController', module: __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_remove_mod_controller__["a" /* default */] }, { name: 'ResolveFlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_39__components_modal_post_flag_resolve_controller__["a" /* default */] }, { name: 'ReviewSubbranchRequestsModalController', module: __WEBPACK_IMPORTED_MODULE_40__components_modal_branch_nucleus_modtools_review_subbranch_requests_controller__["a" /* default */] }, { name: 'SubmitPollAnswerModalController', module: __WEBPACK_IMPORTED_MODULE_41__components_modal_post_submit_poll_answer_controller__["a" /* default */] }, { name: 'SubmitSubbranchRequestModalController', module: __WEBPACK_IMPORTED_MODULE_42__components_modal_branch_nucleus_modtools_submit_subbranch_request_controller__["a" /* default */] }, { name: 'TabsController', module: __WEBPACK_IMPORTED_MODULE_43__components_tabs_controller__["a" /* default */] }, { name: 'TagEditorController', module: __WEBPACK_IMPORTED_MODULE_44__components_tag_editor_controller__["a" /* default */] }, { name: 'UpdateHomepageStatsModalController', module: __WEBPACK_IMPORTED_MODULE_46__components_modal_branch_nucleus_modtools_update_homepage_stats_controller__["a" /* default */] }, { name: 'UploadImageModalController', module: __WEBPACK_IMPORTED_MODULE_47__components_modal_upload_image_controller__["a" /* default */] }];
+const refs = [{ name: 'AppController', module: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */] }, { name: 'AuthController', module: __WEBPACK_IMPORTED_MODULE_1__pages_auth_controller__["a" /* default */] }, { name: 'BranchController', module: __WEBPACK_IMPORTED_MODULE_2__pages_branch_controller__["a" /* default */] }, { name: 'BranchNucleusAboutController', module: __WEBPACK_IMPORTED_MODULE_3__pages_branch_nucleus_about_controller__["a" /* default */] }, { name: 'BranchNucleusController', module: __WEBPACK_IMPORTED_MODULE_4__pages_branch_nucleus_controller__["a" /* default */] }, { name: 'BranchNucleusFlaggedPostsController', module: __WEBPACK_IMPORTED_MODULE_5__pages_branch_nucleus_flagged_posts_controller__["a" /* default */] }, { name: 'BranchNucleusModeratorsController', module: __WEBPACK_IMPORTED_MODULE_6__pages_branch_nucleus_moderators_controller__["a" /* default */] }, { name: 'BranchNucleusModtoolsController', module: __WEBPACK_IMPORTED_MODULE_7__pages_branch_nucleus_modtools_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsController', module: __WEBPACK_IMPORTED_MODULE_8__pages_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'BranchPostController', module: __WEBPACK_IMPORTED_MODULE_9__pages_branch_post_controller__["a" /* default */] }, { name: 'BranchPostResultsController', module: __WEBPACK_IMPORTED_MODULE_10__pages_branch_post_results_controller__["a" /* default */] }, { name: 'BranchPostVoteController', module: __WEBPACK_IMPORTED_MODULE_11__pages_branch_post_vote_controller__["a" /* default */] }, { name: 'BranchSubbranchesController', module: __WEBPACK_IMPORTED_MODULE_12__pages_branch_subbranches_controller__["a" /* default */] }, { name: 'BranchWallController', module: __WEBPACK_IMPORTED_MODULE_13__pages_branch_wall_controller__["a" /* default */] }, { name: 'HomeController', module: __WEBPACK_IMPORTED_MODULE_14__pages_home_controller__["a" /* default */] }, { name: 'ProfileController', module: __WEBPACK_IMPORTED_MODULE_15__pages_profile_controller__["a" /* default */] }, { name: 'ProfileNotificationsController', module: __WEBPACK_IMPORTED_MODULE_16__pages_profile_notifications_controller__["a" /* default */] }, { name: 'ProfileSettingsController', module: __WEBPACK_IMPORTED_MODULE_17__pages_profile_settings_controller__["a" /* default */] }, { name: 'ResetPasswordController', module: __WEBPACK_IMPORTED_MODULE_18__pages_auth_reset_password_controller__["a" /* default */] }, { name: 'TooltipController', module: __WEBPACK_IMPORTED_MODULE_19__components_tooltip_controller__["a" /* default */] }, { name: 'VerifyController', module: __WEBPACK_IMPORTED_MODULE_20__pages_auth_verify_controller__["a" /* default */] }, { name: 'AddModModalController', module: __WEBPACK_IMPORTED_MODULE_37__components_modal_branch_nucleus_modtools_mod_add_controller__["a" /* default */] }, { name: 'BranchNucleusSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_22__components_modal_branch_nucleus_settings_controller__["a" /* default */] }, { name: 'CardBranchController', module: __WEBPACK_IMPORTED_MODULE_25__components_card_branch_controller__["a" /* default */] }, { name: 'CardPollAnswerController', module: __WEBPACK_IMPORTED_MODULE_27__components_card_poll_answer_controller__["a" /* default */] }, { name: 'CommentInputBoxController', module: __WEBPACK_IMPORTED_MODULE_28__components_comments_input_controller__["a" /* default */] }, { name: 'CommentsController', module: __WEBPACK_IMPORTED_MODULE_29__components_comments_controller__["a" /* default */] }, { name: 'CommentThreadController', module: __WEBPACK_IMPORTED_MODULE_30__components_comments_thread_controller__["a" /* default */] }, { name: 'CoverPhotoController', module: __WEBPACK_IMPORTED_MODULE_31__components_cover_photo_controller__["a" /* default */] }, { name: 'CreateBranchModalController', module: __WEBPACK_IMPORTED_MODULE_32__components_modal_branch_create_controller__["a" /* default */] }, { name: 'CreatePostModalController', module: __WEBPACK_IMPORTED_MODULE_33__components_modal_post_create_controller__["a" /* default */] }, { name: 'DeleteBranchModalController', module: __WEBPACK_IMPORTED_MODULE_21__components_modal_branch_nucleus_modtools_branch_delete_controller__["a" /* default */] }, { name: 'DeletePostModalController', module: __WEBPACK_IMPORTED_MODULE_34__components_modal_post_delete_controller__["a" /* default */] }, { name: 'DropdownController', module: __WEBPACK_IMPORTED_MODULE_35__components_dropdown_controller__["a" /* default */] }, { name: 'FlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_36__components_modal_post_flag_controller__["a" /* default */] }, { name: 'ListItemController', module: __WEBPACK_IMPORTED_MODULE_26__components_card_list_item_controller__["a" /* default */] }, { name: 'NavbarController', module: __WEBPACK_IMPORTED_MODULE_39__components_nav_bar_controller__["a" /* default */] }, { name: 'PollAnswerEditorController', module: __WEBPACK_IMPORTED_MODULE_45__components_poll_answer_editor_controller__["a" /* default */] }, { name: 'ProfileSettingsModalController', module: __WEBPACK_IMPORTED_MODULE_40__components_modal_profile_settings_controller__["a" /* default */] }, { name: 'RemoveModModalController', module: __WEBPACK_IMPORTED_MODULE_38__components_modal_branch_nucleus_modtools_mod_delete_controller__["a" /* default */] }, { name: 'ResolveFlagPostModalController', module: __WEBPACK_IMPORTED_MODULE_41__components_modal_post_flag_resolve_controller__["a" /* default */] }, { name: 'ReviewSubbranchRequestsModalController', module: __WEBPACK_IMPORTED_MODULE_24__components_modal_branch_nucleus_modtools_branch_review_controller__["a" /* default */] }, { name: 'SubmitPollAnswerModalController', module: __WEBPACK_IMPORTED_MODULE_42__components_modal_post_submit_poll_answer_controller__["a" /* default */] }, { name: 'SubmitSubbranchRequestModalController', module: __WEBPACK_IMPORTED_MODULE_23__components_modal_branch_nucleus_modtools_branch_request_controller__["a" /* default */] }, { name: 'TabsController', module: __WEBPACK_IMPORTED_MODULE_43__components_tabs_controller__["a" /* default */] }, { name: 'TagEditorController', module: __WEBPACK_IMPORTED_MODULE_44__components_tag_editor_controller__["a" /* default */] }, { name: 'UpdateHomepageStatsModalController', module: __WEBPACK_IMPORTED_MODULE_46__components_modal_branch_nucleus_modtools_homepage_stats_controller__["a" /* default */] }, { name: 'UploadImageModalController', module: __WEBPACK_IMPORTED_MODULE_47__components_modal_upload_image_controller__["a" /* default */] }];
 
 const controllers = registrar => {
   if (!registrar) throw new Error('Cannot register controllers - no registrar provided.');
@@ -64153,59 +64153,6 @@ CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalServic
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
 
 
-class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(AddModModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.data = {};
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'ADD_MOD') return;
-      this.isLoading = true;
-      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = response.message;
-          if (response.status == 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'ADD_MOD') return;
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
-
-/***/ }),
-/* 169 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
 class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
   constructor(...injections) {
     super(DeleteBranchModalController.$inject, injections);
@@ -64256,102 +64203,66 @@ DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'Br
 /* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
 
 
-
-class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
   constructor(...injections) {
-    super(RemoveModModalController.$inject, injections);
+    super(SubmitSubbranchRequestModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
-    this.mods = {};
-    this.selectedMod = {};
-
-    let getMod = (username, index) => {
-      return this.UserService.fetch(username).then(data => {
-        this.$timeout(() => {
-          this.mods[index] = data;
-        });
-      }).catch(() => {
-        this.$timeout(() => {
-          this.errorMessage = 'Unable to get mod!';
-        });
-      });
-    };
-
-    let init = () => {
-      this.isLoading = true;
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-        try {
-          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
-            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
-          }
-
-          this.$timeout(() => {
-            this.isLoading = false;
-          });
-        } catch (err) {
-          this.$timeout(() => {
-            this.AlertsService.push('error', 'Unable to fetch moderators!');
-            this.ModalService.Cancel();
-          });
-        }
-      }, this);
-    };
+    this.data = {};
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'REMOVE_MOD') return;
+      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
+      if (!this.data || !this.data.parentid) {
+        return this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+        });
+      }
+
       this.isLoading = true;
-      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => {
+      let branchid = this.ModalService.inputArgs.branchid;
+      this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => {
         this.$timeout(() => {
-          this.ModalService.OK({
-            removedMod: this.selectedMod.username
-          });
-          this.selectedMod = {};
+          this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.OK();
         });
       }).catch(response => {
         this.$timeout(() => {
           this.errorMessage = response.message;
-          if (response.status === 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
           this.isLoading = false;
         });
       });
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'REMOVE_MOD') return;
+      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
       this.$timeout(() => {
-        this.ModalService.Cancel();
-        this.selectedMod = {};
+        this.data = {};
         this.errorMessage = '';
         this.isLoading = false;
+        this.ModalService.Cancel();
       });
     });
-
-    init();
-  }
-
-  select(mod) {
-    this.selectedMod = mod;
   }
 }
-RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
 
-/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
+SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64445,66 +64356,7 @@ RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService',
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
-/* 172 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-
-
-class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
-  constructor(...injections) {
-    super(SubmitSubbranchRequestModalController.$inject, injections);
-
-    this.errorMessage = '';
-    this.isLoading = false;
-    this.data = {};
-
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      if (!this.data || !this.data.parentid) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      this.isLoading = true;
-      let branchid = this.ModalService.inputArgs.branchid;
-      this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
-
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    });
-  }
-}
-
-SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
-
-/* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
-
-/***/ }),
-/* 173 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64594,6 +64446,154 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
 UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService', 'ModalService', 'AlertsService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
+
+/***/ }),
+/* 172 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+
+
+class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(AddModModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.data = {};
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'ADD_MOD') return;
+      this.isLoading = true;
+      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+          this.ModalService.OK();
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.data = {};
+          this.errorMessage = response.message;
+          if (response.status == 404) {
+            this.errorMessage = 'That user doesn\'t exist';
+          }
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'ADD_MOD') return;
+      this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.Cancel();
+      });
+    });
+  }
+}
+AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
+
+/***/ }),
+/* 173 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+
+
+
+class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+  constructor(...injections) {
+    super(RemoveModModalController.$inject, injections);
+
+    this.errorMessage = '';
+    this.isLoading = false;
+    this.mods = {};
+    this.selectedMod = {};
+
+    let getMod = (username, index) => {
+      return this.UserService.fetch(username).then(data => {
+        this.$timeout(() => {
+          this.mods[index] = data;
+        });
+      }).catch(() => {
+        this.$timeout(() => {
+          this.errorMessage = 'Unable to get mod!';
+        });
+      });
+    };
+
+    let init = () => {
+      this.isLoading = true;
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+        try {
+          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
+            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
+          }
+
+          this.$timeout(() => {
+            this.isLoading = false;
+          });
+        } catch (err) {
+          this.$timeout(() => {
+            this.AlertsService.push('error', 'Unable to fetch moderators!');
+            this.ModalService.Cancel();
+          });
+        }
+      }, this);
+    };
+
+    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'REMOVE_MOD') return;
+      this.isLoading = true;
+      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => {
+        this.$timeout(() => {
+          this.ModalService.OK({
+            removedMod: this.selectedMod.username
+          });
+          this.selectedMod = {};
+          this.errorMessage = '';
+          this.isLoading = false;
+        });
+      }).catch(response => {
+        this.$timeout(() => {
+          this.errorMessage = response.message;
+          if (response.status === 404) {
+            this.errorMessage = 'That user doesn\'t exist';
+          }
+          this.isLoading = false;
+        });
+      });
+    });
+
+    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'REMOVE_MOD') return;
+      this.$timeout(() => {
+        this.ModalService.Cancel();
+        this.selectedMod = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+      });
+    });
+
+    init();
+  }
+
+  select(mod) {
+    this.selectedMod = mod;
+  }
+}
+RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
+
+/* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
 /***/ }),
 /* 174 */
@@ -65228,20 +65228,20 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
     this.resolve = () => {};
     this.templateUrl = '';
     this.templateUrls = {
-      ADD_MOD: '/app/components/modal/branch/nucleus/modtools/add-mod/view.html',
+      ADD_MOD: '/app/components/modal/branch/nucleus/modtools/mod-add/view.html',
       BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/view.html',
       CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
       CREATE_POST: '/app/components/modal/post/create/view.html',
-      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/delete-branch/view.html',
+      DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/branch-delete/view.html',
       DELETE_POST: '/app/components/modal/post/delete/view.html',
       FLAG_POST: '/app/components/modal/post/flag/view.html',
       PROFILE_SETTINGS: '/app/components/modal/profile/settings/view.html',
-      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/remove-mod/view.html',
+      REMOVE_MOD: '/app/components/modal/branch/nucleus/modtools/mod-delete/view.html',
       RESOLVE_FLAG_POST: '/app/components/modal/post/flag/resolve/view.html',
-      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/review-subbranch-requests/view.html',
+      REVIEW_SUBBRANCH_REQUESTS: '/app/components/modal/branch/nucleus/modtools/branch-review/view.html',
       SUBMIT_POLL_ANSWER: '/app/components/modal/post/submit-poll-answer/view.html',
-      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/submit-subbranch-request/view.html',
-      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/update-homepage-stats/view.html',
+      SUBMIT_SUBBRANCH_REQUEST: '/app/components/modal/branch/nucleus/modtools/branch-request/view.html',
+      UPDATE_HOMEPAGE_STATS: '/app/components/modal/branch/nucleus/modtools/homepage-stats/view.html',
       UPLOAD_IMAGE: '/app/components/modal/upload-image/view.html'
     };
     this.names = Object.keys(this.templateUrls);
@@ -66252,10 +66252,8 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     this.renderTabs = this.renderTabs.bind(this);
 
     const listeners = [];
-
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
-
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -66295,7 +66293,7 @@ class BranchNucleusController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
 
     this.run += 1;
 
-    if (!state.includes('weco.branch.nucleus') || Object.keys(this.BranchService.branch).length < 2) {
+    if (!state.includes('weco.branch.nucleus')) {
       return;
     }
 
@@ -66638,17 +66636,13 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
 
     this.getLog = this.getLog.bind(this);
 
-    let listeners = [];
-
+    const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getLog));
-
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getLog() {
-    if (Object.keys(this.BranchService.branch).length < 2) return;
-
-    this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(_ => {
+    this.BranchService.getModLog(this.BranchService.branch.id).then(log => this.$timeout(() => {
       this.log = log;
       this.isLoading = false;
 
@@ -66656,59 +66650,102 @@ class BranchNucleusModtoolsController extends __WEBPACK_IMPORTED_MODULE_0_utils_
       cache.modLog = cache.modLog || {};
       cache.modLog[this.BranchService.branch.id] = this.log;
       this.LocalStorageService.setObject('cache', cache);
-    })).catch(_ => {
+    })).catch(() => {
       this.AlertsService.push('error', 'Error fetching moderator action log.');
       this.isLoading = false;
     });
   }
 
-  openAddModModal() {
-    this.ModalService.open('ADD_MOD', { branchid: this.BranchService.branch.id }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
-  }
+  getRemovableMods() {
+    // a list of mods to be removed
+    // can include self if other mods are present, and
+    // removeable others must be added after self
+    const removableMods = [];
 
-  openRemoveModModal() {
     let me;
 
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        me = this.BranchService.branch.mods[i];
+    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
+      const mod = this.BranchService.branch.mods[i];
+      if (mod.username === this.UserService.user.username) {
+        me = mod;
         break;
       }
     }
 
-    // a list of mods to be removed
-    // can include self if other mods are present, and
-    // removeable others must be added after self
-    let removableMods = [];
-
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
-      if (this.BranchService.branch.mods[i].username === me.username && this.BranchService.branch.mods.length > 1) {
-        removableMods.push(this.BranchService.branch.mods[i]);
-      } else if (this.BranchService.branch.mods[i].date > me.date) {
-        removableMods.push(this.BranchService.branch.mods[i]);
+    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
+      const mod = this.BranchService.branch.mods[i];
+      if (mod.username === me.username && this.BranchService.branch.mods.length > 1 || mod.date > me.date) {
+        removableMods.push(mod);
       }
     }
 
-    this.ModalService.open('REMOVE_MOD', {
-      branchid: this.BranchService.branch.id,
-      mods: removableMods
-    }, 'Successfully updated moderator settings.', 'Error updating moderator settings.');
+    return removableMods;
   }
 
-  openReviewSubbranchRequestsModal() {
-    this.ModalService.open('REVIEW_SUBBRANCH_REQUESTS', { branchid: this.BranchService.branch.id }, 'Successfully responded to child branch request.', 'Error responding to child branch request.');
-  }
+  handleClick(option) {
+    let errMsg;
+    let name;
+    let params = {};
+    let successMsg;
 
-  openSubmitSubbranchRequestModal() {
-    this.ModalService.open('SUBMIT_SUBBRANCH_REQUEST', { branchid: this.BranchService.branch.id }, 'Successfully submitted child branch request.', 'Error submitting child branch request.');
-  }
+    switch (option) {
+      case 'branch-delete':
+        errMsg = 'Error deleting branch.';
+        name = 'DELETE_BRANCH';
+        successMsg = 'Successfully deleted branch.';
+        break;
 
-  openDeleteBranchModal() {
-    this.ModalService.open('DELETE_BRANCH', {}, 'Successfully deleted branch.', 'Error deleting branch.');
-  }
+      case 'branch-request':
+        errMsg = 'Error submitting child branch request.';
+        name = 'SUBMIT_SUBBRANCH_REQUEST';
+        params = {
+          branchid: this.BranchService.branch.id
+        };
+        successMsg = 'Successfully submitted child branch request.';
+        break;
 
-  openUpdateHomepageStatsModal() {
-    this.ModalService.open('UPDATE_HOMEPAGE_STATS', {}, 'Successfully updated homepage stats.', 'Error updating homepage stats.');
+      case 'branch-review':
+        errMsg = 'Error responding to child branch request.';
+        name = 'REVIEW_SUBBRANCH_REQUESTS';
+        params = {
+          branchid: this.BranchService.branch.id
+        };
+        successMsg = 'Successfully responded to child branch request.';
+        break;
+
+      case 'homepage-stats':
+        errMsg = 'Error updating homepage stats.';
+        name = 'UPDATE_HOMEPAGE_STATS';
+        successMsg = 'Successfully updated homepage stats.';
+        break;
+
+      case 'mod-add':
+        errMsg = 'Error updating moderator settings.';
+        name = 'ADD_MOD';
+        params = {
+          branchid: this.BranchService.branch.id
+        };
+        successMsg = 'Successfully updated moderator settings.';
+        break;
+
+      case 'mod-delete':
+        errMsg = 'Error updating moderator settings.';
+        name = 'REMOVE_MOD';
+        params = {
+          branchid: this.BranchService.branch.id,
+          mods: this.getRemovableMods()
+        };
+        successMsg = 'Successfully updated moderator settings.';
+        break;
+
+      default:
+        // statements_def
+        break;
+    }
+
+    if (name) {
+      this.ModalService.open(name, params, successMsg, errMsg);
+    }
   }
 }
 

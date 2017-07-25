@@ -1,4 +1,7 @@
 .cover-photo {
+  @iconOffset: 6px;
+  @iconSize: 26px;
+
   background-position: center;
   background-size: cover;
   box-shadow: @shadow-1;
@@ -8,13 +11,11 @@
   transition: height .4s;
 
   img {
-    @size: 26px;
-
-    bottom: 10px;
-    height: @size;
-    opacity: .5;
+    bottom: @iconOffset;
+    height: @iconSize;
+    opacity: .4;
     position: absolute;
-    width: @size;
+    width: @iconSize;
     transition: transform .2s;
 
     &:hover {
@@ -23,20 +24,19 @@
     }
 
     &.cover-photo-toggle {
-      right: 6px;
+      right: @iconOffset;
       transform: rotateZ(180deg);
     }
 
-    &#cover-photo-edit { right: 38px; }
+    &#cover-photo-edit { right: @iconOffset + @iconSize + @iconOffset; }
   }
 
   &.closed {
     height: 0;
 
     & + .cover-page { height: 100%; }
-    // Where are these "random" values coming from?
-    img { transform: translateY(calc(10px + 22px + 10px)); }
-    img.cover-photo-toggle { transform: translateY(calc(10px + 22px + 10px)) rotateZ(0); }
+    img { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)); }
+    img.cover-photo-toggle { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)) rotateZ(0); }
   }
 
   &.open {
