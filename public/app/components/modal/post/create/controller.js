@@ -90,7 +90,7 @@ class CreatePostModalController extends Injectable {
     }
 
     // create copy of post to not interfere with binding of items on tag-editor
-    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
+    const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
     post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
 
     Generator.run(function* () {
@@ -107,7 +107,7 @@ class CreatePostModalController extends Injectable {
       
       // If it's a poll, add the poll answers.
       if (this.newPost.type === 'poll') {
-        for (let i = 0; i < this.pollAnswers.length; i++) {
+        for (let i = 0; i < this.pollAnswers.length; i += 1) {
           try {
             yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
           }

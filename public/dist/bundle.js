@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64795,7 +64795,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     }
 
     // create copy of post to not interfere with binding of items on tag-editor
-    let post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
+    const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
     post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
 
     __WEBPACK_IMPORTED_MODULE_0_utils_generator__["a" /* default */].run(function* () {
@@ -64811,7 +64811,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
 
       // If it's a poll, add the poll answers.
       if (this.newPost.type === 'poll') {
-        for (let i = 0; i < this.pollAnswers.length; i++) {
+        for (let i = 0; i < this.pollAnswers.length; i += 1) {
           try {
             yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
           } catch (err) {
