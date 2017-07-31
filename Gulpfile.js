@@ -78,11 +78,15 @@ const WEBPACK_CONFIG = {
       loader : 'babel-loader'
     }]
   },
-  plugins: 'production' === environment ? [
+  plugins: environment === 'production' ? [
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
+      comments: false,
+      compress: {
+        warnings: false,
+        drop_console: true,
+      },
     })
-  ] : []
+  ] : [],
 };
 
 gulp.task('build', done => {
