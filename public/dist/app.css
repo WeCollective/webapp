@@ -542,6 +542,7 @@ div[marked] ul {
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
+  word-break: break-all;
 }
 .comments .comment__content .list-item__radio-button {
   height: 20px;
@@ -2286,6 +2287,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
+  word-break: break-all;
 }
 .branch__post .list-item__radio-button {
   height: 20px;
@@ -2487,6 +2489,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
+  word-break: break-all;
 }
 .branch__subbranch .list-item__radio-button {
   height: 20px;
@@ -2992,6 +2995,7 @@ div#notfound div h2 {
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
+  word-break: break-all;
 }
 .post .list-item .list-item__radio-button {
   height: 20px;
@@ -3348,6 +3352,7 @@ div#notfound div h2 {
   font-weight: 500;
   line-height: 1;
   vertical-align: top;
+  word-break: break-all;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__radio-button {
   height: 20px;
