@@ -81,6 +81,10 @@ class CreatePostModalController extends Injectable {
       return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
     }
 
+    if (this.newPost.title.length > 200) {
+      return this.$timeout(() => this.errorMessage = 'Title cannot be more than 200 characters long.');
+    }
+
     // Perform the update.
     this.isLoading = true;
     this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
