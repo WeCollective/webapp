@@ -81,11 +81,14 @@
 
         <span class="list-item__separator"></span>
 
-        <a class="list-item__detail" ui-sref="weco.profile.about({ username: comment.data.creator })">
+        <a
+          class="list-item__detail ng-hide"
+          ng-show="comment.data.creator !== 'N/A'"
+          ui-sref="weco.profile.about({ username: comment.data.creator })">
           {{ comment.data.creator }}
         </a>
 
-        <span class="list-item__separator"></span>
+        <span class="list-item__separator ng-hide" ng-show="comment.data.creator !== 'N/A'"></span>
 
         <span class="list-item__detail">{{ Thread.timeSince(comment.date) }}
           <span class="list-item__detail" ng-if="comment.data.edited">(edited)</span>
