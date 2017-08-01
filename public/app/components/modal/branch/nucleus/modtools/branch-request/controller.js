@@ -1,4 +1,4 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class SubmitSubbranchRequestModalController extends Injectable {
   constructor(...injections) {
@@ -8,7 +8,9 @@ class SubmitSubbranchRequestModalController extends Injectable {
     this.isLoading = false;
     this.data = {};
 
-    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
 
       if(!this.data || !this.data.parentid) {
@@ -30,9 +32,9 @@ class SubmitSubbranchRequestModalController extends Injectable {
           this.isLoading = false;
         });
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
       if(name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
 
       this.$timeout(() => {
@@ -41,10 +43,18 @@ class SubmitSubbranchRequestModalController extends Injectable {
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+SubmitSubbranchRequestModalController.$inject = [
+  '$scope',
+  '$timeout',
+  'BranchService',
+  'EventService',
+  'ModalService',
+];
 
 export default SubmitSubbranchRequestModalController;

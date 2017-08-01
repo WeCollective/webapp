@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64095,17 +64095,19 @@ ModLogEntryComponent.$inject = ['$compile', '$templateRequest'];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(CreateBranchModalController.$inject, injections);
 
     this.newBranch = { parentid: this.ModalService.inputArgs.branchid };
     this.errorMessage = '';
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'CREATE_BRANCH') return;
 
       // if not all fields are filled, display message
@@ -64132,9 +64134,9 @@ class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
           this.isLoading = false;
         });
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'CREATE_BRANCH') return;
       this.$timeout(() => {
         this.newBranch = {};
@@ -64142,10 +64144,13 @@ class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
-CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalService', 'EventService'];
+
+CreateBranchModalController.$inject = ['$scope', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
 
@@ -64154,10 +64159,10 @@ CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalServic
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(DeleteBranchModalController.$inject, injections);
 
@@ -64165,7 +64170,9 @@ class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     this.isLoading = false;
     this.data = {};
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_BRANCH') return;
       // if not all fields are filled, display message
       if (!this.data || !this.data.branchid) {
@@ -64189,9 +64196,9 @@ class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
           this.isLoading = false;
         });
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'DELETE_BRANCH') return;
       this.$timeout(() => {
         this.data = {};
@@ -64199,10 +64206,13 @@ class DeleteBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
-DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService'];
+
+DeleteBranchModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (DeleteBranchModalController);
 
@@ -64211,10 +64221,10 @@ DeleteBranchModalController.$inject = ['$timeout', '$state', 'EventService', 'Br
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(SubmitSubbranchRequestModalController.$inject, injections);
 
@@ -64222,7 +64232,9 @@ class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_
     this.isLoading = false;
     this.data = {};
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
 
       if (!this.data || !this.data.parentid) {
@@ -64246,9 +64258,9 @@ class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_
           this.isLoading = false;
         });
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
 
       this.$timeout(() => {
@@ -64257,11 +64269,13 @@ class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+SubmitSubbranchRequestModalController.$inject = ['$scope', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (SubmitSubbranchRequestModalController);
 
@@ -64270,12 +64284,12 @@ SubmitSubbranchRequestModalController.$inject = ['$timeout', 'BranchService', 'E
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
-class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(RemoveModModalController.$inject, injections);
 
@@ -64283,11 +64297,11 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     this.requests = [];
     this.isLoading = true;
 
-    let init = () => {
+    const init = () => {
       // Get the list of requests
       this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid).then(requests => {
         // get a specific branch object and insert into requests array on branch attribute
-        let getBranch = request => {
+        const getBranch = request => {
           return this.BranchService.fetch(request.childid).then(data => {
             request.branch = data;
           }).catch(() => {
@@ -64295,8 +64309,8 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
           });
         };
 
-        __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
-          for (let i = 0; i < requests.length; i++) {
+        __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
+          for (let i = 0; i < requests.length; i += 1) {
             yield getBranch(requests[i]);
           }
 
@@ -64305,31 +64319,33 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
             this.isLoading = false;
           });
         }, this);
-      }).catch(() => {
-        this.$timeout(() => {
-          this.AlertsService.push('error', 'Unable to fetch child branch requests!');
-          this.ModalService.Cancel();
-        });
-      });
+      }).catch(() => this.$timeout(() => {
+        this.AlertsService.push('error', 'Unable to fetch child branch requests!');
+        this.ModalService.Cancel();
+      }));
     };
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.ModalService.OK();
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
     init();
   }
@@ -64337,25 +64353,21 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
   action(index, action) {
     this.isLoading = true;
 
-    this.BranchService.actionSubbranchRequest(action, this.requests[index].parentid, this.requests[index].childid).then(() => {
-      this.$timeout(() => {
-        this.requests.splice(index, 1);
-        this.errorMessage = '';
-        this.isLoading = false;
-      });
-    }).catch(response => {
-      this.$timeout(() => {
-        this.errorMessage = response.message;
-        if (response.status === 404) {
-          this.errorMessage = 'That user doesn\'t exist';
-        }
-        this.isLoading = false;
-      });
-    });
+    this.BranchService.actionSubbranchRequest(action, this.requests[index].parentid, this.requests[index].childid).then(() => this.$timeout(() => {
+      this.requests.splice(index, 1);
+      this.errorMessage = '';
+      this.isLoading = false;
+    })).catch(response => this.$timeout(() => {
+      this.errorMessage = response.message;
+      if (response.status === 404) {
+        this.errorMessage = `That user doesn't exist`;
+      }
+      this.isLoading = false;
+    }));
   }
 }
 
-RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService', 'ModalService'];
+RemoveModModalController.$inject = ['$scope', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
@@ -64364,12 +64376,12 @@ RemoveModModalController.$inject = ['$timeout', 'BranchService', 'EventService',
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
-class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(UpdateHomepageStatsModalController.$inject, injections);
 
@@ -64380,8 +64392,8 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
       raised_total: 0
     };
 
-    let init = () => {
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+    const init = () => {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
         try {
           let response = yield this.API.fetch('/constant/donation_total', {});
           this.stats.donation_total = response.data.data;
@@ -64399,7 +64411,9 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
       }, this);
     };
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'UPDATE_HOMEPAGE_STATS') return;
 
       // validate stats
@@ -64412,7 +64426,7 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
       }
 
       // update stats
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
         try {
           yield this.API.update('/constant/donation_total', {}, {
             data: Number(this.stats.donation_total)
@@ -64431,9 +64445,9 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
           this.ModalService.Cancel();
         }
       }, this);
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'UPDATE_HOMEPAGE_STATS') return;
 
       this.$timeout(() => {
@@ -64441,13 +64455,15 @@ class UpdateHomepageStatsModalController extends __WEBPACK_IMPORTED_MODULE_0_uti
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
     init();
   }
 }
 
-UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService', 'ModalService', 'AlertsService'];
+UpdateHomepageStatsModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'API', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (UpdateHomepageStatsModalController);
 
@@ -64456,10 +64472,10 @@ UpdateHomepageStatsModalController.$inject = ['$timeout', 'API', 'EventService',
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(AddModModalController.$inject, injections);
 
@@ -64467,29 +64483,27 @@ class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
     this.isLoading = false;
     this.data = {};
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'ADD_MOD') return;
       this.isLoading = true;
-      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = response.message;
-          if (response.status == 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
-          this.isLoading = false;
-        });
-      });
-    });
+      this.ModService.create(this.BranchService.branch.id, this.data.username).then(() => this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.OK();
+      })).catch(response => this.$timeout(() => {
+        this.data = {};
+        this.errorMessage = response.message;
+        if (response.status == 404) {
+          this.errorMessage = `That user doesn't exist`;
+        }
+        this.isLoading = false;
+      }));
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'ADD_MOD') return;
       this.$timeout(() => {
         this.data = {};
@@ -64497,10 +64511,13 @@ class AddModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
-AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchService', 'ModalService', 'ModService'];
+
+AddModModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService', 'ModService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (AddModModalController);
 
@@ -64509,12 +64526,12 @@ AddModModalController.$inject = ['$timeout', '$state', 'EventService', 'BranchSe
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_generator__ = __webpack_require__(3);
 
 
 
-class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(RemoveModModalController.$inject, injections);
 
@@ -64523,23 +64540,13 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     this.mods = {};
     this.selectedMod = {};
 
-    let getMod = (username, index) => {
-      return this.UserService.fetch(username).then(data => {
-        this.$timeout(() => {
-          this.mods[index] = data;
-        });
-      }).catch(() => {
-        this.$timeout(() => {
-          this.errorMessage = 'Unable to get mod!';
-        });
-      });
-    };
+    const getMod = (username, index) => this.UserService.fetch(username).then(data => this.$timeout(() => this.mods[index] = data)).catch(() => this.$timeout(() => this.errorMessage = 'Unable to get mod!'));
 
-    let init = () => {
+    const init = () => {
       this.isLoading = true;
-      __WEBPACK_IMPORTED_MODULE_1_utils_generator_js__["a" /* default */].run(function* () {
+      __WEBPACK_IMPORTED_MODULE_1_utils_generator__["a" /* default */].run(function* () {
         try {
-          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i++) {
+          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i += 1) {
             yield getMod(this.ModalService.inputArgs.mods[i].username, i);
           }
 
@@ -64555,27 +64562,25 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
       }, this);
     };
 
+    const listeners = [];
+
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'REMOVE_MOD') return;
       this.isLoading = true;
-      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => {
-        this.$timeout(() => {
-          this.ModalService.OK({
-            removedMod: this.selectedMod.username
-          });
-          this.selectedMod = {};
-          this.errorMessage = '';
-          this.isLoading = false;
+      this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username).then(() => this.$timeout(() => {
+        this.ModalService.OK({
+          removedMod: this.selectedMod.username
         });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          if (response.status === 404) {
-            this.errorMessage = 'That user doesn\'t exist';
-          }
-          this.isLoading = false;
-        });
-      });
+        this.selectedMod = {};
+        this.errorMessage = '';
+        this.isLoading = false;
+      })).catch(response => this.$timeout(() => {
+        this.errorMessage = response.message;
+        if (response.status === 404) {
+          this.errorMessage = `That user doesn't exist`;
+        }
+        this.isLoading = false;
+      }));
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
@@ -64588,6 +64593,8 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
       });
     });
 
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
     init();
   }
 
@@ -64595,7 +64602,8 @@ class RemoveModModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     this.selectedMod = mod;
   }
 }
-RemoveModModalController.$inject = ['$timeout', '$state', 'EventService', 'UserService', 'ModalService', 'ModService'];
+
+RemoveModModalController.$inject = ['$scope', '$state', '$timeout', 'EventService', 'ModalService', 'ModService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (RemoveModModalController);
 
@@ -64630,12 +64638,12 @@ class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_u
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.onModalSubmit));
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.onModalCancel));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   onModalCancel(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
-    this.$timeout(_ => this.ModalService.Cancel().then(_ => this.resetState()));
+    this.$timeout(() => this.ModalService.Cancel().then(() => this.resetState()));
   }
 
   onModalSubmit(name) {
@@ -64643,7 +64651,7 @@ class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_u
 
     // if not all fields are filled, display message
     if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.includes('') || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.includes('')) {
-      this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
+      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
       return;
     }
 
@@ -64665,7 +64673,7 @@ class BranchNucleusSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_u
 
     // perform the update
     this.isLoading = true;
-    this.BranchService.update(this.$state.params.branchid, updateData).then(_ => this.$timeout(_ => this.ModalService.OK().then(_ => this.resetState()))).catch(err => this.$timeout(_ => this.resetState(err.message)));
+    this.BranchService.update(this.$state.params.branchid, updateData).then(() => this.$timeout(() => this.ModalService.OK().then(() => this.resetState()))).catch(err => this.$timeout(() => this.resetState(err.message)));
   }
 
   resetState(submitErrorMessage) {
@@ -64695,38 +64703,46 @@ class DeleteCommentModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inj
   constructor(...injections) {
     super(DeleteCommentModalController.$inject, injections);
 
+    this.handleModalCancel = this.handleModalCancel.bind(this);
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
+
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_COMMENT') return;
+    const listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
 
-      const params = this.ModalService.inputArgs;
+  handleModalCancel(name) {
+    if (name !== 'DELETE_COMMENT') return;
 
-      this.isLoading = true;
-
-      this.CommentService.delete(params.postid, params.commentid).then(() => {
-        this.isLoading = false;
-        this.ModalService.OK();
-      }).catch(() => {
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+    this.$timeout(() => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
     });
+  }
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_COMMENT') return;
+  handleModalSubmit(name) {
+    if (name !== 'DELETE_COMMENT') return;
 
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+    const params = this.ModalService.inputArgs;
+
+    this.isLoading = true;
+
+    this.CommentService.delete(params.postid, params.commentid).then(() => {
+      this.isLoading = false;
+      this.ModalService.OK();
+    }).catch(() => {
+      this.isLoading = false;
+      this.ModalService.Cancel();
     });
   }
 }
 
-DeleteCommentModalController.$inject = ['$timeout', 'AlertsService', 'CommentService', 'EventService', 'ModalService'];
+DeleteCommentModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'CommentService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (DeleteCommentModalController);
 
@@ -64925,18 +64941,19 @@ CreatePostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'App
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
-//import Generator from 'utils/generator.js';
 
-class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(DeletePostModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_POST') return;
 
       this.isLoading = true;
@@ -64948,9 +64965,9 @@ class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'DELETE_POST') return;
 
       this.$timeout(() => {
@@ -64958,11 +64975,13 @@ class DeletePostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-DeletePostModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'PostService'];
+DeletePostModalController.$inject = ['$scope', '$timeout', 'EventService', 'ModalService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (DeletePostModalController);
 
@@ -64971,61 +64990,66 @@ DeletePostModalController.$inject = ['$timeout', 'EventService', 'ModalService',
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(FlagPostModalController.$inject, injections);
 
     this.errorMessage = '';
+    this.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', `NOT A ${this.ModalService.inputArgs.post.type.toUpperCase()} POST`];
     this.isLoading = false;
     this.selectedIndex = 0;
-    this.flagItems = ['AGAINST BRANCH RULES', 'AGAINST SITE RULES', 'NOT A ' + this.ModalService.inputArgs.post.type.toUpperCase() + ' POST'];
+
     if (!this.ModalService.inputArgs.post.nsfw) {
       this.flagItems.push('NSFW');
     }
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'FLAG_POST') return;
 
       this.isLoading = true;
+
       let post = this.ModalService.inputArgs.post;
       let type;
+
       switch (this.selectedIndex) {
         case 0:
           type = 'branch_rules';
           break;
+
         case 1:
           type = 'site_rules';
           break;
+
         case 2:
           type = 'wrong_type';
           break;
+
         case 3:
           type = 'nsfw';
           break;
+
         default:
           this.errorMessage = 'Unknown flag type.';
           this.isLoading = false;
           return;
       }
 
-      this.PostService.flag(post.id, this.ModalService.inputArgs.branchid, type).then(() => {
-        this.$timeout(() => {
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
+      this.PostService.flag(post.id, this.ModalService.inputArgs.branchid, type).then(() => this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.OK();
+      })).catch(response => this.$timeout(() => {
+        this.errorMessage = response.message;
+        this.isLoading = false;
+      }));
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'FLAG_POST') return;
 
       this.$timeout(() => {
@@ -65033,7 +65057,9 @@ class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   close() {
@@ -65044,7 +65070,8 @@ class FlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     });
   }
 }
-FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', 'PostService'];
+
+FlagPostModalController.$inject = ['$scope', '$timeout', 'EventService', 'ModalService', 'PostService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (FlagPostModalController);
 
@@ -65053,10 +65080,10 @@ FlagPostModalController.$inject = ['$timeout', 'ModalService', 'EventService', '
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_injectable__ = __webpack_require__(1);
 
 
-class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_js__["a" /* default */] {
+class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(ResolveFlagPostModalController.$inject, injections);
 
@@ -65078,19 +65105,27 @@ class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       }
     };
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'RESOLVE_FLAG_POST') return;
 
       this.isLoading = true;
-      let action, data;
+
+      const params = this.ModalService.inputArgs;
+
+      let action;
+      let data;
+
       switch (this.controls.resolve.selectedIndex) {
+        // change post type
         case 0:
-          // change post type
           action = 'change_type';
           data = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
           break;
+
+        // remove post
         case 1:
-          // remove post
           action = 'remove';
           if (this.controls.reason.selectedIndex === 0) {
             data = 'branch_rules';
@@ -65101,14 +65136,17 @@ class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
             return;
           }
           break;
+
+        // mark as nsfw
         case 2:
-          // mark as nsfw
           action = 'mark_nsfw';
           break;
+
+        // approve post
         case 3:
-          // approve post
           action = 'approve';
           break;
+
         default:
           this.AlertsService.push('error', 'Unknown action.');
           return;
@@ -65121,28 +65159,26 @@ class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
         });
       }
 
-      this.BranchService.resolveFlaggedPost(this.ModalService.inputArgs.post.branchid, this.ModalService.inputArgs.post.id, action, data, this.text.reason).then(() => {
-        this.$timeout(() => {
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    });
+      this.BranchService.resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text.reason).then(() => this.$timeout(() => {
+        this.errorMessage = '';
+        this.isLoading = false;
+        this.ModalService.OK();
+      })).catch(response => this.$timeout(() => {
+        this.errorMessage = response.message;
+        this.isLoading = false;
+      }));
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'RESOLVE_FLAG_POST') return;
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   close() {
@@ -65153,7 +65189,8 @@ class ResolveFlagPostModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     });
   }
 }
-ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchService', 'AlertsService', 'EventService'];
+
+ResolveFlagPostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ResolveFlagPostModalController);
 
@@ -65176,12 +65213,12 @@ class SubmitPollAnswerModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_
     this.cleanUpSuccessCb = this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if ('SUBMIT_POLL_ANSWER' !== name) return;
 
-      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, { text: this.newAnswer }).then(_ => this.$timeout(_ => this.closeModal('', true))).catch(err => this.$timeout(_ => this.closeModal(err.message || 'Error creating poll answer!')));
+      this.PostService.createPollAnswer(this.ModalService.inputArgs.postid, { text: this.newAnswer }).then(() => this.$timeout(() => this.closeModal('', true))).catch(err => this.$timeout(() => this.closeModal(err.message || 'Error creating poll answer!')));
     });
 
     this.cleanUpCancelCb = this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if ('SUBMIT_POLL_ANSWER' !== name) return;
-      this.$timeout(_ => this.closeModal('', false));
+      this.$timeout(() => this.closeModal('', false));
     });
   }
 
@@ -65227,18 +65264,20 @@ class ProfileSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
     this.isLoading = false;
     this.values = [];
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'PROFILE_SETTINGS') return;
 
       // if not all fields are filled, display message
       if (this.values.length < this.ModalService.inputArgs.inputs.length || this.values.includes('')) {
-        return this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
+        return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
       }
 
       // construct data to update using the proper fieldnames
-      let updateData = {};
+      const updateData = {};
 
-      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
         updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.values[i];
 
         // convert date input values to unix timestamp
@@ -65250,7 +65289,7 @@ class ProfileSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       // perform the update
       this.isLoading = true;
 
-      this.UserService.update(updateData).then(_ => {
+      this.UserService.update(updateData).then(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.values = [];
@@ -65258,23 +65297,25 @@ class ProfileSettingsModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
       }).catch(err => {
         this.errorMessage = err.message;
         this.isLoading = false;
-      }).then(this.$timeout);
-    });
+      });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'PROFILE_SETTINGS') return;
 
-      this.$timeout(_ => {
+      this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.values = [];
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
-ProfileSettingsModalController.$inject = ['$timeout', 'EventService', 'ModalService', 'UserService'];
+ProfileSettingsModalController.$inject = ['$scope', '$timeout', 'EventService', 'ModalService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (ProfileSettingsModalController);
 
@@ -65410,7 +65451,7 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
 
     this.setUploadUrl();
 
-    let listeners = [];
+    const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if ('UPLOAD_IMAGE' !== name) return;
@@ -65419,10 +65460,10 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
 
       if (!this.file) return;
 
-      this.UploadService.uploadImage(this.file, this.uploadUrl).then(_ => {
+      this.UploadService.uploadImage(this.file, this.uploadUrl).then(() => {
         this.file = null;
         this.ModalService.OK();
-      }).catch(_ => this.$timeout(_ => {
+      }).catch(() => this.$timeout(() => {
         this.file = null;
         this.errorMessage = 'Unable to upload photo!';
       }));
@@ -65435,7 +65476,7 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
       this.ModalService.Cancel();
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   setFile(file) {
@@ -65444,7 +65485,7 @@ class UploadImageModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_injec
 
   setUploadUrl() {
     const args = this.ModalService.inputArgs;
-    this.UploadService.fetchUploadUrl(args.route + args.type).then(uploadUrl => this.uploadUrl = uploadUrl).catch(_ => {
+    this.UploadService.fetchUploadUrl(args.route + args.type).then(uploadUrl => this.uploadUrl = uploadUrl).catch(() => {
       this.AlertsService.push('error', 'Unable to upload photo!');
       this.ModalService.Cancel();
     });

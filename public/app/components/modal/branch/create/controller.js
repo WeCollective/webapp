@@ -1,4 +1,4 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class CreateBranchModalController extends Injectable {
   constructor(...injections) {
@@ -7,7 +7,9 @@ class CreateBranchModalController extends Injectable {
     this.newBranch = { parentid: this.ModalService.inputArgs.branchid };
     this.errorMessage = '';
 
-    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
       if(name !== 'CREATE_BRANCH') return;
 
       // if not all fields are filled, display message
@@ -34,9 +36,9 @@ class CreateBranchModalController extends Injectable {
           this.isLoading = false;
         });
       });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
       if(name !== 'CREATE_BRANCH') return;
       this.$timeout(() => {
         this.newBranch = {};
@@ -44,9 +46,18 @@ class CreateBranchModalController extends Injectable {
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
-CreateBranchModalController.$inject = ['$timeout', 'BranchService', 'ModalService', 'EventService'];
+
+CreateBranchModalController.$inject = [
+  '$scope',
+  '$timeout',
+  'BranchService',
+  'EventService',
+  'ModalService',
+];
 
 export default CreateBranchModalController;

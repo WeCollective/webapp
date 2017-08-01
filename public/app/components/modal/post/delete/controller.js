@@ -1,5 +1,4 @@
-import Injectable from 'utils/injectable.js';
-//import Generator from 'utils/generator.js';
+import Injectable from 'utils/injectable';
 
 class DeletePostModalController extends Injectable {
   constructor (...injections) {
@@ -8,7 +7,9 @@ class DeletePostModalController extends Injectable {
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+    
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_POST') return;
       
       this.isLoading = true;
@@ -22,9 +23,9 @@ class DeletePostModalController extends Injectable {
           this.isLoading = false;
           this.ModalService.Cancel();
         });
-    });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'DELETE_POST') return;
       
       this.$timeout( () => {
@@ -32,11 +33,14 @@ class DeletePostModalController extends Injectable {
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
 DeletePostModalController.$inject = [
+  '$scope',
   '$timeout',
   'EventService',
   'ModalService',

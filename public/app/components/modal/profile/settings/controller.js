@@ -8,18 +8,20 @@ class ProfileSettingsModalController extends Injectable {
     this.isLoading = false;
     this.values = [];
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'PROFILE_SETTINGS') return;
       
       // if not all fields are filled, display message
       if (this.values.length < this.ModalService.inputArgs.inputs.length || this.values.includes('')) {
-        return this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
+        return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
       }
 
       // construct data to update using the proper fieldnames
-      let updateData = {};
+      const updateData = {};
 
-      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+      for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
         updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.values[i];
 
         // convert date input values to unix timestamp
@@ -32,7 +34,7 @@ class ProfileSettingsModalController extends Injectable {
       this.isLoading = true;
       
       this.UserService.update(updateData)
-        .then(_ => {
+        .then(() => {
           this.errorMessage = '';
           this.isLoading = false;
           this.values = [];
@@ -41,28 +43,30 @@ class ProfileSettingsModalController extends Injectable {
         .catch(err => {
           this.errorMessage = err.message;
           this.isLoading = false;
-        })
-        .then(this.$timeout);
-    });
+        });
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'PROFILE_SETTINGS') return;
       
-      this.$timeout(_ => {
+      this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.values = [];
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
 ProfileSettingsModalController.$inject = [
+  '$scope',
   '$timeout',
   'EventService',
   'ModalService',
-  'UserService'
+  'UserService',
 ];
 
 export default ProfileSettingsModalController;

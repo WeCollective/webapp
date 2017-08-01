@@ -4,40 +4,49 @@ class DeleteCommentModalController extends Injectable {
   constructor (...injections) {
     super(DeleteCommentModalController.$inject, injections);
 
+    this.handleModalCancel = this.handleModalCancel.bind(this);
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
+
     this.errorMessage = '';
     this.isLoading = false;
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_COMMENT') return;
+    const listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
 
-      const params = this.ModalService.inputArgs;
+  handleModalCancel(name) {
+    if (name !== 'DELETE_COMMENT') return;
       
-      this.isLoading = true;
-
-      this.CommentService.delete(params.postid, params.commentid)
-        .then(() => {
-          this.isLoading = false;
-          this.ModalService.OK();
-        })
-        .catch(() => {
-          this.isLoading = false;
-          this.ModalService.Cancel();
-        });
+    this.$timeout( () => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
     });
+  }
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_COMMENT') return;
-      
-      this.$timeout( () => {
-        this.errorMessage = '';
+  handleModalSubmit(name) {
+    if (name !== 'DELETE_COMMENT') return;
+
+    const params = this.ModalService.inputArgs;
+    
+    this.isLoading = true;
+
+    this.CommentService.delete(params.postid, params.commentid)
+      .then(() => {
+        this.isLoading = false;
+        this.ModalService.OK();
+      })
+      .catch(() => {
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
   }
 }
 
 DeleteCommentModalController.$inject = [
+  '$scope',
   '$timeout',
   'AlertsService',
   'CommentService',

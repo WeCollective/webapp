@@ -23,12 +23,12 @@ class BranchNucleusSettingsModalController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.onModalSubmit));
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.onModalCancel));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   onModalCancel (name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
-    this.$timeout(_ => this.ModalService.Cancel().then(_ => this.resetState()));
+    this.$timeout(() => this.ModalService.Cancel().then(() => this.resetState()));
   }
 
   onModalSubmit (name) {
@@ -37,7 +37,7 @@ class BranchNucleusSettingsModalController extends Injectable {
     // if not all fields are filled, display message
     if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.includes('') ||
       this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.includes('')) {
-      this.$timeout(_ => this.errorMessage = 'Please fill in all fields');
+      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
       return;
     }
 
@@ -60,8 +60,8 @@ class BranchNucleusSettingsModalController extends Injectable {
     // perform the update
     this.isLoading = true;
     this.BranchService.update(this.$state.params.branchid, updateData)
-      .then(_ => this.$timeout(_ => this.ModalService.OK().then(_ => this.resetState())))
-      .catch(err => this.$timeout(_ => this.resetState(err.message)));
+      .then(() => this.$timeout(() => this.ModalService.OK().then(() => this.resetState())))
+      .catch(err => this.$timeout(() => this.resetState(err.message)));
   }
 
   resetState (submitErrorMessage) {
@@ -81,7 +81,7 @@ BranchNucleusSettingsModalController.$inject = [
   '$timeout',
   'BranchService',
   'EventService',
-  'ModalService'
+  'ModalService',
 ];
 
 export default BranchNucleusSettingsModalController;

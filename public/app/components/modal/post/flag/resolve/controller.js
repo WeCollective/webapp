@@ -1,4 +1,4 @@
-import Injectable from 'utils/injectable.js';
+import Injectable from 'utils/injectable';
 
 class ResolveFlagPostModalController extends Injectable {
   constructor(...injections) {
@@ -22,67 +22,84 @@ class ResolveFlagPostModalController extends Injectable {
       }
     };
 
-    this.EventService.on(this.EventService.events.MODAL_OK, (name) => {
-      if(name !== 'RESOLVE_FLAG_POST') return;
+    const listeners = [];
+
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
+      if (name !== 'RESOLVE_FLAG_POST') return;
 
       this.isLoading = true;
-      let action, data;
-      switch(this.controls.resolve.selectedIndex) {
-        case 0: // change post type
+
+      const params = this.ModalService.inputArgs;
+
+      let action;
+      let data;
+
+      switch (this.controls.resolve.selectedIndex) {
+        // change post type
+        case 0:
           action = 'change_type';
           data = this.controls.postType.items[this.controls.postType.selectedIndex].toLowerCase();
           break;
-        case 1: // remove post
+
+        // remove post
+        case 1:
           action = 'remove';
-          if(this.controls.reason.selectedIndex === 0) {
+          if (this.controls.reason.selectedIndex === 0) {
             data = 'branch_rules';
-          } else if(this.controls.reason.selectedIndex === 1) {
+          }
+          else if (this.controls.reason.selectedIndex === 1) {
             data = 'site_rules';
-          } else {
+          }
+          else {
             this.AlertsService.push('error', 'Unknown reason.');
             return;
           }
           break;
-        case 2: // mark as nsfw
+
+        // mark as nsfw
+        case 2:
           action = 'mark_nsfw';
           break;
-        case 3: // approve post
+
+        // approve post
+        case 3:
           action = 'approve';
           break;
+
         default:
           this.AlertsService.push('error', 'Unknown action.');
           return;
       }
 
-      if(action === 'remove' && (!this.text.reason || this.text.reason.length === 0)) {
+      if (action === 'remove' && (!this.text.reason || this.text.reason.length === 0)) {
         return this.$timeout(() => {
           this.errorMessage = 'Please provide an explanatory message for the OP';
           this.isLoading = false;
         });
       }
 
-      this.BranchService.resolveFlaggedPost(this.ModalService.inputArgs.post.branchid, this.ModalService.inputArgs.post.id, action, data, this.text.reason).then(() => {
-        this.$timeout(() => {
+      this.BranchService.resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text.reason)
+        .then(() => this.$timeout(() => {
           this.errorMessage = '';
           this.isLoading = false;
           this.ModalService.OK();
-        });
-      }).catch((response) => {
-        this.$timeout(() => {
+        }))
+        .catch(response => this.$timeout(() => {
           this.errorMessage = response.message;
           this.isLoading = false;
-        });
-      });
-    });
+        }));
+    }));
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, (name) => {
-      if(name !== 'RESOLVE_FLAG_POST') return;
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+      if (name !== 'RESOLVE_FLAG_POST') return;
       this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.ModalService.Cancel();
       });
-    });
+    }));
+
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   close() {
@@ -93,6 +110,14 @@ class ResolveFlagPostModalController extends Injectable {
     });
   }
 }
-ResolveFlagPostModalController.$inject = ['$timeout', 'ModalService', 'BranchService', 'AlertsService', 'EventService'];
+
+ResolveFlagPostModalController.$inject = [
+  '$scope',
+  '$timeout',
+  'AlertsService',
+  'BranchService',
+  'EventService',
+  'ModalService',
+];
 
 export default ResolveFlagPostModalController;

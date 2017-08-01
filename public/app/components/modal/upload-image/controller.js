@@ -13,7 +13,7 @@ class UploadImageModalController extends Injectable {
 
     this.setUploadUrl();
 
-    let listeners = [];
+    const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if ('UPLOAD_IMAGE' !== name) return;
@@ -23,11 +23,11 @@ class UploadImageModalController extends Injectable {
       if (!this.file) return;
 
       this.UploadService.uploadImage(this.file, this.uploadUrl)
-        .then(_ => {
+        .then(() => {
           this.file = null;
           this.ModalService.OK();
         })
-        .catch(_ => this.$timeout(_ => {
+        .catch(() => this.$timeout(() => {
           this.file = null;
           this.errorMessage = 'Unable to upload photo!';
         }));
@@ -40,7 +40,7 @@ class UploadImageModalController extends Injectable {
       this.ModalService.Cancel();
     }));
 
-    this.$scope.$on('$destroy', _ => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   setFile (file) {
@@ -51,7 +51,7 @@ class UploadImageModalController extends Injectable {
     const args = this.ModalService.inputArgs;
     this.UploadService.fetchUploadUrl(args.route + args.type)
       .then(uploadUrl => this.uploadUrl = uploadUrl)
-      .catch(_ => {
+      .catch(() => {
         this.AlertsService.push('error', 'Unable to upload photo!');
         this.ModalService.Cancel();
       });
@@ -65,7 +65,7 @@ UploadImageModalController.$inject = [
   'API',
   'EventService',
   'ModalService',
-  'UploadService'
+  'UploadService',
 ];
 
 export default UploadImageModalController;
