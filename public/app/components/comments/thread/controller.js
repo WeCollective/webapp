@@ -23,9 +23,12 @@ class CommentThreadController extends Injectable {
     });
   }
 
-  // todo delete the comment
-  delete() {
-    //..
+  delete(comment) {
+    this.ModalService.open('DELETE_COMMENT', {
+      commentid: comment.id,
+      postid: comment.postid,
+    },
+      'Comment deleted.', 'Unable to delete comment.' );
   }
 
   isOwnComment(comment) {
@@ -51,13 +54,13 @@ class CommentThreadController extends Injectable {
       .catch(() => this.AlertsService.push('error', 'Unable to get replies!'));
   }
 
-  // Params: comment
   onSubmitComment() {
-    if (this.parentComment.meta.update) { // if the comment was edited
-      // reload the comment data
+    // The comment was edited...
+    if (this.parentComment.meta.update) {
+      // Reload the comment data.
       this.CommentService.fetch(this.parentComment.postid, this.parentComment.id)
         .then(response => this.$timeout(() => {
-          // copy keys over so not to destroy 'parentComment' object reference to 'comment' in the comments array
+          // Copy keys to avoid destroying 'parentComment' object reference to 'comment' in the comments array.
           for (let key in response) {
             this.parentComment[key] = response[key];
           }
@@ -69,9 +72,9 @@ class CommentThreadController extends Injectable {
           this.closeReply();
         });
     }
+    // The comment was replied to...
     else {
-      // if the comment was replied to
-      // load the replies
+      // Load the replies.
       this.loadMore(this.parentComment);
       this.closeReply();
     }
@@ -171,6 +174,8 @@ CommentThreadController.$inject = [
   '$timeout',
   'AlertsService',
   'CommentService',
+  'EventService',
+  'ModalService',
   'UserService',
 ];
 

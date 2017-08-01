@@ -13,6 +13,14 @@ class CommentService extends Injectable {
     });
   }
 
+  delete(postid, commentid) {
+    return new Promise((resolve, reject) => {
+      this.API.delete('/post/:postid/comments/:commentid', { commentid, postid })
+        .then(resolve)
+        .catch(err => reject(err.data || err));
+    });
+  }
+
   fetch(postid, commentid) {
     return new Promise((resolve, reject) => {
       this.API.get('/post/:postid/comments/:commentid', { commentid, postid })

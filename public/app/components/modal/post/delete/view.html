@@ -1,7 +1,9 @@
-<div id="delete-post-modal" ng-controller="DeletePostModalController as DeletePostModal">
-  <div loading when="isLoading" class="clearfix">
+<div ng-controller="DeletePostModalController as DeletePostModal">
+  <div
+    loading
+    loading-when="isLoading">
     <h1>Are you sure you want to delete this post?</h1>
-    <p class="error-message">{{ CreatePostModal.errorMessage }}</p>
+    <p class="error-message">{{ DeletePostModal.errorMessage }}</p>
     <p>This will remove the post from all branches.</p>
   </div>
 </div>

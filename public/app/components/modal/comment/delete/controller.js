@@ -1,19 +1,20 @@
-import Injectable from 'utils/injectable.js';
-//import Generator from 'utils/generator.js';
+import Injectable from 'utils/injectable';
 
-class DeletePostModalController extends Injectable {
+class DeleteCommentModalController extends Injectable {
   constructor (...injections) {
-    super(DeletePostModalController.$inject, injections);
+    super(DeleteCommentModalController.$inject, injections);
 
     this.errorMessage = '';
     this.isLoading = false;
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_POST') return;
+      if (name !== 'DELETE_COMMENT') return;
+
+      const params = this.ModalService.inputArgs;
       
       this.isLoading = true;
-      
-      this.PostService.delete(this.ModalService.inputArgs.postid)
+
+      this.CommentService.delete(params.postid, params.commentid)
         .then(() => {
           this.isLoading = false;
           this.ModalService.OK();
@@ -25,7 +26,7 @@ class DeletePostModalController extends Injectable {
     });
 
     this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_POST') return;
+      if (name !== 'DELETE_COMMENT') return;
       
       this.$timeout( () => {
         this.errorMessage = '';
@@ -36,11 +37,12 @@ class DeletePostModalController extends Injectable {
   }
 }
 
-DeletePostModalController.$inject = [
+DeleteCommentModalController.$inject = [
   '$timeout',
+  'AlertsService',
+  'CommentService',
   'EventService',
   'ModalService',
-  'PostService',
 ];
 
-export default DeletePostModalController;
+export default DeleteCommentModalController;

@@ -33,7 +33,7 @@ class PostService extends Injectable {
 
   delete(postid) {
     return new Promise((resolve, reject) => {
-      this.API.remove('/post/:postid', { postid })
+      this.API.delete('/post/:postid', { postid })
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

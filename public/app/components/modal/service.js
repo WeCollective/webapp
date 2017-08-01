@@ -17,6 +17,7 @@ class ModalService extends Injectable {
       CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
       CREATE_POST: '/app/components/modal/post/create/view.html',
       DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/branch-delete/view.html',
+      DELETE_COMMENT: '/app/components/modal/comment/delete/view.html',
       DELETE_POST: '/app/components/modal/post/delete/view.html',
       FLAG_POST: '/app/components/modal/post/flag/view.html',
       PROFILE_SETTINGS: '/app/components/modal/profile/settings/view.html',

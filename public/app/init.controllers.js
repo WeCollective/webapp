@@ -34,6 +34,7 @@ import CommentThread from './components/comments/thread/controller';
 import CoverPhoto from './components/cover-photo/controller';
 import CreateBranchModal from './components/modal/branch/create/controller';
 import CreatePostModal from './components/modal/post/create/controller';
+import DeleteCommentModal from './components/modal/comment/delete/controller';
 import DeletePostModal from './components/modal/post/delete/controller';
 import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
@@ -83,6 +84,7 @@ const refs = [
   { name: 'CreateBranchModalController', module: CreateBranchModal },
   { name: 'CreatePostModalController', module: CreatePostModal },
   { name: 'DeleteBranchModalController', module: BranchDeleteModal },
+  { name: 'DeleteCommentModalController', module: DeleteCommentModal },
   { name: 'DeletePostModalController', module: DeletePostModal },
   { name: 'DropdownController', module: DropdownController },
   { name: 'FlagPostModalController', module: FlagPostModal },
