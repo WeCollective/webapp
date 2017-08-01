@@ -75,7 +75,7 @@ class CreatePostModalController extends Injectable {
 
     // If not all fields are filled, display error.
     if (!this.newPost || !this.newPost.title ||
-      !this.newPost.branchids || this.newPost.branchids.length === 0 ||
+      (this.BranchService.branch.id !== 'root' && (!this.newPost.branchids || this.newPost.branchids.length === 0)) ||
       !this.newPost.text || this.newPost.nsfw === undefined ||
       this.newPost.locked === undefined) {
       return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
@@ -170,6 +170,7 @@ CreatePostModalController.$inject = [
   '$timeout',
   'AlertsService',
   'AppService',
+  'BranchService',
   'EventService',
   'ModalService',
   'PostService',

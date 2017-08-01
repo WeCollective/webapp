@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64782,7 +64782,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
     if (name !== 'CREATE_POST') return;
 
     // If not all fields are filled, display error.
-    if (!this.newPost || !this.newPost.title || !this.newPost.branchids || this.newPost.branchids.length === 0 || !this.newPost.text || this.newPost.nsfw === undefined || this.newPost.locked === undefined) {
+    if (!this.newPost || !this.newPost.title || this.BranchService.branch.id !== 'root' && (!this.newPost.branchids || this.newPost.branchids.length === 0) || !this.newPost.text || this.newPost.nsfw === undefined || this.newPost.locked === undefined) {
       return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
     }
 
@@ -64865,7 +64865,7 @@ class CreatePostModalController extends __WEBPACK_IMPORTED_MODULE_1_utils_inject
   }
 }
 
-CreatePostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'AppService', 'EventService', 'ModalService', 'PostService', 'UploadService'];
+CreatePostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UploadService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CreatePostModalController);
 
