@@ -68250,7 +68250,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
 
   actionSubbranchRequest(action, branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
+      this.API.put('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true).then(resolve).catch(err => reject(err.data || err));
     });
   }
 

@@ -84,7 +84,7 @@ class BranchService extends Injectable {
 
   actionSubbranchRequest(action, branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true)
+      this.API.put('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }, { action }, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
