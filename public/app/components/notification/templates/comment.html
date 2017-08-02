@@ -1,35 +1,20 @@
-<div class="title" ng-if="notification.type === NotificationTypes.COMMENT && notification.data.parentid === 'none'">
-	<a ui-sref="weco.profile.about({ username: notification.data.username })">
-    {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
-  </a>
-  <a ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.commentid })">
-    commented
-  </a>
-  <span>
-    on your
-  </span>
-  <a ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
-    post
-  </a>
-</div>
-
-<div class="title" ng-if="notification.type === NotificationTypes.COMMENT && notification.data.parentid !== 'none'">
-  <a ui-sref="weco.profile.about({ username: notification.data.username })">
-    {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
-  </a>
-  <a ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.commentid })">
-    replied
-  </a>
-  <span>
-    to your
-  </span>
+<a ui-sref="weco.profile.about({ username: notification.data.username })">
+  {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
+</a>
+<a ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.commentid })">
+  {{ notification.data.parentid === 'none' ? 'commented' : 'replied' }}
+</a>
+<span>
+  {{ notification.data.parentid === 'none' ? 'on' : 'to' }} your
+</span>
+<span class="ng-hide" ng-show="notification.data.parentid !== 'none'">
   <a ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.parentid })">
     comment
   </a>
   <span>
     on a
   </span>
-  <a ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
-    post
-  </a>
-</div>
+</span>
+<a ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
+  post
+</a>

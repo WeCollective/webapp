@@ -33,7 +33,7 @@
       answer="answer"
       card-poll-answer
       index="$index"
-      ng-class="{ 'style--selected': $index === BranchPostVote.selectedAnswerIndex }"
+      ng-class="{ 'style--highlighted': $index === BranchPostVote.selectedAnswerIndex }"
       ng-click="BranchPostVote.selectAnswer($index)"
       ng-repeat="answer in BranchPostVote.answers"
       selected="$index === BranchPostVote.selectedAnswerIndex">

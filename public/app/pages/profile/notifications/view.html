@@ -1,35 +1,43 @@
-<div
-  class="notifications"
-  id="profile-notifications"
+<ul
+  class="content__list content__list--no-padding"
   loading
   loading-when="!ProfileNotifications.notifications.length && ProfileNotifications.isLoading"
+  ng-if="ProfileNotifications.notifications.length > 0"
   on-scroll-to-bottom="NotificationsScrollToBottom">
-  <div
-    id="empty"
-    ng-show="!ProfileNotifications.notifications || !ProfileNotifications.notifications.length">
-    No notifications.
-  </div>
-  
-  <ul>
-    <li
-      class="notification"
-      ng-class="{ 'unread': notification.unread === true }"
-      ng-repeat="notification in ProfileNotifications.notifications">
-      <div class="toggle-unread" ng-click="ProfileNotifications.toggleUnreadState(notification)"></div>
-      
-      <div class="notification-index">
-        {{ $index + 1 }}
-      </div>
+  <li
+    class="notification style--padding"
+    ng-class="{ 'style--highlighted': item.unread }"
+    ng-repeat="item in ProfileNotifications.notifications">
+    <div class="list-item__toggle" ng-click="ProfileNotifications.toggleUnreadState(item)"></div>
+    
+    <span class="list-item-index">
+      {{ $index + 1 }}
+    </span>
 
-      <div class="notification-image">
-        <img alt=""
-          ng-src="assets/images/notifications/{{ ProfileNotifications.getNotificationImageType(notification) }}.png" />
-      </div>
-      
-      <div class="notification-entry">
-        <notification notification="notification"></notification>        
-        <div class="description">received at {{ notification.date | date:'HH:mm on dd of MMMM yyyy' }}</div>
-      </div>
-    </li>
-  </u>
+    <div class="list-item-image">
+      <img
+        alt=""
+        ng-src="assets/images/notifications/{{ ProfileNotifications.getNotificationImageType(item) }}.png" />
+    </div>
+    
+    <div class="list-item-info">
+      <span class="list-item__title">
+        <notification notification="item"></notification>
+      </span>
+
+      <br />
+
+      <span class="list-item__detail">
+        received at {{ item.date | date:'HH:mm on dd of MMMM yyyy' }}
+      </span>
+    </div>
+  </li>
+</ul>
+
+<div
+  class="empty-wrapper"
+  ng-if="ProfileNotifications.notifications.length === 0">
+  <p class="empty__text">
+    No notifications.
+  </p>
 </div>
