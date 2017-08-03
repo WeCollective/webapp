@@ -1,5 +1,6 @@
 import Generator from 'utils/generator';
 import Injectable from 'utils/injectable';
+import Validator from 'utils/validator';
 
 class BranchService extends Injectable {
   constructor(...injections) {
@@ -91,8 +92,22 @@ class BranchService extends Injectable {
   }
 
   create(data) {
+    data = data || {};
+
+    if (!Validator.namePolicy(data.id)) {
+      return Promise.reject({
+        message: 'Unique name can contain only lowercase letters, underscore, and dash.',
+      });
+    }
+
+    if (data.name.length > 30) {
+      return Promise.reject({
+        message: 'Visible name cannot be longer than 30 characters.',
+      }); 
+    }
+
     return new Promise((resolve, reject) => {
-      this.API.save('/branch', {}, data)
+      this.API.post('/branch', {}, data)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

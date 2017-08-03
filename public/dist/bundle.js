@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(274)("./" + name);
+            __webpack_require__(275)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4534,7 +4534,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(277)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(278)(module)))
 
 /***/ }),
 /* 1 */
@@ -4643,59 +4643,59 @@ const ENV = {
 /**
  * @namespace Chart
  */
-var Chart = __webpack_require__(247)();
+var Chart = __webpack_require__(248)();
 
+__webpack_require__(246)(Chart);
+__webpack_require__(260)(Chart);
+__webpack_require__(242)(Chart);
 __webpack_require__(245)(Chart);
-__webpack_require__(259)(Chart);
+__webpack_require__(250)(Chart);
 __webpack_require__(241)(Chart);
+__webpack_require__(243)(Chart);
 __webpack_require__(244)(Chart);
 __webpack_require__(249)(Chart);
-__webpack_require__(240)(Chart);
-__webpack_require__(242)(Chart);
-__webpack_require__(243)(Chart);
-__webpack_require__(248)(Chart);
-__webpack_require__(251)(Chart);
 __webpack_require__(252)(Chart);
-__webpack_require__(250)(Chart);
-__webpack_require__(246)(Chart);
 __webpack_require__(253)(Chart);
-
+__webpack_require__(251)(Chart);
+__webpack_require__(247)(Chart);
 __webpack_require__(254)(Chart);
+
 __webpack_require__(255)(Chart);
 __webpack_require__(256)(Chart);
 __webpack_require__(257)(Chart);
+__webpack_require__(258)(Chart);
 
-__webpack_require__(265)(Chart);
-__webpack_require__(263)(Chart);
-__webpack_require__(264)(Chart);
 __webpack_require__(266)(Chart);
+__webpack_require__(264)(Chart);
+__webpack_require__(265)(Chart);
 __webpack_require__(267)(Chart);
 __webpack_require__(268)(Chart);
+__webpack_require__(269)(Chart);
 
 // Controllers must be loaded after elements
 // See Chart.core.datasetController.dataElementType
-__webpack_require__(234)(Chart);
 __webpack_require__(235)(Chart);
 __webpack_require__(236)(Chart);
 __webpack_require__(237)(Chart);
 __webpack_require__(238)(Chart);
 __webpack_require__(239)(Chart);
+__webpack_require__(240)(Chart);
 
-__webpack_require__(227)(Chart);
 __webpack_require__(228)(Chart);
 __webpack_require__(229)(Chart);
 __webpack_require__(230)(Chart);
 __webpack_require__(231)(Chart);
 __webpack_require__(232)(Chart);
 __webpack_require__(233)(Chart);
+__webpack_require__(234)(Chart);
 
 // Loading built-it plugins
 var plugins = [];
 
 plugins.push(
-    __webpack_require__(260)(Chart),
     __webpack_require__(261)(Chart),
-    __webpack_require__(262)(Chart)
+    __webpack_require__(262)(Chart),
+    __webpack_require__(263)(Chart)
 );
 
 Chart.plugins.register(plugins);
@@ -4711,8 +4711,8 @@ if (typeof window !== 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var convert = __webpack_require__(271);
-var string = __webpack_require__(269);
+var convert = __webpack_require__(272);
+var string = __webpack_require__(270);
 
 var Color = function (obj) {
 	if (obj instanceof Color) {
@@ -18896,7 +18896,7 @@ function markedProvider() {
     var m;
 
     try {
-      m = __webpack_require__(273);
+      m = __webpack_require__(274);
     } catch (err) {
       m = $window.marked || marked;
     }
@@ -24417,7 +24417,7 @@ class ComponentRegistrar {
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(275);
+__webpack_require__(276);
 module.exports = 'ngFileUpload';
 
 /***/ }),
@@ -64102,51 +64102,56 @@ class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   constructor(...injections) {
     super(CreateBranchModalController.$inject, injections);
 
-    this.newBranch = { parentid: this.ModalService.inputArgs.branchid };
+    this.onModalCancel = this.onModalCancel.bind(this);
+    this.onModalSubmit = this.onModalSubmit.bind(this);
+
     this.errorMessage = '';
+    this.newBranch = {
+      parentid: this.ModalService.inputArgs.branchid
+    };
 
     const listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'CREATE_BRANCH') return;
-
-      // if not all fields are filled, display message
-      if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      // perform the update
-      this.isLoading = true;
-      this.newBranch.id = this.newBranch.id.toLowerCase();
-      this.BranchService.create(this.newBranch).then(() => {
-        this.$timeout(() => {
-          let id = this.newBranch.id;
-          this.newBranch = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK({ branchid: id });
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'CREATE_BRANCH') return;
-      this.$timeout(() => {
-        this.newBranch = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    }));
-
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.onModalCancel));
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.onModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  onModalCancel(name) {
+    if (name !== 'CREATE_BRANCH') return;
+
+    this.$timeout(() => {
+      this.newBranch = {};
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
+    });
+  }
+
+  onModalSubmit(name) {
+    if (name !== 'CREATE_BRANCH') return;
+
+    // if not all fields are filled, display message
+    if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
+      return this.$timeout(() => {
+        this.errorMessage = 'Please fill in all fields';
+      });
+    }
+
+    // perform the update
+    this.isLoading = true;
+    this.newBranch.id = this.newBranch.id.toLowerCase();
+
+    this.BranchService.create(this.newBranch).then(() => this.$timeout(() => {
+      this.isLoading = false;
+      this.errorMessage = '';
+
+      const branchid = this.newBranch.id;
+      this.newBranch = {};
+      this.ModalService.OK({ branchid });
+    })).catch(err => this.$timeout(() => {
+      this.isLoading = false;
+      this.errorMessage = err.message;
+    }));
   }
 }
 
@@ -68170,6 +68175,8 @@ API.$inject = ['$http', 'ENV'];
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_utils_generator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_utils_injectable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_utils_validator__ = __webpack_require__(227);
+
 
 
 
@@ -68255,8 +68262,22 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
   }
 
   create(data) {
+    data = data || {};
+
+    if (!__WEBPACK_IMPORTED_MODULE_2_utils_validator__["a" /* default */].namePolicy(data.id)) {
+      return Promise.reject({
+        message: 'Unique name can contain only lowercase letters, underscore, and dash.'
+      });
+    }
+
+    if (data.name.length > 30) {
+      return Promise.reject({
+        message: 'Visible name cannot be longer than 30 characters.'
+      });
+    }
+
     return new Promise((resolve, reject) => {
-      this.API.save('/branch', {}, data).then(resolve).catch(err => reject(err.data || err));
+      this.API.post('/branch', {}, data).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
@@ -68891,6 +68912,22 @@ UserService.$inject = ['$timeout', 'API', 'ENV', 'EventService', 'LocalStorageSe
 
 /***/ }),
 /* 227 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// Global policy for usernames and branch names.
+const policy = /^[a-z_-]+$/;
+
+const Validator = {
+  namePolicy(string) {
+    return policy.test(string);
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Validator);
+
+/***/ }),
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68908,7 +68945,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68925,7 +68962,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68943,7 +68980,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68961,7 +68998,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68979,7 +69016,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -68997,7 +69034,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69051,7 +69088,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69441,7 +69478,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69570,7 +69607,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69880,7 +69917,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70220,7 +70257,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70450,7 +70487,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70624,7 +70661,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70799,7 +70836,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70956,7 +70993,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71814,7 +71851,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72151,7 +72188,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72277,7 +72314,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73268,7 +73305,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73591,7 +73628,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73654,7 +73691,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74097,7 +74134,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74475,7 +74512,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75239,7 +75276,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75290,7 +75327,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75505,7 +75542,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76450,7 +76487,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76561,7 +76598,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76655,7 +76692,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76762,7 +76799,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76977,7 +77014,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77267,7 +77304,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77275,7 +77312,7 @@ module.exports = function(Chart) {
 
 // By default, select the browser (DOM) platform.
 // @TODO Make possible to select another platform at build time.
-var implementation = __webpack_require__(258);
+var implementation = __webpack_require__(259);
 
 module.exports = function(Chart) {
 	/**
@@ -77343,7 +77380,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77659,7 +77696,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78210,7 +78247,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78443,7 +78480,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78582,7 +78619,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78779,7 +78816,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78892,7 +78929,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79145,7 +79182,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79675,7 +79712,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80124,11 +80161,11 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(272);
+var colorNames = __webpack_require__(273);
 
 module.exports = {
    getRgba: getRgba,
@@ -80351,7 +80388,7 @@ for (var name in colorNames) {
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports) {
 
 /* MIT license */
@@ -81055,10 +81092,10 @@ for (var key in cssKeywords) {
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(270);
+var conversions = __webpack_require__(271);
 
 var convert = function() {
    return new Converter();
@@ -81152,7 +81189,7 @@ Converter.prototype.getValues = function(space) {
 module.exports = convert;
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -81307,7 +81344,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -82597,10 +82634,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(276)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(277)))
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -82849,10 +82886,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 274;
+webpackContext.id = 275;
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports) {
 
 /**!
@@ -85756,7 +85793,7 @@ ngFileUpload.service('UploadExif', ['UploadResize', '$q', function (UploadResize
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports) {
 
 var g;
@@ -85783,7 +85820,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
