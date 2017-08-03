@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class AuthController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(AuthController.$inject, injections);
 
     this.animationSrc = '/assets/images/logo-animation-large.gif';
@@ -12,17 +12,17 @@ class AuthController extends Injectable {
     this.showResendVerification = false;
   }
 
-  getAnimationSrc () {
+  getAnimationSrc() {
     return this.animationSrc;
   }
 
-  isLoginForm () {
+  isLoginForm() {
     return 'auth.login' === this.$state.current.name;
   }
 
-  login () {
+  login() {
     this.UserService.login(this.credentials)
-      .then(_ => {
+      .then(() => {
         this.stopAnimation();
         this.$state.go('weco.home');
       })
@@ -36,15 +36,15 @@ class AuthController extends Injectable {
       });
   }
 
-  resendVerification () {
+  resendVerification() {
     this.isLoading = true;
 
     this.UserService.resendVerification(this.credentials.username)
-      .then(_ => this.resendVerificationDone(true))
-      .catch(_ => this.resendVerificationDone(false));
+      .then(() => this.resendVerificationDone(true))
+      .catch(() => this.resendVerificationDone(false));
   }
 
-  resendVerificationDone (success) {
+  resendVerificationDone(success) {
     const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
     this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
     
@@ -53,14 +53,14 @@ class AuthController extends Injectable {
     this.showResendVerification = false;
   }
 
-  signup () {
+  signup() {
     if (this.credentials.password !== this.credentials.confirmPassword) {
       this.stopAnimation('Inconsistent password!');
       return;
     }
 
     this.UserService.signup(this.credentials)
-      .then(_ => {
+      .then(() => {
         this.stopAnimation();
         this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
         this.$state.go('weco.home');
@@ -68,7 +68,7 @@ class AuthController extends Injectable {
       .catch(err => this.stopAnimation(err.message));
   }
 
-  stopAnimation (errorMessage) {
+  stopAnimation(errorMessage) {
     if (errorMessage !== undefined) {
       this.errorMessage = errorMessage;
     }
@@ -77,7 +77,7 @@ class AuthController extends Injectable {
     this.loopAnimation = false;
   }
 
-  submit () {
+  submit() {
     this.isLoading = true;
     this.loopAnimation = true;
     this.triggerAnimation();
@@ -91,16 +91,16 @@ class AuthController extends Injectable {
     }
   }
 
-  triggerAnimation () {
+  triggerAnimation() {
     if (this.animationSrc) {
-      this.$timeout(_ => this.animationSrc = '');
+      this.$timeout(() => this.animationSrc = '');
     }
 
     // set animation src to the animated gif
-    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
+    this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
     // cancel after 1 sec
-    this.$timeout(_ => {
+    this.$timeout(() => {
       this.animationSrc = '';
       
       if (this.loopAnimation) {
@@ -114,7 +114,7 @@ AuthController.$inject = [
   '$state',
   '$timeout',
   'AlertsService',
-  'UserService'
+  'UserService',
 ];
 
 export default AuthController;

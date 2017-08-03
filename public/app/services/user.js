@@ -1,5 +1,6 @@
 import Generator from 'utils/generator';
 import Injectable from 'utils/injectable';
+import Validator from 'utils/validator';
 
 class UserService extends Injectable {
   constructor(...injections) {
@@ -122,6 +123,38 @@ class UserService extends Injectable {
   }
 
   signup(credentials) {
+    credentials = credentials || {};
+
+    if (!Validator.usernamePolicy(credentials.username)) {
+      return Promise.reject({
+        message: 'Username can contain only numbers, lowercase letters, underscore, and dash.',
+      });
+    }
+
+    if (credentials.username.length < 1 || credentials.username.length > 20) {
+      return Promise.reject({
+        message: 'Username has to be between 1 and 20 characters long/',
+      });
+    }
+
+    if (credentials.password !== credentials.confirmPassword) {
+      return Promise.reject({
+        message: 'The passwords do not match.',
+      });
+    }
+
+    if (!Validator.passwordPolicy(credentials.password)) {
+      return Promise.reject({
+        message: 'Password has to be between 6 and 30 characters long.',
+      });
+    }
+
+    if (credentials.name.length < 2 || credentials.name.length > 30) {
+      return Promise.reject({
+        message: 'Name has to be between 2 and 30 characters long.',
+      });
+    }
+
     return new Promise((resolve, reject) => {
       this.API.request('POST', '/user', {}, credentials)
         .then(resolve)
