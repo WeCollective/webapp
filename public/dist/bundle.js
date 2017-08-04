@@ -65550,16 +65550,20 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
     super(NavbarController.$inject, injections);
 
     this.getNotifications = this.getNotifications.bind(this);
+    this.updateCount = this.updateCount.bind(this);
+
+    const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.animationSrc = '';
     this.expanded = false;
-    this.notificationCount = 0;
+    this.notificationCount = cache.count || 0;
 
     this.getNotifications();
 
-    this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications);
-
-    this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
+    const listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications));
+    listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getNotifications() {
@@ -65567,6 +65571,11 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
 
     this.UserService.getNotifications(this.UserService.user.username, true).then(count => {
       this.notificationCount = count;
+
+      let cache = this.LocalStorageService.getObject('cache');
+      cache.notifications = cache.notifications || {};
+      cache.notifications.count = this.notificationCount;
+      this.LocalStorageService.setObject('cache', cache);
 
       // Sometimes the notifications badge would not get updated.
       this.$scope.$apply();
@@ -65601,9 +65610,18 @@ class NavbarController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
       this.$timeout(() => this.animationSrc = '', 1000);
     });
   }
+
+  updateCount(delta) {
+    this.notificationCount += delta;
+
+    let cache = this.LocalStorageService.getObject('cache');
+    cache.notifications = cache.notifications || {};
+    cache.notifications.count = this.notificationCount;
+    this.LocalStorageService.setObject('cache', cache);
+  }
 }
 
-NavbarController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'UserService'];
+NavbarController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'LocalStorageService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (NavbarController);
 
@@ -67948,9 +67966,11 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
   constructor(...injections) {
     super(ProfileNotificationsController.$inject, injections);
 
+    let cache = this.LocalStorageService.getObject('cache').notifications || {};
+
     this.isLoading = false;
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */];
-    this.notifications = this.LocalStorageService.getObject('cache').profileNotifications || [];
+    this.notifications = cache.items || [];
 
     this.init();
 
@@ -68005,7 +68025,8 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
         this.isLoading = false;
 
         let cache = this.LocalStorageService.getObject('cache');
-        cache.profileNotifications = this.notifications;
+        cache.notifications = cache.notifications || {};
+        cache.notifications.items = this.notifications;
         this.LocalStorageService.setObject('cache', cache);
       });
     }).catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));

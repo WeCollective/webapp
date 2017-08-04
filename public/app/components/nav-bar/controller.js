@@ -5,16 +5,20 @@ class NavbarController extends Injectable {
     super(NavbarController.$inject, injections);
 
     this.getNotifications = this.getNotifications.bind(this);
+    this.updateCount = this.updateCount.bind(this);
+
+    const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.animationSrc = '';
     this.expanded = false;
-    this.notificationCount = 0;
+    this.notificationCount = cache.count || 0;
 
     this.getNotifications();
 
-    this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications);
-
-    this.EventService.on('UNREAD_NOTIFICATION_CHANGE', delta => this.notificationCount += delta);
+    const listeners = [];
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications));
+    listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   getNotifications() {
@@ -23,6 +27,11 @@ class NavbarController extends Injectable {
     this.UserService.getNotifications(this.UserService.user.username, true)
       .then(count => {
         this.notificationCount = count;
+
+        let cache = this.LocalStorageService.getObject('cache');
+        cache.notifications = cache.notifications || {};
+        cache.notifications.count = this.notificationCount;
+        this.LocalStorageService.setObject('cache', cache);
         
         // Sometimes the notifications badge would not get updated.
         this.$scope.$apply();
@@ -60,6 +69,15 @@ class NavbarController extends Injectable {
       this.$timeout(() => this.animationSrc = '', 1000);
     });
   }
+
+  updateCount(delta) {
+    this.notificationCount += delta;
+
+    let cache = this.LocalStorageService.getObject('cache');
+    cache.notifications = cache.notifications || {};
+    cache.notifications.count = this.notificationCount;
+    this.LocalStorageService.setObject('cache', cache);
+  }
 }
 
 NavbarController.$inject = [
@@ -69,6 +87,7 @@ NavbarController.$inject = [
   'AlertsService',
   'AppService',
   'EventService',
+  'LocalStorageService',
   'UserService',
 ];
 

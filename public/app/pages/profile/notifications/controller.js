@@ -5,9 +5,11 @@ class ProfileNotificationsController extends Injectable {
   constructor(...injections) {
     super(ProfileNotificationsController.$inject, injections);
 
+    let cache = this.LocalStorageService.getObject('cache').notifications || {};
+
     this.isLoading = false;
     this.NotificationTypes = NotificationTypes;
-    this.notifications = this.LocalStorageService.getObject('cache').profileNotifications || [];
+    this.notifications = cache.items || [];
 
     this.init();
 
@@ -63,7 +65,8 @@ class ProfileNotificationsController extends Injectable {
           this.isLoading = false;
 
           let cache = this.LocalStorageService.getObject('cache');
-          cache.profileNotifications = this.notifications;
+          cache.notifications = cache.notifications || {};
+          cache.notifications.items = this.notifications;
           this.LocalStorageService.setObject('cache', cache);
         });
       })
