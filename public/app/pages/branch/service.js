@@ -33,7 +33,7 @@ class WallService extends Injectable {
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
         name = 'CREATE_BRANCH';
-        successMsg = 'Successfully created new branch!';
+        successMsg = args => `Successfully created b/${args.branchid}!`;
         errMsg = 'Error creating new branch.';
         break;
 

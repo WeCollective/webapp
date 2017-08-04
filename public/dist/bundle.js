@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -65415,7 +65415,10 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
         this.outputArgs = args;
       }
       this.name = '';
-      this.resolve(success);
+      this.resolve({
+        args,
+        success
+      });
       return resolve(args);
     }));
   }
@@ -65447,12 +65450,12 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
           this.reject = reject;
         })
         // todo Investigate why is this timeout set to 1500ms.
-        .then(result => this.$timeout(() => {
+        .then(data => this.$timeout(() => {
           console.log('wow.');
           // force reload if OK was pressed
-          if (result) {
+          if (data.success) {
             this.$state.go(this.$state.current, {}, { reload: true });
-            this.AlertsService.push('success', successMsg);
+            this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
             return resolve(this.outputArgs);
           }
         }, 1500)).catch(() => {
@@ -67413,7 +67416,7 @@ class WallService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* 
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
         name = 'CREATE_BRANCH';
-        successMsg = 'Successfully created new branch!';
+        successMsg = args => `Successfully created b/${args.branchid}!`;
         errMsg = 'Error creating new branch.';
         break;
 

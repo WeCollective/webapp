@@ -50,7 +50,10 @@ class ModalService extends Injectable {
         this.outputArgs = args;
       }
       this.name = '';
-      this.resolve(success);
+      this.resolve({
+        args,
+        success,
+      });
       return resolve(args);
     }));
   }
@@ -82,12 +85,12 @@ class ModalService extends Injectable {
           this.reject = reject;
         })
           // todo Investigate why is this timeout set to 1500ms.
-          .then(result => this.$timeout(() => {
+          .then(data => this.$timeout(() => {
             console.log('wow.');
             // force reload if OK was pressed
-            if (result) {
+            if (data.success) {
               this.$state.go(this.$state.current, {}, { reload: true });
-              this.AlertsService.push('success', successMsg);
+              this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
               return resolve(this.outputArgs);
             }
           }, 1500))
