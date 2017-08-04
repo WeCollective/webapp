@@ -131,6 +131,9 @@ class CommentThreadController extends Injectable {
   }
 
   vote(comment, direction, iconNode) {
+    // Cannot vote on deleted comments.
+    if (comment.data.creator === 'N/A') return;
+
     this.CommentService.vote(comment.postid, comment.id, direction)
       .then(res => this.$timeout(() => {
         const delta = res.delta || 0;
@@ -160,7 +163,14 @@ class CommentThreadController extends Injectable {
           this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
         }
         else if (err.status === 403) {
-          this.AlertsService.push('error', 'Please log in or create an account to vote.');
+          let message;
+          if (err.message === 'Access denied') {
+            message = 'Please log in or create an account to vote.';
+          }
+          else {
+            message = err.message;
+          }
+          this.AlertsService.push('error', message);
         }
         else {
           this.AlertsService.push('error', 'Error voting on comment.');

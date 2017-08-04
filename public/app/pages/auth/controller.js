@@ -54,11 +54,6 @@ class AuthController extends Injectable {
   }
 
   signup() {
-    if (this.credentials.password !== this.credentials.confirmPassword) {
-      this.stopAnimation('Inconsistent password!');
-      return;
-    }
-
     this.UserService.signup(this.credentials)
       .then(() => {
         this.stopAnimation();
