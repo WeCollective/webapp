@@ -201,7 +201,7 @@ class BranchService extends Injectable {
 
   remove(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid', { branchid })
+      this.API.delete('/branch/:branchid', { branchid })
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
@@ -216,7 +216,7 @@ class BranchService extends Injectable {
       
       body['change_type' === action ? 'type' : 'reason'] = data;
       
-      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body)
+      this.API.post('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
@@ -224,7 +224,7 @@ class BranchService extends Injectable {
 
   submitSubbranchRequest(branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid })
+      this.API.post('/branch/:branchid/requests/subbranches/:childid', { branchid, childid })
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

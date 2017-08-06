@@ -64266,50 +64266,50 @@ class SubmitSubbranchRequestModalController extends __WEBPACK_IMPORTED_MODULE_0_
   constructor(...injections) {
     super(SubmitSubbranchRequestModalController.$inject, injections);
 
+    this.handleModalCancel = this.handleModalCancel.bind(this);
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
+
     this.errorMessage = '';
     this.isLoading = false;
     this.data = {};
 
     const listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      if (!this.data || !this.data.parentid) {
-        return this.$timeout(() => {
-          this.errorMessage = 'Please fill in all fields';
-        });
-      }
-
-      this.isLoading = true;
-      let branchid = this.ModalService.inputArgs.branchid;
-      this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => {
-        this.$timeout(() => {
-          this.data = {};
-          this.errorMessage = '';
-          this.isLoading = false;
-          this.ModalService.OK();
-        });
-      }).catch(response => {
-        this.$timeout(() => {
-          this.errorMessage = response.message;
-          this.isLoading = false;
-        });
-      });
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
-
-      this.$timeout(() => {
-        this.data = {};
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    }));
-
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
+    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  handleModalCancel(name) {
+    if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
+    this.$timeout(() => {
+      this.data = {};
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
+    });
+  }
+
+  handleModalSubmit(name) {
+    if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+
+    if (!this.data || !this.data.parentid) {
+      return this.$timeout(() => {
+        this.errorMessage = 'Please fill in all fields';
+      });
+    }
+
+    this.isLoading = true;
+    let branchid = this.ModalService.inputArgs.branchid;
+    this.BranchService.submitSubbranchRequest(this.data.parentid, branchid).then(() => this.$timeout(() => {
+      this.isLoading = false;
+      this.data = {};
+      this.errorMessage = '';
+      this.ModalService.OK();
+    })).catch(error => this.$timeout(() => {
+      this.isLoading = false;
+      this.errorMessage = error.message;
+    }));
   }
 }
 
@@ -68413,7 +68413,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
 
   remove(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.remove('/branch/:branchid', { branchid }).then(resolve).catch(err => reject(err.data || err));
+      this.API.delete('/branch/:branchid', { branchid }).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
@@ -68426,13 +68426,13 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
 
       body['change_type' === action ? 'type' : 'reason'] = data;
 
-      this.API.save('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body).then(resolve).catch(err => reject(err.data || err));
+      this.API.post('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
   submitSubbranchRequest(branchid, childid) {
     return new Promise((resolve, reject) => {
-      this.API.save('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }).then(resolve).catch(err => reject(err.data || err));
+      this.API.post('/branch/:branchid/requests/subbranches/:childid', { branchid, childid }).then(resolve).catch(err => reject(err.data || err));
     });
   }
 
