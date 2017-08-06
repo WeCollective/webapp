@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -64180,7 +64180,7 @@ class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
 
       const branchid = this.newBranch.id;
       this.newBranch = {};
-      this.ModalService.OK({ branchid });
+      this.ModalService.OK({ branchid }).then(() => this.$state.go('weco.branch.wall', { branchid }));
     })).catch(err => this.$timeout(() => {
       this.isLoading = false;
       this.errorMessage = err.message;
@@ -64188,7 +64188,7 @@ class CreateBranchModalController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
   }
 }
 
-CreateBranchModalController.$inject = ['$scope', '$timeout', 'BranchService', 'EventService', 'ModalService'];
+CreateBranchModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CreateBranchModalController);
 
@@ -65411,9 +65411,7 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
   finished(args, success) {
     return new Promise((resolve, reject) => this.$timeout(() => {
       this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
+      this.outputArgs = args;
       this.name = '';
       this.resolve({
         args,

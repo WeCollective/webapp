@@ -46,9 +46,7 @@ class ModalService extends Injectable {
   finished(args, success) {
     return new Promise((resolve, reject) => this.$timeout(() => {
       this.isOpen = false;
-      if (args) {
-        this.outputArgs = args;
-      }
+      this.outputArgs = args;
       this.name = '';
       this.resolve({
         args,
