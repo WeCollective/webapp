@@ -63367,18 +63367,16 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
         selectedIndex: 0
       }
     };
+    this.hasMoreComments = false;
     this.isLoading = false;
 
     this.reloadComments = this.reloadComments.bind(this);
-    this.scrollCb = this.scrollCb.bind(this);
 
     let listeners = [];
 
     listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.reloadComments();
     }));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.scrollCb));
 
     listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments));
 
@@ -63417,7 +63415,7 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     };
 
     const successCb = res => this.$timeout(() => {
-      const isSingleComment = !Array.isArray(res);
+      const isSingleComment = !Array.isArray(res.comments);
 
       let comments = [];
 
@@ -63429,7 +63427,9 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       }
 
       comments = this.comments;
-      comments = comments.concat(res);
+      comments = comments.concat(res.comments);
+
+      this.hasMoreComments = res.hasMoreComments;
 
       this.getAllCommentReplies(comments).then(() => this.$scope.$apply(() => {
         this.comments = comments;
@@ -63438,7 +63438,6 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     });
 
     if (this.isLoading === true) return;
-
     this.isLoading = true;
 
     if (this.isCommentPermalink()) {
@@ -63457,8 +63456,9 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
       const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
 
       // fetch the replies to this comment, or just the number of replies
-      return this.CommentService.getMany(comment.postid, comment.id, sortBy, lastCommentId).then(replies => this.$timeout(() => {
-        comment.comments = replies;
+      return this.CommentService.getMany(comment.postid, comment.id, sortBy, lastCommentId).then(res => this.$timeout(() => {
+        comment.hasMoreComments = res.hasMoreComments;
+        comment.comments = res.comments;
         return resolve();
       })).catch(() => {
         this.AlertsService.push('error', 'Unable to get replies!');
@@ -63474,14 +63474,6 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
   reloadComments() {
     this.comments = [];
     this.getComments();
-  }
-
-  scrollCb(name) {
-    if (name !== 'CommentsScrollToBottom') return;
-
-    if (this.comments.length > 0) {
-      this.getComments(this.comments[this.comments.length - 1].id);
-    }
   }
 }
 
@@ -68531,7 +68523,7 @@ class CommentService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" 
   // get the comments on a post or replies to another comment
   getMany(postid, parentid, sort, lastCommentId) {
     return new Promise((resolve, reject) => {
-      let params = {
+      const params = {
         parentid,
         sort
       };

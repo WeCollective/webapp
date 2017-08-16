@@ -38,7 +38,7 @@ class CommentService extends Injectable {
   // get the comments on a post or replies to another comment
   getMany(postid, parentid, sort, lastCommentId) {
     return new Promise((resolve, reject) => {
-      let params = {
+      const params = {
         parentid,
         sort,
       };

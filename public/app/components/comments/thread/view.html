@@ -105,15 +105,17 @@
         update="comment.meta.update">
       </comment-input-box>
 
-      <div class="comment__replies">
+      <div
+        class="comment__replies"
+        ng-if="comment.comments.length > 0">
         <comment-thread
           comments="comment.comments"
-          ng-if="comment.comments.length > 0"
-          sort-by="Thread.sortBy"></comment-thread>
+          sort-by="Thread.sortBy">
+        </comment-thread>
         <span
           class="comments__text text--uppercase"
           ng-click="Thread.loadMore(comment)"
-          ng-if="(comment.replies > 0 && (!comment.comments || comment.comments.length === 0)) || comment.replies > comment.comments.length">
+          ng-if="comment.hasMoreComments">
           load more comments
         </span>
       </div>
