@@ -38,6 +38,7 @@ import DeleteCommentModal from './components/modal/comment/delete/controller';
 import DeletePostModal from './components/modal/post/delete/controller';
 import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
+import LoaderBar from './components/loader-bar/controller';
 import ModAddModal from './components/modal/branch/nucleus/modtools/mod-add/controller';
 import ModDeleteModal from './components/modal/branch/nucleus/modtools/mod-delete/controller';
 import Navbar from './components/nav-bar/controller';
@@ -89,6 +90,7 @@ const refs = [
   { name: 'DropdownController', module: DropdownController },
   { name: 'FlagPostModalController', module: FlagPostModal },
   { name: 'ListItemController', module: CardListItem },
+  { name: 'LoaderBarController', module: LoaderBar },
   { name: 'NavbarController', module: Navbar },
   { name: 'PollAnswerEditorController', module: PollAnswerEditor },
   { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },

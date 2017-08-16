@@ -9,6 +9,7 @@ import CommentThread from './components/comments/thread/directive';
 import CoverPhoto from './components/cover-photo/directive';
 import Dropdown from './components/dropdown/directive';
 import Loading from './components/loading/directive';
+import LoaderBar from './components/loader-bar/directive';
 import Modal from './components/modal/directive';
 import ModLogEntry from './components/mod-log-entry/directive';
 import Navbar from './components/nav-bar/directive';
@@ -30,6 +31,7 @@ const refs = [
   { name: 'coverPhoto', module: CoverPhoto },
   { name: 'dropdown', module: Dropdown },
   { name: 'listItem', module: CardListItem },
+  { name: 'loaderBar', module: LoaderBar },
   { name: 'loading', module: Loading },
   { name: 'modal', module: Modal },
   { name: 'modLogEntry', module: ModLogEntry },
