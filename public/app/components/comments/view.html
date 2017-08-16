@@ -23,8 +23,7 @@
     	title="sort by">
     </dropdown>
 
-    <loader-bar hidden="!Comments.isLoading">
-    </loader-bar>
+    <loader-bar hidden="!Comments.isLoading"></loader-bar>
 
     <div
       class="empty-wrapper"
@@ -42,6 +41,12 @@
         ng-if="Comments.comments.length > 0"
       	sort-by="Comments.controls.sortBy.items[Comments.controls.sortBy.selectedIndex]">
       </comment-thread>
+      <!-- ng-if="(comment.replies > 0 && (!comment.comments || comment.comments.length === 0)) || comment.replies > comment.comments.length" -->
+      <!-- ng-click="Thread.loadMore(comment)" -->
+      <span
+        class="comments__text text--uppercase">
+        load more comments
+      </span>
     </div>
   </div>
 </div>

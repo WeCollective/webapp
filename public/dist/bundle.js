@@ -65805,23 +65805,16 @@ class AnswerEditorController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
   }
 
   addAnswer() {
-    console.log(this.answers, this.answer);
-    if (this.answers.includes(this.answer) || this.answer === '') {
+    if (this.answer === undefined || this.answer === '') {
       return;
     }
 
     this.answers.push(this.answer);
     this.answer = '';
-
-    console.log(this.answers, this.answer);
   }
 
-  removeAnswer(answer) {
-    const answerIndex = this.answers.indexOf(answer);
-
-    if (answerIndex !== -1) {
-      this.answers.splice(answerIndex, 1);
-    }
+  removeAnswer(index) {
+    this.answers.splice(index, 1);
   }
 }
 

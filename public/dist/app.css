@@ -671,14 +671,14 @@ div[marked] ul {
   margin-top: 6px;
   padding-left: 12px;
 }
-.comments .comment__replies .comment__replies-text {
+.comments .comments__text {
   color: #3498db;
   cursor: pointer;
   font-size: 12px;
   font-weight: 500;
   vertical-align: bottom;
 }
-.comments .comment__replies .comment__replies-text:hover {
+.comments .comments__text:hover {
   text-decoration: underline;
 }
 .comments .comments__text-wrapper {

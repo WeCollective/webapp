@@ -111,10 +111,10 @@
           ng-if="comment.comments.length > 0"
           sort-by="Thread.sortBy"></comment-thread>
         <span
-          class="comment__replies-text text--uppercase"
+          class="comments__text text--uppercase"
           ng-click="Thread.loadMore(comment)"
           ng-if="(comment.replies > 0 && (!comment.comments || comment.comments.length === 0)) || comment.replies > comment.comments.length">
-          load {{ comment.replies - (comment.comments ? comment.comments.length : 0) }} more
+          load more comments
         </span>
       </div>
     </div>
