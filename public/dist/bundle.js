@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -65755,12 +65755,15 @@ class AnswerEditorController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectabl
   }
 
   addAnswer() {
+    console.log(this.answers, this.answer);
     if (this.answers.includes(this.answer) || this.answer === '') {
       return;
     }
 
     this.answers.push(this.answer);
     this.answer = '';
+
+    console.log(this.answers, this.answer);
   }
 
   removeAnswer(answer) {
@@ -65790,7 +65793,7 @@ class PollAnswerEditorComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
 
     this.bindToController = {
       answers: '=',
-      title: '&'
+      title: '@'
     };
     this.controller = 'PollAnswerEditorController';
     this.controllerAs = 'Editor';

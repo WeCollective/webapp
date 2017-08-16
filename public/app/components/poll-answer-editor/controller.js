@@ -8,12 +8,15 @@ class AnswerEditorController extends Injectable {
   }
 
   addAnswer() {
+    console.log(this.answers, this.answer);
     if (this.answers.includes(this.answer) || this.answer === '') {
       return;
     }
 
     this.answers.push(this.answer);
     this.answer = '';
+
+    console.log(this.answers, this.answer);
   }
 
   removeAnswer(answer) {

@@ -1,11 +1,11 @@
 <div class="poll-answer-editor">
   <div class="add-item">
     <input
-      ng-model="Editor.newAnswer"
-      placeholder="Create a new Answer"
+      ng-model="Editor.answer"
+      placeholder="{{ Editor.title }}"
       type="text" />
     <img
-      alt=""
+      alt="{{ Editor.title }}"
       ng-click="Editor.addAnswer()"
       src="/assets/images/icons/black/add.jpg" />
   </div>
