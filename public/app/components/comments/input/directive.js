@@ -7,6 +7,7 @@ class CommentInputBoxComponent extends Injectable {
     this.bindToController = {
       onSubmit: '&',
       originalCommentText: '&',
+      parentcomment: '=',
       parentid: '@',
       placeholder: '@',
       postid: '@',

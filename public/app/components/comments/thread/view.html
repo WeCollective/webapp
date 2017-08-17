@@ -1,4 +1,4 @@
-<div class="comment" ng-repeat="comment in Thread.comments">
+<div class="comment" ng-repeat="comment in Thread.comments track by $index">
   <div class="comment__content">
     <div class="list-item__votes">
       <img
@@ -24,7 +24,7 @@
       </span>
 
       <br />
-      
+
       <span>
         <img
           alt="Reply"
@@ -54,6 +54,7 @@
           text="'Edit'"
           tooltip />
 
+        <!--
         <img
           alt="Delete comment"
           class="list-item__detail style--icon"
@@ -63,6 +64,7 @@
           src="/assets/images/icons/black/delete.png"
           text="'Delete'"
           tooltip />
+        -->
 
         <!--
         <a
@@ -99,6 +101,7 @@
         ng-if="comment.meta.openReply"
         on-submit="Thread.onSubmitComment.bind(Thread)"
         original-comment-text="comment.data.text"
+        parentcomment="comment"
         parentid="{{ comment.id }}"
         placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
         postid="{{ comment.postid }}"

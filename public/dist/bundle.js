@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63371,6 +63371,7 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
     this.isLoading = false;
 
     this.reloadComments = this.reloadComments.bind(this);
+    this.onSubmitComment = this.onSubmitComment.bind(this);
 
     let listeners = [];
 
@@ -63428,11 +63429,11 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
 
       comments = this.comments;
       comments = comments.concat(res.comments);
+      this.comments = comments;
 
       this.hasMoreComments = res.hasMoreComments;
 
-      this.getAllCommentReplies(comments).then(() => this.$scope.$apply(() => {
-        this.comments = comments;
+      this.getAllCommentReplies(comments).then(() => this.$timeout(() => {
         this.isLoading = false;
       }));
     });
@@ -63469,6 +63470,10 @@ class CommentsController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__[
 
   isCommentPermalink() {
     return this.$state.current.name === 'weco.branch.post.comment';
+  }
+
+  onSubmitComment(comment, parent) {
+    this.comments.unshift(comment);
   }
 
   reloadComments() {
@@ -63546,46 +63551,79 @@ class CommentInputBoxController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
 
   handleSubmit() {
     if (this.isLoading === true) return;
-
     this.isLoading = true;
 
-    const comment = {
-      parentid: this.parentid || '',
-      postid: this.postid || 0,
-      text: this.input || ''
+    const date = Date.now();
+    const username = this.UserService.user.username || '';
+    const id = `${date}-${username}`;
+    const parentid = this.parentid || '';
+    const postid = this.postid || 0;
+    const text = this.input || '';
+
+    // Simulate response from the server.
+    const newComment = {
+      comments: [],
+      data: {
+        edited: false,
+        date,
+        text,
+        creator: username,
+        id
+      },
+      date,
+      down: 0,
+      hasMoreComments: false,
+      id,
+      individual: 0,
+      meta: {
+        openReply: false,
+        update: false
+      },
+      parentid,
+      postid,
+      rank: 0,
+      replies: 0,
+      up: 0,
+      votes: {
+        down: 0,
+        individual: 0,
+        up: 0
+      }
     };
 
-    // update an existing comment
+    this.isLoading = false;
+    this.input = '';
+
+    // Update an existing comment.
+    // NB: The supplied "parentid" is actually the id of the comment to be edited.
     if (this.update) {
-      // NB: if we are editing the existing comment, the supplied "parentid" is
-      // actually the id of the comment to be edited
-      this.CommentService.update(comment.postid, comment.parentid, comment.text).then(() => this.$timeout(() => {
-        this.isLoading = false;
-        this.input = '';
-        this.onSubmit()(comment.id);
-      })).catch(() => {
-        this.AlertsService.push('error', 'Error editing comment.');
-        this.isLoading = false;
-      });
+      this.parentcomment.text = text;
+      this.parentcomment.data.text = text;
+
+      this.CommentService.update(postid, parentid, text).catch(() => this.AlertsService.push('error', 'Error editing comment.'));
+
+      this.onSubmit()(newComment, this.parentcomment);
     } else {
-      this.CommentService.create(comment).then(id => this.$timeout(() => {
-        this.isLoading = false;
-        this.input = '';
-        this.onSubmit()(id);
-      })).catch(err => {
+      this.CommentService.create({
+        parentid,
+        postid,
+        text
+      }).then(id => {
+        newComment.id = id;
+      }).catch(err => {
         if (err.status === 403) {
           this.AlertsService.push('error', 'Please log in or create an account to comment.');
         } else {
           this.AlertsService.push('error', 'Error posting comment.');
         }
-
-        this.isLoading = false;
       });
+
+      this.onSubmit()(newComment, this.parentcomment);
     }
   }
 }
 
-CommentInputBoxController.$inject = ['$scope', '$rootScope', '$timeout', 'AlertsService', 'CommentService'];
+CommentInputBoxController.$inject = ['$scope', '$rootScope', '$timeout', 'AlertsService', 'CommentService', 'UserService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (CommentInputBoxController);
 
@@ -63604,6 +63642,7 @@ class CommentInputBoxComponent extends __WEBPACK_IMPORTED_MODULE_0_utils_injecta
     this.bindToController = {
       onSubmit: '&',
       originalCommentText: '&',
+      parentcomment: '=',
       parentid: '@',
       placeholder: '@',
       postid: '@',
@@ -63681,7 +63720,7 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
     })).catch(() => this.AlertsService.push('error', 'Unable to get replies!'));
   }
 
-  onSubmitComment() {
+  onSubmitComment(comment, parent) {
     // The comment was edited...
     if (this.parentComment.meta.update) {
       // Reload the comment data.
@@ -63697,11 +63736,10 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
         this.closeReply();
       });
     }
-    // The comment was replied to...
+    // We created a new comment.
     else {
-        // Load the replies.
-        this.loadMore(this.parentComment);
         this.closeReply();
+        parent.comments.unshift(comment);
       }
   }
 

@@ -54,7 +54,7 @@ class CommentThreadController extends Injectable {
       .catch(() => this.AlertsService.push('error', 'Unable to get replies!'));
   }
 
-  onSubmitComment() {
+  onSubmitComment(comment, parent) {
     // The comment was edited...
     if (this.parentComment.meta.update) {
       // Reload the comment data.
@@ -72,11 +72,10 @@ class CommentThreadController extends Injectable {
           this.closeReply();
         });
     }
-    // The comment was replied to...
+    // We created a new comment.
     else {
-      // Load the replies.
-      this.loadMore(this.parentComment);
       this.closeReply();
+      parent.comments.unshift(comment);
     }
   }
 

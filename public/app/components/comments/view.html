@@ -1,7 +1,7 @@
 <div class="post__content-wrapper">
-  <div class="comments">
+  <div class="comments">    
     <comment-input-box
-    	on-submit="Comments.reloadComments.bind(Comments)"
+    	on-submit="Comments.onSubmitComment.bind(Comments)"
     	parentid="none"
     	placeholder="Write a comment..."
     	postid="{{ Comments.PostService.post.id }}"
@@ -42,7 +42,7 @@
       <span
         class="comments__text text--uppercase ng-hide"
         ng-click="Comments.getComments(Comments.comments[Comments.comments.length - 1].id)"
-        ng-show="Comments.hasMoreComment">
+        ng-show="Comments.hasMoreComments">
         load more comments
       </span>
     </div>

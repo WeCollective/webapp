@@ -31,37 +31,69 @@ class CommentInputBoxController extends Injectable {
 
   handleSubmit() {
     if (this.isLoading === true) return;
-
     this.isLoading = true;
 
-    const comment = {
-      parentid: this.parentid || '',
-      postid: this.postid || 0,
-      text: this.input || '',
+    const date = Date.now();
+    const username = this.UserService.user.username || '';
+    const id = `${date}-${username}`;
+    const parentid = this.parentid || '';
+    const postid = this.postid || 0;
+    const text = this.input || '';
+
+    // Simulate response from the server.
+    const newComment = {
+      comments: [],
+      data: {
+        edited: false,
+        date,
+        text,
+        creator: username,
+        id,
+      },
+      date,
+      down: 0,
+      hasMoreComments: false,
+      id,
+      individual: 0,
+      meta: {
+        openReply: false,
+        update: false,
+      },
+      parentid,
+      postid,
+      rank: 0,
+      replies: 0,
+      up: 0,
+      votes: {
+        down: 0,
+        individual: 0,
+        up: 0,
+      },
     };
 
-    // update an existing comment
+    this.isLoading = false;
+    this.input = '';
+
+    // Update an existing comment.
+    // NB: The supplied "parentid" is actually the id of the comment to be edited.
     if (this.update) {
-      // NB: if we are editing the existing comment, the supplied "parentid" is
-      // actually the id of the comment to be edited
-      this.CommentService.update(comment.postid, comment.parentid, comment.text)
-        .then(() => this.$timeout(() => {
-          this.isLoading = false;
-          this.input = '';
-          this.onSubmit()(comment.id);
-        }))
-        .catch(() => {
-          this.AlertsService.push('error', 'Error editing comment.');
-          this.isLoading = false;
-        });
+      this.parentcomment.text = text;
+      this.parentcomment.data.text = text;
+
+      this.CommentService.update(postid, parentid, text)
+        .catch(() => this.AlertsService.push('error', 'Error editing comment.'));
+
+      this.onSubmit()(newComment, this.parentcomment);
     }
     else {
-      this.CommentService.create(comment)
-        .then(id => this.$timeout(() => {
-          this.isLoading = false;
-          this.input = '';
-          this.onSubmit()(id);
-        }))
+      this.CommentService.create({
+        parentid,
+        postid,
+        text,
+      })
+        .then(id => {
+          newComment.id = id;
+        })
         .catch(err => {
           if (err.status === 403) {
             this.AlertsService.push('error', 'Please log in or create an account to comment.');
@@ -69,9 +101,9 @@ class CommentInputBoxController extends Injectable {
           else {
             this.AlertsService.push('error', 'Error posting comment.');
           }
-
-          this.isLoading = false;
         });
+
+      this.onSubmit()(newComment, this.parentcomment);
     }
   }
 }
@@ -82,6 +114,7 @@ CommentInputBoxController.$inject = [
   '$timeout',
   'AlertsService',
   'CommentService',
+  'UserService',
 ];
 
 export default CommentInputBoxController;

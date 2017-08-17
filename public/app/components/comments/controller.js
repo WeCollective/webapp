@@ -19,6 +19,7 @@ class CommentsController extends Injectable {
     this.isLoading = false;
 
     this.reloadComments = this.reloadComments.bind(this);
+    this.onSubmitComment = this.onSubmitComment.bind(this);
 
     let listeners = [];
 
@@ -82,12 +83,12 @@ class CommentsController extends Injectable {
 
       comments = this.comments;
       comments = comments.concat(res.comments);
+      this.comments = comments;
 
       this.hasMoreComments = res.hasMoreComments;
 
       this.getAllCommentReplies(comments)
-        .then(() => this.$scope.$apply(() => {
-          this.comments = comments;
+        .then(() => this.$timeout(() => {
           this.isLoading = false;
         }));
     });
@@ -131,6 +132,10 @@ class CommentsController extends Injectable {
 
   isCommentPermalink() {
     return this.$state.current.name === 'weco.branch.post.comment';
+  }
+
+  onSubmitComment(comment, parent) {
+    this.comments.unshift(comment);
   }
 
   reloadComments() {
