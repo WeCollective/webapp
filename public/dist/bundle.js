@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66626,8 +66626,8 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
         selectedIndex: 0
       },
       sortBy: {
-        items: ['total points', '# of comments', 'date posted'],
-        selectedIndex: 2
+        items: ['date', 'against branch rules', 'against site rules', 'wrong post type', 'nsfw flags'],
+        selectedIndex: 0
       },
       statType: {
         items: ['global', 'local', 'branch'],
@@ -66763,18 +66763,26 @@ class BranchNucleusFlaggedPostsController extends __WEBPACK_IMPORTED_MODULE_0_ut
   }
 
   getSortBy() {
-    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
-      case 'total points':
-        return 'points';
+    const key = this.controls.sortBy.items[this.controls.sortBy.selectedIndex];
 
-      case 'date posted':
+    switch (key.toLowerCase()) {
+      case 'date':
         return 'date';
 
-      case '# of comments':
-        return 'comment_count';
+      case 'against branch rules':
+        return 'branch_rules';
+
+      case 'against site rules':
+        return 'site_rules';
+
+      case 'wrong post type':
+        return 'wrong_type';
+
+      case 'nsfw flags':
+        return 'nsfw';
 
       default:
-        return 'points';
+        return 'date';
     }
   }
 

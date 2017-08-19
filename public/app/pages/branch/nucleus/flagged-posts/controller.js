@@ -21,11 +21,13 @@ class BranchNucleusFlaggedPostsController extends Injectable {
       },
       sortBy: {
         items: [
-          'total points',
-          '# of comments',
-          'date posted',
+          'date',
+          'against branch rules',
+          'against site rules',
+          'wrong post type',
+          'nsfw flags',
         ],
-        selectedIndex: 2,
+        selectedIndex: 0,
       },
       statType: {
         items: [
@@ -84,7 +86,8 @@ class BranchNucleusFlaggedPostsController extends Injectable {
 
   cb(branchid) {
     return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes('weco.branch.nucleus') || Object.keys(this.BranchService.branch).length < 2) {
+      if (!this.$state.current.name.includes('weco.branch.nucleus') ||
+        Object.keys(this.BranchService.branch).length < 2) {
         return reject();
       }
 
@@ -174,18 +177,26 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getSortBy() {
-    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
-      case 'total points':
-        return 'points';
+    const key = this.controls.sortBy.items[this.controls.sortBy.selectedIndex];
 
-      case 'date posted':
+    switch(key.toLowerCase()) {
+      case 'date':
         return 'date';
 
-      case '# of comments':
-        return 'comment_count';
+      case 'against branch rules':
+        return 'branch_rules';
+
+      case 'against site rules':
+        return 'site_rules';
+
+      case 'wrong post type':
+        return 'wrong_type';
+
+      case 'nsfw flags':
+        return 'nsfw';
 
       default:
-        return 'points';
+        return 'date';
     }
   }
 
