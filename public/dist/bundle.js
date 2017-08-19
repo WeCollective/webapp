@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63524,14 +63524,15 @@ class CommentInputBoxController extends __WEBPACK_IMPORTED_MODULE_0_utils_inject
   constructor(...injections) {
     super(CommentInputBoxController.$inject, injections);
 
-    this.input = '';
+    this.input = this.value || '';
     this.isLoading = false;
 
-    let listeners = [];
+    const listeners = [];
 
+    // Set the input value to the current value on edit.
     listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        this.input = newValue ? this.originalCommentText() : '';
+      if (newValue === true) {
+        this.input = this.originalCommentText();
       }
     }));
 

@@ -4,14 +4,15 @@ class CommentInputBoxController extends Injectable {
   constructor(...injections) {
     super(CommentInputBoxController.$inject, injections);
 
-    this.input = '';
+    this.input = this.value || '';
     this.isLoading = false;
 
-    let listeners = [];
+    const listeners = [];
 
+    // Set the input value to the current value on edit.
     listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        this.input = newValue ? this.originalCommentText() : '';
+      if (newValue === true) {
+        this.input = this.originalCommentText();
       }
     }));
 
