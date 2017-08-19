@@ -34,6 +34,14 @@ div[loading] {
   animation: movie-loader-bar 1.4s linear infinite forwards;
 
   &--hidden { transform: scaleY(0); }
+
+  &--profile {
+    left: 0;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    z-index: 1;
+  }
 }
 
 // Special case for the notifications view.

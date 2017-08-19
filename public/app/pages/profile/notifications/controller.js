@@ -5,7 +5,7 @@ class ProfileNotificationsController extends Injectable {
   constructor(...injections) {
     super(ProfileNotificationsController.$inject, injections);
 
-    let cache = this.LocalStorageService.getObject('cache').notifications || {};
+    const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.isLoading = false;
     this.NotificationTypes = NotificationTypes;
@@ -15,12 +15,12 @@ class ProfileNotificationsController extends Injectable {
 
     this.init = this.init.bind(this);
 
-    let listeners = [];
+    const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('NotificationsScrollToBottom' !== name) return;
+      if ('ProfileContentBodyScrollToBottom' !== name) return;
         
       if (this.notifications.length) {
         this.getNotifications(this.notifications[this.notifications.length - 1].id);
@@ -55,22 +55,27 @@ class ProfileNotificationsController extends Injectable {
 
   getNotifications(lastNotificationId) {
     if (this.isLoading === true) return;
-
+    this.EventService.emit(this.EventService.events.LOADING_ACTIVE);
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId)
       .then(notifications => {
         this.$timeout(() => {
           this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
+          this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
           this.isLoading = false;
 
-          let cache = this.LocalStorageService.getObject('cache');
+          const cache = this.LocalStorageService.getObject('cache');
           cache.notifications = cache.notifications || {};
           cache.notifications.items = this.notifications;
           this.LocalStorageService.setObject('cache', cache);
         });
       })
-      .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+      .catch(() => {
+        this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
+        this.isLoading = false;
+        this.AlertsService.push('error', 'Unable to fetch notifications.');
+      });
   }
 
   init() {

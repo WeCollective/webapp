@@ -8,6 +8,7 @@ class ProfileController extends Injectable {
     this.profileUser = {};
     this.run = 0;
     this.showCover = true;
+    this.showLoader = false;
     this.state = this.getInitialState();
 
     this.renderTabs(true);
@@ -17,6 +18,14 @@ class ProfileController extends Injectable {
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
+
+    listeners.push(this.EventService.on(this.EventService.events.LOADING_ACTIVE, () => {
+      this.showLoader = true;
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.LOADING_INACTIVE, () => {
+      this.showLoader = false;
+    }));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }

@@ -2,8 +2,7 @@
   class="content__list content__list--no-padding"
   loading
   loading-when="!ProfileNotifications.notifications.length && ProfileNotifications.isLoading"
-  ng-if="ProfileNotifications.notifications.length > 0"
-  on-scroll-to-bottom="NotificationsScrollToBottom">
+  ng-if="ProfileNotifications.notifications.length > 0">
   <li
     class="notification style--padding"
     ng-class="{ 'style--highlighted': item.unread }"

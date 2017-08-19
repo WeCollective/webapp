@@ -901,6 +901,13 @@ div[loading] div.loading-container img {
 .loader__bar--hidden {
   transform: scaleY(0);
 }
+.loader__bar--profile {
+  left: 0;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  z-index: 1;
+}
 .notifications .loading-container {
   height: 100px !important;
 }
@@ -2962,6 +2969,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .content .content__body {
   flex: 1;
   overflow-y: scroll;
+  position: relative;
 }
 .content .content__list {
   overflow: hidden;

@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'https://wecoapi.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'production'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67927,6 +67927,7 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     this.profileUser = {};
     this.run = 0;
     this.showCover = true;
+    this.showLoader = false;
     this.state = this.getInitialState();
 
     this.renderTabs(true);
@@ -67936,6 +67937,14 @@ class ProfileController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
+
+    listeners.push(this.EventService.on(this.EventService.events.LOADING_ACTIVE, () => {
+      this.showLoader = true;
+    }));
+
+    listeners.push(this.EventService.on(this.EventService.events.LOADING_INACTIVE, () => {
+      this.showLoader = false;
+    }));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -68040,7 +68049,7 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
   constructor(...injections) {
     super(ProfileNotificationsController.$inject, injections);
 
-    let cache = this.LocalStorageService.getObject('cache').notifications || {};
+    const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.isLoading = false;
     this.NotificationTypes = __WEBPACK_IMPORTED_MODULE_1_components_notification_constants__["a" /* default */];
@@ -68050,12 +68059,12 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
 
     this.init = this.init.bind(this);
 
-    let listeners = [];
+    const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('NotificationsScrollToBottom' !== name) return;
+      if ('ProfileContentBodyScrollToBottom' !== name) return;
 
       if (this.notifications.length) {
         this.getNotifications(this.notifications[this.notifications.length - 1].id);
@@ -68090,20 +68099,25 @@ class ProfileNotificationsController extends __WEBPACK_IMPORTED_MODULE_0_utils_i
 
   getNotifications(lastNotificationId) {
     if (this.isLoading === true) return;
-
+    this.EventService.emit(this.EventService.events.LOADING_ACTIVE);
     this.isLoading = true;
 
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId).then(notifications => {
       this.$timeout(() => {
         this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
+        this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
         this.isLoading = false;
 
-        let cache = this.LocalStorageService.getObject('cache');
+        const cache = this.LocalStorageService.getObject('cache');
         cache.notifications = cache.notifications || {};
         cache.notifications.items = this.notifications;
         this.LocalStorageService.setObject('cache', cache);
       });
-    }).catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+    }).catch(() => {
+      this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
+      this.isLoading = false;
+      this.AlertsService.push('error', 'Unable to fetch notifications.');
+    });
   }
 
   init() {
@@ -68612,6 +68626,8 @@ class EventService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
       CHANGE_BRANCH_PREFETCH: 'CHANGE_BRANCH_PREFETCH',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
+      LOADING_ACTIVE: 'LOADING_ACTIVE',
+      LOADING_INACTIVE: 'LOADING_INACTIVE',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',
@@ -85993,4 +86009,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map

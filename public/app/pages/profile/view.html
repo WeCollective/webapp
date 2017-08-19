@@ -51,8 +51,13 @@
             <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
           </div>
         </div>
+
+        <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
         
-        <div class="content__body" ui-view></div>
+        <div
+          class="content__body"
+          on-scroll-to-bottom="ProfileContentBodyScrollToBottom"
+          ui-view></div>
       </div>
     </div>
   </div>
