@@ -2462,7 +2462,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: 70px;
+  min-height: 80px;
   padding: 8px 0;
   position: relative;
   width: 100%;
@@ -2512,7 +2512,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 70px;
+  line-height: 80px;
 }
 .branch__post span.list-item-index.style--colour-coded {
   color: #fff;
@@ -2559,9 +2559,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 70px;
+  height: 80px;
   margin: 0 10px 0 12px;
-  width: 70px;
+  width: 80px;
 }
 .branch__post .list-item-image img:hover,
 .branch__post .list-item-image div:hover {
@@ -2572,7 +2572,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 70px;
+  height: 80px;
   margin-right: 10px;
   padding: 2px;
 }
@@ -2651,7 +2651,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 70px;
+  height: 80px;
   margin-left: 6px;
 }
 .branch__post .list-item__votes .list-item__vote-icon {
@@ -2705,7 +2705,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: 90px;
+  min-height: 100px;
   padding: 8px 0;
   position: relative;
   width: 100%;
@@ -2755,7 +2755,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 90px;
+  line-height: 100px;
 }
 .branch__subbranch span.list-item-index.style--colour-coded {
   color: #fff;
@@ -2802,9 +2802,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 90px;
+  height: 100px;
   margin: 0 10px 0 12px;
-  width: 90px;
+  width: 100px;
 }
 .branch__subbranch .list-item-image img:hover,
 .branch__subbranch .list-item-image div:hover {
@@ -2815,7 +2815,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 90px;
+  height: 100px;
   margin-right: 10px;
   padding: 2px;
 }
@@ -2894,7 +2894,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 90px;
+  height: 100px;
   margin-left: 6px;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon {
@@ -3254,7 +3254,7 @@ div#notfound div h2 {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: 70px;
+  min-height: 80px;
   padding: 8px 0;
   position: relative;
   width: 100%;
@@ -3306,7 +3306,7 @@ div#notfound div h2 {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 70px;
+  line-height: 80px;
 }
 .post .list-item span.list-item-index.style--colour-coded {
   color: #fff;
@@ -3353,9 +3353,9 @@ div#notfound div h2 {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 70px;
+  height: 80px;
   margin: 0 10px 0 12px;
-  width: 70px;
+  width: 80px;
 }
 .post .list-item .list-item-image img:hover,
 .post .list-item .list-item-image div:hover {
@@ -3366,7 +3366,7 @@ div#notfound div h2 {
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 70px;
+  height: 80px;
   margin-right: 10px;
   padding: 2px;
 }
@@ -3445,7 +3445,7 @@ div#notfound div h2 {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 70px;
+  height: 80px;
   margin-left: 6px;
 }
 .post .list-item .list-item__votes .list-item__vote-icon {
