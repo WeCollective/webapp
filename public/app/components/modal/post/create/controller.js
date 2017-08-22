@@ -73,10 +73,16 @@ class CreatePostModalController extends Injectable {
   handleModalSubmit(name) {
     if (name !== 'CREATE_POST') return;
 
+    this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
+    if (this.newPost.type !== 'poll') {
+      this.newPost.locked = false;
+    }
+
     // If not all fields are filled, display error.
     if (!this.newPost || !this.newPost.title ||
-      (this.BranchService.branch.id !== 'root' && (!this.newPost.branchids || this.newPost.branchids.length === 0)) ||
-      !this.newPost.text || this.newPost.nsfw === undefined ||
+      (this.BranchService.branch.id !== 'root' && !this.newPost.branchids) ||
+      (this.newPost.type !== 'poll' && !this.newPost.text) ||
+      this.newPost.nsfw === undefined ||
       this.newPost.locked === undefined) {
       return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
     }
@@ -87,11 +93,6 @@ class CreatePostModalController extends Injectable {
 
     // Perform the update.
     this.isLoading = true;
-    this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
-
-    if (this.newPost.type !== 'poll') {
-      this.newPost.locked = false;
-    }
 
     // create copy of post to not interfere with binding of items on tag-editor
     const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
