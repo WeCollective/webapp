@@ -38,7 +38,7 @@
         class="branch__post list-item"
         index="$index"
         list-item
-        ng-repeat="post in BranchNucleusFlaggedPosts.posts"
+        ng-repeat="post in BranchNucleusFlaggedPosts.posts track by $index"
         post="post">
       </li>
     </ul>

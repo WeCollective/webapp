@@ -6,7 +6,7 @@ class ResolveFlagPostModalController extends Injectable {
 
     this.errorMessage = '';
     this.isLoading = false;
-    this.text = { reason: '' };
+    this.text = '';
     this.controls = {
       reason: {
         selectedIndex: 0,
@@ -71,14 +71,14 @@ class ResolveFlagPostModalController extends Injectable {
           return;
       }
 
-      if (action === 'remove' && (!this.text.reason || this.text.reason.length === 0)) {
+      if (action === 'remove' && !this.text) {
         return this.$timeout(() => {
           this.errorMessage = 'Please provide an explanatory message for the OP';
           this.isLoading = false;
         });
       }
 
-      this.BranchService.resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text.reason)
+      this.BranchService.resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text)
         .then(() => this.$timeout(() => {
           this.errorMessage = '';
           this.isLoading = false;
