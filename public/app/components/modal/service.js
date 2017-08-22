@@ -68,6 +68,12 @@ class ModalService extends Injectable {
 
   open(name, args, successMsg, errMsg) {
     return new Promise((resolve, reject) => {
+      args = args || {};
+      // By default, modal triggers state reload on successful completion.
+      if (args.forceUpdate === undefined) {
+        args.forceUpdate = true;
+      }
+
       this.name = name;
       // force change the template url so that controllers included on
       // the template are reloaded
@@ -82,12 +88,12 @@ class ModalService extends Injectable {
           this.resolve = resolve;
           this.reject = reject;
         })
-          // todo Investigate why is this timeout set to 1500ms.
+          // todo Investigate why this timeout is set to 1500ms.
           .then(data => this.$timeout(() => {
-            console.log('wow.');
-            // force reload if OK was pressed
             if (data.success) {
-              this.$state.go(this.$state.current, {}, { reload: true });
+              if (args.forceUpdate) {
+                this.$state.go(this.$state.current, {}, { reload: true });
+              }
               this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
               return resolve(this.outputArgs);
             }

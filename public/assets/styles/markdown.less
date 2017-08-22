@@ -1,4 +1,4 @@
-div[marked] {
+*[marked] {
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 300;
@@ -72,4 +72,7 @@ div[marked] {
   }
 
   ul { list-style-type: disc; }
+
+  > *:first-child { margin-top: 0; }
+  > *:last-child { margin-bottom: 0; }
 }

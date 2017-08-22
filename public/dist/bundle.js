@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -63694,10 +63694,17 @@ class CommentThreadController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectab
   }
 
   delete(comment) {
-    this.ModalService.open('DELETE_COMMENT', {
+    console.log(this.ModalService.open('DELETE_COMMENT', {
       commentid: comment.id,
+      forceUpdate: false,
       postid: comment.postid
-    }, 'Comment deleted.', 'Unable to delete comment.');
+    }, 'Comment deleted.', 'Unable to delete comment.').then(() => {
+      comment.data.creator = 'N/A';
+      comment.data.text = '[Comment removed by user]';
+      console.log(comment);
+    }).catch(() => {
+      console.log('fini error.');
+    }));
   }
 
   isOwnComment(comment) {
@@ -65514,6 +65521,12 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
 
   open(name, args, successMsg, errMsg) {
     return new Promise((resolve, reject) => {
+      args = args || {};
+      // By default, modal triggers state reload on successful completion.
+      if (args.forceUpdate === undefined) {
+        args.forceUpdate = true;
+      }
+
       this.name = name;
       // force change the template url so that controllers included on
       // the template are reloaded
@@ -65528,12 +65541,12 @@ class ModalService extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /*
           this.resolve = resolve;
           this.reject = reject;
         })
-        // todo Investigate why is this timeout set to 1500ms.
+        // todo Investigate why this timeout is set to 1500ms.
         .then(data => this.$timeout(() => {
-          console.log('wow.');
-          // force reload if OK was pressed
           if (data.success) {
-            this.$state.go(this.$state.current, {}, { reload: true });
+            if (args.forceUpdate) {
+              this.$state.go(this.$state.current, {}, { reload: true });
+            }
             this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
             return resolve(this.outputArgs);
           }

@@ -24,11 +24,20 @@ class CommentThreadController extends Injectable {
   }
 
   delete(comment) {
-    this.ModalService.open('DELETE_COMMENT', {
+    console.log(this.ModalService.open('DELETE_COMMENT', {
       commentid: comment.id,
+      forceUpdate: false,
       postid: comment.postid,
     },
-      'Comment deleted.', 'Unable to delete comment.' );
+      'Comment deleted.', 'Unable to delete comment.')
+      .then(() => {
+        comment.data.creator = 'N/A';
+        comment.data.text = '[Comment removed by user]';
+        console.log(comment);
+      })
+      .catch(() => {
+        console.log('fini error.');
+      }));
   }
 
   isOwnComment(comment) {
