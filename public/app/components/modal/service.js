@@ -58,6 +58,8 @@ class ModalService extends Injectable {
 
   handleControlButtonClick(isSubmit, args) {
     return new Promise((resolve, reject) => {
+      const emitEvent = this.EventService.events[isSubmit ? 'MODAL_OK' : 'MODAL_CANCEL'];
+      this.EventService.emit(emitEvent, this.name);
       return this.finished(args, isSubmit).then(args => resolve(args));
     });
   }

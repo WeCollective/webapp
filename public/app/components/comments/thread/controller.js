@@ -4,8 +4,6 @@ class CommentThreadController extends Injectable {
   constructor(...injections) {
     super(CommentThreadController.$inject, injections);
 
-    console.log(this.comments);
-
     this.parentComment = undefined; // the comment which is being replied to
   }
 
@@ -26,24 +24,25 @@ class CommentThreadController extends Injectable {
   }
 
   delete(comment, index) {
-    console.log(this.ModalService.open('DELETE_COMMENT', {
+    // Skip the trip to the server and simulate the positive response.
+    const deregister = this.EventService.on(this.EventService.events.MODAL_OK, () => {
+      deregister();
+
+      if (comment.replies === 0) {
+        this.comments.splice(index, 1);
+        return;
+      }
+
+      comment.data.creator = 'N/A';
+      comment.data.text = '[Comment removed by user]';
+    });
+
+    this.ModalService.open('DELETE_COMMENT', {
       commentid: comment.id,
       forceUpdate: false,
       postid: comment.postid,
     },
-      'Comment deleted.', 'Unable to delete comment.')
-      .then(() => {
-        if (comment.replies === 0) {
-          this.comments.splice(index, 1);
-          return;
-        }
-
-        comment.data.creator = 'N/A';
-        comment.data.text = '[Comment removed by user]';
-      })
-      .catch(() => {
-        console.log('fini error.');
-      }));
+      'Comment deleted.', 'Unable to delete comment.');
   }
 
   isOwnComment(comment) {
