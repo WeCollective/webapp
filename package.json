@@ -9,10 +9,11 @@
     "build:dev": "gulp build:dev",
     "build:production": "gulp build:production",
     "commit": "git add . && git commit -m \"Build commit\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
     "deploy:dev": "npm-run-all build:dev commit beanstalk:dev",
-    "deploy:production": "npm-run-all build:production commit beanstalk:production"
+    "deploy:production": "npm-run-all build:production commit beanstalk:production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "node server.js",
+    "start": "gulp --env local"
   },
   "repository": {
     "type": "git",

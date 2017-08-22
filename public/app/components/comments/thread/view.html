@@ -55,7 +55,7 @@
         <img
           alt="Delete comment"
           class="list-item__detail style--icon"
-          ng-click="Thread.delete(comment)"
+          ng-click="Thread.delete(comment, $index)"
           ng-if="Thread.isOwnComment(comment)"
           offset-y="20"
           src="/assets/images/icons/black/delete.png"
