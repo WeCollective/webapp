@@ -38,7 +38,7 @@
   <div
     class="content__body"
     loading
-    loading-when="!BranchSubbranches.branches.length && BranchSubbranches.isLoading"
+    loading-when="BranchSubbranches.isLoading"
     on-scroll-to-bottom="BranchSubbranchesScrollToBottom">
     <ul
       class="content__list"
@@ -48,7 +48,7 @@
         card-branch
         class="branch__subbranch"
         index="$index"
-        ng-repeat="subbranch in BranchSubbranches.branches">
+        ng-repeat="subbranch in BranchSubbranches.branches track by $index">
       </li>
     </ul>
 

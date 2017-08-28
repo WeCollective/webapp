@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'https://wecoapi.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'production'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -68365,7 +68365,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
 
     let fetchingBranch = false;
 
-    const updateBranch = () => this.$timeout(() => {
+    const updateBranch = () => {
       if (!this.$state.current.name.includes('weco.branch') || fetchingBranch && fetchingBranch === this.$state.params.branchid) {
         return;
       }
@@ -68419,7 +68419,7 @@ class BranchService extends __WEBPACK_IMPORTED_MODULE_1_utils_injectable__["a" /
           fetchingBranch = false;
         }
       });
-    });
+    };
 
     updateBranch();
 
@@ -86040,4 +86040,4 @@ module.exports = function(module) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map

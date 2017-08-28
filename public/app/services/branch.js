@@ -16,7 +16,7 @@ class BranchService extends Injectable {
 
     let fetchingBranch = false;
 
-    const updateBranch = () => this.$timeout(() => {
+    const updateBranch = () => {
       if (!this.$state.current.name.includes('weco.branch') ||
         (fetchingBranch && fetchingBranch === this.$state.params.branchid)) {
         return;
@@ -76,7 +76,7 @@ class BranchService extends Injectable {
             fetchingBranch = false;
           }
         });
-    });
+    };
 
     updateBranch();
 

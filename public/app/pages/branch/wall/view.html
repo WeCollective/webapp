@@ -51,7 +51,7 @@
   <div
     class="content__body"
     loading
-    loading-when="!BranchWall.posts.length && BranchWall.isLoading"
+    loading-when="BranchWall.isLoading"
     on-scroll-to-bottom="WallScrollToBottom">
     <ul
       class="content__list"
@@ -60,7 +60,7 @@
         class="branch__post"
         index="$index"
         list-item
-        ng-repeat="post in BranchWall.posts"
+        ng-repeat="post in BranchWall.posts track by $index"
         post="post"
         stat="BranchWall.getStatType()">
       </li>
