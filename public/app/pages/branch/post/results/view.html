@@ -19,7 +19,7 @@
       card-poll-answer
       class="style--result"
       index="$index"
-      ng-repeat="answer in BranchPostResults.answers"
+      ng-repeat="answer in BranchPostResults.answers track by $index"
       type="result">
     </li>
   </ul>

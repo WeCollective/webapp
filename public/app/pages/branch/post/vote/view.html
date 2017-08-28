@@ -35,7 +35,7 @@
       index="$index"
       ng-class="{ 'style--highlighted': $index === BranchPostVote.selectedAnswerIndex }"
       ng-click="BranchPostVote.selectAnswer($index)"
-      ng-repeat="answer in BranchPostVote.answers"
+      ng-repeat="answer in BranchPostVote.answers track by $index"
       selected="$index === BranchPostVote.selectedAnswerIndex">
     </li>
   </ul>
