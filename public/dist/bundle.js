@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -66459,11 +66459,21 @@ VerifyController.$inject = ['$interval', '$state', '$timeout', 'AlertsService', 
 class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a" /* default */] {
   constructor(...injections) {
     super(BranchController.$inject, injections);
-
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
-
-    // update the view when the branch changes
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.$timeout(() => this.isLoading = false));
+  }
+
+  getBreadcrumbsDynamicLink(level) {
+    const viewName = this.$state.current.name;
+    let view = '';
+
+    if (viewName.includes('.wall')) {
+      view = 'wall';
+    } else if (viewName.includes('.subbranches')) {
+      view = 'subbranches';
+    }
+
+    return `weco.branch.${view}`;
   }
 
   isControlSelected(control) {
@@ -66475,7 +66485,7 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
       return false;
     }
 
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
       if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
         return true;
       }
@@ -66485,9 +66495,9 @@ class BranchController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable__["a
   }
 
   openModal(modalType) {
-    const route = `branch/${this.BranchService.branch.id}/`,
-          messageType = 'profile-picture' === modalType ? 'profile' : 'cover',
-          type = 'profile-picture' === modalType ? 'picture' : 'cover';
+    const route = `branch/${this.BranchService.branch.id}/`;
+    const messageType = modalType === 'profile-picture' ? 'profile' : 'cover';
+    const type = modalType === 'profile-picture' ? 'picture' : 'cover';
 
     this.ModalService.open('UPLOAD_IMAGE', { route, type }, `Successfully updated ${messageType} picture.`, `Unable to update ${messageType} picture.`);
   }

@@ -24,13 +24,13 @@
             ng-show="Branch.BranchService.branch.parent.id && Branch.BranchService.branch.parent.id !== 'root'">
             ... /
           </span>
-          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.parent.id })">
+          <a ng-href="{{ Branch.$state.href(Branch.getBreadcrumbsDynamicLink('parent'), { branchid: Branch.BranchService.branch.parent.id }) }}">
             {{ Branch.BranchService.branch.parent.name || 'All' }}
           </a>
           <span>
             /
           </span>
-          <a ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
+          <a ng-href="{{ Branch.$state.href(Branch.getBreadcrumbsDynamicLink('current'), { branchid: Branch.BranchService.branch.id }) }}">
             {{ Branch.BranchService.branch.name }}
           </a>
         </h2>
