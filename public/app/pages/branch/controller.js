@@ -11,11 +11,12 @@ class BranchController extends Injectable {
     const viewName = this.$state.current.name;
     let view = '';
 
-    if (viewName.includes('.wall')) {
-      view = 'wall';
-    }
-    else if (viewName.includes('.subbranches')) {
+    if (viewName.includes('.subbranches')) {
       view = 'subbranches';
+    }
+    // if (viewName.includes('.wall')) {
+    else {
+      view = 'wall';
     }
 
     return `weco.branch.${view}`;
