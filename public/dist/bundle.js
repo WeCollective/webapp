@@ -4629,9 +4629,9 @@ const constants = {
 "use strict";
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ENV);
@@ -67599,31 +67599,36 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
       }
     };
     this.isLoading = false;
+    this.lastRequest = {
+      id: undefined,
+      lastId: undefined,
+      sortBy: undefined,
+      timeAfter: undefined
+    };
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
-    this.callbackLoad = this.callbackLoad.bind(this);
     this.callbackScroll = this.callbackScroll.bind(this);
+    this.getSubbranches = this.getSubbranches.bind(this);
+
+    // Do the initial load so the loader appears straight away.
+    this.getSubbranches();
 
     const listeners = [];
     listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
     listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.callbackLoad));
+    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.getSubbranches()));
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   callbackDropdown(newValue, oldValue) {
-    if (newValue !== oldValue) this.callbackLoad();
-  }
-
-  callbackLoad() {
-    if (!this.$state.current.name.includes('weco.branch.subbranches')) return;
-    this.getSubbranches();
+    if (newValue !== oldValue) this.getSubbranches();
   }
 
   callbackScroll(name) {
-    if (name === 'BranchSubbranchesScrollToBottom' && this.branches.length > 0) {
-      this.getSubbranches(this.branches[this.branches.length - 1].id);
+    const items = this.branches.length;
+    if (name === 'BranchSubbranchesScrollToBottom' && items > 0) {
+      this.getSubbranches(this.branches[items - 1].id);
     }
   }
 
@@ -67644,18 +67649,32 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     }
   }
 
-  getSubbranches(lastBranchId) {
-    if (this.isLoading === true) return;
+  getSubbranches(lastId) {
+    if (this.isLoading === true || !this.$state.current.name.includes('weco.branch.subbranches')) {
+      return;
+    }
+
+    const id = this.BranchService.branch.id;
+    const lr = this.lastRequest;
+    const sortBy = this.getSortBy();
+    const timeAfter = this.getTimeAfter();
+
+    // Don't send the request if nothing changed.
+    if (lr.id === id && lr.lastId === lastId && lr.sortBy === sortBy && lr.timeAfter === timeAfter) {
+      return;
+    }
+
+    // Update the last request values to compare with the next call.
+    this.lastRequest.id = id;
+    this.lastRequest.lastId = lastId;
+    this.lastRequest.sortBy = sortBy;
+    this.lastRequest.timeAfter = timeAfter;
 
     this.isLoading = true;
 
-    const sortBy = this.getSortBy();
-    const timeafter = this.getTimeafter();
-
-    // fetch the subbranches for this branch and timefilter
-    this.BranchService.getSubbranches(this.BranchService.branch.id, timeafter, sortBy, lastBranchId).then(branches => this.$timeout(() => {
-      // if lastBranchId was specified we are fetching _more_ branches, so append them
-      this.branches = lastBranchId ? this.branches.concat(branches) : branches;
+    this.BranchService.getSubbranches(id, timeAfter, sortBy, lastId).then(branches => this.$timeout(() => {
+      // if lastId was specified we are fetching _more_ branches, so append them
+      this.branches = lastId ? this.branches.concat(branches) : branches;
 
       this.isLoading = false;
 
@@ -67666,8 +67685,7 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
     }));
   }
 
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter() {
+  getTimeAfter() {
     switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
