@@ -53,7 +53,7 @@ function setInitialTask (env) {
 }
 
 const WEBPACK_CONFIG = {
-  entry: path.join(APP_DIR, 'app.js'),
+  entry: ['babel-polyfill', path.join(APP_DIR, 'app.js')],
   output: {
     filename: '',
     path: DEST_DIR
@@ -63,19 +63,17 @@ const WEBPACK_CONFIG = {
     extensions: ['.js'],
     modules: [
       path.resolve(APP_DIR),
-      path.resolve('./node_modules')
+      path.resolve('./node_modules'),
     ]
   },
   module : {
     loaders : [{
       test : /\.js$/,
       include : APP_DIR,
-      /*
       query: {
-        presets: ['es2015']
+        presets: ['es2015', 'stage-0'],
       },
-      */
-      loader : 'babel-loader'
+      loader : 'babel-loader',
     }]
   },
   plugins: environment === 'production' ? [
@@ -85,7 +83,7 @@ const WEBPACK_CONFIG = {
         warnings: false,
         drop_console: true,
       },
-    })
+    }),
   ] : [],
 };
 
@@ -157,7 +155,7 @@ gulp.task('lint', () => {
       // Allow fall-through in switch statements.
       '-W086': true,
       // This was throwing an error in the case of _ => 'hey from an arrow function'. :/
-      unused: false
+      unused: false,
     }))
     .pipe(jshint.reporter('default'));
 });
@@ -168,13 +166,13 @@ gulp.task('nodemon', () => {
     ignore: [
       'public/app/env.config.js',
       'public/dist/*',
-      'public/index.html'
+      'public/index.html',
     ],
     quiet: true,
     script: 'server.js',
     tasks: ['configEnvironment', 'build'],
     verbose: false,
-    watch: 'public'
+    watch: 'public',
   });
 });
 

@@ -1,17 +1,21 @@
 import angular from 'angular';
 
 class ComponentRegistrar {
-  constructor(appName) {
-    this.app = angular.module(appName);
+  constructor(app) {
+    this.app = app;
   }
 
   config(constructorFn) {
-    this.app.config(constructorFn);
+    constructorFn = this._normalizeConstructor(constructorFn);
+    const factoryArray = this._createFactoryArray(constructorFn);
+    this.app.config(factoryArray);
     return this;
   }
 
   controller(name, constructorFn) {
-    this.register(name, constructorFn, 'controller');
+    constructorFn = this._normalizeConstructor(constructorFn);
+    const factoryArray = this._createFactoryArray(constructorFn);
+    this.register(name, factoryArray, 'controller');
     return this;
   }
 
@@ -62,6 +66,12 @@ class ComponentRegistrar {
     else {
       console.warn(`Couldn't register ${type} ${name}: undefined constructor function.`);
     }
+  }
+
+  run(constructorFn) {
+    constructorFn = this._normalizeConstructor(constructorFn);
+    const factoryArray = this._createFactoryArray(constructorFn);
+    this.app.run(factoryArray);
   }
 
   service(name, constructorFn) {

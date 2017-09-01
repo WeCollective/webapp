@@ -35,7 +35,7 @@ const app = angular.module(appName, [
   UIRouter,
 ]);
 
-const registrar = new Registrar(appName);
+const registrar = new Registrar(app);
 
 // Constants.
 app.constant('ChartColours', constChartColours);
@@ -56,4 +56,4 @@ initDirectives(registrar);
 initServices(registrar);
 
 // Start the app.
-app.run(AppRun);
+registrar.run(AppRun);
