@@ -67654,7 +67654,7 @@ class BranchSubbranchesController extends __WEBPACK_IMPORTED_MODULE_0_utils_inje
       return;
     }
 
-    const id = this.BranchService.branch.id;
+    const id = this.$state.params.branchid;
     const lr = this.lastRequest;
     const sortBy = this.getSortBy();
     const timeAfter = this.getTimeAfter();
@@ -67725,8 +67725,6 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    const cache = this.LocalStorageService.getObject('cache').branchWallPosts || {};
-
     this.controls = {
       postType: {
         items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
@@ -67748,7 +67746,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.isLoading = false;
     // To stop sending requests once we hit the bottom of posts.
     this.lastFetchedPostId = false;
-    this.posts = cache[this.BranchService.branch.id] || [];
+    this.posts = [];
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.callbackLoad = this.callbackLoad.bind(this);
@@ -67757,7 +67755,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     this.getPostType = this.getPostType.bind(this);
     this.getSortBy = this.getSortBy.bind(this);
     this.getStatType = this.getStatType.bind(this);
-    this.getTimeafter = this.getTimeafter.bind(this);
+    this.getTimeAfter = this.getTimeAfter.bind(this);
 
     const listeners = [];
     listeners.push(this.$rootScope.$watch(() => this.controls.postType.selectedIndex, this.callbackDropdown));
@@ -67793,39 +67791,34 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     return post.text;
   }
 
-  getPosts(lastPostId) {
+  getPosts(lastId) {
     let posts = this.posts;
 
-    if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
+    if (this.isLoading === true || lastId === this.lastFetchedPostId) {
       return;
     }
 
     this.isLoading = true;
 
-    if (lastPostId) {
-      this.lastFetchedPostId = lastPostId;
+    if (lastId) {
+      this.lastFetchedPostId = lastId;
     }
 
+    const id = this.BranchService.branch.id;
     const postType = this.getPostType();
     const sortBy = this.getSortBy();
     const statType = this.getStatType();
-    const timeafter = this.getTimeafter();
+    const timeAfter = this.getTimeAfter();
 
-    // fetch the posts for this branch and timefilter
-    this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, false).then(newPosts => this.$timeout(() => {
-      // If lastPostId was specified, we are fetching more posts, so append them.
-      posts = lastPostId ? posts.concat(newPosts) : newPosts;
+    this.BranchService.getPosts(id, timeAfter, sortBy, statType, postType, lastId, false).then(newPosts => this.$timeout(() => {
+      // If lastId was specified, we are fetching more posts, so append them.
+      posts = lastId ? posts.concat(newPosts) : newPosts;
       this.posts = posts;
 
       // 30 is the length of the posts response sent back by server.
       if (newPosts.length > 0 && newPosts.length < 30) {
         this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
       }
-
-      let cache = this.LocalStorageService.getObject('cache');
-      cache.branchWallPosts = cache.branchWallPosts || {};
-      cache.branchWallPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
-      this.LocalStorageService.setObject('cache', cache);
 
       this.isLoading = false;
     })).catch(() => {
@@ -67889,8 +67882,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
     }
   }
 
-  // compute the appropriate timeafter for the selected time filter
-  getTimeafter() {
+  getTimeAfter() {
     switch (this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
@@ -67914,7 +67906,7 @@ class BranchWallController extends __WEBPACK_IMPORTED_MODULE_0_utils_injectable_
   }
 }
 
-BranchWallController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'LocalStorageService', 'WallService'];
+BranchWallController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'WallService'];
 
 /* harmony default export */ __webpack_exports__["a"] = (BranchWallController);
 

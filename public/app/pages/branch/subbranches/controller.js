@@ -83,7 +83,7 @@ class BranchSubbranchesController extends Injectable {
       return;
     }
 
-    const id = this.BranchService.branch.id;
+    const id = this.$state.params.branchid;
     const lr = this.lastRequest;
     const sortBy = this.getSortBy();
     const timeAfter = this.getTimeAfter();
