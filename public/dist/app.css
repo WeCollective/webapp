@@ -567,7 +567,6 @@ html[xmlns] .clearfix {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .comments .comment__content .list-item__title a {
   color: #3498db;
@@ -1315,7 +1314,6 @@ div[loading] div.loading-container img {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .notification .list-item__title a {
   color: #3498db;
@@ -2630,7 +2628,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .branch__post .list-item__title a {
   color: #3498db;
@@ -2873,7 +2870,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .branch__subbranch .list-item__title a {
   color: #3498db;
@@ -3424,7 +3420,6 @@ div#notfound div h2 {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .post .list-item .list-item__title a {
   color: #3498db;
@@ -3822,7 +3817,6 @@ div#notfound div h2 {
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
-  word-break: break-all;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__title a {
   color: #3498db;
