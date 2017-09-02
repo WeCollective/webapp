@@ -3108,6 +3108,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   padding-right: 15px;
   position: relative;
 }
+@media screen and (max-width: 992px) {
+  .header .header__title {
+    display: none;
+  }
+}
 div#home-content {
   left: 50%;
   margin-top: -60px;
