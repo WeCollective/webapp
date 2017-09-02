@@ -3050,7 +3050,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 16px 16px 0;
 }
 .header .header__button {
