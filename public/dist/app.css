@@ -3050,7 +3050,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
   display: flex;
-  flex-flow: row wrap;
+  overflow-x: scroll;
   padding: 16px 16px 0;
 }
 .header .header__button {
@@ -3061,6 +3061,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   height: 26px;
   margin-right: 15px;
   margin-top: 4px;
+  min-width: 26px;
   width: 26px;
   transition: transform .2s;
 }
