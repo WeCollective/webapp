@@ -411,6 +411,10 @@ html[xmlns] .clearfix {
   width: 100%;
   transition: background-color 0.3s;
 }
+.comments .comment__content .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
+}
 .comments .comment__content .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
@@ -1157,6 +1161,10 @@ div[loading] div.loading-container img {
   position: relative;
   width: 100%;
   transition: background-color 0.3s;
+}
+.notification .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
 }
 .notification .list-item__detail {
   color: #b3b3b3;
@@ -2472,6 +2480,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   width: 100%;
   transition: background-color 0.3s;
 }
+.branch__post .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
+}
 .branch__post .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
@@ -2713,6 +2725,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   position: relative;
   width: 100%;
   transition: background-color 0.3s;
+}
+.branch__subbranch .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
 }
 .branch__subbranch .list-item__detail {
   color: #b3b3b3;
@@ -3264,6 +3280,10 @@ div#notfound div h2 {
   border-bottom: none;
   padding: 0;
 }
+.post .list-item .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
+}
 .post .list-item .list-item__detail {
   color: #b3b3b3;
   font-size: 13px;
@@ -3660,6 +3680,10 @@ div#notfound div h2 {
   position: relative;
   width: 100%;
   transition: background-color 0.3s;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__comment {
+  display: block;
+  margin-bottom: 4px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__detail {
   color: #b3b3b3;
