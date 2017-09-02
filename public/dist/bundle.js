@@ -67070,8 +67070,10 @@ var CommentInputBoxController = function (_Injectable) {
     _this.input = _this.value || '';
     _this.isLoading = false;
 
-    var listeners = [];
+    // Auto-expand the textarea on load.
+    _this.autoGrow(_this.$element[0].children[0]);
 
+    var listeners = [];
     // Set the input value to the current value on edit.
     listeners.push(_this.$rootScope.$watch(function () {
       return _this.update;
@@ -67080,7 +67082,6 @@ var CommentInputBoxController = function (_Injectable) {
         _this.input = _this.originalCommentText();
       }
     }));
-
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -67089,18 +67090,31 @@ var CommentInputBoxController = function (_Injectable) {
     return _this;
   }
 
-  /*
-  // method inaccessible at the moment
-  cancelComment() {
-    this.$timeout(() => {
-      this.isLoading = false;
-      this.inout = '';
-      this.onCancel()();
-    });
-  }
-  */
+  // Use timeout to wait for the content to be loaded if we are
+  // calculating height for the comment box.
+
 
   _createClass(CommentInputBoxController, [{
+    key: 'autoGrow',
+    value: function autoGrow(element) {
+      this.$timeout(function () {
+        element.style.height = '5px';
+        element.style.height = element.scrollHeight + 'px';
+      });
+    }
+
+    /*
+    // method inaccessible at the moment
+    cancelComment() {
+      this.$timeout(() => {
+        this.isLoading = false;
+        this.inout = '';
+        this.onCancel()();
+      });
+    }
+    */
+
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit() {
       var _this2 = this;
@@ -67183,7 +67197,7 @@ var CommentInputBoxController = function (_Injectable) {
   return CommentInputBoxController;
 }(_injectable2.default);
 
-CommentInputBoxController.$inject = ['$scope', '$rootScope', '$timeout', 'AlertsService', 'CommentService', 'UserService'];
+CommentInputBoxController.$inject = ['$element', '$scope', '$rootScope', '$timeout', 'AlertsService', 'CommentService', 'UserService'];
 
 exports.default = CommentInputBoxController;
 

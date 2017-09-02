@@ -7,16 +7,26 @@ class CommentInputBoxController extends Injectable {
     this.input = this.value || '';
     this.isLoading = false;
 
-    const listeners = [];
+    // Auto-expand the textarea on load.
+    this.autoGrow(this.$element[0].children[0]);
 
+    const listeners = [];
     // Set the input value to the current value on edit.
     listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
       if (newValue === true) {
         this.input = this.originalCommentText();
       }
     }));
-
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  // Use timeout to wait for the content to be loaded if we are
+  // calculating height for the comment box.
+  autoGrow(element) {
+    this.$timeout(() => {
+      element.style.height = '5px';
+      element.style.height = `${element.scrollHeight}px`;
+    });
   }
 
   /*
@@ -110,6 +120,7 @@ class CommentInputBoxController extends Injectable {
 }
 
 CommentInputBoxController.$inject = [
+  '$element',
   '$scope',
   '$rootScope',
   '$timeout',
