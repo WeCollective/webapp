@@ -81,6 +81,11 @@ class API extends Injectable {
           'Content-Type': 'application/json',
         };
       }
+
+      const jwt = this.Auth.get();
+      if (jwt) {
+        req.headers.Authorization = `Bearer ${jwt}`;
+      }
       
       if (method === 'PUT' || method === 'POST') {
         req.data = data;
@@ -107,6 +112,7 @@ class API extends Injectable {
 
 API.$inject = [
   '$http',
+  'Auth',
   'ENV',
 ];
 

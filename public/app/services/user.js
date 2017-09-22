@@ -36,6 +36,10 @@ class UserService extends Injectable {
     });
   }
 
+  get(prop) {
+    return this.user[prop];
+  }
+
   getNotifications(username, unreadCount, lastNotificationId) {
     return new Promise((resolve, reject) => {
       this.API.get('/user/:username/notifications', { username }, { unreadCount, lastNotificationId })
@@ -52,9 +56,14 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
-          yield this.API.request('POST', '/user/login', {}, credentials, true);
-          const user = yield this.fetch('me');
+          const login = yield this.API.request('POST', '/user/login', {}, credentials, true);
 
+          if (login.data) {
+            const jwt = login.data;
+            this.Auth.set(jwt);
+          }
+
+          const user = yield this.fetch('me');
           this.set(user);
 
           return resolve();
@@ -71,7 +80,7 @@ class UserService extends Injectable {
       this.API.request('GET', '/user/logout', {})
         .then(() => {
           this.LocalStorageService.setObject('cache', {});
-
+          this.Auth.set();
           this.set({});
 
           return resolve();
@@ -209,6 +218,7 @@ class UserService extends Injectable {
 UserService.$inject = [
   '$timeout',
   'API',
+  'Auth',
   'ENV',
   'EventService',
   'LocalStorageService',

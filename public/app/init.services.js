@@ -1,6 +1,7 @@
 import Alerts from './components/alerts/service';
 import API from './services/api';
 import App from './app.service';
+import Auth from './services/auth';
 import Branch from './services/branch';
 import Comment from './services/comment';
 import Event from './services/event';
@@ -17,6 +18,7 @@ const refs = [
   { name: 'AlertsService', module: Alerts },
   { name: 'API', module: API },
   { name: 'AppService', module: App },
+  { name: 'Auth', module: Auth },
   { name: 'BranchService', module: Branch },
   { name: 'CommentService', module: Comment },
   { name: 'EventService', module: Event },
