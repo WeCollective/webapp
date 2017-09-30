@@ -22,8 +22,21 @@ class BranchController extends Injectable {
     return `weco.branch.${view}`;
   }
 
+  getLabelFollowButton() {
+    if (this.isFollowingBranch()) {
+      return 'Unfollow branch';
+    }
+
+    return 'Follow branch';
+  }
+
   isControlSelected(control) {
     return this.$state.current.name.includes(control);
+  }
+
+  isFollowingBranch() {
+    return this.UserService.isAuthenticated() &&
+      this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
   }
 
   isModerator() {
@@ -48,11 +61,33 @@ class BranchController extends Injectable {
     this.ModalService.open('UPLOAD_IMAGE', { route, type },
       `Successfully updated ${messageType} picture.`, `Unable to update ${messageType} picture.` );
   }
+
+  toggleFollowBranch() {
+    let errMsg,
+      promise,
+      successMsg;
+     
+    if (this.isFollowingBranch()) {
+      errMsg = 'Error unfollowing branch.';
+      successMsg = `You're no longer following b/${this.BranchService.branch.id}!`;
+      promise = this.UserService.unfollowBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    }
+    else {
+      errMsg = 'Error following branch.';
+      successMsg = `You're now following b/${this.BranchService.branch.id}!`;
+      promise = this.UserService.followBranch(this.UserService.user.username || 'me', this.BranchService.branch.id);
+    }
+
+    promise
+      .then(() => this.AlertsService.push('success', successMsg))
+      .catch(() => this.AlertsService.push('error', errMsg));
+  }
 }
 
 BranchController.$inject = [
   '$state',
   '$timeout',
+  'AlertsService',
   'AppService',
   'BranchService',
   'EventService',

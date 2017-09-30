@@ -1526,6 +1526,33 @@ div.poll-answer-editor input {
 .sidebar .sidebar-controls > li > a.selected > img {
   opacity: .7;
 }
+.sidebar .sidebar-controls > li > button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  width: 100%;
+}
+.sidebar .sidebar-controls > li > button.style--inactive > img {
+  opacity: .2;
+}
+.sidebar .sidebar-controls > li > button.style--inactive:hover > img {
+  opacity: .7;
+}
+.sidebar .sidebar-controls > li > button > img {
+  height: 24px;
+  padding-top: 2px;
+  width: auto;
+}
+@media only screen and (min-width: 768px) {
+  .sidebar .sidebar-controls > li > button > img {
+    height: 30px;
+  }
+}
 .sidebar .sidebar-controls > li#add-content:hover {
   cursor: pointer;
 }

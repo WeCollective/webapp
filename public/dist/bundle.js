@@ -7181,9 +7181,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 exports.default = ENV;
@@ -72352,9 +72352,23 @@ var BranchController = function (_Injectable) {
       return 'weco.branch.' + view;
     }
   }, {
+    key: 'getLabelFollowButton',
+    value: function getLabelFollowButton() {
+      if (this.isFollowingBranch()) {
+        return 'Unfollow branch';
+      }
+
+      return 'Follow branch';
+    }
+  }, {
     key: 'isControlSelected',
     value: function isControlSelected(control) {
       return this.$state.current.name.includes(control);
+    }
+  }, {
+    key: 'isFollowingBranch',
+    value: function isFollowingBranch() {
+      return this.UserService.isAuthenticated() && this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
     }
   }, {
     key: 'isModerator',
@@ -72379,58 +72393,6 @@ var BranchController = function (_Injectable) {
       var type = modalType === 'profile-picture' ? 'picture' : 'cover';
 
       this.ModalService.open('UPLOAD_IMAGE', { route: route, type: type }, 'Successfully updated ' + messageType + ' picture.', 'Unable to update ' + messageType + ' picture.');
-    }
-  }]);
-
-  return BranchController;
-}(_injectable2.default);
-
-BranchController.$inject = ['$state', '$timeout', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
-
-exports.default = BranchController;
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _injectable = __webpack_require__(2);
-
-var _injectable2 = _interopRequireDefault(_injectable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BranchNucleusAboutController = function (_Injectable) {
-  _inherits(BranchNucleusAboutController, _Injectable);
-
-  function BranchNucleusAboutController() {
-    _classCallCheck(this, BranchNucleusAboutController);
-
-    for (var _len = arguments.length, injections = Array(_len), _key = 0; _key < _len; _key++) {
-      injections[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(this, (BranchNucleusAboutController.__proto__ || Object.getPrototypeOf(BranchNucleusAboutController)).call(this, BranchNucleusAboutController.$inject, injections));
-  }
-
-  _createClass(BranchNucleusAboutController, [{
-    key: 'isFollowingBranch',
-    value: function isFollowingBranch() {
-      return this.UserService.isAuthenticated() && this.UserService.user.followed_branches.includes(this.BranchService.branch.id);
     }
   }, {
     key: 'toggleFollowBranch',
@@ -72459,10 +72421,53 @@ var BranchNucleusAboutController = function (_Injectable) {
     }
   }]);
 
+  return BranchController;
+}(_injectable2.default);
+
+BranchController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+
+exports.default = BranchController;
+
+/***/ }),
+/* 318 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _injectable = __webpack_require__(2);
+
+var _injectable2 = _interopRequireDefault(_injectable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BranchNucleusAboutController = function (_Injectable) {
+  _inherits(BranchNucleusAboutController, _Injectable);
+
+  function BranchNucleusAboutController() {
+    _classCallCheck(this, BranchNucleusAboutController);
+
+    for (var _len = arguments.length, injections = Array(_len), _key = 0; _key < _len; _key++) {
+      injections[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(this, (BranchNucleusAboutController.__proto__ || Object.getPrototypeOf(BranchNucleusAboutController)).call(this, BranchNucleusAboutController.$inject, injections));
+  }
+
   return BranchNucleusAboutController;
 }(_injectable2.default);
 
-BranchNucleusAboutController.$inject = ['AlertsService', 'BranchService', 'UserService'];
+BranchNucleusAboutController.$inject = [];
 
 exports.default = BranchNucleusAboutController;
 

@@ -64,6 +64,38 @@
         }
       }
 
+      > button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: block;
+        height: 100%;
+        margin: 0;
+        outline: none;
+        padding: 0;
+        width: 100%;
+
+        &.style--inactive {
+          > img { opacity: .2; }
+
+          &:hover {
+            > img { opacity: .7; }
+          }
+        }
+
+        > img {
+          @icon-size: 24px;
+          height: @icon-size;
+          padding-top: 2px;
+          width: auto;
+          
+          .mediaQuery(@screen-md, {
+            @icon-size: 30px;
+            height: @icon-size;
+          });
+        }
+      }
+
       // &:last-child { border-right-color: transparent; }
 
       // todo What does this do?

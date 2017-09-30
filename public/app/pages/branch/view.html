@@ -80,30 +80,18 @@
           </a>
         </li>
 
-        <!--
-        <li>
-          <a
-            ng-class="{ 'selected' : Branch.isControlSelected('wall') }"
+        <li ng-show="Branch.UserService.isAuthenticated()">
+          <button
+            ng-class="{ 'style--inactive': !Branch.isFollowingBranch() }" 
+            ng-click="Branch.toggleFollowBranch()"
             offset-y="60"
-            text="'Wall'"
-            tooltip
-            ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-            <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
-          </a>
+            text="Branch.getLabelFollowButton()"
+            tooltip>
+            <img
+              alt="Toggle branch follow status button"
+              ng-src="/assets/images/icons/button-eye-{{ Branch.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
+          </button>
         </li>
-        -->
-
-        <!--
-          <div
-            class="btn btn--block btn--large"
-            ng-class="{ 'btn--primary': !BranchNucleusAbout.isFollowingBranch(), 'btn--secondary': BranchNucleusAbout.isFollowingBranch() }"
-            ng-click="BranchNucleusAbout.toggleFollowBranch()"
-            ng-show="BranchNucleusAbout.UserService.isAuthenticated()">
-            <span class="btn__label text--uppercase">
-              {{ BranchNucleusAbout.isFollowingBranch() ? 'un' : '' }}follow branch
-            </span>
-          </div>
-          -->
       </ul>
     </div>
     
