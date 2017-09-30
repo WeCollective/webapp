@@ -661,7 +661,7 @@ html[xmlns] .clearfix {
   font-family: inherit;
   font-size: 12px;
   hyphens: auto;
-  max-height: 150px;
+  max-height: 300px;
   min-height: 32px;
   padding: 5px 10px;
   resize: vertical;
