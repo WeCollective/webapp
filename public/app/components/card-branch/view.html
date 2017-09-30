@@ -27,5 +27,19 @@
 
       <span class="list-item__detail">{{ CardBranch.branch.date | date:'dd-MMMM-yyyy' }}</span>
     </span>
+
+    <br />
+
+    <div class="list-item__detail">
+      POINTS: {{ CardBranch.branch.post_points }}
+    </div>
+
+    <div class="list-item__detail">
+      POSTS: {{ CardBranch.branch.post_count }}
+    </div>
+
+    <div class="list-item__detail">
+      COMMENTS: {{ CardBranch.branch.post_comments }}
+    </div>
   </div>
 </li>
