@@ -58,13 +58,3 @@
     </div>
   </li>
 </ul>
-
-<div
-  class="btn btn--block btn--large"
-  ng-class="{ 'btn--primary': !BranchNucleusAbout.isFollowingBranch(), 'btn--secondary': BranchNucleusAbout.isFollowingBranch() }"
-  ng-click="BranchNucleusAbout.toggleFollowBranch()"
-  ng-show="BranchNucleusAbout.UserService.isAuthenticated()">
-  <span class="btn__label text--uppercase">
-    {{ BranchNucleusAbout.isFollowingBranch() ? 'un' : '' }}follow branch
-  </span>
-</div>

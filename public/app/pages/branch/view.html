@@ -79,6 +79,31 @@
             <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
           </a>
         </li>
+
+        <!--
+        <li>
+          <a
+            ng-class="{ 'selected' : Branch.isControlSelected('wall') }"
+            offset-y="60"
+            text="'Wall'"
+            tooltip
+            ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
+            <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
+          </a>
+        </li>
+        -->
+
+        <!--
+          <div
+            class="btn btn--block btn--large"
+            ng-class="{ 'btn--primary': !BranchNucleusAbout.isFollowingBranch(), 'btn--secondary': BranchNucleusAbout.isFollowingBranch() }"
+            ng-click="BranchNucleusAbout.toggleFollowBranch()"
+            ng-show="BranchNucleusAbout.UserService.isAuthenticated()">
+            <span class="btn__label text--uppercase">
+              {{ BranchNucleusAbout.isFollowingBranch() ? 'un' : '' }}follow branch
+            </span>
+          </div>
+          -->
       </ul>
     </div>
     
