@@ -15,10 +15,10 @@ class UpdateHomepageStatsModalController extends Injectable {
     const init = () => {
       Generator.run(function* () {
         try {
-          let response = yield this.API.fetch('/constant/donation_total', {});
+          let response = yield this.API.get('/constant/donation_total', {});
           this.stats.donation_total = response.data.data;
 
-          response = yield this.API.fetch('/constant/raised_total', {});
+          response = yield this.API.get('/constant/raised_total', {});
           this.stats.raised_total = response.data.data;
         }
         catch (err) {
@@ -47,11 +47,11 @@ class UpdateHomepageStatsModalController extends Injectable {
       // update stats
       Generator.run(function* () {
         try {
-          yield this.API.update('/constant/donation_total', {}, {
+          yield this.API.put('/constant/donation_total', {}, {
             data: Number(this.stats.donation_total),
           });
 
-          yield this.API.update('/constant/raised_total', {}, {
+          yield this.API.put('/constant/raised_total', {}, {
             data: Number(this.stats.raised_total),
           });
 

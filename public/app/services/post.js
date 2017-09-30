@@ -17,7 +17,7 @@ class PostService extends Injectable {
 
   create(data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post', {}, data)
+      this.API.post('/post', {}, data)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -25,7 +25,7 @@ class PostService extends Injectable {
 
   createPollAnswer(postid, data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/poll/:postid/answer', { postid }, data)
+      this.API.post('/poll/:postid/answer', { postid }, data)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
@@ -41,7 +41,7 @@ class PostService extends Injectable {
 
   fetch(postid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/post/:postid', { postid }, {})
+      this.API.get('/post/:postid', { postid }, {})
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -49,19 +49,19 @@ class PostService extends Injectable {
 
   flag(postid, branchid, flag_type) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/flag', { postid }, { branchid, flag_type })
+      this.API.post('/post/:postid/flag', { postid }, { branchid, flag_type })
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
   }
 
   getPictureUrl(postid, thumbnail) {
-    return this.API.fetch(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
+    return this.API.get(`/post/:postid/picture${thumbnail ? '-thumb' : ''}`, { postid }, {});
   }
 
   getPollAnswers(postid, sortBy, lastAnswerId) {
     return new Promise( (resolve, reject) => {
-      this.API.fetch('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
+      this.API.get('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -107,7 +107,7 @@ class PostService extends Injectable {
 
   votePollAnswer(postid, answerid) {
     return new Promise( (resolve, reject) => {
-      this.API.update('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
+      this.API.put('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

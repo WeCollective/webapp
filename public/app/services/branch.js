@@ -117,7 +117,7 @@ class BranchService extends Injectable {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
-          let res = yield this.API.fetch('/branch/:branchid', { branchid });
+          let res = yield this.API.get('/branch/:branchid', { branchid });
           let branch = res.data;
 
           //console.log(branch);
@@ -129,7 +129,7 @@ class BranchService extends Injectable {
             };
           }
           else {
-            res = yield this.API.fetch('/branch/:branchid', { branchid: branch.parentid });
+            res = yield this.API.get('/branch/:branchid', { branchid: branch.parentid });
             //console.log(res.data);
             branch.parent = res.data;
           }
@@ -148,7 +148,7 @@ class BranchService extends Injectable {
 
   getModLog(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/modlog', { branchid })
+      this.API.get('/branch/:branchid/modlog', { branchid })
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -168,7 +168,7 @@ class BranchService extends Injectable {
         params.lastPostId = lastPostId;
       }
 
-      this.API.fetch('/branch/:branchid/posts', { branchid }, params)
+      this.API.get('/branch/:branchid/posts', { branchid }, params)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -185,7 +185,7 @@ class BranchService extends Injectable {
         params.lastBranchId = lastBranchId;
       }
 
-      this.API.fetch('/branch/:branchid/subbranches', { branchid }, params)
+      this.API.get('/branch/:branchid/subbranches', { branchid }, params)
         .then(res => resolve(res.data), true)
         .catch(err => reject(err.data || err));
     });
@@ -193,7 +193,7 @@ class BranchService extends Injectable {
 
   getSubbranchRequests(branchid) {
     return new Promise((resolve, reject) => {
-      this.API.fetch('/branch/:branchid/requests/subbranches', { branchid })
+      this.API.get('/branch/:branchid/requests/subbranches', { branchid })
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
@@ -232,7 +232,7 @@ class BranchService extends Injectable {
 
   update(branchid, data) {
     return new Promise((resolve, reject) => {
-      this.API.update('/branch/:branchid', { branchid }, data, true)
+      this.API.put('/branch/:branchid', { branchid }, data, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

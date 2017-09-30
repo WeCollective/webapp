@@ -7,7 +7,7 @@ class CommentService extends Injectable {
 
   create(data) {
     return new Promise((resolve, reject) => {
-      this.API.save('/post/:postid/comments', { postid: data.postid }, data)
+      this.API.post('/post/:postid/comments', { postid: data.postid }, data)
       .then(res => resolve(res.data))
       .catch(err => reject(err.data || err));
     });
@@ -55,7 +55,7 @@ class CommentService extends Injectable {
 
   update(postid, commentid, text) {
     return new Promise((resolve, reject) => {
-      this.API.update('/post/:postid/comments/:commentid', { commentid, postid }, { text }, true)
+      this.API.put('/post/:postid/comments/:commentid', { commentid, postid }, { text }, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

@@ -9,10 +9,6 @@ class API extends Injectable {
     return this.request('DELETE', url, params, data, urlFormEncode);
   }
 
-  fetch(url, params, data, urlFormEncode) {
-    return this.get(url, params, data, urlFormEncode);
-  }
-
   get(url, params, data, urlFormEncode) {
     return this.request('GET', url, params, data, urlFormEncode);
   }
@@ -43,10 +39,6 @@ class API extends Injectable {
 
   put(url, params, data, urlFormEncode) {
     return this.request('PUT', url, params, data, urlFormEncode);
-  }
-
-  remove(url, params, data, urlFormEncode) {
-    return this.delete(url, params, data, urlFormEncode);
   }
 
   request(method, url, params, data, urlFormEncode) {
@@ -99,14 +91,6 @@ class API extends Injectable {
         .then(res => resolve(res.data || res))
         .catch(err => reject(err.data || err));
     });
-  }
-
-  save(url, params, data, urlFormEncode) {
-    return this.post(url, params, data, urlFormEncode);
-  }
-
-  update(url, params, data, urlFormEncode) {
-    return this.put(url, params, data, urlFormEncode);
   }
 }
 

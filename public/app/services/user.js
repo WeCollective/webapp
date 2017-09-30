@@ -91,7 +91,7 @@ class UserService extends Injectable {
 
   markNotification(username, notificationid, unread) {
     return new Promise((resolve, reject) => {
-      this.API.update('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true)
+      this.API.put('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
@@ -191,7 +191,7 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       Generator.run(function* () {
         try {
-          yield this.API.update('/user/me', {}, data, true);
+          yield this.API.put('/user/me', {}, data, true);
 
           const user = yield this.fetch('me');
           this.set(user);

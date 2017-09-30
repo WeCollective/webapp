@@ -12,7 +12,7 @@ class HomeController extends Injectable {
     };
 
     for (let stat of Object.keys(this.stats)) {
-      this.API.fetch('/constant/:stat', { stat })
+      this.API.get('/constant/:stat', { stat })
         .then(res => {
           this.stats[stat] = res.data.data;
 
