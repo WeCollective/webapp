@@ -19,6 +19,9 @@ class ProfileNotificationsController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
 
+    listeners.push(this.EventService.on(this.EventService.events.MARK_ALL_NOTIFICATIONS_READ,
+      () => this.markAllNotificationsRead()));
+
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
       if ('ProfileContentBodyScrollToBottom' !== name) return;
         
@@ -84,6 +87,12 @@ class ProfileNotificationsController extends Injectable {
     if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
       this.$timeout(() => this.getNotifications());
     }
+  }
+
+  markAllNotificationsRead() {
+    this.notifications.forEach(notification => {
+      notification.unread = false;
+    });
   }
 
   toggleUnreadState(notification) {

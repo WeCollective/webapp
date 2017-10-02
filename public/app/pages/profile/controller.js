@@ -63,6 +63,12 @@ class ProfileController extends Injectable {
       .then(this.$timeout);
   }
 
+  markAllNotificationsAsSeen() {
+    this.UserService.markAllNotifications(this.UserService.user.username)
+      .then(() => this.EventService.emit('MARK_ALL_NOTIFICATIONS_READ'))
+      .catch(() => this.AlertsService.push('error', 'Unable to mark all notifications as read.'));
+  }
+
   openCoverPictureModal() {
     this.ModalService.open('UPLOAD_IMAGE', {
         route: 'user/me/',

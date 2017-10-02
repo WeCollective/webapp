@@ -49,6 +49,18 @@
           
           <div class="header__controls">
             <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
+
+            <button
+              class="header__read-all"
+              ng-click="Profile.markAllNotificationsAsSeen()"
+              offset-x="-150"
+              offset-y="30"
+              text="'Mark all notifications as seen'"
+              tooltip >
+              <img
+                alt="Mark all notifications as read icon"
+                src="/assets/images/icons/tick--circle.png" />
+            </button>
           </div>
         </div>
 

@@ -3078,7 +3078,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border-bottom: solid 1px #e7e7e7;
   display: flex;
   overflow-x: auto;
-  padding: 16px 16px 0;
+  padding: 16px 8px 0 16px;
 }
 .header .header__button {
   background-image: url('/assets/images/icons/black/add.jpg');
@@ -3108,12 +3108,15 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   background-image: url('/assets/images/icons/black/add--hover.jpg');
 }
 .header .header__controls {
+  align-items: baseline;
   display: flex;
   flex-direction: row;
   height: 100%;
+  justify-content: space-between;
   margin-top: 4px;
   overflow-x: auto;
   overflow-y: hidden;
+  width: 100%;
 }
 .header .header__controls.style--has-dropdown {
   margin-left: -15px;
@@ -3124,6 +3127,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-size: 14px;
   font-style: italic;
   font-weight: 400;
+}
+.header .header__read-all {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 18px;
+  outline: none;
+  padding: 0;
+}
+.header .header__read-all > img {
+  display: block;
+  height: 100%;
+  width: auto;
 }
 .header .header__subtitle {
   font-size: 18px;

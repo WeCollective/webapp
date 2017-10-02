@@ -18,7 +18,15 @@ class NavbarController extends Injectable {
     const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications));
     listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
+    listeners.push(this.EventService.on(this.EventService.events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  cacheNotifications() {
+    const cache = this.LocalStorageService.getObject('cache');
+    cache.notifications = cache.notifications || {};
+    cache.notifications.count = this.notificationCount;
+    this.LocalStorageService.setObject('cache', cache);
   }
 
   getNotifications() {
@@ -71,12 +79,13 @@ class NavbarController extends Injectable {
   }
 
   updateCount(delta) {
-    this.notificationCount += delta;
-
-    let cache = this.LocalStorageService.getObject('cache');
-    cache.notifications = cache.notifications || {};
-    cache.notifications.count = this.notificationCount;
-    this.LocalStorageService.setObject('cache', cache);
+    if (delta === undefined) {
+      this.notificationCount = 0;
+    }
+    else {
+      this.notificationCount += delta;
+    }
+    this.cacheNotifications();
   }
 }
 

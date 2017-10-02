@@ -89,6 +89,14 @@ class UserService extends Injectable {
     });
   }
 
+  markAllNotifications(username) {
+    return new Promise((resolve, reject) => {
+      this.API.post('/user/:username/notifications', { username }, null , true)
+        .then(resolve)
+        .catch(err => reject(err.data || err));
+    });
+  }
+
   markNotification(username, notificationid, unread) {
     return new Promise((resolve, reject) => {
       this.API.put('/user/:username/notifications/:notificationid', { username, notificationid }, { unread }, true)

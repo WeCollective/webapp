@@ -70555,6 +70555,7 @@ var NavbarController = function (_Injectable) {
     var listeners = [];
     listeners.push(_this.EventService.on(_this.EventService.events.CHANGE_USER, _this.getNotifications));
     listeners.push(_this.EventService.on('UNREAD_NOTIFICATION_CHANGE', _this.updateCount));
+    listeners.push(_this.EventService.on(_this.EventService.events.MARK_ALL_NOTIFICATIONS_READ, _this.updateCount));
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -70564,6 +70565,14 @@ var NavbarController = function (_Injectable) {
   }
 
   _createClass(NavbarController, [{
+    key: 'cacheNotifications',
+    value: function cacheNotifications() {
+      var cache = this.LocalStorageService.getObject('cache');
+      cache.notifications = cache.notifications || {};
+      cache.notifications.count = this.notificationCount;
+      this.LocalStorageService.setObject('cache', cache);
+    }
+  }, {
     key: 'getNotifications',
     value: function getNotifications() {
       var _this2 = this;
@@ -70632,12 +70641,12 @@ var NavbarController = function (_Injectable) {
   }, {
     key: 'updateCount',
     value: function updateCount(delta) {
-      this.notificationCount += delta;
-
-      var cache = this.LocalStorageService.getObject('cache');
-      cache.notifications = cache.notifications || {};
-      cache.notifications.count = this.notificationCount;
-      this.LocalStorageService.setObject('cache', cache);
+      if (delta === undefined) {
+        this.notificationCount = 0;
+      } else {
+        this.notificationCount += delta;
+      }
+      this.cacheNotifications();
     }
   }]);
 
@@ -74581,6 +74590,17 @@ var ProfileController = function (_Injectable) {
       }).then(this.$timeout);
     }
   }, {
+    key: 'markAllNotificationsAsSeen',
+    value: function markAllNotificationsAsSeen() {
+      var _this3 = this;
+
+      this.UserService.markAllNotifications(this.UserService.user.username).then(function () {
+        return _this3.EventService.emit('MARK_ALL_NOTIFICATIONS_READ');
+      }).catch(function () {
+        return _this3.AlertsService.push('error', 'Unable to mark all notifications as read.');
+      });
+    }
+  }, {
     key: 'openCoverPictureModal',
     value: function openCoverPictureModal() {
       this.ModalService.open('UPLOAD_IMAGE', {
@@ -74703,6 +74723,10 @@ var ProfileNotificationsController = function (_Injectable) {
 
     listeners.push(_this.EventService.on(_this.EventService.events.CHANGE_USER, _this.init));
 
+    listeners.push(_this.EventService.on(_this.EventService.events.MARK_ALL_NOTIFICATIONS_READ, function () {
+      return _this.markAllNotificationsRead();
+    }));
+
     listeners.push(_this.EventService.on(_this.EventService.events.SCROLLED_TO_BOTTOM, function (name) {
       if ('ProfileContentBodyScrollToBottom' !== name) return;
 
@@ -74781,6 +74805,13 @@ var ProfileNotificationsController = function (_Injectable) {
           return _this3.getNotifications();
         });
       }
+    }
+  }, {
+    key: 'markAllNotificationsRead',
+    value: function markAllNotificationsRead() {
+      this.notifications.forEach(function (notification) {
+        notification.unread = false;
+      });
     }
   }, {
     key: 'toggleUnreadState',
@@ -75676,6 +75707,7 @@ var EventService = function (_Injectable) {
       CHANGE_USER: 'CHANGE_USER',
       LOADING_ACTIVE: 'LOADING_ACTIVE',
       LOADING_INACTIVE: 'LOADING_INACTIVE',
+      MARK_ALL_NOTIFICATIONS_READ: 'MARK_ALL_NOTIFICATIONS_READ',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       MODAL_OPEN: 'MODAL_OPEN',
@@ -76336,12 +76368,23 @@ var UserService = function (_Injectable) {
       });
     }
   }, {
-    key: 'markNotification',
-    value: function markNotification(username, notificationid, unread) {
+    key: 'markAllNotifications',
+    value: function markAllNotifications(username) {
       var _this7 = this;
 
       return new Promise(function (resolve, reject) {
-        _this7.API.put('/user/:username/notifications/:notificationid', { username: username, notificationid: notificationid }, { unread: unread }, true).then(resolve).catch(function (err) {
+        _this7.API.post('/user/:username/notifications', { username: username }, null, true).then(resolve).catch(function (err) {
+          return reject(err.data || err);
+        });
+      });
+    }
+  }, {
+    key: 'markNotification',
+    value: function markNotification(username, notificationid, unread) {
+      var _this8 = this;
+
+      return new Promise(function (resolve, reject) {
+        _this8.API.put('/user/:username/notifications/:notificationid', { username: username, notificationid: notificationid }, { unread: unread }, true).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -76352,10 +76395,10 @@ var UserService = function (_Injectable) {
   }, {
     key: 'requestResetPassword',
     value: function requestResetPassword(username) {
-      var _this8 = this;
+      var _this9 = this;
 
       return new Promise(function (resolve, reject) {
-        _this8.API.request('GET', '/user/:username/reset-password', { username: username }).then(resolve).catch(function (err) {
+        _this9.API.request('GET', '/user/:username/reset-password', { username: username }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -76366,10 +76409,10 @@ var UserService = function (_Injectable) {
   }, {
     key: 'resetPassword',
     value: function resetPassword(username, password, token) {
-      var _this9 = this;
+      var _this10 = this;
 
       return new Promise(function (resolve, reject) {
-        _this9.API.request('POST', '/user/:username/reset-password/:token', { username: username, token: token }, { password: password }).then(resolve).catch(function (err) {
+        _this10.API.request('POST', '/user/:username/reset-password/:token', { username: username, token: token }, { password: password }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -76380,10 +76423,10 @@ var UserService = function (_Injectable) {
   }, {
     key: 'resendVerification',
     value: function resendVerification(username) {
-      var _this10 = this;
+      var _this11 = this;
 
       return new Promise(function (resolve, reject) {
-        _this10.API.request('GET', '/user/:username/reverify', { username: username }).then(resolve).catch(function (err) {
+        _this11.API.request('GET', '/user/:username/reverify', { username: username }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -76391,17 +76434,17 @@ var UserService = function (_Injectable) {
   }, {
     key: 'set',
     value: function set(userDataObj) {
-      var _this11 = this;
+      var _this12 = this;
 
       this.$timeout(function () {
-        _this11.user = userDataObj;
-        _this11.EventService.emit(_this11.EventService.events.CHANGE_USER);
+        _this12.user = userDataObj;
+        _this12.EventService.emit(_this12.EventService.events.CHANGE_USER);
       });
     }
   }, {
     key: 'signup',
     value: function signup(credentials) {
-      var _this12 = this;
+      var _this13 = this;
 
       credentials = credentials || {};
 
@@ -76436,7 +76479,7 @@ var UserService = function (_Injectable) {
       }
 
       return new Promise(function (resolve, reject) {
-        _this12.API.request('POST', '/user', {}, credentials).then(resolve).catch(function (err) {
+        _this13.API.request('POST', '/user', {}, credentials).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -76444,14 +76487,14 @@ var UserService = function (_Injectable) {
   }, {
     key: 'unfollowBranch',
     value: function unfollowBranch(username, branchid) {
-      var _this13 = this;
+      var _this14 = this;
 
       return new Promise(function (resolve, reject) {
-        _this13.API.delete('/user/:username/branches/followed', { username: username }, { branchid: branchid }, true).then(function (res) {
-          if (username === _this13.user.username || username === 'me') {
-            var index = _this13.user.followed_branches.indexOf(branchid);
+        _this14.API.delete('/user/:username/branches/followed', { username: username }, { branchid: branchid }, true).then(function (res) {
+          if (username === _this14.user.username || username === 'me') {
+            var index = _this14.user.followed_branches.indexOf(branchid);
             if (index !== -1) {
-              _this13.user.followed_branches.splice(index, 1);
+              _this14.user.followed_branches.splice(index, 1);
             }
           }
           return resolve(res);
@@ -76463,7 +76506,7 @@ var UserService = function (_Injectable) {
   }, {
     key: 'update',
     value: function update(data) {
-      var _this14 = this;
+      var _this15 = this;
 
       return new Promise(function (resolve, reject) {
         _generator2.default.run(regeneratorRuntime.mark(function _callee2() {
@@ -76498,7 +76541,7 @@ var UserService = function (_Injectable) {
               }
             }
           }, _callee2, this, [[0, 10]]);
-        }), _this14);
+        }), _this15);
       });
     }
 
@@ -76507,10 +76550,10 @@ var UserService = function (_Injectable) {
   }, {
     key: 'verify',
     value: function verify(username, token) {
-      var _this15 = this;
+      var _this16 = this;
 
       return new Promise(function (resolve, reject) {
-        _this15.API.request('GET', '/user/:username/verify/:token', { username: username, token: token }).then(resolve).catch(function (err) {
+        _this16.API.request('GET', '/user/:username/verify/:token', { username: username, token: token }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
