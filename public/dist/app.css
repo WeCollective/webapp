@@ -1550,7 +1550,7 @@ div.poll-answer-editor input {
 }
 @media only screen and (min-width: 768px) {
   .sidebar .sidebar-controls > li > button > img {
-    height: 30px;
+    height: 38px;
   }
 }
 .sidebar .sidebar-controls > li#add-content:hover {
