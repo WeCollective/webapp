@@ -7181,9 +7181,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'https://wecoapi.com/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: true,
-  name: 'production'
+  name: 'development'
 };
 
 exports.default = ENV;
@@ -98512,4 +98512,4 @@ module.exports = __webpack_require__(238);
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.min.js.map
+//# sourceMappingURL=bundle.js.map
