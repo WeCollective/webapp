@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable';
 
-class DeleteBranchModalController extends Injectable {
+class BanUserModalController extends Injectable {
   constructor(...injections) {
-    super(DeleteBranchModalController.$inject, injections);
+    super(BanUserModalController.$inject, injections);
 
     this.data = {};
     this.errorMessage = '';
@@ -11,15 +11,16 @@ class DeleteBranchModalController extends Injectable {
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if(name !== 'DELETE_BRANCH') return;
-      // if not all fields are filled, display message
-      if(!this.data || !this.data.branchid) {
-        this.$timeout(() => { this.errorMessage = 'Please fill in all fields'; });
+      if (name !== 'BAN_USER') return;
+
+      // Username cannot be empty.
+      if (!this.data || !this.data.username) {
+        this.$timeout(() => { this.errorMessage = 'Username cannot be empty'; });
         return;
       }
 
       this.isLoading = true;
-      this.BranchService.remove(this.data.branchid)
+      this.UserService.ban(this.data.username)
         .then(() => this.$timeout(() => {
           this.data = {};
           this.errorMessage = '';
@@ -33,7 +34,7 @@ class DeleteBranchModalController extends Injectable {
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if(name !== 'DELETE_BRANCH') return;
+      if (name !== 'BAN_USER') return;
       this.$timeout(() => {
         this.data = {};
         this.errorMessage = '';
@@ -46,13 +47,13 @@ class DeleteBranchModalController extends Injectable {
   }
 }
 
-DeleteBranchModalController.$inject = [
+BanUserModalController.$inject = [
   '$scope',
   '$state',
   '$timeout',
-  'BranchService',
   'EventService',
   'ModalService',
+  'UserService',
 ];
 
-export default DeleteBranchModalController;
+export default BanUserModalController;

@@ -15,6 +15,14 @@ class UserService extends Injectable {
       }, 500));
   }
 
+  ban(username) {
+    return new Promise((resolve, reject) => {
+      this.API.delete('/user/:username', { username })
+        .then(res => resolve(res.data || res))
+        .catch(err => reject(err.data || err));
+    });
+  }
+
   fetch(username) {
     return new Promise((resolve, reject) => {
       this.API.get('/user/:username', { username })

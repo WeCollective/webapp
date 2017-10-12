@@ -43,6 +43,14 @@
         </span>
       </li>
 
+      <li class="branch__item" ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
+        <span
+          class="branch__text branch__link style--red"
+          ng-click="ToolsCtrl.handleClick('ban-user')">
+          Ban User
+        </span>
+      </li>
+
       <li
         class="branch__item"
         ng-hide="ToolsCtrl.BranchService.branch.id === 'root'">

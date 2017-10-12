@@ -13,6 +13,7 @@ class ModalService extends Injectable {
     this.templateUrl = '';
     this.templateUrls = {
       ADD_MOD: '/app/components/modal/branch/nucleus/modtools/mod-add/view.html',
+      BAN_USER: '/app/components/modal/branch/nucleus/modtools/ban-user/view.html',
       BRANCH_NUCLEUS_SETTINGS: '/app/components/modal/branch/nucleus/settings/view.html',
       CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
       CREATE_POST: '/app/components/modal/post/create/view.html',

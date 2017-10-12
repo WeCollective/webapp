@@ -21,6 +21,7 @@ import Tooltip from './components/tooltip/controller';
 import Verify from './pages/auth/verify/controller';
 
 // Components.
+import BanUserModal from './components/modal/branch/nucleus/modtools/ban-user/controller';
 import BranchDeleteModal from './components/modal/branch/nucleus/modtools/branch-delete/controller';
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
 import BranchRequestModal from './components/modal/branch/nucleus/modtools/branch-request/controller';
@@ -75,6 +76,7 @@ const refs = [
   { name: 'VerifyController', module: Verify },
   
   { name: 'AddModModalController', module: ModAddModal },
+  { name: 'BanUserModalController', module: BanUserModal },
   { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },
   { name: 'CardBranchController', module: CardBranch },
   { name: 'CardPollAnswerController', module: CardPollAnswer },

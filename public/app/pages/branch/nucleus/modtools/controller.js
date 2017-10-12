@@ -67,6 +67,12 @@ class BranchNucleusModtoolsController extends Injectable {
     let successMsg;
 
     switch (option) {
+      case 'ban-user':
+        errMsg = 'There was an error while banning the user.';
+        name = 'BAN_USER';
+        successMsg = 'You have banned a user.';
+        break;
+
       case 'branch-delete':
         errMsg = 'Error deleting branch.';
         name = 'DELETE_BRANCH';
