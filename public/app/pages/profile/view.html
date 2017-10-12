@@ -53,6 +53,7 @@
             <button
               class="header__read-all"
               ng-click="Profile.markAllNotificationsAsSeen()"
+              ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
               offset-x="-150"
               offset-y="30"
               text="'Mark all notifications as seen'"
