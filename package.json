@@ -8,9 +8,8 @@
     "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
     "build:dev": "gulp build:dev",
     "build:production": "gulp build:production",
-    "commit": "git add . && git commit -m \"Build commit\"",
-    "deploy:dev": "npm-run-all build:dev commit beanstalk:dev",
-    "deploy:production": "npm-run-all build:production commit beanstalk:production",
+    "deploy:dev": "npm-run-all build:dev beanstalk:dev",
+    "deploy:production": "npm-run-all build:production beanstalk:production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "node server.js",
     "start": "gulp --env local"
