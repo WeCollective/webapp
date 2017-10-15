@@ -21,7 +21,10 @@ class HomeController extends Injectable {
           cache.homepageStats[stat] = this.stats[stat];
           this.LocalStorageService.setObject('cache', cache);
         })
-        .catch(() => this.AlertsService.push('error', 'Having trouble connecting...'))
+        .catch(err => {
+          console.log(err);
+          this.AlertsService.push('error', 'Having trouble connecting...');
+        })
         .then(this.$timeout);
     }
   }
