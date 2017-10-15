@@ -74550,7 +74550,7 @@ var HomeController = function (_Injectable) {
           cache.homepageStats = cache.homepageStats || {};
           cache.homepageStats[stat] = _this.stats[stat];
           _this.LocalStorageService.setObject('cache', cache);
-        }).catch(function (_) {
+        }).catch(function () {
           return _this.AlertsService.push('error', 'Having trouble connecting...');
         }).then(_this.$timeout);
       };
@@ -74579,11 +74579,8 @@ var HomeController = function (_Injectable) {
   _createClass(HomeController, [{
     key: 'getHomepageImageURL',
     value: function getHomepageImageURL() {
-      if ('production' === this.ENV.name) {
-        return 'https://s3-eu-west-1.amazonaws.com/weco-public-assets/homepage-image.jpg';
-      }
-
-      return 'https://s3-eu-west-1.amazonaws.com/dev-weco-public-assets/homepage-image.jpg';
+      var prefix = this.ENV.name === 'production' ? '' : 'dev-';
+      return 'https://s3-eu-west-1.amazonaws.com/' + prefix + 'weco-public-assets/homepage-image.jpg';
     }
   }]);
 
