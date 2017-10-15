@@ -563,7 +563,7 @@ html[xmlns] .clearfix {
 .comments .comment__content .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
@@ -1315,7 +1315,7 @@ div[loading] div.loading-container img {
 .notification .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
@@ -2660,7 +2660,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__post .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
@@ -2907,7 +2907,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .branch__post .list-item__title {
     display: inline;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 300;
     hyphens: auto;
     line-height: 1;
     vertical-align: top;
@@ -3154,7 +3154,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__subbranch .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
@@ -3732,7 +3732,7 @@ div#notfound div h2 {
 .post .list-item .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
@@ -3982,7 +3982,7 @@ div#notfound div h2 {
   .post .list-item .list-item__title {
     display: inline;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 300;
     hyphens: auto;
     line-height: 1;
     vertical-align: top;
@@ -4381,7 +4381,7 @@ div#notfound div h2 {
 .post .post__content-wrapper .style--card-poll-answer .list-item__title {
   display: inline;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   hyphens: auto;
   line-height: 1;
   vertical-align: top;
