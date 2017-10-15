@@ -3829,6 +3829,8 @@ div#notfound div h2 {
     position: relative;
     width: 100%;
     transition: background-color 0.3s;
+    border-bottom: none;
+    padding: 0;
   }
   .post .list-item .list-item__detail {
     color: #b3b3b3;
@@ -4117,10 +4119,9 @@ div#notfound div h2 {
 }
 .post .post__preview-content.style--text {
   max-height: 1.5em;
-  overflow-y: scroll;
 }
 .post .post__preview-content.style--text.style--expanded {
-  max-height: 350px;
+  max-height: none;
 }
 .post .post__preview-content.style--video {
   margin-left: auto;
@@ -4471,6 +4472,7 @@ div#notfound div h2 {
   align-items: center !important;
   display: flex !important;
   justify-content: flex-start !important;
+  overflow: auto !important;
   padding: 12px !important;
 }
 .post .post__content-header .button.ok {
@@ -4504,6 +4506,10 @@ div#notfound div h2 {
 }
 .post .post__content-header .button.ok ~ .button {
   margin-left: 8px;
+}
+.post .post__scrollable-view {
+  flex: 1;
+  overflow-y: scroll;
 }
 @media only screen and (min-width: 768px) {
   .post .loading-container {

@@ -17,49 +17,51 @@
     </div>
   </div>
 
-  <div class="post__preview" ng-if="BranchPost.canPreviewPost()">
-    <div class="post__preview-controls">
-      <img
-        alt="Toggle the post preview cinema mode"
-        class="post__preview-control-btn"
-        ng-click="BranchPost.toggleCinemaMode()"
-        ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
-        ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
-        offset-y="40"
-        text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
-        tooltip />
+  <div class="post__scrollable-view">
+    <div class="post__preview" ng-if="BranchPost.canPreviewPost()">
+      <div class="post__preview-controls">
+        <img
+          alt="Toggle the post preview cinema mode"
+          class="post__preview-control-btn"
+          ng-click="BranchPost.toggleCinemaMode()"
+          ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
+          ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
+          offset-y="40"
+          text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
+          tooltip />
 
-      <img
-        alt="Toggle the post preview visibility"
-        class="post__preview-control-btn"
-        ng-class="{ 'toggled': BranchPost.previewState !== 'hide' }"
-        ng-click="BranchPost.togglePreviewState()"
-        offset-y="40"
-        src="/assets/images/icons/black/show.png"
-        text="BranchPost.previewState === 'hide' ? 'Show' : 'Hide'"
-        tooltip />
+        <img
+          alt="Toggle the post preview visibility"
+          class="post__preview-control-btn"
+          ng-class="{ 'toggled': BranchPost.previewState !== 'hide' }"
+          ng-click="BranchPost.togglePreviewState()"
+          offset-y="40"
+          src="/assets/images/icons/black/show.png"
+          text="BranchPost.previewState === 'hide' ? 'Show' : 'Hide'"
+          tooltip />
+      </div>
+
+      <ng-include src="BranchPost.getPreviewTemplate()"></ng-include>
     </div>
 
-    <ng-include src="BranchPost.getPreviewTemplate()"></ng-include>
-  </div>
+    <tabs
+      class="style--border style--content-block"
+      items="BranchPost.tabItems"
+      ng-if="BranchPost.isPostType('poll')"
+      states="BranchPost.tabStates"
+      state-params="BranchPost.tabStateParams">
+    </tabs>
+    
+    <div
+      class="post__body"
+      ng-if="BranchPost.isPostType('poll')"
+      ui-view>
+    </div>
 
-  <tabs
-    class="style--border style--content-block"
-    items="BranchPost.tabItems"
-    ng-if="BranchPost.isPostType('poll')"
-    states="BranchPost.tabStates"
-    state-params="BranchPost.tabStateParams">
-  </tabs>
-  
-  <div
-    class="post__body"
-    ng-if="BranchPost.isPostType('poll')"
-    ui-view>
-  </div>
-
-  <div
-    class="post__body"
-    ng-if="!BranchPost.isPostType('poll')">
-    <comments></comments>
+    <div
+      class="post__body"
+      ng-if="!BranchPost.isPostType('poll')">
+      <comments></comments>
+    </div>
   </div>
 </div>
