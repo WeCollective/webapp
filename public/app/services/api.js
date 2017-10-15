@@ -89,7 +89,17 @@ class API extends Injectable {
 
       this.$http(req)
         .then(res => resolve(res.data || res))
-        .catch(err => reject(err.data || err));
+        .catch(err => {
+          if (err && typeof err === 'object' && err.data) {
+            // The user is banned, remove any locally stored tokens.
+            if (err.data.status === 401) {
+              this.LocalStorageService.setObject('cache', {});
+              this.Auth.set();
+            }
+            return reject(err.data);
+          }
+          return reject(err);
+        });
     });
   }
 }
@@ -98,6 +108,7 @@ API.$inject = [
   '$http',
   'Auth',
   'ENV',
+  'LocalStorageService',
 ];
 
 export default API;

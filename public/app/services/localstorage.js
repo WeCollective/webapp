@@ -1,23 +1,23 @@
 import Injectable from 'utils/injectable';
 
 class LocalStorageService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(LocalStorageService.$inject, injections);
   }
 
-  get (key, defaultValue) {
+  get(key, defaultValue) {
     return window.localStorage[key] || defaultValue;
   }
 
-  getObject (key) {
+  getObject(key) {
     return JSON.parse(this.get(key) || '{}');
   }
 
-  set (key, newValue) {
+  set(key, newValue) {
     window.localStorage[key] = newValue;
   }
 
-  setObject (key, newValue = {}) {
+  setObject(key, newValue = {}) {
     this.set(key, JSON.stringify(newValue));
   }
 }
