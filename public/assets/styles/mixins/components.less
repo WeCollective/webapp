@@ -65,7 +65,7 @@
   }
 }
 
-.list-item(@height) {
+.list-item(@height, @width: @height) {
   @spacing: 4px;
 
   border-bottom: solid 1px @light-grey;
@@ -190,7 +190,7 @@
       border-radius: 4px;
       height: @height;
       margin: 0 10px 0 @g-padding-post;
-      width: @height;
+      width: @width;
 
       &:hover { box-shadow: @shadow-2; }
     }

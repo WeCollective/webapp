@@ -14,8 +14,6 @@
 @post__preview-content-animation-end-transform: translateY(-100%);
 
 .post {
-  @header-min-height: @post-thumbnail-size;
-
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -55,12 +53,14 @@
   }
 
   .list-item {
-    .list-item(@header-min-height);
+    .list-item(@post-thumbnail-h, @post-thumbnail-w);
 
     border-bottom: none;
     padding: 0;
 
     .list-item__votes { margin-left: @g-padding-post; }
+
+    .mediaQuery(@screen-md, { .list-item(@post-thumbnail-h-lg, @post-thumbnail-w-lg); });
   }
 
   .post__body {

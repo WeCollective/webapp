@@ -38,7 +38,9 @@
 }
 
 .branch__post {
-  .list-item(@post-thumbnail-size);
+  .list-item(@post-thumbnail-h, @post-thumbnail-w);
+
+  .mediaQuery(@screen-md, { .list-item(@post-thumbnail-h-lg, @post-thumbnail-w-lg); });
 }
 
 .branch__subbranch {
