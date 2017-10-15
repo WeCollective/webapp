@@ -2996,7 +2996,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: 100px;
+  min-height: 110px;
   padding: 8px 0;
   position: relative;
   width: 100%;
@@ -3046,7 +3046,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #c8c8c8;
   font-size: 18px;
   font-weight: 500;
-  line-height: 100px;
+  line-height: 110px;
 }
 .branch__subbranch span.list-item-index.style--colour-coded {
   color: #fff;
@@ -3093,9 +3093,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   background-position: center;
   background-size: cover;
   border-radius: 4px;
-  height: 100px;
+  height: 110px;
   margin: 0 10px 0 12px;
-  width: 100px;
+  width: 110px;
 }
 .branch__subbranch .list-item-image img:hover,
 .branch__subbranch .list-item-image div:hover {
@@ -3106,7 +3106,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: 2px solid #ff8095;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 100px;
+  height: 110px;
   margin-right: 10px;
   padding: 2px;
 }
@@ -3188,7 +3188,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: 110px;
   margin-left: 6px;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon {
