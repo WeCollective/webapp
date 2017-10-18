@@ -22,7 +22,8 @@
     </div>
     <div
       class="modal__button style--primary"
-      ng-click="handleSubmit()">
+      ng-class="{ 'style--disabled': ModalService.isSubmitDisabled }"
+      ng-click="handleSubmit(ModalService.isSubmitDisabled)">
       <span class="text--uppercase">
         ok
       </span>

@@ -113,6 +113,9 @@ html[xmlns] .clearfix {
 .text--block {
   display: block;
 }
+.text--bold {
+  font-weight: 700;
+}
 .text--capitalize {
   text-transform: capitalize;
 }
@@ -1884,6 +1887,14 @@ body.style--modal-open {
   font-weight: 500;
   line-height: 26px;
 }
+.modal__button.style--disabled {
+  background-color: #d9d9d9;
+}
+.modal__button.style--disabled:hover {
+  background-color: #d9d9d9;
+  box-shadow: none;
+  cursor: initial;
+}
 .modal__button:not(:first-child) {
   margin-left: 12px;
 }
@@ -1927,6 +1938,14 @@ body.style--modal-open {
     font-size: 14px;
     font-weight: 500;
     line-height: 30px;
+  }
+  .modal__button.style--disabled {
+    background-color: #d9d9d9;
+  }
+  .modal__button.style--disabled:hover {
+    background-color: #d9d9d9;
+    box-shadow: none;
+    cursor: initial;
   }
 }
 .modal__content {

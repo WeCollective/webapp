@@ -75,6 +75,16 @@ body.style--modal-open {
     });
   }
 
+  &.style--disabled {
+    background-color: @primary-9;
+
+    &:hover {
+      background-color: @primary-9;
+      box-shadow: none;
+      cursor: initial;
+    }
+  }
+
   &:not(:first-child) { margin-left: @g-padding-post; }
 
   .mediaQuery(@screen-md, {
@@ -92,6 +102,16 @@ body.style--modal-open {
         background-color: @accent-0;
         box-shadow: @shadow-2;
       });
+    }
+
+    &.style--disabled {
+      background-color: @primary-9;
+
+      &:hover {
+        background-color: @primary-9;
+        box-shadow: none;
+        cursor: initial;
+      }
     }
   });
 }

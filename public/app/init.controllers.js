@@ -23,6 +23,7 @@ import Verify from './pages/auth/verify/controller';
 // Components.
 import BanUserModal from './components/modal/branch/nucleus/modtools/ban-user/controller';
 import BranchDeleteModal from './components/modal/branch/nucleus/modtools/branch-delete/controller';
+import BranchDetachChildModal from './components/modal/branch/nucleus/modtools/branch-detach-child/controller';
 import BranchNucleusSettingsModal from './components/modal/branch/nucleus/settings/controller';
 import BranchRequestModal from './components/modal/branch/nucleus/modtools/branch-request/controller';
 import BranchReviewModal from './components/modal/branch/nucleus/modtools/branch-review/controller';
@@ -87,6 +88,7 @@ const refs = [
   { name: 'CreateBranchModalController', module: CreateBranchModal },
   { name: 'CreatePostModalController', module: CreatePostModal },
   { name: 'DeleteBranchModalController', module: BranchDeleteModal },
+  { name: 'DetachBranchChildModalController', module: BranchDetachChildModal },
   { name: 'DeleteCommentModalController', module: DeleteCommentModal },
   { name: 'DeletePostModalController', module: DeletePostModal },
   { name: 'DropdownController', module: DropdownController },

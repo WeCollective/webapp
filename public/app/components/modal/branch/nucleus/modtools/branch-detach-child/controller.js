@@ -1,20 +1,21 @@
 import Injectable from 'utils/injectable';
 
-class DeleteBranchModalController extends Injectable {
+class DetachBranchChildModalController extends Injectable {
   constructor(...injections) {
-    super(DeleteBranchModalController.$inject, injections);
+    super(DetachBranchChildModalController.$inject, injections);
 
     this.data = {};
     this.errorMessage = '';
     this.isLoading = false;
 
-    // Disable submission by default.
-    this.ModalService.disableOK();
-
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'DELETE_BRANCH') return;
+      if (name !== 'DETACH_BRANCH_CHILD') return;
+
+      if (this.data.branchid.indexOf('b/') === 0) {
+        this.data.branchid = this.data.branchid.substring('b/'.length);
+      }
 
       this.isLoading = true;
       this.BranchService
@@ -32,7 +33,7 @@ class DeleteBranchModalController extends Injectable {
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'DELETE_BRANCH') return;
+      if (name !== 'DETACH_BRANCH_CHILD') return;
       this.$timeout(() => {
         this.data = {};
         this.errorMessage = '';
@@ -47,7 +48,7 @@ class DeleteBranchModalController extends Injectable {
   handleChange() {
     this.data.branchid = this.data.branchid.split(' ').join('');
 
-    if (this.data.branchid !== this.ModalService.inputArgs.branchid) {
+    if (!this.data.branchid) {
       this.ModalService.disableOK();
     }
     else {
@@ -56,7 +57,7 @@ class DeleteBranchModalController extends Injectable {
   }
 }
 
-DeleteBranchModalController.$inject = [
+DetachBranchChildModalController.$inject = [
   '$scope',
   '$state',
   '$timeout',
@@ -65,4 +66,4 @@ DeleteBranchModalController.$inject = [
   'ModalService',
 ];
 
-export default DeleteBranchModalController;
+export default DetachBranchChildModalController;

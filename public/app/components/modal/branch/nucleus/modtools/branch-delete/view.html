@@ -2,13 +2,13 @@
   <div
     loading
     loading-when="DeleteBranchModal.isLoading">
-    <h1>Remove a Child Branch</h1>
+    <h1>Remove b/{{ this.ModalService.inputArgs.branchid }}</h1>
+    <p>Please type in the name of the branch to confirm.</p>
     <p class="error-message">{{ DeleteBranchModal.errorMessage }}</p>
-    <div id="nucleus-deletebranch-inputs">
+    <div>
       <input
-        ng-change="DeleteBranchModal.data.branchid = DeleteBranchModal.data.branchid.split(' ').join('')"
+        ng-change="DeleteBranchModal.handleChange()"
         ng-model="DeleteBranchModal.data.branchid"
-        placeholder="Unique Name of the Child Branch to be Removed"
         type="text" />
     </div>
   </div>

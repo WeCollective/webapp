@@ -76,7 +76,16 @@ class BranchNucleusModtoolsController extends Injectable {
       case 'branch-delete':
         errMsg = 'Error deleting branch.';
         name = 'DELETE_BRANCH';
+        params = {
+          branchid: this.BranchService.branch.id,
+        };
         successMsg = 'Successfully deleted branch.';
+        break;
+
+      case 'branch-detach-child':
+        errMsg = 'Error detaching child branch.';
+        name = 'DETACH_BRANCH_CHILD';
+        successMsg = 'Successfully detached a child branch.';
         break;
 
       case 'branch-request':

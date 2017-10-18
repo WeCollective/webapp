@@ -21,7 +21,7 @@
 
       <li class="branch__item">
         <span
-          class="branch__text branch__link style--colorless"
+          class="branch__text branch__link style--red"
           ng-click="ToolsCtrl.handleClick('mod-delete')">
           Remove a Moderator
         </span>
@@ -31,15 +31,27 @@
         <span
           class="branch__text branch__link style--colorless"
           ng-click="ToolsCtrl.handleClick('branch-review')">
-          Review Child Branch Requests
+          Child Branch Requests
         </span>
       </li>
 
-      <li class="branch__item">
+      <li
+        class="branch__item ng-hide"
+        ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
+        <span
+          class="branch__text branch__link style--red"
+          ng-click="ToolsCtrl.handleClick('branch-detach-child')">
+          Detach a child branch
+        </span>
+      </li>
+
+      <li
+        class="branch__item ng-hide"
+        ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
         <span
           class="branch__text branch__link style--red"
           ng-click="ToolsCtrl.handleClick('branch-delete')">
-          Remove a {{ ToolsCtrl.BranchService.branch.id === 'root' ? 'Root' : 'Child' }} Branch
+          Remove <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span>
         </span>
       </li>
 
@@ -57,7 +69,7 @@
         <span
           class="branch__text branch__link style--colorless"
           ng-click="ToolsCtrl.handleClick('branch-request')">
-          Submit Parent Branch Request
+          Move <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span> to Another Branch
         </span>
       </li>
     </ul>

@@ -6,6 +6,7 @@ class ModalService extends Injectable {
 
     this.inputArgs = {};
     this.isOpen = false;
+    this.isSubmitDisabled = false;
     this.name = '';
     this.outputArgs = {};
     this.reject = () => {};
@@ -18,6 +19,7 @@ class ModalService extends Injectable {
       CREATE_BRANCH: '/app/components/modal/branch/create/view.html',
       CREATE_POST: '/app/components/modal/post/create/view.html',
       DELETE_BRANCH: '/app/components/modal/branch/nucleus/modtools/branch-delete/view.html',
+      DETACH_BRANCH_CHILD: '/app/components/modal/branch/nucleus/modtools/branch-detach-child/view.html',
       DELETE_COMMENT: '/app/components/modal/comment/delete/view.html',
       DELETE_POST: '/app/components/modal/post/delete/view.html',
       FLAG_POST: '/app/components/modal/post/flag/view.html',
@@ -37,6 +39,14 @@ class ModalService extends Injectable {
     return this.handleControlButtonClick(false, args);
   }
 
+  disableOK() {
+    this.isSubmitDisabled = true;
+  }
+
+  enableOK() {
+    this.isSubmitDisabled = false;
+  }
+
   Error() {
     return new Promise((resolve, reject) => {
       this.name = '';
@@ -45,7 +55,7 @@ class ModalService extends Injectable {
   }
 
   finished(args, success) {
-    return new Promise((resolve, reject) => this.$timeout(() => {
+    return new Promise(resolve => this.$timeout(() => {
       this.isOpen = false;
       this.outputArgs = args;
       this.name = '';
@@ -58,13 +68,8 @@ class ModalService extends Injectable {
   }
 
   handleControlButtonClick(isSubmit, args) {
-    return new Promise((resolve, reject) => {
-      /*
-      const emitEvent = this.EventService.events[isSubmit ? 'MODAL_OK' : 'MODAL_CANCEL'];
-      this.EventService.emit(emitEvent, this.name);
-      */
-      return this.finished(args, isSubmit).then(args => resolve(args));
-    });
+    return this.finished(args, isSubmit)
+      .then(args => Promise.resolve(args));
   }
 
   OK(args) {
@@ -87,7 +92,6 @@ class ModalService extends Injectable {
         this.inputArgs = args;
         this.isOpen = true;
         this.templateUrl = this.templateUrls[name];
-        this.EventService.emit(this.EventService.events.MODAL_OPEN, this.name);
 
         new Promise((resolve, reject) => {
           this.resolve = resolve;
