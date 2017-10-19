@@ -2,8 +2,8 @@
   <div
     loading
     loading-when="DetachBranchChild.isLoading">
-    <h1>Detach a Child Branch</h1>
-    <p>Please type in the name of the branch to detach.</p>
+    <h1>{{ DetachBranchChild.BranchService.branch.id !== 'root' ? 'Detach a Child Branch' : 'Delete a Branch' }}</h1>
+    <p>Please type in the name of the branch to {{ DetachBranchChild.BranchService.branch.id !== 'root' ? 'detach' : 'delete' }}.</p>
     <p class="error-message">{{ DetachBranchChild.errorMessage }}</p>
     <div>
       <input

@@ -35,13 +35,11 @@
         </span>
       </li>
 
-      <li
-        class="branch__item ng-hide"
-        ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
+      <li class="branch__item">
         <span
           class="branch__text branch__link style--red"
           ng-click="ToolsCtrl.handleClick('branch-detach-child')">
-          Detach a Child Branch
+          {{ ToolsCtrl.BranchService.branch.id !== 'root' ? 'Detach a Child Branch' : 'Delete a Branch' }}
         </span>
       </li>
 
