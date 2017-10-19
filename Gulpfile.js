@@ -6,7 +6,6 @@ const fs = require('fs');
 const gutil = require('gulp-util');
 const jshint = require('gulp-jshint');
 const less = require('gulp-less');
-const logger = require('./console-logger');
 const nodemon = require("gulp-nodemon");
 const path = require('path');
 const rename = require('gulp-rename');
@@ -128,11 +127,11 @@ gulp.task('configEnvironment', () => {
     }
     
     if (cliEnv) {
-      logger.log(`Environment set to ${environment}.`, '1F4DD');
+      console.log(`Environment set to ${environment}.`);
       fileFromString({ name: GULP_ENV_CONFIG_FILE_PATH, body: cliEnv }).pipe(gulp.dest(GULP_ENV_CONFIG_FILE_DIR))
     }
     else {
-      logger.log(`Environment defaults to ${environment}.`, '1F4DD');
+      console.log(`Environment defaults to ${environment}.`);
     }
   })
 });
@@ -192,7 +191,7 @@ gulp.task('replaceTemplateStrings:config', () => {
     apiEndpoint = 'https://api-prod-test.eu-west-1.elasticbeanstalk.com/v1';
   }
 
-  logger.log(`Using ${apiEndpoint} as the endpoint...`, '1F4CD');
+  console.log(`Using ${apiEndpoint} as the endpoint...`);
 
   return gulp.src([path.join(APP_DIR, 'env.config.template.js')])
     .pipe(replace(/%ENV_NAME%/g, environment))

@@ -12,19 +12,22 @@ class DetachBranchChildModalController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DETACH_BRANCH_CHILD') return;
+      this.isLoading = true;
 
-      if (this.data.branchid.indexOf('b/') === 0) {
-        this.data.branchid = this.data.branchid.substring('b/'.length);
+      const params = Object.assign({}, this.data);
+      const prefix = 'b/';
+
+      if (params.branchid.indexOf(prefix) === 0) {
+        params.branchid = params.branchid.substring(prefix.length);
       }
 
-      this.isLoading = true;
       this.BranchService
-        .remove(this.data.branchid)
+        .remove(this.ModalService.inputArgs.branchid, params.branchid)
         .then(() => this.$timeout(() => {
           this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
-          this.ModalService.OK();
+          this.ModalService.OK(params);
         }))
         .catch(err => this.$timeout(() => {
           this.errorMessage = err.message;

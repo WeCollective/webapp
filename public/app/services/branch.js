@@ -199,9 +199,10 @@ class BranchService extends Injectable {
     });
   }
 
-  remove(branchid) {
+  remove(branchid, child) {
+    const params = child ? { child } : {};
     return new Promise((resolve, reject) => {
-      this.API.delete('/branch/:branchid', { branchid })
+      this.API.delete('/branch/:branchid', { branchid }, params, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });

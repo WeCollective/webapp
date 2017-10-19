@@ -15,15 +15,17 @@ class DeleteBranchModalController extends Injectable {
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_BRANCH') return;
-
       this.isLoading = true;
+
+      const params = Object.assign({}, this.data);
+
       this.BranchService
-        .remove(this.data.branchid)
+        .remove(params.branchid)
         .then(() => this.$timeout(() => {
           this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
-          this.ModalService.OK();
+          this.ModalService.OK(params);
         }))
         .catch(err => this.$timeout(() => {
           this.errorMessage = err.message;

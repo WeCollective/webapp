@@ -15,7 +15,6 @@
 const express = require('express');          // call express
 const app = express();                   // define our app using express
 const helmet = require('helmet');           // protect against common web vulnerabilities
-const logger = require('./console-logger');
 
 // SET ENVIRONMENT AND PORT
 const env = process.env.NODE_ENV || 'development';
@@ -62,4 +61,4 @@ app.all('/*', (req, res, next) => {
 
 // START THE SERVER
 app.listen(port);
-logger.log(`Magic happens on port ${port}!`, '1F389', 'DONE');
+console.log(`Magic happens on port ${port}!`);

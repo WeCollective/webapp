@@ -50,7 +50,7 @@ class ModalService extends Injectable {
   Error() {
     return new Promise((resolve, reject) => {
       this.name = '';
-      this.reject();
+      this.reject({});
     });
   }
 
@@ -107,9 +107,9 @@ class ModalService extends Injectable {
               return resolve(this.outputArgs);
             }
           }, 1500))
-          .catch(() => {
-            this.AlertsService.push('error', errMsg);
-            return reject();
+          .catch(data => {
+            this.AlertsService.push('error', typeof errMsg === 'function' ? errMsg(data.args) : errMsg);
+            return reject(this.outputArgs);
           });
       });
     });

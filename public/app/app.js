@@ -57,3 +57,7 @@ initServices(registrar);
 
 // Start the app.
 registrar.run(AppRun);
+
+if (module.hot) {
+  module.hot.accept();
+}

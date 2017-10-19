@@ -7,9 +7,9 @@ class SubmitSubbranchRequestModalController extends Injectable {
     this.handleModalCancel = this.handleModalCancel.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
 
+    this.data = {};
     this.errorMessage = '';
     this.isLoading = false;
-    this.data = {};
 
     const listeners = [];
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
@@ -30,19 +30,20 @@ class SubmitSubbranchRequestModalController extends Injectable {
 
   handleModalSubmit(name) {
     if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
+    this.isLoading = true;
 
     if (!this.data || !this.data.parentid) {
       return this.$timeout(() => { this.errorMessage = 'Please fill in all fields'; });
     }
 
-    this.isLoading = true;
-    let branchid = this.ModalService.inputArgs.branchid;
-    this.BranchService.submitSubbranchRequest(this.data.parentid, branchid)
+    const params = Object.assign({}, this.data);
+    
+    this.BranchService.submitSubbranchRequest(params.parentid, this.ModalService.inputArgs.branchid)
       .then(() => this.$timeout(() => {
         this.isLoading = false;
         this.data = {};
         this.errorMessage = '';
-        this.ModalService.OK();
+        this.ModalService.OK(params);
       }))
       .catch(error => this.$timeout(() => {
         this.isLoading = false;

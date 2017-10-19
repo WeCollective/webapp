@@ -8,14 +8,20 @@ class AlertsService extends Injectable {
     this.queue = [];
   }
 
-  close(idx) {
-    if (this.queue[idx]) {
-      this.queue[idx].alive = false;
+  close() {
+    const transitionFromStylesheet = 300;
+
+    for (let i = this.queue.length - 1; i >= 0; i -= 1) {
+      const alert = this.queue[i];
+      if (alert && alert.alive && !alert.persist) {
+        this.queue[i].alive = false;
+        break;
+      }
     }
 
     this.$timeout(() => {
       this.purge();
-    }, 600);
+    }, transitionFromStylesheet);
   }
 
   purge() {
@@ -25,6 +31,7 @@ class AlertsService extends Injectable {
   push(type, text, persist) {
     const alert = {
       alive: true,
+      persist: !!persist,
       text,
       type,
     };
@@ -32,8 +39,8 @@ class AlertsService extends Injectable {
     this.$timeout(() => {
       this.queue = [alert].concat(this.queue);
 
-      if (!persist) {
-        this.$timeout(() => this.close(0), this.duration);
+      if (!alert.persist) {
+        this.$timeout(() => this.close(), this.duration);
       }
     });
   }

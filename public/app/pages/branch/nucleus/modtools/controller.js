@@ -74,27 +74,30 @@ class BranchNucleusModtoolsController extends Injectable {
         break;
 
       case 'branch-delete':
-        errMsg = 'Error deleting branch.';
+        errMsg = 'Couldn\'t delete branch.';
         name = 'DELETE_BRANCH';
         params = {
           branchid: this.BranchService.branch.id,
         };
-        successMsg = 'Successfully deleted branch.';
+        successMsg = args => `You deleted b/${args.branchid}!`;
         break;
 
       case 'branch-detach-child':
-        errMsg = 'Error detaching child branch.';
+        errMsg = 'Couldn\'t detach child branch';
         name = 'DETACH_BRANCH_CHILD';
-        successMsg = 'Successfully detached a child branch.';
+        params = {
+          branchid: this.BranchService.branch.id,
+        };
+        successMsg = args => `You detached b/${args.branchid}!`;
         break;
 
       case 'branch-request':
-        errMsg = 'Error submitting child branch request.';
+        errMsg = 'Couldn\'t move branch';
         name = 'SUBMIT_SUBBRANCH_REQUEST';
         params = {
           branchid: this.BranchService.branch.id,
         };
-        successMsg = 'Successfully submitted child branch request.';
+        successMsg = args => `You requested to move under b/${args.parentid}!`;
         break;
 
       case 'branch-review':
