@@ -40,7 +40,7 @@ HomeController.$inject = [
   'AlertsService',
   'API',
   'ENV',
-  'LocalStorageService'
+  'LocalStorageService',
 ];
 
 export default HomeController;
