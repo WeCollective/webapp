@@ -82,13 +82,14 @@ class BranchNucleusModtoolsController extends Injectable {
         successMsg = args => `You deleted b/${args.branchid}!`;
         break;
 
+      // In b/root case, this actually deletes a branch.
       case 'branch-detach-child':
         errMsg = 'Couldn\'t detach child branch';
         name = 'DETACH_BRANCH_CHILD';
         params = {
           branchid: this.BranchService.branch.id,
         };
-        successMsg = args => `You detached b/${args.branchid}!`;
+        successMsg = args => `You ${this.BranchService.branch.id !== 'root' ? 'detached' : 'deleted'} b/${args.branchid}!`;
         break;
 
       case 'branch-request':

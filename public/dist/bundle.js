@@ -73346,6 +73346,8 @@ var BranchNucleusModtoolsController = function (_Injectable) {
   }, {
     key: 'handleClick',
     value: function handleClick(option) {
+      var _this3 = this;
+
       var errMsg = void 0;
       var name = void 0;
       var params = {};
@@ -73369,6 +73371,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           };
           break;
 
+        // In b/root case, this actually deletes a branch.
         case 'branch-detach-child':
           errMsg = 'Couldn\'t detach child branch';
           name = 'DETACH_BRANCH_CHILD';
@@ -73376,7 +73379,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
             branchid: this.BranchService.branch.id
           };
           successMsg = function successMsg(args) {
-            return 'You detached b/' + args.branchid + '!';
+            return 'You ' + (_this3.BranchService.branch.id !== 'root' ? 'detached' : 'deleted') + ' b/' + args.branchid + '!';
           };
           break;
 
