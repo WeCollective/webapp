@@ -147,7 +147,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getPostsCb(name) {
-    if ('FlaggedPostsScrollToBottom' !== name) return;
+    if ('ScrollToBottom' !== name) return;
     
     if (!this.isLoadingMore) {
       this.isLoadingMore = true;

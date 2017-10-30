@@ -1,17 +1,17 @@
 .nav {
   background: linear-gradient(to bottom, @primary-2, @primary-0);
   height: @navbar-h;
-  left: 0;
   overflow-y: visible;
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: @z-navbar;
 
   .nav__content {
     margin: 0 auto;
-    max-width: @s-content-max-w;
+    max-width: @s-aligner-sm;
     width: 100%;
+
+    .mediaQuery(@screen-md, { max-width: @s-aligner-md; });
+    .mediaQuery(@screen-lg, { max-width: @s-aligner-lg; });
   }
 
   .nav__content {
@@ -21,6 +21,7 @@
     height: 100%;
     justify-content: space-between;
     position: relative;
+    z-index: @z-navbar;
   }
 
   .nav__expand-menu {
@@ -35,7 +36,7 @@
     top: 100%;
     width: auto;
     // Hide it under the cube.
-    z-index: -1;
+    z-index: 1;
 
     &.ng-hide-add,
     &.ng-hide-remove {

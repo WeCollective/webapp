@@ -1,16 +1,22 @@
-// Hidden to the left by default.
 .sidebar {
+  @offset-sm: @s-aligner-sm / 2;
+
   background-color: #fff;
   border-right: solid 1px @light-grey;
   box-shadow: none;
   box-sizing: border-box;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
+  height: @u-vh-sm;
+  left: calc(~'50% - @{offset-sm}');
+  overflow-y: scroll;
+  pointer-events: none;
+  position: fixed;
+  top: @u-offset-top-sm;
   transform: translateX(-100%);
   width: @sidebar-w-sm;
   z-index: @z-sidebar;
-  transition: transform .3s ease-out;
+  transition: @tr, height @tr-speed;
+
+  * { pointer-events: initial; }
 
   .sidebar-controls {
     @button-size: @sidebar-w-sm / 4;
@@ -103,7 +109,7 @@
     }
     
     .mediaQuery(@screen-md, {
-      @button-size: @sidebar-w / 4;
+      @button-size: @sidebar-w-md / 4;
       height: @button-size;
     });
 
@@ -119,8 +125,11 @@
     #inf-symbol { font-size: @font-size-lg; }
 
     h1 {
-      font-size: @font-size-xl;
+      font-size: @font-size-lg;
       font-weight: 500;
+      hyphens: auto;
+
+      .mediaQuery(@screen-md, { font-size: @font-size-xl; });
     }
 
     h2 {
@@ -143,7 +152,7 @@
     width: @picture-size;
 
     .mediaQuery(@screen-md, {
-      @picture-size: @sidebar-w;
+      @picture-size: @sidebar-w-md;
       height: @picture-size;
       width: @picture-size;
     });
@@ -184,27 +193,27 @@
     }
   }
 
+  &.docked { left: 0; }
   &.open {
     transform: translateX(0);
 
-    & + .content { transform: translateX(@sidebar-w-sm); }
+    & + .center { transform: translateX(@sidebar-w-sm); }
   }
-  
-  .mediaQuery(@screen-md, {
-    float: left;
-    position: static;
-    transform: none;
-    width: @sidebar-w;
 
-    & + .content {
-      transform: translateX(0) !important;
-      width: calc(~'100% - @{sidebar-w}');
-    }
+  .mediaQuery(@screen-md, {
+    @offset-md: @s-aligner-md / 2;
+
+    left: calc(~'50% - @{offset-md}');
+    transform: translateX(0);
+    width: @sidebar-w-md;
+
+    &.open + .center { transform: translateX(0); }
   });
 
   .mediaQuery(@screen-lg, {
-    width: @sidebar-w-lg;
+    @offset-lg: @s-aligner-lg / 2;
 
-    & + .content { width: calc(~'100% - @{sidebar-w-lg}'); }
+    left: calc(~'50% - @{offset-lg}');
+    width: @sidebar-w-lg;
   });
 }

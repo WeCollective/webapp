@@ -149,6 +149,7 @@ CommentsController.$inject = [
   '$scope',
   '$state',
   '$timeout',
+  'AlertsService',
   'CommentService',
   'EventService',
   'PostService',

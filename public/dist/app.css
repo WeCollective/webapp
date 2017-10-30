@@ -169,37 +169,40 @@ html[xmlns] .clearfix {
   height: 100%;
   width: 100%;
 }
-#weco-root .full-page {
-  height: 100%;
-  width: 100%;
-}
-#weco-root .full-page.full-page-nav {
+.view {
   height: calc(100vh - 45px);
-  overflow: hidden;
-  padding-top: 45px;
+  position: relative;
+}
+.full-page {
+  height: calc(100vh - 45px);
   position: relative;
   width: 100%;
 }
-#weco-root .page {
+.page {
   background-color: #e7e7e7;
-  width: 100%;
+  height: calc(100vh - 45px - 70px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: height 0.4s;
 }
-#weco-root .page.cover-page {
-  overflow: auto;
-  position: relative;
-}
-#weco-root .page > div.frame {
-  background-color: #fff;
+.page > .center {
   height: 100%;
-  margin: auto;
-  max-width: 1260px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
+  transition: transform 0.4s;
 }
-@media only screen and (min-width: 1260px) {
-  #weco-root .page > div.frame {
-    width: calc(100% - 64px);
+.page > .center > .align {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1160px;
+  position: relative;
+}
+@media only screen and (min-width: 768px) {
+  .page > .center > .align {
+    max-width: 1212px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .page > .center > .align {
+    max-width: 1260px;
   }
 }
 *[marked] {
@@ -723,13 +726,15 @@ html[xmlns] .clearfix {
   background-position: center;
   background-size: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 70px;
   position: relative;
   width: 100%;
   z-index: 1;
-  transition: height .4s;
+  transition: height 0.4s;
 }
 .cover-photo img {
   bottom: 6px;
+  cursor: pointer;
   height: 26px;
   opacity: .4;
   position: absolute;
@@ -737,7 +742,6 @@ html[xmlns] .clearfix {
   transition: transform .2s;
 }
 .cover-photo img:hover {
-  cursor: pointer;
   opacity: 1;
 }
 .cover-photo img.cover-photo-toggle {
@@ -750,35 +754,53 @@ html[xmlns] .clearfix {
 .cover-photo.closed {
   height: 0;
 }
-.cover-photo.closed + .cover-page {
-  height: 100%;
-}
 .cover-photo.closed img {
   transform: translateY(calc(38px));
 }
 .cover-photo.closed img.cover-photo-toggle {
   transform: translateY(calc(38px)) rotateZ(0);
 }
-.cover-photo.open {
-  height: 70px;
+.cover-photo.closed + .page {
+  height: calc(100vh - 45px);
 }
-.cover-photo.open + .cover-page {
-  height: calc(100% - 70px);
+.cover-photo.closed + .page .sidebar {
+  height: calc(100vh - 45px);
+  transform: translateY(-70px);
+}
+@media screen and (max-width: 768px) {
+  .cover-photo.closed + .page .sidebar {
+    transform: translateY(-70px) translateX(-100%);
+  }
+  .cover-photo.closed + .page .sidebar.open {
+    transform: translateY(-70px) translateX(0);
+  }
 }
 @media only screen and (min-width: 768px) {
-  .cover-photo.open {
+  .cover-photo {
     height: 100px;
   }
-  .cover-photo.open + .cover-page {
-    height: calc(100% - 100px);
+  .cover-photo + .page {
+    height: calc(100vh - 45px - 100px);
+  }
+  .cover-photo + .page .sidebar {
+    top: 145px;
+  }
+  .cover-photo.closed + .page .sidebar {
+    transform: translateY(-100px);
   }
 }
 @media only screen and (min-width: 992px) {
-  .cover-photo.open {
+  .cover-photo {
     height: 150px;
   }
-  .cover-photo.open + .cover-page {
-    height: calc(100% - 150px);
+  .cover-photo + .page {
+    height: calc(100vh - 45px - 150px);
+  }
+  .cover-photo + .page .sidebar {
+    top: 195px;
+  }
+  .cover-photo.closed + .page .sidebar {
+    transform: translateY(-150px);
   }
 }
 div.dropdown {
@@ -935,17 +957,24 @@ div[loading] div.loading-container img {
 .nav {
   background: linear-gradient(to bottom, #2a2a2a, #131313);
   height: 45px;
-  left: 0;
   overflow-y: visible;
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: 12;
 }
 .nav .nav__content {
   margin: 0 auto;
-  max-width: 1260px;
+  max-width: 1160px;
   width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  .nav .nav__content {
+    max-width: 1212px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .nav .nav__content {
+    max-width: 1260px;
+  }
 }
 .nav .nav__content {
   display: flex;
@@ -954,6 +983,7 @@ div[loading] div.loading-container img {
   height: 100%;
   justify-content: space-between;
   position: relative;
+  z-index: 12;
 }
 .nav .nav__expand-menu {
   background-color: #131313;
@@ -966,7 +996,7 @@ div[loading] div.loading-container img {
   right: -1px;
   top: 100%;
   width: auto;
-  z-index: -1;
+  z-index: 1;
 }
 .nav .nav__expand-menu.ng-hide-add,
 .nav .nav__expand-menu.ng-hide-remove {
@@ -1477,13 +1507,19 @@ div.poll-answer-editor input {
   border-right: solid 1px #e7e7e7;
   box-shadow: none;
   box-sizing: border-box;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
+  height: calc(100vh - 45px - 70px);
+  left: calc(50% - 580px);
+  overflow-y: scroll;
+  pointer-events: none;
+  position: fixed;
+  top: 115px;
   transform: translateX(-100%);
   width: 149px;
   z-index: 11;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.4s, height 0.4s;
+}
+.sidebar * {
+  pointer-events: initial;
 }
 .sidebar .sidebar-controls {
   border-top: solid 1px #e7e7e7;
@@ -1576,8 +1612,14 @@ div.poll-answer-editor input {
   font-size: 22px;
 }
 .sidebar .sidebar-info h1 {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 500;
+  hyphens: auto;
+}
+@media only screen and (min-width: 768px) {
+  .sidebar .sidebar-info h1 {
+    font-size: 26px;
+  }
 }
 .sidebar .sidebar-info h2 {
   font-size: 15px;
@@ -1628,30 +1670,29 @@ div.poll-answer-editor input {
 .sidebar ul li span {
   font-weight: 500;
 }
+.sidebar.docked {
+  left: 0;
+}
 .sidebar.open {
   transform: translateX(0);
 }
-.sidebar.open + .content {
+.sidebar.open + .center {
   transform: translateX(149px);
 }
 @media only screen and (min-width: 768px) {
   .sidebar {
-    float: left;
-    position: static;
-    transform: none;
+    left: calc(50% - 606px);
+    transform: translateX(0);
     width: 201px;
   }
-  .sidebar + .content {
-    transform: translateX(0) !important;
-    width: calc(100% - 201px);
+  .sidebar.open + .center {
+    transform: translateX(0);
   }
 }
 @media only screen and (min-width: 992px) {
   .sidebar {
+    left: calc(50% - 630px);
     width: 249px;
-  }
-  .sidebar + .content {
-    width: calc(100% - 249px);
   }
 }
 ul.tabs {
@@ -1664,7 +1705,7 @@ ul.tabs .tabs__item {
   color: #c8c8c8;
   display: inline-block;
   min-width: 60px;
-  padding-bottom: 6px;
+  padding-bottom: 3px;
   text-align: center;
 }
 ul.tabs .tabs__item span {
@@ -3267,20 +3308,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #c0392b;
 }
 .content {
-  float: left;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.3s ease-out;
-}
-.content .content__wrapper {
+  background-color: #fff;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  margin-left: auto;
+  min-height: 100%;
   position: relative;
 }
 .content .content__body {
-  flex: 1;
   overflow-y: scroll;
   position: relative;
 }
@@ -3340,11 +3374,24 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .content .content__list.style--full-padding {
   padding: 16px;
 }
+@media only screen and (min-width: 768px) {
+  .content {
+    width: calc(100% - 201px);
+  }
+}
+@media only screen and (min-width: 992px) {
+  .content {
+    width: calc(100% - 249px);
+  }
+}
 .header {
   align-items: flex-start;
   border-bottom: solid 1px #e7e7e7;
+  box-sizing: border-box;
   display: flex;
+  height: 56px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 16px 8px 0 16px;
 }
 .header .header__button {
@@ -3418,7 +3465,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header .header__title {
   font-size: 26px;
   font-weight: 500;
-  padding-bottom: 6px;
+  padding-bottom: 3px;
   padding-right: 15px;
   position: relative;
 }
@@ -3426,6 +3473,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .header .header__title {
     display: none;
   }
+}
+.header.style--fluid {
+  height: auto;
 }
 div#home-content {
   left: 50%;

@@ -56,7 +56,7 @@ class BranchSubbranchesController extends Injectable {
 
   callbackScroll(name) {
     const items = this.branches.length;
-    if (name === 'BranchSubbranchesScrollToBottom' && items > 0) {
+    if (name === 'ScrollToBottom' && items > 0) {
       this.getSubbranches(this.branches[items - 1].id);
     }
   }

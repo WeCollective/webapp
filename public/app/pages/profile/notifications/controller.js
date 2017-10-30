@@ -23,7 +23,7 @@ class ProfileNotificationsController extends Injectable {
       () => this.markAllNotificationsRead()));
 
     listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('ProfileContentBodyScrollToBottom' !== name) return;
+      if ('ScrollToBottom' !== name) return;
         
       if (this.notifications.length) {
         this.getNotifications(this.notifications[this.notifications.length - 1].id);

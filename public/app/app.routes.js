@@ -63,8 +63,8 @@ class AppRoutes extends Injectable {
         abstract: true,
         template: `
           <nav-bar></nav-bar>
-          <div class="full-page" ng-class="{ 'full-page-nav': App.hasNavBar() }" ui-view>
-          </div>`,
+          <div class="view" ui-view></div>
+        `,
       })
       
       // 404 Not Found
@@ -163,7 +163,7 @@ class AppRoutes extends Injectable {
         url: '/flaggedposts',
         templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
         controller: 'BranchNucleusFlaggedPostsController',
-        controllerAs: 'BranchNucleusFlaggedPosts',
+        controllerAs: 'FlaggedPosts',
       })
       
       // Subbranches
@@ -171,7 +171,7 @@ class AppRoutes extends Injectable {
         url: '/childbranches',
         templateUrl: '/app/pages/branch/subbranches/view.html',
         controller: 'BranchSubbranchesController',
-        controllerAs: 'BranchSubbranches',
+        controllerAs: 'Subbranches',
         pageTrack: '/b/:branchid/childbranches',
       })
       

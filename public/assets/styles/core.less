@@ -1,40 +1,38 @@
 #weco-root {
   height: 100%;
   width: 100%;
+}
 
-  .full-page {
+.view {
+  height: @u-vh-no-hero;
+  position: relative;
+}
+
+.full-page {
+  height: @u-vh-no-hero;
+  position: relative;
+  width: 100%;
+}
+
+.page {
+  background-color: @primary-8;
+  height: @u-vh-sm;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: height @tr-speed;
+
+  > .center {
     height: 100%;
-    width: 100%;
+    transition: @tr;
 
-    &.full-page-nav {
-      height: calc(~'100vh - @{navbar-h}');
-      overflow: hidden;
-      padding-top: @navbar-h;
-      position: relative;
-      width: 100%;
-    }
-  }
-
-  .page {
-    background-color: @primary-8;
-    width: 100%;
-
-    &.cover-page {
-      overflow: auto;
-      position: relative;
-    }
-
-    > div.frame {
-      background-color: #fff;
+    > .align {
       height: 100%;
-      margin: auto;
-      max-width: @s-content-max-w;
-      overflow: hidden;
+      margin: 0 auto;
+      max-width: @s-aligner-sm;
       position: relative;
-      width: 100%;
 
-      // What's 64px?
-      .mediaQuery(@screen-xxl, { width: ~'calc(100% - 64px)'; });
+      .mediaQuery(@screen-md, { max-width: @s-aligner-md; });
+      .mediaQuery(@screen-lg, { max-width: @s-aligner-lg; });
     }
   }
 }

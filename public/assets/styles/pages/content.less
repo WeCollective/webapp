@@ -1,19 +1,11 @@
 .content {
-  float: left;
-  height: 100%;
-  width: 100%;
-  transition: transform .3s ease-out;
-
-  .content__wrapper {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: relative;
-  }
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-left: auto;
+  min-height: 100%;
+  position: relative;
 
   .content__body {
-    flex: 1;
     // Needs to be set explicitly to scroll for the scrolling directive to work.
     overflow-y: scroll;
     position: relative;
@@ -73,4 +65,7 @@
     &.content__list--no-padding { padding: 0; }
     &.style--full-padding { padding: @g-padding-sidebar; }
   }
+
+  .mediaQuery(@screen-md, { width: calc(~'100% - @{sidebar-w-md}'); });
+  .mediaQuery(@screen-lg, { width: calc(~'100% - @{sidebar-w-lg}'); });
 }

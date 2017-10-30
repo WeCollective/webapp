@@ -5,23 +5,22 @@
   background-position: center;
   background-size: cover;
   box-shadow: @shadow-1;
+  height: @cover-h-sm;
   position: relative;
   width: 100%;
   z-index: 1;
-  transition: height .4s;
+  transition: height @tr-speed;
 
   img {
     bottom: @iconOffset;
+    cursor: pointer;
     height: @iconSize;
     opacity: .4;
     position: absolute;
     width: @iconSize;
     transition: transform .2s;
 
-    &:hover {
-      cursor: pointer;
-      opacity: 1;
-    }
+    &:hover { opacity: 1; }
 
     &.cover-photo-toggle {
       right: @iconOffset;
@@ -33,27 +32,50 @@
 
   &.closed {
     height: 0;
+    
+    img {
+      transform: translateY(calc(@iconOffset + @iconSize + @iconOffset));
 
-    & + .cover-page { height: 100%; }
-    img { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)); }
-    img.cover-photo-toggle { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)) rotateZ(0); }
+      &.cover-photo-toggle { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)) rotateZ(0); }
+    }
+
+    & + .page {
+      height: @u-vh-no-hero;
+
+      .sidebar {
+        height: @u-vh-no-hero;
+        transform: translateY(-@cover-h-sm);
+
+        @media screen and (max-width: @screen-md) {
+          transform: translateY(-@cover-h-sm) translateX(-100%);
+
+          &.open { transform: translateY(-@cover-h-sm) translateX(0); }
+        }
+      }
+    }
   }
 
-  &.open {
-    height: @cover-w;
+  .mediaQuery(@screen-md, {
+    height: @cover-h-md;
 
-    & + .cover-page { height: calc(~'100% - @{cover-w}'); }
+    & + .page {
+      height: @u-vh-md;
 
-    .mediaQuery(@screen-md, {
-      height: @cover-w-md;
+      .sidebar { top: @u-offset-top-md; }
+    }
 
-      & + .cover-page { height: calc(~'100% - @{cover-w-md}'); }
-    });
+    &.closed + .page .sidebar { transform: translateY(-@cover-h-md); }
+  });
 
-    .mediaQuery(@screen-lg, {
-      height: @cover-w-lg;
+  .mediaQuery(@screen-lg, {
+    height: @cover-h-lg;
 
-      & + .cover-page { height: calc(~'100% - @{cover-w-lg}'); }
-    });
-  }
+    & + .page {
+      height: @u-vh-lg;
+
+      .sidebar { top: @u-offset-top-lg; }
+    }
+
+    &.closed + .page .sidebar { transform: translateY(-@cover-h-lg); }
+  });
 }

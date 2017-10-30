@@ -4,8 +4,11 @@
 
   align-items: flex-start;
   border-bottom: solid 1px @light-grey;
+  box-sizing: border-box;
   display: flex;
+  height: @header-h;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
 
   .header__button {
@@ -85,7 +88,7 @@
   .header__title {
     font-size: @font-size-xl;
     font-weight: 500;
-    padding-bottom: @g-padding-post / 2;
+    padding-bottom: 3px;;
     padding-right: @dropdown-padding-left;
     position: relative;
 
@@ -93,4 +96,6 @@
       display: none;
     }
   }
+
+  &.style--fluid { height: auto; }
 }

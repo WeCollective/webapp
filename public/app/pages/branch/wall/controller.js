@@ -83,7 +83,7 @@ class BranchWallController extends Injectable {
 
   callbackScroll(name) {
     const items = this.posts.length;
-    if (name === 'WallScrollToBottom' && items > 0) {
+    if (name === 'ScrollToBottom' && items > 0) {
       this.getPosts(this.posts[items - 1].id);
     }
   }

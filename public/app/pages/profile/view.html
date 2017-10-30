@@ -6,37 +6,41 @@
   thumb-url="Profile.profileUser.coverUrlThumb">
 </cover-photo>
 
-<div class="cover-page page">
-  <div id="profile-frame" class="frame" loading when="Profile.isLoading">
-    <div class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
-      <div class="sidebar-info">
-        <h1>{{ Profile.profileUser.name }}</h1>
-        
-        <h2>{{ Profile.profileUser.username }}</h2>
-      </div>
+<div
+  class="page"
+  loading
+  loading-when="Profile.isLoading"
+  on-scroll-to-bottom="ScrollToBottom">
+  <div class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
+    <div class="sidebar-info">
+      <h1>{{ Profile.profileUser.name }}</h1>
       
-      <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-        <img
-          id="edit"
-          ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
-          ng-click="Profile.openProfilePictureModal()"
-          ng-show="Profile.profileUser.username === Profile.UserService.user.username"
-          offset-y="30"
-          src="/assets/images/icons/black/edit.png"
-          text="'Upload New Image'"
-          tooltip />
-      </div>
-      
-      <ul class="sidebar-info">
-        <li># of Posts: <span>{{ Profile.profileUser.num_posts }}</span></li>
-        <li># of Comments: <span>{{ Profile.profileUser.num_comments }}</span></li>
-        <li>Branches Created: <span>{{ Profile.profileUser.num_branches }}</span></li>
-        <li>Moderator Positions: <span>{{ Profile.profileUser.num_mod_positions }}</span></li>
-      </ul>
+      <h2>{{ Profile.profileUser.username }}</h2>
     </div>
     
-    <div class="content">
-      <div class="content__wrapper">
+    <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+      <img
+        id="edit"
+        ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
+        ng-click="Profile.openProfilePictureModal()"
+        ng-show="Profile.profileUser.username === Profile.UserService.user.username"
+        offset-y="30"
+        src="/assets/images/icons/black/edit.png"
+        text="'Upload New Image'"
+        tooltip />
+    </div>
+    
+    <ul class="sidebar-info">
+      <li># of Posts: <span>{{ Profile.profileUser.num_posts }}</span></li>
+      <li># of Comments: <span>{{ Profile.profileUser.num_comments }}</span></li>
+      <li>Branches Created: <span>{{ Profile.profileUser.num_branches }}</span></li>
+      <li>Moderator Positions: <span>{{ Profile.profileUser.num_mod_positions }}</span></li>
+    </ul>
+  </div>
+  
+  <div class="center">
+    <div class="align">
+      <div class="content">
         <div class="header">
           <img
             alt="Toggle sidebar"
@@ -67,10 +71,7 @@
 
         <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
         
-        <div
-          class="content__body"
-          on-scroll-to-bottom="ProfileContentBodyScrollToBottom"
-          ui-view></div>
+        <div class="content__body" ui-view></div>
       </div>
     </div>
   </div>

@@ -1,46 +1,43 @@
-<div class="content__wrapper">
-  <div class="header">
-    <h1 class="header__title text--capitalize">
-      Flagged posts
-    </h1>
+<div class="header">
+  <h1 class="header__title text--capitalize">
+    Flagged posts
+  </h1>
 
-    <div class="header__controls">
-      <dropdown
-        class="text--uppercase"
-        items="BranchNucleusFlaggedPosts.controls.sortBy.items"
-        selected="BranchNucleusFlaggedPosts.controls.sortBy.selectedIndex"
-        title="sort by">
-      </dropdown>
+  <div class="header__controls">
+    <dropdown
+      class="text--uppercase"
+      items="FlaggedPosts.controls.sortBy.items"
+      selected="FlaggedPosts.controls.sortBy.selectedIndex"
+      title="sort by">
+    </dropdown>
 
-      <dropdown
-        class="text--uppercase"
-        items="BranchNucleusFlaggedPosts.controls.timeRange.items"
-        selected="BranchNucleusFlaggedPosts.controls.timeRange.selectedIndex"
-        title="time range">
-      </dropdown>
+    <dropdown
+      class="text--uppercase"
+      items="FlaggedPosts.controls.timeRange.items"
+      selected="FlaggedPosts.controls.timeRange.selectedIndex"
+      title="time range">
+    </dropdown>
 
-      <dropdown
-        class="text--uppercase"
-        items="BranchNucleusFlaggedPosts.controls.postType.items"
-        selected="BranchNucleusFlaggedPosts.controls.postType.selectedIndex"
-        title="post type">
-      </dropdown>
-    </div>
+    <dropdown
+      class="text--uppercase"
+      items="FlaggedPosts.controls.postType.items"
+      selected="FlaggedPosts.controls.postType.selectedIndex"
+      title="post type">
+    </dropdown>
   </div>
+</div>
 
-  <div
-    class="content__body"
-    loading
-    loading-when="!BranchNucleusFlaggedPosts.posts.length && BranchNucleusFlaggedPosts.isLoading"
-    on-scroll-to-bottom="FlaggedPostsScrollToBottom">
-    <ul class="content__list">
-      <li
-        class="branch__post list-item"
-        index="$index"
-        list-item
-        ng-repeat="post in BranchNucleusFlaggedPosts.posts track by $index"
-        post="post">
-      </li>
-    </ul>
-  </div>
+<div
+  class="content__body"
+  loading
+  loading-when="FlaggedPosts.isLoading && FlaggedPosts.posts.length === 0">
+  <ul class="content__list">
+    <li
+      class="branch__post list-item"
+      index="$index"
+      list-item
+      ng-repeat="post in FlaggedPosts.posts track by $index"
+      post="post">
+    </li>
+  </ul>
 </div>

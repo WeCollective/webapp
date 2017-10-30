@@ -7181,9 +7181,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: true,
-  name: 'development'
+  name: 'local'
 };
 
 exports.default = ENV;
@@ -65731,7 +65731,7 @@ var AppRoutes = function (_Injectable) {
     // Abstract root state contains nav-bar
     .state('weco', {
       abstract: true,
-      template: '\n          <nav-bar></nav-bar>\n          <div class="full-page" ng-class="{ \'full-page-nav\': App.hasNavBar() }" ui-view>\n          </div>'
+      template: '\n          <nav-bar></nav-bar>\n          <div class="view" ui-view></div>\n        '
     })
 
     // 404 Not Found
@@ -65814,7 +65814,7 @@ var AppRoutes = function (_Injectable) {
       url: '/flaggedposts',
       templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
       controller: 'BranchNucleusFlaggedPostsController',
-      controllerAs: 'BranchNucleusFlaggedPosts'
+      controllerAs: 'FlaggedPosts'
     })
 
     // Subbranches
@@ -65822,7 +65822,7 @@ var AppRoutes = function (_Injectable) {
       url: '/childbranches',
       templateUrl: '/app/pages/branch/subbranches/view.html',
       controller: 'BranchSubbranchesController',
-      controllerAs: 'BranchSubbranches',
+      controllerAs: 'Subbranches',
       pageTrack: '/b/:branchid/childbranches'
     })
 
@@ -65901,6 +65901,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _injectable = __webpack_require__(2);
 
 var _injectable2 = _interopRequireDefault(_injectable);
@@ -65913,6 +65915,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var THROTTLE = 25;
+
+var getCSSAligner = function getCSSAligner() {
+  var vw = window.innerWidth;
+  var CSSSContentMax = 1011;
+  var CSSScreenMd = 768;
+  var CSSScreenLg = 992;
+  var CSSSidebarWSm = 149;
+  var CSSSidebarWMd = 201;
+  var CSSSidebarWLg = 249;
+
+  if (vw < CSSScreenMd) {
+    return CSSSidebarWSm + CSSSContentMax;
+  } else if (vw >= CSSScreenMd && vw < CSSScreenLg) {
+    return CSSSidebarWMd + CSSSContentMax;
+  }
+
+  return CSSSidebarWLg + CSSSContentMax;
+};
+
 var AppRun = function (_Injectable) {
   _inherits(AppRun, _Injectable);
 
@@ -65923,9 +65945,12 @@ var AppRun = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
-    // Tell Prerender.io to cache when DOM is loaded
     var _this = _possibleConstructorReturn(this, (AppRun.__proto__ || Object.getPrototypeOf(AppRun)).call(this, AppRun.$inject, injections));
 
+    _this.docked = null;
+    _this.timer = null;
+
+    // Tell Prerender.io to cache when DOM is loaded
     _this.$timeout(function () {
       return _this.$window.prerenderReady = true;
     });
@@ -65986,8 +66011,44 @@ var AppRun = function (_Injectable) {
         doChecks();
       }
     });
+
+    window.addEventListener('resize', function () {
+      clearTimeout(_this.timer);
+      _this.timer = setTimeout(_this.resizeCallback, THROTTLE);
+    });
+
+    // Run on init too.
+    _this.$rootScope.$on('$stateChangeSuccess', function () {
+      _this.docked = null;
+      _this.$timeout(function () {
+        return _this.resizeCallback();
+      });
+    });
     return _this;
   }
+
+  _createClass(AppRun, [{
+    key: 'resizeCallback',
+    value: function resizeCallback() {
+      var className = 'docked';
+      var vw = window.innerWidth;
+      var left = vw * 0.5 - getCSSAligner() / 2;
+
+      if (left <= 0 && !this.docked) {
+        var sidebar = document.getElementsByClassName('sidebar')[0];
+        if (sidebar) {
+          sidebar.classList.add(className);
+          this.docked = true;
+        }
+      } else if (left > 0 && this.docked) {
+        var _sidebar = document.getElementsByClassName('sidebar')[0];
+        if (_sidebar) {
+          _sidebar.classList.remove(className);
+          this.docked = false;
+        }
+      }
+    }
+  }]);
 
   return AppRun;
 }(_injectable2.default);
@@ -66981,7 +67042,7 @@ var CommentsController = function (_Injectable) {
   return CommentsController;
 }(_injectable2.default);
 
-CommentsController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'CommentService', 'EventService', 'PostService'];
+CommentsController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'CommentService', 'EventService', 'PostService'];
 
 exports.default = CommentsController;
 
@@ -73019,7 +73080,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
   }, {
     key: 'getPostsCb',
     value: function getPostsCb(name) {
-      if ('FlaggedPostsScrollToBottom' !== name) return;
+      if ('ScrollToBottom' !== name) return;
 
       if (!this.isLoadingMore) {
         this.isLoadingMore = true;
@@ -74282,7 +74343,7 @@ var BranchSubbranchesController = function (_Injectable) {
     key: 'callbackScroll',
     value: function callbackScroll(name) {
       var items = this.branches.length;
-      if (name === 'BranchSubbranchesScrollToBottom' && items > 0) {
+      if (name === 'ScrollToBottom' && items > 0) {
         this.getSubbranches(this.branches[items - 1].id);
       }
     }
@@ -74491,7 +74552,7 @@ var BranchWallController = function (_Injectable) {
     key: 'callbackScroll',
     value: function callbackScroll(name) {
       var items = this.posts.length;
-      if (name === 'WallScrollToBottom' && items > 0) {
+      if (name === 'ScrollToBottom' && items > 0) {
         this.getPosts(this.posts[items - 1].id);
       }
     }
@@ -74987,7 +75048,7 @@ var ProfileNotificationsController = function (_Injectable) {
     }));
 
     listeners.push(_this.EventService.on(_this.EventService.events.SCROLLED_TO_BOTTOM, function (name) {
-      if ('ProfileContentBodyScrollToBottom' !== name) return;
+      if ('ScrollToBottom' !== name) return;
 
       if (_this.notifications.length) {
         _this.getNotifications(_this.notifications[_this.notifications.length - 1].id);
