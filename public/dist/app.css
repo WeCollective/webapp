@@ -1509,7 +1509,8 @@ div.poll-answer-editor input {
   box-sizing: border-box;
   height: calc(100vh - 45px - 70px);
   left: calc(50% - 580px);
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   pointer-events: none;
   position: fixed;
   top: 115px;
@@ -3315,7 +3316,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   position: relative;
 }
 .content .content__body {
-  overflow-y: scroll;
   position: relative;
 }
 .content .content__list {
