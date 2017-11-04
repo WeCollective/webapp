@@ -36,6 +36,7 @@ class AppRun extends Injectable {
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
       let mods = [];
 
+      this.AppService.applyState();
       this.EventService.emit('$stateChangeSuccess');
 
       const getMods = cb => {
@@ -99,6 +100,7 @@ class AppRun extends Injectable {
 
     // Run on init too.
     this.$rootScope.$on('$stateChangeSuccess', () => {
+      this.AppService.applyState();
       this.docked = null;
       this.$timeout(() => this.resizeCallback());
     });
@@ -133,6 +135,7 @@ AppRun.$inject = [
   '$window',
   // Analytics must be injected at least once to work properly, even if unused.
   'Analytics',
+  'AppService',
   'EventService',
   'ModService',
   'UserService',

@@ -22,6 +22,7 @@
   transition: height @tr-speed;
 
   > .center {
+    box-sizing: border-box;
     height: 100%;
     transition: @tr;
 
@@ -34,5 +35,11 @@
       .mediaQuery(@screen-md, { max-width: @s-aligner-md; });
       .mediaQuery(@screen-lg, { max-width: @s-aligner-lg; });
     }
+
+    &.toggled { transform: translateX(@sidebar-w-sm); }
+
+    .mediaQuery(@screen-md, {
+      &.toggled { transform: translateX(0); }
+    });
   }
 }

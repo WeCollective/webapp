@@ -197,8 +197,6 @@
   &.docked { left: 0; }
   &.open {
     transform: translateX(0);
-
-    & + .center { transform: translateX(@sidebar-w-sm); }
   }
 
   .mediaQuery(@screen-md, {
@@ -207,8 +205,6 @@
     left: calc(~'50% - @{offset-md}');
     transform: translateX(0);
     width: @sidebar-w-md;
-
-    &.open + .center { transform: translateX(0); }
   });
 
   .mediaQuery(@screen-lg, {

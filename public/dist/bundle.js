@@ -65960,6 +65960,7 @@ var AppRun = function (_Injectable) {
     _this.$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
       var mods = [];
 
+      _this.AppService.applyState();
       _this.EventService.emit('$stateChangeSuccess');
 
       var getMods = function getMods(cb) {
@@ -66019,6 +66020,7 @@ var AppRun = function (_Injectable) {
 
     // Run on init too.
     _this.$rootScope.$on('$stateChangeSuccess', function () {
+      _this.AppService.applyState();
       _this.docked = null;
       _this.$timeout(function () {
         return _this.resizeCallback();
@@ -66055,7 +66057,7 @@ var AppRun = function (_Injectable) {
 
 AppRun.$inject = ['$rootScope', '$state', '$timeout', '$window',
 // Analytics must be injected at least once to work properly, even if unused.
-'Analytics', 'EventService', 'ModService', 'UserService'];
+'Analytics', 'AppService', 'EventService', 'ModService', 'UserService'];
 
 exports.default = AppRun;
 
@@ -66101,6 +66103,17 @@ var AppService = function (_Injectable) {
   }
 
   _createClass(AppService, [{
+    key: 'applyState',
+    value: function applyState() {
+      var action = this.isSidebarOpen ? 'add' : 'remove';
+      var CLASS_NAME = 'toggled';
+      var content = document.getElementsByClassName('center')[0];
+      var header = document.getElementsByClassName('header style--fixed')[0];
+
+      if (content) content.classList[action](CLASS_NAME);
+      if (header) header.classList[action](CLASS_NAME);
+    }
+  }, {
     key: 'getProxyUrl',
     value: function getProxyUrl(url) {
       // only proxy http requests, not https
@@ -66110,6 +66123,7 @@ var AppService = function (_Injectable) {
     key: 'toggleSidebar',
     value: function toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
+      this.applyState();
     }
   }]);
 
