@@ -1,0 +1,13 @@
+node_modules/
+npm-debug.log
+
+config/
+dist/
+coverage/
+.gulp-env
+
+public/
+build/
+
+.idea
+.idea/*
