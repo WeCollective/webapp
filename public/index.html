@@ -1,11 +1,65 @@
-<!doctype html>
-<html ng-app="app" lang="en">
+<!--
+  Copyright (c) 2017 WE COLLECTIVE
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+ -->
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Angular App</title>
-    <meta charset="UTF-8">
-    <base href="/">
+    <!-- Required for Prerender.io -->
+    <meta name="fragment" content="!" />
+
+    <meta charset="utf-8" />
+    <base href="/" />
+    <title>WE Collective</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="WE Collective" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.weco.io/" />
+    <meta property="og:image" content="https://www.weco.io/assets/images/open-graph-banner.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="/assets/images/icons/favicon.ico" />
+    <!-- Browser bar colours on mobile -->
+    <meta name="theme-color" content="#222222" />
   </head>
-  <body>
-    <div ui-view="app"></div>
-  <script type="text/javascript" src="/app.4f02d9036127dd1e73bb.js"></script></body>
+  <body
+    ng-app="wecoApp"
+    ng-controller="AppController as App"
+    ng-class="{ 'style--modal-open': App.modalOpen() }">
+    
+    <div
+      class="tooltip"
+      ng-show="App.TooltipService.visible && App.TooltipService.text !== ''"
+      ng-style="{ 'top': App.TooltipService.y + 'px', 'left': App.TooltipService.x + 'px' }">
+      <span
+        class="tooltip-text"
+        ng-bind-html="App.TooltipService.text.split('\n').join('<br>')">
+      </span>
+    </div>
+    
+    <alerts></alerts>
+    <div modal></div>
+    <div id="weco-root" ui-view></div>
+
+    <!-- PRERENDER IO WILL CACHE WHEN prerenderReady SET TO TRUE -->
+    <script>
+window.prerenderReady = false;
+    </script>
+    <!-- DEPENDENCIES -->
+    <script src="http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/app.2eecaa19f2def43e960f.js"></script></body>
 </html>

@@ -71,6 +71,7 @@ class ComponentRegistrar {
   run(constructorFn) {
     constructorFn = this._normalizeConstructor(constructorFn);
     const factoryArray = this._createFactoryArray(constructorFn);
+    console.log(factoryArray);
     this.app.run(factoryArray);
   }
 

@@ -6,7 +6,7 @@
       <p ng-show="(!RemoveModModal.mods || RemoveModModal.mods.length === 0) && !RemoveModModal.isLoading">There are no moderators available for removal.<br>Note that you can only remove moderators who became mods after you did.</p>
       <ul>
         <li ng-repeat="mod in RemoveModModal.mods" ng-click="RemoveModModal.select(mod)" ng-class="{ 'selected': RemoveModModal.selectedMod.username === mod.username }">
-          <div class="profile-picture" style="background-image: url('{{ mod.profileUrl }}'), url('/assets/images/default-profile.jpg');"></div>
+          <div class="profile-picture" style="background-image: url('{{ mod.profileUrl }}'), url('/assets/default-profile.jpg');"></div>
           <div class="details">
             <h2 class="name">{{ mod.name }}</span>
             <h2 class="username">{{ mod.username }}</span>

@@ -1,9 +1,14 @@
 import Injectable from 'utils/injectable';
 
+import Nucleus from 'assets/icons/black/nucleus.png';
+
 class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
+
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
+    this.nucleus = Nucleus;
+
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
       this.$timeout(() => this.isLoading = false);
     });

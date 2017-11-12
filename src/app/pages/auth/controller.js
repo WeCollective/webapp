@@ -4,7 +4,7 @@ class AuthController extends Injectable {
   constructor(...injections) {
     super(AuthController.$inject, injections);
 
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
+    this.animationSrc = '/assets/logo-animation-large.gif';
     this.credentials = {};
     this.errorMessage = '';
     this.isLoading = false;
@@ -94,7 +94,7 @@ class AuthController extends Injectable {
     }
 
     // set animation src to the animated gif
-    this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
+    this.$timeout(() => this.animationSrc = '/assets/logo-animation-large.gif');
 
     // cancel after 1 sec
     this.$timeout(() => {

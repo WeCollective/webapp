@@ -1,31 +1,50 @@
-//
-// Main stylesheet.
-// Should import all the other stylesheets
-//
+// Mixins.
+@import 'mixins/colours';
+@import 'mixins/shadows';
+@import 'mixins/layout';
+@import 'mixins/components';
 
-// Variables, functions, mixins and utils
-@import "base/_variables";
-@import "base/_functions";
-@import "base/_mixins";
-@import "base/_utils";
+// Core.
+@import 'fonts';
+@import 'core';
+@import 'markdown';
 
-// Base/generic style rules
-@import "base/_reset";
-@import "base/_responsive";
-@import "base/_fonts";
-@import "base/_typography";
-@import "base/_base";
+@import 'global';
 
-// Layout
-@import "layout/_layout";
-@import "layout/_theme";
-@import "layout/_print";
+// Components.
+@import 'components/alerts';
+@import 'components/button';
+@import 'components/comments';
+@import 'components/cover-photo';
+@import 'components/dropdown';
+@import 'components/empty-state';
+@import 'components/loading';
+@import 'components/navbar';
+@import 'components/notification';
+@import 'components/poll-answer-editor';
+@import 'components/sidebar';
+@import 'components/tabs';
+@import 'components/tags';
+@import 'components/tooltip';
 
-// Components
-@import "../components/foo-bar/foo-bar";
+// Modals.
+@import 'components/modal';
+@import 'components/modal/upload-image';
+@import 'components/modal/branch/create';
+@import 'components/modal/branch/nucleus/remove-mod';
+@import 'components/modal/branch/nucleus/review-subbranch-request';
+@import 'components/modal/post/create-post';
+@import 'components/modal/post/flag-post';
+@import 'components/modal/post/resolve-flag-post';
 
-// Pages
-@import "../pages/home/home";
+// Pages.
+@import 'pages/auth';
+@import 'pages/branch';
+@import 'pages/content';
+@import 'pages/header';
+@import 'pages/home';
+@import 'pages/not-found';
+@import 'pages/post';
 
 // Tests
 @import "tests/tests";

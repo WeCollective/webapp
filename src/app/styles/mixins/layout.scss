@@ -1,0 +1,83 @@
+// Responsive screen sizes, default is < 576px
+$screen-sm: 576px !default;
+$screen-md: 768px !default;
+$screen-lg: 992px !default;
+$screen-xl: 1200px !default;
+$screen-xxl: 1260px !default;
+
+// Fonts
+$font-size-xs: 12px !default;
+$font-size-sm: 14px !default;
+$font-size-md: 18px !default;
+$font-size-lg: 22px !default;
+$font-size-xl: 26px !default;
+$font-weight-extra-light: 200 !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-heavy: 500 !default;
+$font-weight-extra-heavy: 600 !default;
+
+// Component specific mixins
+
+// Cover
+$cover-h-sm: 70px !default;
+$cover-h-md: 100px !default;
+$cover-h-lg: 150px !default;
+
+// Sidebar
+$sidebar-w-sm: 149px !default;
+$sidebar-w-md: 201px !default;
+$sidebar-w-lg: 249px !default;
+
+// Thumbnails
+$branch-thumbnail-size: 110px !default;
+$post-thumbnail-h: 80px !default;
+$post-thumbnail-w: 80px !default;
+$post-thumbnail-h-lg: 90px !default;
+$post-thumbnail-w-lg: 150px !default;
+
+// Navbar.
+$navbar-h: 45px !default;
+
+// Fixed actions header.
+$header-h: 56px !default;
+
+$page-margin-xs: 0% !default;
+$page-margin-sm: 0% !default;
+$page-margin-md: 10% !default;
+$page-margin-lg: 14% !default;
+$page-margin-xl: 17% !default;
+
+// Spacing.
+$g-padding-post: 12px !default;
+$g-padding-sidebar: 16px !default;
+
+// Element sizing.
+$s-content-max-w: 1011px !default;
+
+// Stacking order.
+$z-header: 10 !default;
+$z-sidebar: 11 !default;
+$z-navbar: 12 !default;
+$z-modal: 13 !default;
+$z-dropdown: 14 !default;
+
+$c-card-bg: #eee !default;
+$c-shadow: rgba(#000, .26) !default;
+
+$s-aligner-sm: $sidebar-w-sm + $s-content-max-w !default;
+$s-aligner-md: $sidebar-w-md + $s-content-max-w !default;
+$s-aligner-lg: $sidebar-w-lg + $s-content-max-w !default;
+
+$u-offset-top-sm: $navbar-h + $cover-h-sm !default;
+$u-offset-top-md: $navbar-h + $cover-h-md !default;
+$u-offset-top-lg: $navbar-h + $cover-h-lg !default;
+$u-offset-top-no-hero: $navbar-h !default;
+
+$u-vh-sm: calc(100vh - #{$navbar-h} - #{$cover-h-sm}) !default;
+$u-vh-md: calc(100vh - #{$navbar-h} - #{$cover-h-md}) !default;
+$u-vh-lg: calc(100vh - #{$navbar-h} - #{$cover-h-lg}) !default;
+$u-vh-no-hero: calc(100vh - #{$navbar-h}) !default;
+
+$tr-speed: .4s !default;
+$tr: transform $tr-speed !default;

@@ -7,7 +7,7 @@
       <ul>
         <li ng-repeat="request in ReviewSubbranchRequestsModal.requests">
           <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">
-            <div style="background-image: url('{{ request.branch.profileUrl }}'), url('/assets/images/default-branch.jpg');"></div>
+            <div style="background-image: url('{{ request.branch.profileUrl }}'), url('/assets/default-branch.jpg');"></div>
           </a>
           <div id="branch-info">
             <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">

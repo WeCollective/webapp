@@ -1,0 +1,102 @@
+$dropdown-item-vertical-padding: 3px;
+
+div.dropdown {
+  // align-items: flex-start;
+  // display: flex;
+  // flex-direction: column;
+  flex: none;
+  font-size: 11px;
+  padding: 0 5px;
+  position: relative;
+
+  > .dropdown-container {
+    cursor: pointer;
+    display: block;
+    position: relative;
+  }
+
+  > .dropdown-title {
+    align-items: center;
+    display: flex;
+    font-size: inherit;
+    line-height: 1;
+    // margin-top: 6px;
+    padding-left: 10px;
+    position: relative;
+
+    span {
+      color: $dark-grey;
+      font-size: inherit;
+    }
+  }
+
+  div.dropdown--list-item {
+    align-items: center;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: inherit;
+    justify-content: space-between;
+    padding: $dropdown-item-vertical-padding 10px 0;
+    position: relative;
+
+    img {
+      height: 10px;
+      margin-left: 6px;
+      width: auto;
+    }
+
+    span.selected { font-weight: $font-weight-normal; }
+  }
+
+  &.style--horizontal {
+    align-items: center;
+    align-self: flex-start;
+    // border-bottom: 1px solid @light-grey;
+    display: flex;
+    padding-bottom: 8px !important;
+    padding-top: 8px !important;
+
+    > .dropdown-title {
+      line-height: 2;
+      margin-top: 0;
+    }
+  }
+}
+
+// Global because we inject it into <body> on hover.
+.dropdown--list {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: $shadow-2;
+  font-size: 11px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  z-index: $z-dropdown;
+
+  > .dropdown--list-item {
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: inherit;
+    padding: $dropdown-item-vertical-padding 10px;
+    position: relative;
+    width: 100%;
+
+    &:hover {
+      background-color: $light-grey;
+      cursor: pointer;
+    }
+  }
+
+  .list-item__circle { margin-right: 4px; }
+
+  &.selected { font-weight: $font-weight-normal; }
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}

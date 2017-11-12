@@ -8,7 +8,7 @@
       class="header__button style--sidebar-toggle"
       ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
       ng-click="Navbar.AppService.toggleSidebar()"
-      src="/assets/images/icons/black/show.png" />
+      src="/assets/icons/black/show.png" />
 
     <div
       list-item
@@ -25,7 +25,7 @@
           class="post__preview-control-btn"
           ng-click="BranchPost.toggleCinemaMode()"
           ng-show="BranchPost.previewState !== 'hide' && (BranchPost.PostService.post.type === 'video' || BranchPost.PostService.post.type === 'image')"
-          ng-src="/assets/images/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
+          ng-src="/assets/icons/black/{{ BranchPost.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
           offset-y="40"
           text="BranchPost.previewState === 'maximise' ? 'Shrink' : 'Expand'"
           tooltip />
@@ -36,7 +36,7 @@
           ng-class="{ 'toggled': BranchPost.previewState !== 'hide' }"
           ng-click="BranchPost.togglePreviewState()"
           offset-y="40"
-          src="/assets/images/icons/black/show.png"
+          src="/assets/icons/black/show.png"
           text="BranchPost.previewState === 'hide' ? 'Show' : 'Hide'"
           tooltip />
       </div>

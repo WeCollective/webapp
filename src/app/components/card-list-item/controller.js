@@ -54,7 +54,7 @@ class ListItemController extends Injectable {
   }
 
   getPostImage() {
-    const IMG_DIR = '/assets/images/placeholders/';
+    const IMG_DIR = '/assets/placeholders/';
     return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
   }
 

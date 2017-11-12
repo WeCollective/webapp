@@ -14,7 +14,7 @@
         <img
           alt="Weco logo"
           class="nav__logo-icon"
-          src="/assets/images/nav-logo.png" />
+          src="{{ Navbar.logo }}" />
       </a>
 
       <div class="nav__menu">
@@ -26,7 +26,7 @@
             alt="Go to Global Nucleus"
             class="nav__icon"
             offset-y="40"
-            src="/assets/images/icons/white/nucleus.png"
+            src="{{ Navbar.nucleus }}"
             text="'Global Nucleus'"
             tooltip />
         </a>
@@ -39,7 +39,7 @@
             alt="Go to Root Branches"
             class="nav__icon"
             offset-y="40"
-            src="/assets/images/icons/white/branch.png"
+            src="{{ Navbar.branch }}"
             text="'Root Branches'"
             tooltip />
         </a>
@@ -52,7 +52,7 @@
             alt="Go to Global Wall"
             class="nav__icon"
             offset-y="40"
-            src="/assets/images/icons/white/wall.png"
+            src="{{ Navbar.wall }}"
             text="'Global Wall'"
             tooltip />
         </a>
@@ -82,7 +82,7 @@
         <div class="nav__icon">
           <img
             alt="You have {{ Navbar.notificationCount }} unread notifications"
-            src="assets/images/icons/white/notification.png" />
+            src="{{ Navbar.notification }}" />
 
           <div
             class="nav__item-badge"
@@ -100,7 +100,7 @@
         <span class="nav__item-text">{{ Navbar.UserService.user.username }}</span>
         <div
           class="nav__user-picture"
-          style="background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+          style="background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url({{ Navbar.defaultPicture }});">
         </div>
       </a>
       
@@ -112,7 +112,7 @@
           alt="Toggle menu navigation"
           class="nav__icon"
           ng-class="{ 'style--opaque': Navbar.expanded }"
-          src="assets/images/icons/white/nav-expand.png" />
+          src="{{ Navbar.showMore }}" />
 
         <ul
           class="nav__expand-menu"

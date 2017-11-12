@@ -36,14 +36,14 @@
       </h2>
     </div>
     
-    <div class="sidebar-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+    <div class="sidebar-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/default-branch.jpg');">
       <img
         alt=""
         id="edit"
         ng-class="{ 'style--default': !Branch.BranchService.branch.profileUrl }"
         ng-click="Branch.openModal('profile-picture')"
         ng-show="Branch.isModerator()"
-        src="/assets/images/icons/black/edit.png" />
+        src="/assets/icons/black/edit.png" />
     </div>
     
     <ul class="sidebar-controls">
@@ -54,7 +54,7 @@
           text="'Nucleus'"
           tooltip
           ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })">
-          <img alt="Go to branch nucleus" src="/assets/images/icons/black/nucleus.png" />
+          <img alt="Go to branch nucleus" src="{{ Branch.nucleus }}" />
         </a>
       </li>
 
@@ -65,7 +65,7 @@
           text="'Child Branches'"
           tooltip
           ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" >
-          <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
+          <img alt="Go to branch subbranches" src="/assets/icons/black/branch.png" />
         </a>
       </li>
 
@@ -76,7 +76,7 @@
           text="'Wall'"
           tooltip
           ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-          <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
+          <img alt="Go to branch wall" src="/assets/icons/black/wall.png" />
         </a>
       </li>
 
@@ -89,7 +89,7 @@
           tooltip>
           <img
             alt="Toggle branch follow status button"
-            ng-src="/assets/images/icons/button-eye-{{ Branch.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
+            ng-src="/assets/icons/button-eye-{{ Branch.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
         </button>
       </li>
     </ul>

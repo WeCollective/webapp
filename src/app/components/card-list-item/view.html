@@ -9,7 +9,7 @@
     class="list-item-flags ng-hide"
     ng-click="ListItem.openResolveFlagPostModal()"
     ng-show="ListItem.showFlags()">
-    <img alt="" src="/assets/images/icons/white/flag.png" />
+    <img alt="" src="/assets/icons/white/flag.png" />
     <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
 
@@ -19,7 +19,7 @@
       class="list-item__vote-icon"
       ng-class="{ 'style--active': ListItem.post.votes.userVoted === 'up' }"
       ng-click="ListItem.vote('up', $event.target)"
-      src="/assets/images/icons/black/arrow-up.png" />
+      src="/assets/icons/black/arrow-up.png" />
 
     <p>{{ ListItem.post.votes[ListItem.stat] }}</p>
 
@@ -27,7 +27,7 @@
     <img
       alt="Downvote post"
       ng-click="ListItem.vote('down', $event.target)"
-      src="/assets/images/icons/black/arrow-down.png" />
+      src="/assets/icons/black/arrow-down.png" />
     -->
   </div>
   
@@ -46,7 +46,7 @@
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.jpg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/placeholders/post--image.jpg')"></div>
   </a>
   
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
@@ -90,7 +90,7 @@
         <img
           alt="View post discussion"
           class="list-item__detail"
-          src="/assets/images/icons/black/comment.png" />
+          src="/assets/icons/black/comment.png" />
         <span>{{ ListItem.post.comment_count }}</span>
       </a>
       
@@ -99,7 +99,7 @@
         class="list-item__detail style--icon"
         ng-click="ListItem.openFlagPostModal()"
         offset-y="20"
-        src="/assets/images/icons/black/flag.png"
+        src="/assets/icons/black/flag.png"
         text="'Flag post'"
         tooltip />
       
@@ -109,7 +109,7 @@
         ng-click="ListItem.openDeletePostModal()"
         ng-show="ListItem.isOwnPost()"
         offset-y="20"
-        src="/assets/images/icons/black/delete.png"
+        src="/assets/icons/black/delete.png"
         text="'Delete post'"
         tooltip />
 

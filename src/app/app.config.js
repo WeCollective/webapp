@@ -26,9 +26,8 @@ class AppConfig extends Injectable {
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
 
-    console.log(`Setting Google Analytics account to ${UA}.`);
-
     if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
+      console.log(`Setting Google Analytics account to ${UA}.`);
       this.AnalyticsProvider.enterDebugMode(true);
     }
 

@@ -1,5 +1,14 @@
 import Injectable from 'utils/injectable';
 
+import Branch from 'assets/icons/white/branch.png';
+import Notification from 'assets/icons/white/notification.png';
+import Nucleus from 'assets/icons/white/nucleus.png';
+import Logo from 'assets/nav-logo.png';
+import LogoAnimation from 'assets/logo-animation.gif';
+import ProfilePicture from 'assets/default-profile.jpg';
+import ShowMore from 'assets/icons/white/nav-expand.png';
+import Wall from 'assets/icons/white/wall.png';
+
 class NavbarController extends Injectable {
   constructor(...injections) {
     super(NavbarController.$inject, injections);
@@ -10,8 +19,15 @@ class NavbarController extends Injectable {
     const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.animationSrc = '';
+    this.branch = Branch;
+    this.defaultPicture = ProfilePicture;
     this.expanded = false;
+    this.logo = Logo;
+    this.notification = Notification;
     this.notificationCount = cache.count || 0;
+    this.nucleus = Nucleus;
+    this.showMore = ShowMore;
+    this.wall = Wall;
 
     this.getNotifications();
 
@@ -73,7 +89,7 @@ class NavbarController extends Injectable {
 
   triggerAnimation() {
     this.$timeout(() => {
-      this.animationSrc = '/assets/images/logo-animation.gif';
+      this.animationSrc = LogoAnimation;
 
       this.$timeout(() => this.animationSrc = '', 1000);
     });

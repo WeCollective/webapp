@@ -22,6 +22,8 @@ import initServices from 'init.services';
 
 import Registrar from 'utils/component-registrar';
 
+import styles from 'styles/main.scss'; // eslint-disable-line no-unused-vars
+
 const appName = 'wecoApp';
 
 const app = angular.module(appName, [
@@ -45,14 +47,14 @@ app.constant('NotificationTypes', constNotificationTypes);
 app.filter('capitalize', filters.capitalize);
 app.filter('reverse', filters.reverse);
 
-// Config.
-registrar.config(AppConfig);
-registrar.config(AppRoutes);
-
 // Register components.
 initControllers(registrar);
 initDirectives(registrar);
 initServices(registrar);
+
+// Config.
+registrar.config(AppConfig);
+registrar.config(AppRoutes);
 
 // Start the app.
 registrar.run(AppRun);

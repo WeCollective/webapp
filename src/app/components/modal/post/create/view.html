@@ -19,12 +19,12 @@
           alt=""
           id="graphic"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
-          src="/assets/images/image.png" />
+          src="/assets/image.png" />
 
         <div
           id="image-preview"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'image'"
-          style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')">
+          style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.newPost.text) }}'), url('/assets/invalid-image-url.jpg')">
         </div>
 
         <h2 ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'">

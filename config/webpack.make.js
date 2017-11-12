@@ -244,6 +244,7 @@ const makeWebpackConfig = options => {
    */
   config.devServer = {
     contentBase: `${ensureSlash(BASE_DIR)}public`,
+    // hot: true,
     port: process.env.APP_PORT || 8080,
     stats: {
       modules: false,

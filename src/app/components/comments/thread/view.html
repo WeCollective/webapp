@@ -6,7 +6,7 @@
         class="list-item__vote-icon"
         ng-class="{ 'style--active': comment.votes.userVoted === 'up', 'style--disabled': comment.data.creator === 'N/A' }"
         ng-click="Thread.vote(comment, 'up', $event.target)"
-        src="/assets/images/icons/black/arrow-up.png" />
+        src="/assets/icons/black/arrow-up.png" />
 
       <p>{{ comment.votes.individual }}</p>
 
@@ -14,7 +14,7 @@
       <img
         alt="Downvote comment"
         ng-click="Thread.vote(comment, 'down')"
-        src="/assets/images/icons/black/arrow-down.png" />
+        src="/assets/icons/black/arrow-down.png" />
       -->
     </div>
 
@@ -27,7 +27,7 @@
           class="list-item__detail"
           ng-click="Thread.openReply(comment, false)"
           offset-y="20"
-          src="/assets/images/icons/black/reply.png"
+          src="/assets/icons/black/reply.png"
           text="'Reply'"
           tooltip />
 
@@ -36,7 +36,7 @@
           class="list-item__detail style--icon"
           ng-click="Thread.commentPermalink(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/permalink.png"
+          src="/assets/icons/black/permalink.png"
           text="'Permalink'"
           tooltip />
 
@@ -46,7 +46,7 @@
           ng-click="Thread.openReply(comment, true)"
           ng-if="Thread.isOwnComment(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/edit--comment.png"
+          src="/assets/icons/black/edit--comment.png"
           text="'Edit'"
           tooltip />
 
@@ -56,7 +56,7 @@
           ng-click="Thread.delete(comment, $index)"
           ng-if="Thread.isOwnComment(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/delete.png"
+          src="/assets/icons/black/delete.png"
           text="'Delete'"
           tooltip />
 
@@ -70,7 +70,7 @@
           <img
             alt="View post discussion"
             class="list-item__detail"
-            src="/assets/images/icons/black/comment.png" />
+            src="/assets/icons/black/comment.png" />
           <span>{{ 0 }}</span>
         </a>
         -->

@@ -1,4 +1,5 @@
 import Injectable from 'utils/injectable';
+import Close from 'assets/icons/black/close.png';
 import View from './view.html';
 
 class AlertsComponent extends Injectable {
@@ -13,6 +14,7 @@ class AlertsComponent extends Injectable {
 
   link(scope) {
     scope.AlertsService = this.AlertsService;
+    scope.closeIcon = Close;
   }
 }
 

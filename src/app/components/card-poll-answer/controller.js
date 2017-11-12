@@ -10,7 +10,7 @@ class CardPollAnswerController extends Injectable {
   }
 
   getThumbnail() {
-    // const IMG_DIR = '/assets/images/placeholders/';
+    // const IMG_DIR = '/assets/placeholders/';
     // return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
   }
 }
