@@ -1,11 +1,2 @@
 node_modules/
-npm-debug.log
-
-dist/
-coverage/
 .gulp-env
-
-build/
-
-.idea
-.idea/*
