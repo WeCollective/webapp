@@ -11,6 +11,7 @@
 */
 const express = require('express'); // call express
 const helmet = require('helmet'); // protect against common web vulnerabilities
+const path = require('path');
 
 const app = express(); // define our app using express
 
@@ -55,6 +56,16 @@ app.use(helmet());
 
 // SERVE THE NODE MODULES FOLDER
 app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
+
+app.use((req, res, next) => {
+  const filename = path.basename(req.url);
+  const extension = path.extname(filename);
+  if (extension === '.css') {
+    console.log(`The file ${filename} was requested.`);
+  }
+  next();
+});
+app.use(express.static(__dirname));
 
 // SERVE THE ANGULAR APPLICATION
 app.use('/', express.static(`${__dirname}/public`));
