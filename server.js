@@ -60,7 +60,7 @@ app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 app.use('/', express.static(`${__dirname}/public`));
 
 // Send the index.html for other files to support HTML5Mode
-app.all('/*', (req, res) => {
+app.all('/*', (req, res, next) => { // eslint-disable-line no-unused-vars
   res.sendFile('index.html', { root: `${__dirname}/public` });
 });
 
