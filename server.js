@@ -11,7 +11,6 @@
 */
 const express = require('express'); // call express
 const helmet = require('helmet'); // protect against common web vulnerabilities
-const path = require('path');
 
 const app = express(); // define our app using express
 
@@ -44,16 +43,6 @@ if (env === 'production') {
   app.use(require('prerender-node') // eslint-disable-line global-require
     .set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
 }
-
-app.all('/*', (req, res, next) => {
-  if (req.originalUrl.endsWith('css')) {
-    res.set('Content-Type', 'text/css');
-    res.sendFile(req.originalUrl, { root: `${__dirname}/public` });
-    return;
-  }
-
-  next();
-});
 
 // SECURITY MIDDLEWARE
 app.use(helmet());
