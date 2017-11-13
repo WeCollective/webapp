@@ -9,21 +9,21 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 */
+'use strict';
 
 // REQUIRE MODULES
-const express = require('express'); // call express
-const helmet = require('helmet'); // protect against common web vulnerabilities
-
-const app = express(); // define our app using express
+const express = require('express');          // call express
+const app = express();                   // define our app using express
+const helmet = require('helmet');           // protect against common web vulnerabilities
 
 // SET ENVIRONMENT AND PORT
 const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 8081;
 
-if (env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   // REDIRECT TRAFFIC ON HTTP TO HTTPS
   app.use((req, res, next) => {
-    if (!req.secure && req.get('X-Forwarded-Proto') !== 'https') {
+    if (!req.secure && 'https' !== req.get('X-Forwarded-Proto')) {
       res.redirect(`https://${req.get('Host') + req.url}`);
     }
     else {
@@ -55,7 +55,7 @@ app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 app.use('/', express.static(`${__dirname}/public`));
 
 // Send the index.html for other files to support HTML5Mode
-app.all('/*', (req, res) => {
+app.all('/*', (req, res, next) => {
   res.sendFile('index.html', { root: `${__dirname}/public` });
 });
 

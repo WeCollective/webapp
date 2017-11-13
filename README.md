@@ -13,6 +13,6 @@ The front-end web application and server used for the WECO web application.
         aws_secret_access_key = <YOUR_SECRET_KEY>
         ```
     3. Save and close the file.
-2. Execute the `yarn build:dev` command. This will replace the endpoints in the app with the correct ones on the server.
+2. Execute the `npm run build:dev` command. This will replace the endpoints in the app with the correct ones on the server.
 3. Commit the changes to the CVS.
-4. Execute the `yarn deploy:dev` command.
+4. Execute the `npm run deploy:dev` command.
