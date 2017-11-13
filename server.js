@@ -53,10 +53,10 @@ app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 app.use('/', express.static(`${__dirname}/public`));
 
 app.all('/dist/bundle.min.js', (req, res) => {
-  res.sendFile('/dist/bundle.min.js', { root: `${__dirname}/public` });
+  res.sendFile('dist/bundle.min.js', { root: `${__dirname}/public` });
 });
 app.get('/dist/bundle.js', (req, res) => {
-  res.sendFile('/dist/bundle.js', { root: `${__dirname}/public` });
+  res.sendFile('dist/bundle.js', { root: `${__dirname}/public` });
 });
 
 // Send the index.html for other files to support HTML5Mode
