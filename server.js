@@ -41,7 +41,8 @@ if (env === 'production') {
   });
 
   // PRERENDER IO
-  // app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
+  app.use(require('prerender-node') // eslint-disable-line global-require
+    .set('prerenderToken', process.env.PRERENDER_IO_TOKEN));
 }
 
 app.all('/*', (req, res, next) => {
