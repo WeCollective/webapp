@@ -62,11 +62,7 @@ app.use('/', express.static(`${__dirname}/public`));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', (req, res, next) => { // eslint-disable-line no-unused-vars
-  const filename = path.basename(req.url);
-  const extension = path.extname(filename);
-  if (extension === '.html') {
-    res.sendFile('index.html', { root: `${__dirname}/public` });
-  }
+  res.sendFile('index.html', { root: `${__dirname}/public` });
 });
 
 // START THE SERVER
