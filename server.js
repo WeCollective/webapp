@@ -48,7 +48,10 @@ if (env === 'production') {
 app.all('/*', (req, res, next) => {
   if (req.originalUrl.endsWith('css')) {
     res.set('Content-Type', 'text/css');
+    res.sendFile(req.originalUrl, { root: `${__dirname}/public` });
+    return;
   }
+
   next();
 });
 
