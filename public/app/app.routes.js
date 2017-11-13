@@ -131,11 +131,11 @@ class AppRoutes extends Injectable {
         views: {
           content: {
             templateUrl: '/app/pages/branch/nucleus/view.html',
-            controller: 'BranchNucleusController',
-            controllerAs: 'BranchNucleus',
           },
           header: {
-            template: '<div>hey</div>',
+            templateUrl: '/app/pages/branch/nucleus/header/view.html',
+            controller: 'BranchNucleusController',
+            controllerAs: 'BranchNucleus',
           },
         },
       })

@@ -4,8 +4,6 @@ class BranchNucleusModeratorsController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
-    console.log('juch');
-
     const cache = this.LocalStorageService.getObject('cache').branchNucleusMods || {};
 
     this.mods = cache[this.BranchService.branch.id] || [];

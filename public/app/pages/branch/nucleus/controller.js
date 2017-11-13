@@ -4,8 +4,6 @@ class BranchNucleusController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusController.$inject, injections);
 
-    console.log('yee');
-
     this.run = 0;
     this.state = this.getInitialState();
 

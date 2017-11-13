@@ -1,0 +1,18 @@
+<img
+  alt="Toggle sidebar"
+  class="header__button style--sidebar-toggle"
+  ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+  ng-click="Navbar.AppService.toggleSidebar()"
+  src="/assets/images/icons/black/show.png" />
+
+<h1 class="header__title text--capitalize">
+  {{ 'root' === Branch.BranchService.branch.id ? 'global ' : '' }}nucleus
+</h1>
+
+<div class="header__controls">
+  <tabs
+    items="BranchNucleus.state.tabItems"
+    states="BranchNucleus.state.tabStates"
+    state-params="BranchNucleus.state.tabStateParams">
+  </tabs>
+</div>
