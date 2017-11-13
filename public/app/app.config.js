@@ -32,6 +32,7 @@ class AppConfig extends Injectable {
     }
 
     // cache
+    /*
     angular.extend(this.CacheFactoryProvider.defaults, {
       deleteOnExpire: 'aggressive',
       maxAge: 3600000,
@@ -44,6 +45,7 @@ class AppConfig extends Injectable {
           }.bind(this));
       },
     });
+    */
   }
 }
 
