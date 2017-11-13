@@ -1,0 +1,101 @@
+.cover-photo {
+  @iconOffset: 6px;
+  @iconSize: 26px;
+
+  background-position: center;
+  background-size: cover;
+  box-shadow: @shadow-1;
+  height: @cover-h-sm;
+  position: relative;
+  width: 100%;
+  z-index: @z-navbar;
+  transition: height @tr-speed;
+
+  img {
+    bottom: @iconOffset;
+    cursor: pointer;
+    height: @iconSize;
+    opacity: .4;
+    position: absolute;
+    width: @iconSize;
+    transition: transform .2s;
+
+    &:hover { opacity: 1; }
+
+    &.cover-photo-toggle {
+      right: @iconOffset;
+      transform: rotateZ(180deg);
+    }
+
+    &#cover-photo-edit { right: @iconOffset + @iconSize + @iconOffset; }
+  }
+
+  &.closed {
+    height: 0;
+    
+    img {
+      transform: translateY(calc(@iconOffset + @iconSize + @iconOffset));
+
+      &.cover-photo-toggle { transform: translateY(calc(@iconOffset + @iconSize + @iconOffset)) rotateZ(0); }
+    }
+
+    & + .page {
+      height: @u-vh-no-hero;
+
+      .sidebar {
+        height: @u-vh-no-hero;
+        transform: translateY(-@cover-h-sm);
+
+        @media screen and (max-width: @screen-md) {
+          transform: translateY(-@cover-h-sm) translateX(-100%);
+
+          &.open { transform: translateY(-@cover-h-sm) translateX(0); }
+        }
+      }
+
+      .header.style--fixed {
+        transform: none;
+
+        @media screen and (max-width: @screen-md) {
+          &.toggled { transform: translateX(@sidebar-w-sm); }
+        }
+      }
+    }
+  }
+
+  & + .page {
+    .header.style--fixed {
+      transform: translateY(@cover-h-sm);
+
+      @media screen and (max-width: @screen-md) {
+        &.toggled { transform: translateY(@cover-h-sm) translateX(@sidebar-w-sm); }
+      }
+    }
+  }
+
+  .mediaQuery(@screen-md, {
+    height: @cover-h-md;
+
+    & + .page {
+      height: @u-vh-md;
+
+      .sidebar { top: @u-offset-top-md; }
+      .header.style--fixed { transform: translateY(@cover-h-md); }
+    }
+
+    &.closed + .page .sidebar { transform: translateY(-@cover-h-md); }
+  });
+
+  .mediaQuery(@screen-lg, {
+    height: @cover-h-lg;
+
+    & + .page {
+      height: @u-vh-lg;
+
+      .sidebar { top: @u-offset-top-lg; }
+      .header.style--fixed { transform: translateY(@cover-h-lg); }
+    }
+
+    &.closed + .page .sidebar { transform: translateY(-@cover-h-lg); }
+  });
+}

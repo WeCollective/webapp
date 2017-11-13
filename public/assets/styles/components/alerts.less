@@ -1,0 +1,63 @@
+.alerts {
+  @spacing: 10px;
+
+  box-sizing: border-box;
+  left: 15px;
+  max-width: 480px;
+  position: fixed;
+  right: 15px;
+  top: 60px;
+  z-index: 1200;
+
+  .alerts__icon {
+    @size: 10px;
+
+    cursor: pointer;
+    height: @size;
+    opacity: .3;
+    padding: (@spacing / 2) (@spacing / 2) (@spacing / 2) @spacing;
+    width: @size;
+
+    &:hover { opacity: .8; }
+  }
+
+  .alerts__item {
+    background-color: #fff;
+    border: none;
+    border-left: 4px solid transparent;
+    box-shadow: @shadow-3;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto @spacing;
+    padding: @spacing;
+    transition: opacity .3s ease-out,
+      border-left-color .3s ease-out;
+    
+    &.ng-hide { opacity: 0; }
+
+    &.style--error {
+      border-left-color: @caution-0;
+
+      .alerts__text { color: #6a0f06; }
+    }
+
+    &.style--success {
+      border-left-color: @success-0;
+
+      .alerts__text { color: #0d532a; }
+    }
+  }
+
+  .alerts__text {
+    flex: 1;
+    font-size: @font-size-sm;
+    white-space: normal;
+  }
+
+  .mediaQuery(@screen-sm, {
+    left: 50%;
+    min-width: 360px;
+    right: auto;
+    transform: translateX(-50%);
+  });
+}

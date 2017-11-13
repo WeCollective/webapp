@@ -1,0 +1,26 @@
+<div class="post__content-wrapper">
+  <chart
+    chart-data="BranchPostResults.chart.data"
+    labels="BranchPostResults.chart.labels"
+    ng-show="BranchPostResults.hasSomeVotes()"
+    options="BranchPostResults.chart.options"
+    type="BranchPostResults.chart.type">
+  </chart>
+
+  <p
+    id="no-answers"
+    ng-show="!BranchPostResults.answers.length">
+    No answers yet!
+  </p>
+
+  <ul>
+    <li
+      answer="answer"
+      card-poll-answer
+      class="style--result"
+      index="$index"
+      ng-repeat="answer in BranchPostResults.answers track by $index"
+      type="result">
+    </li>
+  </ul>
+</div>

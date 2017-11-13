@@ -1,0 +1,105 @@
+*,
+*:after,
+*:before {
+  // Support iOS scroll rubber effect.
+  -webkit-overflow-scrolling: touch;
+}
+
+html,
+body {
+  color: @text-dark;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+h1 { font-size: @font-size-xl; }
+h2 { font-size: @font-size-lg; }
+h3 { font-size: @font-size-md; }
+h4 { font-size: @font-size-sm; }
+h5 { font-size: @font-size-xs; }
+
+input,
+textarea {
+  font-family: inherit;
+  text-rendering: optimizeLegibility;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+span { text-rendering: optimizeLegibility; }
+
+.clearfix {
+  display: inline-block;
+  max-width: 100%;
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+  }
+}
+
+html[xmlns] .clearfix { display: block; }
+* html .clearfix { height: 1%; }
+
+.hidden { display: none; }
+
+.list-item__circle {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-top: 2px;
+  vertical-align: top;
+  width: 10px;
+
+  &.style--audio { background-color: @post-type-audio; }
+  &.style--image { background-color: @post-type-image; }
+  &.style--page { background-color: @post-type-page; }
+  &.style--poll { background-color: @post-type-poll; }
+  &.style--text { background-color: @post-type-text; }
+  &.style--video { background-color: @post-type-video; }
+}
+
+.text--block { display: block; }
+.text--bold { font-weight: 700; }
+.text--capitalize { text-transform: capitalize; }
+.text--center { text-align: center; }
+.text--italic { font-style: italic; }
+.text--lowercase { text-transform: lowercase; }
+.text--uppercase { text-transform: uppercase; }

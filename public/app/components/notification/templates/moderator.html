@@ -1,0 +1,15 @@
+<a ui-sref="weco.profile.about({ username: notification.data.username })">
+  {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
+</a>
+<span>
+  {{ notification.data.action + (notification.data.action === 'add' ? 'ed' : 'd') }}
+</span>
+<a ui-sref="weco.profile.about({ username: notification.data.mod })">
+  {{ notification.data.mod === UserService.user.username ? 'you' : notification.data.mod }}
+</a>
+<span>
+  as a moderator on
+</span>
+<a ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">
+  b/{{ notification.data.branchid }}
+</a>

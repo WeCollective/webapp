@@ -1,0 +1,45 @@
+#weco-root {
+  height: 100%;
+  width: 100%;
+}
+
+.view {
+  height: @u-vh-no-hero;
+  position: relative;
+}
+
+.full-page {
+  height: @u-vh-no-hero;
+  position: relative;
+  width: 100%;
+}
+
+.page {
+  background-color: @primary-8;
+  height: @u-vh-sm;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: height @tr-speed;
+
+  > .center {
+    box-sizing: border-box;
+    height: 100%;
+    transition: @tr;
+
+    > .align {
+      height: 100%;
+      margin: 0 auto;
+      max-width: @s-aligner-sm;
+      position: relative;
+
+      .mediaQuery(@screen-md, { max-width: @s-aligner-md; });
+      .mediaQuery(@screen-lg, { max-width: @s-aligner-lg; });
+    }
+
+    &.toggled { transform: translateX(@sidebar-w-sm); }
+
+    .mediaQuery(@screen-md, {
+      &.toggled { transform: translateX(0); }
+    });
+  }
+}

@@ -1,0 +1,22 @@
+<div
+  class="cover-photo closed"
+	ng-class="{ 'closed': !CoverPhoto.WallService.isCoverOpen || !CoverPhoto.hasUrls() }"
+	style="background-image: url('{{ CoverPhoto.imageUrl() }}'), url('{{ CoverPhoto.thumbUrl() }}')">
+  <img
+    alt="Upload new cover photo"
+  	id="cover-photo-edit"
+  	ng-click="CoverPhoto.openUploadCoverModal()"
+  	ng-show="CoverPhoto.canEdit() && CoverPhoto.imageUrl()"
+  	offset-x="-130"
+  	offset-y="30"
+  	src="/assets/images/icons/black/edit.png"
+  	text="'Upload New Image'"
+  	tooltip />
+
+  <img
+    alt="Toggle the cover photo"
+    class="cover-photo-toggle"
+  	ng-click="CoverPhoto.toggleCoverPicture()"
+  	ng-show="CoverPhoto.imageUrl()"
+  	src="/assets/images/icons/black/show.png" />
+</div>

@@ -1,0 +1,9 @@
+<a ui-sref="weco.branch.nucleus.about({ branchid: notification.data.childid })">
+  b/{{ notification.data.childid }}
+</a>
+<span>
+  was moved to
+</span>
+<a ui-sref="weco.branch.nucleus.about({ branchid: notification.data.parentid })">
+  b/{{ notification.data.parentid }}
+</a>

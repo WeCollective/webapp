@@ -1,0 +1,35 @@
+<div class="tags__editor">
+  <p class="tags__error">
+    {{ TagEditor.errorMessage }}
+  </p>
+
+  <div class="tags__input-wrapper">
+    <input
+      class="tags__input"
+      ng-change="TagEditor.handleInputChange()"
+      ng-disabled="TagEditor.items.length >= TagEditor.max()"
+      ng-model="TagEditor.tag"
+      placeholder="{{ TagEditor.title() }}" />
+    <img
+     alt="Add {{ TagEditor.tag }} to the tags"
+     class="tags__input-icon"
+     ng-click="TagEditor.addTag()"
+     src="/assets/images/icons/black/add.jpg" />
+  </div>
+
+  <div class="tags__list">
+    <div
+      class="tags__item"
+      ng-repeat="tag in TagEditor.items">
+      <span class="tags__label">
+        {{ TagEditor.renderTagLabel(tag) }}
+      </span>
+      <img
+        alt="Remove the tag {{ TagEditor.renderTagLabel(tag) }}"
+        class="tags__icon ng-hide"
+        ng-click="TagEditor.removeTag(tag)"
+        ng-show="TagEditor.isRemovable(tag)"
+        src="/assets/images/icons/white/close.png" />
+    </div>
+  </div>
+</div>

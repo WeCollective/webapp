@@ -1,0 +1,103 @@
+<cover-photo
+  can-edit="Branch.isModerator()"
+  image-url="Branch.BranchService.branch.coverUrl"
+  open-upload-cover-modal="Branch.openModal"
+  thumb-url="Branch.BranchService.branch.coverUrlThumb" >
+</cover-photo>
+
+<div
+  class="page"
+  loading
+  loading-when="Branch.isLoading"
+  on-scroll-to-bottom="ScrollToBottom">
+  <div
+    class="sidebar"
+    ng-class="{ 'open': Branch.AppService.isSidebarOpen }">
+    <div class="sidebar-info">
+      <h1>{{ Branch.BranchService.branch.name }}</h1>
+      
+      <h2 id="inf-symbol" ng-show="Branch.BranchService.branch.parent.id === 'none'">&infin;</h2>
+      
+      <h2 ng-show="Branch.BranchService.branch.parent.id !== 'none'">
+        <span
+          class="ng-hide"
+          ng-show="Branch.BranchService.branch.parent.id && Branch.BranchService.branch.parent.id !== 'root'">
+          ... /
+        </span>
+        <a ng-href="{{ Branch.$state.href(Branch.getBreadcrumbsDynamicLink('parent'), { branchid: Branch.BranchService.branch.parent.id }) }}">
+          {{ Branch.BranchService.branch.parent.name || 'All' }}
+        </a>
+        <span>
+          /
+        </span>
+        <a ng-href="{{ Branch.$state.href(Branch.getBreadcrumbsDynamicLink('current'), { branchid: Branch.BranchService.branch.id }) }}">
+          {{ Branch.BranchService.branch.name }}
+        </a>
+      </h2>
+    </div>
+    
+    <div class="sidebar-picture" style="background-image: url('{{ Branch.BranchService.branch.profileUrl }}'), url('{{ Branch.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+      <img
+        alt=""
+        id="edit"
+        ng-class="{ 'style--default': !Branch.BranchService.branch.profileUrl }"
+        ng-click="Branch.openModal('profile-picture')"
+        ng-show="Branch.isModerator()"
+        src="/assets/images/icons/black/edit.png" />
+    </div>
+    
+    <ul class="sidebar-controls">
+      <li>
+        <a
+          ng-class="{ 'selected' : Branch.isControlSelected('nucleus') }"
+          offset-y="60"
+          text="'Nucleus'"
+          tooltip
+          ui-sref="weco.branch.nucleus.about({ branchid: Branch.BranchService.branch.id })">
+          <img alt="Go to branch nucleus" src="/assets/images/icons/black/nucleus.png" />
+        </a>
+      </li>
+
+      <li>
+        <a
+          ng-class="{ 'selected' : Branch.isControlSelected('subbranches') }"
+          offset-y="60"
+          text="'Child Branches'"
+          tooltip
+          ui-sref="weco.branch.subbranches({ branchid: Branch.BranchService.branch.id })" >
+          <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
+        </a>
+      </li>
+
+      <li>
+        <a
+          ng-class="{ 'selected' : Branch.isControlSelected('wall') }"
+          offset-y="60"
+          text="'Wall'"
+          tooltip
+          ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
+          <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
+        </a>
+      </li>
+
+      <li ng-show="Branch.UserService.isAuthenticated()">
+        <button
+          ng-class="{ 'style--inactive': !Branch.isFollowingBranch() }" 
+          ng-click="Branch.toggleFollowBranch()"
+          offset-y="60"
+          text="Branch.getLabelFollowButton()"
+          tooltip>
+          <img
+            alt="Toggle branch follow status button"
+            ng-src="/assets/images/icons/button-eye-{{ Branch.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
+        </button>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="center">
+    <div class="align">
+      <div class="content" ui-view></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,369 @@
+.button(@color, @background-color, @height, @hover-rules) {
+  background-color: @background-color;
+  border-radius: 3px;
+  color: @color;
+  display: inline-block;
+  height: @height;
+  text-align: center;
+  transition: all .3s ease-out;
+
+  &:hover {
+    @hover-rules();
+    cursor: pointer;
+    transition: all .3s ease-out;
+  }
+
+  span {
+    font-size: @font-size-sm;
+    font-weight: @font-weight-heavy;
+    line-height: @height;
+  }
+}
+
+// List styles as they appear in e.g. branch nucleus or profile tabs
+.field-value-list() {
+  > li {
+    padding: 5px 0;
+
+    &#change-cover span,
+    &#change-picture span {
+      font-weight: @font-weight-heavy;
+      
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      font-size: @font-size-sm;
+      
+      &.field { color: @dark-grey; }
+      
+      &.value a {
+        color: @accent-0;
+        
+        &:hover { text-decoration: underline; }
+      }
+
+      &.marked-title { display: block; }
+      
+      &.change-value span {
+        font-weight: @font-weight-heavy;
+        
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    div.value {
+      font-size: @font-size-sm;
+      width: 100%;
+    }
+  }
+}
+
+.list-item(@height, @width: @height) {
+  @spacing: 4px;
+
+  border-bottom: solid 1px @light-grey;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  min-height: @height;
+  padding: (@g-padding-sidebar / 2) 0;
+  position: relative;
+  // white-space: nowrap;
+  width: 100%;
+  transition: background-color .3s;
+
+  .list-item__detail {
+    color: @primary-6;
+    font-size: 13px;
+    font-weight: 500;
+    vertical-align: top;
+
+    &.style--icon { margin-left: @spacing; }
+  }
+
+  a.list-item__detail {
+    color: @accent-0;
+
+    &.style--has-children {
+      span {
+        color: @primary-6;
+        vertical-align: top;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+
+      &.style--has-children {
+        text-decoration: none;
+
+        img { opacity: 1; }
+
+        span {
+          color: @primary-3;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  img.list-item__detail {
+    @size: 16px;
+
+    color: @primary-6;
+    cursor: pointer;
+    height: @size;
+    opacity: .3;
+    width: @size;
+
+    &:hover { opacity: 1; }
+  }
+
+  span.list-item-index {
+    color: @dark-grey;
+    font-size: @font-size-md;
+    font-weight: @font-weight-heavy;
+    line-height: @height;
+
+    &.style--colour-coded {
+      @size: 40px;
+
+      color: #fff;
+      height: @size;
+      border-radius: 3px;
+      line-height: @size;
+      margin-right: @g-padding-post;
+      text-align: center;
+      width: @size;
+    }
+  }
+
+  div.list-item-flags {
+    align-self: center;
+    background-color: @caution-1;
+    border-radius: 5px;
+    height: 30px;
+    margin: 0 10px;
+    min-width: 50px;
+    position: relative;
+    text-align: center;
+
+    &:hover {
+      background-color: @caution-0;
+      cursor: pointer;
+    }
+
+    img {
+      height: auto;
+      left: 12px;
+      opacity: 1;
+      top: 0;
+      vertical-align: middle;
+      width: 16px;
+    }
+
+    span {
+      color: #fff;
+      font-size: @font-size-sm;
+      line-height: 30px;
+    }
+  }
+
+  div.list-item-info {
+    flex: 1;
+    height: 100%;
+  }
+
+  .list-item-image {
+    img,
+    div {
+      background-position: center;
+      background-size: cover;
+      border-radius: 4px;
+      height: @height;
+      margin: 0 10px 0 @g-padding-post;
+      width: @width;
+
+      &:hover { box-shadow: @shadow-2; }
+    }
+  }
+
+  div.list-item-nsfw-label {
+    background-color: #ffecee;
+    border: 2px solid #ff8095;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: @height;
+    margin-right: 10px;
+    padding: 2px;
+
+    span {
+      color: #ff8095;
+      font-size: 11px;
+      font-weight: @font-weight-extra-heavy;
+      text-orientation: upright;
+      writing-mode: tb;
+    }
+  }
+
+  .list-item__radio-button {
+    @size: 20px;
+
+    height: @size;
+    margin: 0 @g-padding-post;
+    width: @size;
+  }
+
+  .list-item__separator {
+    background-color: @primary-6;
+    display: inline-block;
+    height: 14px;
+    margin: 0 @spacing;
+    position: relative;
+    top: -1px;
+    width: 1px;
+  }
+
+  .list-item__stats {
+    @stat-font-size: 14px;
+
+    margin-right: @g-padding-post;
+
+    .list-item__stats-header {
+      .list-item__stats-votes {
+        color: @primary-3;
+        font-size: @stat-font-size;
+        font-weight: 500;
+      }
+
+      .list-item__stats-icon {
+        @size: 24px;
+
+        height: @size;
+        opacity: .3;
+        position: relative;
+        top: 3px;
+        vertical-align: bottom;
+        width: @size;
+      }
+    }
+
+    .list-item__stats-percentage {
+      color: @primary-6;
+      font-size: @stat-font-size;
+    }
+  }
+
+  .list-item__title {
+    display: inline;
+    font-size: @font-size-sm;
+    font-weight: 300;
+    hyphens: auto;
+    line-height: 1;
+    vertical-align: top;
+
+    // Notifications.
+    a {
+      color: @accent-0;
+      font-weight: @font-weight-heavy;
+
+      &:hover { text-decoration: underline; }
+    }
+
+    // Notification post removed - special case.
+    // Probably can be refactored.
+    p.message {
+      font-style: italic;
+      font-weight: @font-weight-light;
+    }
+
+    // Comments.
+    &.list-item__comment {
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+
+  .list-item__toggle {
+    @size: 16px;
+
+    border: 1px solid @dark-grey;
+    border-radius: 50%;
+    cursor: pointer;
+    height: @size;
+    position: absolute;
+    right: @g-padding-sidebar / 2;
+    top: @g-padding-sidebar / 2;
+    width: @size;
+  }
+
+  .list-item__votes {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: @height;
+    margin-left: 6px;
+
+    .list-item__vote-icon {
+      @size: 26px;
+
+      cursor: pointer;
+      height: @size;
+      opacity: .2;
+      width: @size;
+      transition: opacity .2s;
+
+      &.style--active,
+      &:hover {
+        opacity: .6;
+      }
+
+      &.style--disabled {
+        cursor: initial;
+        opacity: .2;
+
+        &:hover { opacity: .2; }
+      }
+    }
+
+    p { margin: 0; }
+  }
+
+  &.style--card-branch {
+    .list-item-info {
+      .list-item__title { font-size: 18px; }
+    }
+  }
+
+  &.style--card-poll-answer {
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 @g-padding-post;
+
+    &:not(.style--result) {
+      cursor: pointer;
+
+      &:hover { background-color: @notification-unread; }
+    }
+  }
+
+  &.style--highlighted {
+    background-color: @notification-unread;
+
+    .list-item__toggle { background-color: @notification-unread-dark; }
+  }
+
+  &.style--padding {
+    padding-left: @g-padding-sidebar;
+    padding-right: @g-padding-sidebar;
+  }
+}

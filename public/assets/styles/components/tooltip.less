@@ -1,0 +1,19 @@
+.tooltip {
+  background-color: @primary-1;
+  border: 1px solid @primary-0;
+  border-radius: 3px;
+  box-shadow: @shadow-2;
+  padding: 2px 10px 6px;
+  position: absolute;
+  z-index: 1000;
+
+  span {
+    @font-weight: @font-weight-normal;
+    color: #fff;
+    font-size: @font-size-xs;
+    
+    .responsive(@screen-sm, { font-size: @font-size-xs; })
+  }
+
+  &:empty { display: none; }
+}

@@ -1,0 +1,145 @@
+<nav class="nav">
+  <div class="nav__content">
+
+    <div class="nav__public-menu">
+      <a
+        class="nav__logo"
+        ng-click="Navbar.triggerAnimation()"
+        ui-sref="weco.home">      
+        <img
+          alt="Weco logo animation"
+          class="nav__logo-icon style--animate"
+          ng-src="{{ Navbar.animationSrc }}" />
+        
+        <img
+          alt="Weco logo"
+          class="nav__logo-icon"
+          src="/assets/images/nav-logo.png" />
+      </a>
+
+      <div class="nav__menu">
+        <a
+          class="nav__item"
+          ng-class="{ 'style--opaque' : Navbar.isControlSelected('nucleus') }"
+          ui-sref="weco.branch.nucleus.about({ branchid: 'root' })">
+          <img
+            alt="Go to Global Nucleus"
+            class="nav__icon"
+            offset-y="40"
+            src="/assets/images/icons/white/nucleus.png"
+            text="'Global Nucleus'"
+            tooltip />
+        </a>
+        
+        <a
+          class="nav__item"
+          ng-class="{ 'style--opaque' : Navbar.isControlSelected('subbranches') }"
+          ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+          <img
+            alt="Go to Root Branches"
+            class="nav__icon"
+            offset-y="40"
+            src="/assets/images/icons/white/branch.png"
+            text="'Root Branches'"
+            tooltip />
+        </a>
+        
+        <a
+          class="nav__item"
+          ng-class="{ 'style--opaque' : Navbar.isControlSelected('wall') }"
+          ui-sref="weco.branch.wall({ branchid: 'root' })">
+          <img
+            alt="Go to Global Wall"
+            class="nav__icon"
+            offset-y="40"
+            src="/assets/images/icons/white/wall.png"
+            text="'Global Wall'"
+            tooltip />
+        </a>
+      </div>
+    </div>
+
+    <div class="nav__user-menu">
+      <a
+        class="nav__item"
+        ng-show="!Navbar.UserService.isAuthenticated()"
+        ui-sref="auth.login">  
+        <span class="nav__item-text">Log In</span>
+      </a>
+      
+      <a
+        class="nav__item"
+        ng-show="!Navbar.UserService.isAuthenticated()"
+        ui-sref="auth.signup">
+        <span class="nav__item-text">Sign up</span>
+      </a>
+      
+      <a
+        class="nav__item style--notification"
+        ng-class="{ 'style--opaque': Navbar.notificationCount > 0 }"
+        ng-show="Navbar.UserService.isAuthenticated()"
+        ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
+        <div class="nav__icon">
+          <img
+            alt="You have {{ Navbar.notificationCount }} unread notifications"
+            src="assets/images/icons/white/notification.png" />
+
+          <div
+            class="nav__item-badge"
+            ng-show="Navbar.notificationCount > 0">
+            <span>{{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}</span>
+          </div>
+        </div>
+      </a>
+      
+      <a
+        class="nav__item style--profile"
+        ng-class="{ 'style--opaque' : Navbar.isControlSelected('profile') }"
+        ng-show="Navbar.UserService.isAuthenticated()"
+        ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })">
+        <span class="nav__item-text">{{ Navbar.UserService.user.username }}</span>
+        <div
+          class="nav__user-picture"
+          style="background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+        </div>
+      </a>
+      
+      <div
+        class="nav__item style--expand"
+        ng-click="Navbar.toggleNav()"
+        ng-show="Navbar.UserService.isAuthenticated()">
+        <img
+          alt="Toggle menu navigation"
+          class="nav__icon"
+          ng-class="{ 'style--opaque': Navbar.expanded }"
+          src="assets/images/icons/white/nav-expand.png" />
+
+        <ul
+          class="nav__expand-menu"
+          ng-click="Navbar.stopPropagation($event)"
+          ng-show="Navbar.expanded">
+          <li
+            class="nav__expand-menu-item"
+            ng-click="Navbar.logout()">
+            <span class="text--uppercase">Log Out</span>
+          </li>
+
+          <li
+            class="nav__expand-menu-item style--separator"
+            ng-show="Navbar.UserService.user.followed_branches.length > 0">
+          </li>
+          
+          <li
+            class="nav__expand-menu-item"
+            ng-repeat="branch in Navbar.UserService.user.followed_branches"
+            ng-show="Navbar.UserService.user.followed_branches.length > 0">
+            <a ui-sref="weco.branch.wall({ branchid: branch })">
+              <span>b/{{ branch }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</nav>
