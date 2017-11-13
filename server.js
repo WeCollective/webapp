@@ -57,22 +57,16 @@ app.use(helmet());
 // SERVE THE NODE MODULES FOLDER
 app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 
-app.use((req, res, next) => {
-  const filename = path.basename(req.url);
-  const extension = path.extname(filename);
-  if (extension === '.css') {
-    console.log(`The file ${filename} was requested.`);
-  }
-  next();
-});
-app.use(express.static(__dirname));
-
 // SERVE THE ANGULAR APPLICATION
 app.use('/', express.static(`${__dirname}/public`));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', (req, res, next) => { // eslint-disable-line no-unused-vars
-  res.sendFile('index.html', { root: `${__dirname}/public` });
+  const filename = path.basename(req.url);
+  const extension = path.extname(filename);
+  if (extension === '.html') {
+    res.sendFile('index.html', { root: `${__dirname}/public` });
+  }
 });
 
 // START THE SERVER
