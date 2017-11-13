@@ -45,11 +45,13 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
     "babel-loader": "^7.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-0": "^6.24.1",
     "del": "^2.2.2",
+    "eslint": "^4.11.0",
     "gulp": "^3.9.1",
     "gulp-clean": "0.3.2",
     "gulp-jshint": "^2.0.4",
