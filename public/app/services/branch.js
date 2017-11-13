@@ -5,7 +5,7 @@ import Validator from 'utils/validator';
 class BranchService extends Injectable {
   constructor(...injections) {
     super(BranchService.$inject, injections);
-    
+
     this.branch = {
       id: this.$stateParams.branchid || 'root',
       name: this.$stateParams.branchid || 'All',
@@ -72,7 +72,9 @@ class BranchService extends Injectable {
           if (fetchingBranch === fetchedBranch.id) {
             // Wrap this into timeout to ensure any dependent controller has time to attach listener
             // before this event fires for the first time.
-            this.$timeout(() => this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id), 1);
+            this.$timeout(() => {
+              this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
+            }, 1);
             fetchingBranch = false;
           }
         });
@@ -103,7 +105,7 @@ class BranchService extends Injectable {
     if (data.name.length > 30) {
       return Promise.reject({
         message: 'Visible name cannot be longer than 30 characters.',
-      }); 
+      });
     }
 
     return new Promise((resolve, reject) => {
@@ -115,22 +117,22 @@ class BranchService extends Injectable {
 
   fetch(branchid) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           let res = yield this.API.get('/branch/:branchid', { branchid });
-          let branch = res.data;
+          const branch = res.data;
 
-          //console.log(branch);
+          // console.log(branch);
 
           // attach parent branch
-          if ('root' === branch.parentid || 'none' === branch.parentid) {
+          if (branch.parentid === 'root' || branch.parentid === 'none') {
             branch.parent = {
               id: branch.parentid,
             };
           }
           else {
             res = yield this.API.get('/branch/:branchid', { branchid: branch.parentid });
-            //console.log(res.data);
+            // console.log(res.data);
             branch.parent = res.data;
           }
 
@@ -141,7 +143,9 @@ class BranchService extends Injectable {
 
           return resolve(branch);
         }
-        catch (err) { return reject(err.data || err); }
+        catch (err) {
+          return reject(err.data || err);
+        }
       }, this);
     });
   }
@@ -156,7 +160,7 @@ class BranchService extends Injectable {
 
   getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
     return new Promise((resolve, reject) => {
-      let params = {
+      const params = {
         flag: !!flag,
         postType,
         sortBy,
@@ -176,7 +180,7 @@ class BranchService extends Injectable {
 
   getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
     return new Promise((resolve, reject) => {
-      let params = {
+      const params = {
         sortBy,
         timeafter,
       };
@@ -210,13 +214,13 @@ class BranchService extends Injectable {
 
   resolveFlaggedPost(branchid, postid, action, data, message) {
     return new Promise((resolve, reject) => {
-      let body = {
+      const body = {
         action,
         message,
       };
-      
-      body['change_type' === action ? 'type' : 'reason'] = data;
-      
+
+      body[action === 'change_type' ? 'type' : 'reason'] = data;
+
       this.API.post('/branch/:branchid/posts/:postid/resolve', { branchid, postid }, body)
         .then(resolve)
         .catch(err => reject(err.data || err));

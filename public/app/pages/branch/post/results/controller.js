@@ -1,4 +1,3 @@
-import Chart from 'chart.js';
 import Injectable from 'utils/injectable';
 
 const GROUP_ANSWERS_INDEX_LIMIT = 7;
@@ -21,7 +20,7 @@ class BranchPostResultsController extends Injectable {
         tooltips: {
           backgroundColor: 'rgba(0, 0, 0, 0)',
           callbacks: {
-            label: (tooltipItem, data) => tooltipItem.index + 1,
+            label: tooltipItem => tooltipItem.index + 1,
           },
           displayColors: false,
         },
@@ -31,10 +30,9 @@ class BranchPostResultsController extends Injectable {
 
     this.getPollAnswers();
 
-    let listeners = [];
-    
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, () => this.getPollAnswers()));
-
+    const { events } = this.EventService;
+    const listeners = [];
+    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => this.getPollAnswers()));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -58,8 +56,8 @@ class BranchPostResultsController extends Injectable {
             chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
           }
 
-          answer.ratioOfTotal = totalVotes ? Math.floor(answer.votes / totalVotes * 100) : 0;
-            
+          answer.ratioOfTotal = totalVotes ? Math.floor((answer.votes / totalVotes) * 100) : 0;
+
           return answer;
         });
 
@@ -104,9 +102,7 @@ class BranchPostResultsController extends Injectable {
   getTotalVotes(arr) {
     let totalVotes = 0;
     if (arr.length) {
-      totalVotes = (arr.length > 1) ? arr.reduce((a, b) => {
-        return { votes: a.votes + b.votes };
-      }) : arr[0];
+      totalVotes = (arr.length > 1) ? arr.reduce((a, b) => ({ votes: a.votes + b.votes })) : arr[0];
       totalVotes = totalVotes.votes;
     }
     return totalVotes;
@@ -114,7 +110,7 @@ class BranchPostResultsController extends Injectable {
 
   // indicate whether the poll has been voted yet ie. do we have results to show
   hasSomeVotes() {
-    for (let datum of this.chart.data) {
+    for (const datum of this.chart.data) { // eslint-disable-line no-restricted-syntax
       if (datum !== 0) return true;
     }
     return false;

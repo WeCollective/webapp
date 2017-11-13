@@ -15,10 +15,11 @@ class NavbarController extends Injectable {
 
     this.getNotifications();
 
+    const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.getNotifications));
+    listeners.push(this.EventService.on(events.CHANGE_USER, this.getNotifications));
     listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
-    listeners.push(this.EventService.on(this.EventService.events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
+    listeners.push(this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -36,11 +37,11 @@ class NavbarController extends Injectable {
       .then(count => {
         this.notificationCount = count;
 
-        let cache = this.LocalStorageService.getObject('cache');
+        const cache = this.LocalStorageService.getObject('cache');
         cache.notifications = cache.notifications || {};
         cache.notifications.count = this.notificationCount;
         this.LocalStorageService.setObject('cache', cache);
-        
+
         // Sometimes the notifications badge would not get updated.
         this.$scope.$apply();
       })

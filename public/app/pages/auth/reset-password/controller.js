@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class ResetPasswordController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ResetPasswordController.$inject, injections);
 
     this.animationSrc = '/assets/images/logo-animation-large.gif';
@@ -11,7 +11,7 @@ class ResetPasswordController extends Injectable {
     this.loopAnimation = false;
   }
 
-  resetPassword () {
+  resetPassword() {
     this.startAnimation();
 
     if (this.credentials.password !== this.credentials.confirmPassword) {
@@ -20,54 +20,59 @@ class ResetPasswordController extends Injectable {
       return;
     }
 
-    this.UserService.resetPassword(this.$state.params.username, this.credentials.password, this.$state.params.token)
-      .then(_ => {
+    const {
+      token,
+      username,
+    } = this.$state.params;
+
+    this.UserService.resetPassword(username, this.credentials.password, token)
+      .then(() => {
         this.stopAnimation();
         this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
         this.$state.go('auth.login');
       })
-      .catch(err => this.$timeout(_ => this.stopAnimation(err.message)));
+      .catch(err => this.$timeout(() => this.stopAnimation(err.message)));
   }
 
-  sendLink () {
+  sendLink() {
     this.startAnimation();
 
     this.UserService.requestResetPassword(this.credentials.username)
-      .then(_ => {
+      .then(() => {
         this.stopAnimation();
         this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
         this.$state.go('weco.home');
       })
-      .catch(err => this.$timeout(_ => this.stopAnimation(err.message)));
+      .catch(err => this.$timeout(() => this.stopAnimation(err.message)));
   }
 
-  startAnimation () {
+  startAnimation() {
     this.isLoading = true;
     this.loopAnimation = true;
     this.triggerAnimation();
   }
 
-  stopAnimation (errorMessage) {
+  stopAnimation(errorMessage) {
     if (errorMessage) {
       this.errorMessage = errorMessage;
     }
-    
+
     this.isLoading = false;
     this.loopAnimation = false;
   }
 
-  triggerAnimation () {
+  triggerAnimation() {
     if (this.animationSrc !== '') {
-      this.$timeout(_ => this.animationSrc = '');
+      this.$timeout(() => this.animationSrc = '');
     }
 
     // set animation src to the animated gif
-    this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
-    
+    this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
+
     // cancel after 1 sec
-    this.$timeout(_ => {
+    this.$timeout(() => {
       this.animationSrc = '';
-      
+
       if (this.loopAnimation) {
         this.triggerAnimation();
       }
@@ -79,7 +84,7 @@ ResetPasswordController.$inject = [
   '$state',
   '$timeout',
   'AlertsService',
-  'UserService'
+  'UserService',
 ];
 
 export default ResetPasswordController;

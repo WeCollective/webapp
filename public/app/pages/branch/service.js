@@ -49,6 +49,9 @@ class WallService extends Injectable {
       case 'weco.branch.post':
         $rootScope.$broadcast('add-comment');
       */
+      default:
+        // Do nothing.
+        break;
     }
 
     if (name) {

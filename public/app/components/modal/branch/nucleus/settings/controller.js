@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusSettingsModalController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchNucleusSettingsModalController.$inject, injections);
 
     this.onModalCancel = this.onModalCancel.bind(this);
@@ -10,28 +10,27 @@ class BranchNucleusSettingsModalController extends Injectable {
 
     this.resetState();
 
-    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
+    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i += 1) {
       this.textareaValues[i] = this.ModalService.inputArgs.textareas[i].value;
     }
-    
-    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
+
+    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
       this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
     }
 
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.onModalSubmit));
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.onModalCancel));
-
+    const { events } = this.EventService;
+    const listeners = [];
+    listeners.push(this.EventService.on(events.MODAL_OK, this.onModalSubmit));
+    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.onModalCancel));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  onModalCancel (name) {
+  onModalCancel(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
     this.$timeout(() => this.ModalService.Cancel().then(() => this.resetState()));
   }
 
-  onModalSubmit (name) {
+  onModalSubmit(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
 
     // if not all fields are filled, display message
@@ -42,18 +41,19 @@ class BranchNucleusSettingsModalController extends Injectable {
     }
 
     // construct data to update using the proper fieldnames
-    let updateData = {};
+    const updateData = {};
 
-    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i++) {
-      updateData[this.ModalService.inputArgs.inputs[i].fieldname] = this.inputValues[i];
+    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
+      const input = this.ModalService.inputArgs.inputs[i];
+      updateData[input.fieldname] = this.inputValues[i];
 
       // convert date input values to unix timestamp
-      if (this.ModalService.inputArgs.inputs[i].type === 'date') {
-        updateData[this.ModalService.inputArgs.inputs[i].fieldname] = new Date(this.inputValues[i]).getTime();
+      if (input.type === 'date') {
+        updateData[input.fieldname] = new Date(this.inputValues[i]).getTime();
       }
     }
 
-    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i++) {
+    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i += 1) {
       updateData[this.ModalService.inputArgs.textareas[i].fieldname] = this.textareaValues[i];
     }
 
@@ -64,7 +64,7 @@ class BranchNucleusSettingsModalController extends Injectable {
       .catch(err => this.$timeout(() => this.resetState(err.message)));
   }
 
-  resetState (submitErrorMessage) {
+  resetState(submitErrorMessage) {
     this.errorMessage = submitErrorMessage || '';
     this.isLoading = false;
 

@@ -13,7 +13,7 @@ class CommentsController extends Injectable {
           'date',
         ],
         selectedIndex: 0,
-      }
+      },
     };
     this.hasMoreComments = false;
     this.isLoading = false;
@@ -21,13 +21,15 @@ class CommentsController extends Injectable {
     this.reloadComments = this.reloadComments.bind(this);
     this.onSubmitComment = this.onSubmitComment.bind(this);
 
-    let listeners = [];
+    const { sortBy } = this.controls;
+    const { events } = this.EventService;
+    const listeners = [];
 
-    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.reloadComments();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.reloadComments));
+    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
@@ -36,7 +38,7 @@ class CommentsController extends Injectable {
 
   getAllCommentReplies(commentsArr) {
     return new Promise((resolve, reject) => {
-      let promises = [];
+      const promises = [];
 
       commentsArr.forEach(comment => {
         promises.push(new Promise((resolve2, reject2) => {
@@ -81,7 +83,7 @@ class CommentsController extends Injectable {
         return;
       }
 
-      comments = this.comments;
+      ({ comments } = this);
       comments = comments.concat(res.comments);
       this.comments = comments;
 
@@ -134,7 +136,7 @@ class CommentsController extends Injectable {
     return this.$state.current.name === 'weco.branch.post.comment';
   }
 
-  onSubmitComment(comment, parent) {
+  onSubmitComment(comment, parent) { // eslint-disable-line no-unused-vars
     this.comments.unshift(comment);
   }
 

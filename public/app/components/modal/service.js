@@ -48,7 +48,7 @@ class ModalService extends Injectable {
   }
 
   Error() {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       this.name = '';
       this.reject({});
     });
@@ -69,7 +69,7 @@ class ModalService extends Injectable {
 
   handleControlButtonClick(isSubmit, args) {
     return this.finished(args, isSubmit)
-      .then(args => Promise.resolve(args));
+      .then(args2 => Promise.resolve(args2));
   }
 
   OK(args) {
@@ -93,9 +93,9 @@ class ModalService extends Injectable {
         this.isOpen = true;
         this.templateUrl = this.templateUrls[name];
 
-        new Promise((resolve, reject) => {
-          this.resolve = resolve;
-          this.reject = reject;
+        new Promise((resolve2, reject2) => {
+          this.resolve = resolve2;
+          this.reject = reject2;
         })
           // todo Investigate why this timeout is set to 1500ms.
           .then(data => this.$timeout(() => {
@@ -106,6 +106,7 @@ class ModalService extends Injectable {
               this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
               return resolve(this.outputArgs);
             }
+            return reject(this.outputArgs);
           }, 1500))
           .catch(data => {
             this.AlertsService.push('error', typeof errMsg === 'function' ? errMsg(data.args) : errMsg);

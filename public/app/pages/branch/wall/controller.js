@@ -67,13 +67,20 @@ class BranchWallController extends Injectable {
     // Do the initial load so the loader appears straight away.
     this.getPosts();
 
+    const {
+      postType,
+      sortBy,
+      statType,
+      timeRange,
+    } = this.controls;
+    const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.$rootScope.$watch(() => this.controls.postType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => this.controls.statType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()));
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
+    listeners.push(this.$rootScope.$watch(() => postType.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => sortBy.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => statType.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$rootScope.$watch(() => timeRange.selectedIndex, this.callbackDropdown));
+    listeners.push(this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()));
+    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -152,9 +159,9 @@ class BranchWallController extends Injectable {
   }
 
   getPostType() {
-    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
-
-    switch(key.toLowerCase()) {
+    const { postType } = this.controls;
+    const key = postType.items[postType.selectedIndex];
+    switch (key.toLowerCase()) {
       case 'images':
         return 'image';
 
@@ -173,7 +180,8 @@ class BranchWallController extends Injectable {
   }
 
   getSortBy() {
-    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+    const { sortBy } = this.controls;
+    switch (sortBy.items[sortBy.selectedIndex].toLowerCase()) {
       case 'total points':
         return 'points';
 
@@ -189,12 +197,12 @@ class BranchWallController extends Injectable {
   }
 
   getStatType() {
-    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
-
-    switch(key.toLowerCase()) {
+    const { statType } = this.controls;
+    const key = statType.items[statType.selectedIndex];
+    switch (key.toLowerCase()) {
       case 'global':
         return 'global';
-        
+
       case 'local':
         return 'local';
 
@@ -207,7 +215,8 @@ class BranchWallController extends Injectable {
   }
 
   getTimeAfter() {
-    switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+    const { timeRange } = this.controls;
+    switch (timeRange.items[timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 

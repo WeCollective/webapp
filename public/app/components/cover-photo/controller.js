@@ -10,14 +10,14 @@ class CoverPhotoController extends Injectable {
   }
 
   hasUrls() {
-  	return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
+    return Boolean(this.imageUrl()) && Boolean(this.thumbUrl());
   }
 
   toggleCoverPicture() {
     this.WallService.isCoverOpen = !this.WallService.isCoverOpen;
 
     // Cache the state.
-    let cache = this.LocalStorageService.getObject('cache');
+    const cache = this.LocalStorageService.getObject('cache');
     cache.cover = cache.cover || {};
     cache.cover.isOpen = this.WallService.isCoverOpen;
     this.LocalStorageService.setObject('cache', cache);
@@ -25,10 +25,10 @@ class CoverPhotoController extends Injectable {
 }
 
 CoverPhotoController.$inject = [
-	'$state',
+  '$state',
   'BranchService',
   'LocalStorageService',
-	'ModalService',
+  'ModalService',
   'WallService',
 ];
 

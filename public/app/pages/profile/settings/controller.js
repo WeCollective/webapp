@@ -6,36 +6,51 @@ class ProfileSettingsController extends Injectable {
   }
 
   openDOBModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
+    this.ModalService.open(
+      'PROFILE_SETTINGS',
+      {
         title: 'Date of Birth',
         inputs: [{
           placeholder: 'Date of Birth',
           type: 'date',
           fieldname: 'dob',
-        }]
-      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+        }],
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.',
+    );
   }
 
   openEmailModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
+    this.ModalService.open(
+      'PROFILE_SETTINGS',
+      {
         title: 'Email',
         inputs: [{
           placeholder: 'Email',
           type: 'email',
           fieldname: 'email',
-        }]
-      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+        }],
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.',
+    );
   }
 
   openNameModal() {
-    this.ModalService.open('PROFILE_SETTINGS', {
+    this.ModalService.open(
+      'PROFILE_SETTINGS',
+      {
         title: 'Name',
         inputs: [{
           fieldname: 'name',
           placeholder: 'Name',
           type: 'text',
-        }]
-      }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
+        }],
+      },
+      'Successfully updated profile settings!',
+      'Unable to update profile settings.',
+    );
   }
 
   updateNSFW() {

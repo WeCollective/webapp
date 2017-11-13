@@ -1,14 +1,14 @@
 import Injectable from 'utils/injectable';
 
 class UploadService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(UploadService.$inject, injections);
 
     this.isUploading = false;
     this.progress = 0;
   }
 
-  fetchUploadUrl (route) {
+  fetchUploadUrl(route) {
     return new Promise((resolve, reject) => {
       // fetch a presigned URL to which we can upload an image
       this.API.get('/:route', { route: `${route}-upload-url` })
@@ -20,7 +20,7 @@ class UploadService extends Injectable {
     });
   }
 
-  uploadImage (data, url) {
+  uploadImage(data, url) {
     return new Promise((resolve, reject) => {
       if (!data) {
         return reject();
@@ -29,22 +29,22 @@ class UploadService extends Injectable {
       this.isUploading = true;
       this.progress = 0;
 
-      this.Upload.http({
+      return this.Upload.http({
         data,
         headers: { 'Content-Type': 'image/*' },
         method: 'PUT',
-        url
+        url,
       })
-        .then(res => {
+        .then(() => {
           this.isUploading = false;
           this.progress = 0;
           return resolve();
-        }, _ => {  // error
+        }, () => { // error
           this.isUploading = false;
           this.progress = 0;
           return reject();
-        }, e => {  // progress
-          this.progress = Math.min(100, parseInt(100.0 * e.loaded / e.total));
+        }, e => { // progress
+          this.progress = Math.min(100, Number.parseInt((100 * e.loaded) / e.total, 10));
         });
     });
   }
@@ -52,7 +52,7 @@ class UploadService extends Injectable {
 
 UploadService.$inject = [
   'API',
-  'Upload'
+  'Upload',
 ];
 
 export default UploadService;

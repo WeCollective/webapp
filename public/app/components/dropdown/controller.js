@@ -57,11 +57,11 @@ class DropdownController extends Injectable {
     this.listNodeCopy = list.cloneNode();
     this.listNodeCopy.classList.add('visible');
 
-    let div = document.createElement('div');
+    const div = document.createElement('div');
     div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
 
     const divList = div.getElementsByTagName('ul')[0];
-    for (let i = 0; i < divList.children.length; i++) {
+    for (let i = 0; i < divList.children.length; i += 1) {
       this.listNodeCopy.append(divList.children[i]);
     }
 
@@ -93,7 +93,7 @@ DropdownController.$inject = [
   '$element',
   '$scope',
   '$templateCache',
-	'$timeout',
+  '$timeout',
 ];
 
 export default DropdownController;

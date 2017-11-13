@@ -1,10 +1,12 @@
 import Injectable from 'utils/injectable';
 
 class TooltipController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(TooltipController.$inject, injections);
 
-    this.EventService.on('$stateChangeSuccess', _ => this.$timeout(_ => this.TooltipService.visible = false));
+    this.EventService.on('$stateChangeSuccess', () => {
+      this.$timeout(() => this.TooltipService.visible = false);
+    });
   }
 }
 
@@ -13,7 +15,7 @@ TooltipController.$inject = [
   '$timeout',
   'AppService',
   'EventService',
-  'TooltipService'
+  'TooltipService',
 ];
 
 export default TooltipController;

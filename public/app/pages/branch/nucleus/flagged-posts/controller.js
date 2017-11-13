@@ -63,28 +63,32 @@ class BranchNucleusFlaggedPostsController extends Injectable {
     this.getStatType = this.getStatType.bind(this);
     this.getTimeafter = this.getTimeafter.bind(this);
 
-    let listeners = [];
+    const {
+      postType,
+      sortBy,
+      timeRange,
+    } = this.controls;
+    const { events } = this.EventService;
+    const listeners = [];
 
-    listeners.push(this.$rootScope.$watch(() => this.controls.postType.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => postType.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
-    
-    listeners.push(this.$rootScope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+
+    listeners.push(this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.$rootScope.$watch(() => this.controls.timeRange.selectedIndex, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => timeRange.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.cb();
     }));
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.cb));
-
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.getPostsCb));
-
+    listeners.push(this.EventService.on(events.CHANGE_BRANCH, this.cb));
+    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.getPostsCb));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  cb(branchid) {
+  cb() {
     return new Promise((resolve, reject) => {
       if (!this.$state.current.name.includes('weco.branch.nucleus') ||
         Object.keys(this.BranchService.branch).length < 2) {
@@ -97,7 +101,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
 
   getPosts(lastPostId) {
     return new Promise((resolve, reject) => {
-      let posts = this.posts;
+      let { posts } = this;
 
       if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
         return resolve();
@@ -109,13 +113,15 @@ class BranchNucleusFlaggedPostsController extends Injectable {
         this.lastFetchedPostId = lastPostId;
       }
 
+      const { id } = this.BranchService.branch;
       const postType = this.getPostType();
       const sortBy = this.getSortBy();
       const statType = this.getStatType();
       const timeafter = this.getTimeafter();
 
       // fetch the posts for this branch and timefilter
-      this.BranchService.getPosts(this.BranchService.branch.id, timeafter, sortBy, statType, postType, lastPostId, true)
+      return this.BranchService
+        .getPosts(id, timeafter, sortBy, statType, postType, lastPostId, true)
         .then(newPosts => {
           this.$timeout(() => {
             // If lastPostId was specified, we are fetching more posts, so append them.
@@ -127,7 +133,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
               this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
             }
 
-            let cache = this.LocalStorageService.getObject('cache');
+            const cache = this.LocalStorageService.getObject('cache');
             cache.branchNucleusFlaggedPosts = cache.branchNucleusFlaggedPosts || {};
             cache.branchNucleusFlaggedPosts[this.BranchService.branch.id] = this.posts.slice(0, 30);
             this.LocalStorageService.setObject('cache', cache);
@@ -147,8 +153,8 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getPostsCb(name) {
-    if ('ScrollToBottom' !== name) return;
-    
+    if (name !== 'ScrollToBottom') return;
+
     if (!this.isLoadingMore) {
       this.isLoadingMore = true;
       this.getPosts(this.posts[this.posts.length - 1].id);
@@ -156,9 +162,9 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getPostType() {
-    const key = this.controls.postType.items[this.controls.postType.selectedIndex];
-
-    switch(key.toLowerCase()) {
+    const { postType } = this.controls;
+    const key = postType.items[postType.selectedIndex];
+    switch (key.toLowerCase()) {
       case 'images':
         return 'image';
 
@@ -177,9 +183,9 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getSortBy() {
-    const key = this.controls.sortBy.items[this.controls.sortBy.selectedIndex];
-
-    switch(key.toLowerCase()) {
+    const { sortBy } = this.controls;
+    const key = sortBy.items[sortBy.selectedIndex];
+    switch (key.toLowerCase()) {
       case 'date':
         return 'date';
 
@@ -201,12 +207,12 @@ class BranchNucleusFlaggedPostsController extends Injectable {
   }
 
   getStatType() {
-    const key = this.controls.statType.items[this.controls.statType.selectedIndex];
-
-    switch(key.toLowerCase()) {
+    const { statType } = this.controls;
+    const key = statType.items[statType.selectedIndex];
+    switch (key.toLowerCase()) {
       case 'global':
         return 'global';
-        
+
       case 'local':
         return 'local';
 
@@ -220,7 +226,8 @@ class BranchNucleusFlaggedPostsController extends Injectable {
 
   // compute the appropriate timeafter for the selected time filter
   getTimeafter() {
-    switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+    const { timeRange } = this.controls;
+    switch (timeRange.items[timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 

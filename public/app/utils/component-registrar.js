@@ -1,4 +1,4 @@
-import angular from 'angular';
+// import angular from 'angular';
 
 class ComponentRegistrar {
   constructor(app) {
@@ -26,18 +26,19 @@ class ComponentRegistrar {
       constructorFn.prototype.compile = () => {};
     }
 
-    let originalCompileFn = this._cloneFunction(constructorFn.prototype.compile);
+    const originalCompileFn = this._cloneFunction(constructorFn.prototype.compile);
 
     // Decorate the compile method to automatically return the link method (if it exists)
     // and bind it to the context of the constructor (so `this` works correctly).
-    // This gets around the problem of a non-lexical "this" which occurs when the directive class itself
-    // returns `this.link` from within the compile function.
-    this._override(constructorFn.prototype, 'compile', function () {
-      return function () {
-        originalCompileFn.apply(this, arguments);
+    // This gets around the problem of a non-lexical "this" which occurs when the directive
+    // class itself returns `this.link` from within the compile function.
+    this._override(constructorFn.prototype, 'compile', function () { // eslint-disable-line func-names, prefer-arrow-callback
+      return function () { // eslint-disable-line func-names
+        originalCompileFn.apply(this, arguments); // eslint-disable-line prefer-rest-params
         if (constructorFn.prototype.link) {
           return constructorFn.prototype.link.bind(this);
         }
+        return false;
       };
     });
 
@@ -83,8 +84,8 @@ class ComponentRegistrar {
    * Clone a function
    */
   _cloneFunction(original) {
-    return function () {
-      return original.apply(this, arguments);
+    return function () { // eslint-disable-line func-names
+      return original.apply(this, arguments); // eslint-disable-line prefer-rest-params
     };
   }
 
@@ -95,18 +96,19 @@ class ComponentRegistrar {
    * In order to inject the dependencies, they must be attached to the constructor function with the
    * `$inject` property annotation.
    */
-  _createFactoryArray(constructorFn) {
-    // get the array of dependencies that are needed by this component (as contained in the `$inject` array)
-    const args = constructorFn.$inject || [];
-    let factoryArray = args.slice(); // create a copy of the array
-    
-    // The factoryArray uses Angular's array notation whereby each element of the array is the name of a
-    // dependency, and the final item is the factory function itself.
-    factoryArray.push((...args) => {
-      //return new constructorFn(...args);
-      let instance = new constructorFn(...args);
+  _createFactoryArray(ConstructorFn) {
+    // get the array of dependencies that are needed by this component
+    // (as contained in the `$inject` array)
+    const args = ConstructorFn.$inject || [];
+    const factoryArray = args.slice(); // create a copy of the array
 
-      for (let key in instance) {
+    // The factoryArray uses Angular's array notation whereby each element of the array
+    // is the name of a dependency, and the final item is the factory function itself.
+    factoryArray.push((...args2) => {
+      // return new ConstructorFn(...args);
+      const instance = new ConstructorFn(...args2);
+
+      for (const key in instance) { // eslint-disable-line guard-for-in, no-restricted-syntax
         instance[key] = instance[key];
       }
 
@@ -123,7 +125,7 @@ class ComponentRegistrar {
    */
   _normalizeConstructor(input) {
     let constructorFn;
-    
+
     if (input.constructor === Array) {
       const injected = input.slice(0, input.length - 1);
       constructorFn = input[input.length - 1];

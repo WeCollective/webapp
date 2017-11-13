@@ -34,7 +34,7 @@ class ListItemController extends Injectable {
 
   getOriginalBranches() {
     let branches = [];
-    
+
     if (this.post.data && this.post.data.original_branches) {
       branches = JSON.parse(this.post.data.original_branches);
     }
@@ -43,11 +43,11 @@ class ListItemController extends Injectable {
   }
 
   getOriginalBranchesTooltipString() {
-    const original_branches = this.getOriginalBranches();
+    const originalBranches = this.getOriginalBranches();
     let string = '';
 
-    for (let i = 1; i < original_branches.length; i++) {
-      string += original_branches[i] + (i < original_branches.length ? '\n' : '');
+    for (let i = 1; i < originalBranches.length; i += 1) {
+      string += originalBranches[i] + (i < originalBranches.length ? '\n' : '');
     }
 
     return string;
@@ -82,27 +82,38 @@ class ListItemController extends Injectable {
   }
 
   openDeletePostModal() {
-    this.ModalService.open('DELETE_POST', { postid: this.post.id },
-      'Post deleted.', 'Unable to delete post.' );
+    this.ModalService.open(
+      'DELETE_POST',
+      { postid: this.post.id },
+      'Post deleted.',
+      'Unable to delete post.',
+    );
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('DELETE_POST' !== name) return;
+      if (name !== 'DELETE_POST') return;
       this.$state.go(this.$state.current.name, { reload: true });
     });
   }
 
   openFlagPostModal() {
-    this.ModalService.open('FLAG_POST', {
+    this.ModalService.open(
+      'FLAG_POST',
+      {
         post: this.post,
-        branchid: this.BranchService.branch.id
+        branchid: this.BranchService.branch.id,
       },
       'Post flagged. The branch moderators will be informed.',
-      'Unable to flag post.');
+      'Unable to flag post.',
+    );
   }
 
   openResolveFlagPostModal() {
-    this.ModalService.open('RESOLVE_FLAG_POST', { post: this.post },
-      'Done.', 'Error resolving flags on post.' );
+    this.ModalService.open(
+      'RESOLVE_FLAG_POST',
+      { post: this.post },
+      'Done.',
+      'Error resolving flags on post.',
+    );
   }
 
   showFlags() {

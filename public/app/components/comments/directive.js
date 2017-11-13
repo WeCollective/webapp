@@ -10,7 +10,7 @@ class CommentsComponent extends Injectable {
     this.replace = true;
     this.restrict = 'E';
     this.scope = {};
-    this.templateUrl = '/app/components/comments/view.html';    
+    this.templateUrl = '/app/components/comments/view.html';
   }
 }
 

@@ -1,30 +1,30 @@
 import Injectable from 'utils/injectable';
 
 class VerifyController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(VerifyController.$inject, injections);
 
     this.animationSrc = '/assets/images/logo-animation-large.gif';
     this.message = 'Verifying your account';
 
-    this.$interval(_ => {
+    this.$interval(() => {
       if (this.animationSrc !== '') {
-        this.$timeout(_ => this.animationSrc = '');
+        this.$timeout(() => this.animationSrc = '');
       }
 
       // set animation src to the animated gif
-      this.$timeout(_ => this.animationSrc = '/assets/images/logo-animation-large.gif');
+      this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
 
       this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
     }, 1000);
 
-    this.$timeout(_ => {
+    this.$timeout(() => {
       this.UserService.verify(this.$state.params.username, this.$state.params.token)
-        .then(_ => {
+        .then(() => {
           this.AlertsService.push('success', 'Account verified! You can now login.', true);
           this.$state.go('auth.login');
         })
-        .catch(_ => {
+        .catch(() => {
           this.AlertsService.push('error', 'Unable to verify your account. Your token may have expired: try signing up again.', true);
           this.$state.go('auth.signup');
         });
@@ -37,7 +37,7 @@ VerifyController.$inject = [
   '$state',
   '$timeout',
   'AlertsService',
-  'UserService'
+  'UserService',
 ];
 
 export default VerifyController;

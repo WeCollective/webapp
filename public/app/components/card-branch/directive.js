@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class CardBranchComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CardBranchComponent.$inject, injections);
 
     this.bindToController = {

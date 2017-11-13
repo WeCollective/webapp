@@ -6,15 +6,17 @@ class AppRoutes extends Injectable {
 
     this.$httpProvider.defaults.withCredentials = true;
     this.$locationProvider.html5Mode(true);
-    this.$urlRouterProvider.otherwise('/');
 
     // Remove trailing slashes from URLs.
+    // Do not touch the undefined return statement. Removing it upsets the linter,
+    // changing its value to anything else breaks the router.
     this.$urlRouterProvider.rule(($injector, $location) => {
-      let path = $location.path();
+      const path = $location.path();
       const hasTrailingSlash = path[path.length - 1] === '/';
       if (hasTrailingSlash) {
         return path.substr(0, path.length - 1);
       }
+      return undefined;
     });
 
     this.$stateProvider
@@ -24,22 +26,22 @@ class AppRoutes extends Injectable {
         controller: 'AuthController',
         controllerAs: 'Auth',
       })
-      
+
       .state('auth.login', {
         url: '/login',
       })
-      
+
       .state('auth.signup', {
         url: '/signup',
       })
-      
+
       .state('verify', {
         url: '/:username/verify/:token',
         templateUrl: '/app/pages/auth/verify/view.html',
         controller: 'VerifyController',
         controllerAs: 'Verify',
       })
-      
+
       .state('reset-password', {
         url: '/reset-password',
         abstract: true,
@@ -47,17 +49,17 @@ class AppRoutes extends Injectable {
         controller: 'ResetPasswordController',
         controllerAs: 'ResetPassword',
       })
-      
+
       .state('reset-password.request', {
         url: '/request',
         templateUrl: '/app/pages/auth/reset-password/request/view.html',
       })
-      
+
       .state('reset-password.confirm', {
         url: '/:username/:token',
         templateUrl: '/app/pages/auth/reset-password/confirm/view.html',
       })
-      
+
       // Abstract root state contains nav-bar
       .state('weco', {
         abstract: true,
@@ -66,12 +68,12 @@ class AppRoutes extends Injectable {
           <div class="view" ui-view></div>
         `,
       })
-      
+
       // 404 Not Found
       .state('weco.notfound', {
         templateUrl: '/app/pages/notfound/view.html',
       })
-      
+
       // Homepage state
       .state('weco.home', {
         url: '/',
@@ -80,7 +82,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'Home',
         pageTrack: '/',
       })
-      
+
       // Profile page
       .state('weco.profile', {
         url: '/u/:username',
@@ -89,13 +91,13 @@ class AppRoutes extends Injectable {
         controller: 'ProfileController',
         controllerAs: 'Profile',
       })
-      
+
       .state('weco.profile.about', {
         url: '/about',
         templateUrl: '/app/pages/profile/about/view.html',
         pageTrack: '/u/:username/about',
       })
-      
+
       .state('weco.profile.settings', {
         url: '/settings',
         templateUrl: '/app/pages/profile/settings/view.html',
@@ -103,7 +105,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'ProfileSettings',
         pageTrack: '/u/:username/settings',
       })
-      
+
       .state('weco.profile.notifications', {
         url: '/notifications',
         templateUrl: '/app/pages/profile/notifications/view.html',
@@ -111,7 +113,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'ProfileNotifications',
         pageTrack: '/u/:username/notifications',
       })
-      
+
       // Branches
       .state('weco.branch', {
         url: '/b/:branchid',
@@ -120,86 +122,116 @@ class AppRoutes extends Injectable {
         controller: 'BranchController',
         controllerAs: 'Branch',
       })
-      
+
       // Branch Nucleus
       .state('weco.branch.nucleus', {
         url: '/nucleus',
         abstract: true,
-        templateUrl: '/app/pages/branch/nucleus/view.html',
-        controller: 'BranchNucleusController',
-        controllerAs: 'BranchNucleus',
         pageTrack: '/b/:branchid/nucleus',
+        views: {
+          content: {
+            templateUrl: '/app/pages/branch/nucleus/view.html',
+            controller: 'BranchNucleusController',
+            controllerAs: 'BranchNucleus',
+          },
+          header: {
+            template: '<div>hey</div>',
+          },
+        },
       })
-      
+
       .state('weco.branch.nucleus.about', {
         url: '/about',
         templateUrl: '/app/pages/branch/nucleus/about/view.html',
         controller: 'BranchNucleusAboutController',
         controllerAs: 'BranchNucleusAbout',
       })
-      
+
       .state('weco.branch.nucleus.settings', {
         url: '/settings',
         templateUrl: '/app/pages/branch/nucleus/settings/view.html',
         controller: 'BranchNucleusSettingsController',
         controllerAs: 'BranchNucleusSettings',
       })
-      
+
       .state('weco.branch.nucleus.moderators', {
         url: '/moderators',
         templateUrl: '/app/pages/branch/nucleus/moderators/view.html',
         controller: 'BranchNucleusModeratorsController',
         controllerAs: 'BranchNucleusModerators',
       })
-      
+
       .state('weco.branch.nucleus.modtools', {
         url: '/modtools',
         templateUrl: '/app/pages/branch/nucleus/modtools/view.html',
         controller: 'BranchNucleusModtoolsController',
         controllerAs: 'ToolsCtrl',
       })
-      
+
       .state('weco.branch.nucleus.flaggedposts', {
         url: '/flaggedposts',
         templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
         controller: 'BranchNucleusFlaggedPostsController',
         controllerAs: 'FlaggedPosts',
       })
-      
+
       // Subbranches
       .state('weco.branch.subbranches', {
         url: '/childbranches',
-        templateUrl: '/app/pages/branch/subbranches/view.html',
-        controller: 'BranchSubbranchesController',
-        controllerAs: 'Subbranches',
         pageTrack: '/b/:branchid/childbranches',
+        views: {
+          content: {
+            templateUrl: '/app/pages/branch/subbranches/view.html',
+            controller: 'BranchSubbranchesController',
+            controllerAs: 'Subbranches',
+          },
+          header: {
+            templateUrl: '/app/pages/branch/subbranches/header/view.html',
+            controller: 'BranchSubbranchesController',
+            controllerAs: 'Subbranches',
+          },
+        },
       })
-      
+
       // Branch wall
       .state('weco.branch.wall', {
         url: '/wall',
-        templateUrl: '/app/pages/branch/wall/view.html',
-        controller: 'BranchWallController',
-        controllerAs: 'BranchWall',
         pageTrack: '/b/:branchid/wall',
+        views: {
+          content: {
+            templateUrl: '/app/pages/branch/wall/view.html',
+            controller: 'BranchWallController',
+            controllerAs: 'BranchWall',
+          },
+          header: {
+            template: '<div>hey</div>',
+          },
+        },
       })
-      
+
       // Posts
       .state('weco.branch.post', {
         url: '/p/:postid',
-        templateUrl: '/app/pages/branch/post/view.html',
-        controller: 'BranchPostController',
-        controllerAs: 'BranchPost',
         pageTrack: '/p/:postid',
+        views: {
+          content: {
+            templateUrl: '/app/pages/branch/post/view.html',
+            controller: 'BranchPostController',
+            controllerAs: 'BranchPost',
+          },
+          header: {
+            template: '<div>hey</div>',
+          },
+        },
       })
-      
+
       // Comment Permalink
       .state('weco.branch.post.comment', {
         url: '/c/:commentid',
         templateUrl: '/app/pages/branch/post/discussion/view.html',
         pageTrack: '/p/:postid/c/:commentid',
       })
-      
+
       // Poll Tabs
       .state('weco.branch.post.vote', {
         url: '/vote',
@@ -208,7 +240,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'BranchPostVote',
         pageTrack: '/p/:postid/vote',
       })
-      
+
       .state('weco.branch.post.results', {
         url: '/results',
         templateUrl: '/app/pages/branch/post/results/view.html',
@@ -216,7 +248,7 @@ class AppRoutes extends Injectable {
         controllerAs: 'BranchPostResults',
         pageTrack: '/p/:postid/results',
       })
-      
+
       .state('weco.branch.post.discussion', {
         url: '/discussion',
         templateUrl: '/app/pages/branch/post/discussion/view.html',

@@ -6,11 +6,10 @@ class CommentService extends Injectable {
   }
 
   create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.post('/post/:postid/comments', { postid: data.postid }, data)
+    return new Promise((resolve, reject) => this.API
+      .post('/post/:postid/comments', { postid: data.postid }, data)
       .then(res => resolve(res.data))
-      .catch(err => reject(err.data || err));
-    });
+      .catch(err => reject(err.data || err)));
   }
 
   delete(postid, commentid) {
@@ -28,7 +27,7 @@ class CommentService extends Injectable {
           if (!res || !res.data) {
             return reject();
           }
-          
+
           return resolve(res.data);
         })
         .catch(err => reject(err.data || err));
@@ -42,7 +41,7 @@ class CommentService extends Injectable {
         parentid,
         sort,
       };
-      
+
       if (lastCommentId) {
         params.lastCommentId = lastCommentId;
       }
@@ -67,7 +66,7 @@ class CommentService extends Injectable {
         return reject();
       }
 
-      this.API.put('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true)
+      return this.API.put('/post/:postid/comments/:commentid', { commentid, postid }, { vote }, true)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });

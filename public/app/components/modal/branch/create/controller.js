@@ -34,9 +34,10 @@ class CreateBranchModalController extends Injectable {
 
     // if not all fields are filled, display message
     if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
-      return this.$timeout(() => {
+      this.$timeout(() => {
         this.errorMessage = 'Please fill in all fields';
       });
+      return;
     }
 
     // perform the update

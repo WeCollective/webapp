@@ -1,12 +1,11 @@
 import Injectable from 'utils/injectable';
-//import Generator from 'utils/generator';
 
 class ModService extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ModService.$inject, injections);
   }
 
-  create (branchid, username) {
+  create(branchid, username) {
     return new Promise((resolve, reject) => {
       this.API.post('/branch/:branchid/mods', { branchid }, { username })
         .then(resolve)
@@ -14,7 +13,7 @@ class ModService extends Injectable {
     });
   }
 
-  fetchByBranch (branchid) {
+  fetchByBranch(branchid) {
     return new Promise((resolve, reject) => {
       this.API.get('/branch/:branchid/mods', { branchid })
         .then(res => resolve(res.data))
@@ -22,7 +21,7 @@ class ModService extends Injectable {
     });
   }
 
-  remove (branchid, username) {
+  remove(branchid, username) {
     return new Promise((resolve, reject) => {
       this.API.delete('/branch/:branchid/mods/:username', { branchid, username })
         .then(resolve)
@@ -32,7 +31,7 @@ class ModService extends Injectable {
 }
 
 ModService.$inject = [
-  'API'
+  'API',
 ];
 
 export default ModService;

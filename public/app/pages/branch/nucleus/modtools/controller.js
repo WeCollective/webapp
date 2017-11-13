@@ -22,7 +22,7 @@ class BranchNucleusModtoolsController extends Injectable {
         this.log = log;
         this.isLoading = false;
 
-        let cache = this.LocalStorageService.getObject('cache');
+        const cache = this.LocalStorageService.getObject('cache');
         cache.modLog = cache.modLog || {};
         cache.modLog[this.BranchService.branch.id] = this.log;
         this.LocalStorageService.setObject('cache', cache);
@@ -40,7 +40,7 @@ class BranchNucleusModtoolsController extends Injectable {
     const removableMods = [];
 
     let me;
-    
+
     for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
       const mod = this.BranchService.branch.mods[i];
       if (mod.username === this.UserService.user.username) {

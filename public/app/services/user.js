@@ -62,7 +62,7 @@ class UserService extends Injectable {
 
   login(credentials) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           const login = yield this.API.request('POST', '/user/login', {}, credentials, true);
 
@@ -99,7 +99,7 @@ class UserService extends Injectable {
 
   markAllNotifications(username) {
     return new Promise((resolve, reject) => {
-      this.API.post('/user/:username/notifications', { username }, null , true)
+      this.API.post('/user/:username/notifications', { username }, null, true)
         .then(resolve)
         .catch(err => reject(err.data || err));
     });
@@ -205,7 +205,7 @@ class UserService extends Injectable {
 
   update(data) {
     return new Promise((resolve, reject) => {
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           yield this.API.put('/user/me', {}, data, true);
 

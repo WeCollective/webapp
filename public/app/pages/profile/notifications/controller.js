@@ -16,15 +16,18 @@ class ProfileNotificationsController extends Injectable {
     this.init = this.init.bind(this);
 
     const listeners = [];
+    const { events } = this.EventService;
 
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.init));
+    listeners.push(this.EventService.on(events.CHANGE_USER, this.init));
 
-    listeners.push(this.EventService.on(this.EventService.events.MARK_ALL_NOTIFICATIONS_READ,
-      () => this.markAllNotificationsRead()));
+    listeners.push(this.EventService.on(
+      events.MARK_ALL_NOTIFICATIONS_READ,
+      () => this.markAllNotificationsRead(),
+    ));
 
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, name => {
-      if ('ScrollToBottom' !== name) return;
-        
+    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, name => {
+      if (name !== 'ScrollToBottom') return;
+
       if (this.notifications.length) {
         this.getNotifications(this.notifications[this.notifications.length - 1].id);
       }
@@ -34,7 +37,7 @@ class ProfileNotificationsController extends Injectable {
   }
 
   getNotificationImageType(notification) {
-    switch(notification.type) {
+    switch (notification.type) {
       case NotificationTypes.NEW_CHILD_BRANCH_REQUEST:
       case NotificationTypes.CHILD_BRANCH_REQUEST_ANSWERED:
       case NotificationTypes.BRANCH_MOVED:
@@ -64,7 +67,10 @@ class ProfileNotificationsController extends Injectable {
     this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId)
       .then(notifications => {
         this.$timeout(() => {
-          this.notifications = lastNotificationId ? this.notifications.concat(notifications) : notifications;
+          this.notifications = lastNotificationId ?
+            this.notifications.concat(notifications)
+            : notifications;
+
           this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
           this.isLoading = false;
 
@@ -84,7 +90,8 @@ class ProfileNotificationsController extends Injectable {
   init() {
     if (!this.$state.current.name.includes('weco.profile')) return;
 
-    if (this.UserService.isAuthenticated() && this.UserService.user.username === this.$state.params.username) {
+    if (this.UserService.isAuthenticated() &&
+      this.UserService.user.username === this.$state.params.username) {
       this.$timeout(() => this.getNotifications());
     }
   }
@@ -96,10 +103,15 @@ class ProfileNotificationsController extends Injectable {
   }
 
   toggleUnreadState(notification) {
-    this.UserService.markNotification(this.UserService.user.username, notification.id, !notification.unread)
+    const {
+      id,
+      unread,
+    } = notification;
+
+    this.UserService.markNotification(this.UserService.user.username, id, !unread)
       .then(() => {
-        this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !notification.unread ? 1 : -1);
-        this.$timeout(() => notification.unread = !notification.unread);
+        this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !unread ? 1 : -1);
+        this.$timeout(() => notification.unread = !unread);
       })
       .catch(() => this.AlertsService.push('error', 'Unable to mark notification.'));
   }

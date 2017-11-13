@@ -13,7 +13,7 @@ class UpdateHomepageStatsModalController extends Injectable {
     };
 
     const init = () => {
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           let response = yield this.API.get('/constant/donation_total', {});
           this.stats.donation_total = response.data.data;
@@ -26,7 +26,7 @@ class UpdateHomepageStatsModalController extends Injectable {
           this.ModalService.Cancel();
         }
 
-        this.$timeout(() => { this.isLoading = false; });
+        this.$timeout(() => this.isLoading = false);
       }, this);
     };
 
@@ -37,15 +37,16 @@ class UpdateHomepageStatsModalController extends Injectable {
 
       // validate stats
       this.isLoading = true;
-      if (isNaN(this.stats.donation_total) || isNaN(this.stats.raised_total)) {
-        return this.$timeout(() => {
+      if (Number.isNaN(this.stats.donation_total) || Number.isNaN(this.stats.raised_total)) {
+        this.$timeout(() => {
           this.errorMessage = 'Invalid amount';
           this.isLoading = false;
         });
+        return;
       }
 
       // update stats
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           yield this.API.put('/constant/donation_total', {}, {
             data: Number(this.stats.donation_total),
@@ -60,7 +61,7 @@ class UpdateHomepageStatsModalController extends Injectable {
             this.ModalService.OK();
           });
         }
-        catch(err) {
+        catch (err) {
           this.AlertsService.push('error', 'Error updating homepage stats.');
           this.ModalService.Cancel();
         }

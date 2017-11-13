@@ -1,10 +1,9 @@
 import Injectable from 'utils/injectable';
-import Generator from 'utils/generator';
 
 class PostService extends Injectable {
   constructor(...injections) {
     super(PostService.$inject, injections);
-    
+
     this.post = {};
     this.updating = false;
 
@@ -47,7 +46,7 @@ class PostService extends Injectable {
     });
   }
 
-  flag(postid, branchid, flag_type) {
+  flag(postid, branchid, flag_type) { // eslint-disable-line camelcase
     return new Promise((resolve, reject) => {
       this.API.post('/post/:postid/flag', { postid }, { branchid, flag_type })
         .then(resolve)
@@ -60,7 +59,7 @@ class PostService extends Injectable {
   }
 
   getPollAnswers(postid, sortBy, lastAnswerId) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.get('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
@@ -94,19 +93,19 @@ class PostService extends Injectable {
   }
 
   vote(branchid, postid, vote) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if (vote !== 'up' && vote !== 'down') {
         return reject();
       }
 
-      this.API.put('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true)
+      return this.API.put('/branch/:branchid/posts/:postid', { branchid, postid }, { vote }, true)
         .then(res => resolve(res.data))
         .catch(err => reject(err.data || err));
     });
   }
 
   votePollAnswer(postid, answerid) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.API.put('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
         .then(resolve)
         .catch(err => reject(err.data || err));

@@ -16,13 +16,13 @@ class RemoveModModalController extends Injectable {
 
     const init = () => {
       this.isLoading = true;
-      Generator.run(function* () {
+      Generator.run(function* () { // eslint-disable-line func-names
         try {
           for (let i = 0; i < this.ModalService.inputArgs.mods.length; i += 1) {
             yield getMod(this.ModalService.inputArgs.mods[i].username, i);
           }
 
-          this.$timeout(() => { this.isLoading = false; });
+          this.$timeout(() => this.isLoading = false);
         }
         catch (err) {
           this.$timeout(() => {
@@ -50,7 +50,7 @@ class RemoveModModalController extends Injectable {
         .catch(response => this.$timeout(() => {
           this.errorMessage = response.message;
           if (response.status === 404) {
-            this.errorMessage = `That user doesn't exist`;
+            this.errorMessage = 'That user doesn\'t exist';
           }
           this.isLoading = false;
         }));

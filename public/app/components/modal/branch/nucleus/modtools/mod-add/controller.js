@@ -23,8 +23,8 @@ class AddModModalController extends Injectable {
         .catch(response => this.$timeout(() => {
           this.data = {};
           this.errorMessage = response.message;
-          if (response.status == 404) {
-            this.errorMessage = `That user doesn't exist`;
+          if (response.status === 404) {
+            this.errorMessage = 'That user doesn\'t exist';
           }
           this.isLoading = false;
         }));

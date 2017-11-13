@@ -40,9 +40,10 @@ class CreatePostModalController extends Injectable {
 
     this.tags = this.newPost.branchids;
 
+    const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
+    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
+    listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -84,11 +85,13 @@ class CreatePostModalController extends Injectable {
       (!['poll', 'text'].includes(this.newPost.type) && !this.newPost.text) ||
       this.newPost.nsfw === undefined ||
       this.newPost.locked === undefined) {
-      return this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+      return;
     }
 
     if (this.newPost.title.length > 200) {
-      return this.$timeout(() => this.errorMessage = 'Title cannot be more than 200 characters long.');
+      this.$timeout(() => this.errorMessage = 'Title cannot be more than 200 characters long.');
+      return;
     }
 
     // Perform the update.
@@ -98,18 +101,19 @@ class CreatePostModalController extends Injectable {
     const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
     post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
 
-    Generator.run(function* () {
+    Generator.run(function* () { // eslint-disable-line func-names
       let postid;
       try {
         postid = yield this.PostService.create(post);
       }
       catch (err) {
-        return this.$timeout(() => {
+        this.$timeout(() => {
           this.errorMessage = err.message || 'Error creating post!';
           this.isLoading = false;
         });
+        return;
       }
-      
+
       // If it's a poll, add the poll answers.
       if (this.newPost.type === 'poll') {
         for (let i = 0; i < this.pollAnswers.length; i += 1) {
@@ -117,10 +121,11 @@ class CreatePostModalController extends Injectable {
             yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
           }
           catch (err) {
-            return this.$timeout(() => {
+            this.$timeout(() => {
               this.errorMessage = err.message || 'Error creating poll answers!';
               this.isLoading = false;
             });
+            return;
           }
         }
       }

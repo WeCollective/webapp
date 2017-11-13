@@ -4,10 +4,16 @@ class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
-    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.$timeout(() => this.isLoading = false));
+    this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
+      this.$timeout(() => this.isLoading = false);
+    });
+
+    this.$rootScope.$on('$stateChangeSuccess', () => {
+      // console.log(document.getElementsByClassName('header'));
+    });
   }
 
-  getBreadcrumbsDynamicLink(level) {
+  getBreadcrumbsDynamicLink() {
     const viewName = this.$state.current.name;
     let view = '';
 
@@ -58,15 +64,19 @@ class BranchController extends Injectable {
     const messageType = modalType === 'profile-picture' ? 'profile' : 'cover';
     const type = modalType === 'profile-picture' ? 'picture' : 'cover';
 
-    this.ModalService.open('UPLOAD_IMAGE', { route, type },
-      `Successfully updated ${messageType} picture.`, `Unable to update ${messageType} picture.` );
+    this.ModalService.open(
+      'UPLOAD_IMAGE',
+      { route, type },
+      `Successfully updated ${messageType} picture.`,
+      `Unable to update ${messageType} picture.`,
+    );
   }
 
   toggleFollowBranch() {
-    let errMsg,
-      promise,
-      successMsg;
-     
+    let errMsg;
+    let promise;
+    let successMsg;
+
     if (this.isFollowingBranch()) {
       errMsg = 'Error unfollowing branch.';
       successMsg = `You're no longer following b/${this.BranchService.branch.id}!`;
@@ -85,6 +95,7 @@ class BranchController extends Injectable {
 }
 
 BranchController.$inject = [
+  '$rootScope',
   '$state',
   '$timeout',
   'AlertsService',

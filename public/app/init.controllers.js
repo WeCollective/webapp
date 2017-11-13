@@ -75,7 +75,7 @@ const refs = [
   { name: 'ResetPasswordController', module: ResetPassword },
   { name: 'TooltipController', module: Tooltip },
   { name: 'VerifyController', module: Verify },
-  
+
   { name: 'AddModModalController', module: ModAddModal },
   { name: 'BanUserModalController', module: BanUserModal },
   { name: 'BranchNucleusSettingsModalController', module: BranchNucleusSettingsModal },

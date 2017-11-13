@@ -2,23 +2,23 @@ import Injectable from 'utils/injectable';
 import NotificationTypes from 'components/notification/constants';
 
 class NotificationComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(NotificationComponent.$inject, injections);
 
     this.restrict = 'E';
     this.replace = true;
     this.scope = {
-      notification: '='
+      notification: '=',
     };
   }
 
   // Params: scope, element, attrs
-  link (scope, element) {
+  link(scope, element) {
     scope.UserService = this.UserService;
     scope.NotificationTypes = NotificationTypes;
 
     scope.reasonString = () => {
-      switch(scope.notification.reason) {
+      switch (scope.notification.reason) {
         case 'branch_rules':
           return 'for violating the branch rules';
 
@@ -36,13 +36,15 @@ class NotificationComponent extends Injectable {
       }
     };
 
-    // remplate name is as represented in NotificationTypes with no caps and hyphens instead of underscores
-    const templateName = (_ => {
-      for (let key in NotificationTypes) {
+    // remplate name is as represented in NotificationTypes with
+    // no caps and hyphens instead of underscores
+    const templateName = (() => {
+      for (const key in NotificationTypes) { // eslint-disable-line no-restricted-syntax
         if (NotificationTypes[key] === scope.notification.type) {
           return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
         }
       }
+      return false;
     })();
 
     this.$templateRequest(`/app/components/notification/templates/${templateName}.html`)
@@ -50,7 +52,7 @@ class NotificationComponent extends Injectable {
         element.html(template);
         this.$compile(element.contents())(scope);
       })
-      .catch(_ => console.error('Unable to get notification template.'));
+      .catch(() => console.error('Unable to get notification template.'));
   }
 }
 
@@ -59,7 +61,7 @@ NotificationComponent.$inject = [
   '$templateRequest',
   '$timeout',
   'AlertsService',
-  'UserService'
+  'UserService',
 ];
 
 export default NotificationComponent;

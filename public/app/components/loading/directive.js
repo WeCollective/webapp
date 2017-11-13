@@ -9,7 +9,7 @@ class LoadingComponent extends Injectable {
     this.scope = {
       loadingWhen: '&',
       // Legacy.
-      when: '&'
+      when: '&',
     };
     this.templateUrl = '/app/components/loading/view.html';
     this.transclude = true;
@@ -38,12 +38,12 @@ class LoadingComponent extends Injectable {
     **  from the end of the template also).
     */
     // Params: clone, scope
-    transclude(scope.$parent, clone => element.append(clone) );
+    transclude(scope.$parent, clone => element.append(clone));
   }
 }
 
 LoadingComponent.$inject = [
-  '$compile'
+  '$compile',
 ];
 
 export default LoadingComponent;

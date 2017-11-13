@@ -6,7 +6,7 @@ const constants = [
   '#70cdd4',
   '#227692',
   '#7174ab',
-  '#2c4a6e'
+  '#2c4a6e',
 ];
 
 export default constants;

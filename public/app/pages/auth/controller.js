@@ -17,7 +17,7 @@ class AuthController extends Injectable {
   }
 
   isLoginForm() {
-    return 'auth.login' === this.$state.current.name;
+    return this.$state.current.name === 'auth.login';
   }
 
   login() {
@@ -47,7 +47,7 @@ class AuthController extends Injectable {
   resendVerificationDone(success) {
     const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
     this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
-    
+
     this.errorMessage = '';
     this.isLoading = false;
     this.showResendVerification = false;
@@ -77,7 +77,7 @@ class AuthController extends Injectable {
     this.loopAnimation = true;
     this.triggerAnimation();
     this.credentials.username = this.credentials.username.toLowerCase();
-    
+
     if (this.isLoginForm()) {
       this.login();
     }
@@ -97,7 +97,7 @@ class AuthController extends Injectable {
     // cancel after 1 sec
     this.$timeout(() => {
       this.animationSrc = '';
-      
+
       if (this.loopAnimation) {
         this.triggerAnimation();
       }

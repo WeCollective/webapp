@@ -1,22 +1,22 @@
 import Injectable from 'utils/injectable';
 
 class BranchNucleusSettingsController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(BranchNucleusSettingsController.$inject, injections);
   }
 
-  openModal (modalType) {
-    let inputs = [],
-      route = `branch/${this.BranchService.branch.id}/`,
-      templateName = 'BRANCH_NUCLEUS_SETTINGS',
-      textareas = [],
-      title = '',
-      type;
+  openModal(modalType) {
+    let inputs = [];
+    const route = `branch/${this.BranchService.branch.id}/`;
+    let templateName = 'BRANCH_NUCLEUS_SETTINGS';
+    let textareas = [];
+    let title = '';
+    let type;
 
-    if ('profile-picture' === modalType) {
+    if (modalType === 'profile-picture') {
       type = 'picture';
     }
-    else if ('cover-picture' === modalType) {
+    else if (modalType === 'cover-picture') {
       type = 'cover';
     }
 
@@ -31,7 +31,7 @@ class BranchNucleusSettingsController extends Injectable {
         textareas = [{
           fieldname: 'description',
           placeholder: 'Description',
-          value: this.BranchService.branch.description
+          value: this.BranchService.branch.description,
         }];
         break;
 
@@ -40,7 +40,7 @@ class BranchNucleusSettingsController extends Injectable {
         textareas = [{
           fieldname: 'rules',
           placeholder: 'Rules & Etiquette Text',
-          value: this.BranchService.branch.rules
+          value: this.BranchService.branch.rules,
         }];
         break;
 
@@ -49,7 +49,7 @@ class BranchNucleusSettingsController extends Injectable {
         inputs = [{
           fieldname: 'name',
           placeholder: 'Visible name',
-          type: 'text'
+          type: 'text',
         }];
         break;
 
@@ -57,8 +57,12 @@ class BranchNucleusSettingsController extends Injectable {
         break;
     }
 
-    this.ModalService.open(templateName, templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title },
-      'Successfully updated branch settings!', 'Unable to update branch settings.');
+    this.ModalService.open(
+      templateName,
+      templateName === 'UPLOAD_IMAGE' ? { route, type } : { inputs, textareas, title },
+      'Successfully updated branch settings!',
+      'Unable to update branch settings.',
+    );
   }
 }
 

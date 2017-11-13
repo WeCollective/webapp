@@ -11,9 +11,10 @@ class SubmitSubbranchRequestModalController extends Injectable {
     this.errorMessage = '';
     this.isLoading = false;
 
+    const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, this.handleModalCancel));
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, this.handleModalSubmit));
+    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
+    listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -33,11 +34,12 @@ class SubmitSubbranchRequestModalController extends Injectable {
     this.isLoading = true;
 
     if (!this.data || !this.data.parentid) {
-      return this.$timeout(() => { this.errorMessage = 'Please fill in all fields'; });
+      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+      return;
     }
 
     const params = Object.assign({}, this.data);
-    
+
     this.BranchService.submitSubbranchRequest(params.parentid, this.ModalService.inputArgs.branchid)
       .then(() => this.$timeout(() => {
         this.isLoading = false;

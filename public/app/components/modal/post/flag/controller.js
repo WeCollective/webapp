@@ -24,7 +24,7 @@ class FlagPostModalController extends Injectable {
 
       this.isLoading = true;
 
-      let post = this.ModalService.inputArgs.post;
+      const { post } = this.ModalService.inputArgs;
       let type;
 
       switch (this.selectedIndex) {

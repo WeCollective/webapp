@@ -7,6 +7,7 @@ class EventService extends Injectable {
     this.events = {
       CHANGE_BRANCH: 'CHANGE_BRANCH',
       CHANGE_BRANCH_PREFETCH: 'CHANGE_BRANCH_PREFETCH',
+      CHANGE_FILTER: 'CHANGE_FILTER',
       CHANGE_POST: 'CHANGE_POST',
       CHANGE_USER: 'CHANGE_USER',
       LOADING_ACTIVE: 'LOADING_ACTIVE',
@@ -21,12 +22,13 @@ class EventService extends Injectable {
   }
 
   emit(event, args) {
-    for (let i in this.events) {
+    for (const i in this.events) { // eslint-disable-line no-restricted-syntax
       if (this.events[i] === event) {
         return this.$rootScope.$broadcast(event, args);
       }
     }
     console.warn(`Tried to broadcast an undefined event "${event}."`);
+    return false;
   }
 
   // Returns a deregister function for the listener. Keep it safe to prevent memory leaks!

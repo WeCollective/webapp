@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class UploadImageModalController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(UploadImageModalController.$inject, injections);
 
     this.setFile = this.setFile.bind(this);
@@ -16,10 +16,10 @@ class UploadImageModalController extends Injectable {
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('UPLOAD_IMAGE' !== name) return;
+      if (name !== 'UPLOAD_IMAGE') return;
 
       this.errorMessage = !this.file ? 'No file selected!' : '';
-      
+
       if (!this.file) return;
 
       this.UploadService.uploadImage(this.file, this.uploadUrl)
@@ -34,7 +34,7 @@ class UploadImageModalController extends Injectable {
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if ('UPLOAD_IMAGE' !== name) return;
+      if (name !== 'UPLOAD_IMAGE') return;
       this.file = null;
       this.errorMessage = '';
       this.ModalService.Cancel();
@@ -43,11 +43,11 @@ class UploadImageModalController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  setFile (file) {
+  setFile(file) {
     this.file = file;
   }
 
-  setUploadUrl () {
+  setUploadUrl() {
     const args = this.ModalService.inputArgs;
     this.UploadService.fetchUploadUrl(args.route + args.type)
       .then(uploadUrl => this.uploadUrl = uploadUrl)

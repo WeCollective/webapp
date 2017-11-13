@@ -37,19 +37,23 @@ class CommentThreadController extends Injectable {
       comment.data.text = '[Comment removed by user]';
     });
 
-    this.ModalService.open('DELETE_COMMENT', {
-      commentid: comment.id,
-      forceUpdate: false,
-      postid: comment.postid,
-    },
-      'Comment deleted.', 'Unable to delete comment.');
+    this.ModalService.open(
+      'DELETE_COMMENT',
+      {
+        commentid: comment.id,
+        forceUpdate: false,
+        postid: comment.postid,
+      },
+      'Comment deleted.',
+      'Unable to delete comment.',
+    );
   }
 
   isOwnComment(comment) {
     if (!this.UserService.user || !comment.data) {
       return false;
     }
-    
+
     return this.UserService.user.username === comment.data.creator;
   }
 
@@ -60,7 +64,8 @@ class CommentThreadController extends Injectable {
     }
 
     // fetch the replies to this comment, or just the number of replies
-    this.CommentService.getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId)
+    this.CommentService
+      .getMany(comment.postid, comment.id, this.sortBy.toLowerCase(), lastCommentId)
       .then(comments => this.$timeout(() => {
         // if lastCommentId was specified we are fetching _more_ comments, so append them
         comment.comments = lastCommentId ? comment.comments.concat(comments) : comments;
@@ -74,8 +79,9 @@ class CommentThreadController extends Injectable {
       // Reload the comment data.
       this.CommentService.fetch(this.parentComment.postid, this.parentComment.id)
         .then(response => this.$timeout(() => {
-          // Copy keys to avoid destroying 'parentComment' object reference to 'comment' in the comments array.
-          for (let key in response) {
+          // Copy keys to avoid destroying 'parentComment' object
+          // reference to 'comment' in the comments array.
+          for (const key in response) { // eslint-disable-line guard-for-in, no-restricted-syntax
             this.parentComment[key] = response[key];
           }
 
@@ -124,7 +130,7 @@ class CommentThreadController extends Injectable {
       return `${int} minute${int !== 1 ? 's' : ''} ago`;
     }
 
-    if (elapsed < msPerDay ) {
+    if (elapsed < msPerDay) {
       const int = Math.round(elapsed / msPerHour);
       return `${int} hour${int !== 1 ? 's' : ''} ago`;
     }
@@ -181,7 +187,7 @@ class CommentThreadController extends Injectable {
             message = 'Please log in or create an account to vote.';
           }
           else {
-            message = err.message;
+            ({ message } = err);
           }
           this.AlertsService.push('error', message);
         }

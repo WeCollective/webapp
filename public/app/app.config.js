@@ -26,9 +26,8 @@ class AppConfig extends Injectable {
       .setPageEvent('$stateChangeSuccess')
       .logAllCalls(true);
 
-    console.log(`Setting Google Analytics account to ${UA}.`);
-
     if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
+      console.log(`Setting Google Analytics account to ${UA}.`);
       this.AnalyticsProvider.enterDebugMode(true);
     }
 
@@ -40,7 +39,7 @@ class AppConfig extends Injectable {
         angular.injector(['ng'])
           .get('$http')
           .get(key)
-          .success(function (data) {
+          .success(function (data) { // eslint-disable-line prefer-arrow-callback, func-names
             this.put(key, data);
           }.bind(this));
       },

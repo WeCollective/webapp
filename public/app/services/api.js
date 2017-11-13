@@ -15,9 +15,9 @@ class API extends Injectable {
 
   // Params: data, headersGetter
   makeFormEncoded(data) {
-    let str = [];
-    for (let d in data) {
-      str.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    const str = [];
+    for (const d in data) { // eslint-disable-line guard-for-in, no-restricted-syntax
+      str.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`);
     }
     return str.join('&');
   }
@@ -49,7 +49,7 @@ class API extends Injectable {
       }
 
       // replace :params in the url with their specified values
-      for (let paramName of Object.keys(params)) {
+      for (const paramName of Object.keys(params)) { // eslint-disable-line no-restricted-syntax
         url = url.replace(new RegExp(`:${paramName}`, 'g'), params[paramName]);
       }
 
@@ -62,7 +62,7 @@ class API extends Injectable {
         url,
       };
 
-      if (!!urlFormEncode) {
+      if (urlFormEncode) {
         req.headers = {
           'Content-Type': 'application/x-www-form-urlencoded',
         };
@@ -78,11 +78,11 @@ class API extends Injectable {
       if (jwt) {
         req.headers.Authorization = `Bearer ${jwt}`;
       }
-      
+
       if (method === 'PUT' || method === 'POST') {
         req.data = data;
       }
-      
+
       if (method === 'GET' || method === 'DELETE') {
         req.params = data;
       }

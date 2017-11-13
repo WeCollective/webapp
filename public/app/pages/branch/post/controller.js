@@ -5,7 +5,7 @@ class BranchPostController extends Injectable {
     super(BranchPostController.$inject, injections);
 
     this.isLoading = true;
-    
+
     // Possible states: show, maximise, hide.
     this.previewState = false;
 
@@ -20,7 +20,7 @@ class BranchPostController extends Injectable {
       ['weco.branch.post.discussion', 'weco.branch.post.comment'],
       'weco.branch.post.results',
     ];
-    
+
     this.tabStateParams = [{
       branchid: this.BranchService.branch.id,
       postid: this.$state.params.postid,
@@ -34,11 +34,10 @@ class BranchPostController extends Injectable {
 
     this.redirect = this.redirect.bind(this);
 
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.redirect));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_POST, this.redirect));
-
+    const { events } = this.EventService;
+    const listeners = [];
+    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, this.redirect));
+    listeners.push(this.EventService.on(events.CHANGE_POST, this.redirect));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -58,8 +57,8 @@ class BranchPostController extends Injectable {
 
   getVideoEmbedUrl() {
     const isYouTubeUrl = url => {
-      if (url && '' !== url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      if (url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=|\?v=)([^#]*).*/;
         const match = url.match(regExp);
         if (match && match[2].length === 11) {
           return true;
@@ -68,14 +67,15 @@ class BranchPostController extends Injectable {
       return false;
     };
 
-    if ('video' === this.PostService.post.type && isYouTubeUrl(this.PostService.post.data.text)) {
-      let video_id = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
-      
-      if (video_id.includes('&')) {
-        video_id = video_id.substring(0, video_id.indexOf('&'));
+    if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
+      let videoId = this.PostService.post.data.text.split('v=')[1] ||
+        this.PostService.post.data.text.split('embed/')[1];
+
+      if (videoId.includes('&')) {
+        videoId = videoId.substring(0, videoId.indexOf('&'));
       }
 
-      return `//www.youtube.com/embed/${video_id}?rel=0`;
+      return `//www.youtube.com/embed/${videoId}?rel=0`;
     }
 
     return '';
@@ -91,12 +91,12 @@ class BranchPostController extends Injectable {
       return;
     }
 
-    const post = this.PostService.post;
+    const { post } = this.PostService;
 
     this.previewState = post.type === 'text' ? 'hide' : 'show';
 
     // update state params for tabs
-    for (let i in this.tabStateParams) {
+    for (const i in this.tabStateParams) { // eslint-disable-line guard-for-in, no-restricted-syntax
       this.tabStateParams[i].branchid = post.branchid;
       this.tabStateParams[i].postid = post.id;
     }
@@ -105,7 +105,10 @@ class BranchPostController extends Injectable {
       const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
 
       if (tabIndex !== -1) {
-        const state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
+        const state = Array.isArray(this.tabStates[tabIndex]) ?
+          this.tabStates[tabIndex][0]
+          : this.tabStates[tabIndex];
+
         this.$state.go(state, {
           branchid: post.branchid,
           postid: this.$state.params.postid,
@@ -114,7 +117,7 @@ class BranchPostController extends Injectable {
         });
       }
       else {
-        console.warn(`Invalid tab name!`);
+        console.warn('Invalid tab name!');
       }
     }
     else {

@@ -6,8 +6,8 @@
 **      injections  array of injected dependencies
 */
 class Injectable {
-  constructor (names, injections) {
-    for (let idx in names) {
+  constructor(names, injections) {
+    for (const idx in names) { // eslint-disable-line guard-for-in, no-restricted-syntax
       this[names[idx]] = injections[idx];
     }
   }

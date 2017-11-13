@@ -15,7 +15,7 @@ class BanUserModalController extends Injectable {
 
       // Username cannot be empty.
       if (!this.data || !this.data.username) {
-        this.$timeout(() => { this.errorMessage = 'Username cannot be empty'; });
+        this.$timeout(() => this.errorMessage = 'Username cannot be empty');
         return;
       }
 

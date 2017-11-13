@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class HomeController extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(HomeController.$inject, injections);
 
     this.stats = this.LocalStorageService.getObject('cache').homepageStats || {
@@ -11,7 +11,7 @@ class HomeController extends Injectable {
       user_count: 0,
     };
 
-    for (let stat of Object.keys(this.stats)) {
+    for (const stat of Object.keys(this.stats)) { // eslint-disable-line no-restricted-syntax
       this.API.get('/constant/:stat', { stat })
         .then(res => {
           this.stats[stat] = res.data.data;

@@ -11,15 +11,15 @@ import AppConfig from 'app.config';
 import AppRoutes from 'app.routes';
 import AppRun from 'app.run';
 
-import constChartColours from './components/chart/constants';
+import constChartColours from 'components/chart/constants';
 import constEnvironment from 'env.config';
-import constNotificationTypes from './components/notification/constants';
+import constNotificationTypes from 'components/notification/constants';
 
 import filters from 'app.filters';
 
-import initControllers from './init.controllers';
-import initDirectives from './init.directives';
-import initServices from './init.services';
+import initControllers from 'init.controllers';
+import initDirectives from 'init.directives';
+import initServices from 'init.services';
 
 import Registrar from 'utils/component-registrar';
 

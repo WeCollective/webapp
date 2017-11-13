@@ -8,7 +8,7 @@ const constants = {
   POST_FLAGGED: 5,
   POST_REMOVED: 6,
   POST_TYPE_CHANGED: 7,
-  POST_MARKED_NSFW: 8
+  POST_MARKED_NSFW: 8,
 };
 
 export default constants;

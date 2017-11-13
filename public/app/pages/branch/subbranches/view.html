@@ -1,39 +1,3 @@
-<div class="header">
-  <img
-    alt="Toggle sidebar"
-    class="header__button style--sidebar-toggle"
-    ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-    ng-click="Navbar.AppService.toggleSidebar()"
-    src="/assets/images/icons/black/show.png" />
-
-  <h1 class="header__title text--capitalize">
-    {{ Subbranches.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
-  </h1>
-
-  <a
-    class="header__button ng-hide"
-    ng-click="Subbranches.WallService.handleHeaderButtonClick()"
-    ng-show="Subbranches.WallService.isHeaderButtonVisible()"
-    offset-y="40"
-    text="Subbranches.WallService.getHeaderButtonTooltip()"
-    tooltip>
-  </a>
-
-  <div class="header__controls style--has-dropdown">
-    <dropdown
-      items="Subbranches.controls.timeRange.items"
-      selected="Subbranches.controls.timeRange.selectedIndex"
-      title="time range">
-    </dropdown>
-
-    <dropdown
-      items="Subbranches.controls.sortBy.items"
-      selected="Subbranches.controls.sortBy.selectedIndex"
-      title="sort by">
-    </dropdown>
-  </div>
-</div>
-
 <div
   class="content__body"
   loading

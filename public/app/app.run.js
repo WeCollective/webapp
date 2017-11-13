@@ -52,7 +52,8 @@ class AppRun extends Injectable {
         // transition to the specified redirection state
         this.UserService.fetch('me')
           .then(me => {
-            if (toState.selfOnly && (!Object.keys(me).length || toParams.username !== me.username)) {
+            if (toState.selfOnly &&
+              (!Object.keys(me).length || toParams.username !== me.username)) {
               this.$state.transitionTo(toState.redirectTo);
               event.preventDefault();
             }
@@ -61,8 +62,8 @@ class AppRun extends Injectable {
             // transition to the specified redirection state
             if (toState.modOnly) {
               let isMod = false;
-              
-              for (let i = 0; i < mods.length; i++) {
+
+              for (let i = 0; i < mods.length; i += 1) {
                 if (mods[i].username === me.username) {
                   isMod = true;
                   break;
@@ -110,7 +111,7 @@ class AppRun extends Injectable {
     const className = 'docked';
     const vw = window.innerWidth;
     const left = (vw * 0.5) - (getCSSAligner() / 2);
-    
+
     if (left <= 0 && !this.docked) {
       const sidebar = document.getElementsByClassName('sidebar')[0];
       if (sidebar) {

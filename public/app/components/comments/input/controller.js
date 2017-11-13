@@ -12,7 +12,7 @@ class CommentInputBoxController extends Injectable {
 
     const listeners = [];
     // Set the input value to the current value on edit.
-    listeners.push(this.$rootScope.$watch(() => this.update, (newValue, oldValue) => {
+    listeners.push(this.$rootScope.$watch(() => this.update, newValue => {
       if (newValue === true) {
         this.input = this.originalCommentText();
       }
@@ -102,8 +102,8 @@ class CommentInputBoxController extends Injectable {
         postid,
         text,
       })
-        .then(id => {
-          newComment.id = id;
+        .then(id2 => {
+          newComment.id = id2;
         })
         .catch(err => {
           if (err.status === 403) {

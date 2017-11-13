@@ -10,16 +10,16 @@ class ResolveFlagPostModalController extends Injectable {
     this.controls = {
       reason: {
         selectedIndex: 0,
-        items: ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES']
+        items: ['VIOLATING BRANCH RULES', 'VIOLATING SITE RULES'],
       },
       resolve: {
         selectedIndex: 0,
-        items: ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST']
+        items: ['CHANGE POST TYPE', 'REMOVE POST', 'MARK AS NSFW', 'APPROVE POST'],
       },
       postType: {
         selectedIndex: 0,
-        items: ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE', 'POLL']
-      }
+        items: ['TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'PAGE', 'POLL'],
+      },
     };
 
     const listeners = [];
@@ -72,13 +72,15 @@ class ResolveFlagPostModalController extends Injectable {
       }
 
       if (action === 'remove' && !this.text) {
-        return this.$timeout(() => {
+        this.$timeout(() => {
           this.errorMessage = 'Please provide an explanatory message for the OP';
           this.isLoading = false;
         });
+        return;
       }
 
-      this.BranchService.resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text)
+      this.BranchService
+        .resolveFlaggedPost(params.post.branchid, params.post.id, action, data, this.text)
         .then(() => this.$timeout(() => {
           this.errorMessage = '';
           this.isLoading = false;

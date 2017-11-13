@@ -1,14 +1,14 @@
 import Injectable from 'utils/injectable';
 
 class CoverPhotoComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CoverPhotoComponent.$inject, injections);
 
     this.bindToController = {
       canEdit: '&',
       imageUrl: '&',
       openUploadCoverModal: '=',
-      thumbUrl: '&'
+      thumbUrl: '&',
     };
     this.controller = 'CoverPhotoController';
     this.controllerAs = 'CoverPhoto';

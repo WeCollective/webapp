@@ -38,7 +38,7 @@ class TagEditorController extends Injectable {
 
     if (typeof this.items[0] === 'object') {
       for (let i = 0; i < this.items.length; i += 1) {
-        const label = this.items[i].label;
+        const { label } = this.items[i];
 
         if ((typeof tag === 'object' && label === tag.label) || label === tag) {
           return i;
@@ -47,12 +47,12 @@ class TagEditorController extends Injectable {
 
       return -1;
     }
-    
+
     return this.items.indexOf(typeof tag === 'object' ? tag.label : tag);
   }
 
   handleInputChange() {
-    const length = this.tag.length;
+    const { length } = this.tag;
 
     // Do not allow spaces in the tags.
     this.tag = this.tag.split(' ').join('');

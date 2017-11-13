@@ -9,7 +9,7 @@ class AlertsComponent extends Injectable {
     this.scope = {};
     this.templateUrl = '/app/components/alerts/view.html';
   }
-  
+
   link(scope) {
     scope.AlertsService = this.AlertsService;
   }

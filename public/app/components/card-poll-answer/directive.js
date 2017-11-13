@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class CardPollAnswerComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(CardPollAnswerComponent.$inject, injections);
 
     this.bindToController = {

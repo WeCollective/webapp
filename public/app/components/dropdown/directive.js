@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class DropdownComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(DropdownComponent.$inject, injections);
 
     this.bindToController = {

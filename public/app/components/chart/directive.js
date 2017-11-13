@@ -2,7 +2,7 @@ import Injectable from 'utils/injectable';
 import Chart from 'chart.js';
 
 class ChartComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(ChartComponent.$inject, injections);
 
     this.replace = true;
@@ -12,13 +12,13 @@ class ChartComponent extends Injectable {
       colors: '=',
       labels: '=',
       options: '=',
-      type: '='
+      type: '=',
     };
     this.template = '<div class="chart"><canvas></canvas></div>';
   }
 
-  link (scope, element) {
-    const redrawChart = _ => {
+  link(scope, element) {
+    const redrawChart = () => {
       if (scope.chart) {
         scope.chart.destroy();
       }
@@ -28,12 +28,12 @@ class ChartComponent extends Injectable {
           datasets: [{
             backgroundColor: scope.colors || this.ChartColours,
             data: scope.chartData,
-            hoverBackgroundColor: scope.colors || this.ChartColours
+            hoverBackgroundColor: scope.colors || this.ChartColours,
           }],
-          labels: scope.labels
+          labels: scope.labels,
         },
         options: scope.options,
-        type: scope.type
+        type: scope.type,
       });
     };
 
@@ -48,7 +48,7 @@ class ChartComponent extends Injectable {
 
 ChartComponent.$inject = [
   '$compile',
-  'ChartColours'
+  'ChartColours',
 ];
 
 export default ChartComponent;

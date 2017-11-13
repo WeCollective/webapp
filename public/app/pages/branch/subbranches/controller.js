@@ -25,7 +25,7 @@ class BranchSubbranchesController extends Injectable {
           'past hour',
         ],
         selectedIndex: 0,
-      }
+      },
     };
     this.isLoading = false;
     this.lastRequest = {
@@ -43,10 +43,12 @@ class BranchSubbranchesController extends Injectable {
     this.getSubbranches();
 
     const listeners = [];
-    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$scope.$watch(() => this.controls.timeRange.selectedIndex, this.callbackDropdown));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => this.getSubbranches()));
-    listeners.push(this.EventService.on(this.EventService.events.SCROLLED_TO_BOTTOM, this.callbackScroll));
+    const ctrls = this.controls;
+    const { events } = this.EventService;
+    listeners.push(this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown));
+    listeners.push(this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown));
+    listeners.push(this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()));
+    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -62,7 +64,7 @@ class BranchSubbranchesController extends Injectable {
   }
 
   getSortBy() {
-    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+    switch (this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
       case 'total points':
         return 'post_points';
 
@@ -118,7 +120,8 @@ class BranchSubbranchesController extends Injectable {
   }
 
   getTimeAfter() {
-    switch(this.controls.timeRange.items[this.controls.timeRange.selectedIndex].toLowerCase()) {
+    const { timeRange } = this.controls;
+    switch (timeRange.items[timeRange.selectedIndex].toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 

@@ -4,14 +4,17 @@ class BranchNucleusController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusController.$inject, injections);
 
+    console.log('yee');
+
     this.run = 0;
     this.state = this.getInitialState();
 
     this.renderTabs = this.renderTabs.bind(this);
 
+    const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.renderTabs));
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
+    listeners.push(this.EventService.on(events.CHANGE_BRANCH, this.renderTabs));
+    listeners.push(this.EventService.on(events.CHANGE_USER, this.renderTabs));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -69,7 +72,7 @@ class BranchNucleusController extends Injectable {
       newState.tabItems.push('settings');
       newState.tabStates.push('weco.branch.nucleus.settings');
       newState.tabStateParams.push({ branchid });
-      
+
       // Mod tools.
       newState.tabItems.push('mod tools');
       newState.tabStates.push('weco.branch.nucleus.modtools');

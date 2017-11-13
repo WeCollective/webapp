@@ -14,18 +14,16 @@ class RemoveModModalController extends Injectable {
       this.BranchService.getSubbranchRequests(this.ModalService.inputArgs.branchid)
         .then(requests => {
           // get a specific branch object and insert into requests array on branch attribute
-          const getBranch = request => {
-            return this.BranchService
-              .fetch(request.childid)
-              .then(data => {
-                request.branch = data;
-              })
-              .catch(() => {
-                this.errorMessage = 'Unable to get branch!';
-              });
-          };
+          const getBranch = request => this.BranchService
+            .fetch(request.childid)
+            .then(data => {
+              request.branch = data;
+            })
+            .catch(() => {
+              this.errorMessage = 'Unable to get branch!';
+            });
 
-          Generator.run(function* () {
+          Generator.run(function* () { // eslint-disable-line func-names
             for (let i = 0; i < requests.length; i += 1) {
               yield getBranch(requests[i]);
             }
@@ -73,17 +71,17 @@ class RemoveModModalController extends Injectable {
     this.BranchService.actionSubbranchRequest(
       action,
       this.requests[index].parentid,
-      this.requests[index].childid
+      this.requests[index].childid,
     )
       .then(() => this.$timeout(() => {
         this.requests.splice(index, 1);
         this.errorMessage = '';
         this.isLoading = false;
       }))
-      .catch((response) => this.$timeout(() => {
-        this.errorMessage = response.message;
-        if (response.status === 404) {
-          this.errorMessage = `That user doesn't exist`;
+      .catch(err => this.$timeout(() => {
+        this.errorMessage = err.message;
+        if (err.status === 404) {
+          this.errorMessage = 'That user doesn\'t exist';
         }
         this.isLoading = false;
       }));

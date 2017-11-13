@@ -15,16 +15,16 @@ class BranchPostVoteController extends Injectable {
           'votes',
         ],
         selectedIndex: 0,
-      }
+      },
     };
     this.selectedAnswerIndex = -1;
 
     // Get the initial state.
     this.getPollAnswers();
 
-    let listeners = [];
-
-    listeners.push(this.$scope.$watch(() => this.controls.sortBy.selectedIndex, (newValue, oldValue) => {
+    const { sortBy } = this.controls;
+    const listeners = [];
+    listeners.push(this.$scope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
       if (newValue !== oldValue) this.getPollAnswers();
     }));
 
@@ -32,32 +32,35 @@ class BranchPostVoteController extends Injectable {
   }
 
   canSubmitNewAnswer() {
-    const post = this.PostService.post;
-    const user = this.UserService.user;
+    const {
+      post,
+      user,
+    } = this.PostService;
     return !(post.locked && post.data.creator !== user.username);
   }
 
   getPollAnswers(lastAnswerId) {
     this.selectedAnswerIndex = -1;
 
-    let sortBy;
+    const { sortBy } = this.controls;
+    let sort;
 
-    switch(this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase()) {
+    switch (sortBy.items[sortBy.selectedIndex].toLowerCase()) {
       case 'date':
-        sortBy = 'date';
+        sort = 'date';
         break;
 
       case 'votes':
-        sortBy = 'votes';
+        sort = 'votes';
         break;
 
       default:
-        sortBy = 'date';
+        sort = 'date';
         break;
     }
 
     // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
+    this.PostService.getPollAnswers(this.PostService.post.id, sort, lastAnswerId)
       // if lastAnswerId was specified we are fetching _more_ answers, so append them
       .then(answers => this.$timeout(() => {
         this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
@@ -76,11 +79,15 @@ class BranchPostVoteController extends Injectable {
   }
 
   openSubmitPollAnswerModal() {
-    this.ModalService.open('SUBMIT_POLL_ANSWER', { postid: this.PostService.post.id },
-      'Answer submitted.', 'Unable to submit answer.');
+    this.ModalService.open(
+      'SUBMIT_POLL_ANSWER',
+      { postid: this.PostService.post.id },
+      'Answer submitted.',
+      'Unable to submit answer.',
+    );
 
     this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if ('SUBMIT_POLL_ANSWER' !== name) return;
+      if (name !== 'SUBMIT_POLL_ANSWER') return;
       this.$state.go('weco.branch.post.vote', { reload: true });
     });
   }
@@ -91,9 +98,9 @@ class BranchPostVoteController extends Injectable {
 
   vote() {
     const answer = this.answers[this.selectedAnswerIndex];
-    
+
     if (!answer) return;
-    
+
     this.PostService.votePollAnswer(answer.postid, answer.id)
       .then(() => this.AlertsService.push('success', 'Your vote has been cast!'))
       .catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));

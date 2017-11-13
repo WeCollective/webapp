@@ -1,7 +1,7 @@
 import Injectable from 'utils/injectable';
 
 class TooltipComponent extends Injectable {
-  constructor (...injections) {
+  constructor(...injections) {
     super(TooltipComponent.$inject, injections);
 
     this.controller = 'TooltipController';
@@ -11,37 +11,37 @@ class TooltipComponent extends Injectable {
     this.scope = {
       offsetX: '&',
       offsetY: '&',
-      text: '&'
+      text: '&',
     };
   }
 
-  hide (delay = 0) {
+  hide(delay = 0) {
     if (this.timer) {
       this.$timeout.cancel(this.timer);
     }
 
-    this.timer = this.$timeout(_ => this.TooltipService.visible = false, delay);
+    this.timer = this.$timeout(() => this.TooltipService.visible = false, delay);
   }
 
-  link (scope, element) {
+  link(scope, element) {
     const el = element[0];
     let rect = el.getBoundingClientRect();
-    
-    let offsetX = scope.offsetX(),
-      offsetY   = scope.offsetY();
 
-    if (!offsetX || isNaN(offsetX)) {
+    let offsetX = scope.offsetX();
+    let offsetY = scope.offsetY();
+
+    if (!offsetX || Number.isNaN(offsetX)) {
       offsetX = 0;
     }
 
-    if (!offsetY || isNaN(offsetY)) {
+    if (!offsetY || Number.isNaN(offsetY)) {
       offsetY = 0;
     }
 
-    document.addEventListener('click', event => this.$timeout(_ => this.hide()));
+    document.addEventListener('click', () => this.$timeout(() => this.hide()));
 
-    el.addEventListener('mouseover', _ => {
-      this.$timeout(_ => {
+    el.addEventListener('mouseover', () => {
+      this.$timeout(() => {
         if (scope.text() === '') return;
 
         rect = el.getBoundingClientRect();
@@ -60,7 +60,7 @@ class TooltipComponent extends Injectable {
       // This would happen when we mouse over the child element.
       if (event.clientX > rect.right || event.clientX < rect.left ||
         event.clientY < rect.top || event.clientY > rect.bottom) {
-        this.$timeout(_ => this.hide());
+        this.$timeout(() => this.hide());
       }
     });
 
@@ -72,7 +72,7 @@ TooltipComponent.$inject = [
   '$timeout',
   '$window',
   'EventService',
-  'TooltipService'
+  'TooltipService',
 ];
 
 export default TooltipComponent;

@@ -53,12 +53,12 @@ class ProfileController extends Injectable {
         this.isLoading = false;
 
         if (err.status === 404) {
-          return this.$state.go('weco.notfound');
+          this.$state.go('weco.notfound');
+          return;
         }
-        else {
-          this.AlertsService.push('error', 'Unable to fetch user.');
-          this.$state.go('weco.home');
-        }
+
+        this.AlertsService.push('error', 'Unable to fetch user.');
+        this.$state.go('weco.home');
       })
       .then(this.$timeout);
   }
@@ -70,27 +70,33 @@ class ProfileController extends Injectable {
   }
 
   openCoverPictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
+    this.ModalService.open(
+      'UPLOAD_IMAGE',
+      {
         route: 'user/me/',
         type: 'cover',
       },
       'Successfully updated cover picture.',
-      'Unable to update cover picture.');
+      'Unable to update cover picture.',
+    );
   }
 
   openProfilePictureModal() {
-    this.ModalService.open('UPLOAD_IMAGE', {
+    this.ModalService.open(
+      'UPLOAD_IMAGE',
+      {
         route: 'user/me/',
         type: 'picture',
       },
       'Successfully updated profile picture.',
-      'Unable to update profile picture.');
+      'Unable to update profile picture.',
+    );
   }
 
   renderTabs(fromConstructor) {
     const publicAccessStates = this.getInitialState().tabStates;
     const state = this.$state.current.name;
-    const username = this.$state.params.username;
+    const { username } = this.$state.params;
 
     if (!fromConstructor) {
       this.run += 1;

@@ -4,6 +4,8 @@ class BranchNucleusModeratorsController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusModeratorsController.$inject, injections);
 
+    console.log('juch');
+
     const cache = this.LocalStorageService.getObject('cache').branchNucleusMods || {};
 
     this.mods = cache[this.BranchService.branch.id] || [];
@@ -12,10 +14,9 @@ class BranchNucleusModeratorsController extends Injectable {
     this.getAllMods = this.getAllMods.bind(this);
     this.getMod = this.getMod.bind(this);
 
-    let listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getAllMods));
-
+    const { events } = this.EventService;
+    const listeners = [];
+    listeners.push(this.EventService.on(events.CHANGE_BRANCH, this.getAllMods));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -24,9 +25,9 @@ class BranchNucleusModeratorsController extends Injectable {
 
     this.isLoading = true;
 
-    let promises = [];
-    
-    for (let i = 0; i < this.BranchService.branch.mods.length; i++) {
+    const promises = [];
+
+    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
       promises.push(this.getMod(this.BranchService.branch.mods[i].username));
     }
 
@@ -49,14 +50,12 @@ class BranchNucleusModeratorsController extends Injectable {
   }
 
   getMod(username) {
-    return new Promise((resolve, reject) => {
-      this.UserService.fetch(username)
-        .then(user => resolve(user))
-        .catch(() => {
-          this.AlertsService.push('error', 'Error fetching moderator.');
-          return resolve();
-        });
-    });
+    return new Promise(resolve => this.UserService.fetch(username)
+      .then(user => resolve(user))
+      .catch(() => {
+        this.AlertsService.push('error', 'Error fetching moderator.');
+        return resolve();
+      }));
   }
 }
 
