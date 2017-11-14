@@ -14,6 +14,7 @@ import BranchPostVote from './pages/branch/post/vote/controller';
 import BranchSubbranches from './pages/branch/subbranches/controller';
 import BranchSubbranchesHeader from './pages/branch/subbranches/header/controller';
 import BranchWall from './pages/branch/wall/controller';
+import BranchWallHeader from './pages/branch/wall/header/controller';
 import Home from './pages/home/controller';
 import Profile from './pages/profile/controller';
 import ProfileNotifications from './pages/profile/notifications/controller';
@@ -72,6 +73,7 @@ const refs = [
   { name: 'BranchSubbranchesController', module: BranchSubbranches },
   { name: 'BranchSubbranchesHeaderController', module: BranchSubbranchesHeader },
   { name: 'BranchWallController', module: BranchWall },
+  { name: 'BranchWallHeaderController', module: BranchWallHeader },
   { name: 'HomeController', module: Home },
   { name: 'ProfileController', module: Profile },
   { name: 'ProfileNotificationsController', module: ProfileNotifications },

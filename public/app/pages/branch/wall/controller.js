@@ -4,47 +4,6 @@ class BranchWallController extends Injectable {
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.controls = {
-      postType: {
-        items: [
-          'all',
-          'images',
-          'videos',
-          'audio',
-          'text',
-          'pages',
-          'polls',
-        ],
-        selectedIndex: 0,
-      },
-      sortBy: {
-        items: [
-          'total points',
-          '# of comments',
-          'date posted',
-        ],
-        selectedIndex: 2,
-      },
-      statType: {
-        items: [
-          'global',
-          'local',
-          'branch',
-        ],
-        selectedIndex: 0,
-      },
-      timeRange: {
-        items: [
-          'all time',
-          'past year',
-          'past month',
-          'past week',
-          'past 24 hrs',
-          'past hour',
-        ],
-        selectedIndex: 0,
-      },
-    };
     this.isLoading = false;
     this.lastRequest = {
       id: undefined,
@@ -52,40 +11,22 @@ class BranchWallController extends Injectable {
       postType: undefined,
       sortBy: undefined,
       statType: undefined,
-      timeAfter: undefined,
+      timeRange: undefined,
     };
     this.posts = [];
 
-    this.callbackDropdown = this.callbackDropdown.bind(this);
     this.callbackScroll = this.callbackScroll.bind(this);
     this.getPosts = this.getPosts.bind(this);
-    this.getPostType = this.getPostType.bind(this);
-    this.getSortBy = this.getSortBy.bind(this);
-    this.getStatType = this.getStatType.bind(this);
-    this.getTimeAfter = this.getTimeAfter.bind(this);
 
     // Do the initial load so the loader appears straight away.
     this.getPosts();
 
-    const {
-      postType,
-      sortBy,
-      statType,
-      timeRange,
-    } = this.controls;
     const { events } = this.EventService;
     const listeners = [];
-    listeners.push(this.$rootScope.$watch(() => postType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => sortBy.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => statType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$rootScope.$watch(() => timeRange.selectedIndex, this.callbackDropdown));
     listeners.push(this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()));
+    listeners.push(this.EventService.on(events.CHANGE_FILTER, () => this.getPosts()));
     listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
-  }
-
-  callbackDropdown(newValue, oldValue) {
-    if (newValue !== oldValue) this.getPosts();
   }
 
   callbackScroll(name) {
@@ -115,17 +56,20 @@ class BranchWallController extends Injectable {
       return;
     }
 
+    const filters = this.HeaderService.getFilters();
     const id = this.$state.params.branchid;
     const lr = this.lastRequest;
-    const postType = this.getPostType();
-    const sortBy = this.getSortBy();
-    const statType = this.getStatType();
-    const timeAfter = this.getTimeAfter();
+    const {
+      postType,
+      sortBy,
+      statType,
+      timeRange,
+    } = filters;
 
     // Don't send the request if nothing changed.
     if (lr.id === id && lr.lastId === lastId &&
       lr.postType === postType && lr.sortBy === sortBy &&
-      lr.statType === statType && lr.timeAfter === timeAfter) {
+      lr.statType === statType && lr.timeRange === timeRange) {
       return;
     }
 
@@ -135,11 +79,10 @@ class BranchWallController extends Injectable {
     this.lastRequest.postType = postType;
     this.lastRequest.sortBy = sortBy;
     this.lastRequest.statType = statType;
-    this.lastRequest.timeAfter = timeAfter;
+    this.lastRequest.timeRange = timeRange;
 
     this.isLoading = true;
-
-    this.BranchService.getPosts(id, timeAfter, sortBy, statType, postType, lastId, false)
+    this.BranchService.getPosts(id, timeRange, sortBy, statType, postType, lastId, false)
       .then(newPosts => this.$timeout(() => {
         // If lastId was specified, we are fetching more posts, so append them.
         const posts = lastId ? this.posts.concat(newPosts) : newPosts;
@@ -158,84 +101,8 @@ class BranchWallController extends Injectable {
       });
   }
 
-  getPostType() {
-    const { postType } = this.controls;
-    const key = postType.items[postType.selectedIndex];
-    switch (key.toLowerCase()) {
-      case 'images':
-        return 'image';
-
-      case 'videos':
-        return 'video';
-
-      case 'pages':
-        return 'page';
-
-      case 'polls':
-        return 'poll';
-
-      default:
-        return key;
-    }
-  }
-
-  getSortBy() {
-    const { sortBy } = this.controls;
-    switch (sortBy.items[sortBy.selectedIndex].toLowerCase()) {
-      case 'total points':
-        return 'points';
-
-      case 'date posted':
-        return 'date';
-
-      case '# of comments':
-        return 'comment_count';
-
-      default:
-        return 'points';
-    }
-  }
-
   getStatType() {
-    const { statType } = this.controls;
-    const key = statType.items[statType.selectedIndex];
-    switch (key.toLowerCase()) {
-      case 'global':
-        return 'global';
-
-      case 'local':
-        return 'local';
-
-      case 'branch':
-        return 'individual';
-
-      default:
-        return key;
-    }
-  }
-
-  getTimeAfter() {
-    const { timeRange } = this.controls;
-    switch (timeRange.items[timeRange.selectedIndex].toLowerCase()) {
-      case 'past year':
-        return new Date().setFullYear(new Date().getFullYear() - 1);
-
-      case 'past month':
-        return new Date().setMonth(new Date().getMonth() - 1);
-
-      case 'past week':
-        return new Date().setDate(new Date().getDate() - 7);
-
-      case 'past 24 hrs':
-        return new Date().setDate(new Date().getDate() - 1);
-
-      case 'past hour':
-        return new Date().setHours(new Date().getHours() - 1);
-
-      case 'all time':
-      default:
-        return 0;
-    }
+    return this.HeaderService.getFilters().statType;
   }
 }
 
@@ -248,6 +115,7 @@ BranchWallController.$inject = [
   'AppService',
   'BranchService',
   'EventService',
+  'HeaderService',
   'WallService',
 ];
 
