@@ -62,7 +62,7 @@ class API extends Injectable {
         url,
       };
 
-      if (!!urlFormEncode) {
+      if (urlFormEncode) {
         req.headers = {
           'Content-Type': 'application/x-www-form-urlencoded',
         };

@@ -1,0 +1,11 @@
+{
+  "development": {
+    "api_url": "http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/"
+  },
+  "production": {
+    "api_url": "https://wecoapi.com/"
+  },
+  "test": {
+    "api_url": "https://api-prod-test.eu-west-1.elasticbeanstalk.com/"
+  }
+}

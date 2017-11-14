@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -75459,7 +75459,7 @@ var API = function (_Injectable) {
           url: url
         };
 
-        if (!!urlFormEncode) {
+        if (urlFormEncode) {
           req.headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
           };

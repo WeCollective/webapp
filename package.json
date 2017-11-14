@@ -6,14 +6,17 @@
   "scripts": {
     "beanstalk:dev": "eb deploy webapp-dev --profile weco-iam",
     "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
-    "build:dev": "gulp build:dev",
-    "build:production": "gulp build:production",
-    "deploy:dev": "npm-run-all build:dev beanstalk:dev",
-    "deploy:production": "npm-run-all build:production beanstalk:production",
+    "build:dev": "rnpm-run-all -pun-gulp:dev",
+    "build:production": "npm-run-all -p run-gulp:production",
+    "deploy:dev": "npm-run-all -p build:dev beanstalk:dev",
+    "deploy:production": "npm-run-all -p build:production beanstalk:production",
     "lint": "eslint . .js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-gulp:dev": "gulp --env development",
+    "run-gulp:local": "gulp --env development --local",
+    "run-gulp:production": "gulp --env production",
+    "start": "npm-run-all -p run-gulp:local",
     "start-server": "node server.js",
-    "start": "gulp --env local"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
   },
   "author": "WE Collective",
   "license": "ISC",
+  "homepage": "https://weco.io",
   "dependencies": {
     "angular": "^1.5.7",
     "angular-animate": "^1.5.7",
@@ -33,6 +37,7 @@
     "angular-ui-router": "^0.3.1",
     "chalk": "1.1.3",
     "chart.js": "^2.5.0",
+    "dotenv": "^4.0.0",
     "es6-promise-polyfill": "^1.2.0",
     "express": "^4.13.4",
     "helmet": "^2.1.1",
@@ -56,14 +61,11 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "0.3.2",
     "gulp-less": "^3.3.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.8",
-    "jshint": "^2.9.4",
-    "run-sequence": "^1.2.2",
     "webpack": "^2.6.1",
     "yargs": "^7.0.2"
   }
