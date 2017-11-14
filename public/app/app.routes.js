@@ -131,11 +131,13 @@ class AppRoutes extends Injectable {
         views: {
           content: {
             templateUrl: '/app/pages/branch/nucleus/view.html',
+            controller: 'BranchNucleusController',
+            controllerAs: 'BranchNucleus',
           },
           header: {
             templateUrl: '/app/pages/branch/nucleus/header/view.html',
-            controller: 'BranchNucleusController',
-            controllerAs: 'BranchNucleus',
+            controller: 'BranchNucleusHeaderController',
+            controllerAs: 'Ctrl',
           },
         },
       })
@@ -183,12 +185,12 @@ class AppRoutes extends Injectable {
           content: {
             templateUrl: '/app/pages/branch/subbranches/view.html',
             controller: 'BranchSubbranchesController',
-            controllerAs: 'Subbranches',
+            controllerAs: 'Ctrl',
           },
           header: {
             templateUrl: '/app/pages/branch/subbranches/header/view.html',
-            controller: 'BranchSubbranchesController',
-            controllerAs: 'Subbranches',
+            controller: 'BranchSubbranchesHeaderController',
+            controllerAs: 'Ctrl',
           },
         },
       })

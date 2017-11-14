@@ -4,6 +4,7 @@ import Branch from './pages/branch/controller';
 import BranchNucleusAbout from './pages/branch/nucleus/about/controller';
 import BranchNucleus from './pages/branch/nucleus/controller';
 import BranchNucleusFlaggedPosts from './pages/branch/nucleus/flagged-posts/controller';
+import BranchNucleusHeader from './pages/branch/nucleus/header/controller';
 import BranchNucleusModerators from './pages/branch/nucleus/moderators/controller';
 import BranchNucleusModtools from './pages/branch/nucleus/modtools/controller';
 import BranchNucleusSettings from './pages/branch/nucleus/settings/controller';
@@ -11,6 +12,7 @@ import BranchPost from './pages/branch/post/controller';
 import BranchPostResults from './pages/branch/post/results/controller';
 import BranchPostVote from './pages/branch/post/vote/controller';
 import BranchSubbranches from './pages/branch/subbranches/controller';
+import BranchSubbranchesHeader from './pages/branch/subbranches/header/controller';
 import BranchWall from './pages/branch/wall/controller';
 import Home from './pages/home/controller';
 import Profile from './pages/profile/controller';
@@ -60,6 +62,7 @@ const refs = [
   { name: 'BranchNucleusAboutController', module: BranchNucleusAbout },
   { name: 'BranchNucleusController', module: BranchNucleus },
   { name: 'BranchNucleusFlaggedPostsController', module: BranchNucleusFlaggedPosts },
+  { name: 'BranchNucleusHeaderController', module: BranchNucleusHeader },
   { name: 'BranchNucleusModeratorsController', module: BranchNucleusModerators },
   { name: 'BranchNucleusModtoolsController', module: BranchNucleusModtools },
   { name: 'BranchNucleusSettingsController', module: BranchNucleusSettings },
@@ -67,6 +70,7 @@ const refs = [
   { name: 'BranchPostResultsController', module: BranchPostResults },
   { name: 'BranchPostVoteController', module: BranchPostVote },
   { name: 'BranchSubbranchesController', module: BranchSubbranches },
+  { name: 'BranchSubbranchesHeaderController', module: BranchSubbranchesHeader },
   { name: 'BranchWallController', module: BranchWall },
   { name: 'HomeController', module: Home },
   { name: 'ProfileController', module: Profile },

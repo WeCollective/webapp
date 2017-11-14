@@ -5,6 +5,7 @@ import Auth from './services/auth';
 import Branch from './services/branch';
 import Comment from './services/comment';
 import Event from './services/event';
+import Header from './services/header';
 import LocalStorage from './services/localstorage';
 import Mod from './services/mod';
 import Modal from './components/modal/service';
@@ -22,6 +23,7 @@ const refs = [
   { name: 'BranchService', module: Branch },
   { name: 'CommentService', module: Comment },
   { name: 'EventService', module: Event },
+  { name: 'HeaderService', module: Header },
   { name: 'LocalStorageService', module: LocalStorage },
   { name: 'ModService', module: Mod },
   { name: 'ModalService', module: Modal },

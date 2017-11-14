@@ -2558,10 +2558,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__empty-title {
   font-weight: 600;
   line-height: 1.8;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 16px;
   max-width: 420px;
-  padding: 0 16px;
+  padding: 16px 16px 0;
 }
 .branch__item {
   padding: 4px 0;

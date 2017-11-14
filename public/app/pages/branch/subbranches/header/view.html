@@ -6,28 +6,28 @@
   src="/assets/images/icons/black/show.png" />
 
 <h1 class="header__title text--capitalize">
-  {{ Subbranches.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
+  {{ Ctrl.BranchService.branch.id === 'root' ? 'root ' : 'child ' }}branches
 </h1>
 
 <a
   class="header__button ng-hide"
-  ng-click="Subbranches.WallService.handleHeaderButtonClick()"
-  ng-show="Subbranches.WallService.isHeaderButtonVisible()"
+  ng-click="Ctrl.WallService.handleHeaderButtonClick()"
+  ng-show="Ctrl.WallService.isHeaderButtonVisible()"
   offset-y="40"
-  text="Subbranches.WallService.getHeaderButtonTooltip()"
+  text="Ctrl.WallService.getHeaderButtonTooltip()"
   tooltip>
 </a>
 
 <div class="header__controls style--has-dropdown">
   <dropdown
-    items="Subbranches.controls.timeRange.items"
-    selected="Subbranches.controls.timeRange.selectedIndex"
+    items="Ctrl.controls.timeRange.items"
+    selected="Ctrl.controls.timeRange.selectedIndex"
     title="time range">
   </dropdown>
 
   <dropdown
-    items="Subbranches.controls.sortBy.items"
-    selected="Subbranches.controls.sortBy.selectedIndex"
+    items="Ctrl.controls.sortBy.items"
+    selected="Ctrl.controls.sortBy.selectedIndex"
     title="sort by">
   </dropdown>
 </div>

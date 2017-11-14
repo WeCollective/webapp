@@ -161,4 +161,12 @@ gulp.task('webpack', done => {
 });
 
 gulp.watch(select('**', '*.template.*'), ['template-strings']);
+/*
+gulp.watch([
+  select('**', '*'),
+  `!${select('dist', '**', '*')}`,
+  `!${select('app', 'env.config.js')}`,
+  `!${select('index.html')}`,
+], ['build']);
+*/
 gulp.task('default', ['build', 'nodemon']);

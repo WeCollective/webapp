@@ -1,8 +1,8 @@
 import Injectable from 'utils/injectable';
 
-class BranchNucleusController extends Injectable {
+class BranchNucleusHeaderController extends Injectable {
   constructor(...injections) {
-    super(BranchNucleusController.$inject, injections);
+    super(BranchNucleusHeaderController.$inject, injections);
 
     this.run = 0;
     this.state = this.getInitialState();
@@ -92,7 +92,7 @@ class BranchNucleusController extends Injectable {
   }
 }
 
-BranchNucleusController.$inject = [
+BranchNucleusHeaderController.$inject = [
   '$scope',
   '$state',
   '$timeout',
@@ -102,4 +102,4 @@ BranchNucleusController.$inject = [
   'UserService',
 ];
 
-export default BranchNucleusController;
+export default BranchNucleusHeaderController;

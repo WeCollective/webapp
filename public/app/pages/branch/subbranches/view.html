@@ -1,22 +1,22 @@
 <div
   class="content__body"
   loading
-  loading-when="Subbranches.isLoading && Subbranches.branches.length === 0">
+  loading-when="Ctrl.isLoading && Ctrl.branches.length === 0">
   <ul
     class="content__list"
-    ng-if="Subbranches.branches.length > 0">
+    ng-if="Ctrl.branches.length > 0">
     <li
       branch="subbranch"
       card-branch
       class="branch__subbranch"
       index="$index"
-      ng-repeat="subbranch in Subbranches.branches track by $index">
+      ng-repeat="subbranch in Ctrl.branches track by $index">
     </li>
   </ul>
 
   <div
     class="text--center"
-    ng-if="Subbranches.branches.length === 0">
+    ng-if="Ctrl.branches.length === 0">
     <p class="branch__empty-title">
       There don't seem to be any child branches attached to this branch that match the current filter settings
     </p>
