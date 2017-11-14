@@ -171,6 +171,7 @@ html[xmlns] .clearfix {
 }
 .view {
   height: calc(100vh - 45px);
+  overflow: hidden;
   position: relative;
 }
 .full-page {
@@ -1492,7 +1493,7 @@ div.poll-answer-editor div.answers h2 {
 }
 div.poll-answer-editor div.answers ul {
   max-height: 150px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 100%;
 }
 div.poll-answer-editor div.answers ul li {
@@ -2385,7 +2386,7 @@ div#create-post-modal div[loading] div#create-post-picture div#choose-file.ng-hi
 div#create-post-modal div[loading] div#preview-content {
   box-sizing: border-box;
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 15px;
   width: 100%;
 }
@@ -2440,7 +2441,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .full-page.dark-bg {
   background: #444444;
   background: radial-gradient(#444444, #222222);
-  overflow-y: scroll;
+  overflow-y: auto;
   text-align: center;
 }
 .full-page.dark-bg > .logo {
@@ -4350,7 +4351,7 @@ div#notfound div h2 {
 }
 .post .post__content-wrapper {
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .post .post__content-wrapper .list-item__title {
   line-height: 1.5 !important;
