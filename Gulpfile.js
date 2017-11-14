@@ -112,11 +112,15 @@ gulp.task('less', () => gulp
   .pipe(rename('app.css'))
   .pipe(gulp.dest(DEST_DIR)));
 
-gulp.task('nodemon', () => nodemon({
-  quiet: true,
-  script: 'server.js',
-  verbose: false,
-}));
+gulp.task('nodemon', () => {
+  if (!local) return;
+
+  nodemon({
+    quiet: true,
+    script: 'server.js',
+    verbose: false,
+  });
+});
 
 gulp.task('template-strings', () => {
   processTemplate('index.template.html', [{
@@ -154,7 +158,7 @@ gulp.task('default', ['build', 'nodemon'], () => {
   gulp.watch(select('**', '*.template.*'), ['template-strings']);
 
   gulp.watch([
-    select('**', '*.template.*'),
+    select('**', '*'),
     `!${select('dist', '**', '*')}`,
     `!${select('index.html')}`,
     `!${select('app', 'env.config.js')}`,
