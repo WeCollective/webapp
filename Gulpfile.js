@@ -112,21 +112,11 @@ gulp.task('less', () => gulp
   .pipe(rename('app.css'))
   .pipe(gulp.dest(DEST_DIR)));
 
-gulp.task('nodemon', () => {
-  nodemon({
-    ext: 'js html less',
-    ignore: [
-      'public/app/env.config.js',
-      'public/dist/*',
-      'public/index.html',
-    ],
-    quiet: true,
-    script: 'server.js',
-    tasks: ['build'],
-    verbose: false,
-    watch: 'public',
-  });
-});
+gulp.task('nodemon', () => nodemon({
+  quiet: true,
+  script: 'server.js',
+  verbose: false,
+}));
 
 gulp.task('template-strings', () => {
   processTemplate('index.template.html', [{
@@ -160,5 +150,13 @@ gulp.task('webpack', done => {
   });
 });
 
-gulp.watch(select('**', '*.template.*'), ['template-strings']);
-gulp.task('default', ['build', 'nodemon']);
+gulp.task('default', ['build', 'nodemon'], () => {
+  gulp.watch(select('**', '*.template.*'), ['template-strings']);
+
+  gulp.watch([
+    select('**', '*.template.*'),
+    `!${select('dist', '**', '*')}`,
+    `!${select('index.html')}`,
+    `!${select('app', 'env.config.js')}`,
+  ], ['build']);
+});
