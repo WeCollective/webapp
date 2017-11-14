@@ -107,16 +107,13 @@ class BranchWallController extends Injectable {
 }
 
 BranchWallController.$inject = [
-  '$rootScope',
   '$scope',
   '$state',
   '$timeout',
   'AlertsService',
-  'AppService',
   'BranchService',
   'EventService',
   'HeaderService',
-  'WallService',
 ];
 
 export default BranchWallController;
