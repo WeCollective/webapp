@@ -28,6 +28,17 @@ class BranchController extends Injectable {
     return `weco.branch.${view}`;
   }
 
+  getHeaderClassName() {
+    let className = 'header style--fixed';
+
+    // Post views need taller header for the post preview.
+    if (this.$state.current.name.includes('weco.branch.post')) {
+      className += ' style--fixed-post';
+    }
+
+    return className;
+  }
+
   getLabelFollowButton() {
     if (this.isFollowingBranch()) {
       return 'Unfollow branch';

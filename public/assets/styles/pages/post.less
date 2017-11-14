@@ -40,34 +40,6 @@
     }
   }
 
-  .header {
-    align-items: center;
-    display: flex;
-    padding: @g-padding-post 0;
-
-    .header__button.style--sidebar-toggle {
-      margin: @g-padding-post;
-    }
-
-    .mediaQuery(@screen-md, { display: block; });
-  }
-
-  .list-item {
-    .list-item(@post-thumbnail-h, @post-thumbnail-w);
-
-    border-bottom: none;
-    padding: 0;
-
-    .list-item__votes { margin-left: @g-padding-post; }
-
-    .mediaQuery(@screen-md, {
-      .list-item(@post-thumbnail-h-lg, @post-thumbnail-w-lg);
-
-      border-bottom: none;
-      padding: 0;
-    });
-  }
-
   .post__body {
     display: flex;
     flex: 1;

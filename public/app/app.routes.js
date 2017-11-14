@@ -221,10 +221,12 @@ class AppRoutes extends Injectable {
           content: {
             templateUrl: '/app/pages/branch/post/view.html',
             controller: 'BranchPostController',
-            controllerAs: 'BranchPost',
+            controllerAs: 'Ctrl',
           },
           header: {
-            template: '<div>hey</div>',
+            templateUrl: '/app/pages/branch/post/header/view.html',
+            controller: 'BranchPostHeaderController',
+            controllerAs: 'Ctrl',
           },
         },
       })

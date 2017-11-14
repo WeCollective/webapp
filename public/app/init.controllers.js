@@ -9,6 +9,7 @@ import BranchNucleusModerators from './pages/branch/nucleus/moderators/controlle
 import BranchNucleusModtools from './pages/branch/nucleus/modtools/controller';
 import BranchNucleusSettings from './pages/branch/nucleus/settings/controller';
 import BranchPost from './pages/branch/post/controller';
+import BranchPostHeader from './pages/branch/post/header/controller';
 import BranchPostResults from './pages/branch/post/results/controller';
 import BranchPostVote from './pages/branch/post/vote/controller';
 import BranchSubbranches from './pages/branch/subbranches/controller';
@@ -68,6 +69,7 @@ const refs = [
   { name: 'BranchNucleusModtoolsController', module: BranchNucleusModtools },
   { name: 'BranchNucleusSettingsController', module: BranchNucleusSettings },
   { name: 'BranchPostController', module: BranchPost },
+  { name: 'BranchPostHeaderController', module: BranchPostHeader },
   { name: 'BranchPostResultsController', module: BranchPostResults },
   { name: 'BranchPostVoteController', module: BranchPostVote },
   { name: 'BranchSubbranchesController', module: BranchSubbranches },
