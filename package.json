@@ -8,15 +8,17 @@
     "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
     "build:dev": "npm-run-all run-gulp:dev",
     "build:production": "npm-run-all run-gulp:production",
-    "deploy:dev": "npm-run-all build:dev beanstalk:dev",
-    "deploy:production": "npm-run-all build:production beanstalk:production",
+    "deploy:dev": "npm-run-all build:dev upload:dev",
+    "deploy:production": "npm-run-all build:production upload:production",
     "lint": "eslint . .js",
     "run-gulp:dev": "gulp --env development",
     "run-gulp:local": "gulp --env development --local",
     "run-gulp:production": "gulp --env production",
     "start": "npm-run-all -p run-gulp:local",
     "start-server": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload:dev": "npm-run-all beanstalk:dev",
+    "upload:production": "npm-run-all beanstalk:production"
   },
   "repository": {
     "type": "git",

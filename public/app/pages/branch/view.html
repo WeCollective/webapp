@@ -80,7 +80,7 @@
         </a>
       </li>
 
-      <li ng-show="Branch.UserService.isAuthenticated()">
+      <li ng-show="Branch.UserService.isAuthenticated() && Branch.BranchService.branch.id !== 'root'">
         <button
           ng-class="{ 'style--inactive': !Branch.isFollowingBranch() }" 
           ng-click="Branch.toggleFollowBranch()"
