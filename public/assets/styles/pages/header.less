@@ -16,12 +16,13 @@
   &.style--fixed-post {
     left: 0;
     position: fixed;
-    top: @u-offset-top-no-hero;
+    top: @u-offset-top-sm;
     width: 100%;
     z-index: @z-header;
     transition: @tr;
 
     @media screen and (max-width: @screen-md) {
+      // Important so it overwrites the cover-photo styles.
       &.toggled { transform: translateX(@sidebar-w-sm); }
     }
 

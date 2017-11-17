@@ -197,6 +197,10 @@
   &.docked { left: 0; }
   &.open {
     transform: translateX(0);
+
+    @media screen and (max-width: @screen-md) {
+      + .header.style--fixed.toggled { transform: translateX(@sidebar-w-sm); }
+    }
   }
 
   .mediaQuery(@screen-md, {

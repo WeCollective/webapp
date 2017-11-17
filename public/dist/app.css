@@ -787,15 +787,12 @@ html[xmlns] .clearfix {
   }
 }
 .cover-photo.closed + .page .header.style--fixed {
-  transform: none;
+  transform: translateY(-70px);
 }
 @media screen and (max-width: 768px) {
   .cover-photo.closed + .page .header.style--fixed.toggled {
-    transform: translateX(149px);
+    transform: translateY(-70px) translateX(149px);
   }
-}
-.cover-photo + .page .header.style--fixed {
-  transform: translateY(70px);
 }
 @media screen and (max-width: 768px) {
   .cover-photo + .page .header.style--fixed.toggled {
@@ -809,13 +806,12 @@ html[xmlns] .clearfix {
   .cover-photo + .page {
     height: calc(100vh - 45px - 100px);
   }
-  .cover-photo + .page .sidebar {
+  .cover-photo + .page .sidebar,
+  .cover-photo + .page .header.style--fixed {
     top: 145px;
   }
-  .cover-photo + .page .header.style--fixed {
-    transform: translateY(100px);
-  }
-  .cover-photo.closed + .page .sidebar {
+  .cover-photo.closed + .page .sidebar,
+  .cover-photo.closed + .page .header.style--fixed {
     transform: translateY(-100px);
   }
 }
@@ -826,13 +822,12 @@ html[xmlns] .clearfix {
   .cover-photo + .page {
     height: calc(100vh - 45px - 150px);
   }
-  .cover-photo + .page .sidebar {
+  .cover-photo + .page .sidebar,
+  .cover-photo + .page .header.style--fixed {
     top: 195px;
   }
-  .cover-photo + .page .header.style--fixed {
-    transform: translateY(150px);
-  }
-  .cover-photo.closed + .page .sidebar {
+  .cover-photo.closed + .page .sidebar,
+  .cover-photo.closed + .page .header.style--fixed {
     transform: translateY(-150px);
   }
 }
@@ -1709,6 +1704,11 @@ div.poll-answer-editor input {
 }
 .sidebar.open {
   transform: translateX(0);
+}
+@media screen and (max-width: 768px) {
+  .sidebar.open + .header.style--fixed.toggled {
+    transform: translateX(149px);
+  }
 }
 @media only screen and (min-width: 768px) {
   .sidebar {
@@ -3425,7 +3425,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header.style--fixed-post {
   left: 0;
   position: fixed;
-  top: 45px;
+  top: 115px;
   width: 100%;
   z-index: 10;
   transition: transform 0.4s;
