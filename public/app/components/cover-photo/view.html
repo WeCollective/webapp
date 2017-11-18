@@ -1,6 +1,6 @@
 <div
   class="cover-photo"
-	ng-class="{ 'closed': !CoverPhoto.WallService.isCoverOpen || !CoverPhoto.hasUrls() }"
+	ng-class="{ 'closed': !CoverPhoto.hasUrls() || !CoverPhoto.WallService.isCoverOpen }"
 	style="background-image: url('{{ CoverPhoto.imageUrl() }}'), url('{{ CoverPhoto.thumbUrl() }}')">
   <img
     alt="Upload new cover photo"

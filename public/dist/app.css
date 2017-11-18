@@ -3491,6 +3491,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   transition: transform .2s;
 }
 .header .header__button.style--sidebar-toggle {
+  margin-right: 10px;
   opacity: .3;
   transform: rotateZ(-90deg);
 }
