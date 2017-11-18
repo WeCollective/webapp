@@ -73868,7 +73868,6 @@ var BranchPostController = function (_Injectable) {
     _this.isLoading = true;
 
     // Possible states: show, maximise, hide.
-    console.log('oooooh');
     _this.previewState = false;
 
     _this.tabItems = ['vote', 'discussion', 'results'];

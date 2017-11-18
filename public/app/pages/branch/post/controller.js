@@ -7,7 +7,6 @@ class BranchPostController extends Injectable {
     this.isLoading = true;
 
     // Possible states: show, maximise, hide.
-    console.log('oooooh');
     this.previewState = false;
 
     this.tabItems = [
