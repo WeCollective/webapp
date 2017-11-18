@@ -66498,6 +66498,7 @@ var ListItemController = function (_Injectable) {
     key: 'openFlagPostModal',
     value: function openFlagPostModal() {
       this.ModalService.open('FLAG_POST', {
+        forceUpdate: false,
         post: this.post,
         branchid: this.BranchService.branch.id
       }, 'Post flagged. The branch moderators will be informed.', 'Unable to flag post.');

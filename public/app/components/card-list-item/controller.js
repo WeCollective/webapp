@@ -99,6 +99,7 @@ class ListItemController extends Injectable {
     this.ModalService.open(
       'FLAG_POST',
       {
+        forceUpdate: false,
         post: this.post,
         branchid: this.BranchService.branch.id,
       },

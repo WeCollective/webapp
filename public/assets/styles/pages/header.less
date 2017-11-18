@@ -10,7 +10,7 @@
   height: @header-h;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
+  padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 10px;
 
   &.style--fixed,
   &.style--fixed-post {
@@ -165,5 +165,9 @@
       border-bottom: none;
       padding: 0;
     });
+  }
+
+  @media screen and (min-width: @screen-md) {
+    padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
   }
 }

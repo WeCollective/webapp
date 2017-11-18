@@ -483,6 +483,11 @@ html[xmlns] .clearfix {
   text-align: center;
   width: 40px;
 }
+@media screen and (max-width: 768px) {
+  .comments .comment__content span.list-item-index {
+    display: none;
+  }
+}
 .comments .comment__content div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
@@ -1278,6 +1283,11 @@ div[loading] div.loading-container img {
   margin-right: 12px;
   text-align: center;
   width: 40px;
+}
+@media screen and (max-width: 768px) {
+  .notification span.list-item-index {
+    display: none;
+  }
 }
 .notification div.list-item-flags {
   align-self: center;
@@ -2650,6 +2660,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   text-align: center;
   width: 40px;
 }
+@media screen and (max-width: 768px) {
+  .branch__post span.list-item-index {
+    display: none;
+  }
+}
 .branch__post div.list-item-flags {
   align-self: center;
   background-color: #e74c3c;
@@ -3078,6 +3093,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     padding-right: 16px;
   }
 }
+@media only screen and (min-width: 768px) and screen and (max-width: 768px) {
+  .branch__post span.list-item-index {
+    display: none;
+  }
+}
 .branch__subbranch {
   border-bottom: solid 1px #e7e7e7;
   box-sizing: border-box;
@@ -3143,6 +3163,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-right: 12px;
   text-align: center;
   width: 40px;
+}
+@media screen and (max-width: 768px) {
+  .branch__subbranch span.list-item-index {
+    display: none;
+  }
 }
 .branch__subbranch div.list-item-flags {
   align-self: center;
@@ -3346,7 +3371,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .content .content__list {
   overflow: hidden;
-  padding: 0 16px;
+  padding: 0 10px;
 }
 .content .content__list .content__list-item {
   cursor: pointer;
@@ -3401,6 +3426,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   padding: 16px;
 }
 @media only screen and (min-width: 768px) {
+  .content .content__list {
+    padding: 0 16px;
+  }
+}
+@media only screen and (min-width: 768px) {
   .content {
     width: calc(100% - 201px);
   }
@@ -3419,7 +3449,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   height: 56px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 16px 8px 0 16px;
+  padding: 16px 8px 0 10px;
 }
 .header.style--fixed,
 .header.style--fixed-post {
@@ -3626,6 +3656,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-right: 12px;
   text-align: center;
   width: 40px;
+}
+@media screen and (max-width: 768px) {
+  .header .list-item span.list-item-index {
+    display: none;
+  }
 }
 .header .list-item div.list-item-flags {
   align-self: center;
@@ -4060,6 +4095,16 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     padding-right: 16px;
   }
 }
+@media only screen and (min-width: 768px) and screen and (max-width: 768px) {
+  .header .list-item span.list-item-index {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header {
+    padding: 16px 8px 0 16px;
+  }
+}
 div#home-content {
   left: 50%;
   margin-top: -60px;
@@ -4422,6 +4467,11 @@ div#notfound div h2 {
   margin-right: 12px;
   text-align: center;
   width: 40px;
+}
+@media screen and (max-width: 768px) {
+  .post .post__content-wrapper .style--card-poll-answer span.list-item-index {
+    display: none;
+  }
 }
 .post .post__content-wrapper .style--card-poll-answer div.list-item-flags {
   align-self: center;
