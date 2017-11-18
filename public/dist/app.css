@@ -195,7 +195,7 @@ html[xmlns] .clearfix {
 .page > .center > .align {
   height: 100%;
   margin: 0 auto;
-  max-width: 1160px;
+  max-width: 1212px;
   position: relative;
 }
 @media only screen and (min-width: 768px) {
@@ -209,7 +209,7 @@ html[xmlns] .clearfix {
   }
 }
 .page > .center.toggled {
-  transform: translateX(149px);
+  transform: translateX(201px);
 }
 @media only screen and (min-width: 768px) {
   .page > .center.toggled {
@@ -796,12 +796,12 @@ html[xmlns] .clearfix {
 }
 @media screen and (max-width: 768px) {
   .cover-photo.closed + .page .header.style--fixed.toggled {
-    transform: translateY(-70px) translateX(149px);
+    transform: translateY(-70px) translateX(201px);
   }
 }
 @media screen and (max-width: 768px) {
   .cover-photo + .page .header.style--fixed.toggled {
-    transform: translateY(70px) translateX(149px);
+    transform: translateY(70px) translateX(201px);
   }
 }
 @media only screen and (min-width: 768px) {
@@ -996,7 +996,7 @@ div[loading] div.loading-container img {
 }
 .nav .nav__content {
   margin: 0 auto;
-  max-width: 1160px;
+  max-width: 1212px;
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
@@ -1055,7 +1055,6 @@ div[loading] div.loading-container img {
   border-radius: 3px;
   cursor: pointer;
   font-size: 13px;
-  padding: 6px 12px;
 }
 .nav .nav__expand-menu-item.style--separator {
   border-top: 1px solid #494949;
@@ -1067,6 +1066,10 @@ div[loading] div.loading-container img {
 }
 .nav .nav__expand-menu-item:hover {
   background-color: #494949;
+}
+.nav .nav__expand-menu-item > * {
+  display: block;
+  padding: 6px 12px;
 }
 .nav .nav__icon {
   display: flex;
@@ -1546,14 +1549,14 @@ div.poll-answer-editor input {
   box-shadow: none;
   box-sizing: border-box;
   height: calc(100vh - 45px - 70px);
-  left: calc(50% - 580px);
+  left: calc(50% - 606px);
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
   top: 115px;
   transform: translateX(-100%);
-  width: 149px;
+  width: 201px;
   z-index: 11;
   transition: transform 0.4s, height 0.4s;
 }
@@ -1563,7 +1566,7 @@ div.poll-answer-editor input {
 .sidebar .sidebar-controls {
   border-top: solid 1px #e7e7e7;
   box-sizing: border-box;
-  height: 37.25px;
+  height: 50.25px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -1669,10 +1672,10 @@ div.poll-answer-editor input {
   background-size: cover;
   border-top: solid 1px #e7e7e7;
   box-sizing: border-box;
-  height: 149px;
+  height: 201px;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
-  width: 149px;
+  width: 201px;
 }
 @media only screen and (min-width: 768px) {
   .sidebar .sidebar-picture {
@@ -1717,7 +1720,7 @@ div.poll-answer-editor input {
 }
 @media screen and (max-width: 768px) {
   .sidebar.open + .header.style--fixed.toggled {
-    transform: translateX(149px);
+    transform: translateX(201px);
   }
 }
 @media only screen and (min-width: 768px) {
@@ -3463,7 +3466,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 @media screen and (max-width: 768px) {
   .header.style--fixed.toggled,
   .header.style--fixed-post.toggled {
-    transform: translateX(149px);
+    transform: translateX(201px);
   }
 }
 @media only screen and (min-width: 768px) {

@@ -7,6 +7,7 @@ class BranchPostController extends Injectable {
     this.isLoading = true;
 
     // Possible states: show, maximise, hide.
+    console.log('oooooh');
     this.previewState = false;
 
     this.tabItems = [
@@ -92,8 +93,6 @@ class BranchPostController extends Injectable {
     }
 
     const { post } = this.PostService;
-
-    this.previewState = post.type === 'text' ? 'hide' : 'show';
 
     // update state params for tabs
     for (const i in this.tabStateParams) { // eslint-disable-line guard-for-in, no-restricted-syntax

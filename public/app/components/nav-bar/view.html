@@ -120,7 +120,7 @@
           ng-show="Navbar.expanded">
           <li
             class="nav__expand-menu-item"
-            ng-click="Navbar.logout()">
+            ng-click="Navbar.toggleNav(); Navbar.logout()">
             <span class="text--uppercase">Log Out</span>
           </li>
 
@@ -131,6 +131,7 @@
           
           <li
             class="nav__expand-menu-item"
+            ng-click="Navbar.toggleNav()"
             ng-repeat="branch in Navbar.UserService.user.followed_branches"
             ng-show="Navbar.UserService.user.followed_branches.length > 0">
             <a ui-sref="weco.branch.wall({ branchid: branch })">

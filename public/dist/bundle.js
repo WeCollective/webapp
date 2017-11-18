@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -73868,6 +73868,7 @@ var BranchPostController = function (_Injectable) {
     _this.isLoading = true;
 
     // Possible states: show, maximise, hide.
+    console.log('oooooh');
     _this.previewState = false;
 
     _this.tabItems = ['vote', 'discussion', 'results'];
@@ -73952,10 +73953,8 @@ var BranchPostController = function (_Injectable) {
 
       var post = this.PostService.post;
 
-
-      this.previewState = post.type === 'text' ? 'hide' : 'show';
-
       // update state params for tabs
+
       for (var i in this.tabStateParams) {
         // eslint-disable-line guard-for-in, no-restricted-syntax
         this.tabStateParams[i].branchid = post.branchid;

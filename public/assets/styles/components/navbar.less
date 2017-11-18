@@ -68,7 +68,6 @@
     border-radius: 3px;
     cursor: pointer;
     font-size: 13px;
-    padding: (@g-padding-post / 2) @g-padding-post;
 
     &.style--separator {
       border-top: 1px solid @primary-5;
@@ -80,6 +79,11 @@
     }
 
     &:hover { background-color: @primary-5; }
+
+    > * {
+      display: block;
+      padding: (@g-padding-post / 2) @g-padding-post;
+    }
   }
 
   .nav__icon {
