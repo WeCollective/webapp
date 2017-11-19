@@ -11,8 +11,9 @@
   loading-when="Branch.isLoading"
   on-scroll-to-bottom="ScrollToBottom">
   <div
-    class="sidebar"
-    ng-class="{ 'toggled': Branch.AppService.isSidebarOpen }">
+    class="sidebar no-transition"
+    ng-class="{ 'toggled': Branch.AppService.isSidebarOpen }"
+    no-constructor-transition>
     <div class="sidebar-info">
       <h1>{{ Branch.BranchService.branch.name }}</h1>
       
@@ -98,7 +99,10 @@
     </ul>
   </div>
 
-  <div class="{{ Branch.getHeaderClassName() }}" ui-view="header"></div>
+  <div
+    class="{{ Branch.getHeaderClassName() }} no-transition"
+    no-constructor-transition
+    ui-view="header"></div>
   
   <div class="center">
     <div class="align">

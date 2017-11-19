@@ -13,6 +13,7 @@ import LoaderBar from './components/loader-bar/directive';
 import Modal from './components/modal/directive';
 import ModLogEntry from './components/mod-log-entry/directive';
 import Navbar from './components/nav-bar/directive';
+import NoConstructorTransition from './components/no-constructor-transition/directive';
 import Notification from './components/notification/directive';
 import OnScrollToBottom from './components/on-scroll-to-bottom/directive';
 import PollAnswerEditor from './components/poll-answer-editor/directive';
@@ -36,6 +37,7 @@ const refs = [
   { name: 'modal', module: Modal },
   { name: 'modLogEntry', module: ModLogEntry },
   { name: 'navBar', module: Navbar },
+  { name: 'noConstructorTransition', module: NoConstructorTransition },
   { name: 'notification', module: Notification },
   { name: 'onScrollToBottom', module: OnScrollToBottom },
   { name: 'pollAnswerEditor', module: PollAnswerEditor },

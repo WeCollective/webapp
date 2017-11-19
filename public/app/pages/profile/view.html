@@ -11,7 +11,10 @@
   loading
   loading-when="Profile.isLoading"
   on-scroll-to-bottom="ScrollToBottom">
-  <div class="sidebar" ng-class="{ 'open': Profile.AppService.isSidebarOpen }">
+  <div
+    class="sidebar no-transition"
+    ng-class="{ 'open': Profile.AppService.isSidebarOpen }"
+    no-constructor-transition>
     <div class="sidebar-info">
       <h1>{{ Profile.profileUser.name }}</h1>
       
@@ -38,7 +41,9 @@
     </ul>
   </div>
 
-  <div class="header style--fixed">
+  <div
+    class="header style--fixed no-transition"
+    no-constructor-transition>
     <img
       alt="Toggle sidebar"
       class="header__button style--sidebar-toggle"

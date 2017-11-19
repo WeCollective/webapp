@@ -3,7 +3,9 @@ import Injectable from 'utils/injectable';
 class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
+
     this.isLoading = Object.keys(this.BranchService.branch).length < 2;
+
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
       this.$timeout(() => this.isLoading = false);
     });

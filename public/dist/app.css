@@ -113,6 +113,9 @@ html[xmlns] .clearfix {
 .list-item__circle.style--video {
   background-color: #99C4E4;
 }
+.no-transition {
+  transition: none !important;
+}
 .text--block {
   display: block;
 }
