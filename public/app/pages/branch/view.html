@@ -12,7 +12,7 @@
   on-scroll-to-bottom="ScrollToBottom">
   <div
     class="sidebar"
-    ng-class="{ 'open': Branch.AppService.isSidebarOpen }">
+    ng-class="{ 'toggled': Branch.AppService.isSidebarOpen }">
     <div class="sidebar-info">
       <h1>{{ Branch.BranchService.branch.name }}</h1>
       

@@ -4,6 +4,7 @@
 	style="background-image: url('{{ Ctrl.imageUrl() }}'), url('{{ Ctrl.thumbUrl() }}')">
   <img
     alt="Upload new cover photo"
+    class="ng-hide"
   	id="cover-photo-edit"
   	ng-click="Ctrl.openUploadCoverModal()"
   	ng-show="Ctrl.canEdit() && Ctrl.imageUrl()"
@@ -15,7 +16,7 @@
 
   <img
     alt="Toggle the cover photo"
-    class="cover-photo-toggle"
+    class="cover-photo-toggle ng-hide"
   	ng-click="Ctrl.toggleCoverPicture()"
   	ng-show="Ctrl.imageUrl()"
   	src="/assets/images/icons/black/show.png" />

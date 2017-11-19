@@ -5,13 +5,13 @@
   border-right: solid 1px @light-grey;
   box-shadow: none;
   box-sizing: border-box;
-  height: @u-vh-sm;
+  height: @u-vh-no-hero;
   left: calc(~'50% - @{offset-sm}');
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
-  top: @u-offset-top-sm;
+  top: @navbar-h;
   transform: translateX(-100%);
   width: @sidebar-w-sm;
   z-index: @z-sidebar;
@@ -21,7 +21,7 @@
 
   .sidebar-controls {
     @button-size: @sidebar-w-sm / 4;
-    // border-bottom: solid 1px @light-grey;
+
     border-top: solid 1px @light-grey;
     box-sizing: border-box;
     height: @button-size;
@@ -102,8 +102,6 @@
           });
         }
       }
-
-      // &:last-child { border-right-color: transparent; }
 
       // todo What does this do?
       &#add-content:hover { cursor: pointer; }
@@ -195,12 +193,12 @@
   }
 
   &.docked { left: 0; }
-  &.open {
-    transform: translateX(0);
 
-    @media screen and (max-width: @screen-md) {
-      + .header.style--fixed.toggled { transform: translateX(@sidebar-w-sm); }
-    }
+  @media screen and (max-width: @screen-md) {
+    transform: translateX(-100%);
+
+    & + .header.style--fixed.toggled { transform: translateX(@sidebar-w-sm); }
+    &.toggled { transform: translateX(0); }
   }
 
   .mediaQuery(@screen-md, {
