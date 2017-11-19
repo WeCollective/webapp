@@ -13,6 +13,7 @@ class CreatePostModalController extends Injectable {
     this.isLoading = false;
     this.newPost = {
       branchids: [],
+      captcha: '',
       locked: false,
       nsfw: false,
     };

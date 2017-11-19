@@ -63,6 +63,9 @@ ul {
 span {
   text-rendering: optimizeLegibility;
 }
+.captcha {
+  display: none !important;
+}
 .clearfix {
   display: inline-block;
   max-width: 100%;

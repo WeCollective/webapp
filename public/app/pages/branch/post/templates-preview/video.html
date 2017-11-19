@@ -1,13 +1,13 @@
 <div
   class="post__preview-content style--video"
-  ng-class="{ 'maximised': BranchPost.previewState === 'maximise' }"
-  ng-show="BranchPost.PostService.post.type === 'video' && BranchPost.getVideoEmbedUrl() !== '' && BranchPost.previewState !== 'hide'">
+  ng-class="{ 'maximised': Ctrl.previewState === 'maximise' }"
+  ng-show="Ctrl.PostService.post.type === 'video' && Ctrl.getVideoEmbedUrl() !== '' && Ctrl.previewState !== 'hide'">
   <div>
     <iframe
       allowfullscreen
       frameborder="0"
       height="480"
-      ng-src="{{ BranchPost.getVideoEmbedUrl() }}"
+      ng-src="{{ Ctrl.getVideoEmbedUrl() }}"
       width="854">
     </iframe>
   </div>

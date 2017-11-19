@@ -1,12 +1,12 @@
 <div
   class="post__preview-content style--image"
-  ng-class="{ 'maximised': BranchPost.previewState === 'maximise' }"
-  ng-show="BranchPost.PostService.post.type === 'image' && BranchPost.previewState !== 'hide'">
+  ng-class="{ 'maximised': Ctrl.previewState === 'maximise' }"
+  ng-show="Ctrl.PostService.post.type === 'image' && Ctrl.previewState !== 'hide'">
   <div class="post__preview-image-container">
     <img
       alt="Post preview image"
       class="post__preview-image"
       src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-      style="background-image: url('{{ BranchPost.AppService.getProxyUrl(BranchPost.PostService.post.data.text) }}')" />
+      style="background-image: url('{{ Ctrl.AppService.getProxyUrl(Ctrl.PostService.post.data.text) }}')" />
   </div>
 </div>
