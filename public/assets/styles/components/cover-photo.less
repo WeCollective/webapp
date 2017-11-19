@@ -37,7 +37,11 @@
   &.open {
     height: @cover-h-sm;
 
-    img.cover-photo-toggle { transform: rotateZ(180deg); }
+    img {
+      transform: translateY(0);
+
+      &.cover-photo-toggle { transform: rotateZ(180deg); }
+    }
 
     & + .page {
       height: @u-vh-sm;

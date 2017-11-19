@@ -782,6 +782,9 @@ html[xmlns] .clearfix {
 .cover-photo.open {
   height: 70px;
 }
+.cover-photo.open img {
+  transform: translateY(0);
+}
 .cover-photo.open img.cover-photo-toggle {
   transform: rotateZ(180deg);
 }
