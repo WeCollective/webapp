@@ -7,9 +7,7 @@ div#home-content {
   transform: translate(-50%, -50%);
   width: 70%;
   
-  .responsive(@screen-sm, {
-    width: 400px;
-  });
+  .mediaQuery(@screen-sm, { width: 400px; });
 
   form {
     height: 40px;
@@ -52,9 +50,7 @@ div#home-footer {
   position: fixed;
   width: 100%;
 
-  .responsive(@screen-md, {
-    font-size: @font-size-sm;
-  });
+  .mediaQuery(@screen-md, { font-size: @font-size-sm; });
 
   div#footer-stats {
     background-color: @primary-10;

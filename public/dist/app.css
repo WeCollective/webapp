@@ -1548,7 +1548,6 @@ div.poll-answer-editor input {
   pointer-events: none;
   position: fixed;
   top: 45px;
-  transform: translateX(-100%);
   width: 201px;
   z-index: 11;
   transition: transform 0.4s, height 0.4s;
@@ -1722,7 +1721,6 @@ div.poll-answer-editor input {
 @media only screen and (min-width: 768px) {
   .sidebar {
     left: calc(50% - 606px);
-    transform: translateX(0);
     width: 201px;
   }
 }
