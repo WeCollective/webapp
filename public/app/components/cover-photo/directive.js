@@ -11,7 +11,7 @@ class CoverPhotoComponent extends Injectable {
       thumbUrl: '&',
     };
     this.controller = 'CoverPhotoController';
-    this.controllerAs = 'CoverPhoto';
+    this.controllerAs = 'Ctrl';
     this.replace = true;
     this.restrict = 'E';
     this.scope = {};
