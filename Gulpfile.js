@@ -163,4 +163,10 @@ gulp.task('default', ['build', 'nodemon'], () => {
     `!${select('index.html')}`,
     `!${select('app', 'env.config.js')}`,
   ], ['build']);
+
+  // Return the process in build as we wouldn't be able to execute multiple tasks otherwise.
+  // Read more: https://github.com/gulpjs/gulp/issues/417.
+  if (!local) {
+    process.exit(0);
+  }
 });
