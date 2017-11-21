@@ -65936,12 +65936,15 @@ var AppRun = function (_Injectable) {
     _this.$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
       var mods = [];
 
+      // Redirect authenticated users when they try to access auth pages.
       if (toState.name.includes('auth.') && _this.UserService.isAuthenticated()) {
         event.preventDefault();
         _this.$state.go('weco.home');
       }
 
-      _this.AppService.applyState();
+      // Hide the sidebar on transition.
+      _this.AppService.toggleSidebar(false);
+
       _this.EventService.emit('$stateChangeSuccess');
 
       var getMods = function getMods(cb) {
@@ -66103,7 +66106,9 @@ var AppService = function (_Injectable) {
   }, {
     key: 'toggleSidebar',
     value: function toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
+      var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !this.isSidebarOpen;
+
+      this.isSidebarOpen = state;
       this.applyState();
     }
   }]);

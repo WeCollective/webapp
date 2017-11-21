@@ -807,7 +807,7 @@ html[xmlns] .clearfix {
   transform: translateY(70px) translateX(-100%);
 }
 @media screen and (max-width: 768px) {
-  .cover-photo.open + .page .sidebar.toggled {
+  .cover-photo.open + .page .sidebar.open {
     transform: translateY(70px) translateX(0);
   }
 }

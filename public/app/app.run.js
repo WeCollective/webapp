@@ -36,12 +36,15 @@ class AppRun extends Injectable {
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
       let mods = [];
 
+      // Redirect authenticated users when they try to access auth pages.
       if (toState.name.includes('auth.') && this.UserService.isAuthenticated()) {
         event.preventDefault();
         this.$state.go('weco.home');
       }
 
-      this.AppService.applyState();
+      // Hide the sidebar on transition.
+      this.AppService.toggleSidebar(false);
+
       this.EventService.emit('$stateChangeSuccess');
 
       const getMods = cb => {

@@ -21,8 +21,8 @@ class AppService extends Injectable {
     return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
   }
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  toggleSidebar(state = !this.isSidebarOpen) {
+    this.isSidebarOpen = state;
     this.applyState();
   }
 }
