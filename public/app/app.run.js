@@ -36,6 +36,11 @@ class AppRun extends Injectable {
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
       let mods = [];
 
+      if (toState.name.includes('auth.') && this.UserService.isAuthenticated()) {
+        event.preventDefault();
+        this.$state.go('weco.home');
+      }
+
       this.AppService.applyState();
       this.EventService.emit('$stateChangeSuccess');
 

@@ -6,7 +6,7 @@ class UserService extends Injectable {
   constructor(...injections) {
     super(UserService.$inject, injections);
 
-    this.user = {};
+    this.user = this.LocalStorageService.getObject('user');
 
     this.fetch('me')
       .then(user => this.set(user))
@@ -57,7 +57,10 @@ class UserService extends Injectable {
   }
 
   isAuthenticated() {
-    return !!this.user && Object.keys(this.user).length;
+    if (this.user && Object.keys(this.user).length) {
+      return true;
+    }
+    return false;
   }
 
   login(credentials) {
@@ -88,6 +91,7 @@ class UserService extends Injectable {
       this.API.request('GET', '/user/logout', {})
         .then(() => {
           this.LocalStorageService.setObject('cache', {});
+          this.LocalStorageService.setObject('user', {});
           this.Auth.set();
           this.set({});
 
@@ -143,6 +147,7 @@ class UserService extends Injectable {
   set(userDataObj) {
     this.$timeout(() => {
       this.user = userDataObj;
+      this.LocalStorageService.setObject('user', this.user);
       this.EventService.emit(this.EventService.events.CHANGE_USER);
     });
   }
