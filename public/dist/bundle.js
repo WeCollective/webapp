@@ -66091,11 +66091,8 @@ var AppService = function (_Injectable) {
       var vw = window.innerWidth;
       var left = vw * 0.5 - getCSSAligner() / 2;
 
-      console.log('Left', left);
-      console.log('Docked?', this.docked);
       if (left <= 0 && !this.docked) {
         var sidebar = document.getElementsByClassName('sidebar')[0];
-        console.log('Sidebar', sidebar);
         if (sidebar) {
           sidebar.classList.add(className);
           this.docked = true;
