@@ -10,9 +10,7 @@ class BranchController extends Injectable {
       this.$timeout(() => this.isLoading = false);
     });
 
-    this.$rootScope.$on('$stateChangeSuccess', () => {
-      // console.log(document.getElementsByClassName('header'));
-    });
+    this.$timeout(() => this.AppService.resizeCallback(true));
   }
 
   getBreadcrumbsDynamicLink() {
@@ -108,7 +106,6 @@ class BranchController extends Injectable {
 }
 
 BranchController.$inject = [
-  '$rootScope',
   '$state',
   '$timeout',
   'AlertsService',

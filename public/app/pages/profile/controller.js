@@ -15,19 +15,14 @@ class ProfileController extends Injectable {
 
     this.renderTabs = this.renderTabs.bind(this);
 
+    const { events } = this.EventService;
     const listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_USER, this.renderTabs));
-
-    listeners.push(this.EventService.on(this.EventService.events.LOADING_ACTIVE, () => {
-      this.showLoader = true;
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.LOADING_INACTIVE, () => {
-      this.showLoader = false;
-    }));
-
+    listeners.push(this.EventService.on(events.CHANGE_USER, this.renderTabs));
+    listeners.push(this.EventService.on(events.LOADING_ACTIVE, () => this.showLoader = true));
+    listeners.push(this.EventService.on(events.LOADING_INACTIVE, () => this.showLoader = false));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+    this.$timeout(() => this.AppService.resizeCallback(true));
   }
 
   getInitialState() {

@@ -2,30 +2,10 @@ import Injectable from 'utils/injectable';
 
 const THROTTLE = 25;
 
-const getCSSAligner = () => {
-  const vw = window.innerWidth;
-  const CSSSContentMax = 1011;
-  const CSSScreenMd = 768;
-  const CSSScreenLg = 992;
-  const CSSSidebarWSm = 201;
-  const CSSSidebarWMd = 201;
-  const CSSSidebarWLg = 249;
-
-  if (vw < CSSScreenMd) {
-    return CSSSidebarWSm + CSSSContentMax;
-  }
-  else if (vw >= CSSScreenMd && vw < CSSScreenLg) {
-    return CSSSidebarWMd + CSSSContentMax;
-  }
-
-  return CSSSidebarWLg + CSSSContentMax;
-};
-
 class AppRun extends Injectable {
   constructor(...injections) {
     super(AppRun.$inject, injections);
 
-    this.docked = null;
     this.timer = null;
 
     // Tell Prerender.io to cache when DOM is loaded
@@ -104,36 +84,15 @@ class AppRun extends Injectable {
 
     window.addEventListener('resize', () => {
       clearTimeout(this.timer);
-      this.timer = setTimeout(this.resizeCallback, THROTTLE);
+      this.timer = setTimeout(() => this.AppService.resizeCallback(false), THROTTLE);
     });
 
     // Run on init too.
     this.$rootScope.$on('$stateChangeSuccess', () => {
       this.AppService.applyState();
-      this.docked = null;
-      this.$timeout(() => this.resizeCallback(), THROTTLE);
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => this.AppService.resizeCallback(true), THROTTLE);
     });
-  }
-
-  resizeCallback() {
-    const className = 'docked';
-    const vw = window.innerWidth;
-    const left = (vw * 0.5) - (getCSSAligner() / 2);
-
-    if (left <= 0 && !this.docked) {
-      const sidebar = document.getElementsByClassName('sidebar')[0];
-      if (sidebar) {
-        sidebar.classList.add(className);
-        this.docked = true;
-      }
-    }
-    else if (left > 0 && this.docked) {
-      const sidebar = document.getElementsByClassName('sidebar')[0];
-      if (sidebar) {
-        sidebar.classList.remove(className);
-        this.docked = false;
-      }
-    }
   }
 }
 

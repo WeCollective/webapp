@@ -65877,8 +65877,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _injectable = __webpack_require__(2);
 
 var _injectable2 = _interopRequireDefault(_injectable);
@@ -65893,24 +65891,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var THROTTLE = 25;
 
-var getCSSAligner = function getCSSAligner() {
-  var vw = window.innerWidth;
-  var CSSSContentMax = 1011;
-  var CSSScreenMd = 768;
-  var CSSScreenLg = 992;
-  var CSSSidebarWSm = 201;
-  var CSSSidebarWMd = 201;
-  var CSSSidebarWLg = 249;
-
-  if (vw < CSSScreenMd) {
-    return CSSSidebarWSm + CSSSContentMax;
-  } else if (vw >= CSSScreenMd && vw < CSSScreenLg) {
-    return CSSSidebarWMd + CSSSContentMax;
-  }
-
-  return CSSSidebarWLg + CSSSContentMax;
-};
-
 var AppRun = function (_Injectable) {
   _inherits(AppRun, _Injectable);
 
@@ -65923,7 +65903,6 @@ var AppRun = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AppRun.__proto__ || Object.getPrototypeOf(AppRun)).call(this, AppRun.$inject, injections));
 
-    _this.docked = null;
     _this.timer = null;
 
     // Tell Prerender.io to cache when DOM is loaded
@@ -65999,42 +65978,21 @@ var AppRun = function (_Injectable) {
 
     window.addEventListener('resize', function () {
       clearTimeout(_this.timer);
-      _this.timer = setTimeout(_this.resizeCallback, THROTTLE);
+      _this.timer = setTimeout(function () {
+        return _this.AppService.resizeCallback(false);
+      }, THROTTLE);
     });
 
     // Run on init too.
     _this.$rootScope.$on('$stateChangeSuccess', function () {
       _this.AppService.applyState();
-      _this.docked = null;
-      _this.$timeout(function () {
-        return _this.resizeCallback();
+      clearTimeout(_this.timer);
+      _this.timer = setTimeout(function () {
+        return _this.AppService.resizeCallback(true);
       }, THROTTLE);
     });
     return _this;
   }
-
-  _createClass(AppRun, [{
-    key: 'resizeCallback',
-    value: function resizeCallback() {
-      var className = 'docked';
-      var vw = window.innerWidth;
-      var left = vw * 0.5 - getCSSAligner() / 2;
-
-      if (left <= 0 && !this.docked) {
-        var sidebar = document.getElementsByClassName('sidebar')[0];
-        if (sidebar) {
-          sidebar.classList.add(className);
-          this.docked = true;
-        }
-      } else if (left > 0 && this.docked) {
-        var _sidebar = document.getElementsByClassName('sidebar')[0];
-        if (_sidebar) {
-          _sidebar.classList.remove(className);
-          this.docked = false;
-        }
-      }
-    }
-  }]);
 
   return AppRun;
 }(_injectable2.default);
@@ -66070,6 +66028,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var getCSSAligner = function getCSSAligner() {
+  var vw = window.innerWidth;
+  var CSSSContentMax = 1011;
+  var CSSScreenMd = 768;
+  var CSSScreenLg = 992;
+  var CSSSidebarWSm = 201;
+  var CSSSidebarWMd = 201;
+  var CSSSidebarWLg = 249;
+
+  if (vw < CSSScreenMd) {
+    return CSSSidebarWSm + CSSSContentMax;
+  } else if (vw >= CSSScreenMd && vw < CSSScreenLg) {
+    return CSSSidebarWMd + CSSSContentMax;
+  }
+
+  return CSSSidebarWLg + CSSSContentMax;
+};
+
 var AppService = function (_Injectable) {
   _inherits(AppService, _Injectable);
 
@@ -66082,6 +66058,7 @@ var AppService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AppService.__proto__ || Object.getPrototypeOf(AppService)).call(this, AppService.$inject, injections));
 
+    _this.docked = null;
     _this.isSidebarOpen = false;
     return _this;
   }
@@ -66102,6 +66079,31 @@ var AppService = function (_Injectable) {
     value: function getProxyUrl(url) {
       // only proxy http requests, not https
       return url && url.substring(0, 5) === 'http:' ? this.ENV.apiEndpoint + '/proxy?url=' + url : url;
+    }
+  }, {
+    key: 'resizeCallback',
+    value: function resizeCallback(didTransitionState) {
+      if (didTransitionState) {
+        this.docked = null;
+      }
+
+      var className = 'docked';
+      var vw = window.innerWidth;
+      var left = vw * 0.5 - getCSSAligner() / 2;
+
+      if (left <= 0 && !this.docked) {
+        var sidebar = document.getElementsByClassName('sidebar')[0];
+        if (sidebar) {
+          sidebar.classList.add(className);
+          this.docked = true;
+        }
+      } else if (left > 0 && this.docked) {
+        var _sidebar = document.getElementsByClassName('sidebar')[0];
+        if (_sidebar) {
+          _sidebar.classList.remove(className);
+          this.docked = false;
+        }
+      }
     }
   }, {
     key: 'toggleSidebar',
@@ -72768,8 +72770,8 @@ var BranchController = function (_Injectable) {
       });
     });
 
-    _this.$rootScope.$on('$stateChangeSuccess', function () {
-      // console.log(document.getElementsByClassName('header'));
+    _this.$timeout(function () {
+      return _this.AppService.resizeCallback(true);
     });
     return _this;
   }
@@ -72875,7 +72877,7 @@ var BranchController = function (_Injectable) {
   return BranchController;
 }(_injectable2.default);
 
-BranchController.$inject = ['$rootScope', '$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+BranchController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
 
 exports.default = BranchController;
 
@@ -75356,22 +75358,24 @@ var ProfileController = function (_Injectable) {
 
     _this.renderTabs = _this.renderTabs.bind(_this);
 
+    var events = _this.EventService.events;
+
     var listeners = [];
-
-    listeners.push(_this.EventService.on(_this.EventService.events.CHANGE_USER, _this.renderTabs));
-
-    listeners.push(_this.EventService.on(_this.EventService.events.LOADING_ACTIVE, function () {
-      _this.showLoader = true;
+    listeners.push(_this.EventService.on(events.CHANGE_USER, _this.renderTabs));
+    listeners.push(_this.EventService.on(events.LOADING_ACTIVE, function () {
+      return _this.showLoader = true;
     }));
-
-    listeners.push(_this.EventService.on(_this.EventService.events.LOADING_INACTIVE, function () {
-      _this.showLoader = false;
+    listeners.push(_this.EventService.on(events.LOADING_INACTIVE, function () {
+      return _this.showLoader = false;
     }));
-
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
       });
+    });
+
+    _this.$timeout(function () {
+      return _this.AppService.resizeCallback(true);
     });
     return _this;
   }
