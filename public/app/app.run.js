@@ -111,7 +111,7 @@ class AppRun extends Injectable {
     this.$rootScope.$on('$stateChangeSuccess', () => {
       this.AppService.applyState();
       this.docked = null;
-      this.$timeout(() => this.resizeCallback());
+      this.$timeout(() => this.resizeCallback(), THROTTLE);
     });
   }
 

@@ -66008,7 +66008,7 @@ var AppRun = function (_Injectable) {
       _this.docked = null;
       _this.$timeout(function () {
         return _this.resizeCallback();
-      });
+      }, THROTTLE);
     });
     return _this;
   }
