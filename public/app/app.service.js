@@ -50,8 +50,11 @@ class AppService extends Injectable {
     const vw = window.innerWidth;
     const left = (vw * 0.5) - (getCSSAligner() / 2);
 
+    console.log('Left', left);
+    console.log('Docked?', this.docked);
     if (left <= 0 && !this.docked) {
       const sidebar = document.getElementsByClassName('sidebar')[0];
+      console.log('Sidebar', sidebar);
       if (sidebar) {
         sidebar.classList.add(className);
         this.docked = true;

@@ -10,7 +10,7 @@ class BranchController extends Injectable {
       this.$timeout(() => this.isLoading = false);
     });
 
-    this.$timeout(() => this.AppService.resizeCallback(true));
+    this.$timeout(() => this.AppService.resizeCallback(true), 25);
   }
 
   getBreadcrumbsDynamicLink() {
