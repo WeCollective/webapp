@@ -72775,7 +72775,7 @@ var BranchController = function (_Injectable) {
 
     _this.$timeout(function () {
       return _this.AppService.resizeCallback(true);
-    }, 25);
+    }, 100);
     return _this;
   }
 
@@ -75379,7 +75379,7 @@ var ProfileController = function (_Injectable) {
 
     _this.$timeout(function () {
       return _this.AppService.resizeCallback(true);
-    }, 25);
+    }, 100);
     return _this;
   }
 
