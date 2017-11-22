@@ -137,11 +137,7 @@
 
       <span class="list-item__separator"></span>
 
-      <span class="list-item__detail">{{ ListItem.post.date | date:'HH:mm' }}</span>
-
-      <span class="list-item__separator"></span>
-
-      <span class="list-item__detail">{{ ListItem.post.date | date:'dd-MMMM-yyyy' }}</span>
+      <span class="list-item__detail">{{ ListItem.DateService.getElapsedTime(ListItem.post.date) }}</span>
     </span>
   </div>
 </li>

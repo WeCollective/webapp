@@ -4,6 +4,7 @@ import App from './app.service';
 import Auth from './services/auth';
 import Branch from './services/branch';
 import Comment from './services/comment';
+import DateService from './services/date';
 import Event from './services/event';
 import Header from './services/header';
 import LocalStorage from './services/localstorage';
@@ -22,6 +23,7 @@ const refs = [
   { name: 'Auth', module: Auth },
   { name: 'BranchService', module: Branch },
   { name: 'CommentService', module: Comment },
+  { name: 'DateService', module: DateService },
   { name: 'EventService', module: Event },
   { name: 'HeaderService', module: Header },
   { name: 'LocalStorageService', module: LocalStorage },

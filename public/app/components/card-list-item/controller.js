@@ -172,6 +172,7 @@ ListItemController.$inject = [
   'AlertsService',
   'AppService',
   'BranchService',
+  'DateService',
   'EventService',
   'ModalService',
   'PostService',

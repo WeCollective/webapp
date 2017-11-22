@@ -7,7 +7,7 @@ const getCSSAligner = () => {
   const CSSSContentMax = 1011;
   const CSSScreenMd = 768;
   const CSSScreenLg = 992;
-  const CSSSidebarWSm = 149;
+  const CSSSidebarWSm = 201;
   const CSSSidebarWMd = 201;
   const CSSSidebarWLg = 249;
 
