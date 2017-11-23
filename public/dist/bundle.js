@@ -76623,6 +76623,8 @@ var DateService = function (_Injectable) {
   _createClass(DateService, [{
     key: 'getElapsedTime',
     value: function getElapsedTime(timestamp) {
+      if (!timestamp) return '';
+
       // Cast all timestamps to 10-digit numbers.
       if (timestamp.toString().length === 13) {
         timestamp = Math.floor(timestamp / 1000);

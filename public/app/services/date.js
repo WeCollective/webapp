@@ -6,6 +6,8 @@ class DateService extends Injectable {
   }
 
   getElapsedTime(timestamp) {
+    if (!timestamp) return '';
+
     // Cast all timestamps to 10-digit numbers.
     if (timestamp.toString().length === 13) {
       timestamp = Math.floor(timestamp / 1000);
