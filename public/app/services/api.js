@@ -48,9 +48,11 @@ class API extends Injectable {
         url = `/${url}`;
       }
 
-      // replace :params in the url with their specified values
-      for (const paramName of Object.keys(params)) { // eslint-disable-line no-restricted-syntax
-        url = url.replace(new RegExp(`:${paramName}`, 'g'), params[paramName]);
+      if (params && typeof params === 'object') {
+        // replace :params in the url with their specified values
+        for (const paramName of Object.keys(params)) { // eslint-disable-line no-restricted-syntax
+          url = url.replace(new RegExp(`:${paramName}`, 'g'), params[paramName]);
+        }
       }
 
       url = this.ENV.apiEndpoint + url;

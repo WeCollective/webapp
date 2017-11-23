@@ -88,13 +88,12 @@ class UserService extends Injectable {
 
   logout() {
     return new Promise((resolve, reject) => {
-      this.API.request('GET', '/user/logout', {})
+      this.API.get('/user/logout')
         .then(() => {
           this.LocalStorageService.setObject('cache', {});
           this.LocalStorageService.setObject('user', {});
           this.Auth.set();
           this.set({});
-
           return resolve();
         })
         .catch(err => reject(err));

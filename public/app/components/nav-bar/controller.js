@@ -55,8 +55,13 @@ class NavbarController extends Injectable {
   logout() {
     this.expanded = false;
     this.UserService.logout()
-      .then(() => this.$state.go('auth.login'))
-      .catch(() => this.AlertsService.push('error', 'Unable to log out.'));
+      .then(() => {
+        this.$state.go('auth.login');
+      })
+      .catch(err => {
+        console.log(err);
+        this.AlertsService.push('error', 'Unable to log out.');
+      });
   }
 
   onHomePage() {
