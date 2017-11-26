@@ -2,7 +2,7 @@ import algoliasearch from 'algoliasearch';
 import Injectable from 'utils/injectable';
 
 const client = algoliasearch('%ALGOLIA_APP_ID%', '%ALGOLIA_SEARCH_API%');
-const index = client.initIndex('your_index_name');
+const index = client.initIndex('%ALGOLIA_INDEX%');
 
 class Search extends Injectable {
   constructor(...injections) {

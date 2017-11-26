@@ -81434,8 +81434,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var client = (0, _algoliasearch2.default)('%ALGOLIA_APP_ID%', '%ALGOLIA_SEARCH_API%');
-var index = client.initIndex('your_index_name');
+var client = (0, _algoliasearch2.default)('T3T56GPPTL', '0db7251bb0180ab899e72abaff900c21');
+var index = client.initIndex('%ALGOLIA_INDEX%');
 
 var Search = function (_Injectable) {
   _inherits(Search, _Injectable);
