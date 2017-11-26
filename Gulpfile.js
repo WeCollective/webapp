@@ -15,7 +15,6 @@ const webpack = require('webpack');
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const APP_DIR = path.join(PUBLIC_DIR, 'app');
-const ASSETS_DIR = path.join(PUBLIC_DIR, 'assets');
 const DEST_DIR = path.join(PUBLIC_DIR, 'dist');
 
 const env = argv.env || 'development';
@@ -104,18 +103,17 @@ const WEBPACK_CONFIG = {
   ] : [],
 };
 
-gulp.task('build', ['cleanBuildDir', 'template-strings', 'less', 'compile-sass', 'webpack']);
+gulp.task('build', ['cleanBuildDir', 'template-strings', 'webpack']);
 gulp.task('cleanBuildDir', () => del([path.join(DEST_DIR, '/**/*')]));
+
+gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
+  .pipe(less())
+  .pipe(rename('app.css'))
+  .pipe(gulp.dest(DEST_DIR)));
 
 gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
   .pipe(sass())
   .pipe(rename('app-sass.css'))
-  .pipe(gulp.dest(DEST_DIR)));
-
-gulp.task('less', () => gulp
-  .src(path.join(ASSETS_DIR, 'styles/app.less'))
-  .pipe(less())
-  .pipe(rename('app.css'))
   .pipe(gulp.dest(DEST_DIR)));
 
 gulp.task('nodemon', () => {
@@ -160,15 +158,18 @@ gulp.task('webpack', done => {
   });
 });
 
-gulp.task('default', ['build', 'nodemon'], () => {
-  gulp.watch(select('**', '*.template.*'), ['template-strings']);
-
+gulp.task('default', ['build', 'compile-less', 'compile-sass', 'nodemon'], () => {
   gulp.watch([
     select('**', '*'),
     `!${select('dist', '**', '*')}`,
+    `!${select('assets', 'styles', '**', '*')}`,
     `!${select('index.html')}`,
     `!${select('app', 'env.config.js')}`,
   ], ['build']);
+
+  gulp.watch(select('**', '*.less'), ['compile-less']);
+  gulp.watch(select('**', '*.scss'), ['compile-sass']);
+  gulp.watch(select('**', '*.template.*'), ['template-strings']);
 
   // Return the process in build as we wouldn't be able to execute multiple tasks otherwise.
   // Read more: https://github.com/gulpjs/gulp/issues/417.
