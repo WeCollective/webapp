@@ -1,7 +1,7 @@
 <div
   class="content__body"
   loading
-  loading-when="Ctrl.isLoading && Ctrl.branches.length === 0">
+  loading-when="Ctrl.isLoading && !Ctrl.branches.length">
   <ul
     class="content__list"
     ng-if="Ctrl.branches.length > 0">
@@ -16,7 +16,7 @@
 
   <div
     class="text--center"
-    ng-if="Ctrl.branches.length === 0">
+    ng-if="!Ctrl.branches.length">
     <p class="branch__empty-title">
       There don't seem to be any child branches attached to this branch that match the current filter settings
     </p>

@@ -8,14 +8,16 @@ class NotificationComponent extends Injectable {
     this.restrict = 'E';
     this.replace = true;
     this.scope = {
+      index: '=',
       notification: '=',
     };
   }
 
   // Params: scope, element, attrs
   link(scope, element) {
-    scope.UserService = this.UserService;
+    scope.NotificationService = this.NotificationService;
     scope.NotificationTypes = NotificationTypes;
+    scope.UserService = this.UserService;
 
     scope.reasonString = () => {
       switch (scope.notification.reason) {
@@ -61,6 +63,7 @@ NotificationComponent.$inject = [
   '$templateRequest',
   '$timeout',
   'AlertsService',
+  'NotificationService',
   'UserService',
 ];
 

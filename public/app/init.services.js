@@ -10,6 +10,7 @@ import Header from './services/header';
 import LocalStorage from './services/localstorage';
 import Mod from './services/mod';
 import Modal from './components/modal/service';
+import Notification from './services/notification';
 import Post from './services/post';
 import Tooltip from './components/tooltip/service';
 import Upload from './services/upload';
@@ -29,6 +30,7 @@ const refs = [
   { name: 'LocalStorageService', module: LocalStorage },
   { name: 'ModService', module: Mod },
   { name: 'ModalService', module: Modal },
+  { name: 'NotificationService', module: Notification },
   { name: 'PostService', module: Post },
   { name: 'TooltipService', module: Tooltip },
   { name: 'UploadService', module: Upload },

@@ -49,7 +49,7 @@ class CreatePostModalController extends Injectable {
   }
 
   flattenTagsArray(array) {
-    if (array.length === 0 || typeof array[0] !== 'object') return array;
+    if (!array.length || typeof array[0] !== 'object') return array;
     return array.map(item => item.label);
   }
 

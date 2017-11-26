@@ -110,7 +110,7 @@ class AppRoutes extends Injectable {
         url: '/notifications',
         templateUrl: '/app/pages/profile/notifications/view.html',
         controller: 'ProfileNotificationsController',
-        controllerAs: 'ProfileNotifications',
+        controllerAs: 'Ctrl',
         pageTrack: '/u/:username/notifications',
       })
 

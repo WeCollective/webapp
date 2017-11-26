@@ -1,13 +1,13 @@
 <ul
   class="content__list content__list--no-padding"
   loading
-  loading-when="!ProfileNotifications.notifications.length && ProfileNotifications.isLoading"
-  ng-if="ProfileNotifications.notifications.length > 0">
+  loading-when="!Ctrl.NotificationService.notifications.length && Ctrl.isLoading"
+  ng-if="Ctrl.NotificationService.notifications.length > 0">
   <li
     class="notification style--padding"
     ng-class="{ 'style--highlighted': item.unread }"
-    ng-repeat="item in ProfileNotifications.notifications">
-    <div class="list-item__toggle" ng-click="ProfileNotifications.toggleUnreadState(item)"></div>
+    ng-repeat="item in Ctrl.NotificationService.notifications">
+    <div class="list-item__toggle" ng-click="Ctrl.NotificationService.toggleUnreadState($index)"></div>
     
     <span class="list-item-index">
       {{ $index + 1 }}
@@ -16,12 +16,12 @@
     <div class="list-item-image">
       <img
         alt=""
-        ng-src="assets/images/notifications/{{ ProfileNotifications.getNotificationImageType(item) }}.png" />
+        ng-src="assets/images/notifications/{{ Ctrl.getNotificationImageType(item) }}.png" />
     </div>
     
     <div class="list-item-info">
       <span class="list-item__title">
-        <notification notification="item"></notification>
+        <notification index="$index" notification="item"></notification>
       </span>
 
       <br />
@@ -35,7 +35,7 @@
 
 <div
   class="empty-wrapper"
-  ng-if="ProfileNotifications.notifications.length === 0">
+  ng-if="!Ctrl.NotificationService.notifications.length">
   <p class="empty__text">
     No notifications.
   </p>

@@ -1,16 +1,22 @@
-<a ui-sref="weco.profile.about({ username: notification.data.username })">
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.profile.about({ username: notification.data.username })">
   {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
 </a>
 <span>
   removed your
 </span>
-<a ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
   post
 </a>
 <span>
   from
 </span>
-<a ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">
   b/{{ notification.data.branchid }}
 </a>
 <span>

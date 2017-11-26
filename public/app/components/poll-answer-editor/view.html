@@ -12,7 +12,7 @@
   <div class="answers">
     <h2>Answers</h2>
     <ul>
-      <p ng-show="Editor.answers.length === 0">No answers yet.</p>
+      <p ng-show="!Editor.answers.length">No answers yet.</p>
       <li ng-repeat="answer in Editor.answers track by $index">
         <h3>{{ answer }}</h3>
         <img

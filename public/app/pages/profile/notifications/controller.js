@@ -5,31 +5,28 @@ class ProfileNotificationsController extends Injectable {
   constructor(...injections) {
     super(ProfileNotificationsController.$inject, injections);
 
-    const cache = this.LocalStorageService.getObject('cache').notifications || {};
-
     this.isLoading = false;
     this.NotificationTypes = NotificationTypes;
-    this.notifications = cache.items || [];
 
     this.init();
-
     this.init = this.init.bind(this);
 
     const listeners = [];
     const { events } = this.EventService;
+    const notifs = this.NotificationService;
 
     listeners.push(this.EventService.on(events.CHANGE_USER, this.init));
 
     listeners.push(this.EventService.on(
       events.MARK_ALL_NOTIFICATIONS_READ,
-      () => this.markAllNotificationsRead(),
+      () => notifs.markAllNotificationsRead(),
     ));
 
     listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, name => {
       if (name !== 'ScrollToBottom') return;
 
-      if (this.notifications.length) {
-        this.getNotifications(this.notifications[this.notifications.length - 1].id);
+      if (notifs.notifications.length) {
+        this.getNotifications(notifs.notifications[notifs.notifications.length - 1].id);
       }
     }));
 
@@ -64,26 +61,14 @@ class ProfileNotificationsController extends Injectable {
     this.EventService.emit(this.EventService.events.LOADING_ACTIVE);
     this.isLoading = true;
 
-    this.UserService.getNotifications(this.$state.params.username, false, lastNotificationId)
-      .then(notifications => {
-        this.$timeout(() => {
-          this.notifications = lastNotificationId ?
-            this.notifications.concat(notifications)
-            : notifications;
-
-          this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
-          this.isLoading = false;
-
-          const cache = this.LocalStorageService.getObject('cache');
-          cache.notifications = cache.notifications || {};
-          cache.notifications.items = this.notifications;
-          this.LocalStorageService.setObject('cache', cache);
-        });
+    this.NotificationService.getNotifications(this.$state.params.username, lastNotificationId)
+      .then(() => {
+        this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
+        this.isLoading = false;
       })
       .catch(() => {
         this.EventService.emit(this.EventService.events.LOADING_INACTIVE);
         this.isLoading = false;
-        this.AlertsService.push('error', 'Unable to fetch notifications.');
       });
   }
 
@@ -95,35 +80,14 @@ class ProfileNotificationsController extends Injectable {
       this.$timeout(() => this.getNotifications());
     }
   }
-
-  markAllNotificationsRead() {
-    this.notifications.forEach(notification => {
-      notification.unread = false;
-    });
-  }
-
-  toggleUnreadState(notification) {
-    const {
-      id,
-      unread,
-    } = notification;
-
-    this.UserService.markNotification(this.UserService.user.username, id, !unread)
-      .then(() => {
-        this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', !unread ? 1 : -1);
-        this.$timeout(() => notification.unread = !unread);
-      })
-      .catch(() => this.AlertsService.push('error', 'Unable to mark notification.'));
-  }
 }
 
 ProfileNotificationsController.$inject = [
   '$scope',
   '$state',
   '$timeout',
-  'AlertsService',
   'EventService',
-  'LocalStorageService',
+  'NotificationService',
   'UserService',
 ];
 

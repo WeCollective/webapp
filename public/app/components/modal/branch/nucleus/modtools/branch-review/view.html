@@ -3,7 +3,7 @@
     <h1>Review Child Branch Requests</h1>
     <p class="error-message">{{ ReviewSubbranchRequestsModal.errorMessage }}</p>
     <div id="nucleus-reviewsubbranchrequests-inputs">
-      <p ng-show="(!ReviewSubbranchRequestsModal.requests || ReviewSubbranchRequestsModal.requests.length === 0) && !ReviewSubbranchRequestsModal.isLoading">There are currently no Child Branch requests.</p>
+      <p ng-show="(!ReviewSubbranchRequestsModal.requests || !ReviewSubbranchRequestsModal.requests.length) && !ReviewSubbranchRequestsModal.isLoading">There are currently no Child Branch requests.</p>
       <ul>
         <li ng-repeat="request in ReviewSubbranchRequestsModal.requests">
           <a ui-sref="weco.branch.subbranches({ branchid: request.branch.id })" target="_blank">

@@ -18,7 +18,7 @@ class TagEditorController extends Injectable {
 
     if (this.getTagIndex(this.tag) !== -1) return;
 
-    if (this.items.length === 0 || typeof this.items[0] === 'object') {
+    if (!this.items.length || typeof this.items[0] === 'object') {
       this.items.push({
         isRemovable: true,
         label: this.tag,
@@ -32,7 +32,7 @@ class TagEditorController extends Injectable {
   }
 
   getTagIndex(tag) {
-    if (this.items.length === 0) {
+    if (!this.items.length) {
       return -1;
     }
 
