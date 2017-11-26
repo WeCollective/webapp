@@ -1,5 +1,21 @@
-<p>Enter your username and we'll send a password reset link to your inbox.</p>
-<form ng-submit="ResetPassword.sendLink()">
-  <input type="text" name="username" ng-model="ResetPassword.credentials.username" placeholder="Username" required></input>
-  <input type="submit" value="SEND LINK" ng-disabled="ResetPassword.isLoading"></input>
+<p class="auth__message">
+  We will send a reset link to your registered email address.
+</p>
+
+<form
+  class="auth__form"
+  ng-submit="ResetPassword.sendLink()">
+  <input
+    class="auth__input"
+    name="username"
+    ng-model="ResetPassword.credentials.username"
+    placeholder="username"
+    required
+    type="text" />
+
+  <input
+    class="auth__submit"
+    ng-disabled="ResetPassword.isLoading"
+    type="submit"
+    value="Send link" />
 </form>

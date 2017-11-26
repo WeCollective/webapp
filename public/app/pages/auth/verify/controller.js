@@ -4,18 +4,12 @@ class VerifyController extends Injectable {
   constructor(...injections) {
     super(VerifyController.$inject, injections);
 
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
-    this.message = 'Verifying your account';
+    const defaultMessage = 'Verifying your account';
+    this.message = defaultMessage;
 
     this.$interval(() => {
-      if (this.animationSrc !== '') {
-        this.$timeout(() => this.animationSrc = '');
-      }
-
-      // set animation src to the animated gif
-      this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
-
-      this.message = this.message.includes('...') ? 'Verifying your account.' : `${this.message}.`;
+      // Animates the dots.
+      this.message = this.message.includes('...') ? defaultMessage : `${this.message}.`;
     }, 1000);
 
     this.$timeout(() => {

@@ -1,9 +1,12 @@
-<div class="full-page dark-bg">
-  <div class="logo">
-    <img alt="Weco logo"
-      id="animation"
-      ng-src="{{ Verify.animationSrc }}" />
+<div class="full-page auth">
+  <div class="auth__card">
+    <img
+      alt="Weco logo"
+      class="auth__logo"
+      src="assets/images/logo.png" />
+    
+    <h1 class="auth__title">
+      {{ Verify.message }}
+    </h1>
   </div>
-  
-  <h1 class="text--uppercase">{{ Verify.message }}</h1>
 </div>

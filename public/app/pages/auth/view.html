@@ -1,4 +1,4 @@
-<div class="full-page dark-bg auth style--center">
+<div class="full-page auth">
   <!--<div class="auth__overlay"></div>-->
 
   <div class="auth__card">
@@ -11,7 +11,7 @@
       {{ Auth.isLoginForm() ? 'Welcome back.' : 'Join Weco.' }}
     </h1>
     
-    <p id="auth-error-message">{{ Auth.errorMessage }}</p>
+    <p>{{ Auth.errorMessage }}</p>
 
     <p
       id="resend-verification"

@@ -72417,11 +72417,9 @@ var AuthController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AuthController.__proto__ || Object.getPrototypeOf(AuthController)).call(this, AuthController.$inject, injections));
 
-    _this.animationSrc = '/assets/images/logo-animation-large.gif';
     _this.credentials = {};
     _this.errorMessage = '';
     _this.isLoading = false;
-    _this.loopAnimation = false;
     _this.showResendVerification = false;
 
     // Force lowercase username.
@@ -72438,11 +72436,6 @@ var AuthController = function (_Injectable) {
   }
 
   _createClass(AuthController, [{
-    key: 'getAnimationSrc',
-    value: function getAnimationSrc() {
-      return this.animationSrc;
-    }
-  }, {
     key: 'isLoginForm',
     value: function isLoginForm() {
       return this.$state.current.name === 'auth.login';
@@ -72453,10 +72446,9 @@ var AuthController = function (_Injectable) {
       var _this2 = this;
 
       this.UserService.login(this.credentials).then(function () {
-        _this2.stopAnimation();
-        _this2.$state.go('weco.home');
+        return _this2.$state.go('weco.home');
       }).catch(function (err) {
-        _this2.stopAnimation(err.message);
+        _this2.errorMessage = err.message;
 
         // Possibly unverified account
         if (err.status === 403) {
@@ -72493,29 +72485,16 @@ var AuthController = function (_Injectable) {
       var _this4 = this;
 
       this.UserService.signup(this.credentials).then(function () {
-        _this4.stopAnimation();
         _this4.AlertsService.push('success', 'Check your inbox to verify your account!', true);
         _this4.$state.go('weco.home');
       }).catch(function (err) {
-        return _this4.stopAnimation(err.message);
+        _this4.errorMessage = err.message;
       });
-    }
-  }, {
-    key: 'stopAnimation',
-    value: function stopAnimation(errorMessage) {
-      if (errorMessage !== undefined) {
-        this.errorMessage = errorMessage;
-      }
-
-      this.isLoading = false;
-      this.loopAnimation = false;
     }
   }, {
     key: 'submit',
     value: function submit() {
       this.isLoading = true;
-      this.loopAnimation = true;
-      this.triggerAnimation();
       this.credentials.username = this.credentials.username.toLowerCase();
 
       if (this.isLoginForm()) {
@@ -72523,31 +72502,6 @@ var AuthController = function (_Injectable) {
       } else {
         this.signup();
       }
-    }
-  }, {
-    key: 'triggerAnimation',
-    value: function triggerAnimation() {
-      var _this5 = this;
-
-      if (this.animationSrc) {
-        this.$timeout(function () {
-          return _this5.animationSrc = '';
-        });
-      }
-
-      // set animation src to the animated gif
-      this.$timeout(function () {
-        return _this5.animationSrc = '/assets/images/logo-animation-large.gif';
-      });
-
-      // cancel after 1 sec
-      this.$timeout(function () {
-        _this5.animationSrc = '';
-
-        if (_this5.loopAnimation) {
-          _this5.triggerAnimation();
-        }
-      }, 1000);
     }
   }]);
 
@@ -72734,22 +72688,12 @@ var VerifyController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (VerifyController.__proto__ || Object.getPrototypeOf(VerifyController)).call(this, VerifyController.$inject, injections));
 
-    _this.animationSrc = '/assets/images/logo-animation-large.gif';
-    _this.message = 'Verifying your account';
+    var defaultMessage = 'Verifying your account';
+    _this.message = defaultMessage;
 
     _this.$interval(function () {
-      if (_this.animationSrc !== '') {
-        _this.$timeout(function () {
-          return _this.animationSrc = '';
-        });
-      }
-
-      // set animation src to the animated gif
-      _this.$timeout(function () {
-        return _this.animationSrc = '/assets/images/logo-animation-large.gif';
-      });
-
-      _this.message = _this.message.includes('...') ? 'Verifying your account.' : _this.message + '.';
+      // Animates the dots.
+      _this.message = _this.message.includes('...') ? defaultMessage : _this.message + '.';
     }, 1000);
 
     _this.$timeout(function () {

@@ -4,11 +4,9 @@ class AuthController extends Injectable {
   constructor(...injections) {
     super(AuthController.$inject, injections);
 
-    this.animationSrc = '/assets/images/logo-animation-large.gif';
     this.credentials = {};
     this.errorMessage = '';
     this.isLoading = false;
-    this.loopAnimation = false;
     this.showResendVerification = false;
 
     // Force lowercase username.
@@ -21,22 +19,15 @@ class AuthController extends Injectable {
     });
   }
 
-  getAnimationSrc() {
-    return this.animationSrc;
-  }
-
   isLoginForm() {
     return this.$state.current.name === 'auth.login';
   }
 
   login() {
     this.UserService.login(this.credentials)
-      .then(() => {
-        this.stopAnimation();
-        this.$state.go('weco.home');
-      })
+      .then(() => this.$state.go('weco.home'))
       .catch(err => {
-        this.stopAnimation(err.message);
+        this.errorMessage = err.message;
 
         // Possibly unverified account
         if (err.status === 403) {
@@ -65,26 +56,16 @@ class AuthController extends Injectable {
   signup() {
     this.UserService.signup(this.credentials)
       .then(() => {
-        this.stopAnimation();
         this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
         this.$state.go('weco.home');
       })
-      .catch(err => this.stopAnimation(err.message));
-  }
-
-  stopAnimation(errorMessage) {
-    if (errorMessage !== undefined) {
-      this.errorMessage = errorMessage;
-    }
-
-    this.isLoading = false;
-    this.loopAnimation = false;
+      .catch(err => {
+        this.errorMessage = err.message;
+      });
   }
 
   submit() {
     this.isLoading = true;
-    this.loopAnimation = true;
-    this.triggerAnimation();
     this.credentials.username = this.credentials.username.toLowerCase();
 
     if (this.isLoginForm()) {
@@ -93,24 +74,6 @@ class AuthController extends Injectable {
     else {
       this.signup();
     }
-  }
-
-  triggerAnimation() {
-    if (this.animationSrc) {
-      this.$timeout(() => this.animationSrc = '');
-    }
-
-    // set animation src to the animated gif
-    this.$timeout(() => this.animationSrc = '/assets/images/logo-animation-large.gif');
-
-    // cancel after 1 sec
-    this.$timeout(() => {
-      this.animationSrc = '';
-
-      if (this.loopAnimation) {
-        this.triggerAnimation();
-      }
-    }, 1000);
   }
 }
 
