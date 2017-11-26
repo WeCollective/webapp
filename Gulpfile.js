@@ -155,7 +155,7 @@ gulp.task('template-strings', () => {
     value: process.env.ALGOLIA_SEARCH_API,
   }, {
     test: /%ALGOLIA_INDEX%/g,
-    value: `${env !== 'production' ? 'dev_' : ''}search`,
+    value: 'getstarted_actors', // `${env !== 'production' ? 'dev_' : ''}search`,
   }]);
 });
 

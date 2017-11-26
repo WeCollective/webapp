@@ -189,7 +189,7 @@
 
     &.ng-hide-add,
     &.ng-hide-remove {
-      transition: transform .3s, opacity .3s;
+      transition: transform .2s, opacity .2s;
     }
 
     &.ng-hide-add {
@@ -198,13 +198,13 @@
 
       &.ng-hide-add-active {
         opacity: 0;
-        transform: translateY(-100%);
+        transform: translateY(10px);
       }
     }
 
     &.ng-hide-remove {
       opacity: 0;
-      transform: translateY(-100%);
+      transform: translateY(10px);
 
       &.ng-hide-remove-active {
         opacity: 1;

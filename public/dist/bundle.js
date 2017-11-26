@@ -81435,7 +81435,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var client = (0, _algoliasearch2.default)('T3T56GPPTL', '0db7251bb0180ab899e72abaff900c21');
-var index = client.initIndex('%ALGOLIA_INDEX%');
+var index = client.initIndex('getstarted_actors');
 
 var Search = function (_Injectable) {
   _inherits(Search, _Injectable);
@@ -81463,8 +81463,6 @@ var Search = function (_Injectable) {
     value: function search(query) {
       var _this2 = this;
 
-      console.log(_algoliasearch2.default);
-
       if (query) {
         query = query.toString();
       }
@@ -81474,14 +81472,27 @@ var Search = function (_Injectable) {
         return;
       }
 
-      this.API.get('/search?q=' + query).then(function (res) {
-        var data = res.data;
-        var results = data.results;
+      index.search({ query: query }, function (err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
 
+        var results = content.hits.map(function (result) {
+          return { text: result.name };
+        });
         _this2.results = results;
-      }).catch(function (err) {
-        return _this2.AlertsService.push('error', err.message || err.data);
       });
+
+      /*
+      this.API.get(`/search?q=${query}`)
+        .then(res => {
+          const { data } = res;
+          const { results } = data;
+          this.results = results;
+        })
+        .catch(err => this.AlertsService.push('error', err.message || err.data));
+      */
     }
   }]);
 

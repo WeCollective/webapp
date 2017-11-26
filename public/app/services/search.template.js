@@ -15,8 +15,6 @@ class Search extends Injectable {
   }
 
   search(query) {
-    console.log(algoliasearch);
-
     if (query) {
       query = query.toString();
     }
@@ -26,6 +24,17 @@ class Search extends Injectable {
       return;
     }
 
+    index.search({ query }, (err, content) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      const results = content.hits.map(result => ({ text: result.name }));
+      this.results = results;
+    });
+
+    /*
     this.API.get(`/search?q=${query}`)
       .then(res => {
         const { data } = res;
@@ -33,6 +42,7 @@ class Search extends Injectable {
         this.results = results;
       })
       .catch(err => this.AlertsService.push('error', err.message || err.data));
+    */
   }
 }
 

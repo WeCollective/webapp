@@ -154,7 +154,7 @@ body {
     .nav .nav__expand-menu.ng-hide-add, .nav .nav__expand-menu.ng-hide-remove,
     .nav .nav__search-results.ng-hide-add,
     .nav .nav__search-results.ng-hide-remove {
-      transition: transform .3s, opacity .3s; }
+      transition: transform .2s, opacity .2s; }
     .nav .nav__expand-menu.ng-hide-add,
     .nav .nav__search-results.ng-hide-add {
       opacity: 1;
@@ -162,11 +162,11 @@ body {
       .nav .nav__expand-menu.ng-hide-add.ng-hide-add-active,
       .nav .nav__search-results.ng-hide-add.ng-hide-add-active {
         opacity: 0;
-        transform: translateY(-100%); }
+        transform: translateY(10px); }
     .nav .nav__expand-menu.ng-hide-remove,
     .nav .nav__search-results.ng-hide-remove {
       opacity: 0;
-      transform: translateY(-100%); }
+      transform: translateY(10px); }
       .nav .nav__expand-menu.ng-hide-remove.ng-hide-remove-active,
       .nav .nav__search-results.ng-hide-remove.ng-hide-remove-active {
         opacity: 1;
