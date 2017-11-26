@@ -10,6 +10,7 @@ const nodemon = require('gulp-nodemon');
 const path = require('path');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
+const sass = require('gulp-sass');
 const webpack = require('webpack');
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -103,8 +104,13 @@ const WEBPACK_CONFIG = {
   ] : [],
 };
 
-gulp.task('build', ['cleanBuildDir', 'template-strings', 'less', 'webpack']);
+gulp.task('build', ['cleanBuildDir', 'template-strings', 'less', 'compile-sass', 'webpack']);
 gulp.task('cleanBuildDir', () => del([path.join(DEST_DIR, '/**/*')]));
+
+gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
+  .pipe(sass())
+  .pipe(rename('app-sass.css'))
+  .pipe(gulp.dest(DEST_DIR)));
 
 gulp.task('less', () => gulp
   .src(path.join(ASSETS_DIR, 'styles/app.less'))
