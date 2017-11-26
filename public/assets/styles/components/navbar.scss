@@ -230,6 +230,8 @@
       color: $c-navbar-text;
       font-weight: 600;
 
+      &.style--auth { width: auto; }
+
       &.style--notification {
         border-left-width: 0;
 

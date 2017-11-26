@@ -178,6 +178,8 @@ body {
     .nav .nav__user-menu .nav__item {
       color: #b3b3b3;
       font-weight: 600; }
+      .nav .nav__user-menu .nav__item.style--auth {
+        width: auto; }
       .nav .nav__user-menu .nav__item.style--notification {
         border-left-width: 0; }
         .nav .nav__user-menu .nav__item.style--notification .nav__icon img {
