@@ -1,11 +1,25 @@
+// Primary colours.
 $c-black: #000 !default;
+$c-blue: #3c8Ce7 !default;
 $c-white: #fff !default;
 
-// Components.
+// Navbar.
 $c-navbar-bg: #111 !default;
 $c-navbar-text: #b3b3b3 !default;
 
+// Badge.
 $c-badge: #f53a27 !default;
 
+// Text.
+$c-text: #2c2c2c !default;
+$c-text-placeholder: #888 !default;
+
+// Input.
+$c-input-bg: #e7e7e7 !default;
+
+// Separator.
+$c-separator-bg: $c-navbar-text !default;
+
 // Helpers.
+$c-border-input: #c8c8c8 !default;
 $c-border: #494949 !default;

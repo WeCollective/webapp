@@ -1,70 +1,99 @@
-<div class="full-page dark-bg">
-  <a class="logo" ui-sref="weco.home">
-    <img alt="Weco logo"
-      id="animation"
-      ng-src="{{ Auth.getAnimationSrc() }}" />
-  </a>
-  
-  <h1 class="text--uppercase">
-    {{ Auth.isLoginForm() ? 'Log In' : 'Create New Account' }}
-  </h1>
-  
-  <p id="auth-error-message">{{ Auth.errorMessage }}</p>
-  <p id="resend-verification"
-    ng-click="Auth.resendVerification()"
-    ng-show="Auth.showResendVerification">
-    Resend verification email.
-  </p>
-  
-  <form ng-submit="Auth.submit()">
-    <input name="name"
-      ng-model="Auth.credentials.name"
-      ng-required="!Auth.isLoginForm()"
-      ng-show="!Auth.isLoginForm()"
-      placeholder="Name"
-      type="text" />
+<div class="full-page dark-bg auth style--center">
+  <!--<div class="auth__overlay"></div>-->
 
-    <input name="username"
-      ng-model="Auth.credentials.username"
-      placeholder="{{ Auth.isLoginForm() ? 'Username' : 'Unique Username (Must be lowercase)' }}"
-      required
-      type="text" />
+  <div class="auth__card">
+    <img
+      alt="Weco logo"
+      class="auth__logo"
+      src="assets/images/logo.png" />
+    
+    <h1 class="auth__title">
+      {{ Auth.isLoginForm() ? 'Welcome back.' : 'Join Weco.' }}
+    </h1>
+    
+    <p id="auth-error-message">{{ Auth.errorMessage }}</p>
 
-    <input name="email"
-      ng-model="Auth.credentials.email"
-      ng-required="!Auth.isLoginForm()"
-      ng-show="!Auth.isLoginForm()"
-      placeholder="Email"
-      type="email" />
+    <p
+      id="resend-verification"
+      ng-click="Auth.resendVerification()"
+      ng-show="Auth.showResendVerification">
+      Resend verification email.
+    </p>
+    
+    <form
+      class="auth__form"
+      ng-submit="Auth.submit()">
+      <input
+        class="auth__input"
+        name="name"
+        ng-model="Auth.credentials.name"
+        ng-required="!Auth.isLoginForm()"
+        ng-show="!Auth.isLoginForm()"
+        placeholder="your name"
+        type="text" />
 
-    <input name="password"
-      ng-model="Auth.credentials.password"
-      placeholder="Password"
-      required
-      type="password" />
+      <input
+        class="auth__input"
+        name="username"
+        ng-model="Auth.credentials.username"
+        placeholder="username"
+        required
+        type="text" />
 
-    <input name="password"
-      ng-model="Auth.credentials.confirmPassword"
-      ng-required="!Auth.isLoginForm()"
-      ng-show="!Auth.isLoginForm()"
-      placeholder="Confirm Password"
-      type="password" />
+      <input
+        class="auth__input"
+        name="email"
+        ng-model="Auth.credentials.email"
+        ng-required="!Auth.isLoginForm()"
+        ng-show="!Auth.isLoginForm()"
+        placeholder="email"
+        type="email" />
 
-    <input class="text--uppercase" 
-      ng-disabled="Auth.isLoading"
-      type="submit"
-      value="{{ Auth.isLoginForm() ? 'Login' : 'Sign up' }}" />
-  </form>
-  
-  <p ng-show="Auth.isLoginForm()">
-    <a ui-sref="reset-password.request">Forgot your password?</a>
-  </p>
-  
-  <p ng-show="Auth.isLoginForm()">
-    New Here? <a ui-sref="auth.signup">Create a new account.</a>
-  </p>
-  
-  <p ng-show="!Auth.isLoginForm()">
-    Already have an account? <a ui-sref="auth.login">Log in.</a>
-  </p>
+      <input
+        class="auth__input"
+        name="password"
+        ng-model="Auth.credentials.password"
+        placeholder="password"
+        required
+        type="password" />
+
+      <input
+        class="auth__input"
+        name="password"
+        ng-model="Auth.credentials.confirmPassword"
+        ng-required="!Auth.isLoginForm()"
+        ng-show="!Auth.isLoginForm()"
+        placeholder="repeat password"
+        type="password" />
+
+      <input
+        class="auth__submit"
+        ng-disabled="Auth.isLoading"
+        type="submit"
+        value="{{ Auth.isLoginForm() ? 'Login' : 'Register' }}" />
+    </form>
+    
+    <p
+      class="auth__text"
+      ng-show="Auth.isLoginForm()">
+      <a class="auth__link" ui-sref="reset-password.request">Forgot your password?</a>
+    </p>
+
+    <i
+      class="auth__separator"
+      ng-show="Auth.isLoginForm()">
+    </i>
+    
+    <p
+      class="auth__text"
+      ng-show="Auth.isLoginForm()">
+      New to Weco? <a class="auth__link" ui-sref="auth.signup">Sign up</a>
+    </p>
+    
+    <p
+      class="auth__text"
+      ng-show="!Auth.isLoginForm()">
+      Already registered? <a class="auth__link" ui-sref="auth.login">Sign in</a>
+    </p>
+  </div>
 </div>

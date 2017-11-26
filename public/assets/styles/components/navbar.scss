@@ -190,6 +190,7 @@
   .nav__public-menu {
     align-items: center;
     display: flex;
+    flex: 1 1 100%;
     height: 100%;
   }
 
@@ -216,10 +217,12 @@
     align-items: center;
     background-color: $c-white;
     display: flex;
+    flex: 1 1 100%;
     height: $s-navbar-search-h;
     margin-left: 56px;
+    max-width: 480px;
     padding: 6px ($s-spacing / 2);
-    width: 480px;
+    width: 100%;
   }
 
   .nav__user-menu {
@@ -230,7 +233,10 @@
       color: $c-navbar-text;
       font-weight: 600;
 
-      &.style--auth { width: auto; }
+      &.style--auth {
+        min-width: 80px;
+        width: auto;
+      }
 
       &.style--notification {
         border-left-width: 0;

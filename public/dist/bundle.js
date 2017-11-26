@@ -72423,6 +72423,17 @@ var AuthController = function (_Injectable) {
     _this.isLoading = false;
     _this.loopAnimation = false;
     _this.showResendVerification = false;
+
+    // Force lowercase username.
+    _this.$scope.$watch(function () {
+      return _this.credentials.username;
+    }, function (value) {
+      if (!value) return;
+      var low = value.toLowerCase();
+      if (low !== value) {
+        _this.credentials.username = low;
+      }
+    });
     return _this;
   }
 
@@ -72543,7 +72554,7 @@ var AuthController = function (_Injectable) {
   return AuthController;
 }(_injectable2.default);
 
-AuthController.$inject = ['$state', '$timeout', 'AlertsService', 'UserService'];
+AuthController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'UserService'];
 
 exports.default = AuthController;
 
@@ -77196,6 +77207,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _injectable = __webpack_require__(2);
@@ -77237,12 +77250,16 @@ var Search = function (_Injectable) {
 
       if (query.length < 3) return;
 
-      this.API.get('/search', { query: query }).then(function (res) {
+      this.API.get('/search?q=' + query).then(function (res) {
         var data = res.data;
 
         console.log(data);
       }).catch(function (err) {
-        return _this2.AlertsService.push('error', err.data);
+        if (err && (typeof err === 'undefined' ? 'undefined' : _typeof(err)) === 'object' && err.message) {
+          _this2.AlertsService.push('error', err.message);
+        } else {
+          _this2.AlertsService.push('error', err.data);
+        }
       });
     }
   }]);

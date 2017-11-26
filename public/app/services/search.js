@@ -13,12 +13,19 @@ class Search extends Injectable {
 
     if (query.length < 3) return;
 
-    this.API.get('/search', { query })
+    this.API.get(`/search?q=${query}`)
       .then(res => {
         const { data } = res;
         console.log(data);
       })
-      .catch(err => this.AlertsService.push('error', err.data));
+      .catch(err => {
+        if (err && typeof err === 'object' && err.message) {
+          this.AlertsService.push('error', err.message);
+        }
+        else {
+          this.AlertsService.push('error', err.data);
+        }
+      });
   }
 }
 

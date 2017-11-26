@@ -10,6 +10,15 @@ class AuthController extends Injectable {
     this.isLoading = false;
     this.loopAnimation = false;
     this.showResendVerification = false;
+
+    // Force lowercase username.
+    this.$scope.$watch(() => this.credentials.username, value => {
+      if (!value) return;
+      const low = value.toLowerCase();
+      if (low !== value) {
+        this.credentials.username = low;
+      }
+    });
   }
 
   getAnimationSrc() {
@@ -106,6 +115,7 @@ class AuthController extends Injectable {
 }
 
 AuthController.$inject = [
+  '$scope',
   '$state',
   '$timeout',
   'AlertsService',
