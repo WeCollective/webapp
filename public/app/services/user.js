@@ -8,11 +8,13 @@ class UserService extends Injectable {
 
     this.user = this.LocalStorageService.getObject('user');
 
-    this.fetch('me')
-      .then(user => this.set(user))
-      .catch(() => this.$timeout(() => {
-        this.EventService.emit(this.EventService.events.CHANGE_USER);
-      }, 500));
+    if (this.isAuthenticated()) {
+      this.fetch('me')
+        .then(user => this.set(user))
+        .catch(() => this.$timeout(() => {
+          this.EventService.emit(this.EventService.events.CHANGE_USER);
+        }, 500));
+    }
   }
 
   ban(username) {

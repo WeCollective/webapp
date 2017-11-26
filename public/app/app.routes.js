@@ -60,11 +60,11 @@ class AppRoutes extends Injectable {
         templateUrl: '/app/pages/auth/reset-password/confirm/view.html',
       })
 
-      // Abstract root state contains nav-bar
+      // Abstract root state contains navbar
       .state('weco', {
         abstract: true,
         template: `
-          <nav-bar></nav-bar>
+          <navbar></navbar>
           <div class="view" ui-view></div>
         `,
       })

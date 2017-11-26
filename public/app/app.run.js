@@ -32,40 +32,42 @@ class AppRun extends Injectable {
       };
 
       const doChecks = () => {
-        // If state requires authenticated user to be the user specified in the URL,
-        // transition to the specified redirection state
-        this.UserService.fetch('me')
-          .then(me => {
-            if (toState.selfOnly &&
-              (!Object.keys(me).length || toParams.username !== me.username)) {
-              this.$state.transitionTo(toState.redirectTo);
-              event.preventDefault();
-            }
-
-            // If state requires authenticated user to be a mod of the branch specified in the URL,
-            // transition to the specified redirection state
-            if (toState.modOnly) {
-              let isMod = false;
-
-              for (let i = 0; i < mods.length; i += 1) {
-                if (mods[i].username === me.username) {
-                  isMod = true;
-                  break;
-                }
+        if (this.UserService.isAuthenticated()) {
+          // If state requires authenticated user to be the user specified in the URL,
+          // transition to the specified redirection state
+          this.UserService.fetch('me')
+            .then(me => {
+              if (toState.selfOnly &&
+                (!Object.keys(me).length || toParams.username !== me.username)) {
+                this.$state.transitionTo(toState.redirectTo);
+                event.preventDefault();
               }
 
-              if (!isMod) {
+              // If state requires authenticated user to be a mod of the branch specified in
+              // the URL, transition to the specified redirection state
+              if (toState.modOnly) {
+                let isMod = false;
+
+                for (let i = 0; i < mods.length; i += 1) {
+                  if (mods[i].username === me.username) {
+                    isMod = true;
+                    break;
+                  }
+                }
+
+                if (!isMod) {
+                  event.preventDefault();
+                  this.$state.transitionTo(toState.redirectTo);
+                }
+              }
+            })
+            .catch(err => {
+              if (err) {
                 event.preventDefault();
                 this.$state.transitionTo(toState.redirectTo);
               }
-            }
-          })
-          .catch(err => {
-            if (err) {
-              event.preventDefault();
-              this.$state.transitionTo(toState.redirectTo);
-            }
-          });
+            });
+        }
       };
 
       // check if the state we are transitioning to has access restrictions,

@@ -12,6 +12,7 @@ import Mod from './services/mod';
 import Modal from './components/modal/service';
 import Notification from './services/notification';
 import Post from './services/post';
+import Search from './services/search';
 import Tooltip from './components/tooltip/service';
 import Upload from './services/upload';
 import User from './services/user';
@@ -32,6 +33,7 @@ const refs = [
   { name: 'ModalService', module: Modal },
   { name: 'NotificationService', module: Notification },
   { name: 'PostService', module: Post },
+  { name: 'SearchService', module: Search },
   { name: 'TooltipService', module: Tooltip },
   { name: 'UploadService', module: Upload },
   { name: 'UserService', module: User },

@@ -60,7 +60,11 @@
 
       <div class="nav__search-wrapper">
         <img alt="Search" class="nav__search-icon" src="assets/images/icons/search.svg" />
-        <input class="nav__search-text" placeholder="Find a branch, post, or a user." type="text">
+        <input
+          class="nav__search-text"
+          ng-model="Navbar.query"
+          placeholder="Find a branch, post, or a user."
+          type="text">
       </div>
     </div>
 

@@ -12,6 +12,7 @@ class NavbarController extends Injectable {
     this.animationSrc = '';
     this.expanded = false;
     this.notificationCount = cache.count || 0;
+    this.query = '';
 
     this.getNotifications();
 
@@ -20,6 +21,7 @@ class NavbarController extends Injectable {
     listeners.push(this.EventService.on(events.CHANGE_USER, this.getNotifications));
     listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
     listeners.push(this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
+    listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.search(q)));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -103,6 +105,7 @@ NavbarController.$inject = [
   'AppService',
   'EventService',
   'LocalStorageService',
+  'SearchService',
   'UserService',
 ];
 

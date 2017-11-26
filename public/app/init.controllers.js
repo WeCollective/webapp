@@ -47,7 +47,7 @@ import FlagPostModal from './components/modal/post/flag/controller';
 import LoaderBar from './components/loader-bar/controller';
 import ModAddModal from './components/modal/branch/nucleus/modtools/mod-add/controller';
 import ModDeleteModal from './components/modal/branch/nucleus/modtools/mod-delete/controller';
-import Navbar from './components/nav-bar/controller';
+import Navbar from './components/navbar/controller';
 import ProfileSettingsModal from './components/modal/profile/settings/controller';
 import ResolveFlagPostModal from './components/modal/post/flag/resolve/controller';
 import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/controller';
