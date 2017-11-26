@@ -62,6 +62,8 @@
         <img alt="Search" class="nav__search-icon" src="assets/images/icons/search.svg" />
         <input
           class="nav__search-text"
+          ng-blur="Navbar.SearchService.hide()"
+          ng-focus="Navbar.SearchService.show()"
           ng-model="Navbar.query"
           placeholder="Find a branch, post, or a user."
           type="text">
@@ -69,7 +71,7 @@
         <ul
           class="nav__search-results"
           ng-click="Navbar.stopPropagation($event)"
-          ng-show="Navbar.SearchService.getResults().length">
+          ng-show="Navbar.SearchService.isVisible">
           <li
             class="nav__search-item"
             ng-repeat="result in Navbar.SearchService.getResults()">
