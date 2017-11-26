@@ -1554,7 +1554,7 @@ div.poll-answer-editor input {
   box-shadow: none;
   box-sizing: border-box;
   height: calc(100vh - 45px);
-  left: calc(50% - 606px);
+  left: 0;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
@@ -1716,9 +1716,6 @@ div.poll-answer-editor input {
 .sidebar ul li span {
   font-weight: 500;
 }
-.sidebar.docked {
-  left: 0;
-}
 @media screen and (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -1732,14 +1729,17 @@ div.poll-answer-editor input {
 }
 @media only screen and (min-width: 768px) {
   .sidebar {
-    left: calc(50% - 606px);
     width: 201px;
   }
 }
 @media only screen and (min-width: 992px) {
   .sidebar {
-    left: calc(50% - 630px);
     width: 249px;
+  }
+}
+@media only screen and (min-width: 1260px) {
+  .sidebar {
+    left: calc(50% - 630px);
   }
 }
 ul.tabs {

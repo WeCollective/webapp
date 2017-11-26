@@ -1,12 +1,10 @@
 .sidebar {
-  @offset-sm: @s-aligner-sm / 2;
-
   background-color: #fff;
   border-right: solid 1px @light-grey;
   box-shadow: none;
   box-sizing: border-box;
   height: @u-vh-no-hero;
-  left: calc(~'50% - @{offset-sm}');
+  left: 0;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
@@ -191,8 +189,6 @@
     }
   }
 
-  &.docked { left: 0; }
-
   @media screen and (max-width: @screen-md) {
     transform: translateX(-100%);
 
@@ -200,17 +196,11 @@
     &.toggled { transform: translateX(0); }
   }
 
-  .mediaQuery(@screen-md, {
-    @offset-md: @s-aligner-md / 2;
+  .mediaQuery(@screen-md, { width: @sidebar-w-md; });
+  .mediaQuery(@screen-lg, { width: @sidebar-w-lg; });
 
-    left: calc(~'50% - @{offset-md}');
-    width: @sidebar-w-md;
-  });
-
-  .mediaQuery(@screen-lg, {
+  .mediaQuery(@s-aligner-lg, {
     @offset-lg: @s-aligner-lg / 2;
-
     left: calc(~'50% - @{offset-lg}');
-    width: @sidebar-w-lg;
   });
 }

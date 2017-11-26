@@ -9,8 +9,6 @@ class BranchController extends Injectable {
     this.EventService.on(this.EventService.events.CHANGE_BRANCH, () => {
       this.$timeout(() => this.isLoading = false);
     });
-
-    this.$timeout(() => this.AppService.resizeCallback(true), 100);
   }
 
   getBreadcrumbsDynamicLink() {

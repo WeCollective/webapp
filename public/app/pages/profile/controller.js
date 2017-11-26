@@ -21,8 +21,6 @@ class ProfileController extends Injectable {
     listeners.push(this.EventService.on(events.LOADING_ACTIVE, () => this.showLoader = true));
     listeners.push(this.EventService.on(events.LOADING_INACTIVE, () => this.showLoader = false));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
-
-    this.$timeout(() => this.AppService.resizeCallback(true), 100);
   }
 
   getInitialState() {

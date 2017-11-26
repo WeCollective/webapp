@@ -1,12 +1,8 @@
 import Injectable from 'utils/injectable';
 
-const THROTTLE = 25;
-
 class AppRun extends Injectable {
   constructor(...injections) {
     super(AppRun.$inject, injections);
-
-    this.timer = null;
 
     // Tell Prerender.io to cache when DOM is loaded
     this.$timeout(() => this.$window.prerenderReady = true);
@@ -82,17 +78,8 @@ class AppRun extends Injectable {
       }
     });
 
-    window.addEventListener('resize', () => {
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => this.AppService.resizeCallback(false), THROTTLE);
-    });
-
     // Run on init too.
-    this.$rootScope.$on('$stateChangeSuccess', () => {
-      this.AppService.applyState();
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => this.AppService.resizeCallback(true), THROTTLE);
-    });
+    this.$rootScope.$on('$stateChangeSuccess', () => this.AppService.applyState());
   }
 }
 
