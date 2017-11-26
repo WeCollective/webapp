@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>Search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Components-/" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Navbar" transform="translate(-348.000000, -15.000000)" fill-rule="nonzero" fill="#777777">
+            <g id="Search" transform="translate(340.000000, 8.000000)">
+                <g transform="translate(8.000000, 7.000000)" id="Shape">
+                    <path d="M13.26,12.56 L9.69,9 C11.3621228,6.92560461 11.1138428,3.90440262 9.12549638,2.13082169 C7.13714991,0.357240763 4.10732109,0.454409474 2.23670362,2.35175005 C0.366086153,4.24909063 0.31190135,7.27999287 2.11350595,9.24298342 C3.91511054,11.205974 6.93953014,11.4113772 8.99,9.71 L12.56,13.28 L13.26,12.56 Z M2.92,8.67 C1.45193346,7.0632051 1.50779194,4.5857813 3.04678662,3.04678662 C4.5857813,1.50779194 7.0632051,1.45193346 8.67,2.92 C10.1380665,4.5267949 10.0822081,7.0042187 8.54321338,8.54321338 C7.0042187,10.0822081 4.5267949,10.1380665 2.92,8.67 L2.92,8.67 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

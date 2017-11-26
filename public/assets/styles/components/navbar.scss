@@ -188,8 +188,38 @@
   }
 
   .nav__public-menu {
+    align-items: center;
     display: flex;
     height: 100%;
+  }
+
+  .nav__search-icon {
+    display: block;
+    height: $s-navbar-search-icon;
+    margin-right: $s-spacing / 2;
+    width: $s-navbar-search-icon;
+  }
+
+  .nav__search-text {
+    border: none;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    &:focus { outline: none; }
+  }
+
+  .nav__search-wrapper {
+    align-items: center;
+    background-color: $c-white;
+    display: flex;
+    height: $s-navbar-search-h;
+    margin-left: 56px;
+    padding: 6px ($s-spacing / 2);
+    width: 480px;
   }
 
   .nav__user-menu {

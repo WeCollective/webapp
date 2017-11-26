@@ -146,8 +146,32 @@ body {
     display: flex;
     height: 100%; }
   .nav .nav__public-menu {
+    align-items: center;
     display: flex;
     height: 100%; }
+  .nav .nav__search-icon {
+    display: block;
+    height: 14px;
+    margin-right: 8px;
+    width: 14px; }
+  .nav .nav__search-text {
+    border: none;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%; }
+    .nav .nav__search-text:focus {
+      outline: none; }
+  .nav .nav__search-wrapper {
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    height: 28px;
+    margin-left: 56px;
+    padding: 6px 8px;
+    width: 480px; }
   .nav .nav__user-menu {
     display: flex;
     height: 100%; }

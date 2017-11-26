@@ -104,8 +104,7 @@ const WEBPACK_CONFIG = {
   ] : [],
 };
 
-gulp.task('build', ['cleanBuildDir', 'template-strings', 'webpack']);
-gulp.task('cleanBuildDir', () => del([path.join(DEST_DIR, '/**/*')]));
+gulp.task('build', ['template-strings', 'webpack']);
 
 gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
   .pipe(less())
