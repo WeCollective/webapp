@@ -27,65 +27,21 @@
   }
 
   .nav__expand-menu {
-    background-color: $c-navbar-bg;
     border-top: 1px solid $c-border;
     box-shadow: $shadow-2;
-    color: $c-white;
     min-width: 200px;
     padding: $s-padding-post;
-    position: absolute;
     right: -1px;
-    top: 100%;
     width: auto;
-    // Hide it under the cube.
-    z-index: 1;
-
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: transform .3s, opacity .3s;
-    }
-
-    &.ng-hide-add {
-      opacity: 1;
-      transform: translateY(0);
-
-      &.ng-hide-add-active {
-        opacity: 0;
-        transform: translateY(-100%);
-      }
-    }
-
-    &.ng-hide-remove {
-      opacity: 0;
-      transform: translateY(-100%);
-
-      &.ng-hide-remove-active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   }
 
-  .nav__expand-menu-item {
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 13px;
-
-    &.style--separator {
-      border-top: 1px solid $c-border;
-      left: -$s-padding-post;
-      margin: $s-padding-post 0;
-      padding: 0;
-      position: relative;
-      width: calc(100% + (#{$s-padding-post} * 2));
-    }
-
-    &:hover { background-color: $c-border; }
-
-    > * {
-      display: block;
-      padding: ($s-padding-post / 2) $s-padding-post;
-    }
+  .nav__expand-menu-item.style--separator {
+    border-top: 1px solid $c-border;
+    left: -$s-padding-post;
+    margin: $s-padding-post 0;
+    padding: 0;
+    position: relative;
+    width: calc(100% + (#{$s-padding-post} * 2));
   }
 
   .nav__icon {
@@ -201,6 +157,62 @@
     width: $s-navbar-search-icon;
   }
 
+  .nav__expand-menu-item,
+  .nav__search-item {
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+
+    &:hover { background-color: $c-border; }
+
+    > * {
+      display: block;
+      padding: ($s-padding-post / 2) $s-padding-post;
+    }
+  }
+
+  .nav__search-results {
+    box-shadow: $shadow-2;
+    left: -$s-spacing;
+    padding: $s-spacing;
+    width: calc(100% + #{$s-spacing * 2});
+  }
+
+  .nav__expand-menu,
+  .nav__search-results {
+    background-color: $c-navbar-bg;
+    color: $c-white;
+    position: absolute;
+    top: 100%;
+    // Hide it under the cube.
+    z-index: 1;
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: transform .3s, opacity .3s;
+    }
+
+    &.ng-hide-add {
+      opacity: 1;
+      transform: translateY(0);
+
+      &.ng-hide-add-active {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+    }
+
+    &.ng-hide-remove {
+      opacity: 0;
+      transform: translateY(-100%);
+
+      &.ng-hide-remove-active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
   .nav__search-text {
     border: none;
     display: block;
@@ -222,6 +234,7 @@
     margin-left: 56px;
     max-width: 480px;
     padding: 6px ($s-spacing / 2);
+    position: relative;
     width: 100%;
   }
 

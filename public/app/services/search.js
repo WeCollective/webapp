@@ -6,26 +6,27 @@ class Search extends Injectable {
     this.results = [];
   }
 
+  getResults() {
+    return this.results;
+  }
+
   search(query) {
     if (query) {
       query = query.toString();
     }
 
-    if (query.length < 3) return;
+    if (query.length < 3) {
+      this.results = [];
+      return;
+    }
 
     this.API.get(`/search?q=${query}`)
       .then(res => {
         const { data } = res;
-        console.log(data);
+        const { results } = data;
+        this.results = results;
       })
-      .catch(err => {
-        if (err && typeof err === 'object' && err.message) {
-          this.AlertsService.push('error', err.message);
-        }
-        else {
-          this.AlertsService.push('error', err.data);
-        }
-      });
+      .catch(err => this.AlertsService.push('error', err.message || err.data));
   }
 }
 

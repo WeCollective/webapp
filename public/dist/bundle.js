@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -77151,8 +77151,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _injectable = __webpack_require__(2);
@@ -77184,6 +77182,11 @@ var Search = function (_Injectable) {
   }
 
   _createClass(Search, [{
+    key: 'getResults',
+    value: function getResults() {
+      return this.results;
+    }
+  }, {
     key: 'search',
     value: function search(query) {
       var _this2 = this;
@@ -77192,18 +77195,18 @@ var Search = function (_Injectable) {
         query = query.toString();
       }
 
-      if (query.length < 3) return;
+      if (query.length < 3) {
+        this.results = [];
+        return;
+      }
 
       this.API.get('/search?q=' + query).then(function (res) {
         var data = res.data;
+        var results = data.results;
 
-        console.log(data);
+        _this2.results = results;
       }).catch(function (err) {
-        if (err && (typeof err === 'undefined' ? 'undefined' : _typeof(err)) === 'object' && err.message) {
-          _this2.AlertsService.push('error', err.message);
-        } else {
-          _this2.AlertsService.push('error', err.data);
-        }
+        return _this2.AlertsService.push('error', err.message || err.data);
       });
     }
   }]);
