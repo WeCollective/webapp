@@ -4,4 +4,250 @@
   overflow-y: visible;
   width: 100%;
   z-index: $z-navbar;
+
+  .nav__content {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: $s-aligner-sm;
+    position: relative;
+    width: 100%;
+    z-index: $z-navbar;
+
+    @media screen and (min-width: $q-md) {
+      max-width: $s-aligner-md;
+    }
+
+    @media screen and (min-width: $q-lg) {
+      max-width: $s-aligner-lg;
+    }
+  }
+
+  .nav__expand-menu {
+    background-color: $c-navbar-bg;
+    border-top: 1px solid $c-border;
+    box-shadow: $shadow-2;
+    color: $c-white;
+    min-width: 200px;
+    padding: $s-padding-post;
+    position: absolute;
+    right: -1px;
+    top: 100%;
+    width: auto;
+    // Hide it under the cube.
+    z-index: 1;
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: transform .3s, opacity .3s;
+    }
+
+    &.ng-hide-add {
+      opacity: 1;
+      transform: translateY(0);
+
+      &.ng-hide-add-active {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+    }
+
+    &.ng-hide-remove {
+      opacity: 0;
+      transform: translateY(-100%);
+
+      &.ng-hide-remove-active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .nav__expand-menu-item {
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+
+    &.style--separator {
+      border-top: 1px solid $c-border;
+      left: -$s-padding-post;
+      margin: $s-padding-post 0;
+      padding: 0;
+      position: relative;
+      width: calc(100% + (#{$s-padding-post} * 2));
+    }
+
+    &:hover { background-color: $c-border; }
+
+    > * {
+      display: block;
+      padding: ($s-padding-post / 2) $s-padding-post;
+    }
+  }
+
+  .nav__icon {
+    display: flex;
+    height: $s-navbar-icon;
+    justify-content: center;
+    opacity: .5;
+    position: relative;
+    width: $s-navbar-icon;
+    transition: opacity .1s;
+  }
+
+  .nav__item {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: $s-navbar-h;
+    justify-content: center;
+    position: relative;
+    width: $s-navbar-h;
+    transition: background-color .1s, color .1s;
+
+    &:hover { background-color: rgba($c-white, .1); }
+
+    &.style--opaque,
+    &:hover {
+      color: $c-white;
+
+      .nav__icon { opacity: 1; }
+    }
+  }
+
+  .nav__item-badge {
+    background-color: $c-badge;
+    border-radius: 50%;
+    bottom: calc(100% - (#{$s-badge} / 2 + 5px));
+    color: $c-white;
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    height: $s-badge;
+    left: calc(100% - (#{$s-badge} / 2 + 1px));
+    padding-top: 2px;
+    position: absolute;
+    text-align: center;
+    width: $s-badge;
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: transform .3s, opacity .3s;
+    }
+
+    &.ng-hide-add {
+      opacity: 1;
+      transform: scale(1);
+
+      &.ng-hide-add-active {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+
+    &.ng-hide-remove {
+      opacity: 0;
+      transform: scale(0);
+
+      &.ng-hide-remove-active {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .nav__item-text {
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  .nav__logo {
+    display: block;
+    height: 100%;
+    position: relative;
+  }
+
+  .nav__logo-icon {
+    height: $s-navbar-logo;
+    width: $s-navbar-logo;
+
+    &.style--animate {
+      display: none;
+      position: absolute;
+
+      &[src] { display: block; }
+    }
+  }
+
+  .nav__menu {
+    display: flex;
+    height: 100%;
+  }
+
+  .nav__public-menu {
+    display: flex;
+    height: 100%;
+  }
+
+  .nav__user-menu {
+    display: flex;
+    height: 100%;
+
+    .nav__item {
+      color: $c-navbar-text;
+      font-weight: 600;
+
+      &.style--notification {
+        border-left-width: 0;
+
+        .nav__icon img { height: 100%; }
+      }
+
+      &.style--profile {
+        padding-left: 0;
+        padding-right: 0;
+        width: auto;
+
+        .nav__item-text {
+          display: none;
+          padding-left: 6px;
+
+          @media screen and (min-width: $q-sm) {
+            display: inline-block;
+          }
+        }
+      }
+
+      &.style--expand {
+        border-left-width: 0;
+
+        img { opacity: .5; }
+      }
+
+      &:hover {
+        color: $c-white;
+
+        &.style--expand img { opacity: 1; }
+      }
+    }
+
+    @media screen and (min-width: $q-sm) {
+      border-right: 1px solid $c-border;
+    }
+  }
+
+  .nav__user-picture {
+    background-position: center;
+    background-size: cover;
+    height: $s-navbar-h;
+    width: $s-navbar-h;
+
+    @media screen and (min-width: $q-sm) {
+      border-right-width: 1px;
+      margin-left: 6px;
+    }
+  }
 }

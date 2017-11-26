@@ -8,6 +8,7 @@ const gutil = require('gulp-util');
 const less = require('gulp-less');
 const nodemon = require('gulp-nodemon');
 const path = require('path');
+const plumber = require('gulp-plumber');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const sass = require('gulp-sass');
@@ -112,6 +113,7 @@ gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
   .pipe(gulp.dest(DEST_DIR)));
 
 gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
+  .pipe(plumber())
   .pipe(sass())
   .pipe(rename('app-sass.css'))
   .pipe(gulp.dest(DEST_DIR)));

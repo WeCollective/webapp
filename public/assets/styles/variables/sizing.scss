@@ -1,1 +1,18 @@
+$s-badge: 18px !default;
+
+// Navbar.
 $s-navbar-h: 44px !default;
+$s-navbar-icon: 25px !default;
+$s-navbar-logo: 62px !default;
+
+$s-padding-post: 12px !default;
+
+// Sidebar.
+$sidebar-w-sm: 201px !default;
+$sidebar-w-md: $sidebar-w-sm !default;
+$sidebar-w-lg: 249px !default;
+
+$s-content-max-w: 1011px !default;
+$s-aligner-sm: $sidebar-w-sm + $s-content-max-w !default;
+$s-aligner-md: $sidebar-w-md + $s-content-max-w !default;
+$s-aligner-lg: $sidebar-w-lg + $s-content-max-w !default;

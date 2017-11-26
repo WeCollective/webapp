@@ -1,5 +1,9 @@
 @import 'variables/colours';
+@import 'variables/query';
 @import 'variables/sizing';
 @import 'variables/z-index';
+@import 'variables/shadow';
+
+@import 'core/reset';
 
 @import 'components/navbar';
