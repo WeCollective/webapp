@@ -28,7 +28,6 @@
   "license": "ISC",
   "homepage": "https://weco.io",
   "dependencies": {
-    "algoliasearch": "^3.24.6",
     "angular": "^1.5.7",
     "angular-animate": "^1.5.7",
     "angular-cache": "^4.6.0",

@@ -146,17 +146,6 @@ gulp.task('template-strings', () => {
       `http://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
       : `${ensureSlash(config.api_url) + process.env.API_VERSION}`,
   }]);
-
-  processTemplate('app/services/search.template.js', [{
-    test: /%ALGOLIA_APP_ID%/g,
-    value: process.env.ALGOLIA_APP_ID,
-  }, {
-    test: /%ALGOLIA_SEARCH_API%/g,
-    value: process.env.ALGOLIA_SEARCH_API,
-  }, {
-    test: /%ALGOLIA_INDEX%/g,
-    value: 'getstarted_actors', // `${env !== 'production' ? 'dev_' : ''}search`,
-  }]);
 });
 
 gulp.task('webpack', done => {
