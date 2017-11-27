@@ -55,6 +55,34 @@ class NavbarController extends Injectable {
       .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
+  getSearchLink(result) {
+    const {
+      id,
+      type,
+    } = result;
+
+    switch (type) {
+      case 'branch':
+        return this.$state.href('weco.branch', {
+          branchid: id,
+        });
+
+      case 'post':
+        return this.$state.href('weco.branch.post', {
+          branchid: 'root',
+          postid: id,
+        });
+
+      case 'user':
+        return this.$state.href('weco.profile', {
+          username: id,
+        });
+
+      default:
+        return '';
+    }
+  }
+
   isControlSelected(control) {
     return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
   }

@@ -70950,6 +70950,34 @@ var NavbarController = function (_Injectable) {
       });
     }
   }, {
+    key: 'getSearchLink',
+    value: function getSearchLink(result) {
+      var id = result.id,
+          type = result.type;
+
+
+      switch (type) {
+        case 'branch':
+          return this.$state.href('weco.branch', {
+            branchid: id
+          });
+
+        case 'post':
+          return this.$state.href('weco.branch.post', {
+            branchid: 'root',
+            postid: id
+          });
+
+        case 'user':
+          return this.$state.href('weco.profile', {
+            username: id
+          });
+
+        default:
+          return '';
+      }
+    }
+  }, {
     key: 'isControlSelected',
     value: function isControlSelected(control) {
       return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
@@ -77219,7 +77247,6 @@ var Search = function (_Injectable) {
         var data = res.data;
         var results = data.results;
 
-        console.log(results);
         _this2.results = results;
         _this2.show();
       }).catch(function (err) {
@@ -77236,7 +77263,7 @@ var Search = function (_Injectable) {
   return Search;
 }(_injectable2.default);
 
-Search.$inject = ['AlertsService', 'API'];
+Search.$inject = ['$timeout', 'AlertsService', 'API'];
 
 exports.default = Search;
 

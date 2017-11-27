@@ -30,7 +30,6 @@ class Search extends Injectable {
       .then(res => {
         const { data } = res;
         const { results } = data;
-        console.log(results);
         this.results = results;
         this.show();
       })
@@ -43,6 +42,7 @@ class Search extends Injectable {
 }
 
 Search.$inject = [
+  '$timeout',
   'AlertsService',
   'API',
 ];

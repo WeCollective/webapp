@@ -75,9 +75,11 @@
           <li
             class="nav__search-item"
             ng-repeat="result in Navbar.SearchService.getResults()">
-            <span>
-              {{ result.text }}
-            </span>
+            <a ng-href="{{ Navbar.getSearchLink(result) }}">
+              <span>
+                {{ result.text }}
+              </span>
+            </a>
           </li>
         </ul>
       </div>
@@ -87,7 +89,7 @@
       <a
         class="nav__item style--auth"
         ng-show="!Navbar.UserService.isAuthenticated()"
-        ui-sref="auth.login">  
+        ui-sref="auth.login">
         <span class="nav__item-text">Log In</span>
       </a>
       
