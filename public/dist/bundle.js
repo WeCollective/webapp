@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -76252,6 +76252,7 @@ var BranchService = function (_Injectable) {
       _this.EventService.emit(_this.EventService.events.CHANGE_BRANCH_PREFETCH, _this.branch.id);
 
       _this.fetch(fetchingBranch).then(function (branch) {
+        console.log(branch);
         if (fetchingBranch === branch.id) {
           fetchedBranch = branch;
           _this.branch = branch;

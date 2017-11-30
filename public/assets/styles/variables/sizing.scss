@@ -13,8 +13,14 @@ $s-navbar-logo: 62px !default;
 $s-navbar-search-h: 28px !default;
 $s-navbar-search-icon: 14px !default;
 
+// Sidebar - beta.
+$s-sidebar-pic: 80px !default;
+$s-sidebar-info-icon: 14px !default;
+
+// Spacing.
 $s-spacing: 16px !default;
-$s-padding-post: 12px !default;
+$s-spacing-sm: 12px !default;
+$s-padding-post: 12px !default; // Legacy.
 
 // Sidebar.
 $sidebar-w-sm: 201px !default;

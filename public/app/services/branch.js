@@ -55,6 +55,7 @@ class BranchService extends Injectable {
 
       this.fetch(fetchingBranch)
         .then(branch => {
+          console.log(branch);
           if (fetchingBranch === branch.id) {
             fetchedBranch = branch;
             this.branch = branch;
