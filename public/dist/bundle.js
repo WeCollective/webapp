@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -70912,7 +70912,8 @@ var NavbarController = function (_Injectable) {
       return _this.SearchService.search(q);
     }));
     listeners.push(_this.EventService.on(events.STATE_CHANGE_SUCCESS, function () {
-      return _this.clearQuery();
+      _this.clearQuery();
+      _this.isMobileSearchActive = false;
     }));
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
@@ -70957,6 +70958,11 @@ var NavbarController = function (_Injectable) {
       });
     }
   }, {
+    key: 'getSearchNode',
+    value: function getSearchNode() {
+      return document.getElementsByClassName('nav__search-text')[0];
+    }
+  }, {
     key: 'getSearchResultTarget',
     value: function getSearchResultTarget(result) {
       var id = result.id,
@@ -70996,6 +71002,14 @@ var NavbarController = function (_Injectable) {
             if (this.highlightResult === -1) return;
             var target = this.getSearchResultTarget(this.results[this.highlightResult]);
             this.$location.url(target);
+            break;
+          }
+
+        // Escape.
+        case 27:
+          {
+            var input = this.getSearchNode();
+            if (input) input.blur();
             break;
           }
 
@@ -71084,6 +71098,12 @@ var NavbarController = function (_Injectable) {
     key: 'toggleMobileSearch',
     value: function toggleMobileSearch(forceValue) {
       this.isMobileSearchActive = forceValue !== undefined ? forceValue : !this.isMobileSearchActive;
+      if (forceValue) {
+        var input = this.getSearchNode();
+        if (input) this.$timeout(function () {
+          return input.focus();
+        }, 50);
+      }
     }
   }, {
     key: 'toggleNav',

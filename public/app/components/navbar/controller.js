@@ -27,7 +27,10 @@ class NavbarController extends Injectable {
     listeners.push(this.EventService.on(events.UNREAD_NOTIFICATION_CHANGE, this.updateCount));
     listeners.push(this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
     listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.search(q)));
-    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => this.clearQuery()));
+    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => {
+      this.clearQuery();
+      this.isMobileSearchActive = false;
+    }));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -58,6 +61,10 @@ class NavbarController extends Injectable {
         this.$scope.$apply();
       })
       .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+  }
+
+  getSearchNode() {
+    return document.getElementsByClassName('nav__search-text')[0];
   }
 
   getSearchResultTarget(result) {
@@ -96,6 +103,13 @@ class NavbarController extends Injectable {
         if (this.highlightResult === -1) return;
         const target = this.getSearchResultTarget(this.results[this.highlightResult]);
         this.$location.url(target);
+        break;
+      }
+
+      // Escape.
+      case 27: {
+        const input = this.getSearchNode();
+        if (input) input.blur();
         break;
       }
 
@@ -179,6 +193,10 @@ class NavbarController extends Injectable {
 
   toggleMobileSearch(forceValue) {
     this.isMobileSearchActive = forceValue !== undefined ? forceValue : !this.isMobileSearchActive;
+    if (forceValue) {
+      const input = this.getSearchNode();
+      if (input) this.$timeout(() => input.focus(), 50);
+    }
   }
 
   toggleNav() {
