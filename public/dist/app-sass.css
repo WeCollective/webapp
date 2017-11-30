@@ -271,6 +271,31 @@ body {
         border-right-width: 1px;
         margin-left: 6px; } }
 
+.side {
+  background-color: #fff;
+  height: calc(100vh - 44px);
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  pointer-events: none;
+  position: fixed;
+  top: 44px;
+  width: 250px;
+  z-index: 11;
+  transition: transform 0.4s, height 0.4s; }
+  .side * {
+    pointer-events: initial; }
+  @media screen and (max-width: 768px) {
+    .side {
+      transform: translateX(-100%); }
+      .side + .header.style--fixed.toggled {
+        transform: translateX(250px); }
+      .side.toggled {
+        transform: translateX(0); } }
+  @media screen and (min-width: 1260px) {
+    .side {
+      left: calc(50% - 630px); } }
+
 .auth {
   background: #444;
   background: radial-gradient(#444, #222);

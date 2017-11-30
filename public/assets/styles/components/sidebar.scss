@@ -1,0 +1,27 @@
+.side {
+  background-color: $c-white;
+  height: $s-vh-has-navbar;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  pointer-events: none;
+  position: fixed;
+  top: $s-navbar-h;
+  width: $s-sidebar-w;
+  z-index: $z-sidebar;
+  transition: $tr, height $tr-speed;
+
+  * { pointer-events: initial; }
+
+  @media screen and (max-width: $q-md) {
+    transform: translateX(-100%);
+
+    & + .header.style--fixed.toggled { transform: translateX($s-sidebar-w); }
+    &.toggled { transform: translateX(0); }
+  }
+
+  @media screen and (min-width: $s-aligner-lg) {
+    $offset-lg: $s-aligner-lg / 2;
+    left: calc(50% - #{$offset-lg});
+  }
+}

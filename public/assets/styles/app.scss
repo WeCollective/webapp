@@ -1,6 +1,7 @@
 @import 'variables/colours';
 @import 'variables/query';
 @import 'variables/sizing';
+@import 'variables/transition';
 @import 'variables/typography';
 @import 'variables/z-index';
 @import 'variables/shadow';
@@ -10,5 +11,6 @@
 @import 'core/reset';
 
 @import 'components/navbar';
+@import 'components/sidebar';
 
 @import 'pages/auth';

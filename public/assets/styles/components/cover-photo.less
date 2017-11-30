@@ -54,7 +54,8 @@
         }
       }
 
-      .sidebar {
+      .sidebar,
+      .side {
         height: @u-vh-sm;
         transform: translateY(@cover-h-sm) translateX(-100%);
 
@@ -73,11 +74,15 @@
         height: @u-vh-md;
 
         .sidebar,
+        .side,
         .header.style--fixed {
           transform: translateY(@cover-h-md);
         }
 
-        .sidebar { height: @u-vh-md; }
+        .sidebar,
+        .side {
+          height: @u-vh-md;
+        }
       }
     }
   });
@@ -90,11 +95,15 @@
         height: @u-vh-lg;
 
         .sidebar,
+        .side,
         .header.style--fixed {
           transform: translateY(@cover-h-lg);
         }
 
-        .sidebar { height: @u-vh-lg; }
+        .sidebar,
+        .side {
+          height: @u-vh-lg;
+        }
       }
     }
   });

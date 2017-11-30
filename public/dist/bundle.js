@@ -71689,14 +71689,24 @@ var SidebarComponent = function (_Injectable) {
     _this.controllerAs = 'Ctrl';
     _this.restrict = 'E';
     _this.replace = true;
-    _this.templateUrl = '/app/components/sidebar/view.html';
+    _this.templateUrl = function (el, attrs) {
+      // eslint-disable-line no-unused-vars
+      var id = _this.BranchService.branch.id;
+
+      var path = '/app/components/sidebar';
+      var template = 'view';
+      if (id === 'weco-lab') {
+        template = 'view-beta';
+      }
+      return path + '/' + template + '.html';
+    };
     return _this;
   }
 
   return SidebarComponent;
 }(_injectable2.default);
 
-SidebarComponent.$inject = [];
+SidebarComponent.$inject = ['BranchService'];
 
 exports.default = SidebarComponent;
 

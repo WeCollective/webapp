@@ -8,10 +8,20 @@ class SidebarComponent extends Injectable {
     this.controllerAs = 'Ctrl';
     this.restrict = 'E';
     this.replace = true;
-    this.templateUrl = '/app/components/sidebar/view.html';
+    this.templateUrl = (el, attrs) => { // eslint-disable-line no-unused-vars
+      const { id } = this.BranchService.branch;
+      const path = '/app/components/sidebar';
+      let template = 'view';
+      if (id === 'weco-lab') {
+        template = 'view-beta';
+      }
+      return `${path}/${template}.html`;
+    };
   }
 }
 
-SidebarComponent.$inject = [];
+SidebarComponent.$inject = [
+  'BranchService',
+];
 
 export default SidebarComponent;

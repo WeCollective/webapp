@@ -21,7 +21,12 @@ $sidebar-w-sm: 201px !default;
 $sidebar-w-md: $sidebar-w-sm !default;
 $sidebar-w-lg: 249px !default;
 
+// Beta sidebar.
+$s-sidebar-w: 250px !default;
+
 $s-content-max-w: 1011px !default;
 $s-aligner-sm: $sidebar-w-sm + $s-content-max-w !default;
 $s-aligner-md: $sidebar-w-md + $s-content-max-w !default;
 $s-aligner-lg: $sidebar-w-lg + $s-content-max-w !default;
+
+$s-vh-has-navbar: calc(100vh - #{$s-navbar-h});
