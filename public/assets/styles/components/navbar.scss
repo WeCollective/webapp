@@ -72,6 +72,18 @@
 
       .nav__icon { opacity: 1; }
     }
+
+    &.style--search {
+      background-color: transparent;
+      border: none;
+      outline: none;
+
+      > img { opacity: 1; }
+
+      @media screen and (min-width: $q-md) {
+        display: none;
+      }
+    }
   }
 
   .nav__item-badge {
@@ -229,16 +241,27 @@
   }
 
   .nav__search-wrapper {
-    align-items: center;
     background-color: $c-white;
-    display: flex;
+    display: none;
     flex: 1 1 100%;
     height: $s-navbar-search-h;
-    margin-left: 56px;
+    margin-left: ($s-spacing * 3) + ($s-spacing / 2);
     max-width: 480px;
     padding: 6px ($s-spacing / 2);
     position: relative;
     width: 100%;
+
+    // Mobile version.
+    &.style--visible {
+      align-items: center;
+      display: flex;
+      margin-left: $s-spacing / 2;
+    }
+
+    @media screen and (min-width: $q-md) {
+      align-items: center;
+      display: flex;
+    }
   }
 
   .nav__user-menu {

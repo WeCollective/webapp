@@ -70890,6 +70890,7 @@ var NavbarController = function (_Injectable) {
     _this.expanded = false;
     _this.highlightResult = -1;
     _this.highlightResultObj = {};
+    _this.isMobileSearchActive = false;
     _this.notificationCount = cache.count || 0;
     _this.query = '';
     _this.results = _this.SearchService.getResults();
@@ -71078,6 +71079,11 @@ var NavbarController = function (_Injectable) {
     key: 'onHomePage',
     value: function onHomePage() {
       return this.$state.current.name === 'weco.home';
+    }
+  }, {
+    key: 'toggleMobileSearch',
+    value: function toggleMobileSearch(forceValue) {
+      this.isMobileSearchActive = forceValue !== undefined ? forceValue : !this.isMobileSearchActive;
     }
   }, {
     key: 'toggleNav',

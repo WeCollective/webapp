@@ -13,6 +13,7 @@ class NavbarController extends Injectable {
     this.expanded = false;
     this.highlightResult = -1;
     this.highlightResultObj = {};
+    this.isMobileSearchActive = false;
     this.notificationCount = cache.count || 0;
     this.query = '';
     this.results = this.SearchService.getResults();
@@ -174,6 +175,10 @@ class NavbarController extends Injectable {
 
   onHomePage() {
     return this.$state.current.name === 'weco.home';
+  }
+
+  toggleMobileSearch(forceValue) {
+    this.isMobileSearchActive = forceValue !== undefined ? forceValue : !this.isMobileSearchActive;
   }
 
   toggleNav() {

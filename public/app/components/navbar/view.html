@@ -5,6 +5,7 @@
       <a
         class="nav__logo"
         ng-click="Navbar.triggerAnimation()"
+        ng-hide="Navbar.isMobileSearchActive"
         ui-sref="weco.home">      
         <img
           alt="Weco logo animation"
@@ -17,7 +18,14 @@
           src="/assets/images/nav-logo.png" />
       </a>
 
-      <div class="nav__menu">
+      <button
+        class="nav__item style--search ng-hide"
+        ng-click="Navbar.toggleMobileSearch(false)"
+        ng-show="Navbar.isMobileSearchActive">
+        <img alt="Exit search" class="nav__icon" src="assets/images/icons/arrow-left.svg" />
+      </button>
+
+      <div class="nav__menu" ng-hide="Navbar.isMobileSearchActive">
         <a
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('nucleus') }"
@@ -58,7 +66,7 @@
         </a>
       </div>
 
-      <div class="nav__search-wrapper">
+      <div class="nav__search-wrapper" ng-class="{ 'style--visible': Navbar.isMobileSearchActive }">
         <img alt="Search" class="nav__search-icon" src="assets/images/icons/search.svg" />
         <input
           class="nav__search-text"
@@ -85,7 +93,7 @@
       </div>
     </div>
 
-    <div class="nav__user-menu">
+    <div class="nav__user-menu" ng-hide="Navbar.isMobileSearchActive">
       <a
         class="nav__item style--auth"
         ng-show="!Navbar.UserService.isAuthenticated()"
@@ -99,6 +107,12 @@
         ui-sref="auth.signup">
         <span class="nav__item-text">Sign up</span>
       </a>
+
+      <button
+        class="nav__item style--search"
+        ng-click="Navbar.toggleMobileSearch(true)">
+        <img alt="Search" class="nav__icon" src="assets/images/icons/search.svg" />
+      </button>
       
       <a
         class="nav__item style--notification"
