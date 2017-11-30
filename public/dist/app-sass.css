@@ -115,6 +115,9 @@ body {
     display: block;
     height: 100%;
     position: relative; }
+    @media screen and (min-width: 768px) {
+      .nav .nav__logo {
+        display: block !important; } }
   .nav .nav__logo-icon {
     height: 62px;
     width: 62px; }
@@ -126,6 +129,9 @@ body {
   .nav .nav__menu {
     display: flex;
     height: 100%; }
+    @media screen and (min-width: 768px) {
+      .nav .nav__menu {
+        display: flex !important; } }
   .nav .nav__public-menu {
     align-items: center;
     display: flex;
@@ -208,9 +214,11 @@ body {
     width: 100%; }
     .nav .nav__search-wrapper.style--visible {
       align-items: center;
-      display: flex;
-      margin-left: 8px;
-      margin-right: 8px; }
+      display: flex; }
+      @media screen and (max-width: 768px) {
+        .nav .nav__search-wrapper.style--visible {
+          margin-left: 8px;
+          margin-right: 8px; } }
     @media screen and (min-width: 768px) {
       .nav .nav__search-wrapper {
         align-items: center;
@@ -250,6 +258,9 @@ body {
     @media screen and (min-width: 576px) {
       .nav .nav__user-menu {
         border-right: 1px solid #494949; } }
+    @media screen and (min-width: 768px) {
+      .nav .nav__user-menu {
+        display: flex !important; } }
   .nav .nav__user-picture {
     background-position: center;
     background-size: cover;

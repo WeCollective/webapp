@@ -38,7 +38,7 @@
             text="'Global Nucleus'"
             tooltip />
         </a>
-        
+
         <a
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('subbranches') }"
@@ -51,7 +51,7 @@
             text="'Root Branches'"
             tooltip />
         </a>
-        
+
         <a
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('wall') }"
@@ -100,7 +100,7 @@
         ui-sref="auth.login">
         <span class="nav__item-text">Log In</span>
       </a>
-      
+
       <a
         class="nav__item style--auth"
         ng-show="!Navbar.UserService.isAuthenticated()"
@@ -113,7 +113,7 @@
         ng-click="Navbar.toggleMobileSearch(true)">
         <img alt="Search" class="nav__icon" src="assets/images/icons/search.svg" />
       </button>
-      
+
       <a
         class="nav__item style--notification"
         ng-class="{ 'style--opaque': Navbar.notificationCount > 0 }"
@@ -131,7 +131,7 @@
           </div>
         </div>
       </a>
-      
+
       <a
         class="nav__item style--profile"
         ng-class="{ 'style--opaque' : Navbar.isControlSelected('profile') }"
@@ -143,7 +143,7 @@
           style="background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
         </div>
       </a>
-      
+
       <div
         class="nav__item style--expand"
         ng-click="Navbar.toggleNav()"
@@ -167,7 +167,7 @@
             class="nav__expand-menu-item style--separator"
             ng-show="Navbar.UserService.user.followed_branches.length > 0">
           </li>
-          
+
           <li
             class="nav__expand-menu-item"
             ng-click="Navbar.toggleNav()"

@@ -136,6 +136,10 @@
     display: block;
     height: 100%;
     position: relative;
+
+    @media screen and (min-width: $q-md) {
+      display: block !important;
+    }
   }
 
   .nav__logo-icon {
@@ -153,6 +157,10 @@
   .nav__menu {
     display: flex;
     height: 100%;
+
+    @media screen and (min-width: $q-md) {
+      display: flex !important;
+    }
   }
 
   .nav__public-menu {
@@ -261,8 +269,11 @@
     &.style--visible {
       align-items: center;
       display: flex;
-      margin-left: $s-spacing / 2;
-      margin-right: $s-spacing / 2;
+
+      @media screen and (max-width: $q-md) {
+        margin-left: $s-spacing / 2;
+        margin-right: $s-spacing / 2;
+      }
     }
 
     @media screen and (min-width: $q-md) {
@@ -321,6 +332,10 @@
 
     @media screen and (min-width: $q-sm) {
       border-right: 1px solid $c-border;
+    }
+
+    @media screen and (min-width: $q-md) {
+      display: flex !important;
     }
   }
 
