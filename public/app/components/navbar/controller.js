@@ -11,15 +11,19 @@ class NavbarController extends Injectable {
 
     this.animationSrc = '';
     this.expanded = false;
+    this.highlightResult = -1;
+    this.highlightResultObj = {};
     this.notificationCount = cache.count || 0;
     this.query = '';
+    this.results = this.SearchService.getResults();
 
     this.getNotifications();
 
     const { events } = this.EventService;
     const listeners = [];
     listeners.push(this.EventService.on(events.CHANGE_USER, this.getNotifications));
-    listeners.push(this.EventService.on('UNREAD_NOTIFICATION_CHANGE', this.updateCount));
+    listeners.push(this.EventService.on(events.SEARCH, () => this.handleSearch()));
+    listeners.push(this.EventService.on(events.UNREAD_NOTIFICATION_CHANGE, this.updateCount));
     listeners.push(this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
     listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.search(q)));
     listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => this.clearQuery()));
@@ -55,7 +59,7 @@ class NavbarController extends Injectable {
       .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
   }
 
-  getSearchLink(result) {
+  getSearchResultTarget(result) {
     const {
       id,
       type,
@@ -83,6 +87,75 @@ class NavbarController extends Injectable {
     }
   }
 
+  handleKeyPress(event) {
+    const { which } = event;
+    switch (which) {
+      // Enter.
+      case 13: {
+        if (this.highlightResult === -1) return;
+        const target = this.getSearchResultTarget(this.results[this.highlightResult]);
+        this.$location.url(target);
+        break;
+      }
+
+      // Arrow up.
+      case 38: {
+        event.preventDefault();
+        if (this.highlightResult > 0) {
+          this.highlightResult -= 1;
+        }
+        else {
+          this.highlightResult = this.results.length - 1;
+        }
+        this.highlightResultObj = this.results[this.highlightResult];
+        break;
+      }
+
+      // Arrow down.
+      case 40: {
+        event.preventDefault();
+        if (this.highlightResult + 1 < this.results.length) {
+          this.highlightResult += 1;
+        }
+        else {
+          this.highlightResult = 0;
+        }
+        this.highlightResultObj = this.results[this.highlightResult];
+        break;
+      }
+
+      default:
+        // Do nothing.
+        break;
+    }
+  }
+
+  handleSearch() {
+    this.results = this.SearchService.getResults();
+    if (this.highlightResult === -1) return;
+
+    const {
+      id,
+      text,
+      type,
+    } = this.highlightResultObj;
+    let hasPreviousMatch = false;
+
+    for (let i = 0; i < this.results.length; i += 1) {
+      const result = this.results[i];
+
+      if (text === result.text && type === result.type && id === result.id) {
+        hasPreviousMatch = true;
+        this.highlightResult = i;
+        break;
+      }
+    }
+
+    if (!hasPreviousMatch) {
+      this.highlightResult = -1;
+    }
+  }
+
   isControlSelected(control) {
     return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
   }
@@ -101,10 +174,6 @@ class NavbarController extends Injectable {
 
   onHomePage() {
     return this.$state.current.name === 'weco.home';
-  }
-
-  stopPropagation(event) {
-    event.stopPropagation();
   }
 
   toggleNav() {
@@ -131,6 +200,7 @@ class NavbarController extends Injectable {
 }
 
 NavbarController.$inject = [
+  '$location',
   '$scope',
   '$state',
   '$timeout',

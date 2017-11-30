@@ -16,6 +16,7 @@ class EventService extends Injectable {
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
+      SEARCH: 'SEARCH',
       STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
       UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE',
     };

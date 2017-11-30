@@ -132,8 +132,9 @@ body {
     border-radius: 3px;
     cursor: pointer;
     font-size: 13px; }
-    .nav .nav__expand-menu-item:hover,
-    .nav .nav__search-item:hover {
+    .nav .nav__expand-menu-item:hover, .nav .nav__expand-menu-item.style--highlighted,
+    .nav .nav__search-item:hover,
+    .nav .nav__search-item.style--highlighted {
       background-color: #494949; }
     .nav .nav__expand-menu-item > *,
     .nav .nav__search-item > * {

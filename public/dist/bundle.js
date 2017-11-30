@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -70888,8 +70888,11 @@ var NavbarController = function (_Injectable) {
 
     _this.animationSrc = '';
     _this.expanded = false;
+    _this.highlightResult = -1;
+    _this.highlightResultObj = {};
     _this.notificationCount = cache.count || 0;
     _this.query = '';
+    _this.results = _this.SearchService.getResults();
 
     _this.getNotifications();
 
@@ -70897,7 +70900,10 @@ var NavbarController = function (_Injectable) {
 
     var listeners = [];
     listeners.push(_this.EventService.on(events.CHANGE_USER, _this.getNotifications));
-    listeners.push(_this.EventService.on('UNREAD_NOTIFICATION_CHANGE', _this.updateCount));
+    listeners.push(_this.EventService.on(events.SEARCH, function () {
+      return _this.handleSearch();
+    }));
+    listeners.push(_this.EventService.on(events.UNREAD_NOTIFICATION_CHANGE, _this.updateCount));
     listeners.push(_this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, _this.updateCount));
     listeners.push(_this.$scope.$watch(function () {
       return _this.query;
@@ -70950,8 +70956,8 @@ var NavbarController = function (_Injectable) {
       });
     }
   }, {
-    key: 'getSearchLink',
-    value: function getSearchLink(result) {
+    key: 'getSearchResultTarget',
+    value: function getSearchResultTarget(result) {
       var id = result.id,
           type = result.type;
 
@@ -70978,6 +70984,79 @@ var NavbarController = function (_Injectable) {
       }
     }
   }, {
+    key: 'handleKeyPress',
+    value: function handleKeyPress(event) {
+      var which = event.which;
+
+      switch (which) {
+        // Enter.
+        case 13:
+          {
+            if (this.highlightResult === -1) return;
+            var target = this.getSearchResultTarget(this.results[this.highlightResult]);
+            this.$location.url(target);
+            break;
+          }
+
+        // Arrow up.
+        case 38:
+          {
+            event.preventDefault();
+            if (this.highlightResult > 0) {
+              this.highlightResult -= 1;
+            } else {
+              this.highlightResult = this.results.length - 1;
+            }
+            this.highlightResultObj = this.results[this.highlightResult];
+            break;
+          }
+
+        // Arrow down.
+        case 40:
+          {
+            event.preventDefault();
+            if (this.highlightResult + 1 < this.results.length) {
+              this.highlightResult += 1;
+            } else {
+              this.highlightResult = 0;
+            }
+            this.highlightResultObj = this.results[this.highlightResult];
+            break;
+          }
+
+        default:
+          // Do nothing.
+          break;
+      }
+    }
+  }, {
+    key: 'handleSearch',
+    value: function handleSearch() {
+      this.results = this.SearchService.getResults();
+      if (this.highlightResult === -1) return;
+
+      var _highlightResultObj = this.highlightResultObj,
+          id = _highlightResultObj.id,
+          text = _highlightResultObj.text,
+          type = _highlightResultObj.type;
+
+      var hasPreviousMatch = false;
+
+      for (var i = 0; i < this.results.length; i += 1) {
+        var result = this.results[i];
+
+        if (text === result.text && type === result.type && id === result.id) {
+          hasPreviousMatch = true;
+          this.highlightResult = i;
+          break;
+        }
+      }
+
+      if (!hasPreviousMatch) {
+        this.highlightResult = -1;
+      }
+    }
+  }, {
     key: 'isControlSelected',
     value: function isControlSelected(control) {
       return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
@@ -70999,11 +71078,6 @@ var NavbarController = function (_Injectable) {
     key: 'onHomePage',
     value: function onHomePage() {
       return this.$state.current.name === 'weco.home';
-    }
-  }, {
-    key: 'stopPropagation',
-    value: function stopPropagation(event) {
-      event.stopPropagation();
     }
   }, {
     key: 'toggleNav',
@@ -71038,7 +71112,7 @@ var NavbarController = function (_Injectable) {
   return NavbarController;
 }(_injectable2.default);
 
-NavbarController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'LocalStorageService', 'SearchService', 'UserService'];
+NavbarController.$inject = ['$location', '$scope', '$state', '$timeout', 'AlertsService', 'AppService', 'EventService', 'LocalStorageService', 'SearchService', 'UserService'];
 
 exports.default = NavbarController;
 
@@ -76632,6 +76706,7 @@ var EventService = function (_Injectable) {
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
+      SEARCH: 'SEARCH',
       STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
       UNREAD_NOTIFICATION_CHANGE: 'UNREAD_NOTIFICATION_CHANGE'
     };
@@ -77237,9 +77312,10 @@ var Search = function (_Injectable) {
         query = query.toString();
       }
 
-      if (query.length < 3) {
+      if (query.trim().length < 3) {
         this.hide();
         this.results = [];
+        this.EventService.emit(this.EventService.events.SEARCH);
         return;
       }
 
@@ -77249,6 +77325,7 @@ var Search = function (_Injectable) {
 
         _this2.results = results;
         _this2.show();
+        _this2.EventService.emit(_this2.EventService.events.SEARCH);
       }).catch(function (err) {
         return _this2.AlertsService.push('error', err.message || err.data);
       });
@@ -77263,7 +77340,7 @@ var Search = function (_Injectable) {
   return Search;
 }(_injectable2.default);
 
-Search.$inject = ['$timeout', 'AlertsService', 'API'];
+Search.$inject = ['$timeout', 'AlertsService', 'API', 'EventService'];
 
 exports.default = Search;
 

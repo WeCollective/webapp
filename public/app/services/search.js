@@ -20,9 +20,10 @@ class Search extends Injectable {
       query = query.toString();
     }
 
-    if (query.length < 3) {
+    if (query.trim().length < 3) {
       this.hide();
       this.results = [];
+      this.EventService.emit(this.EventService.events.SEARCH);
       return;
     }
 
@@ -32,6 +33,7 @@ class Search extends Injectable {
         const { results } = data;
         this.results = results;
         this.show();
+        this.EventService.emit(this.EventService.events.SEARCH);
       })
       .catch(err => this.AlertsService.push('error', err.message || err.data));
   }
@@ -45,6 +47,7 @@ Search.$inject = [
   '$timeout',
   'AlertsService',
   'API',
+  'EventService',
 ];
 
 export default Search;

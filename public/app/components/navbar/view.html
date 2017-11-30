@@ -64,21 +64,21 @@
           class="nav__search-text"
           ng-blur="Navbar.SearchService.hide()"
           ng-focus="Navbar.SearchService.show()"
+          ng-keydown="Navbar.handleKeyPress($event)"
           ng-model="Navbar.query"
           placeholder="Find a branch, post, or a user."
           type="text">
 
         <ul
           class="nav__search-results"
-          ng-click="Navbar.stopPropagation($event)"
           ng-show="Navbar.SearchService.isVisible">
           <li
             class="nav__search-item"
-            ng-repeat="result in Navbar.SearchService.getResults()">
-            <a ng-href="{{ Navbar.getSearchLink(result) }}">
-              <span>
-                {{ result.text }}
-              </span>
+            ng-class="{ 'style--highlighted': Navbar.highlightResult === $index }"
+            ng-repeat="result in Navbar.results">
+            <a
+              ng-href="{{ Navbar.getSearchResultTarget(result) }}"
+              ng-bind-html="result.text">
             </a>
           </li>
         </ul>
@@ -142,7 +142,6 @@
 
         <ul
           class="nav__expand-menu"
-          ng-click="Navbar.stopPropagation($event)"
           ng-show="Navbar.expanded">
           <li
             class="nav__expand-menu-item"
