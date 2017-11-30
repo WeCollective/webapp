@@ -39,18 +39,6 @@ class BranchNucleusHeaderController extends Injectable {
     };
   }
 
-  isModerator() {
-    if (!this.BranchService.branch.mods) return false;
-
-    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
-      if (this.BranchService.branch.mods[i].username === this.UserService.user.username) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   renderTabs() {
     const branchid = this.BranchService.branch.id;
     const publicAccessStates = this.getInitialState().tabStates;
@@ -65,7 +53,7 @@ class BranchNucleusHeaderController extends Injectable {
     const newState = this.getInitialState();
 
     // Add moderator tabs.
-    if (this.UserService.isAuthenticated() && this.isModerator()) {
+    if (this.UserService.isAuthenticated() && this.BranchService.isModerator()) {
       // Settings.
       newState.tabItems.push('settings');
       newState.tabStates.push('weco.branch.nucleus.settings');

@@ -17,6 +17,7 @@ import NoConstructorTransition from './components/no-constructor-transition/dire
 import Notification from './components/notification/directive';
 import OnScrollToBottom from './components/on-scroll-to-bottom/directive';
 import PollAnswerEditor from './components/poll-answer-editor/directive';
+import Sidebar from './components/sidebar/directive';
 import Tabs from './components/tabs/directive';
 import TagEditor from './components/tag-editor/directive';
 import Tooltip from './components/tooltip/directive';
@@ -41,6 +42,7 @@ const refs = [
   { name: 'notification', module: Notification },
   { name: 'onScrollToBottom', module: OnScrollToBottom },
   { name: 'pollAnswerEditor', module: PollAnswerEditor },
+  { name: 'sidebar', module: Sidebar },
   { name: 'tabs', module: Tabs },
   { name: 'tagEditor', module: TagEditor },
   { name: 'tooltip', module: Tooltip },

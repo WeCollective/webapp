@@ -50,6 +50,7 @@ import ModDeleteModal from './components/modal/branch/nucleus/modtools/mod-delet
 import Navbar from './components/navbar/controller';
 import ProfileSettingsModal from './components/modal/profile/settings/controller';
 import ResolveFlagPostModal from './components/modal/post/flag/resolve/controller';
+import Sidebar from './components/sidebar/controller';
 import SubmitPollAnswerModal from './components/modal/post/submit-poll-answer/controller';
 import Tabs from './components/tabs/controller';
 import TagEditor from './components/tag-editor/controller';
@@ -109,6 +110,7 @@ const refs = [
   { name: 'RemoveModModalController', module: ModDeleteModal },
   { name: 'ResolveFlagPostModalController', module: ResolveFlagPostModal },
   { name: 'ReviewSubbranchRequestsModalController', module: BranchReviewModal },
+  { name: 'SidebarController', module: Sidebar },
   { name: 'SubmitPollAnswerModalController', module: SubmitPollAnswerModal },
   { name: 'SubmitSubbranchRequestModalController', module: BranchRequestModal },
   { name: 'TabsController', module: Tabs },

@@ -203,6 +203,27 @@ class BranchService extends Injectable {
     });
   }
 
+  isFollowingBranch() {
+    return this.UserService.isAuthenticated() &&
+      this.UserService.user.followed_branches.includes(this.branch.id);
+  }
+
+  isModerator() {
+    const { mods } = this.branch;
+
+    if (!mods || !Array.isArray(mods)) {
+      return false;
+    }
+
+    for (let i = 0; i < mods.length; i += 1) {
+      if (mods[i].username === this.UserService.user.username) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   remove(branchid, child) {
     const params = child ? { child } : {};
     return new Promise((resolve, reject) => {
@@ -252,6 +273,7 @@ BranchService.$inject = [
   'API',
   'EventService',
   'ModService',
+  'UserService',
 ];
 
 export default BranchService;
