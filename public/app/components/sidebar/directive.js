@@ -6,16 +6,20 @@ class SidebarComponent extends Injectable {
 
     this.controller = 'SidebarController';
     this.controllerAs = 'Ctrl';
-    this.restrict = 'E';
     this.replace = true;
-    this.templateUrl = (el, attrs) => { // eslint-disable-line no-unused-vars
-      const { id } = this.BranchService.branch;
+    this.restrict = 'E';
+    this.templateUrl = (el, attrs) => {
+      const { branch } = attrs;
+
       const path = '/app/components/sidebar';
       let template = 'view';
-      if (id === 'weco-lab') {
+
+      if (branch === 'weco-lab') {
         template = 'view-beta';
       }
-      return `${path}/${template}.html`;
+
+      const url = `${path}/${template}.html`;
+      return url;
     };
   }
 }

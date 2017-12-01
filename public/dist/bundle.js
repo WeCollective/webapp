@@ -71687,18 +71687,21 @@ var SidebarComponent = function (_Injectable) {
 
     _this.controller = 'SidebarController';
     _this.controllerAs = 'Ctrl';
-    _this.restrict = 'E';
     _this.replace = true;
+    _this.restrict = 'E';
     _this.templateUrl = function (el, attrs) {
-      // eslint-disable-line no-unused-vars
-      var id = _this.BranchService.branch.id;
+      var branch = attrs.branch;
+
 
       var path = '/app/components/sidebar';
       var template = 'view';
-      if (id === 'weco-lab') {
+
+      if (branch === 'weco-lab') {
         template = 'view-beta';
       }
-      return path + '/' + template + '.html';
+
+      var url = path + '/' + template + '.html';
+      return url;
     };
     return _this;
   }
@@ -76252,7 +76255,6 @@ var BranchService = function (_Injectable) {
       _this.EventService.emit(_this.EventService.events.CHANGE_BRANCH_PREFETCH, _this.branch.id);
 
       _this.fetch(fetchingBranch).then(function (branch) {
-        console.log(branch);
         if (fetchingBranch === branch.id) {
           fetchedBranch = branch;
           _this.branch = branch;
