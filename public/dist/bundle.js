@@ -70955,9 +70955,12 @@ var NavbarController = function (_Injectable) {
     value: function getNotifications() {
       var _this2 = this;
 
-      if (!this.UserService.user.username) return;
+      var username = this.UserService.user.username;
 
-      this.UserService.getNotifications(this.UserService.user.username, true).then(function (count) {
+
+      if (!username) return;
+
+      this.UserService.getNotifications(username, true).then(function (count) {
         _this2.notificationCount = count;
 
         var cache = _this2.LocalStorageService.getObject('cache');
@@ -70967,8 +70970,9 @@ var NavbarController = function (_Injectable) {
 
         // Sometimes the notifications badge would not get updated.
         _this2.$scope.$apply();
-      }).catch(function () {
-        return _this2.AlertsService.push('error', 'Unable to fetch notifications.');
+      }).catch(function (err) {
+        console.log(err);
+        _this2.AlertsService.push('error', 'Unable to fetch notifications.');
       });
     }
   }, {
@@ -76087,6 +76091,8 @@ var API = function (_Injectable) {
         if (method === 'GET' || method === 'DELETE') {
           req.params = data;
         }
+
+        console.log(jwt);
 
         _this2.$http(req).then(function (res) {
           return resolve(res.data || res);

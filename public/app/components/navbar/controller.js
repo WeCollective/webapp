@@ -46,9 +46,11 @@ class NavbarController extends Injectable {
   }
 
   getNotifications() {
-    if (!this.UserService.user.username) return;
+    const { username } = this.UserService.user;
 
-    this.UserService.getNotifications(this.UserService.user.username, true)
+    if (!username) return;
+
+    this.UserService.getNotifications(username, true)
       .then(count => {
         this.notificationCount = count;
 
@@ -60,7 +62,10 @@ class NavbarController extends Injectable {
         // Sometimes the notifications badge would not get updated.
         this.$scope.$apply();
       })
-      .catch(() => this.AlertsService.push('error', 'Unable to fetch notifications.'));
+      .catch(err => {
+        console.log(err);
+        this.AlertsService.push('error', 'Unable to fetch notifications.');
+      });
   }
 
   getSearchNode() {
