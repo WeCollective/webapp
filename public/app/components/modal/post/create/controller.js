@@ -60,7 +60,11 @@ class CreatePostModalController extends Injectable {
           .then(src => {
             this.url = src;
           })
-          .catch(err => this.AlertsService.push('error', err));
+          .catch(err => {
+            if (err.status !== 400) {
+              this.AlertsService.push('error', err);
+            }
+          });
       }
     }));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));

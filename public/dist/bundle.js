@@ -69797,7 +69797,9 @@ var CreatePostModalController = function (_Injectable) {
         _this.PostService.getPictureUrlFromWebsiteUrl(match).then(function (src) {
           _this.url = src;
         }).catch(function (err) {
-          return _this.AlertsService.push('error', err);
+          if (err.status !== 400) {
+            _this.AlertsService.push('error', err);
+          }
         });
       }
     }));
