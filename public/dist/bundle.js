@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -66578,13 +66578,27 @@ var ListItemController = function (_Injectable) {
           }
         });
       }).catch(function (err) {
-        if (err.status === 400) {
-          _this4.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
-        } else if (err.status === 403) {
-          _this4.AlertsService.push('error', 'Please log in or create an account to vote.');
-        } else {
-          _this4.AlertsService.push('error', 'Error voting on post.');
+        var message = err.message,
+            status = err.status;
+
+
+        var error = '';
+
+        switch (status) {
+          case 400:
+            error = 'Invalid request - there was an issue on our side!';
+            break;
+
+          case 403:
+            error = 'Please log in or create an account to vote.';
+            break;
+
+          default:
+            error = message;
+            break;
         }
+
+        _this4.AlertsService.push('error', error);
       });
     }
   }]);
@@ -76466,7 +76480,10 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'isFollowingBranch',
     value: function isFollowingBranch() {
-      return this.UserService.isAuthenticated() && this.UserService.user.followed_branches.includes(this.branch.id);
+      var id = this.branch.id;
+      var followed_branches = this.UserService.user.followed_branches;
+
+      return Array.isArray(followed_branches) && followed_branches.includes(id);
     }
   }, {
     key: 'isModerator',

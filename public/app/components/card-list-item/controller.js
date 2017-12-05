@@ -153,15 +153,28 @@ class ListItemController extends Injectable {
         }
       }))
       .catch(err => {
-        if (err.status === 400) {
-          this.AlertsService.push('error', 'Invalid request - there was an issue on our side!');
+        const {
+          message,
+          status,
+        } = err;
+
+        let error = '';
+
+        switch (status) {
+          case 400:
+            error = 'Invalid request - there was an issue on our side!';
+            break;
+
+          case 403:
+            error = 'Please log in or create an account to vote.';
+            break;
+
+          default:
+            error = message;
+            break;
         }
-        else if (err.status === 403) {
-          this.AlertsService.push('error', 'Please log in or create an account to vote.');
-        }
-        else {
-          this.AlertsService.push('error', 'Error voting on post.');
-        }
+
+        this.AlertsService.push('error', error);
       });
   }
 }

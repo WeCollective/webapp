@@ -204,8 +204,9 @@ class BranchService extends Injectable {
   }
 
   isFollowingBranch() {
-    return this.UserService.isAuthenticated() &&
-      this.UserService.user.followed_branches.includes(this.branch.id);
+    const { id } = this.branch;
+    const { followed_branches } = this.UserService.user;
+    return Array.isArray(followed_branches) && followed_branches.includes(id);
   }
 
   isModerator() {
