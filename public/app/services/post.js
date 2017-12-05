@@ -15,43 +15,45 @@ class PostService extends Injectable {
   }
 
   create(data) {
-    return new Promise((resolve, reject) => {
-      this.API.post('/post', {}, data)
-        .then(res => resolve(res.data))
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .post('/post', {}, data)
+      .then(res => resolve(res.data))
+      .catch(err => reject(err.data || err)));
   }
 
   createPollAnswer(postid, data) {
-    return new Promise((resolve, reject) => {
-      this.API.post('/poll/:postid/answer', { postid }, data)
-        .then(resolve)
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .post('/poll/:postid/answer', { postid }, data)
+      .then(resolve)
+      .catch(err => reject(err.data || err)));
   }
 
   delete(postid) {
-    return new Promise((resolve, reject) => {
-      this.API.delete('/post/:postid', { postid })
-        .then(resolve)
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .delete('/post/:postid', { postid })
+      .then(resolve)
+      .catch(err => reject(err.data || err)));
   }
 
   fetch(postid) {
-    return new Promise((resolve, reject) => {
-      this.API.get('/post/:postid', { postid }, {})
-        .then(res => resolve(res.data))
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .get('/post/:postid', { postid }, {})
+      .then(res => resolve(res.data))
+      .catch(err => reject(err.data || err)));
   }
 
   flag(postid, branchid, flag_type) { // eslint-disable-line camelcase
-    return new Promise((resolve, reject) => {
-      this.API.post('/post/:postid/flag', { postid }, { branchid, flag_type })
-        .then(resolve)
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .post('/post/:postid/flag', { postid }, { branchid, flag_type })
+      .then(resolve)
+      .catch(err => reject(err.data || err)));
+  }
+
+  getPictureUrlFromWebsiteUrl(url) {
+    return new Promise((resolve, reject) => this.API
+      .get('/post/picture-suggestion', null, { url })
+      .then(res => resolve(res.data))
+      .catch(err => reject(err.data || err)));
   }
 
   getPictureUrl(postid, thumbnail) {
@@ -59,11 +61,10 @@ class PostService extends Injectable {
   }
 
   getPollAnswers(postid, sortBy, lastAnswerId) {
-    return new Promise((resolve, reject) => {
-      this.API.get('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
-        .then(res => resolve(res.data))
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .get('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
+      .then(res => resolve(res.data))
+      .catch(err => reject(err.data || err)));
   }
 
   updatePost() {
@@ -94,7 +95,7 @@ class PostService extends Injectable {
 
   vote(branchid, postid, vote) {
     return new Promise((resolve, reject) => {
-      if (vote !== 'up' && vote !== 'down') {
+      if (!['up', 'down'].includes(vote)) {
         return reject();
       }
 
@@ -105,11 +106,10 @@ class PostService extends Injectable {
   }
 
   votePollAnswer(postid, answerid) {
-    return new Promise((resolve, reject) => {
-      this.API.put('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
-        .then(resolve)
-        .catch(err => reject(err.data || err));
-    });
+    return new Promise((resolve, reject) => this.API
+      .put('/poll/:postid/answer/:answerid/vote', { answerid, postid }, { vote: 'up' }, true)
+      .then(resolve)
+      .catch(err => reject(err.data || err)));
   }
 }
 

@@ -19,12 +19,12 @@
           alt=""
           id="graphic"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
-          src="/assets/images/image.png" />
+          ng-src="{{ CPMCtrl.url || '/assets/images/image.png' }}" />
 
         <div
           id="image-preview"
           ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'image'"
-          style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.newPost.text) }}'), url('/assets/images/invalid-image-url.jpg')">
+          style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.url) }}'), url('/assets/images/invalid-image-url.jpg')">
         </div>
 
         <h2 ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'">
@@ -77,15 +77,15 @@
     <textarea
       id="post-description"
       ng-model="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview && (CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'text' || CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll')" 
+      ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])" 
       placeholder="Describe this post..."
       type="text">
     </textarea>
 
     <input
       ng-model="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && (CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'text' && CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'poll')"
-      placeholder="URL"
+      ng-show="!CPMCtrl.UploadService.isUploading && !['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])"
+      placeholder="Url"
       type="text" />
 
     <input
@@ -97,13 +97,13 @@
     <div
       id="preview-content"
       marked="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.preview && (CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'text' || CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll')">
+      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
     </div>
 
     <p
       id="preview-post"
       ng-click="CPMCtrl.togglePreview()"
-      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.newPost.text.length > 0 && (CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'text' || CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll')">
+      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.newPost.text.length && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
       {{ CPMCtrl.preview ? 'Edit...' : 'Preview...' }}
     </p>
 

@@ -40,11 +40,29 @@ class CreatePostModalController extends Injectable {
     }
 
     this.tags = this.newPost.branchids;
+    this.url = '';
 
     const { events } = this.EventService;
     const listeners = [];
     listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
     listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
+    listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
+      if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
+        return;
+      }
+
+      const test = new RegExp('^(http|https|ftp)?(://)?(www|ftp)?.?[a-z0-9-]+(.|:)([a-z0-9-]+)+([/?].*)?$');
+      const matches = url.match(test);
+
+      if (matches) {
+        const match = matches[0];
+        this.PostService.getPictureUrlFromWebsiteUrl(match)
+          .then(src => {
+            this.url = src;
+          })
+          .catch(err => this.AlertsService.push('error', err));
+      }
+    }));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

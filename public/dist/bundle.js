@@ -69775,12 +69775,32 @@ var CreatePostModalController = function (_Injectable) {
     }
 
     _this.tags = _this.newPost.branchids;
+    _this.url = '';
 
     var events = _this.EventService.events;
 
     var listeners = [];
     listeners.push(_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel));
     listeners.push(_this.EventService.on(events.MODAL_OK, _this.handleModalSubmit));
+    listeners.push(_this.$scope.$watch(function () {
+      return _this.newPost.text;
+    }, function (url) {
+      if (!url || ['text', 'poll'].includes(_this.postType.items[_this.postType.selectedIndex])) {
+        return;
+      }
+
+      var test = new RegExp('^(http|https|ftp)?(://)?(www|ftp)?.?[a-z0-9-]+(.|:)([a-z0-9-]+)+([/?].*)?$');
+      var matches = url.match(test);
+
+      if (matches) {
+        var match = matches[0];
+        _this.PostService.getPictureUrlFromWebsiteUrl(match).then(function (src) {
+          _this.url = src;
+        }).catch(function (err) {
+          return _this.AlertsService.push('error', err);
+        });
+      }
+    }));
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -76092,8 +76112,6 @@ var API = function (_Injectable) {
           req.params = data;
         }
 
-        console.log(jwt);
-
         _this2.$http(req).then(function (res) {
           return resolve(res.data || res);
         }).catch(function (err) {
@@ -77267,7 +77285,7 @@ var PostService = function (_Injectable) {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        _this2.API.post('/post', {}, data).then(function (res) {
+        return _this2.API.post('/post', {}, data).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77280,7 +77298,7 @@ var PostService = function (_Injectable) {
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
-        _this3.API.post('/poll/:postid/answer', { postid: postid }, data).then(resolve).catch(function (err) {
+        return _this3.API.post('/poll/:postid/answer', { postid: postid }, data).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77291,7 +77309,7 @@ var PostService = function (_Injectable) {
       var _this4 = this;
 
       return new Promise(function (resolve, reject) {
-        _this4.API.delete('/post/:postid', { postid: postid }).then(resolve).catch(function (err) {
+        return _this4.API.delete('/post/:postid', { postid: postid }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77302,7 +77320,7 @@ var PostService = function (_Injectable) {
       var _this5 = this;
 
       return new Promise(function (resolve, reject) {
-        _this5.API.get('/post/:postid', { postid: postid }, {}).then(function (res) {
+        return _this5.API.get('/post/:postid', { postid: postid }, {}).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77316,7 +77334,20 @@ var PostService = function (_Injectable) {
 
       // eslint-disable-line camelcase
       return new Promise(function (resolve, reject) {
-        _this6.API.post('/post/:postid/flag', { postid: postid }, { branchid: branchid, flag_type: flag_type }).then(resolve).catch(function (err) {
+        return _this6.API.post('/post/:postid/flag', { postid: postid }, { branchid: branchid, flag_type: flag_type }).then(resolve).catch(function (err) {
+          return reject(err.data || err);
+        });
+      });
+    }
+  }, {
+    key: 'getPictureUrlFromWebsiteUrl',
+    value: function getPictureUrlFromWebsiteUrl(url) {
+      var _this7 = this;
+
+      return new Promise(function (resolve, reject) {
+        return _this7.API.get('/post/picture-suggestion', null, { url: url }).then(function (res) {
+          return resolve(res.data);
+        }).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77329,10 +77360,10 @@ var PostService = function (_Injectable) {
   }, {
     key: 'getPollAnswers',
     value: function getPollAnswers(postid, sortBy, lastAnswerId) {
-      var _this7 = this;
+      var _this8 = this;
 
       return new Promise(function (resolve, reject) {
-        _this7.API.get('/poll/:postid/answer', { postid: postid }, { lastAnswerId: lastAnswerId, sortBy: sortBy }).then(function (res) {
+        return _this8.API.get('/poll/:postid/answer', { postid: postid }, { lastAnswerId: lastAnswerId, sortBy: sortBy }).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77342,7 +77373,7 @@ var PostService = function (_Injectable) {
   }, {
     key: 'updatePost',
     value: function updatePost() {
-      var _this8 = this;
+      var _this9 = this;
 
       if (!this.$state.current.name.includes('weco.branch.post') || this.updating === true) {
         return;
@@ -77351,31 +77382,31 @@ var PostService = function (_Injectable) {
       this.updating = true;
 
       this.fetch(this.$state.params.postid).then(function (post) {
-        _this8.post = post;
-        _this8.updating = false;
+        _this9.post = post;
+        _this9.updating = false;
       }).catch(function (err) {
-        _this8.updating = false;
+        _this9.updating = false;
 
         if (err.status === 404) {
-          _this8.$state.go('weco.notfound');
+          _this9.$state.go('weco.notfound');
         } else {
-          _this8.AlertsService.push('error', 'Unable to fetch post.');
+          _this9.AlertsService.push('error', 'Unable to fetch post.');
         }
       }).then(function () {
-        return _this8.EventService.emit(_this8.EventService.events.CHANGE_POST);
+        return _this9.EventService.emit(_this9.EventService.events.CHANGE_POST);
       }).then(this.$timeout);
     }
   }, {
     key: 'vote',
     value: function vote(branchid, postid, _vote) {
-      var _this9 = this;
+      var _this10 = this;
 
       return new Promise(function (resolve, reject) {
-        if (_vote !== 'up' && _vote !== 'down') {
+        if (!['up', 'down'].includes(_vote)) {
           return reject();
         }
 
-        return _this9.API.put('/branch/:branchid/posts/:postid', { branchid: branchid, postid: postid }, { vote: _vote }, true).then(function (res) {
+        return _this10.API.put('/branch/:branchid/posts/:postid', { branchid: branchid, postid: postid }, { vote: _vote }, true).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77385,10 +77416,10 @@ var PostService = function (_Injectable) {
   }, {
     key: 'votePollAnswer',
     value: function votePollAnswer(postid, answerid) {
-      var _this10 = this;
+      var _this11 = this;
 
       return new Promise(function (resolve, reject) {
-        _this10.API.put('/poll/:postid/answer/:answerid/vote', { answerid: answerid, postid: postid }, { vote: 'up' }, true).then(resolve).catch(function (err) {
+        return _this11.API.put('/poll/:postid/answer/:answerid/vote', { answerid: answerid, postid: postid }, { vote: 'up' }, true).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
