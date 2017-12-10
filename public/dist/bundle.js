@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -66217,6 +66217,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -66235,6 +66237,7 @@ var AlertsService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AlertsService.__proto__ || Object.getPrototypeOf(AlertsService)).call(this, AlertsService.$inject, injections));
 
+    _this.counter = 0;
     _this.duration = 5000;
     _this.queue = [];
     return _this;
@@ -66242,14 +66245,14 @@ var AlertsService = function (_Injectable) {
 
   _createClass(AlertsService, [{
     key: 'close',
-    value: function close() {
+    value: function close(id) {
       var _this2 = this;
 
       var transitionFromStylesheet = 300;
 
       for (var i = this.queue.length - 1; i >= 0; i -= 1) {
         var alert = this.queue[i];
-        if (alert && alert.alive && !alert.persist) {
+        if (alert && alert.id === id) {
           this.queue[i].alive = false;
           break;
         }
@@ -66271,19 +66274,23 @@ var AlertsService = function (_Injectable) {
     value: function push(type, text, persist) {
       var _this3 = this;
 
+      this.counter += 1;
+
+      var id = this.counter;
       var alert = {
         alive: true,
+        id: id,
         persist: !!persist,
         text: text,
         type: type
       };
 
       this.$timeout(function () {
-        _this3.queue = [alert].concat(_this3.queue);
+        _this3.queue = [alert].concat(_toConsumableArray(_this3.queue));
 
         if (!alert.persist) {
           _this3.$timeout(function () {
-            return _this3.close();
+            return _this3.close(id);
           }, _this3.duration);
         }
       });

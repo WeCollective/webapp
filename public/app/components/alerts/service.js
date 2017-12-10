@@ -4,16 +4,17 @@ class AlertsService extends Injectable {
   constructor(...injections) {
     super(AlertsService.$inject, injections);
 
+    this.counter = 0;
     this.duration = 5000;
     this.queue = [];
   }
 
-  close() {
+  close(id) {
     const transitionFromStylesheet = 300;
 
     for (let i = this.queue.length - 1; i >= 0; i -= 1) {
       const alert = this.queue[i];
-      if (alert && alert.alive && !alert.persist) {
+      if (alert && alert.id === id) {
         this.queue[i].alive = false;
         break;
       }
@@ -29,18 +30,25 @@ class AlertsService extends Injectable {
   }
 
   push(type, text, persist) {
+    this.counter += 1;
+
+    const id = this.counter;
     const alert = {
       alive: true,
+      id,
       persist: !!persist,
       text,
       type,
     };
 
     this.$timeout(() => {
-      this.queue = [alert].concat(this.queue);
+      this.queue = [
+        alert,
+        ...this.queue,
+      ];
 
       if (!alert.persist) {
-        this.$timeout(() => this.close(), this.duration);
+        this.$timeout(() => this.close(id), this.duration);
       }
     });
   }
