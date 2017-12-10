@@ -5,9 +5,10 @@
     ng-model="Input.input"
     placeholder="{{ Input.placeholder }}"></textarea>
 
-  <div
-    class="btn btn--primary"
-    ng-click="Input.handleSubmit()">
-  	<span class="btn__label text--uppercase">post</span>
-  </div>
+  <button
+    class="btn btn--primary text--uppercase"
+    ng-click="Input.handleSubmit()"
+    ng-disabled="!Input.input">
+  	Post
+  </button>
 </div>

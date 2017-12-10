@@ -29,7 +29,7 @@
 
     .btn__label { font-size: inherit; }
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: @accent-0;
       box-shadow: @shadow-2;
     }
@@ -47,9 +47,11 @@
 
     .btn__label { font-size: inherit; }
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: @primary-5;
       box-shadow: @shadow-2;
     }
   }
+
+  &:disabled { cursor: initial; }
 }

@@ -389,7 +389,7 @@ html[xmlns] .clearfix {
 .btn.btn--primary .btn__label {
   font-size: inherit;
 }
-.btn.btn--primary:hover {
+.btn.btn--primary:not(:disabled):hover {
   background-color: #3498db;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
@@ -405,9 +405,12 @@ html[xmlns] .clearfix {
 .btn.btn--secondary .btn__label {
   font-size: inherit;
 }
-.btn.btn--secondary:hover {
+.btn.btn--secondary:not(:disabled):hover {
   background-color: #494949;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.btn:disabled {
+  cursor: initial;
 }
 .comments {
   box-sizing: border-box;
