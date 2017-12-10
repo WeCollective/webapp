@@ -6,6 +6,7 @@ class ProfileSettingsController extends Injectable {
   }
 
   openDOBModal() {
+    const { dob } = this.UserService.user;
     this.ModalService.open(
       'PROFILE_SETTINGS',
       {
@@ -14,6 +15,7 @@ class ProfileSettingsController extends Injectable {
           placeholder: 'Date of Birth',
           type: 'date',
           fieldname: 'dob',
+          value: new Date(dob),
         }],
       },
       'Successfully updated profile settings!',
@@ -22,6 +24,7 @@ class ProfileSettingsController extends Injectable {
   }
 
   openEmailModal() {
+    const { email } = this.UserService.user;
     this.ModalService.open(
       'PROFILE_SETTINGS',
       {
@@ -30,6 +33,7 @@ class ProfileSettingsController extends Injectable {
           placeholder: 'Email',
           type: 'email',
           fieldname: 'email',
+          value: email,
         }],
       },
       'Successfully updated profile settings!',
@@ -38,6 +42,7 @@ class ProfileSettingsController extends Injectable {
   }
 
   openNameModal() {
+    const { name } = this.UserService.user;
     this.ModalService.open(
       'PROFILE_SETTINGS',
       {
@@ -46,6 +51,7 @@ class ProfileSettingsController extends Injectable {
           fieldname: 'name',
           placeholder: 'Name',
           type: 'text',
+          value: name,
         }],
       },
       'Successfully updated profile settings!',

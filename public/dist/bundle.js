@@ -70517,6 +70517,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _injectable = __webpack_require__(2);
 
 var _injectable2 = _interopRequireDefault(_injectable);
@@ -70541,61 +70543,20 @@ var ProfileSettingsModalController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (ProfileSettingsModalController.__proto__ || Object.getPrototypeOf(ProfileSettingsModalController)).call(this, ProfileSettingsModalController.$inject, injections));
 
+    var inputs = _this.ModalService.inputArgs.inputs;
+
+
     _this.errorMessage = '';
     _this.isLoading = false;
-    _this.values = [];
+    _this.values = inputs.map(function (x) {
+      return x.value;
+    }).filter(function (x) {
+      return x !== undefined;
+    });
 
-    var listeners = [];
+    var events = _this.EventService.events;
 
-    listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
-      if (name !== 'PROFILE_SETTINGS') return;
-
-      // if not all fields are filled, display message
-      if (_this.values.length < _this.ModalService.inputArgs.inputs.length || _this.values.includes('')) {
-        _this.$timeout(function () {
-          return _this.errorMessage = 'Please fill in all fields';
-        });
-        return;
-      }
-
-      // construct data to update using the proper fieldnames
-      var updateData = {};
-
-      for (var i = 0; i < _this.ModalService.inputArgs.inputs.length; i += 1) {
-        var input = _this.ModalService.inputArgs.inputs[i];
-        updateData[input.fieldname] = _this.values[i];
-
-        // convert date input values to unix timestamp
-        if (input.type === 'date') {
-          updateData[input.fieldname] = new Date(_this.values[i]).getTime();
-        }
-      }
-
-      // perform the update
-      _this.isLoading = true;
-
-      _this.UserService.update(updateData).then(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.values = [];
-        _this.ModalService.OK();
-      }).catch(function (err) {
-        _this.errorMessage = err.message;
-        _this.isLoading = false;
-      });
-    }));
-
-    listeners.push(_this.EventService.on(_this.EventService.events.MODAL_CANCEL, function (name) {
-      if (name !== 'PROFILE_SETTINGS') return;
-
-      _this.$timeout(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.values = [];
-        _this.ModalService.Cancel();
-      });
-    }));
-
+    var listeners = [_this.EventService.on(events.MODAL_CANCEL, _this.handleCancel.bind(_this)), _this.EventService.on(events.MODAL_OK, _this.handleOK.bind(_this))];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -70603,6 +70564,65 @@ var ProfileSettingsModalController = function (_Injectable) {
     });
     return _this;
   }
+
+  _createClass(ProfileSettingsModalController, [{
+    key: 'handleCancel',
+    value: function handleCancel(name) {
+      var _this2 = this;
+
+      if (name !== 'PROFILE_SETTINGS') return;
+
+      this.$timeout(function () {
+        _this2.errorMessage = '';
+        _this2.isLoading = false;
+        _this2.values = [];
+        _this2.ModalService.Cancel();
+      });
+    }
+  }, {
+    key: 'handleOK',
+    value: function handleOK(name) {
+      var _this3 = this;
+
+      if (name !== 'PROFILE_SETTINGS') return;
+
+      var inputs = this.ModalService.inputArgs.inputs;
+
+      // if not all fields are filled, display message
+
+      if (this.values.length < inputs.length || this.values.includes('')) {
+        this.$timeout(function () {
+          return _this3.errorMessage = 'Please fill in all fields';
+        });
+        return;
+      }
+
+      // construct data to update using the proper fieldnames
+      var updateData = {};
+
+      for (var i = 0; i < inputs.length; i += 1) {
+        var input = inputs[i];
+        updateData[input.fieldname] = this.values[i];
+
+        // convert date input values to unix timestamp
+        if (input.type === 'date') {
+          updateData[input.fieldname] = new Date(this.values[i]).getTime();
+        }
+      }
+
+      // perform the update
+      this.isLoading = true;
+      this.UserService.update(updateData).then(function () {
+        _this3.errorMessage = '';
+        _this3.isLoading = false;
+        _this3.values = [];
+        _this3.ModalService.OK();
+      }).catch(function (err) {
+        _this3.errorMessage = err.message;
+        _this3.isLoading = false;
+      });
+    }
+  }]);
 
   return ProfileSettingsModalController;
 }(_injectable2.default);
@@ -75914,36 +75934,45 @@ var ProfileSettingsController = function (_Injectable) {
   _createClass(ProfileSettingsController, [{
     key: 'openDOBModal',
     value: function openDOBModal() {
+      var dob = this.UserService.user.dob;
+
       this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Date of Birth',
         inputs: [{
           placeholder: 'Date of Birth',
           type: 'date',
-          fieldname: 'dob'
+          fieldname: 'dob',
+          value: new Date(dob)
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
     }
   }, {
     key: 'openEmailModal',
     value: function openEmailModal() {
+      var email = this.UserService.user.email;
+
       this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Email',
         inputs: [{
           placeholder: 'Email',
           type: 'email',
-          fieldname: 'email'
+          fieldname: 'email',
+          value: email
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
     }
   }, {
     key: 'openNameModal',
     value: function openNameModal() {
+      var name = this.UserService.user.name;
+
       this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Name',
         inputs: [{
           fieldname: 'name',
           placeholder: 'Name',
-          type: 'text'
+          type: 'text',
+          value: name
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
     }
