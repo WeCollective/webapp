@@ -10,7 +10,6 @@ class NavbarController extends Injectable {
     const cache = this.LocalStorageService.getObject('cache').notifications || {};
 
     this.animationSrc = '';
-    this.expanded = false;
     this.highlightResult = -1;
     this.highlightResultObj = {};
     this.isMobileSearchActive = false;
@@ -181,7 +180,6 @@ class NavbarController extends Injectable {
   }
 
   logout() {
-    this.expanded = false;
     this.UserService.logout()
       .then(() => {
         this.$state.go('auth.login');
@@ -202,10 +200,6 @@ class NavbarController extends Injectable {
       const input = this.getSearchNode();
       if (input) this.$timeout(() => input.focus(), 50);
     }
-  }
-
-  toggleNav() {
-    this.expanded = !this.expanded;
   }
 
   triggerAnimation() {

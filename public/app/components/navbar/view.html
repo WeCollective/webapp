@@ -146,17 +146,17 @@
 
       <div
         class="nav__item style--expand"
-        ng-click="Navbar.toggleNav()"
+        ng-click="Navbar.AppService.toggleNavbarMenu()"
         ng-show="Navbar.UserService.isAuthenticated()">
         <img
           alt="Toggle menu navigation"
           class="nav__icon"
-          ng-class="{ 'style--opaque': Navbar.expanded }"
+          ng-class="{ 'style--opaque': Navbar.AppService.isNavbarMenuOpen }"
           src="assets/images/icons/white/nav-expand.png" />
 
         <ul
           class="nav__expand-menu"
-          ng-show="Navbar.expanded">
+          ng-show="Navbar.AppService.isNavbarMenuOpen">
           <li
             class="nav__expand-menu-item"
             ng-click="Navbar.toggleNav(); Navbar.logout()">

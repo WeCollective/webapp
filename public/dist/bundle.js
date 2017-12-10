@@ -65992,8 +65992,9 @@ var AppRun = function (_Injectable) {
         _this.$state.go('weco.home');
       }
 
-      // Hide the sidebar on transition.
+      // Hide sidebar and navbar menu on transition.
       _this.AppService.toggleSidebar(false);
+      _this.AppService.toggleNavbarMenu(false);
 
       _this.EventService.emit('$stateChangeSuccess');
 
@@ -66102,6 +66103,7 @@ var AppService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AppService.__proto__ || Object.getPrototypeOf(AppService)).call(this, AppService.$inject, injections));
 
+    _this.isNavbarMenuOpen = false;
     _this.isSidebarOpen = false;
     return _this;
   }
@@ -66122,6 +66124,13 @@ var AppService = function (_Injectable) {
     value: function getProxyUrl(url) {
       // only proxy http requests, not https
       return url && url.substring(0, 5) === 'http:' ? this.ENV.apiEndpoint + '/proxy?url=' + url : url;
+    }
+  }, {
+    key: 'toggleNavbarMenu',
+    value: function toggleNavbarMenu() {
+      var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !this.isNavbarMenuOpen;
+
+      this.isNavbarMenuOpen = state;
     }
   }, {
     key: 'toggleSidebar',
@@ -70930,7 +70939,6 @@ var NavbarController = function (_Injectable) {
     var cache = _this.LocalStorageService.getObject('cache').notifications || {};
 
     _this.animationSrc = '';
-    _this.expanded = false;
     _this.highlightResult = -1;
     _this.highlightResultObj = {};
     _this.isMobileSearchActive = false;
@@ -71128,7 +71136,6 @@ var NavbarController = function (_Injectable) {
     value: function logout() {
       var _this3 = this;
 
-      this.expanded = false;
       this.UserService.logout().then(function () {
         _this3.$state.go('auth.login');
       }).catch(function (err) {
@@ -71151,11 +71158,6 @@ var NavbarController = function (_Injectable) {
           return input.focus();
         }, 50);
       }
-    }
-  }, {
-    key: 'toggleNav',
-    value: function toggleNav() {
-      this.expanded = !this.expanded;
     }
   }, {
     key: 'triggerAnimation',

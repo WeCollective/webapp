@@ -18,8 +18,9 @@ class AppRun extends Injectable {
         this.$state.go('weco.home');
       }
 
-      // Hide the sidebar on transition.
+      // Hide sidebar and navbar menu on transition.
       this.AppService.toggleSidebar(false);
+      this.AppService.toggleNavbarMenu(false);
 
       this.EventService.emit('$stateChangeSuccess');
 

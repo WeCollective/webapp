@@ -3,6 +3,7 @@ import Injectable from 'utils/injectable';
 class AppService extends Injectable {
   constructor(...injections) {
     super(AppService.$inject, injections);
+    this.isNavbarMenuOpen = false;
     this.isSidebarOpen = false;
   }
 
@@ -19,6 +20,10 @@ class AppService extends Injectable {
   getProxyUrl(url) {
     // only proxy http requests, not https
     return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
+  }
+
+  toggleNavbarMenu(state = !this.isNavbarMenuOpen) {
+    this.isNavbarMenuOpen = state;
   }
 
   toggleSidebar(state = !this.isSidebarOpen) {
