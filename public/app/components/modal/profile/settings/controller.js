@@ -56,16 +56,16 @@ class ProfileSettingsModalController extends Injectable {
     // perform the update
     this.isLoading = true;
     this.UserService.update(updateData)
-      .then(() => {
+      .then(() => this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
         this.values = [];
         this.ModalService.OK();
-      })
-      .catch(err => {
+      }))
+      .catch(err => this.$timeout(() => {
         this.errorMessage = err.message;
         this.isLoading = false;
-      });
+      }));
   }
 }
 

@@ -213,7 +213,10 @@ class UserService extends Injectable {
     return new Promise((resolve, reject) => {
       Generator.run(function* () { // eslint-disable-line func-names
         try {
-          yield this.API.put('/user/me', {}, data, true);
+          const updated = yield this.API.put('/user/me', {}, data, true);
+          if (updated.status !== 200) {
+            return reject(updated.message);
+          }
 
           const user = yield this.fetch('me');
           this.set(user);

@@ -69449,25 +69449,23 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (BranchNucleusSettingsModalController.__proto__ || Object.getPrototypeOf(BranchNucleusSettingsModalController)).call(this, BranchNucleusSettingsModalController.$inject, injections));
 
-    _this.onModalCancel = _this.onModalCancel.bind(_this);
-    _this.onModalSubmit = _this.onModalSubmit.bind(_this);
-    _this.resetState = _this.resetState.bind(_this);
-
     _this.resetState();
 
-    for (var i = 0; i < _this.ModalService.inputArgs.textareas.length; i += 1) {
-      _this.textareaValues[i] = _this.ModalService.inputArgs.textareas[i].value;
-    }
+    var _this$ModalService$in = _this.ModalService.inputArgs,
+        inputs = _this$ModalService$in.inputs,
+        textareas = _this$ModalService$in.textareas;
 
-    for (var _i = 0; _i < _this.ModalService.inputArgs.inputs.length; _i += 1) {
-      _this.inputValues[_i] = _this.ModalService.inputArgs.inputs[_i].value;
-    }
+
+    inputs.forEach(function (x, i) {
+      return _this.inputValues[i] = x.value;
+    });
+    textareas.forEach(function (x, i) {
+      return _this.textareaValues[i] = x.value;
+    });
 
     var events = _this.EventService.events;
 
-    var listeners = [];
-    listeners.push(_this.EventService.on(events.MODAL_OK, _this.onModalSubmit));
-    listeners.push(_this.EventService.on(events.MODAL_CANCEL, _this.onModalCancel));
+    var listeners = [_this.EventService.on(events.MODAL_OK, _this.handleOK.bind(_this)), _this.EventService.on(events.MODAL_CANCEL, _this.handleCancel.bind(_this))];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -69477,8 +69475,8 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
   }
 
   _createClass(BranchNucleusSettingsModalController, [{
-    key: 'onModalCancel',
-    value: function onModalCancel(name) {
+    key: 'handleCancel',
+    value: function handleCancel(name) {
       var _this2 = this;
 
       if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
@@ -69489,35 +69487,51 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
       });
     }
   }, {
-    key: 'onModalSubmit',
-    value: function onModalSubmit(name) {
+    key: 'handleOK',
+    value: function handleOK(name) {
       var _this3 = this;
 
       if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
 
-      // if not all fields are filled, display message
-      if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.includes('') || this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.includes('')) {
-        this.$timeout(function () {
-          return _this3.errorMessage = 'Please fill in all fields';
-        });
-        return;
-      }
+      var _ModalService$inputAr = this.ModalService.inputArgs,
+          inputs = _ModalService$inputAr.inputs,
+          textareas = _ModalService$inputAr.textareas;
 
       // construct data to update using the proper fieldnames
+
       var updateData = {};
 
-      for (var i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
-        var input = this.ModalService.inputArgs.inputs[i];
-        updateData[input.fieldname] = this.inputValues[i];
+      for (var i = 0; i < inputs.length; i += 1) {
+        var input = inputs[i];
+        var value = this.inputValues[i];
+
+        if (input.required && (value === undefined || value === '')) {
+          this.$timeout(function () {
+            return _this3.errorMessage = 'Please fill in all fields';
+          });
+          return;
+        }
+
+        updateData[input.fieldname] = value;
 
         // convert date input values to unix timestamp
         if (input.type === 'date') {
-          updateData[input.fieldname] = new Date(this.inputValues[i]).getTime();
+          updateData[input.fieldname] = new Date(value).getTime();
         }
       }
 
-      for (var _i2 = 0; _i2 < this.ModalService.inputArgs.textareas.length; _i2 += 1) {
-        updateData[this.ModalService.inputArgs.textareas[_i2].fieldname] = this.textareaValues[_i2];
+      for (var _i = 0; _i < textareas.length; _i += 1) {
+        var textarea = textareas[_i];
+        var _value = this.textareaValues[_i];
+
+        if (textarea.required && (_value === undefined || _value === '')) {
+          this.$timeout(function () {
+            return _this3.errorMessage = 'Please fill in all fields';
+          });
+          return;
+        }
+
+        updateData[textareas[_i].fieldname] = _value;
       }
 
       // perform the update
@@ -70613,13 +70627,17 @@ var ProfileSettingsModalController = function (_Injectable) {
       // perform the update
       this.isLoading = true;
       this.UserService.update(updateData).then(function () {
-        _this3.errorMessage = '';
-        _this3.isLoading = false;
-        _this3.values = [];
-        _this3.ModalService.OK();
+        return _this3.$timeout(function () {
+          _this3.errorMessage = '';
+          _this3.isLoading = false;
+          _this3.values = [];
+          _this3.ModalService.OK();
+        });
       }).catch(function (err) {
-        _this3.errorMessage = err.message;
-        _this3.isLoading = false;
+        return _this3.$timeout(function () {
+          _this3.errorMessage = err.message;
+          _this3.isLoading = false;
+        });
       });
     }
   }]);
@@ -74116,8 +74134,10 @@ var BranchNucleusSettingsController = function (_Injectable) {
   _createClass(BranchNucleusSettingsController, [{
     key: 'openModal',
     value: function openModal(modalType) {
+      var branch = this.BranchService.branch;
+
       var inputs = [];
-      var route = 'branch/' + this.BranchService.branch.id + '/';
+      var route = 'branch/' + branch.id + '/';
       var templateName = 'BRANCH_NUCLEUS_SETTINGS';
       var textareas = [];
       var title = '';
@@ -74140,7 +74160,8 @@ var BranchNucleusSettingsController = function (_Injectable) {
           textareas = [{
             fieldname: 'description',
             placeholder: 'Description',
-            value: this.BranchService.branch.description
+            required: false,
+            value: branch.description
           }];
           break;
 
@@ -74149,7 +74170,8 @@ var BranchNucleusSettingsController = function (_Injectable) {
           textareas = [{
             fieldname: 'rules',
             placeholder: 'Rules & Etiquette Text',
-            value: this.BranchService.branch.rules
+            required: false,
+            value: branch.rules
           }];
           break;
 
@@ -74158,7 +74180,9 @@ var BranchNucleusSettingsController = function (_Injectable) {
           inputs = [{
             fieldname: 'name',
             placeholder: 'Visible name',
-            type: 'text'
+            required: true,
+            type: 'text',
+            value: branch.name
           }];
           break;
 
@@ -78004,7 +78028,7 @@ var UserService = function (_Injectable) {
 
       return new Promise(function (resolve, reject) {
         _generator2.default.run(regeneratorRuntime.mark(function _callee2() {
-          var user;
+          var updated, user;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
@@ -78014,27 +78038,37 @@ var UserService = function (_Injectable) {
                   return this.API.put('/user/me', {}, data, true);
 
                 case 3:
-                  _context2.next = 5;
+                  updated = _context2.sent;
+
+                  if (!(updated.status !== 200)) {
+                    _context2.next = 6;
+                    break;
+                  }
+
+                  return _context2.abrupt('return', reject(updated.message));
+
+                case 6:
+                  _context2.next = 8;
                   return this.fetch('me');
 
-                case 5:
+                case 8:
                   user = _context2.sent;
 
                   this.set(user);
 
                   return _context2.abrupt('return', resolve());
 
-                case 10:
-                  _context2.prev = 10;
+                case 13:
+                  _context2.prev = 13;
                   _context2.t0 = _context2['catch'](0);
                   return _context2.abrupt('return', reject(_context2.t0.data || _context2.t0));
 
-                case 13:
+                case 16:
                 case 'end':
                   return _context2.stop();
               }
             }
-          }, _callee2, this, [[0, 10]]);
+          }, _callee2, this, [[0, 13]]);
         }), _this16);
       });
     }

@@ -4,57 +4,67 @@ class BranchNucleusSettingsModalController extends Injectable {
   constructor(...injections) {
     super(BranchNucleusSettingsModalController.$inject, injections);
 
-    this.onModalCancel = this.onModalCancel.bind(this);
-    this.onModalSubmit = this.onModalSubmit.bind(this);
-    this.resetState = this.resetState.bind(this);
-
     this.resetState();
 
-    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i += 1) {
-      this.textareaValues[i] = this.ModalService.inputArgs.textareas[i].value;
-    }
+    const {
+      inputs,
+      textareas,
+    } = this.ModalService.inputArgs;
 
-    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
-      this.inputValues[i] = this.ModalService.inputArgs.inputs[i].value;
-    }
+    inputs.forEach((x, i) => this.inputValues[i] = x.value);
+    textareas.forEach((x, i) => this.textareaValues[i] = x.value);
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.MODAL_OK, this.onModalSubmit));
-    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.onModalCancel));
+    const listeners = [
+      this.EventService.on(events.MODAL_OK, this.handleOK.bind(this)),
+      this.EventService.on(events.MODAL_CANCEL, this.handleCancel.bind(this)),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  onModalCancel(name) {
+  handleCancel(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
     this.$timeout(() => this.ModalService.Cancel().then(() => this.resetState()));
   }
 
-  onModalSubmit(name) {
+  handleOK(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
 
-    // if not all fields are filled, display message
-    if (this.inputValues.length < this.ModalService.inputArgs.inputs.length || this.inputValues.includes('') ||
-      this.textareaValues.length < this.ModalService.inputArgs.textareas.length || this.textareaValues.includes('')) {
-      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
-      return;
-    }
+    const {
+      inputs,
+      textareas,
+    } = this.ModalService.inputArgs;
 
     // construct data to update using the proper fieldnames
     const updateData = {};
 
-    for (let i = 0; i < this.ModalService.inputArgs.inputs.length; i += 1) {
-      const input = this.ModalService.inputArgs.inputs[i];
-      updateData[input.fieldname] = this.inputValues[i];
+    for (let i = 0; i < inputs.length; i += 1) {
+      const input = inputs[i];
+      const value = this.inputValues[i];
+
+      if (input.required && (value === undefined || value === '')) {
+        this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+        return;
+      }
+
+      updateData[input.fieldname] = value;
 
       // convert date input values to unix timestamp
       if (input.type === 'date') {
-        updateData[input.fieldname] = new Date(this.inputValues[i]).getTime();
+        updateData[input.fieldname] = new Date(value).getTime();
       }
     }
 
-    for (let i = 0; i < this.ModalService.inputArgs.textareas.length; i += 1) {
-      updateData[this.ModalService.inputArgs.textareas[i].fieldname] = this.textareaValues[i];
+    for (let i = 0; i < textareas.length; i += 1) {
+      const textarea = textareas[i];
+      const value = this.textareaValues[i];
+
+      if (textarea.required && (value === undefined || value === '')) {
+        this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+        return;
+      }
+
+      updateData[textareas[i].fieldname] = value;
     }
 
     // perform the update

@@ -6,8 +6,9 @@ class BranchNucleusSettingsController extends Injectable {
   }
 
   openModal(modalType) {
+    const { branch } = this.BranchService;
     let inputs = [];
-    const route = `branch/${this.BranchService.branch.id}/`;
+    const route = `branch/${branch.id}/`;
     let templateName = 'BRANCH_NUCLEUS_SETTINGS';
     let textareas = [];
     let title = '';
@@ -31,7 +32,8 @@ class BranchNucleusSettingsController extends Injectable {
         textareas = [{
           fieldname: 'description',
           placeholder: 'Description',
-          value: this.BranchService.branch.description,
+          required: false,
+          value: branch.description,
         }];
         break;
 
@@ -40,7 +42,8 @@ class BranchNucleusSettingsController extends Injectable {
         textareas = [{
           fieldname: 'rules',
           placeholder: 'Rules & Etiquette Text',
-          value: this.BranchService.branch.rules,
+          required: false,
+          value: branch.rules,
         }];
         break;
 
@@ -49,7 +52,9 @@ class BranchNucleusSettingsController extends Injectable {
         inputs = [{
           fieldname: 'name',
           placeholder: 'Visible name',
+          required: true,
           type: 'text',
+          value: branch.name,
         }];
         break;
 
