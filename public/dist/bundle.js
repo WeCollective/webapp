@@ -67293,8 +67293,8 @@ var CommentInputBoxController = function (_Injectable) {
         this.parentcomment.text = text;
         this.parentcomment.data.text = text;
 
-        this.CommentService.update(postid, parentid, text).catch(function () {
-          return _this2.AlertsService.push('error', 'Error editing comment.');
+        this.CommentService.update(postid, parentid, text).catch(function (err) {
+          return _this2.AlertsService.push('error', err.message);
         });
 
         this.onSubmit()(newComment, this.parentcomment);

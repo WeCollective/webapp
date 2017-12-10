@@ -92,7 +92,7 @@ class CommentInputBoxController extends Injectable {
       this.parentcomment.data.text = text;
 
       this.CommentService.update(postid, parentid, text)
-        .catch(() => this.AlertsService.push('error', 'Error editing comment.'));
+        .catch(err => this.AlertsService.push('error', err.message));
 
       this.onSubmit()(newComment, this.parentcomment);
     }
