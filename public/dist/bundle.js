@@ -67214,17 +67214,20 @@ var CommentInputBoxController = function (_Injectable) {
     return _this;
   }
 
-  // Use timeout to wait for the content to be loaded if we are
+  // Use timeout to wait for the content load if we are
   // calculating height for the comment box.
 
 
   _createClass(CommentInputBoxController, [{
     key: 'autoGrow',
     value: function autoGrow(element) {
-      this.$timeout(function () {
+      var newValue = element.scrollHeight;
+      var oldValue = Number.parseInt(element.style.height || 0, 10);
+
+      if (newValue > oldValue) {
         element.style.height = '5px';
-        element.style.height = element.scrollHeight + 'px';
-      });
+        element.style.height = newValue + 'px';
+      }
     }
 
     /*

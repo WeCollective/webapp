@@ -20,13 +20,14 @@ class CommentInputBoxController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  // Use timeout to wait for the content to be loaded if we are
-  // calculating height for the comment box.
   autoGrow(element) {
-    this.$timeout(() => {
+    const newValue = element.scrollHeight;
+    const oldValue = Number.parseInt(element.style.height || 0, 10);
+
+    if (newValue > oldValue) {
       element.style.height = '5px';
-      element.style.height = `${element.scrollHeight}px`;
-    });
+      element.style.height = `${newValue}px`;
+    }
   }
 
   /*

@@ -694,6 +694,7 @@ html[xmlns] .clearfix {
   box-sizing: border-box;
   font-family: inherit;
   font-size: 12px;
+  height: 30px;
   hyphens: auto;
   max-height: 300px;
   min-height: 32px;

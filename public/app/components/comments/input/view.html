@@ -1,7 +1,7 @@
 <div class="comment__input-wrapper">
   <textarea
     class="comment__input"
-    ng-keyup="Input.autoGrow($event.target)"
+    ng-keydown="Input.autoGrow($event.target)"
     ng-model="Input.input"
     placeholder="{{ Input.placeholder }}"></textarea>
 
