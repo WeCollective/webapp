@@ -33,23 +33,23 @@ class ProfileSettingsModalController extends Injectable {
     if (name !== 'PROFILE_SETTINGS') return;
 
     const { inputs } = this.ModalService.inputArgs;
-
-    // if not all fields are filled, display message
-    if (this.values.length < inputs.length || this.values.includes('')) {
-      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
-      return;
-    }
-
-    // construct data to update using the proper fieldnames
+    // Construct data to update using the proper field names.
     const updateData = {};
 
     for (let i = 0; i < inputs.length; i += 1) {
       const input = inputs[i];
-      updateData[input.fieldname] = this.values[i];
+      const value = this.values[i];
+
+      if (input.required && (value === undefined || value === '')) {
+        this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+        return;
+      }
+
+      updateData[input.fieldname] = value;
 
       // convert date input values to unix timestamp
       if (input.type === 'date') {
-        updateData[input.fieldname] = new Date(this.values[i]).getTime();
+        updateData[input.fieldname] = new Date(value).getTime();
       }
     }
 

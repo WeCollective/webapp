@@ -70587,26 +70587,26 @@ var ProfileSettingsModalController = function (_Injectable) {
       if (name !== 'PROFILE_SETTINGS') return;
 
       var inputs = this.ModalService.inputArgs.inputs;
+      // Construct data to update using the proper field names.
 
-      // if not all fields are filled, display message
-
-      if (this.values.length < inputs.length || this.values.includes('')) {
-        this.$timeout(function () {
-          return _this3.errorMessage = 'Please fill in all fields';
-        });
-        return;
-      }
-
-      // construct data to update using the proper fieldnames
       var updateData = {};
 
       for (var i = 0; i < inputs.length; i += 1) {
         var input = inputs[i];
-        updateData[input.fieldname] = this.values[i];
+        var value = this.values[i];
+
+        if (input.required && (value === undefined || value === '')) {
+          this.$timeout(function () {
+            return _this3.errorMessage = 'Please fill in all fields';
+          });
+          return;
+        }
+
+        updateData[input.fieldname] = value;
 
         // convert date input values to unix timestamp
         if (input.type === 'date') {
-          updateData[input.fieldname] = new Date(this.values[i]).getTime();
+          updateData[input.fieldname] = new Date(value).getTime();
         }
       }
 
@@ -75939,9 +75939,10 @@ var ProfileSettingsController = function (_Injectable) {
       this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Date of Birth',
         inputs: [{
-          placeholder: 'Date of Birth',
-          type: 'date',
           fieldname: 'dob',
+          placeholder: 'Date of Birth',
+          required: true,
+          type: 'date',
           value: new Date(dob)
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
@@ -75954,9 +75955,10 @@ var ProfileSettingsController = function (_Injectable) {
       this.ModalService.open('PROFILE_SETTINGS', {
         title: 'Email',
         inputs: [{
-          placeholder: 'Email',
-          type: 'email',
           fieldname: 'email',
+          placeholder: 'Email',
+          required: true,
+          type: 'email',
           value: email
         }]
       }, 'Successfully updated profile settings!', 'Unable to update profile settings.');
@@ -75971,6 +75973,7 @@ var ProfileSettingsController = function (_Injectable) {
         inputs: [{
           fieldname: 'name',
           placeholder: 'Name',
+          required: true,
           type: 'text',
           value: name
         }]

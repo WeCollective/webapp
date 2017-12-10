@@ -12,9 +12,10 @@ class ProfileSettingsController extends Injectable {
       {
         title: 'Date of Birth',
         inputs: [{
-          placeholder: 'Date of Birth',
-          type: 'date',
           fieldname: 'dob',
+          placeholder: 'Date of Birth',
+          required: true,
+          type: 'date',
           value: new Date(dob),
         }],
       },
@@ -30,9 +31,10 @@ class ProfileSettingsController extends Injectable {
       {
         title: 'Email',
         inputs: [{
-          placeholder: 'Email',
-          type: 'email',
           fieldname: 'email',
+          placeholder: 'Email',
+          required: true,
+          type: 'email',
           value: email,
         }],
       },
@@ -50,6 +52,7 @@ class ProfileSettingsController extends Injectable {
         inputs: [{
           fieldname: 'name',
           placeholder: 'Name',
+          required: true,
           type: 'text',
           value: name,
         }],
