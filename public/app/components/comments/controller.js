@@ -18,22 +18,17 @@ class CommentsController extends Injectable {
     this.hasMoreComments = false;
     this.isLoading = false;
 
-    this.reloadComments = this.reloadComments.bind(this);
-    this.onSubmitComment = this.onSubmitComment.bind(this);
+    this.reloadComments();
 
     const { sortBy } = this.controls;
     const { events } = this.EventService;
-    const listeners = [];
-
-    listeners.push(this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.reloadComments();
-    }));
-
-    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments));
-
+    const listeners = [
+      this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments.bind(this)),
+      this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
+        if (newValue !== oldValue) this.reloadComments();
+      }),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
-
-    this.reloadComments();
   }
 
   getAllCommentReplies(commentsArr) {
@@ -74,17 +69,16 @@ class CommentsController extends Injectable {
     const successCb = res => this.$timeout(() => {
       const isSingleComment = !Array.isArray(res.comments);
 
-      let comments = [];
-
       if (isSingleComment) {
-        comments.push(res);
-        this.comments = comments;
+        this.comments = [res];
         this.isLoading = false;
         return;
       }
 
-      ({ comments } = this);
-      comments = comments.concat(res.comments);
+      const comments = [
+        ...this.comments,
+        ...res.comments,
+      ];
       this.comments = comments;
 
       this.hasMoreComments = res.hasMoreComments;

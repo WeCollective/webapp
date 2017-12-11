@@ -66924,6 +66924,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -66952,29 +66954,21 @@ var CommentsController = function (_Injectable) {
     _this.hasMoreComments = false;
     _this.isLoading = false;
 
-    _this.reloadComments = _this.reloadComments.bind(_this);
-    _this.onSubmitComment = _this.onSubmitComment.bind(_this);
+    _this.reloadComments();
 
     var sortBy = _this.controls.sortBy;
     var events = _this.EventService.events;
 
-    var listeners = [];
-
-    listeners.push(_this.$rootScope.$watch(function () {
+    var listeners = [_this.EventService.on(events.STATE_CHANGE_SUCCESS, _this.reloadComments.bind(_this)), _this.$rootScope.$watch(function () {
       return sortBy.selectedIndex;
     }, function (newValue, oldValue) {
       if (newValue !== oldValue) _this.reloadComments();
-    }));
-
-    listeners.push(_this.EventService.on(events.STATE_CHANGE_SUCCESS, _this.reloadComments));
-
+    })];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
       });
     });
-
-    _this.reloadComments();
     return _this;
   }
 
@@ -67018,18 +67012,13 @@ var CommentsController = function (_Injectable) {
         return _this3.$timeout(function () {
           var isSingleComment = !Array.isArray(res.comments);
 
-          var comments = [];
-
           if (isSingleComment) {
-            comments.push(res);
-            _this3.comments = comments;
+            _this3.comments = [res];
             _this3.isLoading = false;
             return;
           }
 
-          comments = _this3.comments;
-
-          comments = comments.concat(res.comments);
+          var comments = [].concat(_toConsumableArray(_this3.comments), _toConsumableArray(res.comments));
           _this3.comments = comments;
 
           _this3.hasMoreComments = res.hasMoreComments;
@@ -67213,10 +67202,6 @@ var CommentInputBoxController = function (_Injectable) {
     });
     return _this;
   }
-
-  // Use timeout to wait for the content load if we are
-  // calculating height for the comment box.
-
 
   _createClass(CommentInputBoxController, [{
     key: 'autoGrow',

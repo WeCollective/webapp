@@ -19,6 +19,7 @@
     <dropdown
       class="style--horizontal"
       items="Comments.controls.sortBy.items"
+      ng-if="!Comments.isCommentPermalink()"
     	selected="Comments.controls.sortBy.selectedIndex"
     	title="sort by">
     </dropdown>
@@ -27,7 +28,7 @@
 
     <div
       class="empty-wrapper"
-      ng-if="!Comments.comments.length">
+      ng-if="!Comments.isCommentPermalink() && !Comments.comments.length">
       <p class="empty__text">
         No comments yet!
       </p>

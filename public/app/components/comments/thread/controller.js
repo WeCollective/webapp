@@ -3,7 +3,6 @@ import Injectable from 'utils/injectable';
 class CommentThreadController extends Injectable {
   constructor(...injections) {
     super(CommentThreadController.$inject, injections);
-
     this.parentComment = undefined; // the comment which is being replied to
   }
 
