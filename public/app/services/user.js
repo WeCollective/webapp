@@ -59,6 +59,15 @@ class UserService extends Injectable {
   }
 
   isAuthenticated() {
+    const jwt = this.Auth.get();
+
+    if (!jwt) {
+      this.LocalStorageService.setObject('cache', {});
+      this.LocalStorageService.setObject('user', {});
+      this.user = {};
+      return false;
+    }
+
     if (this.user && Object.keys(this.user).length) {
       return true;
     }

@@ -29,10 +29,10 @@ class BranchWallController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  callbackScroll(name) {
-    const items = this.posts.length;
-    if (name === 'ScrollToBottom' && items > 0) {
-      this.getPosts(this.posts[items - 1].id);
+  callbackScroll() {
+    const { posts } = this;
+    if (posts.length) {
+      this.getPosts(posts[posts.length - 1].id);
     }
   }
 

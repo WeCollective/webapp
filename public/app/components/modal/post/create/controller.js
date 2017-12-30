@@ -46,6 +46,7 @@ class CreatePostModalController extends Injectable {
     const listeners = [];
     listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
     listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
+    /*
     listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
       if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
         return;
@@ -67,6 +68,7 @@ class CreatePostModalController extends Injectable {
           });
       }
     }));
+    */
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

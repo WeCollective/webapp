@@ -11,8 +11,9 @@ class BranchNucleusModtoolsController extends Injectable {
 
     this.getLog = this.getLog.bind(this);
 
-    const listeners = [];
-    listeners.push(this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getLog));
+    const listeners = [
+      this.EventService.on(this.EventService.events.CHANGE_BRANCH, this.getLog),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

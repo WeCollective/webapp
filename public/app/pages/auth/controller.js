@@ -25,8 +25,12 @@ class AuthController extends Injectable {
 
   login() {
     this.UserService.login(this.credentials)
-      .then(() => this.$state.go('weco.home'))
+      .then(() => {
+        this.isLoading = false;
+        this.$state.go('weco.home');
+      })
       .catch(err => {
+        this.isLoading = false;
         this.errorMessage = err.message;
 
         // Possibly unverified account
@@ -56,10 +60,12 @@ class AuthController extends Injectable {
   signup() {
     this.UserService.signup(this.credentials)
       .then(() => {
+        this.isLoading = false;
         this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
         this.$state.go('weco.home');
       })
       .catch(err => {
+        this.isLoading = false;
         this.errorMessage = err.message;
       });
   }

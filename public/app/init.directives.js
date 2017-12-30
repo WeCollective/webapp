@@ -8,6 +8,7 @@ import Comments from './components/comments/directive';
 import CommentThread from './components/comments/thread/directive';
 import CoverPhoto from './components/cover-photo/directive';
 import Dropdown from './components/dropdown/directive';
+import EmitOnScrollToBottom from './components/on-scroll-to-bottom/directive';
 import Loading from './components/loading/directive';
 import LoaderBar from './components/loader-bar/directive';
 import Modal from './components/modal/directive';
@@ -15,7 +16,6 @@ import ModLogEntry from './components/mod-log-entry/directive';
 import Navbar from './components/navbar/directive';
 import NoConstructorTransition from './components/no-constructor-transition/directive';
 import Notification from './components/notification/directive';
-import OnScrollToBottom from './components/on-scroll-to-bottom/directive';
 import PollAnswerEditor from './components/poll-answer-editor/directive';
 import Sidebar from './components/sidebar/directive';
 import Tabs from './components/tabs/directive';
@@ -32,6 +32,7 @@ const refs = [
   { name: 'commentThread', module: CommentThread },
   { name: 'coverPhoto', module: CoverPhoto },
   { name: 'dropdown', module: Dropdown },
+  { name: 'emitOnScrollToBottom', module: EmitOnScrollToBottom },
   { name: 'listItem', module: CardListItem },
   { name: 'loaderBar', module: LoaderBar },
   { name: 'loading', module: Loading },
@@ -40,7 +41,6 @@ const refs = [
   { name: 'navbar', module: Navbar },
   { name: 'noConstructorTransition', module: NoConstructorTransition },
   { name: 'notification', module: Notification },
-  { name: 'onScrollToBottom', module: OnScrollToBottom },
   { name: 'pollAnswerEditor', module: PollAnswerEditor },
   { name: 'sidebar', module: Sidebar },
   { name: 'tabs', module: Tabs },

@@ -31,8 +31,9 @@ class BranchPostResultsController extends Injectable {
     this.getPollAnswers();
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => this.getPollAnswers()));
+    const listeners = [
+      this.EventService.on(events.STATE_CHANGE_SUCCESS, () => this.getPollAnswers()),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

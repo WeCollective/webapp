@@ -19,18 +19,19 @@ class BranchSubbranchesController extends Injectable {
     // Do the initial load so the loader appears straight away.
     this.getSubbranches();
 
-    const listeners = [];
     const { events } = this.EventService;
-    listeners.push(this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()));
-    listeners.push(this.EventService.on(events.CHANGE_FILTER, () => this.getSubbranches()));
-    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll));
+    const listeners = [
+      this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()),
+      this.EventService.on(events.CHANGE_FILTER, () => this.getSubbranches()),
+      this.EventService.on(events.SCROLLED_TO_BOTTOM, () => this.callbackScroll()),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  callbackScroll(name) {
-    const items = this.branches.length;
-    if (name === 'ScrollToBottom' && items > 0) {
-      this.getSubbranches(this.branches[items - 1].id);
+  callbackScroll() {
+    const { branches } = this;
+    if (branches.length) {
+      this.getSubbranches(branches[branches.length - 1].id);
     }
   }
 

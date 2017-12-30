@@ -13,8 +13,9 @@ class BranchNucleusModeratorsController extends Injectable {
     this.getMod = this.getMod.bind(this);
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.CHANGE_BRANCH, this.getAllMods));
+    const listeners = [
+      this.EventService.on(events.CHANGE_BRANCH, this.getAllMods),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

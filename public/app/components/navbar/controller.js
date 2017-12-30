@@ -176,7 +176,9 @@ class NavbarController extends Injectable {
   }
 
   isControlSelected(control) {
-    return this.$state.current.name.includes(control) && this.$state.params.branchid === 'root';
+    const { name } = this.$state.current;
+    const { branchid } = this.$state.params;
+    return name.includes(control) && branchid === 'root';
   }
 
   logout() {

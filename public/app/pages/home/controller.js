@@ -11,22 +11,26 @@ class HomeController extends Injectable {
       user_count: 0,
     };
 
-    for (const stat of Object.keys(this.stats)) { // eslint-disable-line no-restricted-syntax
-      this.API.get('/constant/:stat', { stat })
-        .then(res => {
-          this.stats[stat] = res.data.data;
+    // Grab all constants at once.
+    this.API.get('/constant')
+      .then(res => {
+        const { data } = res;
+        const cache = this.LocalStorageService.getObject('cache');
+        cache.homepageStats = cache.homepageStats || {};
 
-          const cache = this.LocalStorageService.getObject('cache');
-          cache.homepageStats = cache.homepageStats || {};
-          cache.homepageStats[stat] = this.stats[stat];
-          this.LocalStorageService.setObject('cache', cache);
-        })
-        .catch(err => {
-          console.log(err);
-          this.AlertsService.push('error', 'Having trouble connecting...');
-        })
-        .then(this.$timeout);
-    }
+        data.forEach(stat => {
+          const { id } = stat;
+          this.stats[id] = stat.data;
+          cache.homepageStats[id] = this.stats[id];
+        });
+
+        this.LocalStorageService.setObject('cache', cache);
+      })
+      .catch(err => {
+        console.log(err);
+        this.AlertsService.push('error', 'Having trouble connecting...');
+      })
+      .then(this.$timeout);
   }
 
   getHomepageImageURL() {

@@ -1,23 +1,26 @@
 import Injectable from 'utils/injectable';
 
-class OnScrollToBottomComponent extends Injectable {
+class EmitOnScrollToBottomComponent extends Injectable {
   constructor(...injections) {
-    super(OnScrollToBottomComponent.$inject, injections);
+    super(EmitOnScrollToBottomComponent.$inject, injections);
     this.restrict = 'A';
   }
 
-  link(scope, element, attrs) {
+  link(scope, element) {
     element.on('scroll', () => {
-      if (element[0].scrollTop + element[0].offsetHeight >= element[0].scrollHeight) {
-        this.EventService.emit(this.EventService.events.SCROLLED_TO_BOTTOM, attrs.onScrollToBottom);
+      const el = element[0];
+
+      if (el.scrollTop + el.offsetHeight >= el.scrollHeight) {
+        const { events } = this.EventService;
+        this.EventService.emit(events.SCROLLED_TO_BOTTOM);
       }
     });
   }
 }
 
-OnScrollToBottomComponent.$inject = [
+EmitOnScrollToBottomComponent.$inject = [
   '$timeout',
   'EventService',
 ];
 
-export default OnScrollToBottomComponent;
+export default EmitOnScrollToBottomComponent;

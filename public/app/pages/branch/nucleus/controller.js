@@ -10,9 +10,10 @@ class BranchNucleusController extends Injectable {
     this.renderTabs = this.renderTabs.bind(this);
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.CHANGE_BRANCH, this.renderTabs));
-    listeners.push(this.EventService.on(events.CHANGE_USER, this.renderTabs));
+    const listeners = [
+      this.EventService.on(events.CHANGE_BRANCH, this.renderTabs),
+      this.EventService.on(events.CHANGE_USER, this.renderTabs),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

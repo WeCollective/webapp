@@ -66,6 +66,7 @@
         </a>
       </div>
 
+      <!--
       <div class="nav__search-wrapper" ng-class="{ 'style--visible': Navbar.isMobileSearchActive }">
         <img alt="Search" class="nav__search-icon" src="assets/images/icons/search.svg" />
         <input
@@ -91,6 +92,7 @@
           </li>
         </ul>
       </div>
+      -->
     </div>
 
     <div class="nav__user-menu" ng-hide="Navbar.isMobileSearchActive">
@@ -108,11 +110,13 @@
         <span class="nav__item-text">Sign up</span>
       </a>
 
+      <!--
       <button
         class="nav__item style--search"
         ng-click="Navbar.toggleMobileSearch(true)">
         <img alt="Search" class="nav__icon" src="assets/images/icons/search.svg" />
       </button>
+      -->
 
       <a
         class="nav__item style--notification"
@@ -159,7 +163,7 @@
           ng-show="Navbar.AppService.isNavbarMenuOpen">
           <li
             class="nav__expand-menu-item"
-            ng-click="Navbar.toggleNav(); Navbar.logout()">
+            ng-click="Navbar.AppService.toggleNavbarMenu(); Navbar.logout()">
             <span class="text--uppercase">Log Out</span>
           </li>
 
@@ -170,7 +174,7 @@
 
           <li
             class="nav__expand-menu-item"
-            ng-click="Navbar.toggleNav()"
+            ng-click="Navbar.AppService.toggleNavbarMenu()"
             ng-repeat="branch in Navbar.UserService.user.followed_branches"
             ng-show="Navbar.UserService.user.followed_branches.length > 0">
             <a ui-sref="weco.branch.wall({ branchid: branch })">

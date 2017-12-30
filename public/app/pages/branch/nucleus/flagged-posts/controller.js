@@ -152,9 +152,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
     });
   }
 
-  getPostsCb(name) {
-    if (name !== 'ScrollToBottom') return;
-
+  getPostsCb() {
     if (!this.isLoadingMore) {
       this.isLoadingMore = true;
       this.getPosts(this.posts[this.posts.length - 1].id);

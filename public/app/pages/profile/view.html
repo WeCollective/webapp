@@ -8,9 +8,9 @@
 
 <div
   class="page"
+  emit-on-scroll-to-bottom
   loading
-  loading-when="Profile.isLoading"
-  on-scroll-to-bottom="ScrollToBottom">
+  loading-when="Profile.isLoading">
   <div
     class="sidebar no-transition"
     ng-class="{ 'toggled': Profile.AppService.isSidebarOpen }"
