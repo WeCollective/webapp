@@ -71677,10 +71677,10 @@ var SidebarController = function (_Injectable) {
     key: 'getLabelFollowButton',
     value: function getLabelFollowButton() {
       if (this.BranchService.isFollowingBranch()) {
-        return 'Unfollow branch';
+        return 'Unfollow';
       }
 
-      return 'Follow branch';
+      return 'Follow';
     }
   }, {
     key: 'isControlSelected',

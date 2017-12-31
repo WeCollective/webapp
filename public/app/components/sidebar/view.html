@@ -81,7 +81,7 @@
         <img
           alt="Toggle branch follow status button"
           ng-src="/assets/images/icons/button-eye-{{ Ctrl.BranchService.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
-        <span>Follow</span>
+        <span>{{ Ctrl.getLabelFollowButton() }}</span>
       </button>
     </li>
   </ul>

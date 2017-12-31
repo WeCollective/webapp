@@ -22,10 +22,10 @@ class SidebarController extends Injectable {
 
   getLabelFollowButton() {
     if (this.BranchService.isFollowingBranch()) {
-      return 'Unfollow branch';
+      return 'Unfollow';
     }
 
-    return 'Follow branch';
+    return 'Follow';
   }
 
   isControlSelected(control) {
