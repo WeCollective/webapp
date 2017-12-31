@@ -4,7 +4,50 @@ class BranchWallHeaderController extends Injectable {
   constructor(...injections) {
     super(BranchWallHeaderController.$inject, injections);
 
+    this.controls = {
+      postType: {
+        items: [
+          'all',
+          'images',
+          'videos',
+          'audio',
+          'text',
+          'pages',
+          'polls',
+        ],
+        selectedIndex: 0,
+      },
+      sortBy: {
+        items: [
+          'total points',
+          '# of comments',
+          'date posted',
+        ],
+        selectedIndex: 2,
+      },
+      statType: {
+        items: [
+          'global',
+          'local',
+          'branch',
+        ],
+        selectedIndex: 0,
+      },
+      timeRange: {
+        items: [
+          'all time',
+          'past year',
+          'past month',
+          'past week',
+          'past 24 hrs',
+          'past hour',
+        ],
+        selectedIndex: 0,
+      },
+    };
+
     this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultControls = this.setDefaultControls.bind(this);
     this.setDefaultControls();
 
     const ctrls = this.controls;
@@ -110,49 +153,8 @@ class BranchWallHeaderController extends Injectable {
 
   setDefaultControls() {
     const { branch } = this.BranchService;
-
-    this.controls = {
-      postType: {
-        items: [
-          'all',
-          'images',
-          'videos',
-          'audio',
-          'text',
-          'pages',
-          'polls',
-        ],
-        selectedIndex: 0,
-      },
-      sortBy: {
-        items: [
-          'total points',
-          '# of comments',
-          'date posted',
-        ],
-        selectedIndex: branch.id === 'root' ? 0 : 2,
-      },
-      statType: {
-        items: [
-          'global',
-          'local',
-          'branch',
-        ],
-        selectedIndex: 0,
-      },
-      timeRange: {
-        items: [
-          'all time',
-          'past year',
-          'past month',
-          'past week',
-          'past 24 hrs',
-          'past hour',
-        ],
-        selectedIndex: branch.id === 'root' ? 3 : 0,
-      },
-    };
-
+    this.controls.sortBy.selectedIndex = branch.id === 'root' ? 0 : 2;
+    this.controls.timeRange.selectedIndex = branch.id === 'root' ? 3 : 0;
     // Set filters through service for other modules.
     this.callbackDropdown();
   }

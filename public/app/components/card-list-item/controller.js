@@ -55,7 +55,7 @@ class ListItemController extends Injectable {
 
   getPostImage() {
     const IMG_DIR = '/assets/images/placeholders/';
-    return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
+    return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
   }
 
   getTotalFlagCount() {

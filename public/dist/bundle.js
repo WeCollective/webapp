@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -66502,7 +66502,7 @@ var ListItemController = function (_Injectable) {
     key: 'getPostImage',
     value: function getPostImage() {
       var IMG_DIR = '/assets/images/placeholders/';
-      return this.post.profileUrlThumb || IMG_DIR + 'post--' + this.post.type + '.jpg';
+      return this.post.profileUrlThumb || IMG_DIR + 'post--' + this.post.type + '.svg';
     }
   }, {
     key: 'getTotalFlagCount',
@@ -66727,7 +66727,7 @@ var CardPollAnswerController = function (_Injectable) {
     key: 'getThumbnail',
     value: function getThumbnail() {
       // const IMG_DIR = '/assets/images/placeholders/';
-      // return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.jpg`;
+      // return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
     }
   }]);
 
@@ -75329,7 +75329,27 @@ var BranchWallHeaderController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (BranchWallHeaderController.__proto__ || Object.getPrototypeOf(BranchWallHeaderController)).call(this, BranchWallHeaderController.$inject, injections));
 
+    _this.controls = {
+      postType: {
+        items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
+        selectedIndex: 0
+      },
+      sortBy: {
+        items: ['total points', '# of comments', 'date posted'],
+        selectedIndex: 2
+      },
+      statType: {
+        items: ['global', 'local', 'branch'],
+        selectedIndex: 0
+      },
+      timeRange: {
+        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+        selectedIndex: 0
+      }
+    };
+
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
+    _this.setDefaultControls = _this.setDefaultControls.bind(_this);
     _this.setDefaultControls();
 
     var ctrls = _this.controls;
@@ -75457,26 +75477,8 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function setDefaultControls() {
       var branch = this.BranchService.branch;
 
-
-      this.controls = {
-        postType: {
-          items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
-          selectedIndex: 0
-        },
-        sortBy: {
-          items: ['total points', '# of comments', 'date posted'],
-          selectedIndex: branch.id === 'root' ? 0 : 2
-        },
-        statType: {
-          items: ['global', 'local', 'branch'],
-          selectedIndex: 0
-        },
-        timeRange: {
-          items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
-          selectedIndex: branch.id === 'root' ? 3 : 0
-        }
-      };
-
+      this.controls.sortBy.selectedIndex = branch.id === 'root' ? 0 : 2;
+      this.controls.timeRange.selectedIndex = branch.id === 'root' ? 3 : 0;
       // Set filters through service for other modules.
       this.callbackDropdown();
     }

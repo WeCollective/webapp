@@ -46,7 +46,7 @@
     href="{{ ListItem.post.data.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.jpg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
   </a>
   
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
