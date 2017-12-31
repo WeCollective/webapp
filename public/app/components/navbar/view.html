@@ -41,19 +41,6 @@
 
         <a
           class="nav__item"
-          ng-class="{ 'style--opaque' : Navbar.isControlSelected('subbranches') }"
-          ui-sref="weco.branch.subbranches({ branchid: 'root' })">
-          <img
-            alt="Go to Root Branches"
-            class="nav__icon"
-            offset-y="40"
-            src="/assets/images/icons/white/branch.png"
-            text="'Root Branches'"
-            tooltip />
-        </a>
-
-        <a
-          class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('wall') }"
           ui-sref="weco.branch.wall({ branchid: 'root' })">
           <img
@@ -62,6 +49,19 @@
             offset-y="40"
             src="/assets/images/icons/white/wall.png"
             text="'Global Wall'"
+            tooltip />
+        </a>
+
+        <a
+          class="nav__item"
+          ng-class="{ 'style--opaque' : Navbar.isControlSelected('subbranches') }"
+          ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+          <img
+            alt="Go to Root Branches"
+            class="nav__icon"
+            offset-y="40"
+            src="/assets/images/icons/white/branch.png"
+            text="'Root Branches'"
             tooltip />
         </a>
       </div>

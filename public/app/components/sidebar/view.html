@@ -49,23 +49,23 @@
 
     <li>
       <a
-        ng-class="{ 'selected' : Ctrl.isControlSelected('subbranches') }"
-        offset-y="60"
-        text="'Child Branches'"
-        tooltip
-        ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })" >
-        <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
-      </a>
-    </li>
-
-    <li>
-      <a
         ng-class="{ 'selected' : Ctrl.isControlSelected('wall') }"
         offset-y="60"
         text="'Wall'"
         tooltip
         ui-sref="weco.branch.wall({ branchid: Ctrl.BranchService.branch.id })">
         <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
+      </a>
+    </li>
+
+    <li>
+      <a
+        ng-class="{ 'selected' : Ctrl.isControlSelected('subbranches') }"
+        offset-y="60"
+        text="'Child Branches'"
+        tooltip
+        ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })" >
+        <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
       </a>
     </li>
 
