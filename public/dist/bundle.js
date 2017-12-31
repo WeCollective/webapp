@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -67253,7 +67253,7 @@ var CommentInputBoxController = function (_Injectable) {
         down: 0,
         hasMoreComments: false,
         id: id,
-        individual: 0,
+        individual: 1,
         meta: {
           openReply: false,
           update: false
@@ -67262,11 +67262,12 @@ var CommentInputBoxController = function (_Injectable) {
         postid: postid,
         rank: 0,
         replies: 0,
-        up: 0,
+        up: 1,
         votes: {
           down: 0,
-          individual: 0,
-          up: 0
+          individual: 1,
+          up: 1,
+          userVoted: 'up'
         }
       };
 
@@ -71677,10 +71678,10 @@ var SidebarController = function (_Injectable) {
     key: 'getLabelFollowButton',
     value: function getLabelFollowButton() {
       if (this.BranchService.isFollowingBranch()) {
-        return 'Unfollow';
+        return 'Unfollow branch';
       }
 
-      return 'Follow';
+      return 'Follow branch';
     }
   }, {
     key: 'isControlSelected',
@@ -75190,14 +75191,11 @@ var BranchWallController = function (_Injectable) {
 
     var events = _this.EventService.events;
 
-    var listeners = [];
-    listeners.push(_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, function () {
+    var listeners = [_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, function () {
       return _this.getPosts();
-    }));
-    listeners.push(_this.EventService.on(events.CHANGE_FILTER, function () {
+    }), _this.EventService.on(events.CHANGE_FILTER, function () {
       return _this.getPosts();
-    }));
-    listeners.push(_this.EventService.on(events.SCROLLED_TO_BOTTOM, _this.callbackScroll));
+    }), _this.EventService.on(events.SCROLLED_TO_BOTTOM, _this.callbackScroll)];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -75331,44 +75329,23 @@ var BranchWallHeaderController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (BranchWallHeaderController.__proto__ || Object.getPrototypeOf(BranchWallHeaderController)).call(this, BranchWallHeaderController.$inject, injections));
 
-    _this.controls = {
-      postType: {
-        items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
-        selectedIndex: 0
-      },
-      sortBy: {
-        items: ['total points', '# of comments', 'date posted'],
-        selectedIndex: 2
-      },
-      statType: {
-        items: ['global', 'local', 'branch'],
-        selectedIndex: 0
-      },
-      timeRange: {
-        items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
-        selectedIndex: 0
-      }
-    };
-
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
+    _this.setDefaultControls();
 
-    // Init filters.
-    _this.callbackDropdown();
-
-    var listeners = [];
     var ctrls = _this.controls;
-    listeners.push(_this.$scope.$watch(function () {
+    var events = _this.EventService.events;
+
+    var listeners = [_this.$scope.$watch(function () {
       return ctrls.postType.selectedIndex;
-    }, _this.callbackDropdown));
-    listeners.push(_this.$scope.$watch(function () {
+    }, _this.callbackDropdown), _this.$scope.$watch(function () {
       return ctrls.sortBy.selectedIndex;
-    }, _this.callbackDropdown));
-    listeners.push(_this.$scope.$watch(function () {
+    }, _this.callbackDropdown), _this.$scope.$watch(function () {
       return ctrls.statType.selectedIndex;
-    }, _this.callbackDropdown));
-    listeners.push(_this.$scope.$watch(function () {
+    }, _this.callbackDropdown), _this.$scope.$watch(function () {
       return ctrls.timeRange.selectedIndex;
-    }, _this.callbackDropdown));
+    }, _this.callbackDropdown), _this.EventService.on(events.CHANGE_BRANCH, function () {
+      return _this.setDefaultControls();
+    })];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -75475,12 +75452,40 @@ var BranchWallHeaderController = function (_Injectable) {
           return 0;
       }
     }
+  }, {
+    key: 'setDefaultControls',
+    value: function setDefaultControls() {
+      var branch = this.BranchService.branch;
+
+
+      this.controls = {
+        postType: {
+          items: ['all', 'images', 'videos', 'audio', 'text', 'pages', 'polls'],
+          selectedIndex: 0
+        },
+        sortBy: {
+          items: ['total points', '# of comments', 'date posted'],
+          selectedIndex: branch.id === 'root' ? 0 : 2
+        },
+        statType: {
+          items: ['global', 'local', 'branch'],
+          selectedIndex: 0
+        },
+        timeRange: {
+          items: ['all time', 'past year', 'past month', 'past week', 'past 24 hrs', 'past hour'],
+          selectedIndex: branch.id === 'root' ? 3 : 0
+        }
+      };
+
+      // Set filters through service for other modules.
+      this.callbackDropdown();
+    }
   }]);
 
   return BranchWallHeaderController;
 }(_injectable2.default);
 
-BranchWallHeaderController.$inject = ['$scope', 'BranchService', 'HeaderService', 'WallService'];
+BranchWallHeaderController.$inject = ['$scope', 'BranchService', 'EventService', 'HeaderService', 'WallService'];
 
 exports.default = BranchWallHeaderController;
 

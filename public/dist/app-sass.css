@@ -120,8 +120,8 @@ body {
       .nav .nav__logo {
         display: block !important; } }
   .nav .nav__logo-icon {
-    height: 62px;
-    width: 62px; }
+    height: 60px;
+    width: 60px; }
     .nav .nav__logo-icon.style--animate {
       display: none;
       position: absolute; }
@@ -229,6 +229,7 @@ body {
     display: flex;
     height: 100%; }
     .nav .nav__user-menu .nav__item {
+      border-left: 1px solid #494949;
       color: #b3b3b3;
       font-weight: 600; }
       .nav .nav__user-menu .nav__item.style--auth {

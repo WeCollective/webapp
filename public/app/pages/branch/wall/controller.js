@@ -22,10 +22,11 @@ class BranchWallController extends Injectable {
     this.getPosts();
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()));
-    listeners.push(this.EventService.on(events.CHANGE_FILTER, () => this.getPosts()));
-    listeners.push(this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll));
+    const listeners = [
+      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()),
+      this.EventService.on(events.CHANGE_FILTER, () => this.getPosts()),
+      this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

@@ -66,7 +66,7 @@ class CommentInputBoxController extends Injectable {
       down: 0,
       hasMoreComments: false,
       id,
-      individual: 0,
+      individual: 1,
       meta: {
         openReply: false,
         update: false,
@@ -75,11 +75,12 @@ class CommentInputBoxController extends Injectable {
       postid,
       rank: 0,
       replies: 0,
-      up: 0,
+      up: 1,
       votes: {
         down: 0,
-        individual: 0,
-        up: 0,
+        individual: 1,
+        up: 1,
+        userVoted: 'up',
       },
     };
 

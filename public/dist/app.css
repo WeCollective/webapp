@@ -176,7 +176,7 @@ html[xmlns] .clearfix {
   width: 100%;
 }
 .view {
-  height: calc(100vh - 45px);
+  height: calc(100vh - 44px);
   overflow: hidden;
   position: relative;
 }
@@ -186,11 +186,11 @@ html[xmlns] .clearfix {
   width: 100%;
 }
 .full-page.style--has-navbar {
-  height: calc(100vh - 45px);
+  height: calc(100vh - 44px);
 }
 .page {
   background-color: #f7f7f7;
-  height: calc(100vh - 45px - 70px);
+  height: calc(100vh - 44px - 70px);
   overflow-x: hidden;
   overflow-y: scroll;
   transition: height 0.4s;
@@ -642,7 +642,7 @@ html[xmlns] .clearfix {
 .comments .comment__content .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -651,10 +651,10 @@ html[xmlns] .clearfix {
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;
@@ -798,7 +798,7 @@ html[xmlns] .clearfix {
   right: 38px;
 }
 .cover-photo + .page {
-  height: calc(100vh - 45px);
+  height: calc(100vh - 44px);
 }
 .cover-photo.closed {
   height: 0;
@@ -813,7 +813,7 @@ html[xmlns] .clearfix {
   transform: rotateZ(180deg);
 }
 .cover-photo.open + .page {
-  height: calc(100vh - 45px - 70px);
+  height: calc(100vh - 44px - 70px);
 }
 .cover-photo.open + .page .header.style--fixed {
   transform: translateY(70px);
@@ -825,7 +825,7 @@ html[xmlns] .clearfix {
 }
 .cover-photo.open + .page .sidebar,
 .cover-photo.open + .page .side {
-  height: calc(100vh - 45px - 70px);
+  height: calc(100vh - 44px - 70px);
   transform: translateY(70px) translateX(-100%);
 }
 @media screen and (max-width: 768px) {
@@ -839,7 +839,7 @@ html[xmlns] .clearfix {
     height: 100px;
   }
   .cover-photo.open + .page {
-    height: calc(100vh - 45px - 100px);
+    height: calc(100vh - 44px - 100px);
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side,
@@ -848,7 +848,7 @@ html[xmlns] .clearfix {
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side {
-    height: calc(100vh - 45px - 100px);
+    height: calc(100vh - 44px - 100px);
   }
 }
 @media only screen and (min-width: 992px) {
@@ -856,7 +856,7 @@ html[xmlns] .clearfix {
     height: 150px;
   }
   .cover-photo.open + .page {
-    height: calc(100vh - 45px - 150px);
+    height: calc(100vh - 44px - 150px);
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side,
@@ -865,7 +865,7 @@ html[xmlns] .clearfix {
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side {
-    height: calc(100vh - 45px - 150px);
+    height: calc(100vh - 44px - 150px);
   }
 }
 div.dropdown {
@@ -1232,7 +1232,7 @@ div[loading] div.loading-container img {
 .notification .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -1241,10 +1241,10 @@ div[loading] div.loading-container img {
 }
 .notification .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .notification .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .notification .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;
@@ -1362,13 +1362,13 @@ div.poll-answer-editor input {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(140, 144, 155, 0.15);
   box-sizing: border-box;
-  height: calc(100vh - 45px);
+  height: calc(100vh - 44px);
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
   position: fixed;
-  top: 45px;
+  top: 44px;
   width: 201px;
   z-index: 11;
   transition: transform 0.4s, height 0.4s;
@@ -2488,7 +2488,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__post .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -2497,10 +2497,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .branch__post .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .branch__post .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;
@@ -2752,7 +2752,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .branch__post .list-item__votes .list-item__vote-icon {
     cursor: pointer;
     height: 22px;
-    opacity: .2;
+    opacity: .1;
     width: 22px;
     transition: opacity .2s;
   }
@@ -2761,10 +2761,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
   .branch__post .list-item__votes .list-item__vote-icon.style--disabled {
     cursor: initial;
-    opacity: .2;
+    opacity: .1;
   }
   .branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
-    opacity: .2;
+    opacity: .1;
   }
   .branch__post .list-item__votes .list-item__vote-icon.style--active {
     opacity: 1;
@@ -3026,7 +3026,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__subbranch .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -3035,10 +3035,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;
@@ -3188,7 +3188,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header.style--fixed-post {
   left: 0;
   position: fixed;
-  top: 45px;
+  top: 44px;
   width: 100%;
   z-index: 10;
   transition: transform 0.4s;
@@ -3525,7 +3525,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header .list-item .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -3534,10 +3534,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .header .list-item .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .header .list-item .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;
@@ -3794,7 +3794,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .header .list-item .list-item__votes .list-item__vote-icon {
     cursor: pointer;
     height: 22px;
-    opacity: .2;
+    opacity: .1;
     width: 22px;
     transition: opacity .2s;
   }
@@ -3803,10 +3803,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
   .header .list-item .list-item__votes .list-item__vote-icon.style--disabled {
     cursor: initial;
-    opacity: .2;
+    opacity: .1;
   }
   .header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
-    opacity: .2;
+    opacity: .1;
   }
   .header .list-item .list-item__votes .list-item__vote-icon.style--active {
     opacity: 1;
@@ -4370,7 +4370,7 @@ div#notfound div h2 {
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon {
   cursor: pointer;
   height: 22px;
-  opacity: .2;
+  opacity: .1;
   width: 22px;
   transition: opacity .2s;
 }
@@ -4379,10 +4379,10 @@ div#notfound div h2 {
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--disabled {
   cursor: initial;
-  opacity: .2;
+  opacity: .1;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .2;
+  opacity: .1;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--active {
   opacity: 1;

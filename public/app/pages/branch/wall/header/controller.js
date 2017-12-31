@@ -4,59 +4,18 @@ class BranchWallHeaderController extends Injectable {
   constructor(...injections) {
     super(BranchWallHeaderController.$inject, injections);
 
-    this.controls = {
-      postType: {
-        items: [
-          'all',
-          'images',
-          'videos',
-          'audio',
-          'text',
-          'pages',
-          'polls',
-        ],
-        selectedIndex: 0,
-      },
-      sortBy: {
-        items: [
-          'total points',
-          '# of comments',
-          'date posted',
-        ],
-        selectedIndex: 2,
-      },
-      statType: {
-        items: [
-          'global',
-          'local',
-          'branch',
-        ],
-        selectedIndex: 0,
-      },
-      timeRange: {
-        items: [
-          'all time',
-          'past year',
-          'past month',
-          'past week',
-          'past 24 hrs',
-          'past hour',
-        ],
-        selectedIndex: 0,
-      },
-    };
-
     this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultControls();
 
-    // Init filters.
-    this.callbackDropdown();
-
-    const listeners = [];
     const ctrls = this.controls;
-    listeners.push(this.$scope.$watch(() => ctrls.postType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$scope.$watch(() => ctrls.statType.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown));
+    const { events } = this.EventService;
+    const listeners = [
+      this.$scope.$watch(() => ctrls.postType.selectedIndex, this.callbackDropdown),
+      this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown),
+      this.$scope.$watch(() => ctrls.statType.selectedIndex, this.callbackDropdown),
+      this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown),
+      this.EventService.on(events.CHANGE_BRANCH, () => this.setDefaultControls()),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -148,11 +107,61 @@ class BranchWallHeaderController extends Injectable {
         return 0;
     }
   }
+
+  setDefaultControls() {
+    const { branch } = this.BranchService;
+
+    this.controls = {
+      postType: {
+        items: [
+          'all',
+          'images',
+          'videos',
+          'audio',
+          'text',
+          'pages',
+          'polls',
+        ],
+        selectedIndex: 0,
+      },
+      sortBy: {
+        items: [
+          'total points',
+          '# of comments',
+          'date posted',
+        ],
+        selectedIndex: branch.id === 'root' ? 0 : 2,
+      },
+      statType: {
+        items: [
+          'global',
+          'local',
+          'branch',
+        ],
+        selectedIndex: 0,
+      },
+      timeRange: {
+        items: [
+          'all time',
+          'past year',
+          'past month',
+          'past week',
+          'past 24 hrs',
+          'past hour',
+        ],
+        selectedIndex: branch.id === 'root' ? 3 : 0,
+      },
+    };
+
+    // Set filters through service for other modules.
+    this.callbackDropdown();
+  }
 }
 
 BranchWallHeaderController.$inject = [
   '$scope',
   'BranchService',
+  'EventService',
   'HeaderService',
   'WallService',
 ];

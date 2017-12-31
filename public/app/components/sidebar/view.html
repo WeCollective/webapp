@@ -11,7 +11,7 @@
     
     <h2 ng-show="Ctrl.BranchService.branch.parent.id !== 'none'">
       <a ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
-        {{ Ctrl.BranchService.branch.parent.name || 'All' }}
+        {{ Ctrl.BranchService.branch.parent.name || 'All' }} /
       </a>
     </h2>
 
@@ -81,7 +81,9 @@
         <img
           alt="Toggle branch follow status button"
           ng-src="/assets/images/icons/button-eye-{{ Ctrl.BranchService.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
-        <span>{{ Ctrl.getLabelFollowButton() }}</span>
+        <span>
+          {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
+        </span>
       </button>
     </li>
   </ul>
