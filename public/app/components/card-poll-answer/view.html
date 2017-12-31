@@ -17,11 +17,14 @@
     class="list-item__stats ng-hide"
     ng-show="CardPollAnswer.type === 'result'">
     <div class="list-item__stats-header">
-      <span class="list-item__stats-votes">{{ CardPollAnswer.answer.votes }}</span>
-      <img
-        alt="{{ CardPollAnswer.answer.votes + ' votes' }}"
+      <span class="list-item__stats-votes">
+        {{ CardPollAnswer.answer.votes }}
+      </span>
+
+      <div
         class="list-item__stats-icon"
-        src="/assets/images/icons/black/arrow-up.svg" />
+        ng-include="'/assets/images/icons/black/arrow-up.svg'">
+      </div>
     </div>
 
     <span class="list-item__stats-percentage">

@@ -15,104 +15,22 @@
 
   * { pointer-events: initial; }
 
-  .sidebar-controls {
-    @button-size: @sidebar-w-sm / 4;
+  // Button.
+  .sidebar__button {
+    @height: 36px;
 
-    border-top: solid 1px @light-grey;
     box-sizing: border-box;
-    height: @button-size;
+    height: @height;
     margin: 0;
     padding: 0;
-    position: relative;
-    text-align: center;
     width: 100%;
+  }
 
-    // Button.
-    > li {
-      @number-of-buttons: 4;
-      border-bottom: solid 1px @light-grey;
-      border-left: solid 1px transparent;
-      border-right: solid 1px @light-grey;
-      box-sizing: border-box;
-      float: left;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      width: calc(100% / @number-of-buttons);
-
-      // Make the whole button clickable.
-      > a {
-        align-items: center;
-        display: flex;
-        height: 100%;
-        justify-content: center;
-
-        > img {
-          @icon-size: 22px;
-          height: @icon-size;
-          opacity: .2;
-          width: @icon-size;
-          
-          .mediaQuery(@screen-md, {
-            @icon-size: 26px;
-            height: @icon-size;
-            width: @icon-size;
-          });
-        }
-
-        &:not(.disabled):hover { cursor: pointer; }
-
-        &:not(.disabled):hover,
-        &.selected {
-          > img { opacity: .7; }
-        }
-      }
-
-      > button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        display: block;
-        height: 100%;
-        margin: 0;
-        outline: none;
-        padding: 0;
-        width: 100%;
-
-        &.style--inactive {
-          > img { opacity: .2; }
-
-          &:hover {
-            > img { opacity: .7; }
-          }
-        }
-
-        > img {
-          @icon-size: 24px;
-          height: @icon-size;
-          padding-top: 2px;
-          width: auto;
-          
-          .mediaQuery(@screen-md, {
-            @icon-size: 38px;
-            height: @icon-size;
-          });
-        }
-      }
-
-      // todo What does this do?
-      &#add-content:hover { cursor: pointer; }
-    }
-    
-    .mediaQuery(@screen-md, {
-      @button-size: @sidebar-w-md / 4;
-      height: @button-size;
-    });
-
-    .mediaQuery(@screen-lg, {
-      @button-size: @sidebar-w-lg / 4;
-      height: @button-size;
-    });
+  .sidebar__controls {
+    box-sizing: border-box;
+    margin: @g-padding-post 0;
+    padding: 0;
+    width: 100%;
   }
 
   .sidebar-info {
@@ -131,6 +49,47 @@
     h2 {
       font-size: 15px;
       font-weight: @font-weight-heavy;
+    }
+  }
+
+  // Make the whole button clickable.
+  .sidebar__link {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    height: 100%;
+    margin: 0;
+    outline: none;
+    padding: (@g-padding-post / 2) @g-padding-sidebar;
+    width: 100%;
+    transition: background-color .1s;
+
+    > img {
+      @icon-size: 24px;
+      height: @icon-size;
+      margin-right: @g-padding-sidebar;
+      opacity: .2;
+      width: @icon-size;
+      transition: opacity .1s;
+    }
+
+    > span {
+      color: @primary-6;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .1s;
+    }
+
+    &:not(.disabled):hover { cursor: pointer; }
+    &.selected:hover { cursor: initial; }
+
+    &:not(.disabled):hover,
+    &.selected {
+      background-color: rgba(44, 44, 44, .1);
+
+      > img { opacity: .7; }
+      > span { color: @primary-3; }
     }
   }
 

@@ -251,12 +251,18 @@
       .list-item__stats-icon {
         @size: 24px;
 
+        display: inline-block;
         height: @size;
         opacity: .3;
         position: relative;
         top: 3px;
         vertical-align: bottom;
         width: @size;
+
+        svg {
+          height: 100%;
+          width: auto;
+        }
       }
     }
 
@@ -325,16 +331,26 @@
       width: @size;
       transition: opacity .2s;
 
-      &.style--active,
-      &:hover {
-        opacity: .6;
-      }
+      &:hover { opacity: .6; }
 
       &.style--disabled {
         cursor: initial;
         opacity: .2;
 
         &:hover { opacity: .2; }
+      }
+
+      &.style--active {
+        opacity: 1;
+
+        path { fill: #9fc3e7; }
+      }
+
+      svg {
+        height: 100%;
+        width: auto;
+
+        path { transition: fill .2s; }
       }
     }
 

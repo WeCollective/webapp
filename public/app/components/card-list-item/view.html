@@ -14,12 +14,12 @@
   </div>
 
   <div class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
-    <img
-      alt="Upvote post"
+    <div
       class="list-item__vote-icon"
       ng-class="{ 'style--active': ListItem.post.votes.userVoted === 'up' }"
       ng-click="ListItem.vote('up', $event.target)"
-      src="/assets/images/icons/black/arrow-up.svg" />
+      ng-include="'/assets/images/icons/black/arrow-up.svg'">
+    </div>
 
     <p>{{ ListItem.post.votes[ListItem.stat] }}</p>
 

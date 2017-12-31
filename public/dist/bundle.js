@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -71769,17 +71769,11 @@ var SidebarComponent = function (_Injectable) {
     _this.controllerAs = 'Ctrl';
     _this.replace = true;
     _this.restrict = 'E';
-    _this.templateUrl = function (el, attrs) {
-      var branch = attrs.branch;
-
+    _this.templateUrl = function () {
+      var branch = _this.BranchService.branch;
 
       var path = '/app/components/sidebar';
-      var template = 'view';
-
-      if (branch === 'weco-lab') {
-        template = 'view-beta';
-      }
-
+      var template = branch.id === 'weco-lab' ? 'view-beta' : 'view';
       var url = path + '/' + template + '.html';
       return url;
     };

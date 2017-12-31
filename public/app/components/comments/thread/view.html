@@ -1,12 +1,12 @@
 <div class="comment" ng-repeat="comment in Thread.comments track by $index">
   <div class="comment__content">
     <div class="list-item__votes">
-      <img
-        alt="Upvote comment"
+      <div
         class="list-item__vote-icon"
         ng-class="{ 'style--active': comment.votes.userVoted === 'up', 'style--disabled': comment.data.creator === 'N/A' }"
         ng-click="Thread.vote(comment, 'up', $event.target)"
-        src="/assets/images/icons/black/arrow-up.svg" />
+        ng-include="'/assets/images/icons/black/arrow-up.svg'">
+      </div>
 
       <p>{{ comment.votes.individual }}</p>
 
