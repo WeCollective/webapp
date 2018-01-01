@@ -79,6 +79,7 @@
     height: $s-auth-input-h;
     line-height: 1;
     margin-bottom: $s-spacing;
+    max-width: 100%;
     width: $s-auth-input-w;
 
     &:last-child { margin-bottom: 0; }
