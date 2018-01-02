@@ -65979,6 +65979,23 @@ var AppRun = function (_Injectable) {
       return _this.$window.prerenderReady = true;
     });
 
+    setTimeout(function () {
+      var cBody = document.getElementsByClassName('content__body')[0];
+      var content = document.getElementsByClassName('content')[0];
+      var align = document.getElementsByClassName('align')[0];
+      var center = document.getElementsByClassName('center')[0];
+      var page = document.getElementsByClassName('page')[0];
+      var view = document.getElementsByClassName('view')[0];
+      var root = document.getElementById('weco-root');
+      var body = document.getElementsByTagName('body')[0];
+      var html = document.getElementsByTagName('html')[0];
+
+      var els = [cBody, content, align, center, page, view, root, body, html];
+      window.TEST = els.forEach(function (el) {
+        console.log(el, el.getBoundingClientRect().top);
+      });
+    }, 5000);
+
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
     _this.$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -73162,16 +73179,7 @@ var BranchController = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
-    var _this = _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
-
-    _this.isLoading = Object.keys(_this.BranchService.branch).length < 2;
-
-    _this.EventService.on(_this.EventService.events.CHANGE_BRANCH, function () {
-      _this.$timeout(function () {
-        return _this.isLoading = false;
-      });
-    });
-    return _this;
+    return _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
   }
 
   _createClass(BranchController, [{

@@ -21,6 +21,8 @@
   background-color: @primary-11;
   height: @u-vh-sm;
   overflow-x: hidden;
+  // Keeps restricted scroll bar area on Windows, because otherwise the whole content
+  // would shift by the width of scrollbar slider. This issue doesn't affect Mac.
   overflow-y: scroll;
   transition: height @tr-speed;
 
