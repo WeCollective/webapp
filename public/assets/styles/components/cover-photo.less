@@ -30,8 +30,7 @@
     &#cover-photo-edit { right: @iconOffset + @iconSize + @iconOffset; }
   }
 
-  & + .page { height: @u-vh-no-hero; }
-
+  & + .page { height: 100%; }
   &.closed { height: 0; }
 
   &.open {
@@ -44,7 +43,7 @@
     }
 
     & + .page {
-      height: @u-vh-sm;
+      height: @u-hero-sm;
 
       .header.style--fixed {
         transform: translateY(@cover-h-sm);
@@ -56,7 +55,7 @@
 
       .sidebar,
       .side {
-        height: @u-vh-sm;
+        height: @u-nav-hero-sm;
         transform: translateY(@cover-h-sm) translateX(-100%);
 
         @media screen and (max-width: @screen-md) {
@@ -71,7 +70,7 @@
       height: @cover-h-md;
 
       & + .page {
-        height: @u-vh-md;
+        height: @u-hero-md;
 
         .sidebar,
         .side,
@@ -81,7 +80,7 @@
 
         .sidebar,
         .side {
-          height: @u-vh-md;
+          height: @u-nav-hero-md;
         }
       }
     }
@@ -92,7 +91,7 @@
       height: @cover-h-lg;
 
       & + .page {
-        height: @u-vh-lg;
+        height: @u-hero-lg;
 
         .sidebar,
         .side,
@@ -102,7 +101,7 @@
 
         .sidebar,
         .side {
-          height: @u-vh-lg;
+          height: @u-nav-hero-lg;
         }
       }
     }

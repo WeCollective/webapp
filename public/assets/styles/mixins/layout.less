@@ -77,10 +77,13 @@
 @s-aligner-md: @sidebar-w-md + @s-content-max-w;
 @s-aligner-lg: @sidebar-w-lg + @s-content-max-w;
 
-@u-vh-sm: calc(~'100vh - @{navbar-h} - @{cover-h-sm}');
-@u-vh-md: calc(~'100vh - @{navbar-h} - @{cover-h-md}');
-@u-vh-lg: calc(~'100vh - @{navbar-h} - @{cover-h-lg}');
-@u-vh-no-hero: calc(~'100vh - @{navbar-h}');
+@u-hero-sm: calc(~'100% - @{cover-h-sm}');
+@u-hero-md: calc(~'100% - @{cover-h-md}');
+@u-hero-lg: calc(~'100% - @{cover-h-lg}');
+@u-nav-hero-sm: calc(~'100% - @{navbar-h} - @{cover-h-sm}');
+@u-nav-hero-md: calc(~'100% - @{navbar-h} - @{cover-h-md}');
+@u-nav-hero-lg: calc(~'100% - @{navbar-h} - @{cover-h-lg}');
+@u-nav-no-hero: calc(~'100% - @{navbar-h}');
 
 @tr-speed: .4s;
 @tr: transform @tr-speed;

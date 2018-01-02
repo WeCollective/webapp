@@ -1,17 +1,6 @@
-*,
-*:after,
-*:before {
-  -webkit-overflow-scrolling: touch;
-}
 html,
 body {
   color: #2c2c2c;
-  font-family: 'Open Sans', sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-  width: 100%;
 }
 a {
   color: inherit;
@@ -155,27 +144,20 @@ span {
 }
 #weco-root {
   height: 100%;
-  overflow: visible;
   width: 100%;
 }
 .view {
-  height: calc(100vh - 44px);
+  height: calc(100% - 44px);
   overflow: hidden;
   position: relative;
 }
-.full-page {
-  height: 100vh;
-  position: relative;
-  width: 100%;
-}
-.full-page.style--has-navbar {
-  height: calc(100vh - 44px);
-}
 .page {
   background-color: #f7f7f7;
-  height: calc(100vh - 44px - 70px);
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  position: relative;
+  width: 100%;
   transition: height 0.4s;
 }
 .page > .center {
@@ -787,7 +769,7 @@ span {
   right: 38px;
 }
 .cover-photo + .page {
-  height: calc(100vh - 44px);
+  height: 100%;
 }
 .cover-photo.closed {
   height: 0;
@@ -802,7 +784,7 @@ span {
   transform: rotateZ(180deg);
 }
 .cover-photo.open + .page {
-  height: calc(100vh - 44px - 70px);
+  height: calc(100% - 70px);
 }
 .cover-photo.open + .page .header.style--fixed {
   transform: translateY(70px);
@@ -814,7 +796,7 @@ span {
 }
 .cover-photo.open + .page .sidebar,
 .cover-photo.open + .page .side {
-  height: calc(100vh - 44px - 70px);
+  height: calc(100% - 44px - 70px);
   transform: translateY(70px) translateX(-100%);
 }
 @media screen and (max-width: 768px) {
@@ -828,7 +810,7 @@ span {
     height: 100px;
   }
   .cover-photo.open + .page {
-    height: calc(100vh - 44px - 100px);
+    height: calc(100% - 100px);
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side,
@@ -837,7 +819,7 @@ span {
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side {
-    height: calc(100vh - 44px - 100px);
+    height: calc(100% - 44px - 100px);
   }
 }
 @media only screen and (min-width: 992px) {
@@ -845,7 +827,7 @@ span {
     height: 150px;
   }
   .cover-photo.open + .page {
-    height: calc(100vh - 44px - 150px);
+    height: calc(100% - 150px);
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side,
@@ -854,7 +836,7 @@ span {
   }
   .cover-photo.open + .page .sidebar,
   .cover-photo.open + .page .side {
-    height: calc(100vh - 44px - 150px);
+    height: calc(100% - 44px - 150px);
   }
 }
 div.dropdown {
@@ -1357,7 +1339,7 @@ div.poll-answer-editor input {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(140, 144, 155, 0.15);
   box-sizing: border-box;
-  height: calc(100vh - 44px);
+  height: calc(100% - 44px);
   left: 0;
   pointer-events: none;
   position: fixed;
