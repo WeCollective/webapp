@@ -73179,7 +73179,16 @@ var BranchController = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
+    var _this = _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
+
+    _this.isLoading = Object.keys(_this.BranchService.branch).length < 2;
+
+    _this.EventService.on(_this.EventService.events.CHANGE_BRANCH, function () {
+      _this.$timeout(function () {
+        return _this.isLoading = false;
+      });
+    });
+    return _this;
   }
 
   _createClass(BranchController, [{
