@@ -124,9 +124,10 @@
         ng-show="Navbar.UserService.isAuthenticated()"
         ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
         <div class="nav__icon">
-          <img
-            alt="You have {{ Navbar.notificationCount }} unread notifications"
-            src="assets/images/icons/legacy/notification.png" />
+          <div
+            class="nav__svg-wrapper"
+            ng-include="'/assets/images/icons/notification.svg'">
+          </div>
 
           <div
             class="nav__item-badge"

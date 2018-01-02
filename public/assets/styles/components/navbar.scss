@@ -291,6 +291,14 @@
     }
   }
 
+  .nav__svg-wrapper {
+    $size: 18px;
+
+    align-self: center;
+    height: $size;
+    width: $size;
+  }
+
   .nav__user-menu {
     display: flex;
     height: 100%;
@@ -305,11 +313,7 @@
         width: auto;
       }
 
-      &.style--notification {
-        border-left-width: 0;
-
-        .nav__icon img { height: 100%; }
-      }
+      &.style--notification { border-left-width: 0; }
 
       &.style--profile {
         padding-left: 0;
@@ -335,14 +339,9 @@
 
           path { fill: $c-white; }
         }
-
-        // img { opacity: .5; }
       }
 
-      &:hover {
-        color: $c-white;
-        // &.style--expand img { opacity: 1; }
-      }
+      &:hover { color: $c-white; }
     }
 
     @media screen and (min-width: $q-sm) {

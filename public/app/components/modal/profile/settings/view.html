@@ -1,15 +1,15 @@
-<div id="profile-settings-modal" ng-controller="ProfileSettingsModalController as Ctrl">
-  <div class="clearfix"
-  	loading
-  	when="Ctrl.isLoading">
-    <h1>Change your {{ Ctrl.ModalService.inputArgs.title }}</h1>
-    <p class="error-message">{{ Ctrl.errorMessage }}</p>
-    <div id="profile-settings-inputs">
-      <input
-        ng-model="Ctrl.values[$index]"
-      	ng-repeat="item in Ctrl.ModalService.inputArgs.inputs"
-      	placeholder="{{ item.placeholder }}"
-      	type="{{ item.type }}" />
-    </div>
-  </div>
+<!--
+loading
+loading-when="Ctrl.isLoading"
+-->
+<div
+  id="profile-settings-modal"
+  ng-controller="ProfileSettingsModalController as Ctrl">
+  <h1>Change your {{ Ctrl.ModalService.inputArgs.title }}</h1>
+  <p class="error-message">{{ Ctrl.errorMessage }}</p>
+  <input
+    ng-model="Ctrl.values[$index]"
+    ng-repeat="item in Ctrl.ModalService.inputArgs.inputs"
+    placeholder="{{ item.placeholder }}"
+    type="{{ item.type }}" />
 </div>

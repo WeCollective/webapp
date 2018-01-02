@@ -156,13 +156,13 @@ class CommentThreadController extends Injectable {
       .then(res => this.$timeout(() => {
         const delta = res.delta || 0;
 
-        comment.votes.individual += delta;
+        comment.individual += delta;
 
-        if (comment.votes.userVoted) {
-          delete comment.votes.userVoted;
+        if (comment.userVoted) {
+          delete comment.userVoted;
         }
         else {
-          comment.votes.userVoted = direction;
+          comment.userVoted = direction;
         }
 
         if (iconNode) {

@@ -66571,14 +66571,14 @@ var ListItemController = function (_Injectable) {
         return _this4.$timeout(function () {
           var delta = res.delta || 0;
 
-          _this4.post.votes.individual += delta;
-          _this4.post.votes.local += delta;
-          _this4.post.votes.global += delta;
+          _this4.post.individual += delta;
+          _this4.post.local += delta;
+          _this4.post.global += delta;
 
-          if (_this4.post.votes.userVoted) {
-            delete _this4.post.votes.userVoted;
+          if (_this4.post.userVoted) {
+            delete _this4.post.userVoted;
           } else {
-            _this4.post.votes.userVoted = direction;
+            _this4.post.userVoted = direction;
           }
 
           if (iconNode) {
@@ -67584,12 +67584,12 @@ var CommentThreadController = function (_Injectable) {
         return _this7.$timeout(function () {
           var delta = res.delta || 0;
 
-          comment.votes.individual += delta;
+          comment.individual += delta;
 
-          if (comment.votes.userVoted) {
-            delete comment.votes.userVoted;
+          if (comment.userVoted) {
+            delete comment.userVoted;
           } else {
-            comment.votes.userVoted = direction;
+            comment.userVoted = direction;
           }
 
           if (iconNode) {

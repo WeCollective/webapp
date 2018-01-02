@@ -66,24 +66,6 @@ span {
 .captcha {
   display: none !important;
 }
-.clearfix {
-  display: inline-block;
-  max-width: 100%;
-}
-.clearfix:after {
-  clear: both;
-  content: ' ';
-  display: block;
-  height: 0;
-  line-height: 0;
-  visibility: hidden;
-}
-html[xmlns] .clearfix {
-  display: block;
-}
-* html .clearfix {
-  height: 1%;
-}
 .hidden {
   display: none;
 }
@@ -1602,14 +1584,21 @@ ul.tabs.style--border {
 }
 .tags__icon {
   cursor: pointer;
-  height: 10px;
-  opacity: .6;
-  padding-left: 5px;
-  vertical-align: middle;
+  display: inline-block;
+  height: 16px;
+  margin-left: 6px;
+  transition: opacity .2s;
+}
+.tags__icon svg {
+  display: block;
+  height: 100%;
   width: auto;
 }
+.tags__icon svg path#background {
+  fill: transparent;
+}
 .tags__icon:hover {
-  opacity: 1;
+  opacity: .5;
 }
 .tags__input {
   border: 1px solid #e7e7e7;
@@ -1639,19 +1628,20 @@ ul.tabs.style--border {
   width: 100%;
 }
 .tags__item {
+  align-items: center;
   background-color: #444444;
   border-radius: 3px;
   box-sizing: border-box;
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 10px;
   margin-right: 4px;
-  padding: 2px 10px;
+  padding: 10px;
   word-wrap: break-word;
 }
 .tags__label {
   color: #fff;
   font-size: 14px;
-  line-height: 2;
+  line-height: 1;
   vertical-align: middle;
 }
 .tags__list {
@@ -2109,32 +2099,32 @@ div#create-post-modal {
   overflow: hidden;
   position: relative;
 }
-div#create-post-modal div[loading] div#create-post-inputs {
+div#create-post-modal div#create-post-inputs {
   float: left;
   width: calc(100% - 165px);
 }
-div#create-post-modal div[loading] div#create-post-inputs .dropdown {
+div#create-post-modal div#create-post-inputs .dropdown {
   display: inline-block;
 }
-div#create-post-modal div[loading] div#create-post-inputs .dropdown .dropdown-title {
+div#create-post-modal div#create-post-inputs .dropdown .dropdown-title {
   padding-left: 0;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox,
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox {
+div#create-post-modal div#create-post-inputs label#locked-checkbox,
+div#create-post-modal div#create-post-inputs label#nsfw-checkbox {
   color: #c8c8c8;
   font-size: 14px;
 }
-div#create-post-modal div[loading] div#create-post-inputs label#locked-checkbox input,
-div#create-post-modal div[loading] div#create-post-inputs label#nsfw-checkbox input {
+div#create-post-modal div#create-post-inputs label#locked-checkbox input,
+div#create-post-modal div#create-post-inputs label#nsfw-checkbox input {
   margin-left: 10px;
   vertical-align: middle;
 }
-div#create-post-modal div[loading] div#create-post-picture {
+div#create-post-modal div#create-post-picture {
   float: left;
   margin-right: 15px;
   width: 150px;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop {
+div#create-post-modal div#create-post-picture div#dragdrop {
   background-color: #e7e7e7;
   border: 1px dashed transparent;
   border-radius: 5px;
@@ -2146,7 +2136,7 @@ div#create-post-modal div[loading] div#create-post-picture div#dragdrop {
   width: 150px;
   transition: border .3s linear;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#image-preview {
+div#create-post-modal div#create-post-picture div#dragdrop div#image-preview {
   background-position: center;
   background-size: cover;
   border-radius: 5px;
@@ -2154,7 +2144,7 @@ div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#imag
   margin: auto;
   width: 100%;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#preview {
+div#create-post-modal div#create-post-picture div#dragdrop div#preview {
   background-position: center;
   background-size: cover;
   border-radius: 5px;
@@ -2164,65 +2154,65 @@ div#create-post-modal div[loading] div#create-post-picture div#dragdrop div#prev
   right: 0;
   top: 0;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop h2 {
+div#create-post-modal div#create-post-picture div#dragdrop h2 {
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 15px;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop img#graphic {
+div#create-post-modal div#create-post-picture div#dragdrop img#graphic {
   border-radius: 5px;
   display: block;
   height: auto;
   margin: 5px auto 0;
   width: 80%;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop.dragover {
+div#create-post-modal div#create-post-picture div#dragdrop.dragover {
   border: 1px dashed #444444;
   transition: border .3s linear;
 }
-div#create-post-modal div[loading] div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
+div#create-post-modal div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
   display: none !important;
 }
-div#create-post-modal div[loading] div#create-post-picture div#choose-file {
+div#create-post-modal div#create-post-picture div#choose-file {
   color: #3498db;
   font-size: 14px;
   margin: 10px 0 20px;
 }
-div#create-post-modal div[loading] div#create-post-picture div#choose-file:hover {
+div#create-post-modal div#create-post-picture div#choose-file:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#create-post-modal div[loading] div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
+div#create-post-modal div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
   display: none !important;
 }
-div#create-post-modal div[loading] div#preview-content {
+div#create-post-modal div#preview-content {
   box-sizing: border-box;
   max-height: 300px;
   overflow-y: auto;
   padding: 0 15px;
   width: 100%;
 }
-div#create-post-modal div[loading] p#preview-post {
+div#create-post-modal p#preview-post {
   color: #3498db;
   font-size: 14px;
   margin: 0;
 }
-div#create-post-modal div[loading] p#preview-post:hover {
+div#create-post-modal p#preview-post:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#create-post-modal div[loading] div#progress-container {
+div#create-post-modal div#progress-container {
   border: 1px solid #c8c8c8;
   border-radius: 3px;
   height: 40px;
   min-width: 300px;
   width: 100%;
 }
-div#create-post-modal div[loading] div#progress-container div#progress {
+div#create-post-modal div#progress-container div#progress {
   background-color: #3498db;
   height: 100%;
 }
-div#create-post-modal div[loading] div#progress-container.ng-hide.ng-hide-animate {
+div#create-post-modal div#progress-container.ng-hide.ng-hide-animate {
   display: none !important;
 }
 div#flag-post-modal div#flag-post-modal-content {

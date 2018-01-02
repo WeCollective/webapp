@@ -24,12 +24,13 @@
       <span class="tags__label">
         {{ TagEditor.renderTagLabel(tag) }}
       </span>
-      <img
-        alt="Remove the tag {{ TagEditor.renderTagLabel(tag) }}"
+
+      <div
         class="tags__icon ng-hide"
         ng-click="TagEditor.removeTag(tag)"
-        ng-show="TagEditor.isRemovable(tag)"
-        src="/assets/images/icons/legacy/close.png" />
+        ng-include="'/assets/images/icons/close.svg'"
+        ng-show="TagEditor.isRemovable(tag)">
+      </div>
     </div>
   </div>
 </div>

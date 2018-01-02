@@ -12,13 +12,20 @@
 
 .tags__icon {
   cursor: pointer;
-  height: 10px;
-  opacity: .6;
-  padding-left: 5px;
-  vertical-align: middle;
-  width: auto;
+  display: inline-block;
+  height: 16px;
+  margin-left: 6px;
+  transition: opacity .2s;
 
-  &:hover { opacity: 1; }
+  svg {
+    display: block;
+    height: 100%;
+    width: auto;
+
+    path#background { fill: transparent; }
+  }
+
+  &:hover { opacity: .5; }
 }
 
 .tags__input {
@@ -51,20 +58,21 @@
 }
 
 .tags__item {
+  align-items: center;
   background-color: @primary-light;
   border-radius: 3px;
   box-sizing: border-box;
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 10px;
   margin-right: 4px;
-  padding: 2px 10px;
+  padding: 10px;
   word-wrap: break-word;
 }
 
 .tags__label {
   color: #fff;
   font-size: @font-size-sm;
-  line-height: 2;
+  line-height: 1;
   vertical-align: middle;
 }
 

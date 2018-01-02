@@ -231,6 +231,10 @@ body {
         align-items: center;
         display: flex;
         position: relative; } }
+  .nav .nav__svg-wrapper {
+    align-self: center;
+    height: 18px;
+    width: 18px; }
   .nav .nav__user-menu {
     display: flex;
     height: 100%; }
@@ -243,8 +247,6 @@ body {
         width: auto; }
       .nav .nav__user-menu .nav__item.style--notification {
         border-left-width: 0; }
-        .nav .nav__user-menu .nav__item.style--notification .nav__icon img {
-          height: 100%; }
       .nav .nav__user-menu .nav__item.style--profile {
         padding-left: 0;
         padding-right: 0;

@@ -1,12 +1,15 @@
-<div id="create-post-modal" ng-controller="CreatePostModalController as CPMCtrl">
-  <div
-    class="clearfix"
-    loading
-    loading-when="CPMCtrl.isLoading">
-    <h1>Submit a Post</h1>
+<!--
+loading
+loading-when="CPMCtrl.isLoading"
+-->
+<div
+  id="create-post-modal"
+  ng-controller="CreatePostModalController as CPMCtrl">
+  <h1>Submit a Post</h1>
 
-    <p class="error-message">{{ CPMCtrl.errorMessage }}</p>
+  <p class="error-message">{{ CPMCtrl.errorMessage }}</p>
 
+  <div>
     <div id="create-post-picture" ng-show="!CPMCtrl.UploadService.isUploading">
       <div
         id="dragdrop"
@@ -73,48 +76,48 @@
         title="'Tag another branch, max 5 tags'">
       </tag-editor>
     </div>
+  </div>
 
-    <textarea
-      id="post-description"
-      ng-model="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])" 
-      placeholder="Describe this post..."
-      type="text">
-    </textarea>
+  <textarea
+    id="post-description"
+    ng-model="CPMCtrl.newPost.text"
+    ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])" 
+    placeholder="Describe this post..."
+    type="text">
+  </textarea>
 
-    <input
-      ng-model="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && !['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])"
-      placeholder="Url"
-      type="text" />
+  <input
+    ng-model="CPMCtrl.newPost.text"
+    ng-show="!CPMCtrl.UploadService.isUploading && !['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])"
+    placeholder="Url"
+    type="text" />
 
-    <input
-      class="captcha"
-      name="captcha"
-      ng-model="CPMCtrl.newPost.captcha"
-      type="text" />
+  <input
+    class="captcha"
+    name="captcha"
+    ng-model="CPMCtrl.newPost.captcha"
+    type="text" />
 
-    <div
-      id="preview-content"
-      marked="CPMCtrl.newPost.text"
-      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
-    </div>
+  <div
+    id="preview-content"
+    marked="CPMCtrl.newPost.text"
+    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
+  </div>
 
-    <p
-      id="preview-post"
-      ng-click="CPMCtrl.togglePreview()"
-      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.newPost.text.length && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
-      {{ CPMCtrl.preview ? 'Edit...' : 'Preview...' }}
-    </p>
+  <p
+    id="preview-post"
+    ng-click="CPMCtrl.togglePreview()"
+    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.newPost.text.length && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
+    {{ CPMCtrl.preview ? 'Edit...' : 'Preview...' }}
+  </p>
 
-    <poll-answer-editor
-      answers="CPMCtrl.pollAnswers"
-      ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll'"
-      title="Create a new Answer">
-    </poll-answer-editor>
+  <poll-answer-editor
+    answers="CPMCtrl.pollAnswers"
+    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll'"
+    title="Create a new Answer">
+  </poll-answer-editor>
 
-    <div id="progress-container" ng-show="CPMCtrl.UploadService.isUploading">
-      <div id="progress" style="width:{{ CPMCtrl.UploadService.progress }}%"></div>
-    </div>
+  <div id="progress-container" ng-show="CPMCtrl.UploadService.isUploading">
+    <div id="progress" style="width:{{ CPMCtrl.UploadService.progress }}%"></div>
   </div>
 </div>

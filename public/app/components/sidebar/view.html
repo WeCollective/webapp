@@ -3,12 +3,6 @@
   ng-class="{ 'toggled': Ctrl.AppService.isSidebarOpen }"
   no-constructor-transition>
   <div class="sidebar-info">
-    <h2
-      id="inf-symbol"
-      ng-show="Ctrl.BranchService.branch.parent.id === 'none'">
-      &infin;
-    </h2>
-    
     <h2 ng-show="Ctrl.BranchService.branch.parent.id !== 'none'">
       <a ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
         {{ Ctrl.BranchService.branch.parent.name || 'All' }} /
