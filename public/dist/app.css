@@ -1358,8 +1358,6 @@ div.poll-answer-editor input {
   box-sizing: border-box;
   height: calc(100vh - 44px);
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
   pointer-events: none;
   position: fixed;
   top: 44px;
@@ -1482,6 +1480,12 @@ div.poll-answer-editor input {
 .sidebar .sidebar-picture img#edit:hover {
   cursor: pointer;
   opacity: 1;
+}
+.sidebar .sidebar__scrollable {
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  pointer-events: initial;
 }
 .sidebar ul li {
   font-size: 14px;

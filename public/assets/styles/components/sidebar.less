@@ -4,8 +4,6 @@
   box-sizing: border-box;
   height: @u-vh-no-hero;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
   pointer-events: none;
   position: fixed;
   top: @navbar-h;
@@ -136,6 +134,13 @@
         opacity: 1;
       }
     }
+  }
+
+  .sidebar__scrollable {
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    pointer-events: initial;
   }
 
   ul {

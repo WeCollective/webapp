@@ -2,6 +2,7 @@
 *:after,
 *:before {
   box-sizing: border-box;
+  scroll-behavior: smooth;
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent; }
