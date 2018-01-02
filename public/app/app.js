@@ -23,6 +23,8 @@ import initServices from 'init.services';
 
 import Registrar from 'utils/component-registrar';
 
+import buggyfill from 'viewport-units-buggyfill';
+
 const appName = 'wecoApp';
 
 const app = angular.module(appName, [
@@ -57,3 +59,6 @@ initServices(registrar);
 
 // Start the app.
 registrar.run(AppRun);
+
+// Fixes viewport units in bad, bad browsers.
+buggyfill.init();

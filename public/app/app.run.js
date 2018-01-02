@@ -7,23 +7,6 @@ class AppRun extends Injectable {
     // Tell Prerender.io to cache when DOM is loaded
     this.$timeout(() => this.$window.prerenderReady = true);
 
-    setTimeout(() => {
-      const cBody = document.getElementsByClassName('content__body')[0];
-      const content = document.getElementsByClassName('content')[0];
-      const align = document.getElementsByClassName('align')[0];
-      const center = document.getElementsByClassName('center')[0];
-      const page = document.getElementsByClassName('page')[0];
-      const view = document.getElementsByClassName('view')[0];
-      const root = document.getElementById('weco-root');
-      const body = document.getElementsByTagName('body')[0];
-      const html = document.getElementsByTagName('html')[0];
-
-      const els = [cBody, content, align, center, page, view, root, body, html];
-      window.TEST = els.forEach(el => {
-        console.log(el, el.getBoundingClientRect().top);
-      });
-    }, 5000);
-
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
