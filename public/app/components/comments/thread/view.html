@@ -5,7 +5,7 @@
         class="list-item__vote-icon"
         ng-class="{ 'style--active': comment.votes.userVoted === 'up', 'style--disabled': comment.data.creator === 'N/A' }"
         ng-click="Thread.vote(comment, 'up', $event.target)"
-        ng-include="'/assets/images/icons/black/arrow-up.svg'">
+        ng-include="'/assets/images/icons/arrow-up.svg'">
       </div>
 
       <p>{{ comment.votes.individual }}</p>
@@ -27,7 +27,7 @@
           class="list-item__detail"
           ng-click="Thread.openReply(comment, false)"
           offset-y="20"
-          src="/assets/images/icons/black/reply.png"
+          src="/assets/images/icons/reply.svg"
           text="'Reply'"
           tooltip />
 
@@ -36,7 +36,7 @@
           class="list-item__detail style--icon"
           ng-click="Thread.commentPermalink(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/permalink.png"
+          src="/assets/images/icons/permalink.svg"
           text="'Permalink'"
           tooltip />
 
@@ -46,7 +46,7 @@
           ng-click="Thread.openReply(comment, true)"
           ng-if="Thread.isOwnComment(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/edit--comment.png"
+          src="/assets/images/icons/edit--comment.svg"
           text="'Edit'"
           tooltip />
 
@@ -56,7 +56,7 @@
           ng-click="Thread.delete(comment, $index)"
           ng-if="Thread.isOwnComment(comment)"
           offset-y="20"
-          src="/assets/images/icons/black/delete.png"
+          src="/assets/images/icons/delete.svg"
           text="'Delete'"
           tooltip />
 
@@ -70,7 +70,7 @@
           <img
             alt="View post discussion"
             class="list-item__detail"
-            src="/assets/images/icons/black/comment.png" />
+            src="/assets/images/icons/comment.svg" />
           <span>{{ 0 }}</span>
         </a>
         -->

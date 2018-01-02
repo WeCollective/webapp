@@ -52,6 +52,13 @@
     position: relative;
     width: $s-navbar-icon;
     transition: opacity .1s;
+
+    svg {
+      height: 100%;
+      width: auto;
+
+      path { fill: $c-white; }
+    }
   }
 
   .nav__item {
@@ -322,13 +329,19 @@
       &.style--expand {
         border-left-width: 0;
 
-        img { opacity: .5; }
+        svg {
+          height: 100%;
+          width: auto;
+
+          path { fill: $c-white; }
+        }
+
+        // img { opacity: .5; }
       }
 
       &:hover {
         color: $c-white;
-
-        &.style--expand img { opacity: 1; }
+        // &.style--expand img { opacity: 1; }
       }
     }
 

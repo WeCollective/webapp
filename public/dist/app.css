@@ -500,7 +500,7 @@ html[xmlns] .clearfix {
     display: none;
   }
 }
-.comments .comment__content div.list-item-flags {
+.comments .comment__content .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -510,22 +510,28 @@ html[xmlns] .clearfix {
   position: relative;
   text-align: center;
 }
-.comments .comment__content div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.comments .comment__content div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.comments .comment__content .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.comments .comment__content div.list-item-flags span {
+.comments .comment__content .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.comments .comment__content .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.comments .comment__content .list-item-flags svg path {
+  fill: #fff;
+}
+.comments .comment__content .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .comments .comment__content div.list-item-info {
   flex: 1;
@@ -1090,7 +1096,7 @@ div[loading] div.loading-container img {
     display: none;
   }
 }
-.notification div.list-item-flags {
+.notification .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -1100,22 +1106,28 @@ div[loading] div.loading-container img {
   position: relative;
   text-align: center;
 }
-.notification div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.notification div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.notification .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.notification div.list-item-flags span {
+.notification .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.notification .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.notification .list-item-flags svg path {
+  fill: #fff;
+}
+.notification .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .notification div.list-item-info {
   flex: 1;
@@ -2346,7 +2358,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     display: none;
   }
 }
-.branch__post div.list-item-flags {
+.branch__post .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -2356,22 +2368,28 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   position: relative;
   text-align: center;
 }
-.branch__post div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.branch__post div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.branch__post .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.branch__post div.list-item-flags span {
+.branch__post .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.branch__post .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.branch__post .list-item-flags svg path {
+  fill: #fff;
+}
+.branch__post .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .branch__post div.list-item-info {
   flex: 1;
@@ -2610,7 +2628,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     text-align: center;
     width: 40px;
   }
-  .branch__post div.list-item-flags {
+  .branch__post .list-item-flags {
     align-self: center;
     background-color: #e74c3c;
     border-radius: 5px;
@@ -2620,22 +2638,28 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     position: relative;
     text-align: center;
   }
-  .branch__post div.list-item-flags:hover {
-    background-color: #c0392b;
-    cursor: pointer;
-  }
-  .branch__post div.list-item-flags img {
-    height: auto;
-    left: 12px;
-    opacity: 1;
-    top: 0;
-    vertical-align: middle;
+  .branch__post .list-item-flags > div {
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    top: 2px;
     width: 16px;
   }
-  .branch__post div.list-item-flags span {
+  .branch__post .list-item-flags span {
     color: #fff;
     font-size: 14px;
     line-height: 30px;
+  }
+  .branch__post .list-item-flags svg {
+    height: 100%;
+    width: auto;
+  }
+  .branch__post .list-item-flags svg path {
+    fill: #fff;
+  }
+  .branch__post .list-item-flags:hover {
+    background-color: #c0392b;
+    cursor: pointer;
   }
   .branch__post div.list-item-info {
     flex: 1;
@@ -2884,7 +2908,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     display: none;
   }
 }
-.branch__subbranch div.list-item-flags {
+.branch__subbranch .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -2894,22 +2918,28 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   position: relative;
   text-align: center;
 }
-.branch__subbranch div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.branch__subbranch div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.branch__subbranch .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.branch__subbranch div.list-item-flags span {
+.branch__subbranch .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.branch__subbranch .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.branch__subbranch .list-item-flags svg path {
+  fill: #fff;
+}
+.branch__subbranch .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .branch__subbranch div.list-item-info {
   flex: 1;
@@ -3242,20 +3272,29 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
 }
 .header .header__button {
-  background-image: url('/assets/images/icons/black/add.jpg');
-  background-size: cover;
   cursor: pointer;
   display: block;
   height: 26px;
   margin-right: 15px;
   margin-top: 4px;
-  min-width: 26px;
   width: 26px;
   transition: transform .2s;
 }
+.header .header__button.style--sidebar-toggle,
+.header .header__button > div svg {
+  opacity: .3;
+  transition: opacity .2s;
+}
+.header .header__button > div {
+  height: 26px;
+  width: 26px;
+}
+.header .header__button > div svg {
+  height: 100%;
+  width: auto;
+}
 .header .header__button.style--sidebar-toggle {
   margin-right: 10px;
-  opacity: .3;
   transform: rotateZ(-90deg);
 }
 .header .header__button.style--sidebar-toggle.style--toggled {
@@ -3266,8 +3305,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     display: none;
   }
 }
-.header .header__button:hover {
-  background-image: url('/assets/images/icons/black/add--hover.jpg');
+.header .header__button:hover.style--sidebar-toggle,
+.header .header__button:hover > div svg {
+  opacity: 1;
 }
 .header .header__controls {
   align-items: baseline;
@@ -3383,7 +3423,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     display: none;
   }
 }
-.header .list-item div.list-item-flags {
+.header .list-item .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -3393,22 +3433,28 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   position: relative;
   text-align: center;
 }
-.header .list-item div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.header .list-item div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.header .list-item .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.header .list-item div.list-item-flags span {
+.header .list-item .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.header .list-item .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.header .list-item .list-item-flags svg path {
+  fill: #fff;
+}
+.header .list-item .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .header .list-item div.list-item-info {
   flex: 1;
@@ -3652,7 +3698,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     text-align: center;
     width: 40px;
   }
-  .header .list-item div.list-item-flags {
+  .header .list-item .list-item-flags {
     align-self: center;
     background-color: #e74c3c;
     border-radius: 5px;
@@ -3662,22 +3708,28 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     position: relative;
     text-align: center;
   }
-  .header .list-item div.list-item-flags:hover {
-    background-color: #c0392b;
-    cursor: pointer;
-  }
-  .header .list-item div.list-item-flags img {
-    height: auto;
-    left: 12px;
-    opacity: 1;
-    top: 0;
-    vertical-align: middle;
+  .header .list-item .list-item-flags > div {
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    top: 2px;
     width: 16px;
   }
-  .header .list-item div.list-item-flags span {
+  .header .list-item .list-item-flags span {
     color: #fff;
     font-size: 14px;
     line-height: 30px;
+  }
+  .header .list-item .list-item-flags svg {
+    height: 100%;
+    width: auto;
+  }
+  .header .list-item .list-item-flags svg path {
+    fill: #fff;
+  }
+  .header .list-item .list-item-flags:hover {
+    background-color: #c0392b;
+    cursor: pointer;
   }
   .header .list-item div.list-item-info {
     flex: 1;
@@ -4228,7 +4280,7 @@ div#notfound div h2 {
     display: none;
   }
 }
-.post .post__content-wrapper .style--card-poll-answer div.list-item-flags {
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags {
   align-self: center;
   background-color: #e74c3c;
   border-radius: 5px;
@@ -4238,22 +4290,28 @@ div#notfound div h2 {
   position: relative;
   text-align: center;
 }
-.post .post__content-wrapper .style--card-poll-answer div.list-item-flags:hover {
-  background-color: #c0392b;
-  cursor: pointer;
-}
-.post .post__content-wrapper .style--card-poll-answer div.list-item-flags img {
-  height: auto;
-  left: 12px;
-  opacity: 1;
-  top: 0;
-  vertical-align: middle;
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags > div {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  top: 2px;
   width: 16px;
 }
-.post .post__content-wrapper .style--card-poll-answer div.list-item-flags span {
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags span {
   color: #fff;
   font-size: 14px;
   line-height: 30px;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags svg {
+  height: 100%;
+  width: auto;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags svg path {
+  fill: #fff;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item-flags:hover {
+  background-color: #c0392b;
+  cursor: pointer;
 }
 .post .post__content-wrapper .style--card-poll-answer div.list-item-info {
   flex: 1;

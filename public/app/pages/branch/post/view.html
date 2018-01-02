@@ -10,7 +10,7 @@
           class="post__preview-control-btn"
           ng-click="Ctrl.toggleCinemaMode()"
           ng-show="Ctrl.previewState !== 'hide' && (Ctrl.PostService.post.type === 'video' || Ctrl.PostService.post.type === 'image')"
-          ng-src="/assets/images/icons/black/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.png"
+          ng-src="/assets/images/icons/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.svg"
           offset-y="40"
           text="Ctrl.previewState === 'maximise' ? 'Shrink' : 'Expand'"
           tooltip />
@@ -22,7 +22,7 @@
           ng-class="{ 'toggled': Ctrl.previewState !== 'hide' }"
           ng-click="Ctrl.togglePreviewState()"
           offset-y="40"
-          src="/assets/images/icons/black/show.png"
+          src="/assets/images/icons/show.svg"
           text="Ctrl.previewState === 'hide' ? 'Show' : 'Hide'"
           tooltip />
         -->

@@ -28,7 +28,7 @@
         ng-click="Profile.openProfilePictureModal()"
         ng-show="Profile.profileUser.username === Profile.UserService.user.username"
         offset-y="30"
-        src="/assets/images/icons/black/edit.png"
+        src="/assets/images/icons/edit.svg"
         text="'Upload New Image'"
         tooltip />
     </div>
@@ -49,7 +49,7 @@
       class="header__button style--sidebar-toggle"
       ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
       ng-click="Navbar.AppService.toggleSidebar()"
-      src="/assets/images/icons/black/show.png" />
+      src="/assets/images/icons/show.svg" />
     
     <div class="header__controls style--spaced">
       <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
@@ -64,7 +64,7 @@
         tooltip >
         <img
           alt="Mark all notifications as read icon"
-          src="/assets/images/icons/tick--circle.png" />
+          src="/assets/images/icons/tick--circle.svg" />
       </button>
     </div>
   </div>

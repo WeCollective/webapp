@@ -67,20 +67,32 @@
   .header__button {
     @size: 26px;
 
-    background-image: url('/assets/images/icons/black/add.jpg');
-    background-size: cover;
     cursor: pointer;
     display: block;
     height: @size;
     margin-right: @dropdown-padding-left;
     margin-top: @button-offset;
-    min-width: @size;
     width: @size;
     transition: transform .2s;
 
+    &.style--sidebar-toggle,
+    > div svg {
+      opacity: .3;
+      transition: opacity .2s;
+    }
+
+    > div {
+      height: @size;
+      width: @size;
+
+      svg {
+        height: 100%;
+        width: auto;
+      }
+    }
+
     &.style--sidebar-toggle {
       margin-right: 10px;
-      opacity: .3;
       transform: rotateZ(-90deg);
 
       &.style--toggled { transform: rotateZ(90deg); }
@@ -88,7 +100,12 @@
       .mediaQuery(@screen-md, { display: none; });
     }
 
-    &:hover { background-image: url('/assets/images/icons/black/add--hover.jpg'); }
+    &:hover {
+      &.style--sidebar-toggle,
+      > div svg {
+        opacity: 1;
+      }
+    }
   }
 
   .header__controls {

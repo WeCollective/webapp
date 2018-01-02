@@ -150,7 +150,7 @@
     }
   }
 
-  div.list-item-flags {
+  .list-item-flags {
     align-self: center;
     background-color: @caution-1;
     border-radius: 5px;
@@ -160,17 +160,11 @@
     position: relative;
     text-align: center;
 
-    &:hover {
-      background-color: @caution-0;
-      cursor: pointer;
-    }
-
-    img {
-      height: auto;
-      left: 12px;
-      opacity: 1;
-      top: 0;
-      vertical-align: middle;
+    > div {
+      display: inline-block;
+      height: 14px;
+      position: relative;
+      top: 2px;
       width: 16px;
     }
 
@@ -178,6 +172,18 @@
       color: #fff;
       font-size: @font-size-sm;
       line-height: 30px;
+    }
+
+    svg {
+      height: 100%;
+      width: auto;
+
+      path { fill: #fff; }
+    }
+
+    &:hover {
+      background-color: @caution-0;
+      cursor: pointer;
     }
   }
 

@@ -20,12 +20,12 @@
   
   <div class="sidebar-picture" style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
     <img
-      alt=""
+      alt="Change the branch profile image."
       id="edit"
       ng-class="{ 'style--default': !Ctrl.BranchService.branch.profileUrl }"
       ng-click="Ctrl.openModal('profile-picture')"
       ng-show="Ctrl.BranchService.isModerator()"
-      src="/assets/images/icons/black/edit.png" />
+      src="/assets/images/icons/edit.svg" />
   </div>
   
   <ul class="sidebar__controls">
@@ -37,7 +37,7 @@
         text="'Nucleus'"
         tooltip
         ui-sref="weco.branch.nucleus.about({ branchid: Ctrl.BranchService.branch.id })">
-        <img alt="Go to branch nucleus" src="/assets/images/icons/black/nucleus.png" />
+        <img alt="Go to branch nucleus" src="/assets/images/icons/nucleus.svg" />
         <span>Nucleus</span>
       </a>
     </li>
@@ -50,7 +50,7 @@
         text="'Wall'"
         tooltip
         ui-sref="weco.branch.wall({ branchid: Ctrl.BranchService.branch.id })">
-        <img alt="Go to branch wall" src="/assets/images/icons/black/wall.png" />
+        <img alt="Go to branch wall" src="/assets/images/icons/wall.svg" />
         <span>Wall</span>
       </a>
     </li>
@@ -63,7 +63,7 @@
         text="'Child Branches'"
         tooltip
         ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })" >
-        <img alt="Go to branch subbranches" src="/assets/images/icons/black/branch.png" />
+        <img alt="Go to branch subbranches" src="/assets/images/icons/branch.svg" />
         <span>Branches</span>
       </a>
     </li>
@@ -80,7 +80,7 @@
         tooltip>
         <img
           alt="Toggle branch follow status button"
-          ng-src="/assets/images/icons/button-eye-{{ Ctrl.BranchService.isFollowingBranch() ? 'active' : 'inactive' }}.png" />
+          ng-src="/assets/images/icons/eye.svg" />
         <span>
           {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
         </span>

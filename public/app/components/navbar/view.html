@@ -30,39 +30,39 @@
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('nucleus') }"
           ui-sref="weco.branch.nucleus.about({ branchid: 'root' })">
-          <img
-            alt="Go to Global Nucleus"
+          <div
             class="nav__icon"
+            ng-include="'/assets/images/icons/nucleus.svg'"
             offset-y="40"
-            src="/assets/images/icons/white/nucleus.png"
             text="'Global Nucleus'"
-            tooltip />
+            tooltip>
+          </div>
         </a>
 
         <a
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('wall') }"
           ui-sref="weco.branch.wall({ branchid: 'root' })">
-          <img
-            alt="Go to Global Wall"
+          <div
             class="nav__icon"
+            ng-include="'/assets/images/icons/wall.svg'"
             offset-y="40"
-            src="/assets/images/icons/white/wall.png"
             text="'Global Wall'"
-            tooltip />
+            tooltip>
+          </div>
         </a>
 
         <a
           class="nav__item"
           ng-class="{ 'style--opaque' : Navbar.isControlSelected('subbranches') }"
           ui-sref="weco.branch.subbranches({ branchid: 'root' })">
-          <img
-            alt="Go to Root Branches"
+          <div
             class="nav__icon"
+            ng-include="'/assets/images/icons/branch.svg'"
             offset-y="40"
-            src="/assets/images/icons/white/branch.png"
             text="'Root Branches'"
-            tooltip />
+            tooltip>
+          </div>
         </a>
       </div>
 
@@ -126,7 +126,7 @@
         <div class="nav__icon">
           <img
             alt="You have {{ Navbar.notificationCount }} unread notifications"
-            src="assets/images/icons/white/notification.png" />
+            src="assets/images/icons/legacy/notification.png" />
 
           <div
             class="nav__item-badge"
@@ -152,11 +152,11 @@
         class="nav__item style--expand"
         ng-click="Navbar.AppService.toggleNavbarMenu()"
         ng-show="Navbar.UserService.isAuthenticated()">
-        <img
-          alt="Toggle menu navigation"
+        <div
           class="nav__icon"
           ng-class="{ 'style--opaque': Navbar.AppService.isNavbarMenuOpen }"
-          src="assets/images/icons/white/nav-expand.png" />
+          ng-include="'/assets/images/icons/dropdown.svg'">
+        </div>
 
         <ul
           class="nav__expand-menu"
