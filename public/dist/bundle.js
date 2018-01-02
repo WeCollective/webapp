@@ -72827,6 +72827,15 @@ var AuthController = function (_Injectable) {
   }
 
   _createClass(AuthController, [{
+    key: 'clearError',
+    value: function clearError() {
+      var _this2 = this;
+
+      this.$timeout(function () {
+        _this2.errorMessage = '';
+      });
+    }
+  }, {
     key: 'isLoginForm',
     value: function isLoginForm() {
       return this.$state.current.name === 'auth.login';
@@ -72834,32 +72843,36 @@ var AuthController = function (_Injectable) {
   }, {
     key: 'login',
     value: function login() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.UserService.login(this.credentials).then(function () {
-        _this2.isLoading = false;
-        _this2.$state.go('weco.home');
+        return _this3.$timeout(function () {
+          _this3.isLoading = false;
+          _this3.$state.go('weco.home');
+        });
       }).catch(function (err) {
-        _this2.isLoading = false;
-        _this2.errorMessage = err.message;
+        return _this3.$timeout(function () {
+          _this3.isLoading = false;
+          _this3.errorMessage = err.message;
 
-        // Possibly unverified account
-        if (err.status === 403) {
-          _this2.showResendVerification = true;
-        }
+          // Possibly unverified account
+          if (err.status === 403) {
+            _this3.showResendVerification = true;
+          }
+        });
       });
     }
   }, {
     key: 'resendVerification',
     value: function resendVerification() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.isLoading = true;
 
       this.UserService.resendVerification(this.credentials.username).then(function () {
-        return _this3.resendVerificationDone(true);
+        return _this4.resendVerificationDone(true);
       }).catch(function () {
-        return _this3.resendVerificationDone(false);
+        return _this4.resendVerificationDone(false);
       });
     }
   }, {
@@ -72868,22 +72881,26 @@ var AuthController = function (_Injectable) {
       var alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
       this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
 
-      this.errorMessage = '';
+      this.clearError();
       this.isLoading = false;
       this.showResendVerification = false;
     }
   }, {
     key: 'signup',
     value: function signup() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.UserService.signup(this.credentials).then(function () {
-        _this4.isLoading = false;
-        _this4.AlertsService.push('success', 'Check your inbox to verify your account!', true);
-        _this4.$state.go('weco.home');
+        return _this5.$setTimeout(function () {
+          _this5.isLoading = false;
+          _this5.AlertsService.push('success', 'Check your inbox to verify your account!', true);
+          _this5.$state.go('weco.home');
+        });
       }).catch(function (err) {
-        _this4.isLoading = false;
-        _this4.errorMessage = err.message;
+        return _this5.$timeout(function () {
+          _this5.isLoading = false;
+          _this5.errorMessage = err.message;
+        });
       });
     }
   }, {

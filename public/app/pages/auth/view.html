@@ -87,13 +87,23 @@
     <p
       class="auth__text"
       ng-show="Auth.isLoginForm()">
-      New to Weco? <a class="auth__link" ui-sref="auth.signup">Sign up</a>
+      New to Weco? <a
+        class="auth__link"
+        ng-click="Auth.clearError()"
+        ui-sref="auth.signup">
+        Sign up
+      </a>
     </p>
     
     <p
       class="auth__text"
       ng-show="!Auth.isLoginForm()">
-      Already registered? <a class="auth__link" ui-sref="auth.login">Sign in</a>
+      Already registered? <a
+        class="auth__link"
+        ng-click="Auth.clearError()"
+        ui-sref="auth.login">
+        Sign in
+      </a>
     </p>
   </div>
 </div>
