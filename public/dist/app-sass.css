@@ -10,8 +10,9 @@
 html,
 body {
   margin: 0;
+  max-height: 100vh;
   padding: 0;
-  overflow-x: hidden; }
+  overflow: hidden; }
 
 .nav {
   background: #111;
