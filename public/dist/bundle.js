@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -72886,7 +72886,7 @@ var AuthController = function (_Injectable) {
     key: 'resendVerificationDone',
     value: function resendVerificationDone(success) {
       var alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
-      this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
+      this.AlertsService.push(success ? 'success' : 'error', alertMsg);
 
       this.clearError();
       this.isLoading = false;
@@ -72898,9 +72898,9 @@ var AuthController = function (_Injectable) {
       var _this5 = this;
 
       this.UserService.signup(this.credentials).then(function () {
-        return _this5.$setTimeout(function () {
+        return _this5.$timeout(function () {
           _this5.isLoading = false;
-          _this5.AlertsService.push('success', 'Check your inbox to verify your account!', true);
+          _this5.AlertsService.push('success', 'Check your inbox to verify your account!');
           _this5.$state.go('weco.home');
         });
       }).catch(function (err) {

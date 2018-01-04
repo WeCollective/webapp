@@ -43,10 +43,10 @@
 
   <a
     class="list-item-image"
-    href="{{ ListItem.post.data.text }}"
+    href="{{ ListItem.post.text }}"
     ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
     target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.data.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
   </a>
   
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
@@ -67,15 +67,15 @@
       class="list-item__title"
       ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
       ui-sref="weco.branch.post({ postid: ListItem.post.id })">
-      {{ ListItem.post.data.title }}
+      {{ ListItem.post.title }}
     </a>
 
     <a
       class="list-item__title"
-      href="{{ ListItem.post.data.text }}"
+      href="{{ ListItem.post.text }}"
       ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
       target="_blank">
-      {{ ListItem.post.data.title }}
+      {{ ListItem.post.title }}
     </a>
 
     <br />
@@ -115,8 +115,8 @@
 
       <span class="list-item__separator"></span>
 
-      <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.data.creator })">
-        {{ ListItem.post.data.creator }}
+      <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
+        {{ ListItem.post.creator }}
       </a>
 
       <span class="list-item__separator"></span>

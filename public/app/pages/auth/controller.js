@@ -56,7 +56,7 @@ class AuthController extends Injectable {
 
   resendVerificationDone(success) {
     const alertMsg = success ? 'Verification email sent. Keep an eye on your inbox!' : 'Unable to resend verification email!';
-    this.AlertsService.push(success ? 'success' : 'error', alertMsg, true);
+    this.AlertsService.push(success ? 'success' : 'error', alertMsg);
 
     this.clearError();
     this.isLoading = false;
@@ -65,9 +65,9 @@ class AuthController extends Injectable {
 
   signup() {
     this.UserService.signup(this.credentials)
-      .then(() => this.$setTimeout(() => {
+      .then(() => this.$timeout(() => {
         this.isLoading = false;
-        this.AlertsService.push('success', 'Check your inbox to verify your account!', true);
+        this.AlertsService.push('success', 'Check your inbox to verify your account!');
         this.$state.go('weco.home');
       }))
       .catch(err => this.$timeout(() => {
