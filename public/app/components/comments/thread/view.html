@@ -3,23 +3,16 @@
     <div class="list-item__votes">
       <div
         class="list-item__vote-icon"
-        ng-class="{ 'style--active': comment.userVoted === 'up', 'style--disabled': comment.data.creator === 'N/A' }"
+        ng-class="{ 'style--active': comment.userVoted === 'up', 'style--disabled': comment.data.deleted }"
         ng-click="Thread.vote(comment, 'up', $event.target)"
         ng-include="'/assets/images/icons/arrow-up.svg'">
       </div>
 
       <p>{{ comment.individual }}</p>
-
-      <!--
-      <img
-        alt="Downvote comment"
-        ng-click="Thread.vote(comment, 'down')"
-        src="/assets/images/icons/black/arrow-down.png" />
-      -->
     </div>
 
     <div class="list-item-info">
-      <span class="list-item__title list-item__comment" marked="comment.data.text"></span>
+      <span class="list-item__title list-item__comment" marked="comment.data.deleted ? '[Comment removed by the author]' : comment.data.text"></span>
 
       <span>
         <img

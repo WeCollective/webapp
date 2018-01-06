@@ -33,7 +33,7 @@ class CommentThreadController extends Injectable {
       }
 
       comment.data.creator = 'N/A';
-      comment.data.text = '[Comment removed by user]';
+      comment.data.text = '[Comment removed by the author]';
     });
 
     this.ModalService.open(

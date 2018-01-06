@@ -627,10 +627,10 @@ span {
 .comments .comment__content .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.comments .comment__content .list-item__votes .list-item__vote-icon.style--active {
+.comments .comment__content .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.comments .comment__content .list-item__votes .list-item__vote-icon.style--active path {
+.comments .comment__content .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon svg {
@@ -1220,10 +1220,10 @@ div[loading] div.loading-container img {
 .notification .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.notification .list-item__votes .list-item__vote-icon.style--active {
+.notification .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.notification .list-item__votes .list-item__vote-icon.style--active path {
+.notification .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .notification .list-item__votes .list-item__vote-icon svg {
@@ -2495,10 +2495,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.branch__post .list-item__votes .list-item__vote-icon.style--active {
+.branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.branch__post .list-item__votes .list-item__vote-icon.style--active path {
+.branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .branch__post .list-item__votes .list-item__vote-icon svg {
@@ -2765,10 +2765,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
     opacity: .1;
   }
-  .branch__post .list-item__votes .list-item__vote-icon.style--active {
+  .branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
     opacity: 1;
   }
-  .branch__post .list-item__votes .list-item__vote-icon.style--active path {
+  .branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
     fill: #9fc3e7;
   }
   .branch__post .list-item__votes .list-item__vote-icon svg {
@@ -3045,10 +3045,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__subbranch .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.branch__subbranch .list-item__votes .list-item__vote-icon.style--active {
+.branch__subbranch .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.branch__subbranch .list-item__votes .list-item__vote-icon.style--active path {
+.branch__subbranch .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon svg {
@@ -3560,10 +3560,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.header .list-item .list-item__votes .list-item__vote-icon.style--active {
+.header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.header .list-item .list-item__votes .list-item__vote-icon.style--active path {
+.header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .header .list-item .list-item__votes .list-item__vote-icon svg {
@@ -3835,10 +3835,10 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
     opacity: .1;
   }
-  .header .list-item .list-item__votes .list-item__vote-icon.style--active {
+  .header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
     opacity: 1;
   }
-  .header .list-item .list-item__votes .list-item__vote-icon.style--active path {
+  .header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
     fill: #9fc3e7;
   }
   .header .list-item .list-item__votes .list-item__vote-icon svg {
@@ -4417,10 +4417,10 @@ div#notfound div h2 {
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--disabled:hover {
   opacity: .1;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--active {
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
   opacity: 1;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--active path {
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
   fill: #9fc3e7;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon svg {
