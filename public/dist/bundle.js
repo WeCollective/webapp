@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -69509,7 +69509,7 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
           return;
         }
 
-        updateData[input.fieldname] = value;
+        updateData[input.fieldname] = value === '' ? null : value;
 
         // convert date input values to unix timestamp
         if (input.type === 'date') {
@@ -69528,7 +69528,7 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
           return;
         }
 
-        updateData[textareas[_i].fieldname] = _value;
+        updateData[textareas[_i].fieldname] = _value === '' ? null : _value;
       }
 
       // perform the update
@@ -76642,7 +76642,7 @@ var BranchService = function (_Injectable) {
       var _this12 = this;
 
       return new Promise(function (resolve, reject) {
-        _this12.API.put('/branch/:branchid', { branchid: branchid }, data, true).then(resolve).catch(function (err) {
+        _this12.API.put('/branch/:branchid', { branchid: branchid }, data).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });

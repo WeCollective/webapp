@@ -47,7 +47,7 @@ class BranchNucleusSettingsModalController extends Injectable {
         return;
       }
 
-      updateData[input.fieldname] = value;
+      updateData[input.fieldname] = value === '' ? null : value;
 
       // convert date input values to unix timestamp
       if (input.type === 'date') {
@@ -64,7 +64,7 @@ class BranchNucleusSettingsModalController extends Injectable {
         return;
       }
 
-      updateData[textareas[i].fieldname] = value;
+      updateData[textareas[i].fieldname] = value === '' ? null : value;
     }
 
     // perform the update
