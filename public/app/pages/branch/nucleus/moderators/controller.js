@@ -24,10 +24,18 @@ class BranchNucleusModeratorsController extends Injectable {
 
     this.isLoading = true;
 
-    const promises = [];
+    let promises = [];
 
-    for (let i = 0; i < this.BranchService.branch.mods.length; i += 1) {
-      promises.push(this.getMod(this.BranchService.branch.mods[i].username));
+    const {
+      id,
+      mods,
+    } = this.BranchService.branch;
+
+    for (let i = 0; i < mods.length; i += 1) {
+      promises = [
+        ...promises,
+        this.getMod(mods[i].username),
+      ];
     }
 
     // when all mods fetched, loading finished
@@ -37,7 +45,7 @@ class BranchNucleusModeratorsController extends Injectable {
 
         const cache = this.LocalStorageService.getObject('cache');
         cache.branchNucleusMods = cache.branchNucleusMods || {};
-        cache.branchNucleusMods[this.BranchService.branch.id] = this.mods;
+        cache.branchNucleusMods[id] = this.mods;
         this.LocalStorageService.setObject('cache', cache);
 
         this.$timeout(() => this.isLoading = false);

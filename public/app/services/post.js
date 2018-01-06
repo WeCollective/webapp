@@ -35,9 +35,9 @@ class PostService extends Injectable {
       .catch(err => reject(err.data || err)));
   }
 
-  fetch(postid) {
+  fetch(postid, branchid) {
     return new Promise((resolve, reject) => this.API
-      .get('/post/:postid', { postid }, {})
+      .get('/post/:postid', { postid }, { branchid })
       .then(res => resolve(res.data))
       .catch(err => reject(err.data || err)));
   }
@@ -72,9 +72,14 @@ class PostService extends Injectable {
       return;
     }
 
+    const {
+      branchid,
+      postid,
+    } = this.$state.params;
+
     this.updating = true;
 
-    this.fetch(this.$state.params.postid)
+    this.fetch(postid, branchid)
       .then(post => {
         this.post = post;
         this.updating = false;

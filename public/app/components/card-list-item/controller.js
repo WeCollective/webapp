@@ -35,8 +35,13 @@ class ListItemController extends Injectable {
   getOriginalBranches() {
     let branches = [];
 
-    if (this.post.data && this.post.data.original_branches) {
-      branches = JSON.parse(this.post.data.original_branches);
+    if (this.post.original_branches) {
+      try {
+        branches = JSON.parse(this.post.original_branches);
+      }
+      catch (err) {
+        console.log(err);
+      }
     }
 
     return branches;
@@ -78,7 +83,7 @@ class ListItemController extends Injectable {
   }
 
   isOwnPost() {
-    return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
+    return this.post && this.UserService.user.username === this.post.creator;
   }
 
   openDeletePostModal() {

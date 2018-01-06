@@ -37,9 +37,12 @@
   	<span class="branch__text style--dark">
       Display NSFW posts:
     </span>
-  	<input
+
+    <input
+      id="checkbox-nsfw"
       ng-change="ProfileSettings.updateNSFW()"
-  		ng-model="ProfileSettings.UserService.user.show_nsfw"
-  		type="checkbox" />
+      ng-model="ProfileSettings.UserService.user.show_nsfw"
+      type="checkbox" />
+    <label class="checkbox" for="checkbox-nsfw"></label>
   </li>
 </ul>

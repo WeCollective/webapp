@@ -1,47 +1,46 @@
-div#nucleus-removemod-modal {
-  div#nucleus-removemod-inputs {
-    position: relative;
-    
-    ul {
-      li {
-        border-bottom: 1px solid @light-grey;
-        padding: 10px;
+div#nucleus-removemod-inputs {
+  position: relative;
 
-        div {
-          display: inline-block;
-          vertical-align: middle;
+  li {
+    border-bottom: 1px solid @light-grey;
+    cursor: pointer;
+    padding: 10px;
 
-          &.details {
-            h2 {
-              &.name {
-                font-size: @font-size-sm;
-                font-weight: @font-weight-heavy;
-              }
+    div {
+      display: inline-block;
+      vertical-align: middle;
 
-              &.username {
-                font-size: @font-size-sm;
-                font-weight: @font-weight-normal;
-              }
-            }
+      &.details {
+        h2 {
+          &.name {
+            font-size: @font-size-sm;
+            font-weight: @font-weight-heavy;
           }
 
-          &.profile-picture {
-            background-position: center;
-            background-size: cover;
-            border-radius: 3px;
-            height: 60px;
-            margin-right: 10px;
-            width: 60px;
+          &.username {
+            font-size: @font-size-sm;
+            font-weight: @font-weight-normal;
           }
         }
+      }
 
-        &:hover {
-          background-color: @light-grey;
-          cursor: pointer;
-        }
+      &.profile-picture {
+        @size: 60px;
 
-        &.selected { background-color: @light-grey; }
+        background-position: center;
+        background-size: cover;
+        border-radius: 3px;
+        height: @size;
+        margin-right: 10px;
+        width: @size;
       }
     }
+
+    &.selected,
+    &:hover {
+      background-color: @light-grey;
+    }
+
+    &:last-child { border-bottom-color: transparent; }
   }
 }

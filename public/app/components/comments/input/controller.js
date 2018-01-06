@@ -76,12 +76,7 @@ class CommentInputBoxController extends Injectable {
       rank: 0,
       replies: 0,
       up: 1,
-      votes: {
-        down: 0,
-        individual: 1,
-        up: 1,
-        userVoted: 'up',
-      },
+      userVoted: 'up',
     };
 
     this.isLoading = false;
@@ -91,6 +86,7 @@ class CommentInputBoxController extends Injectable {
     // NB: The supplied "parentid" is actually the id of the comment to be edited.
     if (this.update) {
       this.parentcomment.text = text;
+      this.parentcomment.data.edited = true;
       this.parentcomment.data.text = text;
 
       this.CommentService.update(postid, parentid, text)

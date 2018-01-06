@@ -11,20 +11,20 @@
       {{ ResolveFlagPostModal.errorMessage }}
     </p>
 
-    <p>This post has:</p>
+    <p>This post has been flagged:</p>
 
     <ul id="flag-list">
-      <li>
-        {{ ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count != 1 ? 's' : '' }} for an incorrect content tag
+      <li ng-show="ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count">
+        {{ ResolveFlagPostModal.ModalService.inputArgs.post.wrong_type_count }}x for incorrect content tags
       </li>
-      <li>
-        {{ ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count != 1 ? 's' : '' }} for violating branch rules
+      <li ng-show="ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count">
+        {{ ResolveFlagPostModal.ModalService.inputArgs.post.branch_rules_count }}x for violating branch rules
       </li>
-      <li>
-        {{ ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count != 1 ? 's' : '' }} for violating site rules
+      <li ng-show="ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count">
+        {{ ResolveFlagPostModal.ModalService.inputArgs.post.site_rules_count }}x for violating site rules
       </li>
-      <li>
-        {{ ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count }} flag{{ ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count != 1 ? 's' : '' }} for being NSFW
+      <li ng-show="ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count">
+        {{ ResolveFlagPostModal.ModalService.inputArgs.post.nsfw_count }}x as NSFW
       </li>
     </ul>
 

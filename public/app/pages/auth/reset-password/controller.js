@@ -28,7 +28,7 @@ class ResetPasswordController extends Injectable {
     this.UserService.resetPassword(username, this.credentials.password, token)
       .then(() => {
         this.stopAnimation();
-        this.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
+        this.AlertsService.push('success', 'Successfully updated password! You can now login.');
         this.$state.go('auth.login');
       })
       .catch(err => this.$timeout(() => this.stopAnimation(err.message)));
@@ -40,7 +40,7 @@ class ResetPasswordController extends Injectable {
     this.UserService.requestResetPassword(this.credentials.username)
       .then(() => {
         this.stopAnimation();
-        this.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
+        this.AlertsService.push('success', 'A password reset link has been sent to your inbox.');
         this.$state.go('weco.home');
       })
       .catch(err => this.$timeout(() => this.stopAnimation(err.message)));

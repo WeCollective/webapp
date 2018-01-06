@@ -93,16 +93,17 @@
           src="/assets/images/icons/comment.svg" />
         <span>{{ ListItem.post.comment_count }}</span>
       </a>
-      
+
       <img
         alt="Flag post"
         class="list-item__detail style--icon"
         ng-click="ListItem.openFlagPostModal()"
+        ng-hide="ListItem.showFlags()"
         offset-y="20"
         src="/assets/images/icons/flag.svg"
         text="'Flag post'"
         tooltip />
-      
+
       <img
         alt="Delete post"
         class="list-item__detail style--icon ng-hide"

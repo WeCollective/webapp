@@ -7,7 +7,7 @@ class RemoveModModalController extends Injectable {
 
     this.errorMessage = '';
     this.isLoading = false;
-    this.mods = {};
+    this.mods = [];
     this.selectedMod = {};
 
     const getMod = (username, index) => this.UserService.fetch(username)
@@ -18,8 +18,10 @@ class RemoveModModalController extends Injectable {
       this.isLoading = true;
       Generator.run(function* () { // eslint-disable-line func-names
         try {
-          for (let i = 0; i < this.ModalService.inputArgs.mods.length; i += 1) {
-            yield getMod(this.ModalService.inputArgs.mods[i].username, i);
+          const { mods } = this.ModalService.inputArgs;
+
+          for (let i = 0; i < mods.length; i += 1) {
+            yield getMod(mods[i].username, i);
           }
 
           this.$timeout(() => this.isLoading = false);
@@ -33,9 +35,10 @@ class RemoveModModalController extends Injectable {
       }, this);
     };
 
+    const { events } = this.EventService;
     const listeners = [];
 
-    this.EventService.on(this.EventService.events.MODAL_OK, name => {
+    this.EventService.on(events.MODAL_OK, name => {
       if (name !== 'REMOVE_MOD') return;
       this.isLoading = true;
       this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username)
@@ -56,7 +59,7 @@ class RemoveModModalController extends Injectable {
         }));
     });
 
-    this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
+    this.EventService.on(events.MODAL_CANCEL, name => {
       if (name !== 'REMOVE_MOD') return;
       this.$timeout(() => {
         this.ModalService.Cancel();

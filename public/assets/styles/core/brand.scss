@@ -1,0 +1,58 @@
+$c-checkbox-active: $c-green !default;
+$c-checkbox-inactive: $c-text !default;
+$s-checkbox-h: 24px !default;
+$tr-checkbox-speed: .3s !default;
+
+input[type=checkbox] { display: none; }
+
+.checkbox {
+  background-color: transparent;
+  border: 2px solid $c-checkbox-inactive;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  height: $s-checkbox-h;
+  margin-left: $s-spacing-sm / 2;
+  position: relative;
+  vertical-align: middle;
+  width: $s-checkbox-h;
+  transition: border-color ($tr-checkbox-speed / 2);
+
+  // Check mark parts.
+  &::before,
+  &::after {
+    background-color: $c-checkbox-active;
+    border-radius: 5px;
+    box-sizing: border-box;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    transform-origin: left top;
+    width: $s-checkbox-h * .2;
+  }
+
+  &::after {
+    height: $s-checkbox-h * .5;
+    left: $s-checkbox-h * .05;
+    top: $s-checkbox-h * .37;
+    transform: rotateZ(-45deg) scaleY(0);
+    transition: transform $tr-checkbox-speed / 2;
+  }
+
+  &::before {
+    height: $s-checkbox-h * 1.2;
+    left: $s-checkbox-h * .41;
+    top: $s-checkbox-h * .72;
+    transform: rotateZ(-135deg) scaleY(0);
+    transition: transform $tr-checkbox-speed ($tr-checkbox-speed / 2);
+  }
+}
+
+input[type=checkbox]:checked + .checkbox,
+.checkbox.checked {
+  border-color: $c-checkbox-active;
+
+  &::after { transform: rotateZ(-45deg) scaleY(1); }
+  &::before { transform: rotateZ(-135deg) scaleY(1); }
+}

@@ -66487,8 +66487,12 @@ var ListItemController = function (_Injectable) {
     value: function getOriginalBranches() {
       var branches = [];
 
-      if (this.post.data && this.post.data.original_branches) {
-        branches = JSON.parse(this.post.data.original_branches);
+      if (this.post.original_branches) {
+        try {
+          branches = JSON.parse(this.post.original_branches);
+        } catch (err) {
+          console.log(err);
+        }
       }
 
       return branches;
@@ -66531,7 +66535,7 @@ var ListItemController = function (_Injectable) {
   }, {
     key: 'isOwnPost',
     value: function isOwnPost() {
-      return this.post && this.post.data && this.UserService.user.username === this.post.data.creator;
+      return this.post && this.UserService.user.username === this.post.creator;
     }
   }, {
     key: 'openDeletePostModal',
@@ -67270,12 +67274,7 @@ var CommentInputBoxController = function (_Injectable) {
         rank: 0,
         replies: 0,
         up: 1,
-        votes: {
-          down: 0,
-          individual: 1,
-          up: 1,
-          userVoted: 'up'
-        }
+        userVoted: 'up'
       };
 
       this.isLoading = false;
@@ -67285,6 +67284,7 @@ var CommentInputBoxController = function (_Injectable) {
       // NB: The supplied "parentid" is actually the id of the comment to be edited.
       if (this.update) {
         this.parentcomment.text = text;
+        this.parentcomment.data.edited = true;
         this.parentcomment.data.text = text;
 
         this.CommentService.update(postid, parentid, text).catch(function (err) {
@@ -69279,7 +69279,7 @@ var RemoveModModalController = function (_Injectable) {
 
     _this.errorMessage = '';
     _this.isLoading = false;
-    _this.mods = {};
+    _this.mods = [];
     _this.selectedMod = {};
 
     var getMod = function getMod(username, index) {
@@ -69299,38 +69299,39 @@ var RemoveModModalController = function (_Injectable) {
       _generator2.default.run(regeneratorRuntime.mark(function _callee() {
         var _this2 = this;
 
-        var i;
+        var mods, i;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
+                mods = this.ModalService.inputArgs.mods;
                 i = 0;
 
-              case 2:
-                if (!(i < this.ModalService.inputArgs.mods.length)) {
-                  _context.next = 8;
+              case 3:
+                if (!(i < mods.length)) {
+                  _context.next = 9;
                   break;
                 }
 
-                _context.next = 5;
-                return getMod(this.ModalService.inputArgs.mods[i].username, i);
+                _context.next = 6;
+                return getMod(mods[i].username, i);
 
-              case 5:
+              case 6:
                 i += 1;
-                _context.next = 2;
+                _context.next = 3;
                 break;
 
-              case 8:
+              case 9:
 
                 this.$timeout(function () {
                   return _this2.isLoading = false;
                 });
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context['catch'](0);
 
                 this.$timeout(function () {
@@ -69338,18 +69339,20 @@ var RemoveModModalController = function (_Injectable) {
                   _this2.ModalService.Cancel();
                 });
 
-              case 14:
+              case 15:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 11]]);
+        }, _callee, this, [[0, 12]]);
       }), _this);
     };
 
+    var events = _this.EventService.events;
+
     var listeners = [];
 
-    _this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
+    _this.EventService.on(events.MODAL_OK, function (name) {
       if (name !== 'REMOVE_MOD') return;
       _this.isLoading = true;
       _this.ModService.remove(_this.ModalService.inputArgs.branchid, _this.selectedMod.username).then(function () {
@@ -69372,7 +69375,7 @@ var RemoveModModalController = function (_Injectable) {
       });
     });
 
-    _this.EventService.on(_this.EventService.events.MODAL_CANCEL, function (name) {
+    _this.EventService.on(events.MODAL_CANCEL, function (name) {
       if (name !== 'REMOVE_MOD') return;
       _this.$timeout(function () {
         _this.ModalService.Cancel();
@@ -69803,9 +69806,7 @@ var CreatePostModalController = function (_Injectable) {
 
     var events = _this.EventService.events;
 
-    var listeners = [];
-    listeners.push(_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel));
-    listeners.push(_this.EventService.on(events.MODAL_OK, _this.handleModalSubmit));
+    var listeners = [_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel), _this.EventService.on(events.MODAL_OK, _this.handleModalSubmit)];
     /*
     listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
       if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
@@ -70032,6 +70033,16 @@ var CreatePostModalController = function (_Injectable) {
     key: 'setFile',
     value: function setFile(file) {
       this.file = file;
+    }
+  }, {
+    key: 'toggleLocked',
+    value: function toggleLocked() {
+      this.newPost.locked = !this.newPost.locked;
+    }
+  }, {
+    key: 'toggleNSFW',
+    value: function toggleNSFW() {
+      this.newPost.nsfw = !this.newPost.nsfw;
     }
   }, {
     key: 'togglePreview',
@@ -72996,7 +73007,7 @@ var ResetPasswordController = function (_Injectable) {
 
       this.UserService.resetPassword(username, this.credentials.password, token).then(function () {
         _this2.stopAnimation();
-        _this2.AlertsService.push('success', 'Successfully updated password! You can now login.', true);
+        _this2.AlertsService.push('success', 'Successfully updated password! You can now login.');
         _this2.$state.go('auth.login');
       }).catch(function (err) {
         return _this2.$timeout(function () {
@@ -73013,7 +73024,7 @@ var ResetPasswordController = function (_Injectable) {
 
       this.UserService.requestResetPassword(this.credentials.username).then(function () {
         _this3.stopAnimation();
-        _this3.AlertsService.push('success', 'A password reset link has been sent to your inbox.', true);
+        _this3.AlertsService.push('success', 'A password reset link has been sent to your inbox.');
         _this3.$state.go('weco.home');
       }).catch(function (err) {
         return _this3.$timeout(function () {
@@ -73796,6 +73807,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -73844,8 +73857,13 @@ var BranchNucleusModeratorsController = function (_Injectable) {
 
       var promises = [];
 
-      for (var i = 0; i < this.BranchService.branch.mods.length; i += 1) {
-        promises.push(this.getMod(this.BranchService.branch.mods[i].username));
+      var _BranchService$branch = this.BranchService.branch,
+          id = _BranchService$branch.id,
+          mods = _BranchService$branch.mods;
+
+
+      for (var i = 0; i < mods.length; i += 1) {
+        promises = [].concat(_toConsumableArray(promises), [this.getMod(mods[i].username)]);
       }
 
       // when all mods fetched, loading finished
@@ -73854,7 +73872,7 @@ var BranchNucleusModeratorsController = function (_Injectable) {
 
         var cache = _this2.LocalStorageService.getObject('cache');
         cache.branchNucleusMods = cache.branchNucleusMods || {};
-        cache.branchNucleusMods[_this2.BranchService.branch.id] = _this2.mods;
+        cache.branchNucleusMods[id] = _this2.mods;
         _this2.LocalStorageService.setObject('cache', cache);
 
         _this2.$timeout(function () {
@@ -77366,11 +77384,11 @@ var PostService = function (_Injectable) {
     }
   }, {
     key: 'fetch',
-    value: function fetch(postid) {
+    value: function fetch(postid, branchid) {
       var _this5 = this;
 
       return new Promise(function (resolve, reject) {
-        return _this5.API.get('/post/:postid', { postid: postid }, {}).then(function (res) {
+        return _this5.API.get('/post/:postid', { postid: postid }, { branchid: branchid }).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77429,9 +77447,14 @@ var PostService = function (_Injectable) {
         return;
       }
 
+      var _$state$params = this.$state.params,
+          branchid = _$state$params.branchid,
+          postid = _$state$params.postid;
+
+
       this.updating = true;
 
-      this.fetch(this.$state.params.postid).then(function (post) {
+      this.fetch(postid, branchid).then(function (post) {
         _this9.post = post;
         _this9.updating = false;
       }).catch(function (err) {

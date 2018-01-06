@@ -43,9 +43,10 @@ class CreatePostModalController extends Injectable {
     this.url = '';
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
-    listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
+    const listeners = [
+      this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel),
+      this.EventService.on(events.MODAL_OK, this.handleModalSubmit),
+    ];
     /*
     listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
       if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
@@ -189,6 +190,14 @@ class CreatePostModalController extends Injectable {
 
   setFile(file) {
     this.file = file;
+  }
+
+  toggleLocked() {
+    this.newPost.locked = !this.newPost.locked;
+  }
+
+  toggleNSFW() {
+    this.newPost.nsfw = !this.newPost.nsfw;
   }
 
   togglePreview() {
