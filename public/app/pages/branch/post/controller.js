@@ -68,9 +68,9 @@ class BranchPostController extends Injectable {
       return false;
     };
 
-    if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
-      let videoId = this.PostService.post.data.text.split('v=')[1] ||
-        this.PostService.post.data.text.split('embed/')[1];
+    if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.text)) {
+      let videoId = this.PostService.post.text.split('v=')[1] ||
+        this.PostService.post.text.split('embed/')[1];
 
       if (videoId.includes('&')) {
         videoId = videoId.substring(0, videoId.indexOf('&'));

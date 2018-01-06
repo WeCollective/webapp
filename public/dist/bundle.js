@@ -7182,7 +7182,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -74313,8 +74313,8 @@ var BranchPostController = function (_Injectable) {
         return false;
       };
 
-      if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.data.text)) {
-        var videoId = this.PostService.post.data.text.split('v=')[1] || this.PostService.post.data.text.split('embed/')[1];
+      if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.text)) {
+        var videoId = this.PostService.post.text.split('v=')[1] || this.PostService.post.text.split('embed/')[1];
 
         if (videoId.includes('&')) {
           videoId = videoId.substring(0, videoId.indexOf('&'));
