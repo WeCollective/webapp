@@ -4,7 +4,9 @@ class CommentsComponent extends Injectable {
   constructor(...injections) {
     super(CommentsComponent.$inject, injections);
 
-    this.bindToController = {};
+    this.bindToController = {
+      changeUrl: '=',
+    };
     this.controller = 'CommentsController';
     this.controllerAs = 'Comments';
     this.replace = true;

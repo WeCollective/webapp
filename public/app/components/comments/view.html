@@ -18,10 +18,10 @@
 
     <dropdown
       class="style--horizontal"
-      items="Comments.controls.sortBy.items"
+      items="Comments.sortBy"
       ng-if="!Comments.isCommentPermalink()"
     	selected="Comments.controls.sortBy.selectedIndex"
-    	title="sort by">
+    	title="Comments.controls.sortBy.title">
     </dropdown>
 
     <loader-bar hidden="!Comments.isLoading"></loader-bar>

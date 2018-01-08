@@ -33,7 +33,7 @@
     <dropdown
       items="ResolveFlagPostModal.controls.resolve.items"
       selected="ResolveFlagPostModal.controls.resolve.selectedIndex"
-      title="">
+      title="''">
     </dropdown>
 
     {{ ResolveFlagPostModal.controls.resolve.selectedIndex === 0 ? 'to' : (ResolveFlagPostModal.controls.resolve.selectedIndex === 1 ? 'for' : '') }}
@@ -42,14 +42,14 @@
       items="ResolveFlagPostModal.controls.postType.items"
       ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 0"
       selected="ResolveFlagPostModal.controls.postType.selectedIndex"
-      title="">
+      title="''">
     </dropdown>
 
     <dropdown
       items="ResolveFlagPostModal.controls.reason.items"
       ng-show="ResolveFlagPostModal.controls.resolve.selectedIndex === 1"
       selected="ResolveFlagPostModal.controls.reason.selectedIndex"
-      title="">
+      title="''">
     </dropdown>
 
     <textarea

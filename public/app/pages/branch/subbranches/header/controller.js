@@ -6,36 +6,58 @@ class BranchSubbranchesHeaderController extends Injectable {
 
     this.controls = {
       sortBy: {
-        items: [
-          'total points',
-          '# of posts',
-          '# of comments',
-          'date created',
-        ],
-        selectedIndex: 0,
+        items: [{
+          label: 'total points',
+          url: 'points',
+        }, {
+          label: '# of posts',
+          url: 'posts',
+        }, {
+          label: '# of comments',
+          url: 'comments',
+        }, {
+          label: 'date created',
+          url: 'date',
+        }],
+        selectedIndex: -1,
+        title: 'sort by',
       },
       timeRange: {
-        items: [
-          'all time',
-          'past year',
-          'past month',
-          'past week',
-          'past 24 hrs',
-          'past hour',
-        ],
-        selectedIndex: 0,
+        items: [{
+          label: 'all time',
+          url: 'all',
+        }, {
+          label: 'past year',
+          url: 'year',
+        }, {
+          label: 'past month',
+          url: 'month',
+        }, {
+          label: 'past week',
+          url: 'week',
+        }, {
+          label: 'past 24 hrs',
+          url: 'day',
+        }, {
+          label: 'past hour',
+          url: 'hour',
+        }],
+        selectedIndex: -1,
+        title: 'time range',
       },
     };
+    this.sortBy = this.controls.sortBy.items.map(x => x.label);
+    this.timeRange = this.controls.timeRange.items.map(x => x.label);
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultControls = this.setDefaultControls.bind(this);
+    this.setDefaultControls();
 
-    // Init filters.
-    this.callbackDropdown();
-
-    const listeners = [];
     const ctrls = this.controls;
-    listeners.push(this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown));
-    listeners.push(this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown));
+    const listeners = [
+      this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown),
+      this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -44,11 +66,17 @@ class BranchSubbranchesHeaderController extends Injectable {
       sortBy: this.getSortBy(),
       timeRange: this.getTimeRange(),
     });
+    const {
+      sortBy,
+      timeRange,
+    } = this.controls;
+    this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
+    this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
   }
 
   getSortBy() {
     const { sortBy } = this.controls;
-    switch (sortBy.items[sortBy.selectedIndex].toLowerCase()) {
+    switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
       case 'total points':
         return 'post_points';
 
@@ -66,7 +94,7 @@ class BranchSubbranchesHeaderController extends Injectable {
 
   getTimeRange() {
     const { timeRange } = this.controls;
-    switch (timeRange.items[timeRange.selectedIndex].toLowerCase()) {
+    switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 
@@ -87,9 +115,40 @@ class BranchSubbranchesHeaderController extends Injectable {
         return 0;
     }
   }
+
+  setDefaultControls() {
+    const query = this.$location.search();
+    const defaultSortByIndex = 0;
+    const defaultTimeRangeIndex = 0;
+
+    const {
+      sortBy,
+      timeRange,
+    } = this.controls;
+
+    const urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
+    const urlIndexTimeRange = this.urlToItemIndex(query.time, timeRange.items);
+
+    sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
+    timeRange.selectedIndex = urlIndexTimeRange !== -1 ? urlIndexTimeRange : defaultTimeRangeIndex;
+
+    // Set filters through service for other modules.
+    this.callbackDropdown();
+  }
+
+  // Finds the item in array with the matching url value and returns its index.
+  urlToItemIndex(str, arr = []) {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].url === str) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
 
 BranchSubbranchesHeaderController.$inject = [
+  '$location',
   '$scope',
   'BranchService',
   'HeaderService',

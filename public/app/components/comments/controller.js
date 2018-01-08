@@ -7,25 +7,37 @@ class CommentsController extends Injectable {
     this.comments = [];
     this.controls = {
       sortBy: {
-        items: [
-          'points',
-          'replies',
-          'date',
-        ],
-        selectedIndex: 0,
+        items: [{
+          label: 'points',
+          url: 'points',
+        }, {
+          label: 'replies',
+          url: 'replies',
+        }, {
+          label: 'date',
+          url: 'date',
+        }],
+        selectedIndex: -1,
+        title: 'sort by',
       },
     };
+    this.sortBy = this.controls.sortBy.items.map(x => x.label);
     this.hasMoreComments = false;
     this.isLoading = false;
 
-    this.reloadComments();
+    this.setDefaultControls = this.setDefaultControls.bind(this);
+    this.setDefaultControls();
 
     const { sortBy } = this.controls;
     const { events } = this.EventService;
     const listeners = [
       this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments.bind(this)),
       this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
-        if (newValue !== oldValue) this.reloadComments();
+        if (newValue !== oldValue) {
+          const { sortBy: sort } = this.controls;
+          this.$location.search('sort', sort.items[sort.selectedIndex].url);
+          this.reloadComments();
+        }
       }),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
@@ -81,7 +93,7 @@ class CommentsController extends Injectable {
       ];
       this.comments = comments;
 
-      this.hasMoreComments = res.hasMoreComments;
+      this.hasMoreComments = res.comments.length !== 0;
 
       this.getAllCommentReplies(comments)
         .then(() => this.$timeout(() => {
@@ -92,16 +104,22 @@ class CommentsController extends Injectable {
     if (this.isLoading === true) return;
     this.isLoading = true;
 
+    const {
+      commentid,
+      postid,
+    } = this.$state.params;
+
     if (this.isCommentPermalink()) {
-      this.CommentService.fetch(this.$state.params.postid, this.$state.params.commentid)
+      this.CommentService.fetch(postid, commentid)
         .then(successCb)
         .catch(errorCb);
     }
     else {
       // fetch all the comments for this post
-      const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+      const { sortBy } = this.controls;
+      const sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
 
-      this.CommentService.getMany(this.$state.params.postid, undefined, sortBy, lastCommentId)
+      this.CommentService.getMany(postid, undefined, sort, lastCommentId)
         .then(successCb)
         .catch(errorCb);
     }
@@ -110,12 +128,13 @@ class CommentsController extends Injectable {
   getSingleCommentReplies(comment) {
     return new Promise((resolve, reject) => {
       const lastCommentId = false;
-      const sortBy = this.controls.sortBy.items[this.controls.sortBy.selectedIndex].toLowerCase();
+      const { sortBy } = this.controls;
+      const sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
 
       // fetch the replies to this comment, or just the number of replies
-      return this.CommentService.getMany(comment.postid, comment.id, sortBy, lastCommentId)
+      return this.CommentService.getMany(comment.postid, comment.id, sort, lastCommentId)
         .then(res => this.$timeout(() => {
-          comment.hasMoreComments = res.hasMoreComments;
+          comment.hasMoreComments = res.comments.length !== 0;
           comment.comments = res.comments;
           return resolve();
         }))
@@ -138,9 +157,31 @@ class CommentsController extends Injectable {
     this.comments = [];
     this.getComments();
   }
+
+  setDefaultControls() {
+    const query = this.$location.search();
+    const defaultSortByIndex = 0;
+
+    const { sortBy } = this.controls;
+    const urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
+    sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
+
+    this.reloadComments();
+  }
+
+  // Finds the item in array with the matching url value and returns its index.
+  urlToItemIndex(str, arr = []) {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].url === str) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
 
 CommentsController.$inject = [
+  '$location',
   '$rootScope',
   '$scope',
   '$state',

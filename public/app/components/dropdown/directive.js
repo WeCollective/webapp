@@ -9,7 +9,7 @@ class DropdownComponent extends Injectable {
       items: '=',
       postTypes: '@',
       selected: '=',
-      title: '@',
+      title: '=',
     };
     this.controller = 'DropdownController';
     this.controllerAs = 'Dropdown';
