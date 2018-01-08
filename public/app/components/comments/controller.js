@@ -34,8 +34,10 @@ class CommentsController extends Injectable {
       this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments.bind(this)),
       this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
         if (newValue !== oldValue) {
-          const { sortBy: sort } = this.controls;
-          this.$location.search('sort', sort.items[sort.selectedIndex].url);
+          if (this.changeUrl) {
+            const { sortBy: sort } = this.controls;
+            this.$location.search('sort', sort.items[sort.selectedIndex].url);
+          }
           this.reloadComments();
         }
       }),
@@ -81,7 +83,7 @@ class CommentsController extends Injectable {
     const successCb = res => this.$timeout(() => {
       const isSingleComment = !Array.isArray(res.comments);
 
-      if (isSingleComment) {
+      if (this.isCommentPermalink()) {
         this.comments = [res];
         this.isLoading = false;
         return;

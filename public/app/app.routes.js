@@ -256,7 +256,7 @@ class AppRoutes extends Injectable {
       })
 
       .state('weco.branch.post.discussion', {
-        url: '/discussion',
+        url: '',
         templateUrl: '/app/pages/branch/post/discussion/view.html',
         pageTrack: '/p/:postid/discussion',
       });

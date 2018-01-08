@@ -9,11 +9,18 @@ class BranchPostController extends Injectable {
     // Possible states: show, maximise, hide.
     this.previewState = false;
 
-    this.tabItems = [
-      'vote',
-      'discussion',
-      'results',
-    ];
+    this.tabItems = [{
+      label: 'vote',
+      url: 'vote',
+    }, {
+      label: 'discussion',
+      url: undefined,
+    }, {
+      label: 'results',
+      url: 'results',
+    }];
+    this.labels = this.tabItems.map(x => x.label);
+    this.urls = this.tabItems.map(x => x.url);
 
     this.tabStates = [
       'weco.branch.post.vote',
@@ -101,7 +108,7 @@ class BranchPostController extends Injectable {
     }
 
     if (post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-      const tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+      const tabIndex = this.urls.indexOf(this.$state.params.tab);
 
       if (tabIndex !== -1) {
         const state = Array.isArray(this.tabStates[tabIndex]) ?
@@ -116,7 +123,12 @@ class BranchPostController extends Injectable {
         });
       }
       else {
-        console.warn('Invalid tab name!');
+        this.$state.go(this.tabStates[0], {
+          branchid: post.branchid,
+          postid: this.$state.params.postid,
+        }, {
+          location: 'replace',
+        });
       }
     }
     else {

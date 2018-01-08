@@ -35,10 +35,10 @@ class UploadService extends Injectable {
         method: 'PUT',
         url,
       })
-        .then(() => {
+        .then(res => {
           this.isUploading = false;
           this.progress = 0;
-          return resolve();
+          return resolve(res);
         }, () => { // error
           this.isUploading = false;
           this.progress = 0;

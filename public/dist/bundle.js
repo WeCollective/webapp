@@ -69048,7 +69048,7 @@ var AppRoutes = function (_Injectable) {
       controllerAs: 'BranchPostResults',
       pageTrack: '/p/:postid/results'
     }).state('weco.branch.post.discussion', {
-      url: '/discussion',
+      url: '',
       templateUrl: '/app/pages/branch/post/discussion/view.html',
       pageTrack: '/p/:postid/discussion'
     });
@@ -70113,9 +70113,11 @@ var CommentsController = function (_Injectable) {
       return sortBy.selectedIndex;
     }, function (newValue, oldValue) {
       if (newValue !== oldValue) {
-        var sort = _this.controls.sortBy;
+        if (_this.changeUrl) {
+          var sort = _this.controls.sortBy;
 
-        _this.$location.search('sort', sort.items[sort.selectedIndex].url);
+          _this.$location.search('sort', sort.items[sort.selectedIndex].url);
+        }
         _this.reloadComments();
       }
     })];
@@ -70167,7 +70169,7 @@ var CommentsController = function (_Injectable) {
         return _this3.$timeout(function () {
           var isSingleComment = !Array.isArray(res.comments);
 
-          if (isSingleComment) {
+          if (_this3.isCommentPermalink()) {
             _this3.comments = [res];
             _this3.isLoading = false;
             return;
@@ -77571,7 +77573,22 @@ var BranchPostController = function (_Injectable) {
     // Possible states: show, maximise, hide.
     _this.previewState = false;
 
-    _this.tabItems = ['vote', 'discussion', 'results'];
+    _this.tabItems = [{
+      label: 'vote',
+      url: 'vote'
+    }, {
+      label: 'discussion',
+      url: undefined
+    }, {
+      label: 'results',
+      url: 'results'
+    }];
+    _this.labels = _this.tabItems.map(function (x) {
+      return x.label;
+    });
+    _this.urls = _this.tabItems.map(function (x) {
+      return x.url;
+    });
 
     _this.tabStates = ['weco.branch.post.vote', ['weco.branch.post.discussion', 'weco.branch.post.comment'], 'weco.branch.post.results'];
 
@@ -77660,7 +77677,7 @@ var BranchPostController = function (_Injectable) {
       }
 
       if (post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-        var tabIndex = this.tabItems.indexOf(this.$state.params.tab || 'vote');
+        var tabIndex = this.urls.indexOf(this.$state.params.tab);
 
         if (tabIndex !== -1) {
           var state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
@@ -77672,7 +77689,12 @@ var BranchPostController = function (_Injectable) {
             location: 'replace'
           });
         } else {
-          console.warn('Invalid tab name!');
+          this.$state.go(this.tabStates[0], {
+            branchid: post.branchid,
+            postid: this.$state.params.postid
+          }, {
+            location: 'replace'
+          });
         }
       } else {
         this.isLoading = false;
@@ -81179,10 +81201,10 @@ var UploadService = function (_Injectable) {
           headers: { 'Content-Type': 'image/*' },
           method: 'PUT',
           url: url
-        }).then(function () {
+        }).then(function (res) {
           _this3.isUploading = false;
           _this3.progress = 0;
-          return resolve();
+          return resolve(res);
         }, function () {
           // error
           _this3.isUploading = false;
