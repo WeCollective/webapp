@@ -12,8 +12,14 @@ class DeletePostModalController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_POST') return;
 
-      this.isLoading = true;
+      const { id } = this.BranchService.branch;
+      const { name: stateName } = this.$state.current;
+      // Redirect so we won't see the 404 message.
+      if (stateName.includes('weco.branch.post')) {
+        this.$state.go('weco.branch.wall', { branchid: id });
+      }
 
+      this.isLoading = true;
       this.PostService.delete(this.ModalService.inputArgs.postid)
         .then(() => {
           this.isLoading = false;
@@ -41,7 +47,9 @@ class DeletePostModalController extends Injectable {
 
 DeletePostModalController.$inject = [
   '$scope',
+  '$state',
   '$timeout',
+  'BranchService',
   'EventService',
   'ModalService',
   'PostService',

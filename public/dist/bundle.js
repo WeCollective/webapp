@@ -73291,8 +73291,15 @@ var DeletePostModalController = function (_Injectable) {
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'DELETE_POST') return;
 
-      _this.isLoading = true;
+      var id = _this.BranchService.branch.id;
+      var stateName = _this.$state.current.name;
+      // Redirect so we won't see the 404 message.
 
+      if (stateName.includes('weco.branch.post')) {
+        _this.$state.go('weco.branch.wall', { branchid: id });
+      }
+
+      _this.isLoading = true;
       _this.PostService.delete(_this.ModalService.inputArgs.postid).then(function () {
         _this.isLoading = false;
         _this.ModalService.OK();
@@ -73323,7 +73330,7 @@ var DeletePostModalController = function (_Injectable) {
   return DeletePostModalController;
 }(_injectable2.default);
 
-DeletePostModalController.$inject = ['$scope', '$timeout', 'EventService', 'ModalService', 'PostService'];
+DeletePostModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService', 'PostService'];
 
 exports.default = DeletePostModalController;
 
