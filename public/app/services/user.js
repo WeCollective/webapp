@@ -33,7 +33,15 @@ class UserService extends Injectable {
     });
   }
 
-  followBranch(username, branchid) {
+  followBranch(username, branchid, skipRequest) {
+    if (skipRequest) {
+      if (username === this.user.username || username === 'me') {
+        this.user.followed_branches.push(branchid);
+      }
+
+      return Promise.resolve();
+    }
+
     return new Promise((resolve, reject) => {
       this.API.post('/user/:username/branches/followed', { username }, { branchid }, true)
         .then(res => {

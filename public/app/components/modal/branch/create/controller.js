@@ -52,7 +52,9 @@ class CreateBranchModalController extends Injectable {
 
         const branchid = this.newBranch.id;
         this.newBranch = {};
-        this.ModalService.OK({ branchid })
+
+        this.UserService.followBranch('me', branchid, true)
+          .then(() => this.ModalService.OK({ branchid }))
           .then(() => this.$state.go('weco.branch.wall', { branchid }));
       }))
       .catch(err => this.$timeout(() => {
@@ -69,6 +71,7 @@ CreateBranchModalController.$inject = [
   'BranchService',
   'EventService',
   'ModalService',
+  'UserService',
 ];
 
 export default CreateBranchModalController;

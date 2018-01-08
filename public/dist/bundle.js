@@ -71551,7 +71551,10 @@ var CreateBranchModalController = function (_Injectable) {
 
           var branchid = _this3.newBranch.id;
           _this3.newBranch = {};
-          _this3.ModalService.OK({ branchid: branchid }).then(function () {
+
+          _this3.UserService.followBranch('me', branchid, true).then(function () {
+            return _this3.ModalService.OK({ branchid: branchid });
+          }).then(function () {
             return _this3.$state.go('weco.branch.wall', { branchid: branchid });
           });
         });
@@ -71567,7 +71570,7 @@ var CreateBranchModalController = function (_Injectable) {
   return CreateBranchModalController;
 }(_injectable2.default);
 
-CreateBranchModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService'];
+CreateBranchModalController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService', 'UserService'];
 
 exports.default = CreateBranchModalController;
 
@@ -81312,8 +81315,16 @@ var UserService = function (_Injectable) {
     }
   }, {
     key: 'followBranch',
-    value: function followBranch(username, branchid) {
+    value: function followBranch(username, branchid, skipRequest) {
       var _this4 = this;
+
+      if (skipRequest) {
+        if (username === this.user.username || username === 'me') {
+          this.user.followed_branches.push(branchid);
+        }
+
+        return Promise.resolve();
+      }
 
       return new Promise(function (resolve, reject) {
         _this4.API.post('/user/:username/branches/followed', { username: username }, { branchid: branchid }, true).then(function (res) {
