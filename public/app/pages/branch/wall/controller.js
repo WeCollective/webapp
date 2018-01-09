@@ -18,9 +18,6 @@ class BranchWallController extends Injectable {
     this.callbackScroll = this.callbackScroll.bind(this);
     this.getPosts = this.getPosts.bind(this);
 
-    // Do the initial load so the loader appears straight away.
-    this.getPosts();
-
     const { events } = this.EventService;
     const listeners = [
       this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()),
@@ -66,6 +63,13 @@ class BranchWallController extends Injectable {
       statType,
       timeRange,
     } = filters;
+
+    // Don't send the request if the filters aren't initialised properly yet.
+    if (postType === null || postType === undefined || sortBy === null ||
+      sortBy === undefined || statType === null || statType === undefined ||
+      timeRange === null || timeRange === undefined) {
+      return;
+    }
 
     // Don't send the request if nothing changed.
     if (lr.id === id && lr.lastId === lastId &&

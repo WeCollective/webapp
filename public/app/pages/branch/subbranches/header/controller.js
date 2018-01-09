@@ -7,7 +7,7 @@ class BranchSubbranchesHeaderController extends Injectable {
     this.controls = {
       sortBy: {
         items: [{
-          label: 'total points',
+          label: 'points',
           url: 'points',
         }, {
           label: 'posts',
@@ -76,17 +76,17 @@ class BranchSubbranchesHeaderController extends Injectable {
 
   getSortBy() {
     const { sortBy } = this.controls;
-    switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
-      case 'total points':
+    switch (sortBy.items[sortBy.selectedIndex].url) {
+      case 'points':
         return 'post_points';
 
-      case '# of posts':
+      case 'posts':
         return 'post_count';
 
-      case '# of comments':
+      case 'comments':
         return 'post_comments';
 
-      case 'date created':
+      case 'date':
       default:
         return 'date';
     }
@@ -94,23 +94,23 @@ class BranchSubbranchesHeaderController extends Injectable {
 
   getTimeRange() {
     const { timeRange } = this.controls;
-    switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
-      case 'past year':
+    switch (timeRange.items[timeRange.selectedIndex].url) {
+      case 'year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 
-      case 'past month':
+      case 'month':
         return new Date().setMonth(new Date().getMonth() - 1);
 
-      case 'past week':
+      case 'week':
         return new Date().setDate(new Date().getDate() - 7);
 
-      case 'past 24 hrs':
+      case 'day':
         return new Date().setDate(new Date().getDate() - 1);
 
-      case 'past hour':
+      case 'hour':
         return new Date().setHours(new Date().getHours() - 1);
 
-      case 'all time':
+      case 'all':
       default:
         return 0;
     }

@@ -78457,7 +78457,7 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
     _this.controls = {
       sortBy: {
         items: [{
-          label: 'total points',
+          label: 'points',
           url: 'points'
         }, {
           label: 'posts',
@@ -78540,17 +78540,17 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
     value: function getSortBy() {
       var sortBy = this.controls.sortBy;
 
-      switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
-        case 'total points':
+      switch (sortBy.items[sortBy.selectedIndex].url) {
+        case 'points':
           return 'post_points';
 
-        case '# of posts':
+        case 'posts':
           return 'post_count';
 
-        case '# of comments':
+        case 'comments':
           return 'post_comments';
 
-        case 'date created':
+        case 'date':
         default:
           return 'date';
       }
@@ -78560,23 +78560,23 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
     value: function getTimeRange() {
       var timeRange = this.controls.timeRange;
 
-      switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
-        case 'past year':
+      switch (timeRange.items[timeRange.selectedIndex].url) {
+        case 'year':
           return new Date().setFullYear(new Date().getFullYear() - 1);
 
-        case 'past month':
+        case 'month':
           return new Date().setMonth(new Date().getMonth() - 1);
 
-        case 'past week':
+        case 'week':
           return new Date().setDate(new Date().getDate() - 7);
 
-        case 'past 24 hrs':
+        case 'day':
           return new Date().setDate(new Date().getDate() - 1);
 
-        case 'past hour':
+        case 'hour':
           return new Date().setHours(new Date().getHours() - 1);
 
-        case 'all time':
+        case 'all':
         default:
           return 0;
       }
@@ -78677,9 +78677,6 @@ var BranchWallController = function (_Injectable) {
     _this.callbackScroll = _this.callbackScroll.bind(_this);
     _this.getPosts = _this.getPosts.bind(_this);
 
-    // Do the initial load so the loader appears straight away.
-    _this.getPosts();
-
     var events = _this.EventService.events;
 
     var listeners = [_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, function () {
@@ -78736,8 +78733,13 @@ var BranchWallController = function (_Injectable) {
           statType = filters.statType,
           timeRange = filters.timeRange;
 
-      // Don't send the request if nothing changed.
+      // Don't send the request if the filters aren't initialised properly yet.
 
+      if (postType === null || postType === undefined || sortBy === null || sortBy === undefined || statType === null || statType === undefined || timeRange === null || timeRange === undefined) {
+        return;
+      }
+
+      // Don't send the request if nothing changed.
       if (lr.id === id && lr.lastId === lastId && lr.postType === postType && lr.sortBy === sortBy && lr.statType === statType && lr.timeRange === timeRange) {
         return;
       }
@@ -78919,6 +78921,7 @@ var BranchWallHeaderController = function (_Injectable) {
     var ctrls = _this.controls;
     var events = _this.EventService.events;
 
+    _this.initialized = false;
     var listeners = [_this.$scope.$watch(function () {
       return ctrls.postType.selectedIndex;
     }, _this.callbackDropdown), _this.$scope.$watch(function () {
@@ -78941,6 +78944,8 @@ var BranchWallHeaderController = function (_Injectable) {
   _createClass(BranchWallHeaderController, [{
     key: 'callbackDropdown',
     value: function callbackDropdown() {
+      if (!this.initialized) return;
+
       this.HeaderService.setFilters({
         postType: this.getPostType(),
         sortBy: this.getSortBy(),
@@ -78975,42 +78980,23 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function getPostType() {
       var postType = this.controls.postType;
 
-      if (postType.selectedIndex === -1) return false;
-      var label = postType.items[postType.selectedIndex].label;
-
-      switch (label.toLowerCase()) {
-        case 'images':
-          return 'image';
-
-        case 'videos':
-          return 'video';
-
-        case 'pages':
-          return 'page';
-
-        case 'polls':
-          return 'poll';
-
-        default:
-          return label;
-      }
+      if (postType.selectedIndex === -1) return null;
+      return postType.items[postType.selectedIndex].url;
     }
   }, {
     key: 'getSortBy',
     value: function getSortBy() {
       var sortBy = this.controls.sortBy;
 
-      if (sortBy.selectedIndex === -1) return false;
-      switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
-        case 'total points':
-          return 'points';
-
-        case 'date posted':
-          return 'date';
-
-        case '# of comments':
+      if (sortBy.selectedIndex === -1) return null;
+      switch (sortBy.items[sortBy.selectedIndex].url) {
+        case 'comments':
           return 'comment_count';
 
+        case 'date':
+          return 'date';
+
+        case 'points':
         default:
           return 'points';
       }
@@ -79020,10 +79006,10 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function getStatType() {
       var statType = this.controls.statType;
 
-      if (statType.selectedIndex === -1) return false;
-      var label = statType.items[statType.selectedIndex].label;
+      if (statType.selectedIndex === -1) return null;
+      var url = statType.items[statType.selectedIndex].url;
 
-      switch (label.toLowerCase()) {
+      switch (url) {
         case 'global':
           return 'global';
 
@@ -79034,7 +79020,7 @@ var BranchWallHeaderController = function (_Injectable) {
           return 'individual';
 
         default:
-          return label;
+          return url;
       }
     }
   }, {
@@ -79042,24 +79028,24 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function getTimeRange() {
       var timeRange = this.controls.timeRange;
 
-      if (timeRange.selectedIndex === -1) return false;
-      switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
-        case 'past year':
+      if (timeRange.selectedIndex === -1) return null;
+      switch (timeRange.items[timeRange.selectedIndex].url) {
+        case 'year':
           return new Date().setFullYear(new Date().getFullYear() - 1);
 
-        case 'past month':
+        case 'month':
           return new Date().setMonth(new Date().getMonth() - 1);
 
-        case 'past week':
+        case 'week':
           return new Date().setDate(new Date().getDate() - 7);
 
-        case 'past 24 hrs':
+        case 'day':
           return new Date().setDate(new Date().getDate() - 1);
 
-        case 'past hour':
+        case 'hour':
           return new Date().setHours(new Date().getHours() - 1);
 
-        case 'all time':
+        case 'all':
         default:
           return 0;
       }
@@ -79067,6 +79053,8 @@ var BranchWallHeaderController = function (_Injectable) {
   }, {
     key: 'setDefaultControls',
     value: function setDefaultControls() {
+      var _this2 = this;
+
       var query = this.$location.search();
       var branch = this.BranchService.branch;
 
@@ -79093,7 +79081,10 @@ var BranchWallHeaderController = function (_Injectable) {
       timeRange.selectedIndex = urlIndexTimeRange !== -1 ? urlIndexTimeRange : defaultTimeRangeIndex;
 
       // Set filters through service for other modules.
-      this.callbackDropdown();
+      setTimeout(function () {
+        _this2.initialized = true;
+        _this2.callbackDropdown();
+      }, 0);
     }
 
     // Finds the item in array with the matching url value and returns its index.

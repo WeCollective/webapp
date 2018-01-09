@@ -94,6 +94,7 @@ class BranchWallHeaderController extends Injectable {
 
     const ctrls = this.controls;
     const { events } = this.EventService;
+    this.initialized = false;
     const listeners = [
       this.$scope.$watch(() => ctrls.postType.selectedIndex, this.callbackDropdown),
       this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown),
@@ -105,6 +106,8 @@ class BranchWallHeaderController extends Injectable {
   }
 
   callbackDropdown() {
+    if (!this.initialized) return;
+
     this.HeaderService.setFilters({
       postType: this.getPostType(),
       sortBy: this.getSortBy(),
@@ -137,39 +140,21 @@ class BranchWallHeaderController extends Injectable {
 
   getPostType() {
     const { postType } = this.controls;
-    if (postType.selectedIndex === -1) return false;
-    const { label } = postType.items[postType.selectedIndex];
-    switch (label.toLowerCase()) {
-      case 'images':
-        return 'image';
-
-      case 'videos':
-        return 'video';
-
-      case 'pages':
-        return 'page';
-
-      case 'polls':
-        return 'poll';
-
-      default:
-        return label;
-    }
+    if (postType.selectedIndex === -1) return null;
+    return postType.items[postType.selectedIndex].url;
   }
 
   getSortBy() {
     const { sortBy } = this.controls;
-    if (sortBy.selectedIndex === -1) return false;
-    switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
-      case 'total points':
-        return 'points';
-
-      case 'date posted':
-        return 'date';
-
-      case '# of comments':
+    if (sortBy.selectedIndex === -1) return null;
+    switch (sortBy.items[sortBy.selectedIndex].url) {
+      case 'comments':
         return 'comment_count';
 
+      case 'date':
+        return 'date';
+
+      case 'points':
       default:
         return 'points';
     }
@@ -177,9 +162,9 @@ class BranchWallHeaderController extends Injectable {
 
   getStatType() {
     const { statType } = this.controls;
-    if (statType.selectedIndex === -1) return false;
-    const { label } = statType.items[statType.selectedIndex];
-    switch (label.toLowerCase()) {
+    if (statType.selectedIndex === -1) return null;
+    const { url } = statType.items[statType.selectedIndex];
+    switch (url) {
       case 'global':
         return 'global';
 
@@ -190,30 +175,30 @@ class BranchWallHeaderController extends Injectable {
         return 'individual';
 
       default:
-        return label;
+        return url;
     }
   }
 
   getTimeRange() {
     const { timeRange } = this.controls;
-    if (timeRange.selectedIndex === -1) return false;
-    switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
-      case 'past year':
+    if (timeRange.selectedIndex === -1) return null;
+    switch (timeRange.items[timeRange.selectedIndex].url) {
+      case 'year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
 
-      case 'past month':
+      case 'month':
         return new Date().setMonth(new Date().getMonth() - 1);
 
-      case 'past week':
+      case 'week':
         return new Date().setDate(new Date().getDate() - 7);
 
-      case 'past 24 hrs':
+      case 'day':
         return new Date().setDate(new Date().getDate() - 1);
 
-      case 'past hour':
+      case 'hour':
         return new Date().setHours(new Date().getHours() - 1);
 
-      case 'all time':
+      case 'all':
       default:
         return 0;
     }
@@ -245,7 +230,10 @@ class BranchWallHeaderController extends Injectable {
     timeRange.selectedIndex = urlIndexTimeRange !== -1 ? urlIndexTimeRange : defaultTimeRangeIndex;
 
     // Set filters through service for other modules.
-    this.callbackDropdown();
+    setTimeout(() => {
+      this.initialized = true;
+      this.callbackDropdown();
+    }, 0);
   }
 
   // Finds the item in array with the matching url value and returns its index.
