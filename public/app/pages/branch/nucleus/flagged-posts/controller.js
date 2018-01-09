@@ -35,7 +35,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
       },
       sortBy: {
         items: [{
-          label: 'date posted',
+          label: 'date',
           url: 'date',
         }, {
           label: 'against branch rules',
@@ -65,7 +65,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
           url: 'branch',
         }],
         selectedIndex: 0,
-        title: 'stat type',
+        title: 'point type',
       },
       timeRange: {
         items: [{

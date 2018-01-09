@@ -76680,7 +76680,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
       },
       sortBy: {
         items: [{
-          label: 'date posted',
+          label: 'date',
           url: 'date'
         }, {
           label: 'against branch rules',
@@ -76710,7 +76710,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
           url: 'branch'
         }],
         selectedIndex: 0,
-        title: 'stat type'
+        title: 'point type'
       },
       timeRange: {
         items: [{
@@ -78460,13 +78460,13 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
           label: 'total points',
           url: 'points'
         }, {
-          label: '# of posts',
+          label: 'posts',
           url: 'posts'
         }, {
-          label: '# of comments',
+          label: 'comments',
           url: 'comments'
         }, {
-          label: 'date created',
+          label: 'date',
           url: 'date'
         }],
         selectedIndex: -1,
@@ -78849,13 +78849,13 @@ var BranchWallHeaderController = function (_Injectable) {
       },
       sortBy: {
         items: [{
-          label: 'total points',
+          label: 'points',
           url: 'points'
         }, {
-          label: '# of comments',
+          label: 'comments',
           url: 'comments'
         }, {
-          label: 'date posted',
+          label: 'date',
           url: 'date'
         }],
         selectedIndex: -1,
@@ -78873,7 +78873,7 @@ var BranchWallHeaderController = function (_Injectable) {
           url: 'branch'
         }],
         selectedIndex: -1,
-        title: 'stat type'
+        title: 'point type'
       },
       timeRange: {
         items: [{
@@ -79086,8 +79086,6 @@ var BranchWallHeaderController = function (_Injectable) {
       var urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
       var urlIndexStatType = this.urlToItemIndex(query.stat, statType.items);
       var urlIndexTimeRange = this.urlToItemIndex(query.time, timeRange.items);
-
-      console.log(urlIndexPostType, urlIndexSortBy, urlIndexStatType, urlIndexTimeRange);
 
       postType.selectedIndex = urlIndexPostType !== -1 ? urlIndexPostType : defaultPostTypeIndex;
       sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;

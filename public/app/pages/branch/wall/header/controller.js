@@ -33,13 +33,13 @@ class BranchWallHeaderController extends Injectable {
       },
       sortBy: {
         items: [{
-          label: 'total points',
+          label: 'points',
           url: 'points',
         }, {
-          label: '# of comments',
+          label: 'comments',
           url: 'comments',
         }, {
-          label: 'date posted',
+          label: 'date',
           url: 'date',
         }],
         selectedIndex: -1,
@@ -57,7 +57,7 @@ class BranchWallHeaderController extends Injectable {
           url: 'branch',
         }],
         selectedIndex: -1,
-        title: 'stat type',
+        title: 'point type',
       },
       timeRange: {
         items: [{

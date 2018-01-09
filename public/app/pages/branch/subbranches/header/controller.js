@@ -10,13 +10,13 @@ class BranchSubbranchesHeaderController extends Injectable {
           label: 'total points',
           url: 'points',
         }, {
-          label: '# of posts',
+          label: 'posts',
           url: 'posts',
         }, {
-          label: '# of comments',
+          label: 'comments',
           url: 'comments',
         }, {
-          label: 'date created',
+          label: 'date',
           url: 'date',
         }],
         selectedIndex: -1,
