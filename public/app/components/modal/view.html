@@ -15,7 +15,7 @@
   <div class="modal__controls">
     <div
       class="modal__button style--secondary"
-      ng-click="handleCancel()">
+      ng-click="ModalService.handleCancel()">
       <span class="text--uppercase">
         cancel
       </span>
@@ -23,7 +23,7 @@
     <div
       class="modal__button style--primary"
       ng-class="{ 'style--disabled': ModalService.isSubmitDisabled }"
-      ng-click="handleSubmit(ModalService.isSubmitDisabled)">
+      ng-click="ModalService.handleSubmit(ModalService.isSubmitDisabled)">
       <span class="text--uppercase">
         ok
       </span>

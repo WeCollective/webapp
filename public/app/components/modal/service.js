@@ -33,6 +33,12 @@ class ModalService extends Injectable {
       UPLOAD_IMAGE: '/app/components/modal/upload-image/view.html',
     };
     this.names = Object.keys(this.templateUrls);
+
+    this.handleKey = this.handleKey.bind(this);
+  }
+
+  addListeners() {
+    document.addEventListener('keydown', this.handleKey);
   }
 
   Cancel(args) {
@@ -67,9 +73,41 @@ class ModalService extends Injectable {
     }));
   }
 
+  handleCancel() {
+    const { events } = this.EventService;
+    this.removeListeners();
+    return this.EventService.emit(events.MODAL_CANCEL, this.name);
+  }
+
   handleControlButtonClick(isSubmit, args) {
     return this.finished(args, isSubmit)
       .then(args2 => Promise.resolve(args2));
+  }
+
+  handleKey(event) {
+    let keyMatched = true;
+
+    switch (event.which) {
+      // Escape.
+      case 27:
+        this.handleCancel();
+        break;
+
+      // Do nothing.
+      default:
+        keyMatched = false;
+        break;
+    }
+
+    if (keyMatched) {
+      event.preventDefault();
+    }
+  }
+
+  handleSubmit(isDisabled) {
+    if (isDisabled) return;
+    const { events } = this.EventService;
+    this.EventService.emit(events.MODAL_OK, this.name);
   }
 
   OK(args) {
@@ -77,6 +115,8 @@ class ModalService extends Injectable {
   }
 
   open(name, args, successMsg, errMsg) {
+    this.addListeners();
+
     return new Promise((resolve, reject) => {
       args = args || {};
       // By default, modal triggers state reload on successful completion.
@@ -114,6 +154,10 @@ class ModalService extends Injectable {
           });
       });
     });
+  }
+
+  removeListeners() {
+    document.removeEventListener('keydown', this.handleKey);
   }
 }
 

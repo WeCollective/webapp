@@ -72897,25 +72897,14 @@ var ModalComponent = function (_Injectable) {
   _createClass(ModalComponent, [{
     key: 'link',
     value: function link(scope) {
-      var _this2 = this;
-
-      var events = this.EventService.events;
-
-      scope.handleCancel = function () {
-        return _this2.EventService.emit(events.MODAL_CANCEL, _this2.ModalService.name);
-      };
       scope.ModalService = this.ModalService;
-      scope.handleSubmit = function (isDisabled) {
-        if (isDisabled) return;
-        _this2.EventService.emit(events.MODAL_OK, _this2.ModalService.name);
-      };
     }
   }]);
 
   return ModalComponent;
 }(_injectable2.default);
 
-ModalComponent.$inject = ['EventService', 'ModalService'];
+ModalComponent.$inject = ['ModalService'];
 
 exports.default = ModalComponent;
 
@@ -73915,10 +73904,17 @@ var ModalService = function (_Injectable) {
       UPLOAD_IMAGE: '/app/components/modal/upload-image/view.html'
     };
     _this.names = Object.keys(_this.templateUrls);
+
+    _this.handleKey = _this.handleKey.bind(_this);
     return _this;
   }
 
   _createClass(ModalService, [{
+    key: 'addListeners',
+    value: function addListeners() {
+      document.addEventListener('keydown', this.handleKey);
+    }
+  }, {
     key: 'Cancel',
     value: function Cancel(args) {
       return this.handleControlButtonClick(false, args);
@@ -73962,11 +73958,50 @@ var ModalService = function (_Injectable) {
       });
     }
   }, {
+    key: 'handleCancel',
+    value: function handleCancel() {
+      var events = this.EventService.events;
+
+      this.removeListeners();
+      return this.EventService.emit(events.MODAL_CANCEL, this.name);
+    }
+  }, {
     key: 'handleControlButtonClick',
     value: function handleControlButtonClick(isSubmit, args) {
       return this.finished(args, isSubmit).then(function (args2) {
         return Promise.resolve(args2);
       });
+    }
+  }, {
+    key: 'handleKey',
+    value: function handleKey(event) {
+      var keyMatched = true;
+
+      console.log(event.which);
+
+      switch (event.which) {
+        // Escape.
+        case 27:
+          this.handleCancel();
+          break;
+
+        // Do nothing.
+        default:
+          keyMatched = false;
+          break;
+      }
+
+      if (keyMatched) {
+        event.preventDefault();
+      }
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(isDisabled) {
+      if (isDisabled) return;
+      var events = this.EventService.events;
+
+      this.EventService.emit(events.MODAL_OK, this.name);
     }
   }, {
     key: 'OK',
@@ -73977,6 +74012,8 @@ var ModalService = function (_Injectable) {
     key: 'open',
     value: function open(name, args, successMsg, errMsg) {
       var _this4 = this;
+
+      this.addListeners();
 
       return new Promise(function (resolve, reject) {
         args = args || {};
@@ -74016,6 +74053,11 @@ var ModalService = function (_Injectable) {
           });
         });
       });
+    }
+  }, {
+    key: 'removeListeners',
+    value: function removeListeners() {
+      document.removeEventListener('keydown', this.handleKey);
     }
   }]);
 
