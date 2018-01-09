@@ -73977,8 +73977,6 @@ var ModalService = function (_Injectable) {
     value: function handleKey(event) {
       var keyMatched = true;
 
-      console.log(event.which);
-
       switch (event.which) {
         // Escape.
         case 27:
@@ -78916,7 +78914,7 @@ var BranchWallHeaderController = function (_Injectable) {
 
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
     _this.setDefaultControls = _this.setDefaultControls.bind(_this);
-    _this.setDefaultControls();
+    // this.setDefaultControls();
 
     var ctrls = _this.controls;
     var events = _this.EventService.events;
@@ -78955,15 +78953,29 @@ var BranchWallHeaderController = function (_Injectable) {
           statType = _controls.statType,
           timeRange = _controls.timeRange;
 
-      this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
-      this.$location.search('stat', statType.items[statType.selectedIndex].url);
-      this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
-      this.$location.search('type', postType.items[postType.selectedIndex].url);
+
+      if (sortBy.selectedIndex !== -1) {
+        this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
+      }
+
+      if (statType.selectedIndex !== -1) {
+        this.$location.search('stat', statType.items[statType.selectedIndex].url);
+      }
+
+      if (timeRange.selectedIndex !== -1) {
+        this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
+      }
+
+      if (postType.selectedIndex !== -1) {
+        this.$location.search('type', postType.items[postType.selectedIndex].url);
+      }
     }
   }, {
     key: 'getPostType',
     value: function getPostType() {
       var postType = this.controls.postType;
+
+      if (postType.selectedIndex === -1) return false;
       var label = postType.items[postType.selectedIndex].label;
 
       switch (label.toLowerCase()) {
@@ -78988,6 +79000,7 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function getSortBy() {
       var sortBy = this.controls.sortBy;
 
+      if (sortBy.selectedIndex === -1) return false;
       switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
         case 'total points':
           return 'points';
@@ -79006,6 +79019,8 @@ var BranchWallHeaderController = function (_Injectable) {
     key: 'getStatType',
     value: function getStatType() {
       var statType = this.controls.statType;
+
+      if (statType.selectedIndex === -1) return false;
       var label = statType.items[statType.selectedIndex].label;
 
       switch (label.toLowerCase()) {
@@ -79027,6 +79042,7 @@ var BranchWallHeaderController = function (_Injectable) {
     value: function getTimeRange() {
       var timeRange = this.controls.timeRange;
 
+      if (timeRange.selectedIndex === -1) return false;
       switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
         case 'past year':
           return new Date().setFullYear(new Date().getFullYear() - 1);
@@ -79070,6 +79086,8 @@ var BranchWallHeaderController = function (_Injectable) {
       var urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
       var urlIndexStatType = this.urlToItemIndex(query.stat, statType.items);
       var urlIndexTimeRange = this.urlToItemIndex(query.time, timeRange.items);
+
+      console.log(urlIndexPostType, urlIndexSortBy, urlIndexStatType, urlIndexTimeRange);
 
       postType.selectedIndex = urlIndexPostType !== -1 ? urlIndexPostType : defaultPostTypeIndex;
       sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;

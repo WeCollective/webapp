@@ -90,7 +90,7 @@ class BranchWallHeaderController extends Injectable {
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.setDefaultControls = this.setDefaultControls.bind(this);
-    this.setDefaultControls();
+    // this.setDefaultControls();
 
     const ctrls = this.controls;
     const { events } = this.EventService;
@@ -117,14 +117,27 @@ class BranchWallHeaderController extends Injectable {
       statType,
       timeRange,
     } = this.controls;
-    this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
-    this.$location.search('stat', statType.items[statType.selectedIndex].url);
-    this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
-    this.$location.search('type', postType.items[postType.selectedIndex].url);
+
+    if (sortBy.selectedIndex !== -1) {
+      this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
+    }
+
+    if (statType.selectedIndex !== -1) {
+      this.$location.search('stat', statType.items[statType.selectedIndex].url);
+    }
+
+    if (timeRange.selectedIndex !== -1) {
+      this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
+    }
+
+    if (postType.selectedIndex !== -1) {
+      this.$location.search('type', postType.items[postType.selectedIndex].url);
+    }
   }
 
   getPostType() {
     const { postType } = this.controls;
+    if (postType.selectedIndex === -1) return false;
     const { label } = postType.items[postType.selectedIndex];
     switch (label.toLowerCase()) {
       case 'images':
@@ -146,6 +159,7 @@ class BranchWallHeaderController extends Injectable {
 
   getSortBy() {
     const { sortBy } = this.controls;
+    if (sortBy.selectedIndex === -1) return false;
     switch (sortBy.items[sortBy.selectedIndex].label.toLowerCase()) {
       case 'total points':
         return 'points';
@@ -163,6 +177,7 @@ class BranchWallHeaderController extends Injectable {
 
   getStatType() {
     const { statType } = this.controls;
+    if (statType.selectedIndex === -1) return false;
     const { label } = statType.items[statType.selectedIndex];
     switch (label.toLowerCase()) {
       case 'global':
@@ -181,6 +196,7 @@ class BranchWallHeaderController extends Injectable {
 
   getTimeRange() {
     const { timeRange } = this.controls;
+    if (timeRange.selectedIndex === -1) return false;
     switch (timeRange.items[timeRange.selectedIndex].label.toLowerCase()) {
       case 'past year':
         return new Date().setFullYear(new Date().getFullYear() - 1);
