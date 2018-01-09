@@ -122,8 +122,6 @@ class BranchService extends Injectable {
           let res = yield this.API.get('/branch/:branchid', { branchid });
           const branch = res.data;
 
-          // console.log(branch);
-
           // attach parent branch
           if (branch.parentid === 'root' || branch.parentid === 'none') {
             branch.parent = {
@@ -132,7 +130,6 @@ class BranchService extends Injectable {
           }
           else {
             res = yield this.API.get('/branch/:branchid', { branchid: branch.parentid });
-            // console.log(res.data);
             branch.parent = res.data;
           }
 

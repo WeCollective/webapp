@@ -13,6 +13,18 @@ class API extends Injectable {
     return this.request('GET', url, params, data, urlFormEncode);
   }
 
+  // Pagination limits on the server. Used to compare returned array lengths
+  // against this value so we can determine whether we should ask the server
+  // for more data.
+  limits() {
+    return {
+      comments: 20,
+      notifications: 20,
+      pollAnswers: 30,
+      posts: 30,
+    };
+  }
+
   // Params: data, headersGetter
   makeFormEncoded(data) {
     const str = [];

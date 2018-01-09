@@ -81,8 +81,6 @@ class CommentsController extends Injectable {
     };
 
     const successCb = res => this.$timeout(() => {
-      const isSingleComment = !Array.isArray(res.comments);
-
       if (this.isCommentPermalink()) {
         this.comments = [res];
         this.isLoading = false;
@@ -95,7 +93,7 @@ class CommentsController extends Injectable {
       ];
       this.comments = comments;
 
-      this.hasMoreComments = res.comments.length !== 0;
+      this.hasMoreComments = res.comments.length === this.API.limits().comments;
 
       this.getAllCommentReplies(comments)
         .then(() => this.$timeout(() => {
@@ -136,7 +134,7 @@ class CommentsController extends Injectable {
       // fetch the replies to this comment, or just the number of replies
       return this.CommentService.getMany(comment.postid, comment.id, sort, lastCommentId)
         .then(res => this.$timeout(() => {
-          comment.hasMoreComments = res.comments.length !== 0;
+          comment.hasMoreComments = res.comments.length === this.API.limits().comments;
           comment.comments = res.comments;
           return resolve();
         }))
@@ -189,6 +187,7 @@ CommentsController.$inject = [
   '$state',
   '$timeout',
   'AlertsService',
+  'API',
   'CommentService',
   'EventService',
   'PostService',

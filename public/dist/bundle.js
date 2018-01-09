@@ -8156,7 +8156,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -70167,8 +70167,6 @@ var CommentsController = function (_Injectable) {
 
       var successCb = function successCb(res) {
         return _this3.$timeout(function () {
-          var isSingleComment = !Array.isArray(res.comments);
-
           if (_this3.isCommentPermalink()) {
             _this3.comments = [res];
             _this3.isLoading = false;
@@ -70178,7 +70176,7 @@ var CommentsController = function (_Injectable) {
           var comments = [].concat(_toConsumableArray(_this3.comments), _toConsumableArray(res.comments));
           _this3.comments = comments;
 
-          _this3.hasMoreComments = res.comments.length !== 0;
+          _this3.hasMoreComments = res.comments.length === _this3.API.limits().comments;
 
           _this3.getAllCommentReplies(comments).then(function () {
             return _this3.$timeout(function () {
@@ -70221,7 +70219,7 @@ var CommentsController = function (_Injectable) {
         // fetch the replies to this comment, or just the number of replies
         return _this4.CommentService.getMany(comment.postid, comment.id, sort, lastCommentId).then(function (res) {
           return _this4.$timeout(function () {
-            comment.hasMoreComments = res.comments.length !== 0;
+            comment.hasMoreComments = res.comments.length === _this4.API.limits().comments;
             comment.comments = res.comments;
             return resolve();
           });
@@ -70281,7 +70279,7 @@ var CommentsController = function (_Injectable) {
   return CommentsController;
 }(_injectable2.default);
 
-CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'CommentService', 'EventService', 'PostService'];
+CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'API', 'CommentService', 'EventService', 'PostService'];
 
 exports.default = CommentsController;
 
@@ -79614,6 +79612,21 @@ var API = function (_Injectable) {
       return this.request('GET', url, params, data, urlFormEncode);
     }
 
+    // Pagination limits on the server. Used to compare returned array lengths
+    // against this value so we can determine whether we should ask the server
+    // for more data.
+
+  }, {
+    key: 'limits',
+    value: function limits() {
+      return {
+        comments: 20,
+        notifications: 20,
+        pollAnswers: 30,
+        posts: 30
+      };
+    }
+
     // Params: data, headersGetter
 
   }, {
@@ -79984,8 +79997,6 @@ var BranchService = function (_Injectable) {
                   res = _context.sent;
                   branch = res.data;
 
-                  // console.log(branch);
-
                   // attach parent branch
 
                   if (!(branch.parentid === 'root' || branch.parentid === 'none')) {
@@ -80006,7 +80017,6 @@ var BranchService = function (_Injectable) {
                 case 11:
                   res = _context.sent;
 
-                  // console.log(res.data);
                   branch.parent = res.data;
 
                 case 13:
