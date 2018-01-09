@@ -36,17 +36,17 @@
        One is to link to an external site. (Non-text posts) -->
   <a
     class="list-item-image"
-    ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
+    ng-if="['text', 'poll'].includes(ListItem.post.type)"
     ui-sref="weco.branch.post({ postid: ListItem.post.id })">
     <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
   </a>
 
   <a
     class="list-item-image"
-    href="{{ ListItem.post.text }}"
-    ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
+    href="{{ ListItem.getPostUrl() }}"
+    ng-if="!['text', 'poll'].includes(ListItem.post.type)"
     target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.post.text) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
+    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
   </a>
   
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
@@ -65,15 +65,15 @@
     <!-- Two DOM elements conditionally displayed again - see above. -->
     <a
       class="list-item__title"
-      ng-if="ListItem.post.type === 'text' || ListItem.post.type === 'poll'"
+      ng-if="['text', 'poll'].includes(ListItem.post.type)"
       ui-sref="weco.branch.post({ postid: ListItem.post.id })">
       {{ ListItem.post.title }}
     </a>
 
     <a
       class="list-item__title"
-      href="{{ ListItem.post.text }}"
-      ng-if="ListItem.post.type !== 'text' && ListItem.post.type !== 'poll'"
+      href="{{ ListItem.getPostUrl() }}"
+      ng-if="!['text', 'poll'].includes(ListItem.post.type)"
       target="_blank">
       {{ ListItem.post.title }}
     </a>

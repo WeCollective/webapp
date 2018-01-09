@@ -4082,12 +4082,6 @@ div#notfound div h2 {
   height: 350px;
   width: auto;
 }
-.post .post__preview-content.style--text {
-  max-height: 1.5em;
-}
-.post .post__preview-content.style--text.style--expanded {
-  max-height: none;
-}
 .post .post__preview-content.style--video {
   margin-left: auto;
   margin-right: auto;

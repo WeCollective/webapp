@@ -16,6 +16,8 @@ class CreatePostModalController extends Injectable {
       captcha: '',
       locked: false,
       nsfw: false,
+      text: null,
+      url: null,
     };
     this.pollAnswers = [];
     this.postType = {

@@ -8156,7 +8156,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -69643,6 +69643,15 @@ var ListItemController = function (_Injectable) {
       return this.post.profileUrlThumb || IMG_DIR + 'post--' + this.post.type + '.svg';
     }
   }, {
+    key: 'getPostUrl',
+    value: function getPostUrl() {
+      var url = this.post.url || this.post.text || '';
+      if (url && !url.includes('http')) {
+        url = 'https://' + url;
+      }
+      return url;
+    }
+  }, {
     key: 'getTotalFlagCount',
     value: function getTotalFlagCount() {
       var _this2 = this;
@@ -72961,7 +72970,9 @@ var CreatePostModalController = function (_Injectable) {
       branchids: [],
       captcha: '',
       locked: false,
-      nsfw: false
+      nsfw: false,
+      text: null,
+      url: null
     };
     _this.pollAnswers = [];
     _this.postType = {

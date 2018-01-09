@@ -92,19 +92,18 @@ loading-when="CPMCtrl.isLoading"
     </div>
   </div>
 
-  <textarea
-    id="post-description"
-    ng-model="CPMCtrl.newPost.text"
-    ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])" 
-    placeholder="Describe this post..."
-    type="text">
-  </textarea>
-
   <input
-    ng-model="CPMCtrl.newPost.text"
+    ng-model="CPMCtrl.newPost.url"
     ng-show="!CPMCtrl.UploadService.isUploading && !['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])"
     placeholder="Url"
     type="text" />
+
+  <textarea
+    ng-model="CPMCtrl.newPost.text"
+    ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview" 
+    placeholder="Describe this post..."
+    type="text">
+  </textarea>
 
   <input
     class="captcha"

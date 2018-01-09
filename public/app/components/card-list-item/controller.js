@@ -63,6 +63,14 @@ class ListItemController extends Injectable {
     return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
   }
 
+  getPostUrl() {
+    let url = this.post.url || this.post.text || '';
+    if (url && !url.includes('http')) {
+      url = `https://${url}`;
+    }
+    return url;
+  }
+
   getTotalFlagCount() {
     const counts = [
       'branch_rules_count',
