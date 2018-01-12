@@ -1283,6 +1283,7 @@ div.poll-answer-editor input {
   font-size: 22px;
   font-weight: 500;
   hyphens: auto;
+  overflow-wrap: break-word;
 }
 @media only screen and (min-width: 768px) {
   .sidebar .sidebar-info h1 {
@@ -1292,6 +1293,8 @@ div.poll-answer-editor input {
 .sidebar .sidebar-info h2 {
   font-size: 15px;
   font-weight: 500;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 .sidebar .sidebar__link {
   align-items: center;
