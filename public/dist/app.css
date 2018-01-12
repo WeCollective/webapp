@@ -611,6 +611,7 @@ span {
   margin-left: 6px;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
@@ -1117,6 +1118,7 @@ div[loading] div.loading-container img {
   margin-left: 6px;
 }
 .notification .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
@@ -2408,6 +2410,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .branch__post .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
@@ -2677,6 +2680,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-left: 6px;
   }
   .branch__post .list-item__votes .list-item__vote-icon {
+    background-color: transparent;
     border: none;
     cursor: pointer;
     height: 22px;
@@ -2956,6 +2960,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
@@ -3471,6 +3476,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .header .list-item .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
@@ -3745,6 +3751,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-left: 6px;
   }
   .header .list-item .list-item__votes .list-item__vote-icon {
+    background-color: transparent;
     border: none;
     cursor: pointer;
     height: 22px;
@@ -4311,6 +4318,7 @@ div#notfound div h2 {
   margin-left: 6px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   height: 22px;
