@@ -105,6 +105,7 @@ input[type=checkbox]:checked + .checkbox,
     position: relative;
     text-transform: uppercase;
     top: -1px;
+    white-space: nowrap;
     transition: color 0.2s; }
     .dropdown .dropdown__title::before {
       border-left: 6px solid transparent;
