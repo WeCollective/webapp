@@ -18,7 +18,7 @@ class CommentsController extends Injectable {
           url: 'date',
         }],
         selectedIndex: -1,
-        title: 'sort by',
+        title: 'sorted by',
       },
     };
     this.sortBy = this.controls.sortBy.items.map(x => x.label);

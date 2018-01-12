@@ -1,31 +1,14 @@
 <div class="dropdown {{ Dropdown.class || '' }}">
-  <div class="dropdown-title">
-    <span class="text--uppercase">
-      {{ Dropdown.title }}
-    </span>
-  </div>
-  
-  <div class="dropdown-container">
-    <div class="dropdown--list-item" ng-click="Dropdown.open()">
-      <span class="selected text--uppercase">
-        {{ Dropdown.items[Dropdown.selected] }}
-      </span>
-      <img alt="Open the dropdown menu" src="/assets/images/icons/expand.svg" />
-    </div>
-    
-    <ul class="dropdown--list">
-      <li
-        class="dropdown--list-item text--uppercase"
-        ng-class="{ 'selected': item === Dropdown.items[Dropdown.selected] }"
-        ng-click="Dropdown.select($index)"
-        ng-repeat="item in Dropdown.items">
-        <span
-          class="list-item__circle ng-hide"
-          ng-class="Dropdown.getMarkerClass(item)"
-          ng-show="Dropdown.postTypes && Dropdown.getMarkerClass(item)">
-        </span>
-        <span>{{ item }}</span>
-      </li>
-    </ul>
-  </div>
+  <select
+    class="dropdown__list"
+    ng-change="Dropdown.handleChange()"
+    ng-model="Dropdown.active">
+    <option ng-repeat="item in Dropdown.items" value="{{ item }}">
+      {{ item }}
+    </option>
+  </select>
+
+  <h4 class="dropdown__title">
+    {{ Dropdown.title }}
+  </h4>
 </div>

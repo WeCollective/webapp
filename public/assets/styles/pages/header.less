@@ -106,6 +106,8 @@
         opacity: 1;
       }
     }
+
+    & + .header__controls .dropdown:first-child { margin-left: 18px; }
   }
 
   .header__controls {
@@ -114,8 +116,6 @@
     flex-direction: row;
     height: 100%;
     margin-top: @button-offset;
-    overflow-x: auto;
-    overflow-y: hidden;
 
     &.style--has-dropdown {
       margin-left: -@dropdown-padding-left;

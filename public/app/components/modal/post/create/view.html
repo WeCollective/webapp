@@ -3,13 +3,13 @@ loading
 loading-when="CPMCtrl.isLoading"
 -->
 <div
-  id="create-post-modal"
+  class="modal__content-div"
   ng-controller="CreatePostModalController as CPMCtrl">
   <h1>Submit a Post</h1>
 
   <p class="error-message">{{ CPMCtrl.errorMessage }}</p>
 
-  <div>
+  <div class="modal__header">
     <div id="create-post-picture" ng-show="!CPMCtrl.UploadService.isUploading">
       <div
         id="dragdrop"
@@ -47,36 +47,49 @@ loading-when="CPMCtrl.isLoading"
       </div>
     </div>
 
-    <div id="create-post-inputs" ng-show="!CPMCtrl.UploadService.isUploading">
-      <dropdown
-        class="style--horizontal"
-        items="CPMCtrl.postType.items"
-        selected="CPMCtrl.postType.selectedIndex"
-        title="'post type'">
-      </dropdown>
+    <div
+      class="modal__header-content"
+      ng-show="!CPMCtrl.UploadService.isUploading">
+      <div class="modal__header">
+        <dropdown
+          items="CPMCtrl.postType.items"
+          selected="CPMCtrl.postType.selectedIndex"
+          title="'post type'">
+        </dropdown>
 
-      <div class="modal__checkbox-wrapper">
-        <span class="text--uppercase">
-          nsfw
-        </span>
-        <input
-          id="checkbox-nsfw"
-          ng-model="CPMCtrl.newPost.nsfw"
-          type="checkbox" />
-        <label class="checkbox" for="checkbox-nsfw"></label>
-      </div>
+        <div class="modal__checkbox-wrapper">
+          <div class="modal__checkbox-text">
+            <span>
+              nsfw
+            </span>
+            <span>
+              {{ CPMCtrl.newPost.nsfw ? 'on' : 'off' }}
+            </span>
+          </div>
+          <input
+            id="checkbox-nsfw"
+            ng-model="CPMCtrl.newPost.nsfw"
+            type="checkbox" />
+          <label class="checkbox" for="checkbox-nsfw"></label>
+        </div>
 
-      <div
-        class="modal__checkbox-wrapper"
-        ng-show="CPMCtrl.postType.selectedIndex === 5">
-        <span class="text--uppercase">
-          lock answers
-        </span>
-        <input
-          id="checkbox-locked"
-          ng-model="CPMCtrl.newPost.locked"
-          type="checkbox" />
-        <label class="checkbox" for="checkbox-locked"></label>
+        <div
+          class="modal__checkbox-wrapper"
+          ng-show="CPMCtrl.postType.selectedIndex === 5">
+          <div class="modal__checkbox-text">
+            <span>
+              lock answers
+            </span>
+            <span>
+              {{ CPMCtrl.newPost.locked ? 'on' : 'off' }}
+            </span>
+          </div>
+          <input
+            id="checkbox-locked"
+            ng-model="CPMCtrl.newPost.locked"
+            type="checkbox" />
+          <label class="checkbox" for="checkbox-locked"></label>
+        </div>
       </div>
 
       <input

@@ -70103,7 +70103,7 @@ var CommentsController = function (_Injectable) {
           url: 'date'
         }],
         selectedIndex: -1,
-        title: 'sort by'
+        title: 'sorted by'
       }
     };
     _this.sortBy = _this.controls.sortBy.items.map(function (x) {
@@ -71045,105 +71045,27 @@ var DropdownController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (DropdownController.__proto__ || Object.getPrototypeOf(DropdownController)).call(this, DropdownController.$inject, injections));
 
-    _this.handleClick = _this.handleClick.bind(_this);
-
-    _this.hasListener = false;
-    _this.listNodeCopy = null;
+    _this.$scope.$watch(function () {
+      return _this.selected;
+    }, function (value) {
+      if (value !== -1) {
+        _this.active = _this.items[value];
+      }
+    });
     return _this;
   }
 
   _createClass(DropdownController, [{
-    key: 'close',
-    value: function close() {
-      if (this.listNodeCopy) {
-        this.listNodeCopy.remove();
-        this.listNodeCopy = null;
-      }
-    }
-  }, {
-    key: 'getMarkerClass',
-    value: function getMarkerClass(item) {
-      var prefix = 'style--';
-
-      switch (item.toLowerCase()) {
-        case 'audio':
-          return prefix + 'audio';
-
-        case 'images':
-          return prefix + 'image';
-
-        case 'pages':
-          return prefix + 'page';
-
-        case 'polls':
-          return prefix + 'poll';
-
-        case 'text':
-          return prefix + 'text';
-
-        case 'videos':
-          return prefix + 'video';
-
-        default:
-          return '';
-      }
-    }
-  }, {
-    key: 'handleClick',
-    value: function handleClick() {
-      this.close();
-      document.removeEventListener('click', this.handleClick);
-      this.hasListener = false;
-    }
-  }, {
-    key: 'open',
-    value: function open() {
-      var _this2 = this;
-
-      this.close();
-
-      var list = this.$element[0].getElementsByTagName('ul')[0];
-      this.listNodeCopy = list.cloneNode();
-      this.listNodeCopy.classList.add('visible');
-
-      var div = document.createElement('div');
-      div.innerHTML = this.$templateCache.get('/app/components/dropdown/view.html');
-
-      var divList = div.getElementsByTagName('ul')[0];
-      for (var i = 0; i < divList.children.length; i += 1) {
-        this.listNodeCopy.append(divList.children[i]);
-      }
-
-      var rect = list.getBoundingClientRect();
-      this.listNodeCopy.style.left = rect.left + 'px';
-      this.listNodeCopy.style.top = rect.top + 'px';
-
-      this.$compile(this.listNodeCopy)(this.$scope);
-      document.body.appendChild(this.listNodeCopy);
-
-      setTimeout(function () {
-        if (!_this2.hasListener) {
-          _this2.hasListener = true;
-          document.addEventListener('click', _this2.handleClick);
-        }
-      }, 0);
-    }
-  }, {
-    key: 'select',
-    value: function select(index) {
-      var _this3 = this;
-
-      this.$timeout(function () {
-        _this3.selected = index;
-        _this3.close();
-      });
+    key: 'handleChange',
+    value: function handleChange() {
+      this.selected = this.items.indexOf(this.active);
     }
   }]);
 
   return DropdownController;
 }(_injectable2.default);
 
-DropdownController.$inject = ['$compile', '$element', '$scope', '$templateCache', '$timeout'];
+DropdownController.$inject = ['$scope'];
 
 exports.default = DropdownController;
 
@@ -71185,7 +71107,6 @@ var DropdownComponent = function (_Injectable) {
     _this.bindToController = {
       class: '@',
       items: '=',
-      postTypes: '@',
       selected: '=',
       title: '='
     };
@@ -76687,7 +76608,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
           url: 'poll'
         }],
         selectedIndex: -1,
-        title: 'post type'
+        title: 'category'
       },
       sortBy: {
         items: [{
@@ -76707,7 +76628,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
           url: 'flag-nsfw'
         }],
         selectedIndex: -1,
-        title: 'sort by'
+        title: 'sorted by'
       },
       statType: {
         items: [{
@@ -76728,23 +76649,23 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
           label: 'all time',
           url: 'all'
         }, {
-          label: 'past year',
+          label: 'last year',
           url: 'year'
         }, {
-          label: 'past month',
+          label: 'last month',
           url: 'month'
         }, {
-          label: 'past week',
+          label: 'last week',
           url: 'week'
         }, {
-          label: 'past 24 hrs',
+          label: 'last 24 hrs',
           url: 'day'
         }, {
-          label: 'past hour',
+          label: 'last hour',
           url: 'hour'
         }],
         selectedIndex: -1,
-        title: 'time range'
+        title: 'flags from'
       }
     };
     _this.postType = _this.controls.postType.items.map(function (x) {
@@ -78481,30 +78402,30 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
           url: 'date'
         }],
         selectedIndex: -1,
-        title: 'sort by'
+        title: 'sorted by'
       },
       timeRange: {
         items: [{
           label: 'all time',
           url: 'all'
         }, {
-          label: 'past year',
+          label: 'last year',
           url: 'year'
         }, {
-          label: 'past month',
+          label: 'last month',
           url: 'month'
         }, {
-          label: 'past week',
+          label: 'last week',
           url: 'week'
         }, {
-          label: 'past 24 hrs',
+          label: 'last 24 hrs',
           url: 'day'
         }, {
-          label: 'past hour',
+          label: 'last hour',
           url: 'hour'
         }],
         selectedIndex: -1,
-        title: 'time range'
+        title: 'created'
       }
     };
     _this.sortBy = _this.controls.sortBy.items.map(function (x) {
@@ -78858,7 +78779,7 @@ var BranchWallHeaderController = function (_Injectable) {
           url: 'poll'
         }],
         selectedIndex: -1,
-        title: 'post type'
+        title: 'category'
       },
       sortBy: {
         items: [{
@@ -78872,7 +78793,7 @@ var BranchWallHeaderController = function (_Injectable) {
           url: 'date'
         }],
         selectedIndex: -1,
-        title: 'sort by'
+        title: 'sorted by'
       },
       statType: {
         items: [{
@@ -78893,23 +78814,23 @@ var BranchWallHeaderController = function (_Injectable) {
           label: 'all time',
           url: 'all'
         }, {
-          label: 'past year',
+          label: 'last year',
           url: 'year'
         }, {
-          label: 'past month',
+          label: 'last month',
           url: 'month'
         }, {
-          label: 'past week',
+          label: 'last week',
           url: 'week'
         }, {
-          label: 'past 24 hrs',
+          label: 'last 24 hrs',
           url: 'day'
         }, {
-          label: 'past hour',
+          label: 'last hour',
           url: 'hour'
         }],
         selectedIndex: -1,
-        title: 'time range'
+        title: 'posts from'
       }
     };
     _this.postType = _this.controls.postType.items.map(function (x) {

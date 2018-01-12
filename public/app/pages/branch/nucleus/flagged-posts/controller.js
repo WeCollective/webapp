@@ -31,7 +31,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
           url: 'poll',
         }],
         selectedIndex: -1,
-        title: 'post type',
+        title: 'category',
       },
       sortBy: {
         items: [{
@@ -51,7 +51,7 @@ class BranchNucleusFlaggedPostsController extends Injectable {
           url: 'flag-nsfw',
         }],
         selectedIndex: -1,
-        title: 'sort by',
+        title: 'sorted by',
       },
       statType: {
         items: [{
@@ -72,23 +72,23 @@ class BranchNucleusFlaggedPostsController extends Injectable {
           label: 'all time',
           url: 'all',
         }, {
-          label: 'past year',
+          label: 'last year',
           url: 'year',
         }, {
-          label: 'past month',
+          label: 'last month',
           url: 'month',
         }, {
-          label: 'past week',
+          label: 'last week',
           url: 'week',
         }, {
-          label: 'past 24 hrs',
+          label: 'last 24 hrs',
           url: 'day',
         }, {
-          label: 'past hour',
+          label: 'last hour',
           url: 'hour',
         }],
         selectedIndex: -1,
-        title: 'time range',
+        title: 'flags from',
       },
     };
     this.postType = this.controls.postType.items.map(x => x.label);

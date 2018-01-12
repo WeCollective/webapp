@@ -1,16 +1,15 @@
-div#create-post-modal {
+.modal__content-div {
   overflow: hidden;
   position: relative;
 
-  div#create-post-inputs {
-    float: left;
-    width: calc(~"100% - 165px");
+  .modal__header { display: flex; }
 
-    .dropdown {
-      display: inline-block;
+  .modal__header-content {
+    // float: left;
+    // width: calc(~"100% - 165px");
+    width: 100%;
 
-      .dropdown-title { padding-left: 0; }
-    }
+    .dropdown { margin-left: 0; }
   }
 
   div#create-post-picture {
@@ -76,7 +75,7 @@ div#create-post-modal {
     div#choose-file {
       color: @accent-0;
       font-size: @font-size-sm;
-      margin: 10px 0 20px;
+      margin-top: 10px;
 
       &:hover {
         cursor: pointer;

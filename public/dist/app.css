@@ -839,92 +839,6 @@ span {
     height: calc(100% - 44px - 150px);
   }
 }
-div.dropdown {
-  flex: none;
-  font-size: 11px;
-  padding: 0 5px;
-  position: relative;
-}
-div.dropdown > .dropdown-container {
-  cursor: pointer;
-  display: block;
-  position: relative;
-}
-div.dropdown > .dropdown-title {
-  align-items: center;
-  display: flex;
-  font-size: inherit;
-  line-height: 1;
-  padding-left: 10px;
-  position: relative;
-}
-div.dropdown > .dropdown-title span {
-  color: #c8c8c8;
-  font-size: inherit;
-}
-div.dropdown div.dropdown--list-item {
-  align-items: center;
-  border-radius: 3px;
-  box-sizing: border-box;
-  display: flex;
-  font-size: inherit;
-  justify-content: space-between;
-  padding: 3px 10px 0;
-  position: relative;
-}
-div.dropdown div.dropdown--list-item img {
-  height: 10px;
-  margin-left: 6px;
-  width: auto;
-}
-div.dropdown div.dropdown--list-item span.selected {
-  font-weight: 400;
-}
-div.dropdown.style--horizontal {
-  align-items: center;
-  align-self: flex-start;
-  display: flex;
-  padding-bottom: 8px !important;
-  padding-top: 8px !important;
-}
-div.dropdown.style--horizontal > .dropdown-title {
-  line-height: 2;
-  margin-top: 0;
-}
-.dropdown--list {
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  font-size: 11px;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  visibility: hidden;
-  z-index: 15;
-}
-.dropdown--list > .dropdown--list-item {
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: inherit;
-  padding: 3px 10px;
-  position: relative;
-  width: 100%;
-}
-.dropdown--list > .dropdown--list-item:hover {
-  background-color: #e7e7e7;
-  cursor: pointer;
-}
-.dropdown--list .list-item__circle {
-  margin-right: 4px;
-}
-.dropdown--list.selected {
-  font-weight: 400;
-}
-.dropdown--list.visible {
-  opacity: 1;
-  visibility: visible;
-}
 .empty-wrapper a {
   color: #3498db;
   cursor: pointer;
@@ -1803,13 +1717,28 @@ body.style--modal-open {
     cursor: initial;
   }
 }
+.modal__checkbox-text {
+  display: inline-block;
+  font-size: 11px;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+}
+.modal__checkbox-text span {
+  display: block;
+  position: relative;
+}
+.modal__checkbox-text span:first-child {
+  color: #c8c8c8;
+}
+.modal__checkbox-text span:last-child {
+  color: #2c2c2c;
+  top: 1px;
+}
 .modal__checkbox-wrapper {
   display: inline-block;
   font-size: 14px;
-  margin-right: 12px;
-}
-.modal__checkbox-wrapper:last-child {
-  margin-right: 0;
+  margin-left: 16px;
 }
 .modal__content {
   overflow-y: auto;
@@ -2090,26 +2019,25 @@ div#nucleus-reviewsubbranchrequests-inputs li div#branch-info div.request-action
 div#nucleus-reviewsubbranchrequests-inputs li:last-child {
   border-bottom-color: transparent;
 }
-div#create-post-modal {
+.modal__content-div {
   overflow: hidden;
   position: relative;
 }
-div#create-post-modal div#create-post-inputs {
-  float: left;
-  width: calc(100% - 165px);
+.modal__content-div .modal__header {
+  display: flex;
 }
-div#create-post-modal div#create-post-inputs .dropdown {
-  display: inline-block;
+.modal__content-div .modal__header-content {
+  width: 100%;
 }
-div#create-post-modal div#create-post-inputs .dropdown .dropdown-title {
-  padding-left: 0;
+.modal__content-div .modal__header-content .dropdown {
+  margin-left: 0;
 }
-div#create-post-modal div#create-post-picture {
+.modal__content-div div#create-post-picture {
   float: left;
   margin-right: 15px;
   width: 150px;
 }
-div#create-post-modal div#create-post-picture div#dragdrop {
+.modal__content-div div#create-post-picture div#dragdrop {
   background-color: #e7e7e7;
   border: 1px dashed transparent;
   border-radius: 5px;
@@ -2121,7 +2049,7 @@ div#create-post-modal div#create-post-picture div#dragdrop {
   width: 150px;
   transition: border .3s linear;
 }
-div#create-post-modal div#create-post-picture div#dragdrop div#image-preview {
+.modal__content-div div#create-post-picture div#dragdrop div#image-preview {
   background-position: center;
   background-size: cover;
   border-radius: 5px;
@@ -2129,7 +2057,7 @@ div#create-post-modal div#create-post-picture div#dragdrop div#image-preview {
   margin: auto;
   width: 100%;
 }
-div#create-post-modal div#create-post-picture div#dragdrop div#preview {
+.modal__content-div div#create-post-picture div#dragdrop div#preview {
   background-position: center;
   background-size: cover;
   border-radius: 5px;
@@ -2139,65 +2067,65 @@ div#create-post-modal div#create-post-picture div#dragdrop div#preview {
   right: 0;
   top: 0;
 }
-div#create-post-modal div#create-post-picture div#dragdrop h2 {
+.modal__content-div div#create-post-picture div#dragdrop h2 {
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 15px;
 }
-div#create-post-modal div#create-post-picture div#dragdrop img#graphic {
+.modal__content-div div#create-post-picture div#dragdrop img#graphic {
   border-radius: 5px;
   display: block;
   height: auto;
   margin: 5px auto 0;
   width: 80%;
 }
-div#create-post-modal div#create-post-picture div#dragdrop.dragover {
+.modal__content-div div#create-post-picture div#dragdrop.dragover {
   border: 1px dashed #444444;
   transition: border .3s linear;
 }
-div#create-post-modal div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
+.modal__content-div div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
   display: none !important;
 }
-div#create-post-modal div#create-post-picture div#choose-file {
+.modal__content-div div#create-post-picture div#choose-file {
   color: #3498db;
   font-size: 14px;
-  margin: 10px 0 20px;
+  margin-top: 10px;
 }
-div#create-post-modal div#create-post-picture div#choose-file:hover {
+.modal__content-div div#create-post-picture div#choose-file:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#create-post-modal div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
+.modal__content-div div#create-post-picture div#choose-file.ng-hide.ng-hide-animate {
   display: none !important;
 }
-div#create-post-modal div#preview-content {
+.modal__content-div div#preview-content {
   box-sizing: border-box;
   max-height: 300px;
   overflow-y: auto;
   padding: 0 15px;
   width: 100%;
 }
-div#create-post-modal p#preview-post {
+.modal__content-div p#preview-post {
   color: #3498db;
   font-size: 14px;
   margin: 0;
 }
-div#create-post-modal p#preview-post:hover {
+.modal__content-div p#preview-post:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-div#create-post-modal div#progress-container {
+.modal__content-div div#progress-container {
   border: 1px solid #c8c8c8;
   border-radius: 3px;
   height: 40px;
   min-width: 300px;
   width: 100%;
 }
-div#create-post-modal div#progress-container div#progress {
+.modal__content-div div#progress-container div#progress {
   background-color: #3498db;
   height: 100%;
 }
-div#create-post-modal div#progress-container.ng-hide.ng-hide-animate {
+.modal__content-div div#progress-container.ng-hide.ng-hide-animate {
   display: none !important;
 }
 div#flag-post-modal div#flag-post-modal-content {
@@ -3284,14 +3212,15 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header .header__button:hover > div svg {
   opacity: 1;
 }
+.header .header__button + .header__controls .dropdown:first-child {
+  margin-left: 18px;
+}
 .header .header__controls {
   align-items: baseline;
   display: flex;
   flex-direction: row;
   height: 100%;
   margin-top: 4px;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 .header .header__controls.style--has-dropdown {
   margin-left: -15px;
@@ -4023,15 +3952,6 @@ div#notfound div h2 {
   height: 250px;
   margin: 12px auto;
   width: 250px;
-}
-.post .dropdown {
-  margin-right: 12px;
-  padding: 0;
-}
-.post .dropdown .dropdown-title {
-  line-height: 1;
-  padding-left: 0;
-  padding-top: 3px;
 }
 .post .post__body {
   display: flex;

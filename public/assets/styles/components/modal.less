@@ -116,12 +116,32 @@ body.style--modal-open {
   });
 }
 
+.modal__checkbox-text {
+  display: inline-block;
+  font-size: 11px;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+
+  span {
+    display: block;
+    position: relative;
+
+    &:first-child {
+      color: #c8c8c8;
+    }
+
+    &:last-child {
+      color: #2c2c2c;
+      top: 1px;
+    }
+  }
+}
+
 .modal__checkbox-wrapper {
   display: inline-block;
   font-size: 14px;
-  margin-right: @g-padding-post;
-
-  &:last-child { margin-right: 0; }
+  margin-left: 16px;
 }
 
 .modal__content {
