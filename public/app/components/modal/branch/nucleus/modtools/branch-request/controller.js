@@ -4,17 +4,15 @@ class SubmitSubbranchRequestModalController extends Injectable {
   constructor(...injections) {
     super(SubmitSubbranchRequestModalController.$inject, injections);
 
-    this.handleModalCancel = this.handleModalCancel.bind(this);
-    this.handleModalSubmit = this.handleModalSubmit.bind(this);
-
     this.data = {};
     this.errorMessage = '';
     this.isLoading = false;
 
     const { events } = this.EventService;
-    const listeners = [];
-    listeners.push(this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel));
-    listeners.push(this.EventService.on(events.MODAL_OK, this.handleModalSubmit));
+    const listeners = [
+      this.EventService.on(events.MODAL_CANCEL, name => this.handleModalCancel(name)),
+      this.EventService.on(events.MODAL_OK, name => this.handleModalSubmit(name)),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 

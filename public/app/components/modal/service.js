@@ -143,13 +143,17 @@ class ModalService extends Injectable {
               if (args.forceUpdate) {
                 this.$state.go(this.$state.current, {}, { reload: true });
               }
-              this.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
+
+              const message = typeof successMsg === 'function' ? successMsg(data.args) : successMsg;
+              if (message) this.AlertsService.push('success', message);
+
               return resolve(this.outputArgs);
             }
             return reject(this.outputArgs);
           }, 1500))
           .catch(data => {
-            this.AlertsService.push('error', typeof errMsg === 'function' ? errMsg(data.args) : errMsg);
+            const message = typeof errMsg === 'function' ? errMsg(data.args) : errMsg;
+            if (message) this.AlertsService.push('error', message);
             return reject(this.outputArgs);
           });
       });

@@ -40,25 +40,11 @@ class RemoveModModalController extends Injectable {
         }));
     };
 
-    const listeners = [];
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.OK();
-      });
-    }));
-
-    listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
-    }));
+    const { events } = this.EventService;
+    const listeners = [
+      this.EventService.on(events.MODAL_CANCEL, name => this.handleModalCancel(name)),
+      this.EventService.on(events.MODAL_OK, name => this.handleModalSubmit(name)),
+    ];
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
@@ -85,6 +71,26 @@ class RemoveModModalController extends Injectable {
         }
         this.isLoading = false;
       }));
+  }
+
+  handleModalCancel(name) {
+    if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+
+    this.$timeout(() => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.Cancel();
+    });
+  }
+
+  handleModalSubmit(name) {
+    if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+
+    this.$timeout(() => {
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.ModalService.OK();
+    });
   }
 }
 

@@ -8284,7 +8284,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'http://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -71972,18 +71972,17 @@ var SubmitSubbranchRequestModalController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (SubmitSubbranchRequestModalController.__proto__ || Object.getPrototypeOf(SubmitSubbranchRequestModalController)).call(this, SubmitSubbranchRequestModalController.$inject, injections));
 
-    _this.handleModalCancel = _this.handleModalCancel.bind(_this);
-    _this.handleModalSubmit = _this.handleModalSubmit.bind(_this);
-
     _this.data = {};
     _this.errorMessage = '';
     _this.isLoading = false;
 
     var events = _this.EventService.events;
 
-    var listeners = [];
-    listeners.push(_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel));
-    listeners.push(_this.EventService.on(events.MODAL_OK, _this.handleModalSubmit));
+    var listeners = [_this.EventService.on(events.MODAL_CANCEL, function (name) {
+      return _this.handleModalCancel(name);
+    }), _this.EventService.on(events.MODAL_OK, function (name) {
+      return _this.handleModalSubmit(name);
+    })];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -72149,25 +72148,13 @@ var RemoveModModalController = function (_Injectable) {
       });
     };
 
-    var listeners = [];
+    var events = _this.EventService.events;
 
-    listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      _this.$timeout(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.ModalService.OK();
-      });
-    }));
-
-    listeners.push(_this.EventService.on(_this.EventService.events.MODAL_CANCEL, function (name) {
-      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
-      _this.$timeout(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.ModalService.Cancel();
-      });
-    }));
+    var listeners = [_this.EventService.on(events.MODAL_CANCEL, function (name) {
+      return _this.handleModalCancel(name);
+    }), _this.EventService.on(events.MODAL_OK, function (name) {
+      return _this.handleModalSubmit(name);
+    })];
 
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
@@ -72200,6 +72187,32 @@ var RemoveModModalController = function (_Injectable) {
           }
           _this3.isLoading = false;
         });
+      });
+    }
+  }, {
+    key: 'handleModalCancel',
+    value: function handleModalCancel(name) {
+      var _this4 = this;
+
+      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+
+      this.$timeout(function () {
+        _this4.errorMessage = '';
+        _this4.isLoading = false;
+        _this4.ModalService.Cancel();
+      });
+    }
+  }, {
+    key: 'handleModalSubmit',
+    value: function handleModalSubmit(name) {
+      var _this5 = this;
+
+      if (name !== 'REVIEW_SUBBRANCH_REQUESTS') return;
+
+      this.$timeout(function () {
+        _this5.errorMessage = '';
+        _this5.isLoading = false;
+        _this5.ModalService.OK();
       });
     }
   }]);
@@ -74113,13 +74126,17 @@ var ModalService = function (_Injectable) {
                 if (args.forceUpdate) {
                   _this4.$state.go(_this4.$state.current, {}, { reload: true });
                 }
-                _this4.AlertsService.push('success', typeof successMsg === 'function' ? successMsg(data.args) : successMsg);
+
+                var message = typeof successMsg === 'function' ? successMsg(data.args) : successMsg;
+                if (message) _this4.AlertsService.push('success', message);
+
                 return resolve(_this4.outputArgs);
               }
               return reject(_this4.outputArgs);
             }, 1500);
           }).catch(function (data) {
-            _this4.AlertsService.push('error', typeof errMsg === 'function' ? errMsg(data.args) : errMsg);
+            var message = typeof errMsg === 'function' ? errMsg(data.args) : errMsg;
+            if (message) _this4.AlertsService.push('error', message);
             return reject(_this4.outputArgs);
           });
         });
@@ -77403,6 +77420,9 @@ var BranchNucleusModtoolsController = function (_Injectable) {
         case 'ban-user':
           errMsg = 'There was an error while banning the user.';
           name = 'BAN_USER';
+          params = {
+            forceUpdate: false
+          };
           successMsg = 'You have banned a user.';
           break;
 
@@ -77422,7 +77442,8 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           errMsg = 'Couldn\'t detach child branch';
           name = 'DETACH_BRANCH_CHILD';
           params = {
-            branchid: this.BranchService.branch.id
+            branchid: this.BranchService.branch.id,
+            forceUpdate: false
           };
           successMsg = function successMsg(args) {
             return 'You ' + (_this3.BranchService.branch.id !== 'root' ? 'detached' : 'deleted') + ' b/' + args.branchid + '!';
@@ -77433,7 +77454,8 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           errMsg = 'Couldn\'t move branch';
           name = 'SUBMIT_SUBBRANCH_REQUEST';
           params = {
-            branchid: this.BranchService.branch.id
+            branchid: this.BranchService.branch.id,
+            forceUpdate: false
           };
           successMsg = function successMsg(args) {
             return 'You requested to move under b/' + args.parentid + '!';
@@ -77444,14 +77466,17 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           errMsg = 'Error responding to child branch request.';
           name = 'REVIEW_SUBBRANCH_REQUESTS';
           params = {
-            branchid: this.BranchService.branch.id
+            branchid: this.BranchService.branch.id,
+            forceUpdate: false
           };
-          successMsg = 'Successfully responded to child branch request.';
           break;
 
         case 'homepage-stats':
           errMsg = 'Error updating homepage stats.';
           name = 'UPDATE_HOMEPAGE_STATS';
+          params = {
+            forceUpdate: false
+          };
           successMsg = 'Successfully updated homepage stats.';
           break;
 
@@ -77459,7 +77484,8 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           errMsg = 'Error updating moderator settings.';
           name = 'ADD_MOD';
           params = {
-            branchid: this.BranchService.branch.id
+            branchid: this.BranchService.branch.id,
+            forceUpdate: false
           };
           successMsg = 'Successfully updated moderator settings.';
           break;
@@ -77469,6 +77495,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
           name = 'REMOVE_MOD';
           params = {
             branchid: this.BranchService.branch.id,
+            forceUpdate: false,
             mods: this.getRemovableMods()
           };
           successMsg = 'Successfully updated moderator settings.';

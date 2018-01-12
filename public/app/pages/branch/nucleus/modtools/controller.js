@@ -71,6 +71,9 @@ class BranchNucleusModtoolsController extends Injectable {
       case 'ban-user':
         errMsg = 'There was an error while banning the user.';
         name = 'BAN_USER';
+        params = {
+          forceUpdate: false,
+        };
         successMsg = 'You have banned a user.';
         break;
 
@@ -89,6 +92,7 @@ class BranchNucleusModtoolsController extends Injectable {
         name = 'DETACH_BRANCH_CHILD';
         params = {
           branchid: this.BranchService.branch.id,
+          forceUpdate: false,
         };
         successMsg = args => `You ${this.BranchService.branch.id !== 'root' ? 'detached' : 'deleted'} b/${args.branchid}!`;
         break;
@@ -98,6 +102,7 @@ class BranchNucleusModtoolsController extends Injectable {
         name = 'SUBMIT_SUBBRANCH_REQUEST';
         params = {
           branchid: this.BranchService.branch.id,
+          forceUpdate: false,
         };
         successMsg = args => `You requested to move under b/${args.parentid}!`;
         break;
@@ -107,13 +112,16 @@ class BranchNucleusModtoolsController extends Injectable {
         name = 'REVIEW_SUBBRANCH_REQUESTS';
         params = {
           branchid: this.BranchService.branch.id,
+          forceUpdate: false,
         };
-        successMsg = 'Successfully responded to child branch request.';
         break;
 
       case 'homepage-stats':
         errMsg = 'Error updating homepage stats.';
         name = 'UPDATE_HOMEPAGE_STATS';
+        params = {
+          forceUpdate: false,
+        };
         successMsg = 'Successfully updated homepage stats.';
         break;
 
@@ -122,6 +130,7 @@ class BranchNucleusModtoolsController extends Injectable {
         name = 'ADD_MOD';
         params = {
           branchid: this.BranchService.branch.id,
+          forceUpdate: false,
         };
         successMsg = 'Successfully updated moderator settings.';
         break;
@@ -131,6 +140,7 @@ class BranchNucleusModtoolsController extends Injectable {
         name = 'REMOVE_MOD';
         params = {
           branchid: this.BranchService.branch.id,
+          forceUpdate: false,
           mods: this.getRemovableMods(),
         };
         successMsg = 'Successfully updated moderator settings.';
