@@ -331,32 +331,34 @@
     .list-item__vote-icon {
       @size: 22px;
 
+      border: none;
       cursor: pointer;
       height: @size;
       opacity: .1;
+      padding: 0;
       width: @size;
       transition: opacity .2s;
-
-      &:hover { opacity: .6; }
-
-      &.style--disabled {
-        cursor: initial;
-        opacity: .1;
-
-        &:hover { opacity: .1; }
-      }
-
-      &:not(.style--disabled).style--active {
-        opacity: 1;
-
-        path { fill: #9fc3e7; }
-      }
 
       svg {
         height: 100%;
         width: auto;
 
         path { transition: fill .2s; }
+      }
+
+      &:not(:disabled) {
+        &.style--active {
+          opacity: 1;
+
+          path { fill: #9fc3e7; }
+        }
+
+        &:hover { opacity: .6; }
+      }
+
+      &:disabled {
+        cursor: initial;
+        opacity: .1;
       }
     }
 

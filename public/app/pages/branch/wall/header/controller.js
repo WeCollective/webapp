@@ -1,4 +1,12 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  Category,
+  Point,
+  SortPost,
+  Time,
+} = Constants.Filters;
 
 class BranchWallHeaderController extends Injectable {
   constructor(...injections) {
@@ -6,79 +14,22 @@ class BranchWallHeaderController extends Injectable {
 
     this.controls = {
       postType: {
-        items: [{
-          label: 'all',
-          url: 'all',
-        }, {
-          label: 'images',
-          url: 'image',
-        }, {
-          label: 'videos',
-          url: 'video',
-        }, {
-          label: 'audio',
-          url: 'audio',
-        }, {
-          label: 'text',
-          url: 'text',
-        }, {
-          label: 'pages',
-          url: 'page',
-        }, {
-          label: 'polls',
-          url: 'poll',
-        }],
+        items: Category,
         selectedIndex: -1,
         title: 'category',
       },
       sortBy: {
-        items: [{
-          label: 'points',
-          url: 'points',
-        }, {
-          label: 'comments',
-          url: 'comments',
-        }, {
-          label: 'date',
-          url: 'date',
-        }],
+        items: SortPost,
         selectedIndex: -1,
         title: 'sorted by',
       },
       statType: {
-        items: [{
-          label: 'global',
-          url: 'global',
-        }, {
-          label: 'local',
-          url: 'local',
-        }, {
-          label: 'branch',
-          url: 'branch',
-        }],
+        items: Point,
         selectedIndex: -1,
         title: 'point type',
       },
       timeRange: {
-        items: [{
-          label: 'all time',
-          url: 'all',
-        }, {
-          label: 'last year',
-          url: 'year',
-        }, {
-          label: 'last month',
-          url: 'month',
-        }, {
-          label: 'last week',
-          url: 'week',
-        }, {
-          label: 'last 24 hrs',
-          url: 'day',
-        }, {
-          label: 'last hour',
-          url: 'hour',
-        }],
+        items: Time,
         selectedIndex: -1,
         title: 'posts from',
       },
@@ -90,7 +41,6 @@ class BranchWallHeaderController extends Injectable {
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.setDefaultControls = this.setDefaultControls.bind(this);
-    // this.setDefaultControls();
 
     const ctrls = this.controls;
     const { events } = this.EventService;

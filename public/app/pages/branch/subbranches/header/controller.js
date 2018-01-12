@@ -1,4 +1,10 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  SortBranch,
+  Time,
+} = Constants.Filters;
 
 class BranchSubbranchesHeaderController extends Injectable {
   constructor(...injections) {
@@ -6,42 +12,12 @@ class BranchSubbranchesHeaderController extends Injectable {
 
     this.controls = {
       sortBy: {
-        items: [{
-          label: 'points',
-          url: 'points',
-        }, {
-          label: 'posts',
-          url: 'posts',
-        }, {
-          label: 'comments',
-          url: 'comments',
-        }, {
-          label: 'date',
-          url: 'date',
-        }],
+        items: SortBranch,
         selectedIndex: -1,
         title: 'sorted by',
       },
       timeRange: {
-        items: [{
-          label: 'all time',
-          url: 'all',
-        }, {
-          label: 'last year',
-          url: 'year',
-        }, {
-          label: 'last month',
-          url: 'month',
-        }, {
-          label: 'last week',
-          url: 'week',
-        }, {
-          label: 'last 24 hrs',
-          url: 'day',
-        }, {
-          label: 'last hour',
-          url: 'hour',
-        }],
+        items: Time,
         selectedIndex: -1,
         title: 'created',
       },

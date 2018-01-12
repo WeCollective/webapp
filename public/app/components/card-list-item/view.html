@@ -14,12 +14,13 @@
   </div>
 
   <div class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
-    <div
+    <button
       class="list-item__vote-icon"
       ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
       ng-click="ListItem.vote('up', $event.target)"
+      ng-disabled="!ListItem.UserService.isAuthenticated()"
       ng-include="'/assets/images/icons/arrow-up.svg'">
-    </div>
+    </button>
 
     <p>{{ ListItem.post[ListItem.stat] }}</p>
 
@@ -98,7 +99,7 @@
         alt="Flag post"
         class="list-item__detail style--icon"
         ng-click="ListItem.openFlagPostModal()"
-        ng-hide="ListItem.showFlags()"
+        ng-hide="ListItem.showFlags() || !ListItem.UserService.isAuthenticated()"
         offset-y="20"
         src="/assets/images/icons/flag.svg"
         text="'Flag post'"

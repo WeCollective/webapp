@@ -611,27 +611,13 @@ span {
   margin-left: 6px;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.comments .comment__content .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.comments .comment__content .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.comments .comment__content .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.comments .comment__content .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.comments .comment__content .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -639,6 +625,19 @@ span {
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.comments .comment__content .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.comments .comment__content .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.comments .comment__content .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.comments .comment__content .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .comments .comment__content .list-item__votes p {
   margin: 0;
@@ -1118,27 +1117,13 @@ div[loading] div.loading-container img {
   margin-left: 6px;
 }
 .notification .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.notification .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.notification .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.notification .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.notification .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.notification .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .notification .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -1146,6 +1131,19 @@ div[loading] div.loading-container img {
 }
 .notification .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.notification .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.notification .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.notification .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.notification .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .notification .list-item__votes p {
   margin: 0;
@@ -2407,27 +2405,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .branch__post .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.branch__post .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.branch__post .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .branch__post .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -2435,6 +2419,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .branch__post .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.branch__post .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.branch__post .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .branch__post .list-item__votes p {
   margin: 0;
@@ -2677,27 +2674,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-left: 6px;
   }
   .branch__post .list-item__votes .list-item__vote-icon {
+    border: none;
     cursor: pointer;
     height: 22px;
     opacity: .1;
+    padding: 0;
     width: 22px;
     transition: opacity .2s;
-  }
-  .branch__post .list-item__votes .list-item__vote-icon:hover {
-    opacity: .6;
-  }
-  .branch__post .list-item__votes .list-item__vote-icon.style--disabled {
-    cursor: initial;
-    opacity: .1;
-  }
-  .branch__post .list-item__votes .list-item__vote-icon.style--disabled:hover {
-    opacity: .1;
-  }
-  .branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-    opacity: 1;
-  }
-  .branch__post .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-    fill: #9fc3e7;
   }
   .branch__post .list-item__votes .list-item__vote-icon svg {
     height: 100%;
@@ -2705,6 +2688,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
   .branch__post .list-item__votes .list-item__vote-icon svg path {
     transition: fill .2s;
+  }
+  .branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+    opacity: 1;
+  }
+  .branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+    fill: #9fc3e7;
+  }
+  .branch__post .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+    opacity: .6;
+  }
+  .branch__post .list-item__votes .list-item__vote-icon:disabled {
+    cursor: initial;
+    opacity: .1;
   }
   .branch__post .list-item__votes p {
     margin: 0;
@@ -2957,27 +2953,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.branch__subbranch .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.branch__subbranch .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.branch__subbranch .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.branch__subbranch .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.branch__subbranch .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -2985,6 +2967,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.branch__subbranch .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.branch__subbranch .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.branch__subbranch .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.branch__subbranch .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .branch__subbranch .list-item__votes p {
   margin: 0;
@@ -3473,27 +3468,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-left: 6px;
 }
 .header .list-item .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.header .list-item .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.header .list-item .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .header .list-item .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -3501,6 +3482,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 .header .list-item .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.header .list-item .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.header .list-item .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .header .list-item .list-item__votes p {
   margin: 0;
@@ -3748,27 +3742,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-left: 6px;
   }
   .header .list-item .list-item__votes .list-item__vote-icon {
+    border: none;
     cursor: pointer;
     height: 22px;
     opacity: .1;
+    padding: 0;
     width: 22px;
     transition: opacity .2s;
-  }
-  .header .list-item .list-item__votes .list-item__vote-icon:hover {
-    opacity: .6;
-  }
-  .header .list-item .list-item__votes .list-item__vote-icon.style--disabled {
-    cursor: initial;
-    opacity: .1;
-  }
-  .header .list-item .list-item__votes .list-item__vote-icon.style--disabled:hover {
-    opacity: .1;
-  }
-  .header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-    opacity: 1;
-  }
-  .header .list-item .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-    fill: #9fc3e7;
   }
   .header .list-item .list-item__votes .list-item__vote-icon svg {
     height: 100%;
@@ -3776,6 +3756,19 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
   .header .list-item .list-item__votes .list-item__vote-icon svg path {
     transition: fill .2s;
+  }
+  .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+    opacity: 1;
+  }
+  .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+    fill: #9fc3e7;
+  }
+  .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+    opacity: .6;
+  }
+  .header .list-item .list-item__votes .list-item__vote-icon:disabled {
+    cursor: initial;
+    opacity: .1;
   }
   .header .list-item .list-item__votes p {
     margin: 0;
@@ -4315,27 +4308,13 @@ div#notfound div h2 {
   margin-left: 6px;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon {
+  border: none;
   cursor: pointer;
   height: 22px;
   opacity: .1;
+  padding: 0;
   width: 22px;
   transition: opacity .2s;
-}
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:hover {
-  opacity: .6;
-}
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--disabled {
-  cursor: initial;
-  opacity: .1;
-}
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon.style--disabled:hover {
-  opacity: .1;
-}
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active {
-  opacity: 1;
-}
-.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(.style--disabled).style--active path {
-  fill: #9fc3e7;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon svg {
   height: 100%;
@@ -4343,6 +4322,19 @@ div#notfound div h2 {
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon svg path {
   transition: fill .2s;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
+  opacity: 1;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(:disabled).style--active path {
+  fill: #9fc3e7;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(:disabled):hover {
+  opacity: .6;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:disabled {
+  cursor: initial;
+  opacity: .1;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes p {
   margin: 0;

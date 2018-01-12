@@ -1,4 +1,12 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  Category,
+  Flag,
+  Point,
+  Time,
+} = Constants.Filters;
 
 class BranchNucleusFlaggedPostsController extends Injectable {
   constructor(...injections) {
@@ -8,85 +16,22 @@ class BranchNucleusFlaggedPostsController extends Injectable {
 
     this.controls = {
       postType: {
-        items: [{
-          label: 'all',
-          url: 'all',
-        }, {
-          label: 'images',
-          url: 'image',
-        }, {
-          label: 'videos',
-          url: 'video',
-        }, {
-          label: 'audio',
-          url: 'audio',
-        }, {
-          label: 'text',
-          url: 'text',
-        }, {
-          label: 'pages',
-          url: 'page',
-        }, {
-          label: 'polls',
-          url: 'poll',
-        }],
+        items: Category,
         selectedIndex: -1,
         title: 'category',
       },
       sortBy: {
-        items: [{
-          label: 'date',
-          url: 'date',
-        }, {
-          label: 'against branch rules',
-          url: 'flag-branch-rules',
-        }, {
-          label: 'against site rules',
-          url: 'flag-site-rules',
-        }, {
-          label: 'wrong post type',
-          url: 'flag-wrong-type',
-        }, {
-          label: 'nsfw flags',
-          url: 'flag-nsfw',
-        }],
+        items: Flag,
         selectedIndex: -1,
         title: 'sorted by',
       },
       statType: {
-        items: [{
-          label: 'global',
-          url: 'global',
-        }, {
-          label: 'local',
-          url: 'local',
-        }, {
-          label: 'branch',
-          url: 'branch',
-        }],
+        items: Point,
         selectedIndex: 0,
         title: 'point type',
       },
       timeRange: {
-        items: [{
-          label: 'all time',
-          url: 'all',
-        }, {
-          label: 'last year',
-          url: 'year',
-        }, {
-          label: 'last month',
-          url: 'month',
-        }, {
-          label: 'last week',
-          url: 'week',
-        }, {
-          label: 'last 24 hrs',
-          url: 'day',
-        }, {
-          label: 'last hour',
-          url: 'hour',
-        }],
+        items: Time,
         selectedIndex: -1,
         title: 'flags from',
       },

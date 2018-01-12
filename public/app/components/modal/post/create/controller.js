@@ -1,5 +1,8 @@
+import Constants from 'config/constants';
 import Generator from 'utils/generator';
 import Injectable from 'utils/injectable';
+
+const { PostTypes } = Constants.AllowedValues;
 
 class CreatePostModalController extends Injectable {
   constructor(...injections) {
@@ -21,24 +24,20 @@ class CreatePostModalController extends Injectable {
     };
     this.pollAnswers = [];
     this.postType = {
-      items: [
-        'text',
-        'page',
-        'image',
-        'video',
-        'audio',
-        'poll',
-      ],
+      items: PostTypes,
       selectedIndex: 0,
     };
     this.preview = false;
 
     const parentBranch = this.ModalService.inputArgs.branchid;
     if (parentBranch !== 'root') {
-      this.newPost.branchids.push({
-        isRemovable: false,
-        label: parentBranch,
-      });
+      this.newPost.branchids = [
+        ...this.newPost.branchids,
+        {
+          isRemovable: false,
+          label: parentBranch,
+        },
+      ];
     }
 
     this.tags = this.newPost.branchids;
@@ -103,21 +102,23 @@ class CreatePostModalController extends Injectable {
     if (name !== 'CREATE_POST') return;
 
     this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
-    if (this.newPost.type !== 'poll') {
-      this.newPost.locked = false;
-    }
+
+    const {
+      branchids,
+      text,
+      title,
+      type,
+      url,
+    } = this.newPost;
 
     // If not all fields are filled, display error.
-    if (!this.newPost || !this.newPost.title ||
-      (this.BranchService.branch.id !== 'root' && !this.newPost.branchids) ||
-      (!['poll', 'text'].includes(this.newPost.type) && !this.newPost.text) ||
-      this.newPost.nsfw === undefined ||
-      this.newPost.locked === undefined) {
-      this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+    if (!this.newPost || !title || (this.BranchService.branch.id !== 'root' && !branchids) ||
+      (!['poll', 'text'].includes(type) && !url) || (type === 'text' && !text)) {
+      this.$timeout(() => this.errorMessage = 'Please fill in all fields.');
       return;
     }
 
-    if (this.newPost.title.length > 200) {
+    if (title.length > 200) {
       this.$timeout(() => this.errorMessage = 'Title cannot be more than 200 characters long.');
       return;
     }
@@ -127,7 +128,7 @@ class CreatePostModalController extends Injectable {
 
     // create copy of post to not interfere with binding of items on tag-editor
     const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
-    post.branchids = JSON.stringify(this.flattenTagsArray(this.newPost.branchids));
+    post.branchids = JSON.stringify(this.flattenTagsArray(branchids));
 
     Generator.run(function* () { // eslint-disable-line func-names
       let postid;
@@ -143,7 +144,7 @@ class CreatePostModalController extends Injectable {
       }
 
       // If it's a poll, add the poll answers.
-      if (this.newPost.type === 'poll') {
+      if (type === 'poll') {
         for (let i = 0; i < this.pollAnswers.length; i += 1) {
           try {
             yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
@@ -163,7 +164,7 @@ class CreatePostModalController extends Injectable {
         this.isLoading = false;
       });
 
-      if (this.file && this.newPost.type !== 'image') {
+      if (this.file && type !== 'image') {
         let uploadUrl;
 
         try {

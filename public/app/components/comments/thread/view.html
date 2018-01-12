@@ -1,12 +1,13 @@
 <div class="comment" ng-repeat="comment in Thread.comments track by $index">
   <div class="comment__content">
     <div class="list-item__votes">
-      <div
+      <button
         class="list-item__vote-icon"
-        ng-class="{ 'style--active': comment.userVoted === 'up', 'style--disabled': comment.data.deleted }"
+        ng-class="{ 'style--active': comment.userVoted === 'up' }"
         ng-click="Thread.vote(comment, 'up', $event.target)"
+        ng-disabled="comment.data.deleted || !Thread.UserService.isAuthenticated()"
         ng-include="'/assets/images/icons/arrow-up.svg'">
-      </div>
+      </button>
 
       <p>{{ comment.individual }}</p>
     </div>
