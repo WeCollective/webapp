@@ -1,7 +1,7 @@
 <div
   class="post__preview-content style--video"
   ng-class="{ 'maximised': Ctrl.previewState === 'maximise' }"
-  ng-show="Ctrl.PostService.post.type === 'video' && Ctrl.getVideoEmbedUrl() !== '' && Ctrl.previewState !== 'hide'">
+  ng-show="Ctrl.getVideoEmbedUrl() !== '' && Ctrl.previewState !== 'hide'">
   <div>
     <iframe
       allowfullscreen

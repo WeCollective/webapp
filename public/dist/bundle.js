@@ -75057,8 +75057,16 @@ var BranchPostController = function (_Injectable) {
   _createClass(BranchPostController, [{
     key: 'canPreviewPost',
     value: function canPreviewPost() {
-      var allowedPreviewPostTypes = ['image', 'text', 'video', 'poll'];
-      return allowedPreviewPostTypes.includes(this.PostService.post.type);
+      var _PostService$post = this.PostService.post,
+          text = _PostService$post.text,
+          type = _PostService$post.type;
+
+
+      if (['page', 'poll', 'text'].includes(type) && !text) {
+        return false;
+      }
+
+      return true;
     }
   }, {
     key: 'getPreviewTemplate',
@@ -75068,10 +75076,10 @@ var BranchPostController = function (_Injectable) {
   }, {
     key: 'getVideoEmbedUrl',
     value: function getVideoEmbedUrl() {
-      var isYouTubeUrl = function isYouTubeUrl(url) {
-        if (url) {
+      var isYouTubeUrl = function isYouTubeUrl(string) {
+        if (string) {
           var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=|\?v=)([^#]*).*/;
-          var match = url.match(regExp);
+          var match = string.match(regExp);
           if (match && match[2].length === 11) {
             return true;
           }
@@ -75079,8 +75087,18 @@ var BranchPostController = function (_Injectable) {
         return false;
       };
 
-      if (this.PostService.post.type === 'video' && isYouTubeUrl(this.PostService.post.text)) {
-        var videoId = this.PostService.post.text.split('v=')[1] || this.PostService.post.text.split('embed/')[1];
+      var _PostService$post2 = this.PostService.post,
+          text = _PostService$post2.text,
+          type = _PostService$post2.type,
+          url = _PostService$post2.url;
+
+      // We need to support the old API where we used text for both description
+      // and urls as the posts could have only one of the two.
+
+      var str = url || text;
+
+      if (type === 'video' && isYouTubeUrl(str)) {
+        var videoId = str.split('v=')[1] || str.split('embed/')[1];
 
         if (videoId.includes('&')) {
           videoId = videoId.substring(0, videoId.indexOf('&'));
