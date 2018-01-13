@@ -1627,6 +1627,7 @@ body.style--modal-open {
 }
 .modal__button.style--secondary {
   background-color: #b3b3b3;
+  border: none;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
@@ -1647,6 +1648,7 @@ body.style--modal-open {
 }
 .modal__button.style--primary {
   background-color: #92bedb;
+  border: none;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
@@ -1679,6 +1681,7 @@ body.style--modal-open {
 @media only screen and (min-width: 768px) {
   .modal__button.style--secondary {
     background-color: #b3b3b3;
+    border: none;
     border-radius: 3px;
     color: #fff;
     display: inline-block;
@@ -1699,6 +1702,7 @@ body.style--modal-open {
   }
   .modal__button.style--primary {
     background-color: #92bedb;
+    border: none;
     border-radius: 3px;
     color: #fff;
     display: inline-block;
@@ -1989,6 +1993,7 @@ div#nucleus-reviewsubbranchrequests-inputs li div#branch-info div.request-action
 }
 div#nucleus-reviewsubbranchrequests-inputs li div#branch-info div.request-actions div.request-accept {
   background-color: #92bedb;
+  border: none;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
@@ -2008,6 +2013,7 @@ div#nucleus-reviewsubbranchrequests-inputs li div#branch-info div.request-action
 }
 div#nucleus-reviewsubbranchrequests-inputs li div#branch-info div.request-actions div.request-reject {
   background-color: #e74c3c;
+  border: none;
   border-radius: 3px;
   color: #fff;
   display: inline-block;
