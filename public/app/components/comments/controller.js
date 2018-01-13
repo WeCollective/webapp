@@ -45,6 +45,13 @@ class CommentsController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
+  exitSingleCommentView() {
+    this.$state.go('weco.branch.post', {
+      branchid: this.BranchService.branch.id,
+      postid: this.PostService.post.id,
+    });
+  }
+
   getAllCommentReplies(commentsArr) {
     return new Promise((resolve, reject) => {
       const promises = [];
@@ -188,6 +195,7 @@ CommentsController.$inject = [
   '$timeout',
   'AlertsService',
   'API',
+  'BranchService',
   'CommentService',
   'EventService',
   'PostService',

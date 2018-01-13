@@ -10,6 +10,7 @@
     
     <div
       class="comments__text-wrapper comments__text-wrapper--bg"
+      ng-click="Comments.exitSingleCommentView()"
       ng-if="Comments.isCommentPermalink()">
       <p class="comments__text">
       	You are viewing a single comment's thread. <a ng-if="Comments.PostService.post.type !== 'poll'" ui-sref="weco.branch.post({ postid: Comments.PostService.post.id })"><a ng-if="Comments.PostService.post.type === 'poll'" ui-sref="weco.branch.post.discussion({ postid: Comments.PostService.post.id})">View all comments</a>

@@ -7310,7 +7310,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'https://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -67599,6 +67599,14 @@ var CommentsController = function (_Injectable) {
   }
 
   _createClass(CommentsController, [{
+    key: 'exitSingleCommentView',
+    value: function exitSingleCommentView() {
+      this.$state.go('weco.branch.post', {
+        branchid: this.BranchService.branch.id,
+        postid: this.PostService.post.id
+      });
+    }
+  }, {
     key: 'getAllCommentReplies',
     value: function getAllCommentReplies(commentsArr) {
       var _this2 = this;
@@ -67748,7 +67756,7 @@ var CommentsController = function (_Injectable) {
   return CommentsController;
 }(_injectable2.default);
 
-CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'API', 'CommentService', 'EventService', 'PostService'];
+CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'CommentService', 'EventService', 'PostService'];
 
 exports.default = CommentsController;
 
