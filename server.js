@@ -10,7 +10,9 @@
   SOFTWARE.
 */
 const express = require('express'); // call express
+const fs = require('fs');
 const helmet = require('helmet'); // protect against common web vulnerabilities
+const https = require('https');
 
 const app = express(); // define our app using express
 
@@ -58,6 +60,19 @@ app.all('/*', (req, res, next) => { // eslint-disable-line no-unused-vars
   res.sendFile('index.html', { root: `${__dirname}/public` });
 });
 
-// START THE SERVER
-app.listen(port);
+// Start the server, mock SSL in local environment.
+if (env === 'local') {
+  const httpsOptions = {
+    cert: fs.readFileSync('./config/ssl/local-cert.pem'),
+    key: fs.readFileSync('./config/ssl/local-key.pem'),
+    rejectUnauthorized: false,
+    requestCert: false,
+  };
+
+  https.createServer(httpsOptions, app).listen(port);
+}
+else {
+  app.listen(port);
+}
+
 console.log(`Magic happens on port ${port}!`);

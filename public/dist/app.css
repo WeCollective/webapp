@@ -640,6 +640,9 @@ span {
   cursor: initial;
   opacity: .1;
 }
+.comments .comment__content .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
+}
 .comments .comment__content .list-item__votes p {
   margin: 0;
 }
@@ -1146,6 +1149,9 @@ div[loading] div.loading-container img {
 .notification .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
   opacity: .1;
+}
+.notification .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
 }
 .notification .list-item__votes p {
   margin: 0;
@@ -2439,6 +2445,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: initial;
   opacity: .1;
 }
+.branch__post .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
+}
 .branch__post .list-item__votes p {
   margin: 0;
 }
@@ -2708,6 +2717,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .branch__post .list-item__votes .list-item__vote-icon:disabled {
     cursor: initial;
     opacity: .1;
+  }
+  .branch__post .list-item__votes .list-item__vote-icon:focus {
+    outline: none;
   }
   .branch__post .list-item__votes p {
     margin: 0;
@@ -2988,6 +3000,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__subbranch .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
   opacity: .1;
+}
+.branch__subbranch .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
 }
 .branch__subbranch .list-item__votes p {
   margin: 0;
@@ -3505,6 +3520,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   cursor: initial;
   opacity: .1;
 }
+.header .list-item .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
+}
 .header .list-item .list-item__votes p {
   margin: 0;
 }
@@ -3779,6 +3797,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .header .list-item .list-item__votes .list-item__vote-icon:disabled {
     cursor: initial;
     opacity: .1;
+  }
+  .header .list-item .list-item__votes .list-item__vote-icon:focus {
+    outline: none;
   }
   .header .list-item .list-item__votes p {
     margin: 0;
@@ -4346,6 +4367,9 @@ div#notfound div h2 {
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
   opacity: .1;
+}
+.post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:focus {
+  outline: none;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes p {
   margin: 0;

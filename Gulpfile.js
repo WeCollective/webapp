@@ -120,6 +120,9 @@ gulp.task('nodemon', () => {
   if (!local) return;
 
   nodemon({
+    env: {
+      NODE_ENV: local ? 'local' : env,
+    },
     quiet: true,
     script: 'server.js',
     verbose: false,
@@ -130,7 +133,7 @@ gulp.task('template-strings', () => {
   processTemplate('index.template.html', [{
     test: /%SOCKET_IO_ENDPOINT%/g,
     value: local ?
-      `http://localhost:${process.env.SERVER_PORT}/${process.env.WEBSOCKET_PATH}`
+      `https://localhost:${process.env.SERVER_PORT}/${process.env.WEBSOCKET_PATH}`
       : `${ensureSlash(config.api_url) + process.env.WEBSOCKET_PATH}`,
   }, {
     test: /%WECO_APP_SCRIPT%/g,
@@ -143,7 +146,7 @@ gulp.task('template-strings', () => {
   }, {
     test: /%ENV_ENDPOINT%/g,
     value: local ?
-      `http://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
+      `https://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
       : `${ensureSlash(config.api_url) + process.env.API_VERSION}`,
   }]);
 });

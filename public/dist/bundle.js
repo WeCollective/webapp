@@ -7310,7 +7310,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://localhost:8080/v1',
+  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -20181,19 +20181,13 @@ var _ravenJs2 = _interopRequireDefault(_ravenJs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_ravenJs2.default.config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026').install();
-
-/*
-export class RavenErrorHandler implements ErrorHandler {
- handleError(err:any) : void {
-   Raven.captureException(err.originalError || err);
- }
+if (_env2.default.name === 'production') {
+  _ravenJs2.default.config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026', {
+    fetchParameters: {
+      credentials: ''
+    }
+  }).install();
 }
-*/
-
-setTimeout(function () {
-  throw new Error('Hello from Weco!');
-}, 5000);
 
 var appName = 'wecoApp';
 

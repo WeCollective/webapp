@@ -24,25 +24,17 @@ import initServices from 'init.services';
 import Registrar from 'utils/component-registrar';
 
 import buggyfill from 'viewport-units-buggyfill';
-
 import Raven from 'raven-js';
 
-Raven
-  .config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026')
-  .install();
-
- /*
- export class RavenErrorHandler implements ErrorHandler {
-  handleError(err:any) : void {
-    Raven.captureException(err.originalError || err);
-  }
+if (constEnvironment.name === 'production') {
+  Raven
+    .config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026', {
+      fetchParameters: {
+        credentials: '',
+      },
+    })
+    .install();
 }
-*/
-/*
-setTimeout(() => {
-	throw new Error('Hello from Weco!');
-}, 5000);
-*/
 
 const appName = 'wecoApp';
 
