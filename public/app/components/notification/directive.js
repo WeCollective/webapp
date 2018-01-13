@@ -41,10 +41,11 @@ class NotificationComponent extends Injectable {
     // remplate name is as represented in NotificationTypes with
     // no caps and hyphens instead of underscores
     const templateName = (() => {
-      for (const key in NotificationTypes) { // eslint-disable-line no-restricted-syntax
-        if (NotificationTypes[key] === scope.notification.type) {
-          return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
-        }
+      const { type } = scope.notification;
+      const namespace = NotificationTypes[type];
+      if (namespace) {
+        const str = typeof namespace === 'string' ? namespace : type;
+        return str.toLowerCase().replace(new RegExp('_', 'g'), '-');
       }
       return false;
     })();

@@ -36,7 +36,7 @@ class Notification extends Injectable {
   }
 
   markAsRead(index) {
-    this.toggleUnreadState(index, false)
+    this.toggleUnreadState(index, false);
   }
 
   toggleUnreadState(index, forceValue) {
@@ -53,7 +53,7 @@ class Notification extends Injectable {
         this.EventService.emit('UNREAD_NOTIFICATION_CHANGE', newValue ? 1 : -1);
         this.$timeout(() => notification.unread = newValue);
       })
-      .catch(() => this.AlertsService.push('error', 'Unable to mark notification.'));// 
+      .catch(() => this.AlertsService.push('error', 'Unable to mark notification.'));
   }
 }
 

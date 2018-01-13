@@ -6439,6 +6439,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 // configure notification type constants (matches server)
 var constants = {
+  0: 'NEW_CHILD_BRANCH_REQUEST',
+  1: 'CHILD_BRANCH_REQUEST_ANSWERED',
+  2: 'BRANCH_MOVED',
+  3: 'MODERATOR',
+  4: 'COMMENT',
+  5: 'POST_FLAGGED',
+  6: 'POST_REMOVED',
+  7: 'POST_TYPE_CHANGED',
+  8: 'POST_MARKED_NSFW',
   NEW_CHILD_BRANCH_REQUEST: 0,
   CHILD_BRANCH_REQUEST_ANSWERED: 1,
   BRANCH_MOVED: 2,
@@ -7310,7 +7319,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'https://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -72093,11 +72102,12 @@ var NotificationComponent = function (_Injectable) {
       // remplate name is as represented in NotificationTypes with
       // no caps and hyphens instead of underscores
       var templateName = function () {
-        for (var key in _constants2.default) {
-          // eslint-disable-line no-restricted-syntax
-          if (_constants2.default[key] === scope.notification.type) {
-            return key.toLowerCase().replace(new RegExp('_', 'g'), '-');
-          }
+        var type = scope.notification.type;
+
+        var namespace = _constants2.default[type];
+        if (namespace) {
+          var str = typeof namespace === 'string' ? namespace : type;
+          return str.toLowerCase().replace(new RegExp('_', 'g'), '-');
         }
         return false;
       }();
@@ -75074,22 +75084,15 @@ var BranchPostController = function (_Injectable) {
       return '/app/pages/branch/post/templates-preview/' + this.PostService.post.type + '.html';
     }
   }, {
-    key: 'getVideoEmbedUrl',
-    value: function getVideoEmbedUrl() {
-      var isYouTubeUrl = function isYouTubeUrl(string) {
-        if (string) {
-          var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=|\?v=)([^#]*).*/;
-          var match = string.match(regExp);
-          if (match && match[2].length === 11) {
-            return true;
-          }
-        }
-        return false;
-      };
-
+    key: 'isPostType',
+    value: function isPostType(type) {
+      return this.PostService.post.type === type;
+    }
+  }, {
+    key: 'isYouTubeUrl',
+    value: function isYouTubeUrl() {
       var _PostService$post2 = this.PostService.post,
           text = _PostService$post2.text,
-          type = _PostService$post2.type,
           url = _PostService$post2.url;
 
       // We need to support the old API where we used text for both description
@@ -75097,22 +75100,15 @@ var BranchPostController = function (_Injectable) {
 
       var str = url || text;
 
-      if (type === 'video' && isYouTubeUrl(str)) {
-        var videoId = str.split('v=')[1] || str.split('embed/')[1];
+      if (!str) return '';
 
-        if (videoId.includes('&')) {
-          videoId = videoId.substring(0, videoId.indexOf('&'));
-        }
-
-        return '//www.youtube.com/embed/' + videoId + '?rel=0';
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
+      var match = str.match(regExp);
+      if (match && match[2].length === 11) {
+        return 'https://www.youtube.com/embed/' + match[2] + '?autoplay=0';
       }
 
       return '';
-    }
-  }, {
-    key: 'isPostType',
-    value: function isPostType(type) {
-      return this.PostService.post.type === type;
     }
   }, {
     key: 'redirect',
@@ -78224,7 +78220,7 @@ var Notification = function (_Injectable) {
         });
       }).catch(function () {
         return _this3.AlertsService.push('error', 'Unable to mark notification.');
-      }); // 
+      });
     }
   }]);
 

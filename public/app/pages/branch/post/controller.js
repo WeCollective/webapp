@@ -66,21 +66,13 @@ class BranchPostController extends Injectable {
     return `/app/pages/branch/post/templates-preview/${this.PostService.post.type}.html`;
   }
 
-  getVideoEmbedUrl() {
-    const isYouTubeUrl = string => {
-      if (string) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=|\?v=)([^#]*).*/;
-        const match = string.match(regExp);
-        if (match && match[2].length === 11) {
-          return true;
-        }
-      }
-      return false;
-    };
+  isPostType(type) {
+    return this.PostService.post.type === type;
+  }
 
+  isYouTubeUrl() {
     const {
       text,
-      type,
       url,
     } = this.PostService.post;
 
@@ -88,21 +80,15 @@ class BranchPostController extends Injectable {
     // and urls as the posts could have only one of the two.
     const str = url || text;
 
-    if (type === 'video' && isYouTubeUrl(str)) {
-      let videoId = str.split('v=')[1] || str.split('embed/')[1];
+    if (!str) return '';
 
-      if (videoId.includes('&')) {
-        videoId = videoId.substring(0, videoId.indexOf('&'));
-      }
-
-      return `//www.youtube.com/embed/${videoId}?rel=0`;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
+    const match = str.match(regExp);
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}?autoplay=0`;
     }
 
     return '';
-  }
-
-  isPostType(type) {
-    return this.PostService.post.type === type;
   }
 
   redirect() {

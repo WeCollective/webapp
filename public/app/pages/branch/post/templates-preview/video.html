@@ -1,13 +1,13 @@
 <div
   class="post__preview-content style--video"
   ng-class="{ 'maximised': Ctrl.previewState === 'maximise' }"
-  ng-show="Ctrl.getVideoEmbedUrl() !== '' && Ctrl.previewState !== 'hide'">
+  ng-show="Ctrl.isYouTubeUrl() !== '' && Ctrl.previewState !== 'hide'">
   <div>
     <iframe
       allowfullscreen
       frameborder="0"
       height="480"
-      ng-src="{{ Ctrl.getVideoEmbedUrl() }}"
+      ng-src="{{ Ctrl.isYouTubeUrl() }}"
       width="854">
     </iframe>
   </div>
