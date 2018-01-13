@@ -66560,6 +66560,10 @@ var AppRun = function (_Injectable) {
       return _this.$window.prerenderReady = true;
     });
 
+    if (_this.AppService.hasTouch()) {
+      document.body.classList.add('has-touch');
+    }
+
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
     _this.$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -66703,6 +66707,15 @@ var AppService = function (_Injectable) {
     value: function getProxyUrl(url) {
       // only proxy http requests, not https
       return url && url.substring(0, 5) === 'http:' ? this.ENV.apiEndpoint + '/proxy?url=' + url : url;
+    }
+  }, {
+    key: 'hasTouch',
+    value: function hasTouch() {
+      var _window = window,
+          _window$navigator = _window.navigator,
+          navigator = _window$navigator === undefined ? {} : _window$navigator;
+
+      return 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     }
   }, {
     key: 'toggleNavbarMenu',
@@ -72884,6 +72897,9 @@ var TooltipComponent = function (_Injectable) {
     value: function link(scope, element) {
       var _this3 = this;
 
+      // Disable on touch devices.
+      if (this.AppService.hasTouch()) return;
+
       var el = element[0];
       var rect = el.getBoundingClientRect();
 
@@ -72936,7 +72952,7 @@ var TooltipComponent = function (_Injectable) {
   return TooltipComponent;
 }(_injectable2.default);
 
-TooltipComponent.$inject = ['$timeout', '$window', 'EventService', 'TooltipService'];
+TooltipComponent.$inject = ['$timeout', '$window', 'AppService', 'EventService', 'TooltipService'];
 
 exports.default = TooltipComponent;
 

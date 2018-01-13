@@ -24,6 +24,9 @@ class TooltipComponent extends Injectable {
   }
 
   link(scope, element) {
+    // Disable on touch devices.
+    if (this.AppService.hasTouch()) return;
+
     const el = element[0];
     let rect = el.getBoundingClientRect();
 
@@ -71,6 +74,7 @@ class TooltipComponent extends Injectable {
 TooltipComponent.$inject = [
   '$timeout',
   '$window',
+  'AppService',
   'EventService',
   'TooltipService',
 ];

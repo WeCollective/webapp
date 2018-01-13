@@ -22,6 +22,13 @@ class AppService extends Injectable {
     return url && url.substring(0, 5) === 'http:' ? `${this.ENV.apiEndpoint}/proxy?url=${url}` : url;
   }
 
+  hasTouch() {
+    const { navigator = {} } = window;
+    return 'ontouchstart' in document.documentElement
+       || navigator.maxTouchPoints > 0
+       || navigator.msMaxTouchPoints > 0;
+  }
+
   toggleNavbarMenu(state = !this.isNavbarMenuOpen) {
     this.isNavbarMenuOpen = state;
   }

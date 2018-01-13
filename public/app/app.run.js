@@ -7,6 +7,10 @@ class AppRun extends Injectable {
     // Tell Prerender.io to cache when DOM is loaded
     this.$timeout(() => this.$window.prerenderReady = true);
 
+    if (this.AppService.hasTouch()) {
+      document.body.classList.add('has-touch');
+    }
+
     // State access controls.
     // Params: event, toState, toParams, fromState, fromParams
     this.$rootScope.$on('$stateChangeStart', (event, toState, toParams) => {
