@@ -326,6 +326,7 @@ span {
   }
 }
 .btn {
+  border: none;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
