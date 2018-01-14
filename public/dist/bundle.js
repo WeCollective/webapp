@@ -74773,9 +74773,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
         case 'ban-user':
           errMsg = 'There was an error while banning the user.';
           name = 'BAN_USER';
-          params = {
-            forceUpdate: false
-          };
+          params.forceUpdate = false;
           successMsg = 'You have banned a user.';
           break;
 
@@ -74786,6 +74784,9 @@ var BranchNucleusModtoolsController = function (_Injectable) {
             branchid: this.BranchService.branch.id
           };
           successMsg = function successMsg(args) {
+            _this3.$timeout(function () {
+              _this3.$state.go('weco.branch.wall', { branchid: 'root' });
+            }, 1000);
             return 'You deleted b/' + args.branchid + '!';
           };
           break;
@@ -74827,9 +74828,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
         case 'homepage-stats':
           errMsg = 'Error updating homepage stats.';
           name = 'UPDATE_HOMEPAGE_STATS';
-          params = {
-            forceUpdate: false
-          };
+          params.forceUpdate = false;
           successMsg = 'Successfully updated homepage stats.';
           break;
 
@@ -74867,7 +74866,7 @@ var BranchNucleusModtoolsController = function (_Injectable) {
   return BranchNucleusModtoolsController;
 }(_injectable2.default);
 
-BranchNucleusModtoolsController.$inject = ['$scope', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'LocalStorageService', 'ModalService', 'UserService'];
+BranchNucleusModtoolsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'LocalStorageService', 'ModalService', 'UserService'];
 
 exports.default = BranchNucleusModtoolsController;
 

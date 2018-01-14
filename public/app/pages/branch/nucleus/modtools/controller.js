@@ -71,9 +71,7 @@ class BranchNucleusModtoolsController extends Injectable {
       case 'ban-user':
         errMsg = 'There was an error while banning the user.';
         name = 'BAN_USER';
-        params = {
-          forceUpdate: false,
-        };
+        params.forceUpdate = false;
         successMsg = 'You have banned a user.';
         break;
 
@@ -83,7 +81,12 @@ class BranchNucleusModtoolsController extends Injectable {
         params = {
           branchid: this.BranchService.branch.id,
         };
-        successMsg = args => `You deleted b/${args.branchid}!`;
+        successMsg = args => {
+          this.$timeout(() => {
+            this.$state.go('weco.branch.wall', { branchid: 'root' });
+          }, 1000);
+          return `You deleted b/${args.branchid}!`;
+        };
         break;
 
       // In b/root case, this actually deletes a branch.
@@ -119,9 +122,7 @@ class BranchNucleusModtoolsController extends Injectable {
       case 'homepage-stats':
         errMsg = 'Error updating homepage stats.';
         name = 'UPDATE_HOMEPAGE_STATS';
-        params = {
-          forceUpdate: false,
-        };
+        params.forceUpdate = false;
         successMsg = 'Successfully updated homepage stats.';
         break;
 
@@ -158,6 +159,7 @@ class BranchNucleusModtoolsController extends Injectable {
 
 BranchNucleusModtoolsController.$inject = [
   '$scope',
+  '$state',
   '$timeout',
   'AlertsService',
   'BranchService',
