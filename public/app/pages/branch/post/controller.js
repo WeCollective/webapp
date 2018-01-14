@@ -53,9 +53,14 @@ class BranchPostController extends Injectable {
     const {
       text,
       type,
+      url,
     } = this.PostService.post;
 
-    if (['page', 'poll', 'text'].includes(type) && !text) {
+    if (['poll', 'text'].includes(type) && !text) {
+      return false;
+    }
+
+    if (type === 'page' && ((url && !text) || !url)) {
       return false;
     }
 
