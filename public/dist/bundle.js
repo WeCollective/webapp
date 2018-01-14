@@ -75068,10 +75068,15 @@ var BranchPostController = function (_Injectable) {
     value: function canPreviewPost() {
       var _PostService$post = this.PostService.post,
           text = _PostService$post.text,
-          type = _PostService$post.type;
+          type = _PostService$post.type,
+          url = _PostService$post.url;
 
 
-      if (['page', 'poll', 'text'].includes(type) && !text) {
+      if (['poll', 'text'].includes(type) && !text) {
+        return false;
+      }
+
+      if (type === 'page' && (url && !text || !url)) {
         return false;
       }
 
