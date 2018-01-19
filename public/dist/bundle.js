@@ -7319,7 +7319,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 /* Template file from which env.config.js is generated */
 var ENV = {
-  apiEndpoint: 'http://api-dev.eu9ntpt33z.eu-west-1.elasticbeanstalk.com/v1',
+  apiEndpoint: 'https://localhost:8080/v1',
   debugAnalytics: false,
   name: 'development'
 };
@@ -66286,9 +66286,10 @@ var AppRoutes = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
+    // this.$httpProvider.defaults.withCredentials = true;
     var _this = _possibleConstructorReturn(this, (AppRoutes.__proto__ || Object.getPrototypeOf(AppRoutes)).call(this, AppRoutes.$inject, injections));
 
-    _this.$httpProvider.defaults.withCredentials = true;
+    _this.$httpProvider.defaults.withCredentials = false;
     _this.$locationProvider.html5Mode(true);
 
     // Remove trailing slashes from URLs.

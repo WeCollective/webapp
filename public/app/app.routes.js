@@ -4,7 +4,8 @@ class AppRoutes extends Injectable {
   constructor(...injections) {
     super(AppRoutes.$inject, injections);
 
-    this.$httpProvider.defaults.withCredentials = true;
+    // this.$httpProvider.defaults.withCredentials = true;
+    this.$httpProvider.defaults.withCredentials = false;
     this.$locationProvider.html5Mode(true);
 
     // Remove trailing slashes from URLs.
