@@ -7,7 +7,7 @@ class Header extends Injectable {
   }
 
   getFilters() {
-    return this.filters;
+    return Object.assign({}, this.filters);
   }
 
   setFilters(filters) {

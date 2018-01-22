@@ -84,7 +84,6 @@ class BranchNucleusController extends Injectable {
 BranchNucleusController.$inject = [
   '$scope',
   '$state',
-  '$timeout',
   'BranchService',
   'EventService',
   'HeaderService',

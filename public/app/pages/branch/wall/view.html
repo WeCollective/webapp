@@ -1,15 +1,15 @@
 <div
   class="content__body"
   loading
-  loading-when="Ctrl.isLoading && !Ctrl.posts.length">
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
   <ul
     class="content__list"
-    ng-if="Ctrl.posts.length > 0">
+    ng-if="Ctrl.items.length">
     <li
       class="branch__post"
       index="$index"
       list-item
-      ng-repeat="post in Ctrl.posts track by $index"
+      ng-repeat="post in Ctrl.items track by $index"
       post="post"
       stat="Ctrl.getStatType()">
     </li>
@@ -17,7 +17,7 @@
 
   <div
     class="text--center"
-    ng-if="!Ctrl.posts.length">
+    ng-if="!Ctrl.items.length">
     <p class="branch__empty-title">
       There don't seem to be any posts to this branch that match the current filter settings
     </p>
@@ -29,7 +29,7 @@
       To create the first post: <br>
       Click the 'Add New Content' button (+) above <br>
       <span class="text--italic">or</span><br>
-      Tag a post you submit elsewhere on the site with this branches unique name ('b/...')
+      Tag a post you submit elsewhere on the site with this branches unique name '{{ Ctrl.BranchService.branch.id }}'
     </p>
   </div>
 </div>

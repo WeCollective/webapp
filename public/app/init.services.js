@@ -15,6 +15,7 @@ import Post from './services/post';
 import Search from './services/search';
 import Tooltip from './components/tooltip/service';
 import Upload from './services/upload';
+import Url from './services/url';
 import User from './services/user';
 import Wall from './pages/branch/service';
 
@@ -36,6 +37,7 @@ const refs = [
   { name: 'SearchService', module: Search },
   { name: 'TooltipService', module: Tooltip },
   { name: 'UploadService', module: Upload },
+  { name: 'UrlService', module: Url },
   { name: 'UserService', module: User },
   { name: 'WallService', module: Wall },
 ];

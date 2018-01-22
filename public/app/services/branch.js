@@ -14,6 +14,7 @@ class BranchService extends Injectable {
       },
     };
 
+    const { events } = this.EventService;
     let fetchingBranch = false;
 
     const updateBranch = () => {
@@ -51,7 +52,7 @@ class BranchService extends Injectable {
         }
       }
 
-      this.EventService.emit(this.EventService.events.CHANGE_BRANCH_PREFETCH, this.branch.id);
+      this.$timeout(() => this.EventService.emit(events.CHANGE_BRANCH_PREFETCH, this.branch.id));
 
       this.fetch(fetchingBranch)
         .then(branch => {
@@ -72,9 +73,7 @@ class BranchService extends Injectable {
           if (fetchingBranch === fetchedBranch.id) {
             // Wrap this into timeout to ensure any dependent controller has time to attach listener
             // before this event fires for the first time.
-            this.$timeout(() => {
-              this.EventService.emit(this.EventService.events.CHANGE_BRANCH, this.branch.id);
-            }, 1);
+            this.$timeout(() => this.EventService.emit(events.CHANGE_BRANCH, this.branch.id), 1);
             fetchingBranch = false;
           }
         });
@@ -82,7 +81,7 @@ class BranchService extends Injectable {
 
     updateBranch();
 
-    this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, updateBranch);
+    this.EventService.on(events.STATE_CHANGE_SUCCESS, updateBranch);
   }
 
   actionSubbranchRequest(action, branchid, childid) {

@@ -4,8 +4,12 @@ class BranchSubbranchesController extends Injectable {
   constructor(...injections) {
     super(BranchSubbranchesController.$inject, injections);
 
-    this.branches = [];
-    this.isLoading = false;
+    this.callbackScroll = this.callbackScroll.bind(this);
+    this.getItems = this.getItems.bind(this);
+
+    this.isInit = true;
+    this.isWaitingForRequest = false;
+    this.items = [];
     this.lastRequest = {
       id: undefined,
       lastId: undefined,
@@ -13,35 +17,34 @@ class BranchSubbranchesController extends Injectable {
       timeRange: undefined,
     };
 
-    this.callbackScroll = this.callbackScroll.bind(this);
-    this.getSubbranches = this.getSubbranches.bind(this);
-
-    // Do the initial load so the loader appears straight away.
-    this.getSubbranches();
-
     const { events } = this.EventService;
     const listeners = [
-      this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()),
-      this.EventService.on(events.CHANGE_FILTER, () => this.getSubbranches()),
+      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getItems()),
+      this.EventService.on(events.CHANGE_FILTER, () => this.getItems()),
       this.EventService.on(events.SCROLLED_TO_BOTTOM, () => this.callbackScroll()),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   callbackScroll() {
-    const { branches } = this;
-    if (branches.length) {
-      this.getSubbranches(branches[branches.length - 1].id);
+    const { items } = this;
+    if (items.length) {
+      this.getItems(items[items.length - 1].id);
     }
   }
 
-  getSubbranches(lastId) {
-    if (this.isLoading === true || !this.$state.current.name.includes('weco.branch.subbranches')) {
+  getItems(lastId) {
+    const {
+      current,
+      params,
+    } = this.$state;
+
+    if (this.isWaitingForRequest || !current.name.includes('weco.branch.subbranches')) {
       return;
     }
 
     const filters = this.HeaderService.getFilters();
-    const id = this.$state.params.branchid;
+    const id = params.branchid;
     const lr = this.lastRequest;
     const {
       sortBy,
@@ -60,17 +63,19 @@ class BranchSubbranchesController extends Injectable {
     this.lastRequest.sortBy = sortBy;
     this.lastRequest.timeRange = timeRange;
 
-    this.isLoading = true;
+    this.isWaitingForRequest = true;
     this.BranchService.getSubbranches(id, timeRange, sortBy, lastId)
       .then(branches => this.$timeout(() => {
         // if lastId was specified we are fetching _more_ branches, so append them
-        this.branches = lastId ? this.branches.concat(branches) : branches;
-        this.isLoading = false;
+        this.items = lastId ? this.items.concat(branches) : branches;
+        this.isInit = false;
+        this.isWaitingForRequest = false;
         this.$scope.$apply();
       }))
       .catch(() => this.$timeout(() => {
         this.AlertsService.push('error', 'Error fetching branches.');
-        this.isLoading = false;
+        this.isInit = false;
+        this.isWaitingForRequest = false;
       }));
   }
 }

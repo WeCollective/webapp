@@ -4,7 +4,12 @@ class BranchWallController extends Injectable {
   constructor(...injections) {
     super(BranchWallController.$inject, injections);
 
-    this.isLoading = false;
+    this.callbackScroll = this.callbackScroll.bind(this);
+    this.getItems = this.getItems.bind(this);
+
+    this.isInit = true;
+    this.isWaitingForRequest = false;
+    this.items = [];
     this.lastRequest = {
       id: undefined,
       lastId: undefined,
@@ -13,44 +18,25 @@ class BranchWallController extends Injectable {
       statType: undefined,
       timeRange: undefined,
     };
-    this.posts = [];
-
-    this.callbackScroll = this.callbackScroll.bind(this);
-    this.getPosts = this.getPosts.bind(this);
 
     const { events } = this.EventService;
     const listeners = [
-      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getPosts()),
-      this.EventService.on(events.CHANGE_FILTER, () => this.getPosts()),
+      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getItems()),
+      this.EventService.on(events.CHANGE_FILTER, () => this.getItems()),
       this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   callbackScroll() {
-    const { posts } = this;
-    if (posts.length) {
-      this.getPosts(posts[posts.length - 1].id);
+    const { items } = this;
+    if (items.length) {
+      this.getItems(items[items.length - 1].id);
     }
   }
 
-  // Return the correct ui-sref string.
-  getLink(post) {
-    const correctUiSrefForTypes = [
-      'poll',
-      'text',
-    ];
-    const postid = post.id;
-
-    if (correctUiSrefForTypes.includes(post.type)) {
-      return this.$state.href('weco.branch.post', { postid });
-    }
-
-    return post.text;
-  }
-
-  getPosts(lastId) {
-    if (this.isLoading === true || !this.$state.current.name.includes('weco.branch.wall')) {
+  getItems(lastId) {
+    if (this.isWaitingForRequest || !this.$state.current.name.includes('weco.branch.wall')) {
       return;
     }
 
@@ -86,24 +72,41 @@ class BranchWallController extends Injectable {
     this.lastRequest.statType = statType;
     this.lastRequest.timeRange = timeRange;
 
-    this.isLoading = true;
+    this.isWaitingForRequest = true;
     this.BranchService.getPosts(id, timeRange, sortBy, statType, postType, lastId, false)
       .then(newPosts => this.$timeout(() => {
         // If lastId was specified, we are fetching more posts, so append them.
-        const posts = lastId ? this.posts.concat(newPosts) : newPosts;
-        this.posts = posts;
+        const posts = lastId ? this.items.concat(newPosts) : newPosts;
+        this.items = posts;
 
         // 30 is the length of the posts response sent back by server.
         if (newPosts.length > 0 && newPosts.length < 30) {
           this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
         }
 
-        this.isLoading = false;
+        this.isInit = false;
+        this.isWaitingForRequest = false;
       }))
-      .catch(() => {
+      .catch(() => this.$timeout(() => {
         this.AlertsService.push('error', 'Error fetching posts.');
-        this.isLoading = false;
-      });
+        this.isInit = false;
+        this.isWaitingForRequest = false;
+      }));
+  }
+
+  // Return the correct ui-sref string.
+  getLink(post) {
+    const correctUiSrefForTypes = [
+      'poll',
+      'text',
+    ];
+    const postid = post.id;
+
+    if (correctUiSrefForTypes.includes(post.type)) {
+      return this.$state.href('weco.branch.post', { postid });
+    }
+
+    return post.text;
   }
 
   getStatType() {

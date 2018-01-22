@@ -10,6 +10,9 @@ class BranchSubbranchesHeaderController extends Injectable {
   constructor(...injections) {
     super(BranchSubbranchesHeaderController.$inject, injections);
 
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultControls = this.setDefaultControls.bind(this);
+
     this.controls = {
       sortBy: {
         items: SortBranch,
@@ -22,17 +25,21 @@ class BranchSubbranchesHeaderController extends Injectable {
         title: 'created',
       },
     };
-    this.sortBy = this.controls.sortBy.items.map(x => x.label);
-    this.timeRange = this.controls.timeRange.items.map(x => x.label);
-
-    this.callbackDropdown = this.callbackDropdown.bind(this);
-    this.setDefaultControls = this.setDefaultControls.bind(this);
     this.setDefaultControls();
 
     const ctrls = this.controls;
+    const {
+      attachFilterListeners,
+      getFilterFlatItems,
+    } = this.UrlService;
+
+    this.sortBy = getFilterFlatItems(ctrls.sortBy);
+    this.timeRange = getFilterFlatItems(ctrls.timeRange);
+
+    const { events } = this.EventService;
     const listeners = [
-      this.$scope.$watch(() => ctrls.sortBy.selectedIndex, this.callbackDropdown),
-      this.$scope.$watch(() => ctrls.timeRange.selectedIndex, this.callbackDropdown),
+      ...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown),
+      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultControls),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -42,92 +49,58 @@ class BranchSubbranchesHeaderController extends Injectable {
       sortBy: this.getSortBy(),
       timeRange: this.getTimeRange(),
     });
+
+    const { applyFilter } = this.UrlService;
     const {
       sortBy,
       timeRange,
     } = this.controls;
-    this.$location.search('sort', sortBy.items[sortBy.selectedIndex].url);
-    this.$location.search('time', timeRange.items[timeRange.selectedIndex].url);
+    applyFilter(sortBy, 'sort');
+    applyFilter(timeRange, 'time');
   }
 
   getSortBy() {
-    const { sortBy } = this.controls;
-    switch (sortBy.items[sortBy.selectedIndex].url) {
-      case 'points':
-        return 'post_points';
-
-      case 'posts':
-        return 'post_count';
-
-      case 'comments':
-        return 'post_comments';
-
-      case 'date':
-      default:
-        return 'date';
-    }
+    return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-branch');
   }
 
   getTimeRange() {
-    const { timeRange } = this.controls;
-    switch (timeRange.items[timeRange.selectedIndex].url) {
-      case 'year':
-        return new Date().setFullYear(new Date().getFullYear() - 1);
-
-      case 'month':
-        return new Date().setMonth(new Date().getMonth() - 1);
-
-      case 'week':
-        return new Date().setDate(new Date().getDate() - 7);
-
-      case 'day':
-        return new Date().setDate(new Date().getDate() - 1);
-
-      case 'hour':
-        return new Date().setHours(new Date().getHours() - 1);
-
-      case 'all':
-      default:
-        return 0;
-    }
+    return this.UrlService.getFilterItemParam(this.controls.timeRange, 'time');
   }
 
   setDefaultControls() {
-    const query = this.$location.search();
-    const defaultSortByIndex = 0;
-    const defaultTimeRangeIndex = 0;
-
     const {
       sortBy,
       timeRange,
     } = this.controls;
+    const {
+      getUrlSearchParams,
+      urlToFilterItemIndex,
+    } = this.UrlService;
+    const {
+      sort,
+      time,
+    } = getUrlSearchParams();
+    const defaultSortByIndex = 0;
+    const defaultTimeRangeIndex = 0;
 
-    const urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
-    const urlIndexTimeRange = this.urlToItemIndex(query.time, timeRange.items);
+    const urlIndexSortBy = urlToFilterItemIndex(sort, sortBy);
+    const urlIndexTimeRange = urlToFilterItemIndex(time, timeRange);
 
     sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
     timeRange.selectedIndex = urlIndexTimeRange !== -1 ? urlIndexTimeRange : defaultTimeRangeIndex;
 
     // Set filters through service for other modules.
-    this.callbackDropdown();
-  }
-
-  // Finds the item in array with the matching url value and returns its index.
-  urlToItemIndex(str, arr = []) {
-    for (let i = 0; i < arr.length; i += 1) {
-      if (arr[i].url === str) {
-        return i;
-      }
-    }
-    return -1;
+    setTimeout(() => {
+      this.callbackDropdown();
+    }, 0);
   }
 }
 
 BranchSubbranchesHeaderController.$inject = [
-  '$location',
   '$scope',
-  'BranchService',
+  'EventService',
   'HeaderService',
+  'UrlService',
   'WallService',
 ];
 
