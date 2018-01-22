@@ -7,10 +7,13 @@
   </dropdown>
 
   <button
-    class="button ok"
+    class="header__button ng-hide"
     ng-click="BranchPostVote.openSubmitPollAnswerModal()"
-    ng-show="BranchPostVote.canSubmitNewAnswer()">
-    <span class="text--uppercase">submit new answer</span>
+    ng-show="BranchPostVote.canSubmitNewAnswer()"
+    offset-y="40"
+    text="'submit new answer'"
+    tooltip>
+    <div ng-include="'/assets/images/icons/plus.svg'"></div>
   </button>
 
   <button

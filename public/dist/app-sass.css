@@ -127,6 +127,7 @@ input[type=checkbox]:checked + .checkbox,
     flex-direction: row-reverse;
     margin: 12px 0; }
     .dropdown.style--horizontal .dropdown__list {
+      margin-right: 18px;
       padding-top: 0;
       position: initial; }
     .dropdown.style--horizontal .dropdown__title {
@@ -136,8 +137,9 @@ input[type=checkbox]:checked + .checkbox,
       top: 0;
       white-space: nowrap; }
       .dropdown.style--horizontal .dropdown__title::before {
-        right: -18px;
-        top: 4.5px; }
+        top: 5px; }
+    .dropdown.style--horizontal + .header__button {
+      margin-left: 12px; }
   .dropdown:first-child {
     margin-left: 10px; }
 

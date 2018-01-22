@@ -3200,11 +3200,13 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
 }
 .header .header__button {
+  border: none;
   cursor: pointer;
   display: block;
   height: 26px;
   margin-right: 15px;
   margin-top: 4px;
+  padding: 0;
   width: 26px;
   transition: transform .2s;
 }
@@ -4415,38 +4417,6 @@ div#notfound div h2 {
   justify-content: flex-start !important;
   overflow: auto !important;
   padding: 12px !important;
-}
-.post .post__content-header .button.ok {
-  background-color: transparent;
-  border-radius: 3px;
-  color: #c8c8c8;
-  display: inline-block;
-  height: auto;
-  text-align: center;
-  transition: all 0.3s ease-out;
-  border: none;
-  display: flex;
-  line-height: 1;
-  padding: 5px 8px;
-}
-.post .post__content-header .button.ok:hover {
-  background-color: #c8c8c8;
-  box-shadow: none;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-.post .post__content-header .button.ok span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: auto;
-}
-.post .post__content-header .button.ok span {
-  font-size: 11px;
-  line-height: inherit;
-}
-.post .post__content-header .button.ok ~ .button {
-  margin-left: 8px;
 }
 .post .post__scrollable-view {
   flex: 1;

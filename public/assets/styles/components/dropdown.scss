@@ -78,6 +78,7 @@
     margin: $s-spacing-sm 0;
 
     .dropdown__list {
+      margin-right: $s-spacing-sm * 1.5;
       padding-top: 0;
       position: initial;
     }
@@ -89,11 +90,10 @@
       top: 0;
       white-space: nowrap;
 
-      &::before {
-        right: -$s-spacing-sm * 1.5;
-        top: ($dropdown-font-size / 2) - 1px;
-      }
+      &::before { top: round($dropdown-font-size / 2) - 1px; }
     }
+
+    + .header__button { margin-left: $s-spacing-sm; }
   }
 
   &:first-child { margin-left: 10px; }
