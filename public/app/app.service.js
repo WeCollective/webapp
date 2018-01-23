@@ -11,7 +11,7 @@ class AppService extends Injectable {
     const action = this.isSidebarOpen ? 'add' : 'remove';
     const CLASS_NAME = 'toggled';
     const content = document.getElementsByClassName('center')[0];
-    const header = document.getElementsByClassName('header style--fixed')[0];
+    const header = document.getElementsByClassName('header')[0];
 
     if (content) content.classList[action](CLASS_NAME);
     if (header) header.classList[action](CLASS_NAME);

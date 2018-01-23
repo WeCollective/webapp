@@ -3132,71 +3132,30 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   }
 }
 .header {
-  align-items: flex-start;
+  box-sizing: border-box;
+  margin-left: auto;
+  max-width: 1260px;
+  transition: transform 0.4s;
+}
+.header .header__body {
+  align-items: center;
   background-color: #fff;
   border-bottom: solid 1px #e7e7e7;
   box-sizing: border-box;
   display: flex;
-  height: 56px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 16px 8px 0 10px;
+  padding: 16px 0;
 }
-.header.style--fixed,
-.header.style--fixed-post {
-  left: 0;
-  position: fixed;
-  top: 44px;
-  width: 100%;
-  z-index: 10;
-  transition: transform 0.4s;
-}
-@media screen and (max-width: 768px) {
-  .header.style--fixed.toggled,
-  .header.style--fixed-post.toggled {
-    transform: translateX(201px);
+@media screen and (min-width: 768px) {
+  .header .header__body {
+    padding: 12px 0;
   }
 }
-@media only screen and (min-width: 768px) {
-  .header.style--fixed,
-  .header.style--fixed-post {
-    left: 201px;
-    max-width: calc(1212px - 201px);
-    width: calc(100% - 201px);
-  }
-}
-@media only screen and (min-width: 992px) {
-  .header.style--fixed,
-  .header.style--fixed-post {
-    left: 249px;
-    max-width: calc(1260px - 249px);
+@media screen and (min-width: 992px) {
+  .header .header__body {
+    margin-left: 249px;
     width: calc(100% - 249px);
-  }
-}
-@media only screen and (min-width: 1260px) {
-  .header.style--fixed,
-  .header.style--fixed-post {
-    left: calc(50% - 630px + 249px);
-    width: 100%;
-  }
-}
-.header.style--fixed + .center {
-  padding-top: 56px;
-}
-.header.style--fixed-post {
-  align-items: center;
-  height: 115px;
-  padding: 12px 0;
-}
-.header.style--fixed-post + .center {
-  padding-top: 115px;
-}
-.header.style--fixed-post .header__button.style--sidebar-toggle {
-  margin: 12px;
-}
-@media only screen and (min-width: 768px) {
-  .header.style--fixed-post {
-    display: block;
   }
 }
 .header .header__button {
@@ -3224,7 +3183,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   width: auto;
 }
 .header .header__button.style--sidebar-toggle {
-  margin-right: 10px;
+  margin: 12px;
   transform: rotateZ(-90deg);
 }
 .header .header__button.style--sidebar-toggle.style--toggled {
@@ -3844,9 +3803,95 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     display: none;
   }
 }
+.header.style--fixed {
+  height: 56px;
+  left: 0;
+  margin-left: 0;
+  position: fixed;
+  top: 44px;
+  width: 100%;
+  z-index: 10;
+}
+.header.style--fixed .header__body {
+  height: 100%;
+  padding: 16px 8px 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .header.style--fixed .header__body {
+    padding: 16px 8px 0 16px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .header.style--fixed {
+    left: 201px;
+    max-width: calc(1212px - 201px);
+  }
+}
+@media only screen and (min-width: 992px) {
+  .header.style--fixed {
+    left: 249px;
+    max-width: calc(1260px - 249px);
+    width: calc(100% - 249px);
+  }
+  .header.style--fixed .header__body {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 1260px) {
+  .header.style--fixed {
+    left: calc(50% - 630px + 249px);
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .header.style--fixed {
+    margin-right: auto;
+  }
+}
+.header.style--fixed + .center {
+  padding-top: 56px;
+}
+.header.style--fixed .header__body {
+  align-items: flex-start;
+}
+.header.style--fixed .header__button.style--sidebar-toggle {
+  margin: 4px 10px 0 0;
+}
+.header.style--inner {
+  height: 56px;
+  margin-left: 0;
+  width: 100%;
+}
+.header.style--inner .header__body {
+  height: 100%;
+  padding: 16px 8px 0 10px;
+}
+@media screen and (min-width: 768px) {
+  .header.style--inner .header__body {
+    padding: 16px 8px 0 16px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .header.style--inner .header__body {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .header.toggled {
+    transform: translateX(201px);
+  }
+}
 @media screen and (min-width: 768px) {
   .header {
-    padding: 16px 8px 0 16px;
+    width: calc(100% - 201px);
+  }
+}
+@media screen and (min-width: 992px) {
+  .header {
+    margin-right: auto;
+    width: 100%;
   }
 }
 div#home-content {

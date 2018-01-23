@@ -44,28 +44,30 @@
   <div
     class="header style--fixed no-transition"
     no-constructor-transition>
-    <img
-      alt="Toggle sidebar"
-      class="header__button style--sidebar-toggle"
-      ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-      ng-click="Navbar.AppService.toggleSidebar()"
-      src="/assets/images/icons/show.svg" />
-    
-    <div class="header__controls style--spaced">
-      <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
+    <div class="header__body">
+      <img
+        alt="Toggle sidebar"
+        class="header__button style--sidebar-toggle"
+        ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+        ng-click="Navbar.AppService.toggleSidebar()"
+        src="/assets/images/icons/show.svg" />
+      
+      <div class="header__controls style--spaced">
+        <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
 
-      <button
-        class="header__read-all"
-        ng-click="Profile.markAllNotificationsAsSeen()"
-        ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
-        offset-x="-150"
-        offset-y="30"
-        text="'Mark all notifications as seen'"
-        tooltip >
-        <img
-          alt="Mark all notifications as read icon"
-          src="/assets/images/icons/tick--circle.svg" />
-      </button>
+        <button
+          class="header__read-all"
+          ng-click="Profile.markAllNotificationsAsSeen()"
+          ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
+          offset-x="-150"
+          offset-y="30"
+          text="'Mark all notifications as seen'"
+          tooltip >
+          <img
+            alt="Mark all notifications as read icon"
+            src="/assets/images/icons/tick--circle.svg" />
+        </button>
+      </div>
     </div>
   </div>
   

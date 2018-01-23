@@ -12,8 +12,9 @@
 
   <div
     class="{{ Branch.getHeaderClassName() }} no-transition"
-    no-constructor-transition
-    ui-view="header"></div>
+    no-constructor-transition>
+    <div class="header__body" ui-view="header"></div>
+  </div>
   
   <div class="center">
     <div class="align">

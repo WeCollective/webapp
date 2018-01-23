@@ -2,66 +2,29 @@
   @button-offset: 4px;
   @dropdown-padding-left: 15px;
 
-  align-items: flex-start;
-  background-color: #fff;
-  border-bottom: solid 1px @light-grey;
   box-sizing: border-box;
-  display: flex;
-  height: @header-h;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 10px;
+  margin-left: auto;
+  max-width: @s-aligner-lg;
+  transition: @tr;
 
-  &.style--fixed,
-  &.style--fixed-post {
-    left: 0;
-    position: fixed;
-    top: @navbar-h;
-    width: 100%;
-    z-index: @z-header;
-    transition: @tr;
-
-    @media screen and (max-width: @screen-md) {
-      // Important so it overwrites the cover-photo styles.
-      &.toggled { transform: translateX(@sidebar-w-sm); }
-    }
-
-    .mediaQuery(@screen-md, {
-      left: @sidebar-w-md;
-      max-width: calc(~'@{s-aligner-md} - @{sidebar-w-md}');
-      width: calc(~'100% - @{sidebar-w-md}');
-    });
-
-    .mediaQuery(@screen-lg, {
-      @align: @s-aligner-lg / 2;
-      left: @sidebar-w-lg;
-      max-width: calc(~'@{s-aligner-lg} - @{sidebar-w-lg}');
-      width: calc(~'100% - @{sidebar-w-lg}');
-    });
-
-    .mediaQuery(@screen-xxl, {
-      @align: @s-aligner-lg / 2;
-      left: calc(~'50% - @{align} + @{sidebar-w-lg}');
-      width: 100%;
-    });
-  }
-
-  &.style--fixed {
-    & + .center { padding-top: @header-h; }
-  }
-
-  &.style--fixed-post {
+  .header__body {
     align-items: center;
-    height: @header-h-post;
-    padding: @g-padding-post 0;
+    background-color: #fff;
+    border-bottom: solid 1px @light-grey;
+    box-sizing: border-box;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: @g-padding-sidebar 0;
 
-    & + .center { padding-top: @header-h-post; }
-
-    .header__button.style--sidebar-toggle {
-      margin: @g-padding-post;
+    @media screen and (min-width: @screen-md) {
+      padding: @g-padding-post 0;
     }
 
-    .mediaQuery(@screen-md, { display: block; });
+    @media screen and (min-width: @screen-lg) {
+      margin-left: @sidebar-w-lg;
+      width: calc(~'100% - @{sidebar-w-lg}');
+    }
   }
 
   .header__button {
@@ -94,7 +57,7 @@
     }
 
     &.style--sidebar-toggle {
-      margin-right: 10px;
+      margin: @g-padding-post;
       transform: rotateZ(-90deg);
 
       &.style--toggled { transform: rotateZ(90deg); }
@@ -174,7 +137,90 @@
     });
   }
 
+  &.style--fixed {
+    height: @header-h;
+    left: 0;
+    margin-left: 0;
+    position: fixed;
+    top: @navbar-h;
+    width: 100%;
+    z-index: @z-header;
+
+    .header__body {
+      height: 100%;
+      padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 10px;
+
+      @media screen and (min-width: @screen-md) {
+        padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
+      }
+    }
+
+    .mediaQuery(@screen-md, {
+      left: @sidebar-w-md;
+      max-width: calc(~'@{s-aligner-md} - @{sidebar-w-md}');
+    });
+
+    .mediaQuery(@screen-lg, {
+      @align: @s-aligner-lg / 2;
+      left: @sidebar-w-lg;
+      max-width: calc(~'@{s-aligner-lg} - @{sidebar-w-lg}');
+      width: calc(~'100% - @{sidebar-w-lg}');
+
+      .header__body {
+        margin-left: 0;
+        width: 100%;
+      }
+    });
+
+    .mediaQuery(@screen-xxl, {
+      @align: @s-aligner-lg / 2;
+      left: calc(~'50% - @{align} + @{sidebar-w-lg}');
+      width: 100%;
+    });
+
+    @media screen and (min-width: @screen-lg) {
+      margin-right: auto;
+    }
+  }
+
+  &.style--fixed {
+    & + .center { padding-top: @header-h; }
+
+    .header__body { align-items: flex-start; }
+    .header__button.style--sidebar-toggle { margin: @button-offset 10px 0 0; }
+  }
+
+  &.style--inner {
+    height: @header-h;
+    margin-left: 0;
+    width: 100%;
+
+    .header__body {
+      height: 100%;
+      padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 10px;
+
+      @media screen and (min-width: @screen-md) {
+        padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
+      }
+
+      @media screen and (min-width: @screen-lg) {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: @screen-md) {
+    // Important so it overwrites the cover-photo styles.
+    &.toggled { transform: translateX(@sidebar-w-sm); }
+  }
+
   @media screen and (min-width: @screen-md) {
-    padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
+    width: calc(~'100% - @{sidebar-w-md}');
+  }
+
+  @media screen and (min-width: @screen-lg) {
+    margin-right: auto;
+    width: 100%;
   }
 }

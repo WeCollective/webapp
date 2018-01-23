@@ -66706,7 +66706,7 @@ var AppService = function (_Injectable) {
       var action = this.isSidebarOpen ? 'add' : 'remove';
       var CLASS_NAME = 'toggled';
       var content = document.getElementsByClassName('center')[0];
-      var header = document.getElementsByClassName('header style--fixed')[0];
+      var header = document.getElementsByClassName('header')[0];
 
       if (content) content.classList[action](CLASS_NAME);
       if (header) header.classList[action](CLASS_NAME);
@@ -73868,11 +73868,11 @@ var BranchController = function (_Injectable) {
   _createClass(BranchController, [{
     key: 'getHeaderClassName',
     value: function getHeaderClassName() {
-      var className = 'header style--fixed';
+      var className = 'header';
 
-      // Post views need taller header for the post preview.
-      if (this.$state.current.name.includes('weco.branch.post')) {
-        className += ' style--fixed-post';
+      // Every header apart from the post is fixed.
+      if (!this.$state.current.name.includes('weco.branch.post')) {
+        className += ' style--fixed';
       }
 
       return className;

@@ -6,11 +6,11 @@ class BranchController extends Injectable {
   }
 
   getHeaderClassName() {
-    let className = 'header style--fixed';
+    let className = 'header';
 
-    // Post views need taller header for the post preview.
-    if (this.$state.current.name.includes('weco.branch.post')) {
-      className += ' style--fixed-post';
+    // Every header apart from the post is fixed.
+    if (!this.$state.current.name.includes('weco.branch.post')) {
+      className += ' style--fixed';
     }
 
     return className;
