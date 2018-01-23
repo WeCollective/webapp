@@ -37,7 +37,7 @@ class BranchWallHeaderController extends Injectable {
         title: 'posts from',
       },
     };
-    this.setDefaultControls();
+    this.$timeout(() => this.setDefaultControls());
 
     const ctrls = this.controls;
     const {
@@ -142,6 +142,7 @@ class BranchWallHeaderController extends Injectable {
 
 BranchWallHeaderController.$inject = [
   '$scope',
+  '$timeout',
   'BranchService',
   'EventService',
   'HeaderService',

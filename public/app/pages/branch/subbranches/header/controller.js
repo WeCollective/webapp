@@ -25,7 +25,7 @@ class BranchSubbranchesHeaderController extends Injectable {
         title: 'created',
       },
     };
-    this.setDefaultControls();
+    this.$timeout(() => this.setDefaultControls());
 
     const ctrls = this.controls;
     const {
@@ -98,6 +98,7 @@ class BranchSubbranchesHeaderController extends Injectable {
 
 BranchSubbranchesHeaderController.$inject = [
   '$scope',
+  '$timeout',
   'EventService',
   'HeaderService',
   'UrlService',

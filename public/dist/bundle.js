@@ -75792,7 +75792,9 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
         title: 'created'
       }
     };
-    _this.setDefaultControls();
+    _this.$timeout(function () {
+      return _this.setDefaultControls();
+    });
 
     var ctrls = _this.controls;
     var _this$UrlService = _this.UrlService,
@@ -75875,7 +75877,7 @@ var BranchSubbranchesHeaderController = function (_Injectable) {
   return BranchSubbranchesHeaderController;
 }(_injectable2.default);
 
-BranchSubbranchesHeaderController.$inject = ['$scope', 'EventService', 'HeaderService', 'UrlService', 'WallService'];
+BranchSubbranchesHeaderController.$inject = ['$scope', '$timeout', 'EventService', 'HeaderService', 'UrlService', 'WallService'];
 
 exports.default = BranchSubbranchesHeaderController;
 
@@ -76117,7 +76119,9 @@ var BranchWallHeaderController = function (_Injectable) {
         title: 'posts from'
       }
     };
-    _this.setDefaultControls();
+    _this.$timeout(function () {
+      return _this.setDefaultControls();
+    });
 
     var ctrls = _this.controls;
     var _this$UrlService = _this.UrlService,
@@ -76235,7 +76239,7 @@ var BranchWallHeaderController = function (_Injectable) {
   return BranchWallHeaderController;
 }(_injectable2.default);
 
-BranchWallHeaderController.$inject = ['$scope', 'BranchService', 'EventService', 'HeaderService', 'UrlService', 'WallService'];
+BranchWallHeaderController.$inject = ['$scope', '$timeout', 'BranchService', 'EventService', 'HeaderService', 'UrlService', 'WallService'];
 
 exports.default = BranchWallHeaderController;
 
