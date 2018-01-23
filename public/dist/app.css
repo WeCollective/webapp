@@ -333,6 +333,7 @@ span {
   font-weight: 400;
   margin-left: 10px;
   padding: 0 10px;
+  transition: opacity .1s;
 }
 .btn.btn--block {
   display: block;
@@ -350,7 +351,7 @@ span {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.1s;
 }
 .btn.btn--primary .btn__label {
   font-size: inherit;
@@ -366,7 +367,7 @@ span {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.1s;
 }
 .btn.btn--secondary .btn__label {
   font-size: inherit;
@@ -377,6 +378,10 @@ span {
 }
 .btn:disabled {
   cursor: initial;
+}
+.btn.ng-hide-remove,
+.btn.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
 }
 .comments {
   box-sizing: border-box;
@@ -531,11 +536,6 @@ span {
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
-}
-.comments .comment__content .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
 }
 .comments .comment__content .list-item__separator {
   background-color: #b3b3b3;
@@ -1041,11 +1041,6 @@ div[loading] div.loading-container img {
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
-}
-.notification .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
 }
 .notification .list-item__separator {
   background-color: #b3b3b3;
@@ -2343,11 +2338,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   text-orientation: upright;
   writing-mode: tb;
 }
-.branch__post .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
 .branch__post .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
@@ -2615,11 +2605,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     font-weight: 600;
     text-orientation: upright;
     writing-mode: tb;
-  }
-  .branch__post .list-item__radio-button {
-    height: 20px;
-    margin: 0 12px;
-    width: 20px;
   }
   .branch__post .list-item__separator {
     background-color: #b3b3b3;
@@ -2899,11 +2884,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   text-orientation: upright;
   writing-mode: tb;
 }
-.branch__subbranch .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
 .branch__subbranch .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
@@ -3135,7 +3115,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   box-sizing: border-box;
   margin-left: auto;
   max-width: 1260px;
-  transition: transform 0.4s;
 }
 .header .header__body {
   align-items: center;
@@ -3378,11 +3357,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   font-weight: 600;
   text-orientation: upright;
   writing-mode: tb;
-}
-.header .list-item .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
 }
 .header .list-item .list-item__separator {
   background-color: #b3b3b3;
@@ -3657,11 +3631,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     text-orientation: upright;
     writing-mode: tb;
   }
-  .header .list-item .list-item__radio-button {
-    height: 20px;
-    margin: 0 12px;
-    width: 20px;
-  }
   .header .list-item .list-item__separator {
     background-color: #b3b3b3;
     display: inline-block;
@@ -3878,7 +3847,14 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     width: 100%;
   }
 }
+.header.style--inner .header__button {
+  margin-right: 4px;
+  margin-top: 0;
+}
 @media screen and (max-width: 768px) {
+  .header {
+    transition: transform 0.4s;
+  }
   .header.toggled {
     transform: translateX(201px);
   }
@@ -4313,11 +4289,6 @@ div#notfound div h2 {
   text-orientation: upright;
   writing-mode: tb;
 }
-.post .post__content-wrapper .style--card-poll-answer .list-item__radio-button {
-  height: 20px;
-  margin: 0 12px;
-  width: 20px;
-}
 .post .post__content-wrapper .style--card-poll-answer .list-item__separator {
   background-color: #b3b3b3;
   display: inline-block;
@@ -4460,7 +4431,8 @@ div#notfound div h2 {
   align-items: center !important;
   display: flex !important;
   justify-content: flex-start !important;
-  overflow: auto !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
   padding: 12px !important;
 }
 .post .post__scrollable-view {

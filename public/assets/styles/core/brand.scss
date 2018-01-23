@@ -1,5 +1,6 @@
 $c-checkbox-active: $c-green !default;
 $c-checkbox-inactive: $c-text !default;
+$c-checkbox-inactive-secondary: $c-navbar-text !default;
 $s-checkbox-h: 24px !default;
 $tr-checkbox-speed: .3s !default;
 
@@ -45,6 +46,11 @@ input[type=checkbox] { display: none; }
     top: $s-checkbox-h * .72;
     transform: rotateZ(-135deg) scaleY(0);
     transition: transform $tr-checkbox-speed ($tr-checkbox-speed / 2);
+  }
+
+  &.style--poll {
+    border-color: $c-checkbox-inactive-secondary;
+    margin-right: $s-spacing-sm;
   }
 }
 

@@ -1,30 +1,59 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  PostTypeAudio,
+  PostTypeImage,
+  PostTypePage,
+  PostTypePoll,
+  PostTypeText,
+  PostTypeVideo,
+} = Constants;
 
 class ListItemController extends Injectable {
   constructor(...injections) {
     super(ListItemController.$inject, injections);
   }
 
+  getCommentsTarget(post) {
+    const {
+      id,
+      type,
+    } = post;
+
+    switch (type) {
+      case PostTypePoll:
+        return this.$state.href('weco.branch.post.vote', {
+          postid: id,
+        });
+
+      default:
+        return this.$state.href('weco.branch.post.discussion', {
+          postid: id,
+        });
+    }
+  }
+
   getMarkerClass() {
     const prefix = 'style--';
 
     switch (this.post.type) {
-      case 'audio':
+      case PostTypeAudio:
         return `${prefix}audio`;
 
-      case 'image':
+      case PostTypeImage:
         return `${prefix}image`;
 
-      case 'page':
+      case PostTypePage:
         return `${prefix}page`;
 
-      case 'poll':
+      case PostTypePoll:
         return `${prefix}poll`;
 
-      case 'text':
+      case PostTypeText:
         return `${prefix}text`;
 
-      case 'video':
+      case PostTypeVideo:
         return `${prefix}video`;
 
       default:

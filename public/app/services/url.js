@@ -63,6 +63,9 @@ class Url extends Injectable {
       case 'sort-flag':
         return this.parseFilterSortFlag(url);
 
+      case 'sort-vote':
+        return this.parseFilterSortVote(url);
+
       case 'stat':
         return this.parseFilterStat(url);
 
@@ -130,6 +133,17 @@ class Url extends Injectable {
         return 'wrong_type';
 
       case 'date':
+      default:
+        return 'date';
+    }
+  }
+
+  parseFilterSortVote(url) {
+    switch (url) {
+      case 'date':
+      case 'votes':
+        return url;
+
       default:
         return 'date';
     }

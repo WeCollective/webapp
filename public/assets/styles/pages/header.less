@@ -5,7 +5,6 @@
   box-sizing: border-box;
   margin-left: auto;
   max-width: @s-aligner-lg;
-  transition: @tr;
 
   .header__body {
     align-items: center;
@@ -208,9 +207,16 @@
         width: 100%;
       }
     }
+
+    .header__button {
+      margin-right: 4px;
+      margin-top: 0;
+    }
   }
 
   @media screen and (max-width: @screen-md) {
+    transition: @tr;
+
     // Important so it overwrites the cover-photo styles.
     &.toggled { transform: translateX(@sidebar-w-sm); }
   }

@@ -243,7 +243,7 @@ class AppRoutes extends Injectable {
         url: '/vote',
         templateUrl: '/app/pages/branch/post/vote/view.html',
         controller: 'BranchPostVoteController',
-        controllerAs: 'BranchPostVote',
+        controllerAs: 'Ctrl',
         pageTrack: '/p/:postid/vote',
       })
 

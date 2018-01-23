@@ -1,34 +1,43 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const { SortVotes } = Constants.Filters;
 
 class BranchPostVoteController extends Injectable {
   constructor(...injections) {
     super(BranchPostVoteController.$inject, injections);
 
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultControls = this.setDefaultControls.bind(this);
+
     let cache = this.LocalStorageService.getObject('cache').postPoll || {};
     cache = cache[this.PostService.post.id] || {};
-
-    this.answers = cache.answers || [];
-    this.controls = {
-      sortBy: {
-        items: [
-          'date posted',
-          'votes',
-        ],
-        selectedIndex: 0,
-      },
-    };
+    this.items = cache.answers || [];
     this.selectedAnswerIndex = -1;
 
-    // Get the initial state.
-    this.getPollAnswers();
+    this.controls = {
+      sortBy: {
+        items: SortVotes,
+        selectedIndex: -1,
+        title: 'sorted by',
+      },
+    };
+    this.$timeout(() => this.setDefaultControls());
 
-    const { sortBy } = this.controls;
-    const listeners = [];
-    listeners.push(this.$scope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
-      if (newValue !== oldValue) this.getPollAnswers();
-    }));
+    const ctrls = this.controls;
+    const {
+      attachFilterListeners,
+      getFilterFlatItems,
+    } = this.UrlService;
 
+    this.sortBy = getFilterFlatItems(ctrls.sortBy);
+
+    const listeners = [...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown)];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  callbackDropdown() {
+    this.getItems();
   }
 
   canSubmitNewAnswer() {
@@ -39,36 +48,20 @@ class BranchPostVoteController extends Injectable {
     return !(post.locked && post.data.creator !== user.username);
   }
 
-  getPollAnswers(lastAnswerId) {
+  getItems(lastAnswerId) {
     this.selectedAnswerIndex = -1;
-
-    const { sortBy } = this.controls;
-    let sort;
-
-    switch (sortBy.items[sortBy.selectedIndex].toLowerCase()) {
-      case 'date':
-        sort = 'date';
-        break;
-
-      case 'votes':
-        sort = 'votes';
-        break;
-
-      default:
-        sort = 'date';
-        break;
-    }
+    const sortBy = this.getSortBy();
 
     // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sort, lastAnswerId)
+    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
       // if lastAnswerId was specified we are fetching _more_ answers, so append them
       .then(answers => this.$timeout(() => {
-        this.answers = lastAnswerId ? this.answers.concat(answers) : answers;
+        this.items = lastAnswerId ? this.items.concat(answers) : answers;
 
         const cache = this.LocalStorageService.getObject('cache');
         cache.postPoll = cache.postPoll || {};
         cache.postPoll[this.PostService.post.id] = cache.postPoll[this.PostService.post.id] || {};
-        cache.postPoll[this.PostService.post.id].answers = this.answers;
+        cache.postPoll[this.PostService.post.id].answers = this.items;
         this.LocalStorageService.setObject('cache', cache);
       }))
       .catch(err => {
@@ -76,6 +69,10 @@ class BranchPostVoteController extends Injectable {
           this.AlertsService.push('error', 'Error fetching poll answers.');
         }
       });
+  }
+
+  getSortBy() {
+    return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-vote');
   }
 
   openSubmitPollAnswerModal() {
@@ -96,8 +93,26 @@ class BranchPostVoteController extends Injectable {
     this.selectedAnswerIndex = this.selectedAnswerIndex !== index ? index : -1;
   }
 
+  setDefaultControls() {
+    const { sortBy } = this.controls;
+    const {
+      getUrlSearchParams,
+      urlToFilterItemIndex,
+    } = this.UrlService;
+    const { sort } = getUrlSearchParams();
+    const defaultSortByIndex = 0;
+    const urlIndexSortBy = urlToFilterItemIndex(sort, sortBy);
+
+    sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
+
+    // Set filters through service for other modules.
+    setTimeout(() => {
+      this.callbackDropdown();
+    }, 0);
+  }
+
   vote() {
-    const answer = this.answers[this.selectedAnswerIndex];
+    const answer = this.items[this.selectedAnswerIndex];
 
     if (!answer) return;
 
@@ -116,7 +131,7 @@ BranchPostVoteController.$inject = [
   'LocalStorageService',
   'ModalService',
   'PostService',
-  'UserService',
+  'UrlService',
 ];
 
 export default BranchPostVoteController;

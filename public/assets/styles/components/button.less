@@ -8,6 +8,7 @@
   font-weight: @font-weight-normal;
   margin-left: 10px;
   padding: 0 10px;
+  transition: opacity .1s;
 
   &.btn--block {
     display: block;
@@ -25,8 +26,10 @@
     height: @btn-height;
     line-height: @btn-height;
     text-align: center;
-    transition: background-color .3s ease-out,
-      box-shadow .3s ease-out;
+    transition:
+      background-color .3s ease-out,
+      box-shadow .3s ease-out,
+      opacity .1s;
 
     .btn__label { font-size: inherit; }
 
@@ -43,8 +46,10 @@
     height: @btn-height;
     line-height: @btn-height;
     text-align: center;
-    transition: background-color .3s ease-out,
-      box-shadow .3s ease-out;
+    transition:
+      background-color .3s ease-out,
+      box-shadow .3s ease-out,
+      opacity .1s;
 
     .btn__label { font-size: inherit; }
 
@@ -55,4 +60,9 @@
   }
 
   &:disabled { cursor: initial; }
+
+  &.ng-hide-remove,
+  &.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+  }
 }

@@ -85,6 +85,11 @@ const SortItemPosts = {
   url: 'posts',
 };
 
+const SortItemVotes = {
+  label: 'votes',
+  url: 'votes',
+};
+
 const SortBranch = [
   SortItemPoints,
   SortItemPosts,
@@ -96,6 +101,11 @@ const SortPost = [
   SortItemPoints,
   SortItemComments,
   SortItemDate,
+];
+
+const SortVotes = [
+  SortItemDate,
+  SortItemVotes,
 ];
 
 const Time = [{
@@ -126,8 +136,15 @@ export default {
     Category,
     Flag,
     Point,
-    SortPost,
     SortBranch,
+    SortPost,
+    SortVotes,
     Time,
   },
+  PostTypeAudio,
+  PostTypeImage,
+  PostTypePage,
+  PostTypePoll,
+  PostTypeText,
+  PostTypeVideo,
 };

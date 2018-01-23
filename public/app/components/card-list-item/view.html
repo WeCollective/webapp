@@ -84,10 +84,10 @@
     <span>
       <a
         class="list-item__detail style--has-children"
+        ng-href="{{ ListItem.getCommentsTarget(ListItem.post) }}"
         offset-y="20"
         text="'View post discussion'"
-        tooltip
-        ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
+        tooltip>
         <img
           alt="View post discussion"
           class="list-item__detail"

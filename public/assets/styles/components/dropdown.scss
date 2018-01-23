@@ -14,7 +14,7 @@
     color: inherit;
     cursor: pointer;
     display: block;
-    font-size: inherit;
+    font-size: $dropdown-font-size;
     left: 0;
     max-width: 100%;
     padding-top: $dropdown-list-padding;
@@ -42,9 +42,11 @@
 
   .dropdown__title {
     color: $c-border-input;
-    font-size: inherit;
+    font-size: $dropdown-font-size;
     font-weight: 400;
     line-height: 1;
+    // Vertically aligns dropdown in post votes header.
+    margin-bottom: $dropdown-list-padding;
     padding-right: $s-spacing-sm * 2;
     position: relative;
     text-transform: uppercase;
@@ -92,9 +94,9 @@
 
       &::before { top: round($dropdown-font-size / 2) - 1px; }
     }
-
-    + .header__button { margin-left: $s-spacing-sm; }
   }
 
   &:first-child { margin-left: 10px; }
+
+  + .header__button { margin-left: $s-spacing-sm; }
 }
