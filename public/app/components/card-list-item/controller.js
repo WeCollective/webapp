@@ -15,25 +15,6 @@ class ListItemController extends Injectable {
     super(ListItemController.$inject, injections);
   }
 
-  getCommentsTarget(post) {
-    const {
-      id,
-      type,
-    } = post;
-
-    switch (type) {
-      case PostTypePoll:
-        return this.$state.href('weco.branch.post.vote', {
-          postid: id,
-        });
-
-      default:
-        return this.$state.href('weco.branch.post.discussion', {
-          postid: id,
-        });
-    }
-  }
-
   getMarkerClass() {
     const prefix = 'style--';
 
@@ -90,6 +71,25 @@ class ListItemController extends Injectable {
   getPostImage() {
     const IMG_DIR = '/assets/images/placeholders/';
     return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
+  }
+
+  getPostTarget(post) {
+    const {
+      id,
+      type,
+    } = post;
+
+    switch (type) {
+      case PostTypePoll:
+        return this.$state.href('weco.branch.post.vote', {
+          postid: id,
+        });
+
+      default:
+        return this.$state.href('weco.branch.post', {
+          postid: id,
+        });
+    }
   }
 
   getPostUrl() {

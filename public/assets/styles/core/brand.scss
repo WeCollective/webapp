@@ -51,6 +51,7 @@ input[type=checkbox] { display: none; }
   &.style--poll {
     border-color: $c-checkbox-inactive-secondary;
     margin-right: $s-spacing-sm;
+    pointer-events: none;
   }
 }
 

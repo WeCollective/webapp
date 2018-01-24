@@ -67076,25 +67076,6 @@ var ListItemController = function (_Injectable) {
   }
 
   _createClass(ListItemController, [{
-    key: 'getCommentsTarget',
-    value: function getCommentsTarget(post) {
-      var id = post.id,
-          type = post.type;
-
-
-      switch (type) {
-        case PostTypePoll:
-          return this.$state.href('weco.branch.post.vote', {
-            postid: id
-          });
-
-        default:
-          return this.$state.href('weco.branch.post.discussion', {
-            postid: id
-          });
-      }
-    }
-  }, {
     key: 'getMarkerClass',
     value: function getMarkerClass() {
       var prefix = 'style--';
@@ -67154,6 +67135,25 @@ var ListItemController = function (_Injectable) {
     value: function getPostImage() {
       var IMG_DIR = '/assets/images/placeholders/';
       return this.post.profileUrlThumb || IMG_DIR + 'post--' + this.post.type + '.svg';
+    }
+  }, {
+    key: 'getPostTarget',
+    value: function getPostTarget(post) {
+      var id = post.id,
+          type = post.type;
+
+
+      switch (type) {
+        case PostTypePoll:
+          return this.$state.href('weco.branch.post.vote', {
+            postid: id
+          });
+
+        default:
+          return this.$state.href('weco.branch.post', {
+            postid: id
+          });
+      }
     }
   }, {
     key: 'getPostUrl',

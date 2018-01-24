@@ -37,8 +37,8 @@
        One is to link to an external site. (Non-text posts) -->
   <a
     class="list-item-image"
-    ng-if="['text', 'poll'].includes(ListItem.post.type)"
-    ui-sref="weco.branch.post({ postid: ListItem.post.id })">
+    ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
+    ng-if="['text', 'poll'].includes(ListItem.post.type)">
     <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
   </a>
 
@@ -66,8 +66,8 @@
     <!-- Two DOM elements conditionally displayed again - see above. -->
     <a
       class="list-item__title"
-      ng-if="['text', 'poll'].includes(ListItem.post.type)"
-      ui-sref="weco.branch.post({ postid: ListItem.post.id })">
+      ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
+      ng-if="['text', 'poll'].includes(ListItem.post.type)">
       {{ ListItem.post.title }}
     </a>
 
@@ -84,10 +84,10 @@
     <span>
       <a
         class="list-item__detail style--has-children"
-        ng-href="{{ ListItem.getCommentsTarget(ListItem.post) }}"
         offset-y="20"
         text="'View post discussion'"
-        tooltip>
+        tooltip
+        ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
         <img
           alt="View post discussion"
           class="list-item__detail"

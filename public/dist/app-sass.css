@@ -56,7 +56,8 @@ input[type=checkbox] {
     transition: transform 0.3s 0.15s; }
   .checkbox.style--poll {
     border-color: #b3b3b3;
-    margin-right: 12px; }
+    margin-right: 12px;
+    pointer-events: none; }
 
 input[type=checkbox]:checked + .checkbox,
 .checkbox.checked {
