@@ -4,9 +4,9 @@ class ModalService extends Injectable {
   constructor(...injections) {
     super(ModalService.$inject, injections);
 
+    this.disabled = false;
     this.inputArgs = {};
     this.isOpen = false;
-    this.isSubmitDisabled = false;
     this.name = '';
     this.outputArgs = {};
     this.reject = () => {};
@@ -45,12 +45,12 @@ class ModalService extends Injectable {
     return this.handleControlButtonClick(false, args);
   }
 
-  disableOK() {
-    this.isSubmitDisabled = true;
+  disableButtons() {
+    this.disabled = true;
   }
 
-  enableOK() {
-    this.isSubmitDisabled = false;
+  enableButtons() {
+    this.disabled = false;
   }
 
   Error() {
@@ -75,6 +75,7 @@ class ModalService extends Injectable {
 
   handleCancel() {
     const { events } = this.EventService;
+    this.disabled = true;
     this.removeListeners();
     return this.EventService.emit(events.MODAL_CANCEL, this.name);
   }
@@ -104,9 +105,9 @@ class ModalService extends Injectable {
     }
   }
 
-  handleSubmit(isDisabled) {
-    if (isDisabled) return;
+  handleSubmit() {
     const { events } = this.EventService;
+    this.disabled = true;
     this.EventService.emit(events.MODAL_OK, this.name);
   }
 

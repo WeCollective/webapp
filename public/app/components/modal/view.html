@@ -13,20 +13,17 @@
   </div>
 
   <div class="modal__controls">
-    <div
-      class="modal__button style--secondary"
-      ng-click="ModalService.handleCancel()">
-      <span class="text--uppercase">
-        cancel
-      </span>
-    </div>
-    <div
-      class="modal__button style--primary"
-      ng-class="{ 'style--disabled': ModalService.isSubmitDisabled }"
-      ng-click="ModalService.handleSubmit(ModalService.isSubmitDisabled)">
-      <span class="text--uppercase">
-        ok
-      </span>
-    </div>
+    <button
+      class="modal__button style--secondary text--uppercase"
+      ng-click="ModalService.handleCancel()"
+      ng-disabled="ModalService.disabled">
+      cancel
+    </button>
+    <button
+      class="modal__button style--primary text--uppercase"
+      ng-click="ModalService.handleSubmit()"
+      ng-disabled="ModalService.disabled">
+      ok
+    </button>
   </div>
 </div>

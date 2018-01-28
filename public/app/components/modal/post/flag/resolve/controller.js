@@ -28,6 +28,7 @@ class ResolveFlagPostModalController extends Injectable {
       if (name !== 'RESOLVE_FLAG_POST') return;
 
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       const params = this.ModalService.inputArgs;
 
@@ -75,6 +76,7 @@ class ResolveFlagPostModalController extends Injectable {
         this.$timeout(() => {
           this.errorMessage = 'Please provide an explanatory message for the OP';
           this.isLoading = false;
+          this.ModalService.disabled = false;
         });
         return;
       }
@@ -84,21 +86,19 @@ class ResolveFlagPostModalController extends Injectable {
         .then(() => this.$timeout(() => {
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK();
         }))
         .catch(response => this.$timeout(() => {
           this.errorMessage = response.message;
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'RESOLVE_FLAG_POST') return;
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+      this.close();
     }));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));

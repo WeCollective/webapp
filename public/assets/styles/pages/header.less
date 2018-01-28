@@ -5,6 +5,7 @@
   box-sizing: border-box;
   margin-left: auto;
   max-width: @s-aligner-lg;
+  transition: @tr;
 
   .header__body {
     align-items: center;
@@ -187,6 +188,11 @@
 
     .header__body { align-items: flex-start; }
     .header__button.style--sidebar-toggle { margin: @button-offset 10px 0 0; }
+
+    @media screen and (max-width: @screen-md) {
+      // Important so it overwrites the cover-photo styles.
+      &.toggled { transform: translateX(@sidebar-w-sm); }
+    }
   }
 
   &.style--inner {
@@ -212,13 +218,6 @@
       margin-right: 4px;
       margin-top: 0;
     }
-  }
-
-  @media screen and (max-width: @screen-md) {
-    transition: @tr;
-
-    // Important so it overwrites the cover-photo styles.
-    &.toggled { transform: translateX(@sidebar-w-sm); }
   }
 
   @media screen and (min-width: @screen-md) {

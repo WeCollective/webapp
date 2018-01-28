@@ -69,6 +69,12 @@ input[type=checkbox]:checked + .checkbox,
   .checkbox.checked::before {
     transform: rotateZ(-135deg) scaleY(1); }
 
+input[type=checkbox]:disabled + .checkbox {
+  border-color: #b3b3b3;
+  cursor: initial; }
+  input[type=checkbox]:disabled + .checkbox::before, input[type=checkbox]:disabled + .checkbox::after {
+    background-color: #b3b3b3; }
+
 .dropdown {
   font-size: 11px;
   margin-left: 18px;
@@ -94,11 +100,16 @@ input[type=checkbox]:checked + .checkbox,
     transition: color 0.2s; }
     .dropdown .dropdown__list:focus {
       outline: none; }
-    .dropdown .dropdown__list:hover {
+    .dropdown .dropdown__list:disabled {
+      color: #c8c8c8;
+      cursor: initial; }
+      .dropdown .dropdown__list:disabled + .dropdown__title::before {
+        border-top-color: #c8c8c8; }
+    .dropdown .dropdown__list:not(:disabled):hover {
       color: #3c8Ce7; }
-      .dropdown .dropdown__list:hover + .dropdown__title {
+      .dropdown .dropdown__list:not(:disabled):hover + .dropdown__title {
         color: #c4dcf8; }
-        .dropdown .dropdown__list:hover + .dropdown__title::before {
+        .dropdown .dropdown__list:not(:disabled):hover + .dropdown__title::before {
           border-top-color: #3c8Ce7; }
   .dropdown .dropdown__title {
     color: #c8c8c8;

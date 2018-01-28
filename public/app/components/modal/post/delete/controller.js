@@ -12,6 +12,8 @@ class DeletePostModalController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_POST') return;
 
+      this.ModalService.disabled = true;
+
       const { id } = this.BranchService.branch;
       const { name: stateName } = this.$state.current;
       // Redirect so we won't see the 404 message.
@@ -23,10 +25,12 @@ class DeletePostModalController extends Injectable {
       this.PostService.delete(this.ModalService.inputArgs.postid)
         .then(() => {
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK();
         })
         .catch(() => {
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.Cancel();
         });
     }));

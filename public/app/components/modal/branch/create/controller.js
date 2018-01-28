@@ -32,10 +32,13 @@ class CreateBranchModalController extends Injectable {
   onModalSubmit(name) {
     if (name !== 'CREATE_BRANCH') return;
 
+    this.ModalService.disabled = true;
+
     // if not all fields are filled, display message
     if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
       this.$timeout(() => {
         this.errorMessage = 'Please fill in all fields';
+        this.ModalService.disabled = false;
       });
       return;
     }
@@ -48,6 +51,7 @@ class CreateBranchModalController extends Injectable {
       .create(this.newBranch)
       .then(() => this.$timeout(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.errorMessage = '';
 
         const branchid = this.newBranch.id;
@@ -59,6 +63,7 @@ class CreateBranchModalController extends Injectable {
       }))
       .catch(err => this.$timeout(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.errorMessage = err.message;
       }));
   }

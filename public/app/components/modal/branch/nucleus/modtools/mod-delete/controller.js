@@ -41,6 +41,8 @@ class RemoveModModalController extends Injectable {
     this.EventService.on(events.MODAL_OK, name => {
       if (name !== 'REMOVE_MOD') return;
       this.isLoading = true;
+      this.ModalService.disabled = true;
+
       this.ModService.remove(this.ModalService.inputArgs.branchid, this.selectedMod.username)
         .then(() => this.$timeout(() => {
           this.ModalService.OK({
@@ -49,6 +51,7 @@ class RemoveModModalController extends Injectable {
           this.selectedMod = {};
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }))
         .catch(response => this.$timeout(() => {
           this.errorMessage = response.message;
@@ -56,6 +59,7 @@ class RemoveModModalController extends Injectable {
             this.errorMessage = 'That user doesn\'t exist';
           }
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     });
 

@@ -13,6 +13,7 @@ class DetachBranchChildModalController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DETACH_BRANCH_CHILD') return;
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       const params = Object.assign({}, this.data);
       const prefix = 'b/';
@@ -27,11 +28,13 @@ class DetachBranchChildModalController extends Injectable {
           this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK(params);
         }))
         .catch(err => this.$timeout(() => {
           this.errorMessage = err.message;
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     }));
 
@@ -52,10 +55,10 @@ class DetachBranchChildModalController extends Injectable {
     this.data.branchid = this.data.branchid.split(' ').join('');
 
     if (!this.data.branchid) {
-      this.ModalService.disableOK();
+      this.ModalService.disableButtons();
     }
     else {
-      this.ModalService.enableOK();
+      this.ModalService.enableButtons();
     }
   }
 }

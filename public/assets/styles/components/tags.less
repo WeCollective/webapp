@@ -11,10 +11,16 @@
 }
 
 .tags__icon {
+  @size: 16px;
+
+  background-color: transparent;
+  border: none;
   cursor: pointer;
   display: inline-block;
-  height: 16px;
+  height: @size;
   margin-left: 6px;
+  padding: 0;
+  width: @size;
   transition: opacity .2s;
 
   svg {
@@ -25,7 +31,8 @@
     path#background { fill: transparent; }
   }
 
-  &:hover { opacity: .5; }
+  &:disabled { cursor: initial; }
+  &:not(:disabled):hover { opacity: .5; }
 }
 
 .tags__input {
@@ -41,14 +48,28 @@
 }
 
 .tags__input-icon {
+  @size: 20px;
+
+  background-color: transparent;
+  border: none;
   cursor: pointer;
-  height: 20px;
+  height: @size;
+  opacity: .5;
+  padding: 0;
   position: absolute;
   right: 10px;
   top: calc(~'50% - 15px');
-  width: auto;
+  width: @size;
+  transition: opacity .2s;
 
-  &:hover { opacity: 1; }
+  > img {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  &:disabled { cursor: initial; }
+  &:not(:disabled):hover { opacity: 1; }
 }
 
 .tags__input-wrapper {

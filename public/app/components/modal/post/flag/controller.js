@@ -23,6 +23,7 @@ class FlagPostModalController extends Injectable {
       if (name !== 'FLAG_POST') return;
 
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       const { post } = this.ModalService.inputArgs;
       let type;
@@ -47,6 +48,7 @@ class FlagPostModalController extends Injectable {
         default:
           this.errorMessage = 'Unknown flag type.';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           return;
       }
 
@@ -54,22 +56,19 @@ class FlagPostModalController extends Injectable {
         .then(() => this.$timeout(() => {
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK();
         }))
         .catch(response => this.$timeout(() => {
           this.errorMessage = response.message;
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     }));
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_CANCEL, name => {
       if (name !== 'FLAG_POST') return;
-
-      this.$timeout(() => {
-        this.errorMessage = '';
-        this.isLoading = false;
-        this.ModalService.Cancel();
-      });
+      this.close();
     }));
 
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));

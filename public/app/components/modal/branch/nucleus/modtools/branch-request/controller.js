@@ -30,6 +30,7 @@ class SubmitSubbranchRequestModalController extends Injectable {
   handleModalSubmit(name) {
     if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
     this.isLoading = true;
+    this.ModalService.disabled = true;
 
     if (!this.data || !this.data.parentid) {
       this.$timeout(() => this.errorMessage = 'Please fill in all fields');
@@ -41,12 +42,14 @@ class SubmitSubbranchRequestModalController extends Injectable {
     this.BranchService.submitSubbranchRequest(params.parentid, this.ModalService.inputArgs.branchid)
       .then(() => this.$timeout(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.data = {};
         this.errorMessage = '';
         this.ModalService.OK(params);
       }))
       .catch(error => this.$timeout(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.errorMessage = error.message;
       }));
   }

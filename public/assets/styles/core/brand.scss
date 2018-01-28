@@ -62,3 +62,13 @@ input[type=checkbox]:checked + .checkbox,
   &::after { transform: rotateZ(-45deg) scaleY(1); }
   &::before { transform: rotateZ(-135deg) scaleY(1); }
 }
+
+input[type=checkbox]:disabled + .checkbox {
+  border-color: $c-checkbox-inactive-secondary;
+  cursor: initial;
+
+  &::before,
+  &::after {
+    background-color: $c-checkbox-inactive-secondary;
+  }
+}

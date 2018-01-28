@@ -2,6 +2,7 @@
   <select
     class="dropdown__list"
     ng-change="Dropdown.handleChange()"
+    ng-disabled="Dropdown.disabled"
     ng-model="Dropdown.active">
     <option ng-repeat="item in Dropdown.items" value="{{ item }}">
       {{ item }}

@@ -29,7 +29,14 @@
 
     &:focus { outline: none; }
 
-    &:hover {
+    &:disabled {
+      color: $c-border-input;
+      cursor: initial;
+
+      & + .dropdown__title::before { border-top-color: $c-border-input; }
+    }
+
+    &:not(:disabled):hover {
       color: $c-blue;
 
       & + .dropdown__title {

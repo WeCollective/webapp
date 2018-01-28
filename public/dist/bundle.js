@@ -68655,6 +68655,7 @@ var DropdownComponent = function (_Injectable) {
 
     _this.bindToController = {
       class: '@',
+      disabled: '=',
       items: '=',
       selected: '=',
       title: '='
@@ -69009,10 +69010,13 @@ var CreateBranchModalController = function (_Injectable) {
 
       if (name !== 'CREATE_BRANCH') return;
 
+      this.ModalService.disabled = true;
+
       // if not all fields are filled, display message
       if (!this.newBranch || !this.newBranch.id || !this.newBranch.name) {
         this.$timeout(function () {
           _this3.errorMessage = 'Please fill in all fields';
+          _this3.ModalService.disabled = false;
         });
         return;
       }
@@ -69024,6 +69028,7 @@ var CreateBranchModalController = function (_Injectable) {
       this.BranchService.create(this.newBranch).then(function () {
         return _this3.$timeout(function () {
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
           _this3.errorMessage = '';
 
           var branchid = _this3.newBranch.id;
@@ -69038,6 +69043,7 @@ var CreateBranchModalController = function (_Injectable) {
       }).catch(function (err) {
         return _this3.$timeout(function () {
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
           _this3.errorMessage = err.message;
         });
       });
@@ -69095,10 +69101,13 @@ var BanUserModalController = function (_Injectable) {
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'BAN_USER') return;
 
+      _this.ModalService.disabled = true;
+
       // Username cannot be empty.
       if (!_this.data || !_this.data.username) {
         _this.$timeout(function () {
-          return _this.errorMessage = 'Username cannot be empty';
+          _this.errorMessage = 'Username cannot be empty';
+          _this.ModalService.disabled = false;
         });
         return;
       }
@@ -69109,12 +69118,14 @@ var BanUserModalController = function (_Injectable) {
           _this.data = {};
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK();
         });
       }).catch(function (err) {
         return _this.$timeout(function () {
           _this.errorMessage = err.message;
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
@@ -69186,13 +69197,14 @@ var DeleteBranchModalController = function (_Injectable) {
     _this.isLoading = false;
 
     // Disable submission by default.
-    _this.ModalService.disableOK();
+    _this.ModalService.disableButtons();
 
     var listeners = [];
 
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'DELETE_BRANCH') return;
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
 
       var params = Object.assign({}, _this.data);
 
@@ -69201,12 +69213,14 @@ var DeleteBranchModalController = function (_Injectable) {
           _this.data = {};
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK(params);
         });
       }).catch(function (err) {
         return _this.$timeout(function () {
           _this.errorMessage = err.message;
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
@@ -69235,9 +69249,9 @@ var DeleteBranchModalController = function (_Injectable) {
       this.data.branchid = this.data.branchid.split(' ').join('');
 
       if (this.data.branchid !== this.ModalService.inputArgs.branchid) {
-        this.ModalService.disableOK();
+        this.ModalService.disableButtons();
       } else {
-        this.ModalService.enableOK();
+        this.ModalService.enableButtons();
       }
     }
   }]);
@@ -69295,6 +69309,7 @@ var DetachBranchChildModalController = function (_Injectable) {
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'DETACH_BRANCH_CHILD') return;
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
 
       var params = Object.assign({}, _this.data);
       var prefix = 'b/';
@@ -69308,12 +69323,14 @@ var DetachBranchChildModalController = function (_Injectable) {
           _this.data = {};
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK(params);
         });
       }).catch(function (err) {
         return _this.$timeout(function () {
           _this.errorMessage = err.message;
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
@@ -69342,9 +69359,9 @@ var DetachBranchChildModalController = function (_Injectable) {
       this.data.branchid = this.data.branchid.split(' ').join('');
 
       if (!this.data.branchid) {
-        this.ModalService.disableOK();
+        this.ModalService.disableButtons();
       } else {
-        this.ModalService.enableOK();
+        this.ModalService.enableButtons();
       }
     }
   }]);
@@ -69433,6 +69450,7 @@ var SubmitSubbranchRequestModalController = function (_Injectable) {
 
       if (name !== 'SUBMIT_SUBBRANCH_REQUEST') return;
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       if (!this.data || !this.data.parentid) {
         this.$timeout(function () {
@@ -69446,6 +69464,7 @@ var SubmitSubbranchRequestModalController = function (_Injectable) {
       this.BranchService.submitSubbranchRequest(params.parentid, this.ModalService.inputArgs.branchid).then(function () {
         return _this3.$timeout(function () {
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
           _this3.data = {};
           _this3.errorMessage = '';
           _this3.ModalService.OK(params);
@@ -69453,6 +69472,7 @@ var SubmitSubbranchRequestModalController = function (_Injectable) {
       }).catch(function (error) {
         return _this3.$timeout(function () {
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
           _this3.errorMessage = error.message;
         });
       });
@@ -69593,12 +69613,14 @@ var RemoveModModalController = function (_Injectable) {
       var _this3 = this;
 
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       this.BranchService.actionSubbranchRequest(_action, this.requests[index].parentid, this.requests[index].childid).then(function () {
         return _this3.$timeout(function () {
           _this3.requests.splice(index, 1);
           _this3.errorMessage = '';
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
         });
       }).catch(function (err) {
         return _this3.$timeout(function () {
@@ -69607,6 +69629,7 @@ var RemoveModModalController = function (_Injectable) {
             _this3.errorMessage = 'That user doesn\'t exist';
           }
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
         });
       });
     }
@@ -69633,6 +69656,7 @@ var RemoveModModalController = function (_Injectable) {
       this.$timeout(function () {
         _this5.errorMessage = '';
         _this5.isLoading = false;
+        _this5.ModalService.disabled = false;
         _this5.ModalService.OK();
       });
     }
@@ -69748,10 +69772,13 @@ var UpdateHomepageStatsModalController = function (_Injectable) {
 
       // validate stats
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
+
       if (Number.isNaN(_this.stats.donation_total) || Number.isNaN(_this.stats.raised_total)) {
         _this.$timeout(function () {
           _this.errorMessage = 'Invalid amount';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
         return;
       }
@@ -69780,6 +69807,7 @@ var UpdateHomepageStatsModalController = function (_Injectable) {
 
                 this.$timeout(function () {
                   _this3.isLoading = false;
+                  _this3.ModalService.disabled = false;
                   _this3.ModalService.OK();
                 });
                 _context2.next = 12;
@@ -69872,11 +69900,14 @@ var AddModModalController = function (_Injectable) {
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'ADD_MOD') return;
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
+
       _this.ModService.create(_this.BranchService.branch.id, _this.data.username).then(function () {
         return _this.$timeout(function () {
           _this.data = {};
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK();
         });
       }).catch(function (response) {
@@ -69887,6 +69918,7 @@ var AddModModalController = function (_Injectable) {
             _this.errorMessage = 'That user doesn\'t exist';
           }
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
@@ -70035,6 +70067,8 @@ var RemoveModModalController = function (_Injectable) {
     _this.EventService.on(events.MODAL_OK, function (name) {
       if (name !== 'REMOVE_MOD') return;
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
+
       _this.ModService.remove(_this.ModalService.inputArgs.branchid, _this.selectedMod.username).then(function () {
         return _this.$timeout(function () {
           _this.ModalService.OK({
@@ -70043,6 +70077,7 @@ var RemoveModModalController = function (_Injectable) {
           _this.selectedMod = {};
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       }).catch(function (response) {
         return _this.$timeout(function () {
@@ -70051,6 +70086,7 @@ var RemoveModModalController = function (_Injectable) {
             _this.errorMessage = 'That user doesn\'t exist';
           }
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     });
@@ -70170,6 +70206,8 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
 
       if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
 
+      this.ModalService.disabled = true;
+
       var _ModalService$inputAr = this.ModalService.inputArgs,
           inputs = _ModalService$inputAr.inputs,
           textareas = _ModalService$inputAr.textareas;
@@ -70184,7 +70222,8 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
 
         if (input.required && (value === undefined || value === '')) {
           this.$timeout(function () {
-            return _this3.errorMessage = 'Please fill in all fields';
+            _this3.errorMessage = 'Please fill in all fields';
+            _this3.ModalService.disabled = false;
           });
           return;
         }
@@ -70203,7 +70242,8 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
 
         if (textarea.required && (_value === undefined || _value === '')) {
           this.$timeout(function () {
-            return _this3.errorMessage = 'Please fill in all fields';
+            _this3.errorMessage = 'Please fill in all fields';
+            _this3.ModalService.disabled = false;
           });
           return;
         }
@@ -70230,6 +70270,7 @@ var BranchNucleusSettingsModalController = function (_Injectable) {
     value: function resetState(submitErrorMessage) {
       this.errorMessage = submitErrorMessage || '';
       this.isLoading = false;
+      this.ModalService.disabled = false;
 
       if (!submitErrorMessage) {
         this.inputValues = [];
@@ -70324,12 +70365,15 @@ var DeleteCommentModalController = function (_Injectable) {
       var params = this.ModalService.inputArgs;
 
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       this.CommentService.delete(params.postid, params.commentid).then(function () {
         _this3.isLoading = false;
+        _this3.ModalService.disabled = false;
         _this3.ModalService.OK();
       }).catch(function () {
         _this3.isLoading = false;
+        _this3.ModalService.disabled = false;
         _this3.ModalService.Cancel();
       });
     }
@@ -70574,6 +70618,8 @@ var CreatePostModalController = function (_Injectable) {
 
       if (name !== 'CREATE_POST') return;
 
+      this.isLoading = true;
+
       var _post = this.post,
           branches = _post.branches,
           locked = _post.locked,
@@ -70603,6 +70649,8 @@ var CreatePostModalController = function (_Injectable) {
       if (error) {
         this.$timeout(function () {
           _this4.errorMessage = error;
+          _this4.isLoading = false;
+          _this4.ModalService.disabled = false;
         });
         return;
       }
@@ -70687,6 +70735,7 @@ var CreatePostModalController = function (_Injectable) {
 
                 this.$timeout(function () {
                   _this5.isLoading = false;
+                  _this5.ModalService.disabled = false;
                 });
 
                 if (!(!err && this.file && type !== PostTypeImage)) {
@@ -70740,6 +70789,7 @@ var CreatePostModalController = function (_Injectable) {
                   this.$timeout(function () {
                     _this5.errorMessage = err.message || 'Error creating post!';
                     _this5.isLoading = false;
+                    _this5.ModalService.disabled = false;
                   });
                 }
 
@@ -70824,6 +70874,8 @@ var DeletePostModalController = function (_Injectable) {
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_OK, function (name) {
       if (name !== 'DELETE_POST') return;
 
+      _this.ModalService.disabled = true;
+
       var id = _this.BranchService.branch.id;
       var stateName = _this.$state.current.name;
       // Redirect so we won't see the 404 message.
@@ -70835,9 +70887,11 @@ var DeletePostModalController = function (_Injectable) {
       _this.isLoading = true;
       _this.PostService.delete(_this.ModalService.inputArgs.postid).then(function () {
         _this.isLoading = false;
+        _this.ModalService.disabled = false;
         _this.ModalService.OK();
       }).catch(function () {
         _this.isLoading = false;
+        _this.ModalService.disabled = false;
         _this.ModalService.Cancel();
       });
     }));
@@ -70919,6 +70973,7 @@ var FlagPostModalController = function (_Injectable) {
       if (name !== 'FLAG_POST') return;
 
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
 
       var post = _this.ModalService.inputArgs.post;
 
@@ -70944,6 +70999,7 @@ var FlagPostModalController = function (_Injectable) {
         default:
           _this.errorMessage = 'Unknown flag type.';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           return;
       }
 
@@ -70951,24 +71007,21 @@ var FlagPostModalController = function (_Injectable) {
         return _this.$timeout(function () {
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK();
         });
       }).catch(function (response) {
         return _this.$timeout(function () {
           _this.errorMessage = response.message;
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
 
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_CANCEL, function (name) {
       if (name !== 'FLAG_POST') return;
-
-      _this.$timeout(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.ModalService.Cancel();
-      });
+      _this.close();
     }));
 
     _this.$scope.$on('$destroy', function () {
@@ -71060,6 +71113,7 @@ var ResolveFlagPostModalController = function (_Injectable) {
       if (name !== 'RESOLVE_FLAG_POST') return;
 
       _this.isLoading = true;
+      _this.ModalService.disabled = true;
 
       var params = _this.ModalService.inputArgs;
 
@@ -71105,6 +71159,7 @@ var ResolveFlagPostModalController = function (_Injectable) {
         _this.$timeout(function () {
           _this.errorMessage = 'Please provide an explanatory message for the OP';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
         return;
       }
@@ -71113,23 +71168,21 @@ var ResolveFlagPostModalController = function (_Injectable) {
         return _this.$timeout(function () {
           _this.errorMessage = '';
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
           _this.ModalService.OK();
         });
       }).catch(function (response) {
         return _this.$timeout(function () {
           _this.errorMessage = response.message;
           _this.isLoading = false;
+          _this.ModalService.disabled = false;
         });
       });
     }));
 
     listeners.push(_this.EventService.on(_this.EventService.events.MODAL_CANCEL, function (name) {
       if (name !== 'RESOLVE_FLAG_POST') return;
-      _this.$timeout(function () {
-        _this.errorMessage = '';
-        _this.isLoading = false;
-        _this.ModalService.Cancel();
-      });
+      _this.close();
     }));
 
     _this.$scope.$on('$destroy', function () {
@@ -71335,6 +71388,8 @@ var ProfileSettingsModalController = function (_Injectable) {
 
       if (name !== 'PROFILE_SETTINGS') return;
 
+      this.ModalService.disabled = true;
+
       var inputs = this.ModalService.inputArgs.inputs;
       // Construct data to update using the proper field names.
 
@@ -71365,6 +71420,7 @@ var ProfileSettingsModalController = function (_Injectable) {
         return _this3.$timeout(function () {
           _this3.errorMessage = '';
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
           _this3.values = [];
           _this3.ModalService.OK();
         });
@@ -71372,6 +71428,7 @@ var ProfileSettingsModalController = function (_Injectable) {
         return _this3.$timeout(function () {
           _this3.errorMessage = err.message;
           _this3.isLoading = false;
+          _this3.ModalService.disabled = false;
         });
       });
     }
@@ -71421,9 +71478,9 @@ var ModalService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (ModalService.__proto__ || Object.getPrototypeOf(ModalService)).call(this, ModalService.$inject, injections));
 
+    _this.disabled = false;
     _this.inputArgs = {};
     _this.isOpen = false;
-    _this.isSubmitDisabled = false;
     _this.name = '';
     _this.outputArgs = {};
     _this.reject = function () {};
@@ -71466,14 +71523,14 @@ var ModalService = function (_Injectable) {
       return this.handleControlButtonClick(false, args);
     }
   }, {
-    key: 'disableOK',
-    value: function disableOK() {
-      this.isSubmitDisabled = true;
+    key: 'disableButtons',
+    value: function disableButtons() {
+      this.disabled = true;
     }
   }, {
-    key: 'enableOK',
-    value: function enableOK() {
-      this.isSubmitDisabled = false;
+    key: 'enableButtons',
+    value: function enableButtons() {
+      this.disabled = false;
     }
   }, {
     key: 'Error',
@@ -71508,6 +71565,7 @@ var ModalService = function (_Injectable) {
     value: function handleCancel() {
       var events = this.EventService.events;
 
+      this.disabled = true;
       this.removeListeners();
       return this.EventService.emit(events.MODAL_CANCEL, this.name);
     }
@@ -71541,10 +71599,10 @@ var ModalService = function (_Injectable) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit(isDisabled) {
-      if (isDisabled) return;
+    value: function handleSubmit() {
       var events = this.EventService.events;
 
+      this.disabled = true;
       this.EventService.emit(events.MODAL_OK, this.name);
     }
   }, {
@@ -72411,6 +72469,7 @@ var PollAnswerEditorComponent = function (_Injectable) {
 
     _this.bindToController = {
       answers: '=',
+      disabled: '=',
       title: '@'
     };
     _this.controller = 'PollAnswerEditorController';
@@ -72892,6 +72951,7 @@ var TagEditorComponent = function (_Injectable) {
     var _this = _possibleConstructorReturn(this, (TagEditorComponent.__proto__ || Object.getPrototypeOf(TagEditorComponent)).call(this, TagEditorComponent.$inject, injections));
 
     _this.bindToController = {
+      disabled: '=',
       items: '=',
       max: '&',
       title: '&'

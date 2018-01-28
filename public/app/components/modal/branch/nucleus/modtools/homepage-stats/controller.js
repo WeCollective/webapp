@@ -37,10 +37,13 @@ class UpdateHomepageStatsModalController extends Injectable {
 
       // validate stats
       this.isLoading = true;
+      this.ModalService.disabled = true;
+
       if (Number.isNaN(this.stats.donation_total) || Number.isNaN(this.stats.raised_total)) {
         this.$timeout(() => {
           this.errorMessage = 'Invalid amount';
           this.isLoading = false;
+          this.ModalService.disabled = false;
         });
         return;
       }
@@ -58,6 +61,7 @@ class UpdateHomepageStatsModalController extends Injectable {
 
           this.$timeout(() => {
             this.isLoading = false;
+            this.ModalService.disabled = false;
             this.ModalService.OK();
           });
         }

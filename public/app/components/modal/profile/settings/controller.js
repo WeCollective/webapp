@@ -32,6 +32,8 @@ class ProfileSettingsModalController extends Injectable {
   handleOK(name) {
     if (name !== 'PROFILE_SETTINGS') return;
 
+    this.ModalService.disabled = true;
+
     const { inputs } = this.ModalService.inputArgs;
     // Construct data to update using the proper field names.
     const updateData = {};
@@ -59,12 +61,14 @@ class ProfileSettingsModalController extends Injectable {
       .then(() => this.$timeout(() => {
         this.errorMessage = '';
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.values = [];
         this.ModalService.OK();
       }))
       .catch(err => this.$timeout(() => {
         this.errorMessage = err.message;
         this.isLoading = false;
+        this.ModalService.disabled = false;
       }));
   }
 }

@@ -53,6 +53,7 @@ class RemoveModModalController extends Injectable {
 
   action(index, action) {
     this.isLoading = true;
+    this.ModalService.disabled = true;
 
     this.BranchService.actionSubbranchRequest(
       action,
@@ -63,6 +64,7 @@ class RemoveModModalController extends Injectable {
         this.requests.splice(index, 1);
         this.errorMessage = '';
         this.isLoading = false;
+        this.ModalService.disabled = false;
       }))
       .catch(err => this.$timeout(() => {
         this.errorMessage = err.message;
@@ -70,6 +72,7 @@ class RemoveModModalController extends Injectable {
           this.errorMessage = 'That user doesn\'t exist';
         }
         this.isLoading = false;
+        this.ModalService.disabled = false;
       }));
   }
 
@@ -89,6 +92,7 @@ class RemoveModModalController extends Injectable {
     this.$timeout(() => {
       this.errorMessage = '';
       this.isLoading = false;
+      this.ModalService.disabled = false;
       this.ModalService.OK();
     });
   }

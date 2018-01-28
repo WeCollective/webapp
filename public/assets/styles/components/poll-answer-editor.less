@@ -7,20 +7,30 @@ div.poll-answer-editor {
     height: 100%;
     position: relative;
     width: 100%;
+  }
+
+  .add-item-button {
+    @size: 20px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: @size;
+    opacity: .5;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: calc(~'50% - 15px');
+    width: @size;
+    transition: opacity .2s;
 
     img {
-      height: 20px;
-      opacity: .5;
-      position: absolute;
-      right: 10px;
-      top: calc(~'50% - 15px');
-      width: auto;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
+      display: block;
+      height: 100%;
     }
+
+    &:disabled { cursor: initial; }
+    &:not(:disabled):hover { opacity: 1; }
   }
 
   div.answers {
@@ -51,18 +61,6 @@ div.poll-answer-editor {
           font-size: @font-size-sm;
           font-weight: @font-weight-normal;
         }
-
-        img {
-          height: 15px;
-          margin-left: 10px;
-          opacity: .5;
-          width: 15px;
-
-          &:hover {
-            cursor: pointer;
-            opacity: 1;
-          }
-        }
       }
 
       p { font-style: italic; }
@@ -78,5 +76,27 @@ div.poll-answer-editor {
     margin: 10px 0;
     padding: 10px 15px;
     width: 100%;
+  }
+
+  .remove-item-button {
+    @size: 15px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: @size;
+    margin-left: 10px;
+    opacity: .5;
+    padding: 0;
+    width: @size;
+    transition: opacity .2s;
+
+    img {
+      display: block;
+      height: 100%;
+    }
+
+    &:disabled { cursor: initial; }
+    &:not(:disabled):hover { opacity: 1; }
   }
 }

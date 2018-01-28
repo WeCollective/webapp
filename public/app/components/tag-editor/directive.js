@@ -5,6 +5,7 @@ class TagEditorComponent extends Injectable {
     super(TagEditorComponent.$inject, injections);
 
     this.bindToController = {
+      disabled: '=',
       items: '=',
       max: '&',
       title: '&',

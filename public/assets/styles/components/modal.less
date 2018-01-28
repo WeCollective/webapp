@@ -59,6 +59,7 @@ body.style--modal-open {
 .modal__button {
   @height: 26px;
 
+  padding: 0;
   width: 80px;
 
   &.style--secondary {
@@ -74,18 +75,6 @@ body.style--modal-open {
       box-shadow: @shadow-2;
     });
   }
-
-  &.style--disabled {
-    background-color: @primary-9;
-
-    &:hover {
-      background-color: @primary-9;
-      box-shadow: none;
-      cursor: initial;
-    }
-  }
-
-  &:not(:first-child) { margin-left: @g-padding-post; }
 
   .mediaQuery(@screen-md, {
     @height: 30px;
@@ -103,17 +92,19 @@ body.style--modal-open {
         box-shadow: @shadow-2;
       });
     }
-
-    &.style--disabled {
-      background-color: @primary-9;
-
-      &:hover {
-        background-color: @primary-9;
-        box-shadow: none;
-        cursor: initial;
-      }
-    }
   });
+
+  &:not(:first-child) { margin-left: @g-padding-post; }
+
+  &:disabled {
+    background-color: @primary-9;
+
+    &:hover {
+      background-color: @primary-9;
+      box-shadow: none;
+      cursor: initial;
+    }
+  }
 }
 
 .modal__checkbox-text {
@@ -126,6 +117,7 @@ body.style--modal-open {
   span {
     display: block;
     position: relative;
+    transition: color .2s;
 
     &:first-child {
       color: #c8c8c8;
@@ -136,6 +128,8 @@ body.style--modal-open {
       top: 1px;
     }
   }
+
+  &.style--disabled span { color: @dark-grey; }
 }
 
 .modal__checkbox-wrapper {

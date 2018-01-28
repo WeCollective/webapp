@@ -30,6 +30,8 @@ class BranchNucleusSettingsModalController extends Injectable {
   handleOK(name) {
     if (name !== 'BRANCH_NUCLEUS_SETTINGS') return;
 
+    this.ModalService.disabled = true;
+
     const {
       inputs,
       textareas,
@@ -43,7 +45,10 @@ class BranchNucleusSettingsModalController extends Injectable {
       const value = this.inputValues[i];
 
       if (input.required && (value === undefined || value === '')) {
-        this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+        this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+          this.ModalService.disabled = false;
+        });
         return;
       }
 
@@ -60,7 +65,10 @@ class BranchNucleusSettingsModalController extends Injectable {
       const value = this.textareaValues[i];
 
       if (textarea.required && (value === undefined || value === '')) {
-        this.$timeout(() => this.errorMessage = 'Please fill in all fields');
+        this.$timeout(() => {
+          this.errorMessage = 'Please fill in all fields';
+          this.ModalService.disabled = false;
+        });
         return;
       }
 
@@ -77,6 +85,7 @@ class BranchNucleusSettingsModalController extends Injectable {
   resetState(submitErrorMessage) {
     this.errorMessage = submitErrorMessage || '';
     this.isLoading = false;
+    this.ModalService.disabled = false;
 
     if (!submitErrorMessage) {
       this.inputValues = [];

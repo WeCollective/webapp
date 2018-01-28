@@ -13,9 +13,14 @@ class BanUserModalController extends Injectable {
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'BAN_USER') return;
 
+      this.ModalService.disabled = true;
+
       // Username cannot be empty.
       if (!this.data || !this.data.username) {
-        this.$timeout(() => this.errorMessage = 'Username cannot be empty');
+        this.$timeout(() => {
+          this.errorMessage = 'Username cannot be empty';
+          this.ModalService.disabled = false;
+        });
         return;
       }
 
@@ -25,11 +30,13 @@ class BanUserModalController extends Injectable {
           this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK();
         }))
         .catch(err => this.$timeout(() => {
           this.errorMessage = err.message;
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     }));
 

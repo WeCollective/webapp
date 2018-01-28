@@ -127,6 +127,8 @@ class CreatePostModalController extends Injectable {
   handleModalSubmit(name) {
     if (name !== 'CREATE_POST') return;
 
+    this.isLoading = true;
+
     const {
       branches,
       locked,
@@ -159,6 +161,8 @@ class CreatePostModalController extends Injectable {
     if (error) {
       this.$timeout(() => {
         this.errorMessage = error;
+        this.isLoading = false;
+        this.ModalService.disabled = false;
       });
       return;
     }
@@ -230,6 +234,7 @@ class CreatePostModalController extends Injectable {
 
       this.$timeout(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
       });
 
       if (!err && this.file && type !== PostTypeImage) {
@@ -260,6 +265,7 @@ class CreatePostModalController extends Injectable {
         this.$timeout(() => {
           this.errorMessage = err.message || 'Error creating post!';
           this.isLoading = false;
+          this.ModalService.disabled = false;
         });
       }
     }, this);

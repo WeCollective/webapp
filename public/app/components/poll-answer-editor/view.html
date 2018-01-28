@@ -1,13 +1,19 @@
 <div class="poll-answer-editor">
   <div class="add-item">
     <input
+      ng-disabled="Editor.disabled"
       ng-model="Editor.answer"
       placeholder="{{ Editor.title }}"
       type="text" />
-    <img
-      alt="{{ Editor.title }}"
+
+    <button
+      class="add-item-button"
       ng-click="Editor.addAnswer()"
-      src="/assets/images/icons/plus.svg" />
+      ng-disabled="Editor.disabled">
+      <img
+        alt="{{ Editor.title }}"
+        src="/assets/images/icons/plus.svg" />
+    </button>
   </div>
   <div class="answers">
     <h2>Answers</h2>
@@ -15,10 +21,14 @@
       <p ng-show="!Editor.answers.length">No answers yet.</p>
       <li ng-repeat="answer in Editor.answers track by $index">
         <h3>{{ answer }}</h3>
-        <img
-          alt=""
+        <button
+          class="remove-item-button"
           ng-click="Editor.removeAnswer($index)"
-          src="/assets/images/icons/close.svg" />
+          ng-disabled="Editor.disabled">
+          <img
+            alt=""
+            src="/assets/images/icons/close.svg" />
+        </button>
       </li>
     </ul>
   </div>

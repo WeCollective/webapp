@@ -7,14 +7,18 @@
     <input
       class="tags__input"
       ng-change="TagEditor.handleInputChange()"
-      ng-disabled="TagEditor.items.length >= TagEditor.max()"
+      ng-disabled="TagEditor.items.length >= TagEditor.max() || TagEditor.disabled"
       ng-model="TagEditor.tag"
       placeholder="{{ TagEditor.title() }}" />
-    <img
-     alt="Add {{ TagEditor.tag }} to the tags"
-     class="tags__input-icon"
-     ng-click="TagEditor.addTag()"
-     src="/assets/images/icons/plus.svg" />
+
+    <button
+      class="tags__input-icon"
+      ng-click="TagEditor.addTag()"
+      ng-disabled="TagEditor.disabled">
+      <img
+       alt="Add {{ TagEditor.tag }} to the tags"
+       src="/assets/images/icons/plus.svg" />
+    </button>
   </div>
 
   <div class="tags__list">
@@ -25,12 +29,13 @@
         {{ TagEditor.renderTagLabel(tag) }}
       </span>
 
-      <div
+      <button
         class="tags__icon ng-hide"
         ng-click="TagEditor.removeTag(tag)"
+        ng-disabled="TagEditor.disabled"
         ng-include="'/assets/images/icons/close.svg'"
         ng-show="TagEditor.isRemovable(tag)">
-      </div>
+      </button>
     </div>
   </div>
 </div>

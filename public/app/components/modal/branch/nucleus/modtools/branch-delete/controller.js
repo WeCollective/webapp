@@ -9,13 +9,14 @@ class DeleteBranchModalController extends Injectable {
     this.isLoading = false;
 
     // Disable submission by default.
-    this.ModalService.disableOK();
+    this.ModalService.disableButtons();
 
     const listeners = [];
 
     listeners.push(this.EventService.on(this.EventService.events.MODAL_OK, name => {
       if (name !== 'DELETE_BRANCH') return;
       this.isLoading = true;
+      this.ModalService.disabled = true;
 
       const params = Object.assign({}, this.data);
 
@@ -25,11 +26,13 @@ class DeleteBranchModalController extends Injectable {
           this.data = {};
           this.errorMessage = '';
           this.isLoading = false;
+          this.ModalService.disabled = false;
           this.ModalService.OK(params);
         }))
         .catch(err => this.$timeout(() => {
           this.errorMessage = err.message;
           this.isLoading = false;
+          this.ModalService.disabled = false;
         }));
     }));
 
@@ -50,10 +53,10 @@ class DeleteBranchModalController extends Injectable {
     this.data.branchid = this.data.branchid.split(' ').join('');
 
     if (this.data.branchid !== this.ModalService.inputArgs.branchid) {
-      this.ModalService.disableOK();
+      this.ModalService.disableButtons();
     }
     else {
-      this.ModalService.enableOK();
+      this.ModalService.enableButtons();
     }
   }
 }

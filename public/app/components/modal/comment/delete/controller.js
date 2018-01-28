@@ -33,14 +33,17 @@ class DeleteCommentModalController extends Injectable {
     const params = this.ModalService.inputArgs;
 
     this.isLoading = true;
+    this.ModalService.disabled = true;
 
     this.CommentService.delete(params.postid, params.commentid)
       .then(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.ModalService.OK();
       })
       .catch(() => {
         this.isLoading = false;
+        this.ModalService.disabled = false;
         this.ModalService.Cancel();
       });
   }

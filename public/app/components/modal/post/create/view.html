@@ -50,13 +50,16 @@
       ng-show="!Ctrl.UploadService.isUploading">
       <div class="modal__header">
         <dropdown
+          disabled="Ctrl.isLoading"
           items="Ctrl.postType"
           selected="Ctrl.filters.postType.selectedIndex"
           title="Ctrl.filters.postType.title">
         </dropdown>
 
         <div class="modal__checkbox-wrapper">
-          <div class="modal__checkbox-text">
+          <div
+            class="modal__checkbox-text"
+            ng-class="{ 'style--disabled': Ctrl.isLoading }">
             <span>
               nsfw
             </span>
@@ -66,6 +69,7 @@
           </div>
           <input
             id="checkbox-nsfw"
+            ng-disabled="Ctrl.isLoading"
             ng-model="Ctrl.post.nsfw"
             type="checkbox" />
           <label class="checkbox" for="checkbox-nsfw"></label>
@@ -84,6 +88,7 @@
           </div>
           <input
             id="checkbox-locked"
+            ng-disabled="Ctrl.isLoading"
             ng-model="Ctrl.post.locked"
             type="checkbox" />
           <label class="checkbox" for="checkbox-locked"></label>
@@ -91,11 +96,13 @@
       </div>
 
       <input
+        ng-disabled="Ctrl.isLoading"
         ng-model="Ctrl.post.title"
         placeholder="Title (max 200 characters)"
         type="text" />
 
       <tag-editor
+        disabled="Ctrl.isLoading"
         items="Ctrl.post.branches"
         max="5"
         title="'Tag another branch, max 5 tags'">
@@ -104,12 +111,14 @@
   </div>
 
   <input
+    ng-disabled="Ctrl.isLoading"
     ng-model="Ctrl.post.url"
     ng-show="!Ctrl.UploadService.isUploading && ![Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())"
     placeholder="Url"
     type="text" />
 
   <textarea
+    ng-disabled="Ctrl.isLoading"
     ng-model="Ctrl.post.text"
     ng-show="!Ctrl.UploadService.isUploading && !Ctrl.preview" 
     placeholder="Describe this post..."
@@ -119,6 +128,7 @@
   <input
     class="captcha"
     name="captcha"
+    ng-disabled="Ctrl.isLoading"
     ng-model="Ctrl.post.captcha"
     type="text" />
 
@@ -131,12 +141,14 @@
   <p
     id="preview-post"
     ng-click="Ctrl.togglePreview()"
+    ng-disabled="Ctrl.isLoading"
     ng-show="!Ctrl.UploadService.isUploading && Ctrl.post.text.length && [Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())">
     {{ Ctrl.preview ? 'Edit...' : 'Preview...' }}
   </p>
 
   <poll-answer-editor
     answers="Ctrl.post.pollAnswers"
+    disabled="Ctrl.isLoading"
     ng-show="!Ctrl.UploadService.isUploading && Ctrl.getPostType() === Ctrl.PostTypePoll"
     title="Create a new Answer">
   </poll-answer-editor>
