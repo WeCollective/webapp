@@ -14,12 +14,11 @@ class CommentThreadController extends Injectable {
   }
 
   commentPermalink(comment) {
-    this.$state.go('weco.branch.post.comment', {
-      commentid: comment.id,
-      postid: comment.postid,
-    }, {
-      reload: true,
-    });
+    const {
+      id: commentid,
+      postid,
+    } = comment;
+    this.$state.go('weco.branch.post.comment', { commentid, postid }, { reload: true });
   }
 
   delete(comment, index) {

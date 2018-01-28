@@ -8,31 +8,31 @@ class BranchPostVoteController extends Injectable {
     super(BranchPostVoteController.$inject, injections);
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
-    this.setDefaultControls = this.setDefaultControls.bind(this);
+    this.setDefaultFilters = this.setDefaultFilters.bind(this);
 
-    let cache = this.LocalStorageService.getObject('cache').postPoll || {};
-    cache = cache[this.PostService.post.id] || {};
-    this.items = cache.answers || [];
+    this.isInit = true;
+    this.isWaitingForRequest = false;
+    this.items = [];
     this.selectedAnswerIndex = -1;
 
-    this.controls = {
+    this.filters = {
       sortBy: {
         items: SortVotes,
         selectedIndex: -1,
         title: 'sorted by',
       },
     };
-    this.$timeout(() => this.setDefaultControls());
+    this.$timeout(() => this.setDefaultFilters());
 
-    const ctrls = this.controls;
+    const fltrs = this.filters;
     const {
       attachFilterListeners,
       getFilterFlatItems,
     } = this.UrlService;
 
-    this.sortBy = getFilterFlatItems(ctrls.sortBy);
+    this.sortBy = getFilterFlatItems(fltrs.sortBy);
 
-    const listeners = [...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown)];
+    const listeners = [...attachFilterListeners(this.$scope, fltrs, this.callbackDropdown)];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -41,38 +41,35 @@ class BranchPostVoteController extends Injectable {
   }
 
   canSubmitNewAnswer() {
-    const {
-      post,
-      user,
-    } = this.PostService;
-    return !(post.locked && post.data.creator !== user.username);
+    const { post } = this.PostService;
+    const { user } = this.UserService;
+    return !(post.locked && post.creator !== user.username);
   }
 
   getItems(lastAnswerId) {
+    if (this.isWaitingForRequest) return;
+
     this.selectedAnswerIndex = -1;
+
+    const { id } = this.PostService.post;
     const sortBy = this.getSortBy();
 
-    // fetch the poll answers
-    this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
-      // if lastAnswerId was specified we are fetching _more_ answers, so append them
+    this.isWaitingForRequest = true;
+    this.isInit = false;
+    this.PostService.getPollAnswers(id, sortBy, lastAnswerId)
       .then(answers => this.$timeout(() => {
+        this.isWaitingForRequest = false;
         this.items = lastAnswerId ? this.items.concat(answers) : answers;
-
-        const cache = this.LocalStorageService.getObject('cache');
-        cache.postPoll = cache.postPoll || {};
-        cache.postPoll[this.PostService.post.id] = cache.postPoll[this.PostService.post.id] || {};
-        cache.postPoll[this.PostService.post.id].answers = this.items;
-        this.LocalStorageService.setObject('cache', cache);
       }))
-      .catch(err => {
-        if (err.status !== 404) {
-          this.AlertsService.push('error', 'Error fetching poll answers.');
-        }
-      });
+      .catch(err => this.$timeout(() => {
+        this.isWaitingForRequest = false;
+        if (err.status === 404) return;
+        this.AlertsService.push('error', 'Error fetching poll answers.');
+      }));
   }
 
   getSortBy() {
-    return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-vote');
+    return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort-vote');
   }
 
   openSubmitPollAnswerModal() {
@@ -93,8 +90,8 @@ class BranchPostVoteController extends Injectable {
     this.selectedAnswerIndex = this.selectedAnswerIndex !== index ? index : -1;
   }
 
-  setDefaultControls() {
-    const { sortBy } = this.controls;
+  setDefaultFilters() {
+    const { sortBy } = this.filters;
     const {
       getUrlSearchParams,
       urlToFilterItemIndex,
@@ -128,10 +125,10 @@ BranchPostVoteController.$inject = [
   '$timeout',
   'AlertsService',
   'EventService',
-  'LocalStorageService',
   'ModalService',
   'PostService',
   'UrlService',
+  'UserService',
 ];
 
 export default BranchPostVoteController;

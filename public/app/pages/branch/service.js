@@ -25,22 +25,23 @@ class WallService extends Injectable {
 
   handleHeaderButtonClick() {
     const branchid = this.BranchService.branch.id;
-
+    const params = { branchid };
     let errMsg;
     let name;
     let successMsg;
 
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
+        errMsg = 'Error creating new branch.';
         name = 'CREATE_BRANCH';
         successMsg = args => `Successfully created b/${args.branchid}!`;
-        errMsg = 'Error creating new branch.';
         break;
 
       case 'weco.branch.wall':
-        name = 'CREATE_POST';
-        successMsg = 'Successfully created post!';
         errMsg = 'Error creating post.';
+        name = 'CREATE_POST';
+        params.forceUpdate = false;
+        successMsg = 'Successfully created post!';
         break;
 
       /*
@@ -55,7 +56,7 @@ class WallService extends Injectable {
     }
 
     if (name) {
-      this.ModalService.open(name, { branchid }, successMsg, errMsg);
+      this.ModalService.open(name, params, successMsg, errMsg);
     }
   }
 

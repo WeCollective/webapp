@@ -4424,6 +4424,10 @@ div#notfound div h2 {
   padding-left: 16px;
   padding-right: 16px;
 }
+.post .post__content-wrapper .style--card-poll-answer .list-item-info {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
 .post .post__content-wrapper p#no-answers {
   font-style: italic;
 }

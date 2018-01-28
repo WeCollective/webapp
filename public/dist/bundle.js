@@ -71,10 +71,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(4)
-  , core      = __webpack_require__(26)
+  , core      = __webpack_require__(27)
   , hide      = __webpack_require__(14)
   , redefine  = __webpack_require__(15)
-  , ctx       = __webpack_require__(27)
+  , ctx       = __webpack_require__(28)
   , PROTOTYPE = 'prototype';
 
 var $export = function(type, name, source){
@@ -4659,7 +4659,7 @@ module.exports = function(it){
 /***/ (function(module, exports, __webpack_require__) {
 
 var store      = __webpack_require__(63)('wks')
-  , uid        = __webpack_require__(41)
+  , uid        = __webpack_require__(42)
   , Symbol     = __webpack_require__(4).Symbol
   , USE_SYMBOL = typeof Symbol == 'function';
 
@@ -4705,7 +4705,7 @@ exports.f = __webpack_require__(8) ? Object.defineProperty : function defineProp
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(32)
+var toInteger = __webpack_require__(33)
   , min       = Math.min;
 module.exports = function(it){
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -4744,7 +4744,7 @@ module.exports = function(it){
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP         = __webpack_require__(9)
-  , createDesc = __webpack_require__(31);
+  , createDesc = __webpack_require__(32);
 module.exports = __webpack_require__(8) ? function(object, key, value){
   return dP.f(object, key, createDesc(1, value));
 } : function(object, key, value){
@@ -4759,12 +4759,12 @@ module.exports = __webpack_require__(8) ? function(object, key, value){
 var global    = __webpack_require__(4)
   , hide      = __webpack_require__(14)
   , has       = __webpack_require__(12)
-  , SRC       = __webpack_require__(41)('src')
+  , SRC       = __webpack_require__(42)('src')
   , TO_STRING = 'toString'
   , $toString = Function[TO_STRING]
   , TPL       = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(26).inspectSource = function(it){
+__webpack_require__(27).inspectSource = function(it){
   return $toString.call(it);
 };
 
@@ -4829,7 +4829,7 @@ module.exports = function(it){
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE            = __webpack_require__(53)
-  , createDesc     = __webpack_require__(31)
+  , createDesc     = __webpack_require__(32)
   , toIObject      = __webpack_require__(17)
   , toPrimitive    = __webpack_require__(25)
   , has            = __webpack_require__(12)
@@ -4906,7 +4906,7 @@ module.exports = function(method, arg){
 // 4 -> Array#every
 // 5 -> Array#find
 // 6 -> Array#findIndex
-var ctx      = __webpack_require__(27)
+var ctx      = __webpack_require__(28)
   , IObject  = __webpack_require__(52)
   , toObject = __webpack_require__(11)
   , toLength = __webpack_require__(10)
@@ -4950,7 +4950,7 @@ module.exports = function(TYPE, $create){
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(0)
-  , core    = __webpack_require__(26)
+  , core    = __webpack_require__(27)
   , fails   = __webpack_require__(5);
 module.exports = function(KEY, exec){
   var fn  = (core.Object || {})[KEY] || Object[KEY]
@@ -4978,13 +4978,174 @@ module.exports = function(it, S){
 
 /***/ }),
 /* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var MAX_POST_TEXT = 20000;
+var MAX_POST_TITLE = 300;
+var MIN_POLL_ANSWERS_COUNT = 2;
+
+var PostTypeAudio = 'audio';
+var PostTypeImage = 'image';
+var PostTypePage = 'page';
+var PostTypePoll = 'poll';
+var PostTypeText = 'text';
+var PostTypeVideo = 'video';
+
+var PostTypes = [PostTypeText, PostTypePage, PostTypeImage, PostTypeVideo, PostTypeAudio, PostTypePoll];
+
+var EntityLimits = {
+  pollAnswersMinCount: MIN_POLL_ANSWERS_COUNT,
+  postText: MAX_POST_TEXT,
+  postTitle: MAX_POST_TITLE
+};
+
+var Category = [{
+  label: 'all',
+  url: 'all'
+}, {
+  label: PostTypeImage + 's',
+  url: PostTypeImage
+}, {
+  label: PostTypeVideo + 's',
+  url: PostTypeVideo
+}, {
+  label: PostTypeAudio,
+  url: PostTypeAudio
+}, {
+  label: PostTypeText,
+  url: PostTypeText
+}, {
+  label: PostTypePage + 's',
+  url: PostTypePage
+}, {
+  label: PostTypePoll + 's',
+  url: PostTypePoll
+}];
+
+var Flag = [{
+  label: 'date',
+  url: 'date'
+}, {
+  label: 'against branch rules',
+  url: 'flag-branch-rules'
+}, {
+  label: 'against site rules',
+  url: 'flag-site-rules'
+}, {
+  label: 'wrong post type',
+  url: 'flag-wrong-type'
+}, {
+  label: 'nsfw flags',
+  url: 'flag-nsfw'
+}];
+
+var Point = [{
+  label: 'global',
+  url: 'global'
+}, {
+  label: 'local',
+  url: 'local'
+}, {
+  label: 'branch',
+  url: 'branch'
+}];
+
+var SortItemComments = {
+  label: 'comments',
+  url: 'comments'
+};
+
+var SortItemDate = {
+  label: 'date',
+  url: 'date'
+};
+
+var SortItemPoints = {
+  label: 'points',
+  url: 'points'
+};
+
+var SortItemPosts = {
+  label: 'posts',
+  url: 'posts'
+};
+
+var SortItemReplies = {
+  label: 'replies',
+  url: 'replies'
+};
+
+var SortItemVotes = {
+  label: 'votes',
+  url: 'votes'
+};
+
+var SortBranch = [SortItemPoints, SortItemPosts, SortItemComments, SortItemDate];
+
+var SortComments = [SortItemPoints, SortItemReplies, SortItemDate];
+
+var SortPost = [SortItemPoints, SortItemComments, SortItemDate];
+
+var SortVotes = [SortItemDate, SortItemVotes];
+
+var Time = [{
+  label: 'all time',
+  url: 'all'
+}, {
+  label: 'last year',
+  url: 'year'
+}, {
+  label: 'last month',
+  url: 'month'
+}, {
+  label: 'last week',
+  url: 'week'
+}, {
+  label: 'last 24 hrs',
+  url: 'day'
+}, {
+  label: 'last hour',
+  url: 'hour'
+}];
+
+exports.default = {
+  AllowedValues: {
+    PostTypes: PostTypes
+  },
+  EntityLimits: EntityLimits,
+  Filters: {
+    Category: Category,
+    Flag: Flag,
+    Point: Point,
+    SortBranch: SortBranch,
+    SortComments: SortComments,
+    SortPost: SortPost,
+    SortVotes: SortVotes,
+    Time: Time
+  },
+  PostTypeAudio: PostTypeAudio,
+  PostTypeImage: PostTypeImage,
+  PostTypePage: PostTypePage,
+  PostTypePoll: PostTypePoll,
+  PostTypeText: PostTypeText,
+  PostTypeVideo: PostTypeVideo
+};
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports) {
 
 var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
@@ -5009,7 +5170,7 @@ module.exports = function(fn, that, length){
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Map     = __webpack_require__(119)
@@ -5065,26 +5226,26 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 if(__webpack_require__(8)){
-  var LIBRARY             = __webpack_require__(34)
+  var LIBRARY             = __webpack_require__(35)
     , global              = __webpack_require__(4)
     , fails               = __webpack_require__(5)
     , $export             = __webpack_require__(0)
     , $typed              = __webpack_require__(64)
     , $buffer             = __webpack_require__(88)
-    , ctx                 = __webpack_require__(27)
-    , anInstance          = __webpack_require__(33)
-    , propertyDesc        = __webpack_require__(31)
+    , ctx                 = __webpack_require__(28)
+    , anInstance          = __webpack_require__(34)
+    , propertyDesc        = __webpack_require__(32)
     , hide                = __webpack_require__(14)
-    , redefineAll         = __webpack_require__(38)
-    , toInteger           = __webpack_require__(32)
+    , redefineAll         = __webpack_require__(39)
+    , toInteger           = __webpack_require__(33)
     , toLength            = __webpack_require__(10)
-    , toIndex             = __webpack_require__(40)
+    , toIndex             = __webpack_require__(41)
     , toPrimitive         = __webpack_require__(25)
     , has                 = __webpack_require__(12)
     , same                = __webpack_require__(116)
@@ -5092,11 +5253,11 @@ if(__webpack_require__(8)){
     , isObject            = __webpack_require__(6)
     , toObject            = __webpack_require__(11)
     , isArrayIter         = __webpack_require__(73)
-    , create              = __webpack_require__(35)
+    , create              = __webpack_require__(36)
     , getPrototypeOf      = __webpack_require__(19)
-    , gOPN                = __webpack_require__(36).f
+    , gOPN                = __webpack_require__(37).f
     , getIterFn           = __webpack_require__(90)
-    , uid                 = __webpack_require__(41)
+    , uid                 = __webpack_require__(42)
     , wks                 = __webpack_require__(7)
     , createArrayMethod   = __webpack_require__(23)
     , createArrayIncludes = __webpack_require__(54)
@@ -5104,7 +5265,7 @@ if(__webpack_require__(8)){
     , ArrayIterators      = __webpack_require__(91)
     , Iterators           = __webpack_require__(48)
     , $iterDetect         = __webpack_require__(60)
-    , setSpecies          = __webpack_require__(39)
+    , setSpecies          = __webpack_require__(40)
     , arrayFill           = __webpack_require__(66)
     , arrayCopyWithin     = __webpack_require__(96)
     , $DP                 = __webpack_require__(9)
@@ -5550,10 +5711,10 @@ if(__webpack_require__(8)){
 } else module.exports = function(){ /* empty */ };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META     = __webpack_require__(41)('meta')
+var META     = __webpack_require__(42)('meta')
   , isObject = __webpack_require__(6)
   , has      = __webpack_require__(12)
   , setDesc  = __webpack_require__(9).f
@@ -5608,7 +5769,7 @@ var meta = module.exports = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = function(bitmap, value){
@@ -5621,7 +5782,7 @@ module.exports = function(bitmap, value){
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -5632,7 +5793,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = function(it, Constructor, name, forbiddenField){
@@ -5642,13 +5803,13 @@ module.exports = function(it, Constructor, name, forbiddenField){
 };
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
@@ -5695,7 +5856,7 @@ module.exports = Object.create || function create(O, Properties){
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
@@ -5707,7 +5868,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
 };
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
@@ -5719,7 +5880,7 @@ module.exports = Object.keys || function keys(O){
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var redefine = __webpack_require__(15);
@@ -5729,7 +5890,7 @@ module.exports = function(target, src, safe){
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5748,10 +5909,10 @@ module.exports = function(KEY){
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(32)
+var toInteger = __webpack_require__(33)
   , max       = Math.max
   , min       = Math.min;
 module.exports = function(index, length){
@@ -5760,7 +5921,7 @@ module.exports = function(index, length){
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var id = 0
@@ -5770,7 +5931,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 var g;
@@ -5797,154 +5958,12 @@ module.exports = g;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(250);
 module.exports = angular;
 
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var PostTypeAudio = 'audio';
-var PostTypeImage = 'image';
-var PostTypePage = 'page';
-var PostTypePoll = 'poll';
-var PostTypeText = 'text';
-var PostTypeVideo = 'video';
-
-var PostTypes = [PostTypeText, PostTypePage, PostTypeImage, PostTypeVideo, PostTypeAudio, PostTypePoll];
-
-var Category = [{
-  label: 'all',
-  url: 'all'
-}, {
-  label: PostTypeImage + 's',
-  url: PostTypeImage
-}, {
-  label: PostTypeVideo + 's',
-  url: PostTypeVideo
-}, {
-  label: PostTypeAudio,
-  url: PostTypeAudio
-}, {
-  label: PostTypeText,
-  url: PostTypeText
-}, {
-  label: PostTypePage + 's',
-  url: PostTypePage
-}, {
-  label: PostTypePoll + 's',
-  url: PostTypePoll
-}];
-
-var Flag = [{
-  label: 'date',
-  url: 'date'
-}, {
-  label: 'against branch rules',
-  url: 'flag-branch-rules'
-}, {
-  label: 'against site rules',
-  url: 'flag-site-rules'
-}, {
-  label: 'wrong post type',
-  url: 'flag-wrong-type'
-}, {
-  label: 'nsfw flags',
-  url: 'flag-nsfw'
-}];
-
-var Point = [{
-  label: 'global',
-  url: 'global'
-}, {
-  label: 'local',
-  url: 'local'
-}, {
-  label: 'branch',
-  url: 'branch'
-}];
-
-var SortItemComments = {
-  label: 'comments',
-  url: 'comments'
-};
-
-var SortItemDate = {
-  label: 'date',
-  url: 'date'
-};
-
-var SortItemPoints = {
-  label: 'points',
-  url: 'points'
-};
-
-var SortItemPosts = {
-  label: 'posts',
-  url: 'posts'
-};
-
-var SortItemVotes = {
-  label: 'votes',
-  url: 'votes'
-};
-
-var SortBranch = [SortItemPoints, SortItemPosts, SortItemComments, SortItemDate];
-
-var SortPost = [SortItemPoints, SortItemComments, SortItemDate];
-
-var SortVotes = [SortItemDate, SortItemVotes];
-
-var Time = [{
-  label: 'all time',
-  url: 'all'
-}, {
-  label: 'last year',
-  url: 'year'
-}, {
-  label: 'last month',
-  url: 'month'
-}, {
-  label: 'last week',
-  url: 'week'
-}, {
-  label: 'last 24 hrs',
-  url: 'day'
-}, {
-  label: 'last hour',
-  url: 'hour'
-}];
-
-exports.default = {
-  AllowedValues: {
-    PostTypes: PostTypes
-  },
-  Filters: {
-    Category: Category,
-    Flag: Flag,
-    Point: Point,
-    SortBranch: SortBranch,
-    SortPost: SortPost,
-    SortVotes: SortVotes,
-    Time: Time
-  },
-  PostTypeAudio: PostTypeAudio,
-  PostTypeImage: PostTypeImage,
-  PostTypePage: PostTypePage,
-  PostTypePoll: PostTypePoll,
-  PostTypeText: PostTypeText,
-  PostTypeVideo: PostTypeVideo
-};
 
 /***/ }),
 /* 45 */
@@ -6028,7 +6047,7 @@ module.exports = function(key){
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx         = __webpack_require__(27)
+var ctx         = __webpack_require__(28)
   , call        = __webpack_require__(105)
   , isArrayIter = __webpack_require__(73)
   , anObject    = __webpack_require__(3)
@@ -6159,7 +6178,7 @@ exports.f = {}.propertyIsEnumerable;
 // true  -> Array#includes
 var toIObject = __webpack_require__(17)
   , toLength  = __webpack_require__(10)
-  , toIndex   = __webpack_require__(40);
+  , toIndex   = __webpack_require__(41);
 module.exports = function(IS_INCLUDES){
   return function($this, el, fromIndex){
     var O      = toIObject($this)
@@ -6186,10 +6205,10 @@ module.exports = function(IS_INCLUDES){
 var global            = __webpack_require__(4)
   , $export           = __webpack_require__(0)
   , redefine          = __webpack_require__(15)
-  , redefineAll       = __webpack_require__(38)
-  , meta              = __webpack_require__(30)
+  , redefineAll       = __webpack_require__(39)
+  , meta              = __webpack_require__(31)
   , forOf             = __webpack_require__(47)
-  , anInstance        = __webpack_require__(33)
+  , anInstance        = __webpack_require__(34)
   , isObject          = __webpack_require__(6)
   , fails             = __webpack_require__(5)
   , $iterDetect       = __webpack_require__(60)
@@ -6386,7 +6405,7 @@ module.exports = function(exec, skipClosing){
 /***/ (function(module, exports, __webpack_require__) {
 
 // Forced replacement prototype accessors methods
-module.exports = __webpack_require__(34)|| !__webpack_require__(5)(function(){
+module.exports = __webpack_require__(35)|| !__webpack_require__(5)(function(){
   var K = Math.random();
   // In FF throws only define methods
   __defineSetter__.call(null, K, function(){ /* empty */});
@@ -6416,7 +6435,7 @@ module.exports = function(key){
 
 var global = __webpack_require__(4)
   , hide   = __webpack_require__(14)
-  , uid    = __webpack_require__(41)
+  , uid    = __webpack_require__(42)
   , TYPED  = uid('typed_array')
   , VIEW   = uid('view')
   , ABV    = !!(global.ArrayBuffer && global.DataView)
@@ -6483,7 +6502,7 @@ exports.default = constants;
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 
 var toObject = __webpack_require__(11)
-  , toIndex  = __webpack_require__(40)
+  , toIndex  = __webpack_require__(41)
   , toLength = __webpack_require__(10);
 module.exports = function fill(value /*, start = 0, end = @length */){
   var O      = toObject(this)
@@ -6503,7 +6522,7 @@ module.exports = function fill(value /*, start = 0, end = @length */){
 "use strict";
 
 var $defineProperty = __webpack_require__(9)
-  , createDesc      = __webpack_require__(31);
+  , createDesc      = __webpack_require__(32);
 
 module.exports = function(object, index, value){
   if(index in object)$defineProperty.f(object, index, createDesc(0, value));
@@ -6596,8 +6615,8 @@ module.exports = Array.isArray || function isArray(arg){
 
 "use strict";
 
-var create         = __webpack_require__(35)
-  , descriptor     = __webpack_require__(31)
+var create         = __webpack_require__(36)
+  , descriptor     = __webpack_require__(32)
   , setToStringTag = __webpack_require__(49)
   , IteratorPrototype = {};
 
@@ -6615,7 +6634,7 @@ module.exports = function(Constructor, NAME, next){
 
 "use strict";
 
-var LIBRARY        = __webpack_require__(34)
+var LIBRARY        = __webpack_require__(35)
   , $export        = __webpack_require__(0)
   , redefine       = __webpack_require__(15)
   , hide           = __webpack_require__(14)
@@ -6798,7 +6817,7 @@ module.exports = {
   set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
     function(test, buggy, set){
       try {
-        set = __webpack_require__(27)(Function.call, __webpack_require__(18).f(Object.prototype, '__proto__').set, 2);
+        set = __webpack_require__(28)(Function.call, __webpack_require__(18).f(Object.prototype, '__proto__').set, 2);
         set(test, []);
         buggy = !(test instanceof Array);
       } catch(e){ buggy = true; }
@@ -6817,7 +6836,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(63)('keys')
-  , uid    = __webpack_require__(41);
+  , uid    = __webpack_require__(42);
 module.exports = function(key){
   return shared[key] || (shared[key] = uid(key));
 };
@@ -6839,7 +6858,7 @@ module.exports = function(O, D){
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(32)
+var toInteger = __webpack_require__(33)
   , defined   = __webpack_require__(21);
 // true  -> String#at
 // false -> String#codePointAt
@@ -6876,7 +6895,7 @@ module.exports = function(that, searchString, NAME){
 
 "use strict";
 
-var toInteger = __webpack_require__(32)
+var toInteger = __webpack_require__(33)
   , defined   = __webpack_require__(21);
 
 module.exports = function repeat(count){
@@ -6899,7 +6918,7 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx                = __webpack_require__(27)
+var ctx                = __webpack_require__(28)
   , invoke             = __webpack_require__(58)
   , html               = __webpack_require__(71)
   , cel                = __webpack_require__(68)
@@ -6983,15 +7002,15 @@ module.exports = {
 
 var global         = __webpack_require__(4)
   , DESCRIPTORS    = __webpack_require__(8)
-  , LIBRARY        = __webpack_require__(34)
+  , LIBRARY        = __webpack_require__(35)
   , $typed         = __webpack_require__(64)
   , hide           = __webpack_require__(14)
-  , redefineAll    = __webpack_require__(38)
+  , redefineAll    = __webpack_require__(39)
   , fails          = __webpack_require__(5)
-  , anInstance     = __webpack_require__(33)
-  , toInteger      = __webpack_require__(32)
+  , anInstance     = __webpack_require__(34)
+  , toInteger      = __webpack_require__(33)
   , toLength       = __webpack_require__(10)
-  , gOPN           = __webpack_require__(36).f
+  , gOPN           = __webpack_require__(37).f
   , dP             = __webpack_require__(9).f
   , arrayFill      = __webpack_require__(66)
   , setToStringTag = __webpack_require__(49)
@@ -7259,8 +7278,8 @@ exports[DATA_VIEW] = $DataView;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global         = __webpack_require__(4)
-  , core           = __webpack_require__(26)
-  , LIBRARY        = __webpack_require__(34)
+  , core           = __webpack_require__(27)
+  , LIBRARY        = __webpack_require__(35)
   , wksExt         = __webpack_require__(118)
   , defineProperty = __webpack_require__(9).f;
 module.exports = function(name){
@@ -7275,7 +7294,7 @@ module.exports = function(name){
 var classof   = __webpack_require__(51)
   , ITERATOR  = __webpack_require__(7)('iterator')
   , Iterators = __webpack_require__(48);
-module.exports = __webpack_require__(26).getIteratorMethod = function(it){
+module.exports = __webpack_require__(27).getIteratorMethod = function(it){
   if(it != undefined)return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -7876,7 +7895,7 @@ module.exports = function(it, msg){
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 
 var toObject = __webpack_require__(11)
-  , toIndex  = __webpack_require__(40)
+  , toIndex  = __webpack_require__(41)
   , toLength = __webpack_require__(10);
 
 module.exports = [].copyWithin || function copyWithin(target/*= 0*/, start/*= 0, end = @length*/){
@@ -7983,17 +8002,17 @@ module.exports = Function.bind || function bind(that /*, args... */){
 "use strict";
 
 var dP          = __webpack_require__(9).f
-  , create      = __webpack_require__(35)
-  , redefineAll = __webpack_require__(38)
-  , ctx         = __webpack_require__(27)
-  , anInstance  = __webpack_require__(33)
+  , create      = __webpack_require__(36)
+  , redefineAll = __webpack_require__(39)
+  , ctx         = __webpack_require__(28)
+  , anInstance  = __webpack_require__(34)
   , defined     = __webpack_require__(21)
   , forOf       = __webpack_require__(47)
   , $iterDefine = __webpack_require__(76)
   , step        = __webpack_require__(106)
-  , setSpecies  = __webpack_require__(39)
+  , setSpecies  = __webpack_require__(40)
   , DESCRIPTORS = __webpack_require__(8)
-  , fastKey     = __webpack_require__(30).fastKey
+  , fastKey     = __webpack_require__(31).fastKey
   , SIZE        = DESCRIPTORS ? '_s' : 'size';
 
 var getEntry = function(that, key){
@@ -8144,11 +8163,11 @@ module.exports = function(NAME){
 
 "use strict";
 
-var redefineAll       = __webpack_require__(38)
-  , getWeak           = __webpack_require__(30).getWeak
+var redefineAll       = __webpack_require__(39)
+  , getWeak           = __webpack_require__(31).getWeak
   , anObject          = __webpack_require__(3)
   , isObject          = __webpack_require__(6)
-  , anInstance        = __webpack_require__(33)
+  , anInstance        = __webpack_require__(34)
   , forOf             = __webpack_require__(47)
   , createArrayMethod = __webpack_require__(23)
   , $has              = __webpack_require__(12)
@@ -8287,7 +8306,7 @@ module.exports = Math.log1p || function log1p(x){
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys  = __webpack_require__(37)
+var getKeys  = __webpack_require__(38)
   , gOPS     = __webpack_require__(62)
   , pIE      = __webpack_require__(53)
   , toObject = __webpack_require__(11)
@@ -8325,7 +8344,7 @@ module.exports = !$assign || __webpack_require__(5)(function(){
 
 var dP       = __webpack_require__(9)
   , anObject = __webpack_require__(3)
-  , getKeys  = __webpack_require__(37);
+  , getKeys  = __webpack_require__(38);
 
 module.exports = __webpack_require__(8) ? Object.defineProperties : function defineProperties(O, Properties){
   anObject(O);
@@ -8343,7 +8362,7 @@ module.exports = __webpack_require__(8) ? Object.defineProperties : function def
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(17)
-  , gOPN      = __webpack_require__(36).f
+  , gOPN      = __webpack_require__(37).f
   , toString  = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -8388,7 +8407,7 @@ module.exports = function(object, names){
 /* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys   = __webpack_require__(37)
+var getKeys   = __webpack_require__(38)
   , toIObject = __webpack_require__(17)
   , isEnum    = __webpack_require__(53).f;
 module.exports = function(isEntries){
@@ -8410,7 +8429,7 @@ module.exports = function(isEntries){
 /***/ (function(module, exports, __webpack_require__) {
 
 // all object keys, includes non-enumerable and symbols
-var gOPN     = __webpack_require__(36)
+var gOPN     = __webpack_require__(37)
   , gOPS     = __webpack_require__(62)
   , anObject = __webpack_require__(3)
   , Reflect  = __webpack_require__(4).Reflect;
@@ -8543,7 +8562,7 @@ module.exports = __webpack_require__(55)('Set', function(get){
 
 var each         = __webpack_require__(23)(0)
   , redefine     = __webpack_require__(15)
-  , meta         = __webpack_require__(30)
+  , meta         = __webpack_require__(31)
   , assign       = __webpack_require__(108)
   , weak         = __webpack_require__(102)
   , isObject     = __webpack_require__(6)
@@ -20109,7 +20128,7 @@ module.exports = {
   fill: fill
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 239 */
@@ -20118,7 +20137,7 @@ module.exports = {
 "use strict";
 
 
-var _angular = __webpack_require__(43);
+var _angular = __webpack_require__(44);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -20275,7 +20294,7 @@ define(String.prototype, "padRight", "".padEnd);
 "pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function (key) {
   [][key] && define(Array, key, Function.call.bind([][key]));
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 241 */
@@ -24458,7 +24477,7 @@ module.exports = 'ngAnimate';
  * @overview angular-cache is a very useful replacement for Angular's $cacheFactory.
  */
 (function (global, factory) {
-   true ? module.exports = factory(typeof angular === 'undefined' ? __webpack_require__(43) : angular) :
+   true ? module.exports = factory(typeof angular === 'undefined' ? __webpack_require__(44) : angular) :
   typeof define === 'function' && define.amd ? define('angular-cache', ['angular'], factory) :
   (global.angularCacheModuleName = factory(global.angular));
 }(this, function (angular) { 'use strict';
@@ -25571,13 +25590,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   if (typeof module !== 'undefined' && module.exports) {
     if (typeof angular === 'undefined') {
-      factory(__webpack_require__(43));
+      factory(__webpack_require__(44));
     } else {
       factory(angular);
     }
     module.exports = 'angular-google-analytics';
   } else if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(43)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(44)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -66099,7 +66118,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _angular = __webpack_require__(43);
+var _angular = __webpack_require__(44);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -66239,7 +66258,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _angular = __webpack_require__(43);
+var _angular = __webpack_require__(44);
 
 var _angular2 = _interopRequireDefault(_angular);
 
@@ -66396,7 +66415,7 @@ var AppRoutes = function (_Injectable) {
       abstract: true,
       templateUrl: '/app/pages/branch/view.html',
       controller: 'BranchController',
-      controllerAs: 'Branch'
+      controllerAs: 'Ctrl'
     })
 
     // Branch Nucleus
@@ -66440,7 +66459,7 @@ var AppRoutes = function (_Injectable) {
       url: '/flaggedposts',
       templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
       controller: 'BranchNucleusFlaggedPostsController',
-      controllerAs: 'FlaggedPosts'
+      controllerAs: 'Ctrl'
     })
 
     // Subbranches
@@ -66515,7 +66534,7 @@ var AppRoutes = function (_Injectable) {
       url: '/results',
       templateUrl: '/app/pages/branch/post/results/view.html',
       controller: 'BranchPostResultsController',
-      controllerAs: 'BranchPostResults',
+      controllerAs: 'Ctrl',
       pageTrack: '/p/:postid/results'
     }).state('weco.branch.post.discussion', {
       url: '',
@@ -67039,7 +67058,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -67576,6 +67595,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _constants = __webpack_require__(26);
+
+var _constants2 = _interopRequireDefault(_constants);
+
 var _injectable = __webpack_require__(2);
 
 var _injectable2 = _interopRequireDefault(_injectable);
@@ -67590,6 +67613,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var SortComments = _constants2.default.Filters.SortComments;
+
 var CommentsController = function (_Injectable) {
   _inherits(CommentsController, _Injectable);
 
@@ -67602,47 +67627,33 @@ var CommentsController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (CommentsController.__proto__ || Object.getPrototypeOf(CommentsController)).call(this, CommentsController.$inject, injections));
 
-    _this.comments = [];
-    _this.controls = {
+    _this.callbackDropdown = _this.callbackDropdown.bind(_this);
+    _this.setDefaultFilters = _this.setDefaultFilters.bind(_this);
+
+    _this.filters = {
       sortBy: {
-        items: [{
-          label: 'points',
-          url: 'points'
-        }, {
-          label: 'replies',
-          url: 'replies'
-        }, {
-          label: 'date',
-          url: 'date'
-        }],
+        items: SortComments,
         selectedIndex: -1,
         title: 'sorted by'
       }
     };
-    _this.sortBy = _this.controls.sortBy.items.map(function (x) {
-      return x.label;
-    });
     _this.hasMoreComments = false;
-    _this.isLoading = false;
+    _this.isInit = true;
+    _this.isWaitingForRequest = false;
+    _this.items = [];
 
-    _this.setDefaultControls = _this.setDefaultControls.bind(_this);
-    _this.setDefaultControls();
+    var fltrs = _this.filters;
+    var _this$UrlService = _this.UrlService,
+        attachFilterListeners = _this$UrlService.attachFilterListeners,
+        getFilterFlatItems = _this$UrlService.getFilterFlatItems;
 
-    var sortBy = _this.controls.sortBy;
+    _this.sortBy = getFilterFlatItems(fltrs.sortBy);
+
+    _this.setDefaultFilters();
+
     var events = _this.EventService.events;
 
-    var listeners = [_this.EventService.on(events.STATE_CHANGE_SUCCESS, _this.reloadComments.bind(_this)), _this.$rootScope.$watch(function () {
-      return sortBy.selectedIndex;
-    }, function (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        if (_this.changeUrl) {
-          var sort = _this.controls.sortBy;
-
-          _this.$location.search('sort', sort.items[sort.selectedIndex].url);
-        }
-        _this.reloadComments();
-      }
-    })];
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, fltrs, _this.callbackDropdown)), [_this.EventService.on(events.STATE_CHANGE_SUCCESS, _this.reloadComments.bind(_this))]);
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -67652,12 +67663,23 @@ var CommentsController = function (_Injectable) {
   }
 
   _createClass(CommentsController, [{
+    key: 'callbackDropdown',
+    value: function callbackDropdown() {
+      if (this.changeUrl) {
+        var applyFilter = this.UrlService.applyFilter;
+        var sortBy = this.filters.sortBy;
+
+        applyFilter(sortBy, 'sort');
+      }
+      this.reloadComments();
+    }
+  }, {
     key: 'exitSingleCommentView',
     value: function exitSingleCommentView() {
-      this.$state.go('weco.branch.post', {
-        branchid: this.BranchService.branch.id,
-        postid: this.PostService.post.id
-      });
+      var branchid = this.BranchService.branch.id;
+      var postid = this.PostService.post.id;
+
+      this.$state.go('weco.branch.post', { branchid: branchid, postid: postid });
     }
   }, {
     key: 'getAllCommentReplies',
@@ -67668,7 +67690,7 @@ var CommentsController = function (_Injectable) {
         var promises = [];
 
         commentsArr.forEach(function (comment) {
-          promises.push(new Promise(function (resolve2, reject2) {
+          var promise = new Promise(function (resolve2, reject2) {
             _this2.getSingleCommentReplies(comment).then(function () {
               if (comment.comments) {
                 return _this2.getAllCommentReplies(comment.comments).then(resolve2).catch(reject2);
@@ -67676,7 +67698,9 @@ var CommentsController = function (_Injectable) {
 
               return resolve2();
             }).catch(reject2);
-          }));
+          });
+
+          promises = [].concat(_toConsumableArray(promises), [promise]);
         });
 
         return Promise.all(promises).then(resolve).catch(reject);
@@ -67692,32 +67716,37 @@ var CommentsController = function (_Injectable) {
           _this3.AlertsService.push('error', 'Error loading comments.');
         }
 
-        _this3.isLoading = false;
+        _this3.isWaitingForRequest = false;
       };
 
       var successCb = function successCb(res) {
         return _this3.$timeout(function () {
           if (_this3.isCommentPermalink()) {
-            _this3.comments = [res];
-            _this3.isLoading = false;
+            _this3.items = [res];
+            _this3.isWaitingForRequest = false;
             return;
           }
 
-          var comments = [].concat(_toConsumableArray(_this3.comments), _toConsumableArray(res.comments));
-          _this3.comments = comments;
+          var comments = [].concat(_toConsumableArray(_this3.items), _toConsumableArray(res.comments));
+          _this3.items = comments;
 
           _this3.hasMoreComments = res.comments.length === _this3.API.limits().comments;
 
           _this3.getAllCommentReplies(comments).then(function () {
             return _this3.$timeout(function () {
-              _this3.isLoading = false;
+              _this3.isWaitingForRequest = false;
+            });
+          }).catch(function () {
+            return _this3.$timeout(function () {
+              _this3.isWaitingForRequest = false;
             });
           });
         });
       };
 
-      if (this.isLoading === true) return;
-      this.isLoading = true;
+      if (this.isWaitingForRequest === true) return;
+      this.isWaitingForRequest = true;
+      this.isInit = false;
 
       var _$state$params = this.$state.params,
           commentid = _$state$params.commentid,
@@ -67728,9 +67757,9 @@ var CommentsController = function (_Injectable) {
         this.CommentService.fetch(postid, commentid).then(successCb).catch(errorCb);
       } else {
         // fetch all the comments for this post
-        var sortBy = this.controls.sortBy;
+        var sortBy = this.filters.sortBy;
 
-        var sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
+        var sort = this.UrlService.getFilterItemKey(sortBy, 'url');
 
         this.CommentService.getMany(postid, undefined, sort, lastCommentId).then(successCb).catch(errorCb);
       }
@@ -67742,9 +67771,9 @@ var CommentsController = function (_Injectable) {
 
       return new Promise(function (resolve, reject) {
         var lastCommentId = false;
-        var sortBy = _this4.controls.sortBy;
+        var sortBy = _this4.filters.sortBy;
 
-        var sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
+        var sort = _this4.UrlService.getFilterItemKey(sortBy, 'url');
 
         // fetch the replies to this comment, or just the number of replies
         return _this4.CommentService.getMany(comment.postid, comment.id, sort, lastCommentId).then(function (res) {
@@ -67765,51 +67794,52 @@ var CommentsController = function (_Injectable) {
       return this.$state.current.name === 'weco.branch.post.comment';
     }
   }, {
+    key: 'isPostType',
+    value: function isPostType(type) {
+      return this.PostService.post.type === type;
+    }
+  }, {
     key: 'onSubmitComment',
     value: function onSubmitComment(comment, parent) {
       // eslint-disable-line no-unused-vars
-      this.comments.unshift(comment);
+      this.items = [comment].concat(_toConsumableArray(this.items));
     }
   }, {
     key: 'reloadComments',
     value: function reloadComments() {
-      this.comments = [];
+      this.items = [];
       this.getComments();
     }
   }, {
-    key: 'setDefaultControls',
-    value: function setDefaultControls() {
-      var query = this.$location.search();
+    key: 'setDefaultFilters',
+    value: function setDefaultFilters() {
+      var _this5 = this;
+
+      var sortBy = this.filters.sortBy;
+      var _UrlService = this.UrlService,
+          getUrlSearchParams = _UrlService.getUrlSearchParams,
+          urlToFilterItemIndex = _UrlService.urlToFilterItemIndex;
+
+      var _getUrlSearchParams = getUrlSearchParams(),
+          sort = _getUrlSearchParams.sort;
+
       var defaultSortByIndex = 0;
 
-      var sortBy = this.controls.sortBy;
+      var urlIndexSortBy = urlToFilterItemIndex(sort, sortBy);
 
-      var urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
       sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
 
-      this.reloadComments();
-    }
-
-    // Finds the item in array with the matching url value and returns its index.
-
-  }, {
-    key: 'urlToItemIndex',
-    value: function urlToItemIndex(str) {
-      var arr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-      for (var i = 0; i < arr.length; i += 1) {
-        if (arr[i].url === str) {
-          return i;
-        }
-      }
-      return -1;
+      // Set filters through service for other modules.
+      setTimeout(function () {
+        _this5.reloadComments();
+      }, 0);
     }
   }]);
 
   return CommentsController;
 }(_injectable2.default);
 
-CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'CommentService', 'EventService', 'PostService'];
+CommentsController.$inject = ['$location', '$rootScope', '$scope', '$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'CommentService', 'EventService', 'PostService', 'UrlService'];
 
 exports.default = CommentsController;
 
@@ -67852,7 +67882,7 @@ var CommentsComponent = function (_Injectable) {
       changeUrl: '='
     };
     _this.controller = 'CommentsController';
-    _this.controllerAs = 'Comments';
+    _this.controllerAs = 'Ctrl';
     _this.replace = true;
     _this.restrict = 'E';
     _this.scope = {};
@@ -68150,12 +68180,10 @@ var CommentThreadController = function (_Injectable) {
   }, {
     key: 'commentPermalink',
     value: function commentPermalink(comment) {
-      this.$state.go('weco.branch.post.comment', {
-        commentid: comment.id,
-        postid: comment.postid
-      }, {
-        reload: true
-      });
+      var commentid = comment.id,
+          postid = comment.postid;
+
+      this.$state.go('weco.branch.post.comment', { commentid: commentid, postid: postid }, { reload: true });
     }
   }, {
     key: 'delete',
@@ -70383,11 +70411,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -70407,9 +70433,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // todo stringify this on the server...
 
-var PostTypes = _constants2.default.AllowedValues.PostTypes;
+
+var EntityLimits = _constants2.default.EntityLimits,
+    PostTypeImage = _constants2.default.PostTypeImage,
+    PostTypePoll = _constants2.default.PostTypePoll,
+    PostTypeText = _constants2.default.PostTypeText;
+var pollAnswersMinCount = EntityLimits.pollAnswersMinCount,
+    postText = EntityLimits.postText,
+    postTitle = EntityLimits.postTitle;
+var Category = _constants2.default.Filters.Category;
 
 var CreatePostModalController = function (_Injectable) {
   _inherits(CreatePostModalController, _Injectable);
@@ -70423,43 +70457,51 @@ var CreatePostModalController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (CreatePostModalController.__proto__ || Object.getPrototypeOf(CreatePostModalController)).call(this, CreatePostModalController.$inject, injections));
 
+    _this.callbackDropdown = _this.callbackDropdown.bind(_this);
     _this.handleModalCancel = _this.handleModalCancel.bind(_this);
     _this.handleModalSubmit = _this.handleModalSubmit.bind(_this);
+
+    _this.filters = {
+      postType: {
+        items: Category.slice(1),
+        selectedIndex: -1,
+        title: 'category'
+      }
+    };
+
+    var _this$UrlService = _this.UrlService,
+        attachFilterListeners = _this$UrlService.attachFilterListeners,
+        getFilterFlatItems = _this$UrlService.getFilterFlatItems;
+
+    _this.postType = getFilterFlatItems(_this.filters.postType);
 
     _this.errorMessage = '';
     _this.file = null;
     _this.isLoading = false;
-    _this.newPost = {
-      branchids: [],
+    _this.post = {
+      branches: [],
       captcha: '',
       locked: false,
       nsfw: false,
-      text: null,
-      url: null
+      pollAnswers: [],
+      text: '',
+      title: '',
+      type: null,
+      url: ''
     };
-    _this.pollAnswers = [];
-    _this.postType = {
-      items: PostTypes,
-      selectedIndex: 0
-    };
+    _this.PostTypeImage = PostTypeImage;
+    _this.PostTypePoll = PostTypePoll;
+    _this.PostTypeText = PostTypeText;
     _this.preview = false;
-
-    var parentBranch = _this.ModalService.inputArgs.branchid;
-    if (parentBranch !== 'root') {
-      _this.newPost.branchids = [].concat(_toConsumableArray(_this.newPost.branchids), [{
-        isRemovable: false,
-        label: parentBranch
-      }]);
-    }
-
-    _this.tags = _this.newPost.branchids;
     _this.url = '';
+
+    _this.injectCurrentBranchTag();
 
     var events = _this.EventService.events;
 
-    var listeners = [_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel), _this.EventService.on(events.MODAL_OK, _this.handleModalSubmit)];
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, _this.filters, _this.callbackDropdown)), [_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel), _this.EventService.on(events.MODAL_OK, _this.handleModalSubmit)]);
     /*
-    listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
+    listeners.push(this.$scope.$watch(() => this.post.text, url => {
       if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
         return;
       }
@@ -70484,16 +70526,23 @@ var CreatePostModalController = function (_Injectable) {
         return deregisterListener();
       });
     });
+
+    // Wait until listeners initialise.
+    setTimeout(function () {
+      _this.filters.postType.selectedIndex = 0;
+    }, 0);
     return _this;
   }
 
   _createClass(CreatePostModalController, [{
-    key: 'flattenTagsArray',
-    value: function flattenTagsArray(array) {
-      if (!array.length || _typeof(array[0]) !== 'object') return array;
-      return array.map(function (item) {
-        return item.label;
-      });
+    key: 'callbackDropdown',
+    value: function callbackDropdown() {
+      this.post.type = this.getPostType();
+    }
+  }, {
+    key: 'getPostType',
+    value: function getPostType() {
+      return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
     }
   }, {
     key: 'getUploadUrl',
@@ -70525,180 +70574,198 @@ var CreatePostModalController = function (_Injectable) {
 
       if (name !== 'CREATE_POST') return;
 
-      this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
+      var _post = this.post,
+          branches = _post.branches,
+          locked = _post.locked,
+          nsfw = _post.nsfw,
+          pollAnswers = _post.pollAnswers,
+          text = _post.text,
+          title = _post.title,
+          type = _post.type,
+          url = _post.url;
+      var branchid = this.BranchService.branch.id;
 
-      var _newPost = this.newPost,
-          branchids = _newPost.branchids,
-          text = _newPost.text,
-          title = _newPost.title,
-          type = _newPost.type,
-          url = _newPost.url;
+      var error = '';
 
-      // If not all fields are filled, display error.
+      // Check if required fields are filled.
+      if (!title || ![PostTypePoll, PostTypeText].includes(type) && !url || type === PostTypeText && !text) {
+        error = 'Please fill in all fields.';
+      }
+      // Check if constraints are met.
+      else if (title.length > postTitle) {
+          error = 'Title cannot be longer than ' + postTitle + ' characters.';
+        } else if (text.length > postText) {
+          error = 'Text cannot be longer than ' + postText + ' characters.';
+        } else if (type === PostTypePoll && locked && pollAnswers.length < pollAnswersMinCount) {
+          error = 'Please add at least ' + pollAnswersMinCount + ' answers.';
+        }
 
-      if (!this.newPost || !title || this.BranchService.branch.id !== 'root' && !branchids || !['poll', 'text'].includes(type) && !url || type === 'text' && !text) {
+      if (error) {
         this.$timeout(function () {
-          return _this4.errorMessage = 'Please fill in all fields.';
+          _this4.errorMessage = error;
         });
         return;
       }
 
-      if (title.length > 200) {
-        this.$timeout(function () {
-          return _this4.errorMessage = 'Title cannot be more than 200 characters long.';
-        });
-        return;
-      }
-
-      // Perform the update.
+      this.$timeout(function () {
+        _this4.errorMessage = '';
+      });
       this.isLoading = true;
 
-      // create copy of post to not interfere with binding of items on tag-editor
-      var post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
-      post.branchids = JSON.stringify(this.flattenTagsArray(branchids));
+      // Create shallow copy to not interfere with binding of items on tag-editor.
+      var post = JSON.parse(JSON.stringify(this.post));
+      post.branches = branches.map(function (x) {
+        return x.label;
+      });
+      if (!post.branches.includes('root')) {
+        post.branches = ['root'].concat(_toConsumableArray(post.branches));
+      }
+
+      if (type !== PostTypePoll) {
+        delete post.locked;
+        delete post.pollAnswers;
+      }
+
+      if ([PostTypePoll, PostTypeText].includes(type)) {
+        delete post.url;
+      }
 
       _generator2.default.run(regeneratorRuntime.mark(function _callee() {
         var _this5 = this;
 
-        var postid, i, uploadUrl;
+        var err, postid, uploadUrl;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 // eslint-disable-line func-names
+                err = void 0;
                 postid = void 0;
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 2;
+                _context.next = 5;
                 return this.PostService.create(post);
 
-              case 4:
+              case 5:
                 postid = _context.sent;
                 _context.next = 11;
                 break;
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context['catch'](1);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context['catch'](2);
 
-                this.$timeout(function () {
-                  _this5.errorMessage = _context.t0.message || 'Error creating post!';
-                  _this5.isLoading = false;
-                });
-                return _context.abrupt('return');
+                err = _context.t0;
 
               case 11:
-                if (!(type === 'poll')) {
-                  _context.next = 26;
-                  break;
+
+                if (!err) {
+                  // Mock the full server answer on client.
+                  this.PostService.posts = [{
+                    branchid: branchid,
+                    comment_count: 0,
+                    date: Date.now(),
+                    id: postid,
+                    down: 0,
+                    global: 1,
+                    individual: 1,
+                    local: 1,
+                    locked: locked,
+                    nsfw: nsfw,
+                    type: type,
+                    up: 1,
+                    creator: this.UserService.user.username,
+                    original_branches: JSON.stringify(post.branches),
+                    pollAnswers: pollAnswers,
+                    text: text,
+                    title: title,
+                    url: url,
+                    profileUrl: '',
+                    profileUrlThumb: '',
+                    userVoted: 'up'
+                  }].concat(_toConsumableArray(this.PostService.posts));
                 }
 
-                i = 0;
-
-              case 13:
-                if (!(i < this.pollAnswers.length)) {
-                  _context.next = 26;
-                  break;
-                }
-
-                _context.prev = 14;
-                _context.next = 17;
-                return this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
-
-              case 17:
-                _context.next = 23;
-                break;
-
-              case 19:
-                _context.prev = 19;
-                _context.t1 = _context['catch'](14);
-
                 this.$timeout(function () {
-                  _this5.errorMessage = _context.t1.message || 'Error creating poll answers!';
-                  _this5.isLoading = false;
-                });
-                return _context.abrupt('return');
-
-              case 23:
-                i += 1;
-                _context.next = 13;
-                break;
-
-              case 26:
-
-                this.$timeout(function () {
-                  _this5.errorMessage = '';
                   _this5.isLoading = false;
                 });
 
-                if (!(this.file && type !== 'image')) {
-                  _context.next = 52;
+                if (!(!err && this.file && type !== PostTypeImage)) {
+                  _context.next = 38;
                   break;
                 }
 
                 uploadUrl = void 0;
-                _context.prev = 29;
-                _context.next = 32;
+                _context.prev = 15;
+                _context.next = 18;
                 return this.getUploadUrl(postid);
 
-              case 32:
+              case 18:
                 uploadUrl = _context.sent;
+                _context.next = 25;
+                break;
+
+              case 21:
+                _context.prev = 21;
+                _context.t1 = _context['catch'](15);
+
+                this.AlertsService.push('error', 'Unable to upload photo!');
+                this.ModalService.OK();
+
+              case 25:
+                _context.prev = 25;
+                _context.next = 28;
+                return this.UploadService.uploadImage(this.file, uploadUrl);
+
+              case 28:
+                this.file = null;
+                this.ModalService.OK();
+                _context.next = 36;
+                break;
+
+              case 32:
+                _context.prev = 32;
+                _context.t2 = _context['catch'](25);
+
+                this.AlertsService.push('error', 'Unable to upload photo!');
+                this.ModalService.OK();
+
+              case 36:
                 _context.next = 39;
                 break;
 
-              case 35:
-                _context.prev = 35;
-                _context.t2 = _context['catch'](29);
-
-                this.AlertsService.push('error', 'Unable to upload photo!');
-                this.ModalService.OK();
+              case 38:
+                if (!err) {
+                  this.ModalService.OK();
+                } else {
+                  this.$timeout(function () {
+                    _this5.errorMessage = err.message || 'Error creating post!';
+                    _this5.isLoading = false;
+                  });
+                }
 
               case 39:
-                _context.prev = 39;
-                _context.next = 42;
-                return this.UploadService.uploadImage(this.file, uploadUrl);
-
-              case 42:
-                this.file = null;
-                this.ModalService.OK();
-                _context.next = 50;
-                break;
-
-              case 46:
-                _context.prev = 46;
-                _context.t3 = _context['catch'](39);
-
-                this.AlertsService.push('error', 'Unable to upload photo!');
-                this.ModalService.OK();
-
-              case 50:
-                _context.next = 53;
-                break;
-
-              case 52:
-                this.ModalService.OK();
-
-              case 53:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 7], [14, 19], [29, 35], [39, 46]]);
+        }, _callee, this, [[2, 8], [15, 21], [25, 32]]);
       }), this);
+    }
+  }, {
+    key: 'injectCurrentBranchTag',
+    value: function injectCurrentBranchTag() {
+      var parentBranchId = this.ModalService.inputArgs.branchid;
+      if (parentBranchId !== 'root') {
+        this.post.branches = [{
+          isRemovable: false,
+          label: parentBranchId
+        }].concat(_toConsumableArray(this.post.branches));
+      }
     }
   }, {
     key: 'setFile',
     value: function setFile(file) {
       this.file = file;
-    }
-  }, {
-    key: 'toggleLocked',
-    value: function toggleLocked() {
-      this.newPost.locked = !this.newPost.locked;
-    }
-  }, {
-    key: 'toggleNSFW',
-    value: function toggleNSFW() {
-      this.newPost.nsfw = !this.newPost.nsfw;
     }
   }, {
     key: 'togglePreview',
@@ -70710,7 +70777,7 @@ var CreatePostModalController = function (_Injectable) {
   return CreatePostModalController;
 }(_injectable2.default);
 
-CreatePostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UploadService'];
+CreatePostModalController.$inject = ['$scope', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'PostService', 'UploadService', 'UrlService', 'UserService'];
 
 exports.default = CreatePostModalController;
 
@@ -72256,6 +72323,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -72281,17 +72350,20 @@ var AnswerEditorController = function (_Injectable) {
   _createClass(AnswerEditorController, [{
     key: 'addAnswer',
     value: function addAnswer() {
-      if (this.answer === undefined || this.answer === '') {
+      var answer = this.answer;
+
+
+      if (answer === undefined || answer === '') {
         return;
       }
 
-      this.answers.push(this.answer);
+      this.answers = [].concat(_toConsumableArray(this.answers), [answer]);
       this.answer = '';
     }
   }, {
     key: 'removeAnswer',
     value: function removeAnswer(index) {
-      this.answers.splice(index, 1);
+      this.answers = [].concat(_toConsumableArray(this.answers.slice(0, index)), _toConsumableArray(this.answers.slice(index + 1)));
     }
   }]);
 
@@ -73910,16 +73982,9 @@ var BranchController = function (_Injectable) {
   }
 
   _createClass(BranchController, [{
-    key: 'getHeaderClassName',
-    value: function getHeaderClassName() {
-      var className = 'header';
-
-      // Every header apart from the post is fixed.
-      if (!this.$state.current.name.includes('weco.branch.post')) {
-        className += ' style--fixed';
-      }
-
-      return className;
+    key: 'hasFixedHeader',
+    value: function hasFixedHeader() {
+      return !this.$state.current.name.includes('weco.branch.post');
     }
   }, {
     key: 'openModal',
@@ -74116,7 +74181,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -74153,17 +74218,16 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
     var _this = _possibleConstructorReturn(this, (BranchNucleusFlaggedPostsController.__proto__ || Object.getPrototypeOf(BranchNucleusFlaggedPostsController)).call(this, BranchNucleusFlaggedPostsController.$inject, injections));
 
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
-    _this.getPosts = _this.getPosts.bind(_this);
+    _this.getItems = _this.getItems.bind(_this);
     _this.getPostsCb = _this.getPostsCb.bind(_this);
-    _this.setDefaultControls = _this.setDefaultControls.bind(_this);
+    _this.setDefaultFilters = _this.setDefaultFilters.bind(_this);
 
-    _this.isLoading = false;
-    _this.isLoadingMore = false;
-    // To stop sending requests once we hit the bottom of posts.
-    _this.lastFetchedPostId = false;
-    _this.posts = [];
+    _this.isInit = true;
+    _this.isWaitingForRequest = false;
 
-    _this.controls = {
+    _this.PostService.posts = [];
+
+    _this.filters = {
       postType: {
         items: Category,
         selectedIndex: -1,
@@ -74185,22 +74249,26 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
         title: 'flags from'
       }
     };
-    _this.setDefaultControls();
+    _this.setDefaultFilters();
 
-    var ctrls = _this.controls;
+    var fltrs = _this.filters;
     var _this$UrlService = _this.UrlService,
         attachFilterListeners = _this$UrlService.attachFilterListeners,
         getFilterFlatItems = _this$UrlService.getFilterFlatItems;
 
 
-    _this.postType = getFilterFlatItems(ctrls.postType);
-    _this.sortBy = getFilterFlatItems(ctrls.sortBy);
-    _this.statType = getFilterFlatItems(ctrls.statType);
-    _this.timeRange = getFilterFlatItems(ctrls.timeRange);
+    _this.postType = getFilterFlatItems(fltrs.postType);
+    _this.sortBy = getFilterFlatItems(fltrs.sortBy);
+    _this.statType = getFilterFlatItems(fltrs.statType);
+    _this.timeRange = getFilterFlatItems(fltrs.timeRange);
 
     var events = _this.EventService.events;
 
-    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, ctrls, _this.callbackDropdown)), [_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, _this.callbackDropdown), _this.EventService.on(events.CHANGE_BRANCH_PREFETCH, _this.setDefaultControls), _this.EventService.on(events.SCROLLED_TO_BOTTOM, _this.getPostsCb)]);
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, fltrs, _this.callbackDropdown)), [_this.EventService.on(events.CHANGE_FILTER, function () {
+      return _this.getItems();
+    }), _this.EventService.on(events.SCROLLED_TO_BOTTOM, function () {
+      return _this.getPostsCb();
+    })]);
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -74212,117 +74280,87 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
   _createClass(BranchNucleusFlaggedPostsController, [{
     key: 'callbackDropdown',
     value: function callbackDropdown() {
-      var _this2 = this;
+      this.HeaderService.setFilters({
+        postType: this.getPostType(),
+        sortBy: this.getSortBy(),
+        statType: this.getStatType(),
+        timeRange: this.getTimeRange()
+      });
 
       var applyFilter = this.UrlService.applyFilter;
-      var _controls = this.controls,
-          postType = _controls.postType,
-          sortBy = _controls.sortBy,
-          timeRange = _controls.timeRange;
+      var _filters = this.filters,
+          postType = _filters.postType,
+          sortBy = _filters.sortBy,
+          statType = _filters.statType,
+          timeRange = _filters.timeRange;
 
 
       applyFilter(sortBy, 'sort');
+      applyFilter(statType, 'stat');
       applyFilter(timeRange, 'time');
       applyFilter(postType, 'type');
-
-      return new Promise(function (resolve, reject) {
-        if (!_this2.$state.current.name.includes('weco.branch.nucleus') || Object.keys(_this2.BranchService.branch).length < 2) {
-          return reject();
-        }
-
-        return _this2.getPosts();
-      });
     }
   }, {
-    key: 'getPosts',
-    value: function getPosts(lastPostId) {
-      var _this3 = this;
+    key: 'getItems',
+    value: function getItems(lastPostId) {
+      var _this2 = this;
 
-      return new Promise(function (resolve, reject) {
-        var posts = _this3.posts;
+      if (this.isWaitingForRequest === true) return;
+
+      var id = this.BranchService.branch.id;
 
 
-        if (_this3.isLoading === true || lastPostId === _this3.lastFetchedPostId) {
-          return resolve();
-        }
-
-        _this3.isLoading = true;
-
-        if (lastPostId) {
-          _this3.lastFetchedPostId = lastPostId;
-        }
-
-        var id = _this3.BranchService.branch.id;
-
-        var postType = _this3.getPostType();
-        var sortBy = _this3.getSortBy();
-        var statType = _this3.getStatType();
-        var timeafter = _this3.getTimeRange();
-
-        // fetch the posts for this branch and timefilter
-        return _this3.BranchService.getPosts(id, timeafter, sortBy, statType, postType, lastPostId, true).then(function (newPosts) {
-          return _this3.$timeout(function () {
-            // If lastPostId was specified, we are fetching more posts, so append them.
-            posts = lastPostId ? posts.concat(newPosts) : newPosts;
-            _this3.posts = posts;
-
-            // 30 is the length of the posts response sent back by server.
-            if (newPosts.length > 0 && newPosts.length < 30) {
-              _this3.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-            }
-
-            _this3.isLoading = false;
-            _this3.isLoadingMore = false;
-            return resolve();
-          });
-        }).catch(function () {
-          return _this3.$timeout(function () {
-            _this3.AlertsService.push('error', 'Error fetching posts.');
-            _this3.isLoading = false;
-            _this3.isLoadingMore = false;
-            return reject();
-          });
+      this.isWaitingForRequest = true;
+      this.PostService.getPosts(id, lastPostId, true).then(function () {
+        return _this2.$timeout(function () {
+          _this2.isInit = false;
+          _this2.isWaitingForRequest = false;
+        });
+      }).catch(function () {
+        return _this2.$timeout(function () {
+          _this2.AlertsService.push('error', 'Error fetching posts.');
+          _this2.isInit = false;
+          _this2.isWaitingForRequest = false;
         });
       });
     }
   }, {
     key: 'getPostsCb',
     value: function getPostsCb() {
-      if (!this.isLoadingMore) {
-        this.isLoadingMore = true;
-        this.getPosts(this.posts[this.posts.length - 1].id);
-      }
+      var posts = this.PostService.posts;
+
+      this.getItems(posts[posts.length - 1].id);
     }
   }, {
     key: 'getPostType',
     value: function getPostType() {
-      return this.UrlService.getFilterItemParam(this.controls.postType, 'type');
+      return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
     }
   }, {
     key: 'getSortBy',
     value: function getSortBy() {
-      return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-flag');
+      return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort-flag');
     }
   }, {
     key: 'getStatType',
     value: function getStatType() {
-      return this.UrlService.getFilterItemParam(this.controls.statType, 'stat');
+      return this.UrlService.getFilterItemParam(this.filters.statType, 'stat');
     }
   }, {
     key: 'getTimeRange',
     value: function getTimeRange() {
-      return this.UrlService.getFilterItemParam(this.controls.timeRange, 'time');
+      return this.UrlService.getFilterItemParam(this.filters.timeRange, 'time');
     }
   }, {
-    key: 'setDefaultControls',
-    value: function setDefaultControls() {
-      var _this4 = this;
+    key: 'setDefaultFilters',
+    value: function setDefaultFilters() {
+      var _this3 = this;
 
-      var _controls2 = this.controls,
-          postType = _controls2.postType,
-          sortBy = _controls2.sortBy,
-          statType = _controls2.statType,
-          timeRange = _controls2.timeRange;
+      var _filters2 = this.filters,
+          postType = _filters2.postType,
+          sortBy = _filters2.sortBy,
+          statType = _filters2.statType,
+          timeRange = _filters2.timeRange;
       var _UrlService = this.UrlService,
           getUrlSearchParams = _UrlService.getUrlSearchParams,
           urlToFilterItemIndex = _UrlService.urlToFilterItemIndex;
@@ -74350,7 +74388,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
 
       // Set filters through service for other modules.
       setTimeout(function () {
-        _this4.callbackDropdown();
+        _this3.callbackDropdown();
       }, 0);
     }
   }]);
@@ -74358,7 +74396,7 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
   return BranchNucleusFlaggedPostsController;
 }(_injectable2.default);
 
-BranchNucleusFlaggedPostsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'UrlService'];
+BranchNucleusFlaggedPostsController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'HeaderService', 'PostService', 'UrlService'];
 
 exports.default = BranchNucleusFlaggedPostsController;
 
@@ -74933,7 +74971,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _constants = __webpack_require__(26);
+
+var _constants2 = _interopRequireDefault(_constants);
 
 var _injectable = __webpack_require__(2);
 
@@ -74947,6 +74991,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var PostTypeImage = _constants2.default.PostTypeImage,
+    PostTypePoll = _constants2.default.PostTypePoll,
+    PostTypeText = _constants2.default.PostTypeText,
+    PostTypeVideo = _constants2.default.PostTypeVideo;
+
 var BranchPostController = function (_Injectable) {
   _inherits(BranchPostController, _Injectable);
 
@@ -74959,11 +75008,14 @@ var BranchPostController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (BranchPostController.__proto__ || Object.getPrototypeOf(BranchPostController)).call(this, BranchPostController.$inject, injections));
 
-    _this.isLoading = true;
+    _this.redirect = _this.redirect.bind(_this);
 
+    _this.PostTypeImage = PostTypeImage;
+    _this.PostTypePoll = PostTypePoll;
+    _this.PostTypeText = PostTypeText;
+    _this.PostTypeVideo = PostTypeVideo;
     // Possible states: show, maximise, hide.
     _this.previewState = false;
-
     _this.tabItems = [{
       label: 'vote',
       url: 'vote'
@@ -74974,27 +75026,19 @@ var BranchPostController = function (_Injectable) {
       label: 'results',
       url: 'results'
     }];
+    _this.tabStates = ['weco.branch.post.vote', ['weco.branch.post.discussion', 'weco.branch.post.comment'], 'weco.branch.post.results'];
+
+    var branchid = _this.BranchService.branch.id;
+    var postid = _this.$state.params.postid;
+
+    _this.tabStateParams = [{ branchid: branchid, postid: postid }, { branchid: branchid, postid: postid }, { branchid: branchid, postid: postid }];
+
     _this.labels = _this.tabItems.map(function (x) {
       return x.label;
     });
     _this.urls = _this.tabItems.map(function (x) {
       return x.url;
     });
-
-    _this.tabStates = ['weco.branch.post.vote', ['weco.branch.post.discussion', 'weco.branch.post.comment'], 'weco.branch.post.results'];
-
-    _this.tabStateParams = [{
-      branchid: _this.BranchService.branch.id,
-      postid: _this.$state.params.postid
-    }, {
-      branchid: _this.BranchService.branch.id,
-      postid: _this.$state.params.postid
-    }, {
-      branchid: _this.BranchService.branch.id,
-      postid: _this.$state.params.postid
-    }];
-
-    _this.redirect = _this.redirect.bind(_this);
 
     var events = _this.EventService.events;
 
@@ -75061,43 +75105,37 @@ var BranchPostController = function (_Injectable) {
   }, {
     key: 'redirect',
     value: function redirect() {
-      // post not updated yet, wait for CHANGE_POST event
-      if (this.$state.params.postid !== this.PostService.post.id) {
-        return;
-      }
+      var _$state$params = this.$state.params,
+          postid = _$state$params.postid,
+          tab = _$state$params.tab;
+      var _PostService$post3 = this.PostService.post,
+          branchid = _PostService$post3.branchid,
+          id = _PostService$post3.id;
 
-      var post = this.PostService.post;
+      // Post not updated yet, wait for the CHANGE_POST event.
+
+      if (postid !== id) return;
 
       // update state params for tabs
-
       for (var i in this.tabStateParams) {
         // eslint-disable-line guard-for-in, no-restricted-syntax
-        this.tabStateParams[i].branchid = post.branchid;
-        this.tabStateParams[i].postid = post.id;
+        this.tabStateParams[i].branchid = branchid;
+        this.tabStateParams[i].postid = id;
       }
 
-      if (post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-        var tabIndex = this.urls.indexOf(this.$state.params.tab);
+      if (this.isPostType(PostTypePoll) && this.$state.current.name === 'weco.branch.post') {
+        var tabIndex = this.urls.indexOf(tab);
+        var state = '';
 
         if (tabIndex !== -1) {
-          var state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
-
-          this.$state.go(state, {
-            branchid: post.branchid,
-            postid: this.$state.params.postid
-          }, {
-            location: 'replace'
-          });
+          state = Array.isArray(this.tabStates[tabIndex]) ? this.tabStates[tabIndex][0] : this.tabStates[tabIndex];
         } else {
-          this.$state.go(this.tabStates[0], {
-            branchid: post.branchid,
-            postid: this.$state.params.postid
-          }, {
-            location: 'replace'
-          });
+          var _tabStates = _slicedToArray(this.tabStates, 1);
+
+          state = _tabStates[0];
         }
-      } else {
-        this.isLoading = false;
+
+        this.$state.go(state, { branchid: branchid, postid: postid }, { location: 'replace' });
       }
     }
   }, {
@@ -75187,6 +75225,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -75207,13 +75247,10 @@ var BranchPostResultsController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (BranchPostResultsController.__proto__ || Object.getPrototypeOf(BranchPostResultsController)).call(this, BranchPostResultsController.$inject, injections));
 
-    var cache = _this.LocalStorageService.getObject('cache').postPoll || {};
-    cache = cache[_this.PostService.post.id] || {};
-
-    _this.answers = cache.answers || [];
+    _this.answers = [];
     _this.chart = {
-      data: cache.chartData || [],
-      labels: cache.chartLabels || [],
+      data: [],
+      labels: [],
       options: {
         legend: {
           display: false
@@ -75230,6 +75267,8 @@ var BranchPostResultsController = function (_Injectable) {
       },
       type: 'pie'
     };
+    _this.isInit = true;
+    _this.isWaitingForRequest = false;
 
     _this.getPollAnswers();
 
@@ -75254,19 +75293,25 @@ var BranchPostResultsController = function (_Injectable) {
     value: function getPollAnswers() {
       var _this2 = this;
 
+      if (this.isWaitingForRequest) return;
+
+      this.isWaitingForRequest = true;
+      this.isInit = false;
       this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined).then(function (answers) {
         return _this2.$timeout(function () {
+          _this2.isWaitingForRequest = false;
+
           var chartData = [];
           var chartLabels = [];
-          // Check if the chart data is different - prevent the laggy render effect on data change.
+          // Check if the chart data is different - prevents the laggy render effect on data change.
           var isDiff = false;
 
           var totalVotes = _this2.getTotalVotes(answers);
 
           answers.forEach(function (answer, index) {
             if (index <= GROUP_ANSWERS_INDEX_LIMIT) {
-              chartData.push(answer.votes);
-              chartLabels.push(index + 1);
+              chartData = [].concat(_toConsumableArray(chartData), [answer.votes]);
+              chartLabels = [].concat(_toConsumableArray(chartLabels), [index + 1]);
             } else {
               chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
             }
@@ -75295,19 +75340,11 @@ var BranchPostResultsController = function (_Injectable) {
             _this2.chart.data = chartData;
             _this2.chart.labels = chartLabels;
           }
-
-          var cache = _this2.LocalStorageService.getObject('cache');
-          cache.postPoll = cache.postPoll || {};
-          cache.postPoll[_this2.PostService.post.id] = cache.postPoll[_this2.PostService.post.id] || {};
-          cache.postPoll[_this2.PostService.post.id].answers = _this2.answers;
-          cache.postPoll[_this2.PostService.post.id].chartData = _this2.chart.data;
-          cache.postPoll[_this2.PostService.post.id].chartLabels = _this2.chart.labels;
-          _this2.LocalStorageService.setObject('cache', cache);
         });
       }).catch(function (err) {
-        if (err.status !== 404) {
-          _this2.AlertsService.push('error', 'Error fetching poll answers.');
-        }
+        _this2.isWaitingForRequest = false;
+        if (err.status === 404) return;
+        _this2.AlertsService.push('error', 'Error fetching poll answers.');
       });
     }
   }, {
@@ -75360,7 +75397,7 @@ var BranchPostResultsController = function (_Injectable) {
   return BranchPostResultsController;
 }(_injectable2.default);
 
-BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'EventService', 'LocalStorageService', 'PostService'];
+BranchPostResultsController.$inject = ['$scope', '$timeout', 'AlertsService', 'EventService', 'PostService'];
 
 exports.default = BranchPostResultsController;
 
@@ -75377,7 +75414,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -75410,14 +75447,14 @@ var BranchPostVoteController = function (_Injectable) {
     var _this = _possibleConstructorReturn(this, (BranchPostVoteController.__proto__ || Object.getPrototypeOf(BranchPostVoteController)).call(this, BranchPostVoteController.$inject, injections));
 
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
-    _this.setDefaultControls = _this.setDefaultControls.bind(_this);
+    _this.setDefaultFilters = _this.setDefaultFilters.bind(_this);
 
-    var cache = _this.LocalStorageService.getObject('cache').postPoll || {};
-    cache = cache[_this.PostService.post.id] || {};
-    _this.items = cache.answers || [];
+    _this.isInit = true;
+    _this.isWaitingForRequest = false;
+    _this.items = [];
     _this.selectedAnswerIndex = -1;
 
-    _this.controls = {
+    _this.filters = {
       sortBy: {
         items: SortVotes,
         selectedIndex: -1,
@@ -75425,18 +75462,18 @@ var BranchPostVoteController = function (_Injectable) {
       }
     };
     _this.$timeout(function () {
-      return _this.setDefaultControls();
+      return _this.setDefaultFilters();
     });
 
-    var ctrls = _this.controls;
+    var fltrs = _this.filters;
     var _this$UrlService = _this.UrlService,
         attachFilterListeners = _this$UrlService.attachFilterListeners,
         getFilterFlatItems = _this$UrlService.getFilterFlatItems;
 
 
-    _this.sortBy = getFilterFlatItems(ctrls.sortBy);
+    _this.sortBy = getFilterFlatItems(fltrs.sortBy);
 
-    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, ctrls, _this.callbackDropdown)));
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, fltrs, _this.callbackDropdown)));
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -75453,43 +75490,43 @@ var BranchPostVoteController = function (_Injectable) {
   }, {
     key: 'canSubmitNewAnswer',
     value: function canSubmitNewAnswer() {
-      var _PostService = this.PostService,
-          post = _PostService.post,
-          user = _PostService.user;
+      var post = this.PostService.post;
+      var user = this.UserService.user;
 
-      return !(post.locked && post.data.creator !== user.username);
+      return !(post.locked && post.creator !== user.username);
     }
   }, {
     key: 'getItems',
     value: function getItems(lastAnswerId) {
       var _this2 = this;
 
+      if (this.isWaitingForRequest) return;
+
       this.selectedAnswerIndex = -1;
+
+      var id = this.PostService.post.id;
+
       var sortBy = this.getSortBy();
 
-      // fetch the poll answers
-      this.PostService.getPollAnswers(this.PostService.post.id, sortBy, lastAnswerId)
-      // if lastAnswerId was specified we are fetching _more_ answers, so append them
-      .then(function (answers) {
+      this.isWaitingForRequest = true;
+      this.isInit = false;
+      this.PostService.getPollAnswers(id, sortBy, lastAnswerId).then(function (answers) {
         return _this2.$timeout(function () {
+          _this2.isWaitingForRequest = false;
           _this2.items = lastAnswerId ? _this2.items.concat(answers) : answers;
-
-          var cache = _this2.LocalStorageService.getObject('cache');
-          cache.postPoll = cache.postPoll || {};
-          cache.postPoll[_this2.PostService.post.id] = cache.postPoll[_this2.PostService.post.id] || {};
-          cache.postPoll[_this2.PostService.post.id].answers = _this2.items;
-          _this2.LocalStorageService.setObject('cache', cache);
         });
       }).catch(function (err) {
-        if (err.status !== 404) {
+        return _this2.$timeout(function () {
+          _this2.isWaitingForRequest = false;
+          if (err.status === 404) return;
           _this2.AlertsService.push('error', 'Error fetching poll answers.');
-        }
+        });
       });
     }
   }, {
     key: 'getSortBy',
     value: function getSortBy() {
-      return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-vote');
+      return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort-vote');
     }
   }, {
     key: 'openSubmitPollAnswerModal',
@@ -75509,11 +75546,11 @@ var BranchPostVoteController = function (_Injectable) {
       this.selectedAnswerIndex = this.selectedAnswerIndex !== index ? index : -1;
     }
   }, {
-    key: 'setDefaultControls',
-    value: function setDefaultControls() {
+    key: 'setDefaultFilters',
+    value: function setDefaultFilters() {
       var _this4 = this;
 
-      var sortBy = this.controls.sortBy;
+      var sortBy = this.filters.sortBy;
       var _UrlService = this.UrlService,
           getUrlSearchParams = _UrlService.getUrlSearchParams,
           urlToFilterItemIndex = _UrlService.urlToFilterItemIndex;
@@ -75551,7 +75588,7 @@ var BranchPostVoteController = function (_Injectable) {
   return BranchPostVoteController;
 }(_injectable2.default);
 
-BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'LocalStorageService', 'ModalService', 'PostService', 'UrlService'];
+BranchPostVoteController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'EventService', 'ModalService', 'PostService', 'UrlService', 'UserService'];
 
 exports.default = BranchPostVoteController;
 
@@ -75617,24 +75654,25 @@ var WallService = function (_Injectable) {
     key: 'handleHeaderButtonClick',
     value: function handleHeaderButtonClick() {
       var branchid = this.BranchService.branch.id;
-
+      var params = { branchid: branchid };
       var errMsg = void 0;
       var name = void 0;
       var successMsg = void 0;
 
       switch (this.$state.current.name) {
         case 'weco.branch.subbranches':
+          errMsg = 'Error creating new branch.';
           name = 'CREATE_BRANCH';
           successMsg = function successMsg(args) {
             return 'Successfully created b/' + args.branchid + '!';
           };
-          errMsg = 'Error creating new branch.';
           break;
 
         case 'weco.branch.wall':
-          name = 'CREATE_POST';
-          successMsg = 'Successfully created post!';
           errMsg = 'Error creating post.';
+          name = 'CREATE_POST';
+          params.forceUpdate = false;
+          successMsg = 'Successfully created post!';
           break;
 
         /*
@@ -75649,7 +75687,7 @@ var WallService = function (_Injectable) {
       }
 
       if (name) {
-        this.ModalService.open(name, { branchid: branchid }, successMsg, errMsg);
+        this.ModalService.open(name, params, successMsg, errMsg);
       }
     }
   }, {
@@ -75815,7 +75853,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -75966,6 +76004,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _constants = __webpack_require__(26);
+
+var _constants2 = _interopRequireDefault(_constants);
+
 var _injectable = __webpack_require__(2);
 
 var _injectable2 = _interopRequireDefault(_injectable);
@@ -75977,6 +76019,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PostTypePoll = _constants2.default.PostTypePoll,
+    PostTypeText = _constants2.default.PostTypeText;
 
 var BranchWallController = function (_Injectable) {
   _inherits(BranchWallController, _Injectable);
@@ -75995,15 +76040,8 @@ var BranchWallController = function (_Injectable) {
 
     _this.isInit = true;
     _this.isWaitingForRequest = false;
-    _this.items = [];
-    _this.lastRequest = {
-      id: undefined,
-      lastId: undefined,
-      postType: undefined,
-      sortBy: undefined,
-      statType: undefined,
-      timeRange: undefined
-    };
+
+    _this.PostService.posts = [];
 
     var events = _this.EventService.events;
 
@@ -76023,60 +76061,27 @@ var BranchWallController = function (_Injectable) {
   _createClass(BranchWallController, [{
     key: 'callbackScroll',
     value: function callbackScroll() {
-      var items = this.items;
+      var posts = this.PostService.posts;
 
-      if (items.length) {
-        this.getItems(items[items.length - 1].id);
+      if (posts.length) {
+        this.getItems(posts[posts.length - 1].id);
       }
     }
   }, {
     key: 'getItems',
-    value: function getItems(lastId) {
+    value: function getItems(lastPostId) {
       var _this2 = this;
 
       if (this.isWaitingForRequest || !this.$state.current.name.includes('weco.branch.wall')) {
         return;
       }
 
-      var filters = this.HeaderService.getFilters();
-      var id = this.$state.params.branchid;
-      var lr = this.lastRequest;
-      var postType = filters.postType,
-          sortBy = filters.sortBy,
-          statType = filters.statType,
-          timeRange = filters.timeRange;
+      var branchid = this.$state.params.branchid;
 
-      // Don't send the request if the filters aren't initialised properly yet.
-
-      if (postType === null || postType === undefined || sortBy === null || sortBy === undefined || statType === null || statType === undefined || timeRange === null || timeRange === undefined) {
-        return;
-      }
-
-      // Don't send the request if nothing changed.
-      if (lr.id === id && lr.lastId === lastId && lr.postType === postType && lr.sortBy === sortBy && lr.statType === statType && lr.timeRange === timeRange) {
-        return;
-      }
-
-      // Update the last request values to compare with the next call.
-      this.lastRequest.id = id;
-      this.lastRequest.lastId = lastId;
-      this.lastRequest.postType = postType;
-      this.lastRequest.sortBy = sortBy;
-      this.lastRequest.statType = statType;
-      this.lastRequest.timeRange = timeRange;
 
       this.isWaitingForRequest = true;
-      this.BranchService.getPosts(id, timeRange, sortBy, statType, postType, lastId, false).then(function (newPosts) {
+      this.PostService.getPosts(branchid, lastPostId, false).then(function () {
         return _this2.$timeout(function () {
-          // If lastId was specified, we are fetching more posts, so append them.
-          var posts = lastId ? _this2.items.concat(newPosts) : newPosts;
-          _this2.items = posts;
-
-          // 30 is the length of the posts response sent back by server.
-          if (newPosts.length > 0 && newPosts.length < 30) {
-            _this2.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-          }
-
           _this2.isInit = false;
           _this2.isWaitingForRequest = false;
         });
@@ -76094,11 +76099,10 @@ var BranchWallController = function (_Injectable) {
   }, {
     key: 'getLink',
     value: function getLink(post) {
-      var correctUiSrefForTypes = ['poll', 'text'];
-      var postid = post.id;
+      var correctUiSrefForTypes = [PostTypePoll, PostTypeText];
 
       if (correctUiSrefForTypes.includes(post.type)) {
-        return this.$state.href('weco.branch.post', { postid: postid });
+        return this.$state.href('weco.branch.post', { postid: post.id });
       }
 
       return post.text;
@@ -76113,7 +76117,7 @@ var BranchWallController = function (_Injectable) {
   return BranchWallController;
 }(_injectable2.default);
 
-BranchWallController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'HeaderService'];
+BranchWallController.$inject = ['$scope', '$state', '$timeout', 'AlertsService', 'BranchService', 'EventService', 'HeaderService', 'PostService'];
 
 exports.default = BranchWallController;
 
@@ -76130,7 +76134,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(44);
+var _constants = __webpack_require__(26);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -76167,9 +76171,9 @@ var BranchWallHeaderController = function (_Injectable) {
     var _this = _possibleConstructorReturn(this, (BranchWallHeaderController.__proto__ || Object.getPrototypeOf(BranchWallHeaderController)).call(this, BranchWallHeaderController.$inject, injections));
 
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
-    _this.setDefaultControls = _this.setDefaultControls.bind(_this);
+    _this.setDefaultFilters = _this.setDefaultFilters.bind(_this);
 
-    _this.controls = {
+    _this.filters = {
       postType: {
         items: Category,
         selectedIndex: -1,
@@ -76192,24 +76196,24 @@ var BranchWallHeaderController = function (_Injectable) {
       }
     };
     _this.$timeout(function () {
-      return _this.setDefaultControls();
+      return _this.setDefaultFilters();
     });
 
-    var ctrls = _this.controls;
+    var fltrs = _this.filters;
     var _this$UrlService = _this.UrlService,
         attachFilterListeners = _this$UrlService.attachFilterListeners,
         getFilterFlatItems = _this$UrlService.getFilterFlatItems;
 
 
-    _this.postType = getFilterFlatItems(ctrls.postType);
-    _this.sortBy = getFilterFlatItems(ctrls.sortBy);
-    _this.statType = getFilterFlatItems(ctrls.statType);
-    _this.timeRange = getFilterFlatItems(ctrls.timeRange);
+    _this.postType = getFilterFlatItems(fltrs.postType);
+    _this.sortBy = getFilterFlatItems(fltrs.sortBy);
+    _this.statType = getFilterFlatItems(fltrs.statType);
+    _this.timeRange = getFilterFlatItems(fltrs.timeRange);
 
     var events = _this.EventService.events;
 
     _this.initialized = false;
-    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, ctrls, _this.callbackDropdown)), [_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, _this.setDefaultControls)]);
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, fltrs, _this.callbackDropdown)), [_this.EventService.on(events.CHANGE_BRANCH_PREFETCH, _this.setDefaultFilters)]);
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -76231,11 +76235,11 @@ var BranchWallHeaderController = function (_Injectable) {
       });
 
       var applyFilter = this.UrlService.applyFilter;
-      var _controls = this.controls,
-          postType = _controls.postType,
-          sortBy = _controls.sortBy,
-          statType = _controls.statType,
-          timeRange = _controls.timeRange;
+      var _filters = this.filters,
+          postType = _filters.postType,
+          sortBy = _filters.sortBy,
+          statType = _filters.statType,
+          timeRange = _filters.timeRange;
 
 
       applyFilter(sortBy, 'sort');
@@ -76246,33 +76250,33 @@ var BranchWallHeaderController = function (_Injectable) {
   }, {
     key: 'getPostType',
     value: function getPostType() {
-      return this.UrlService.getFilterItemParam(this.controls.postType, 'type');
+      return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
     }
   }, {
     key: 'getSortBy',
     value: function getSortBy() {
-      return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort');
+      return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort');
     }
   }, {
     key: 'getStatType',
     value: function getStatType() {
-      return this.UrlService.getFilterItemParam(this.controls.statType, 'stat');
+      return this.UrlService.getFilterItemParam(this.filters.statType, 'stat');
     }
   }, {
     key: 'getTimeRange',
     value: function getTimeRange() {
-      return this.UrlService.getFilterItemParam(this.controls.timeRange, 'time');
+      return this.UrlService.getFilterItemParam(this.filters.timeRange, 'time');
     }
   }, {
-    key: 'setDefaultControls',
-    value: function setDefaultControls() {
+    key: 'setDefaultFilters',
+    value: function setDefaultFilters() {
       var _this2 = this;
 
-      var _controls2 = this.controls,
-          postType = _controls2.postType,
-          sortBy = _controls2.sortBy,
-          statType = _controls2.statType,
-          timeRange = _controls2.timeRange;
+      var _filters2 = this.filters,
+          postType = _filters2.postType,
+          sortBy = _filters2.sortBy,
+          statType = _filters2.statType,
+          timeRange = _filters2.timeRange;
       var _UrlService = this.UrlService,
           getUrlSearchParams = _UrlService.getUrlSearchParams,
           urlToFilterItemIndex = _UrlService.urlToFilterItemIndex;
@@ -77317,34 +77321,9 @@ var BranchService = function (_Injectable) {
       });
     }
   }, {
-    key: 'getPosts',
-    value: function getPosts(branchid, timeafter, sortBy, stat, postType, lastPostId, flag) {
-      var _this6 = this;
-
-      return new Promise(function (resolve, reject) {
-        var params = {
-          flag: !!flag,
-          postType: postType,
-          sortBy: sortBy,
-          stat: stat,
-          timeafter: timeafter
-        };
-
-        if (lastPostId) {
-          params.lastPostId = lastPostId;
-        }
-
-        _this6.API.get('/branch/:branchid/posts', { branchid: branchid }, params).then(function (res) {
-          return resolve(res.data);
-        }).catch(function (err) {
-          return reject(err.data || err);
-        });
-      });
-    }
-  }, {
     key: 'getSubbranches',
     value: function getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
-      var _this7 = this;
+      var _this6 = this;
 
       return new Promise(function (resolve, reject) {
         var params = {
@@ -77356,7 +77335,7 @@ var BranchService = function (_Injectable) {
           params.lastBranchId = lastBranchId;
         }
 
-        _this7.API.get('/branch/:branchid/subbranches', { branchid: branchid }, params).then(function (res) {
+        _this6.API.get('/branch/:branchid/subbranches', { branchid: branchid }, params).then(function (res) {
           return resolve(res.data);
         }, true).catch(function (err) {
           return reject(err.data || err);
@@ -77366,10 +77345,10 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'getSubbranchRequests',
     value: function getSubbranchRequests(branchid) {
-      var _this8 = this;
+      var _this7 = this;
 
       return new Promise(function (resolve, reject) {
-        _this8.API.get('/branch/:branchid/requests/subbranches', { branchid: branchid }).then(function (res) {
+        _this7.API.get('/branch/:branchid/requests/subbranches', { branchid: branchid }).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -77405,11 +77384,11 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'remove',
     value: function remove(branchid, child) {
-      var _this9 = this;
+      var _this8 = this;
 
       var params = child ? { child: child } : {};
       return new Promise(function (resolve, reject) {
-        _this9.API.delete('/branch/:branchid', { branchid: branchid }, params, true).then(resolve).catch(function (err) {
+        _this8.API.delete('/branch/:branchid', { branchid: branchid }, params, true).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77417,7 +77396,7 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'resolveFlaggedPost',
     value: function resolveFlaggedPost(branchid, postid, action, data, message) {
-      var _this10 = this;
+      var _this9 = this;
 
       return new Promise(function (resolve, reject) {
         var body = {
@@ -77427,7 +77406,7 @@ var BranchService = function (_Injectable) {
 
         body[action === 'change_type' ? 'type' : 'reason'] = data;
 
-        _this10.API.post('/branch/:branchid/posts/:postid/resolve', { branchid: branchid, postid: postid }, body).then(resolve).catch(function (err) {
+        _this9.API.post('/branch/:branchid/posts/:postid/resolve', { branchid: branchid, postid: postid }, body).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77435,10 +77414,10 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'submitSubbranchRequest',
     value: function submitSubbranchRequest(branchid, childid) {
-      var _this11 = this;
+      var _this10 = this;
 
       return new Promise(function (resolve, reject) {
-        _this11.API.post('/branch/:branchid/requests/subbranches/:childid', { branchid: branchid, childid: childid }).then(resolve).catch(function (err) {
+        _this10.API.post('/branch/:branchid/requests/subbranches/:childid', { branchid: branchid, childid: childid }).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77446,10 +77425,10 @@ var BranchService = function (_Injectable) {
   }, {
     key: 'update',
     value: function update(branchid, data) {
-      var _this12 = this;
+      var _this11 = this;
 
       return new Promise(function (resolve, reject) {
-        _this12.API.put('/branch/:branchid', { branchid: branchid }, data).then(resolve).catch(function (err) {
+        _this11.API.put('/branch/:branchid', { branchid: branchid }, data).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -77749,6 +77728,7 @@ var EventService = function (_Injectable) {
       MARK_ALL_NOTIFICATIONS_READ: 'MARK_ALL_NOTIFICATIONS_READ',
       MODAL_CANCEL: 'MODAL_CANCEL',
       MODAL_OK: 'MODAL_OK',
+      POSTS_LOADED: 'POSTS_LOADED',
       SCROLLED_TO_BOTTOM: 'SCROLLED_TO_BOTTOM',
       SEARCH: 'SEARCH',
       STATE_CHANGE_SUCCESS: '$stateChangeSuccess',
@@ -78125,6 +78105,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -78143,10 +78125,19 @@ var PostService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (PostService.__proto__ || Object.getPrototypeOf(PostService)).call(this, PostService.$inject, injections));
 
-    _this.post = {};
-    _this.updating = false;
-
     _this.updatePost = _this.updatePost.bind(_this);
+
+    _this.lastRequest = {
+      id: undefined,
+      lastId: undefined,
+      postType: undefined,
+      sortBy: undefined,
+      statType: undefined,
+      timeRange: undefined
+    };
+    _this.post = {};
+    _this.posts = [];
+    _this.updating = false;
 
     _this.updatePost();
 
@@ -78246,9 +78237,69 @@ var PostService = function (_Injectable) {
       });
     }
   }, {
+    key: 'getPosts',
+    value: function getPosts(branchid, lastId, flag) {
+      var _this9 = this;
+
+      var filters = this.HeaderService.getFilters();
+      var lr = this.lastRequest;
+      var postType = filters.postType,
+          sortBy = filters.sortBy,
+          statType = filters.statType,
+          timeRange = filters.timeRange;
+
+      // Don't send the request if the filters aren't initialised properly yet.
+
+      if (postType === null || postType === undefined || sortBy === null || sortBy === undefined || statType === null || statType === undefined || timeRange === null || timeRange === undefined) {
+        return Promise.resolve();
+      }
+
+      // Don't send the request if nothing changed.
+      if (lr.id === branchid && lr.lastId === lastId && lr.postType === postType && lr.sortBy === sortBy && lr.statType === statType && lr.timeRange === timeRange) {
+        return Promise.resolve();
+      }
+
+      var branchChanged = lr.id !== branchid;
+
+      // Update the last request values to compare with the next call.
+      this.lastRequest.id = branchid;
+      this.lastRequest.lastId = lastId;
+      this.lastRequest.postType = postType;
+      this.lastRequest.sortBy = sortBy;
+      this.lastRequest.statType = statType;
+      this.lastRequest.timeRange = timeRange;
+
+      var params = {
+        flag: !!flag,
+        postType: postType,
+        sortBy: sortBy,
+        stat: statType,
+        timeafter: timeRange
+      };
+
+      if (lastId) params.lastPostId = lastId;
+
+      return this.API.get('/branch/:branchid/posts', { branchid: branchid }, params).then(function (res) {
+        var newPosts = res.data;
+
+        if (lastId && !branchChanged) {
+          _this9.posts = [].concat(_toConsumableArray(_this9.posts), _toConsumableArray(newPosts));
+        } else {
+          _this9.posts = [].concat(_toConsumableArray(newPosts));
+        }
+
+        _this9.EventService.emit(_this9.EventService.events.POSTS_LOADED);
+        // todo extract constants into a separate file
+        var reachedBottom = newPosts.lengtht < 30;
+        return Promise.resolve(reachedBottom);
+      }).catch(function (err) {
+        return Promise.reject(err.data || err);
+      });
+    }
+  }, {
     key: 'updatePost',
     value: function updatePost() {
-      var _this9 = this;
+      var _this10 = this;
 
       if (!this.$state.current.name.includes('weco.branch.post') || this.updating === true) {
         return;
@@ -78262,31 +78313,31 @@ var PostService = function (_Injectable) {
       this.updating = true;
 
       this.fetch(postid, branchid).then(function (post) {
-        _this9.post = post;
-        _this9.updating = false;
+        _this10.post = post;
+        _this10.updating = false;
       }).catch(function (err) {
-        _this9.updating = false;
+        _this10.updating = false;
 
         if (err.status === 404) {
-          _this9.$state.go('weco.notfound');
+          _this10.$state.go('weco.notfound');
         } else {
-          _this9.AlertsService.push('error', 'Unable to fetch post.');
+          _this10.AlertsService.push('error', 'Unable to fetch post.');
         }
       }).then(function () {
-        return _this9.EventService.emit(_this9.EventService.events.CHANGE_POST);
+        return _this10.EventService.emit(_this10.EventService.events.CHANGE_POST);
       }).then(this.$timeout);
     }
   }, {
     key: 'vote',
     value: function vote(branchid, postid, _vote) {
-      var _this10 = this;
+      var _this11 = this;
 
       return new Promise(function (resolve, reject) {
         if (!['up', 'down'].includes(_vote)) {
           return reject();
         }
 
-        return _this10.API.put('/branch/:branchid/posts/:postid', { branchid: branchid, postid: postid }, { vote: _vote }, true).then(function (res) {
+        return _this11.API.put('/branch/:branchid/posts/:postid', { branchid: branchid, postid: postid }, { vote: _vote }, true).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);
@@ -78296,10 +78347,10 @@ var PostService = function (_Injectable) {
   }, {
     key: 'votePollAnswer',
     value: function votePollAnswer(postid, answerid) {
-      var _this11 = this;
+      var _this12 = this;
 
       return new Promise(function (resolve, reject) {
-        return _this11.API.put('/poll/:postid/answer/:answerid/vote', { answerid: answerid, postid: postid }, { vote: 'up' }, true).then(resolve).catch(function (err) {
+        return _this12.API.put('/poll/:postid/answer/:answerid/vote', { answerid: answerid, postid: postid }, { vote: 'up' }, true).then(resolve).catch(function (err) {
           return reject(err.data || err);
         });
       });
@@ -78309,7 +78360,7 @@ var PostService = function (_Injectable) {
   return PostService;
 }(_injectable2.default);
 
-PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'EventService'];
+PostService.$inject = ['$state', '$timeout', 'AlertsService', 'API', 'BranchService', 'EventService', 'HeaderService'];
 
 exports.default = PostService;
 
@@ -91883,7 +91934,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(416);
-module.exports = __webpack_require__(26).RegExp.escape;
+module.exports = __webpack_require__(27).RegExp.escape;
 
 /***/ }),
 /* 408 */
@@ -91937,7 +91988,7 @@ module.exports = function(hint){
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(37)
+var getKeys = __webpack_require__(38)
   , gOPS    = __webpack_require__(62)
   , pIE     = __webpack_require__(53);
 module.exports = function(it){
@@ -91956,7 +92007,7 @@ module.exports = function(it){
 /* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys   = __webpack_require__(37)
+var getKeys   = __webpack_require__(38)
   , toIObject = __webpack_require__(17);
 module.exports = function(object, el){
   var O      = toIObject(object)
@@ -92143,7 +92194,7 @@ $export($export.P + $export.F * !STRICT, 'Array', {
 
 "use strict";
 
-var ctx            = __webpack_require__(27)
+var ctx            = __webpack_require__(28)
   , $export        = __webpack_require__(0)
   , toObject       = __webpack_require__(11)
   , call           = __webpack_require__(105)
@@ -92237,7 +92288,7 @@ $export($export.P + $export.F * (__webpack_require__(52) != Object || !__webpack
 
 var $export       = __webpack_require__(0)
   , toIObject     = __webpack_require__(17)
-  , toInteger     = __webpack_require__(32)
+  , toInteger     = __webpack_require__(33)
   , toLength      = __webpack_require__(10)
   , $native       = [].lastIndexOf
   , NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
@@ -92339,7 +92390,7 @@ $export($export.P + $export.F * !__webpack_require__(22)([].reduce, true), 'Arra
 var $export    = __webpack_require__(0)
   , html       = __webpack_require__(71)
   , cof        = __webpack_require__(20)
-  , toIndex    = __webpack_require__(40)
+  , toIndex    = __webpack_require__(41)
   , toLength   = __webpack_require__(10)
   , arraySlice = [].slice;
 
@@ -92413,7 +92464,7 @@ $export($export.P + $export.F * (fails(function(){
 /* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(39)('Array');
+__webpack_require__(40)('Array');
 
 /***/ }),
 /* 437 */
@@ -92536,7 +92587,7 @@ if(!(HAS_INSTANCE in FunctionProto))__webpack_require__(9).f(FunctionProto, HAS_
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP         = __webpack_require__(9).f
-  , createDesc = __webpack_require__(31)
+  , createDesc = __webpack_require__(32)
   , has        = __webpack_require__(12)
   , FProto     = Function.prototype
   , nameRE     = /^\s*function ([^ (]*)/
@@ -92854,7 +92905,7 @@ var global            = __webpack_require__(4)
   , inheritIfRequired = __webpack_require__(72)
   , toPrimitive       = __webpack_require__(25)
   , fails             = __webpack_require__(5)
-  , gOPN              = __webpack_require__(36).f
+  , gOPN              = __webpack_require__(37).f
   , gOPD              = __webpack_require__(18).f
   , dP                = __webpack_require__(9).f
   , $trim             = __webpack_require__(50).trim
@@ -92863,7 +92914,7 @@ var global            = __webpack_require__(4)
   , Base              = $Number
   , proto             = $Number.prototype
   // Opera ~12 has broken Object#toString
-  , BROKEN_COF        = cof(__webpack_require__(35)(proto)) == NUMBER
+  , BROKEN_COF        = cof(__webpack_require__(36)(proto)) == NUMBER
   , TRIM              = 'trim' in String.prototype;
 
 // 7.1.3 ToNumber(argument)
@@ -93020,7 +93071,7 @@ $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', {parse
 "use strict";
 
 var $export      = __webpack_require__(0)
-  , toInteger    = __webpack_require__(32)
+  , toInteger    = __webpack_require__(33)
   , aNumberValue = __webpack_require__(95)
   , repeat       = __webpack_require__(85)
   , $toFixed     = 1..toFixed
@@ -93171,7 +93222,7 @@ $export($export.S + $export.F, 'Object', {assign: __webpack_require__(108)});
 
 var $export = __webpack_require__(0)
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', {create: __webpack_require__(35)});
+$export($export.S, 'Object', {create: __webpack_require__(36)});
 
 /***/ }),
 /* 476 */
@@ -93195,7 +93246,7 @@ $export($export.S + $export.F * !__webpack_require__(8), 'Object', {defineProper
 
 // 19.1.2.5 Object.freeze(O)
 var isObject = __webpack_require__(6)
-  , meta     = __webpack_require__(30).onFreeze;
+  , meta     = __webpack_require__(31).onFreeze;
 
 __webpack_require__(24)('freeze', function($freeze){
   return function freeze(it){
@@ -93293,7 +93344,7 @@ $export($export.S, 'Object', {is: __webpack_require__(116)});
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(11)
-  , $keys    = __webpack_require__(37);
+  , $keys    = __webpack_require__(38);
 
 __webpack_require__(24)('keys', function(){
   return function keys(it){
@@ -93307,7 +93358,7 @@ __webpack_require__(24)('keys', function(){
 
 // 19.1.2.15 Object.preventExtensions(O)
 var isObject = __webpack_require__(6)
-  , meta     = __webpack_require__(30).onFreeze;
+  , meta     = __webpack_require__(31).onFreeze;
 
 __webpack_require__(24)('preventExtensions', function($preventExtensions){
   return function preventExtensions(it){
@@ -93321,7 +93372,7 @@ __webpack_require__(24)('preventExtensions', function($preventExtensions){
 
 // 19.1.2.17 Object.seal(O)
 var isObject = __webpack_require__(6)
-  , meta     = __webpack_require__(30).onFreeze;
+  , meta     = __webpack_require__(31).onFreeze;
 
 __webpack_require__(24)('seal', function($seal){
   return function seal(it){
@@ -93377,14 +93428,14 @@ $export($export.G + $export.F * (parseInt != $parseInt), {parseInt: $parseInt});
 
 "use strict";
 
-var LIBRARY            = __webpack_require__(34)
+var LIBRARY            = __webpack_require__(35)
   , global             = __webpack_require__(4)
-  , ctx                = __webpack_require__(27)
+  , ctx                = __webpack_require__(28)
   , classof            = __webpack_require__(51)
   , $export            = __webpack_require__(0)
   , isObject           = __webpack_require__(6)
   , aFunction          = __webpack_require__(13)
-  , anInstance         = __webpack_require__(33)
+  , anInstance         = __webpack_require__(34)
   , forOf              = __webpack_require__(47)
   , speciesConstructor = __webpack_require__(82)
   , task               = __webpack_require__(87).set
@@ -93580,7 +93631,7 @@ if(!USE_NATIVE){
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(38)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(39)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected){
       var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -93607,8 +93658,8 @@ if(!USE_NATIVE){
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 __webpack_require__(49)($Promise, PROMISE);
-__webpack_require__(39)(PROMISE);
-Wrapper = __webpack_require__(26)[PROMISE];
+__webpack_require__(40)(PROMISE);
+Wrapper = __webpack_require__(27)[PROMISE];
 
 // statics
 $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -93703,7 +93754,7 @@ $export($export.S + $export.F * !__webpack_require__(5)(function(){
 
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export    = __webpack_require__(0)
-  , create     = __webpack_require__(35)
+  , create     = __webpack_require__(36)
   , aFunction  = __webpack_require__(13)
   , anObject   = __webpack_require__(3)
   , isObject   = __webpack_require__(6)
@@ -93969,7 +94020,7 @@ var dP             = __webpack_require__(9)
   , getPrototypeOf = __webpack_require__(19)
   , has            = __webpack_require__(12)
   , $export        = __webpack_require__(0)
-  , createDesc     = __webpack_require__(31)
+  , createDesc     = __webpack_require__(32)
   , anObject       = __webpack_require__(3)
   , isObject       = __webpack_require__(6);
 
@@ -94002,7 +94053,7 @@ $export($export.S, 'Reflect', {set: set});
 var global            = __webpack_require__(4)
   , inheritIfRequired = __webpack_require__(72)
   , dP                = __webpack_require__(9).f
-  , gOPN              = __webpack_require__(36).f
+  , gOPN              = __webpack_require__(37).f
   , isRegExp          = __webpack_require__(59)
   , $flags            = __webpack_require__(57)
   , $RegExp           = global.RegExp
@@ -94041,7 +94092,7 @@ if(__webpack_require__(8) && (!CORRECT_NEW || __webpack_require__(5)(function(){
   __webpack_require__(15)(global, 'RegExp', $RegExp);
 }
 
-__webpack_require__(39)('RegExp');
+__webpack_require__(40)('RegExp');
 
 /***/ }),
 /* 509 */
@@ -94333,7 +94384,7 @@ __webpack_require__(16)('fontsize', function(createHTML){
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export        = __webpack_require__(0)
-  , toIndex        = __webpack_require__(40)
+  , toIndex        = __webpack_require__(41)
   , fromCharCode   = String.fromCharCode
   , $fromCodePoint = String.fromCodePoint;
 
@@ -94558,11 +94609,11 @@ var global         = __webpack_require__(4)
   , DESCRIPTORS    = __webpack_require__(8)
   , $export        = __webpack_require__(0)
   , redefine       = __webpack_require__(15)
-  , META           = __webpack_require__(30).KEY
+  , META           = __webpack_require__(31).KEY
   , $fails         = __webpack_require__(5)
   , shared         = __webpack_require__(63)
   , setToStringTag = __webpack_require__(49)
-  , uid            = __webpack_require__(41)
+  , uid            = __webpack_require__(42)
   , wks            = __webpack_require__(7)
   , wksExt         = __webpack_require__(118)
   , wksDefine      = __webpack_require__(89)
@@ -94572,12 +94623,12 @@ var global         = __webpack_require__(4)
   , anObject       = __webpack_require__(3)
   , toIObject      = __webpack_require__(17)
   , toPrimitive    = __webpack_require__(25)
-  , createDesc     = __webpack_require__(31)
-  , _create        = __webpack_require__(35)
+  , createDesc     = __webpack_require__(32)
+  , _create        = __webpack_require__(36)
   , gOPNExt        = __webpack_require__(110)
   , $GOPD          = __webpack_require__(18)
   , $DP            = __webpack_require__(9)
-  , $keys          = __webpack_require__(37)
+  , $keys          = __webpack_require__(38)
   , gOPD           = $GOPD.f
   , dP             = $DP.f
   , gOPN           = gOPNExt.f
@@ -94700,11 +94751,11 @@ if(!USE_NATIVE){
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f   = $defineProperty;
-  __webpack_require__(36).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(37).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(53).f  = $propertyIsEnumerable;
   __webpack_require__(62).f = $getOwnPropertySymbols;
 
-  if(DESCRIPTORS && !__webpack_require__(34)){
+  if(DESCRIPTORS && !__webpack_require__(35)){
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -94797,7 +94848,7 @@ var $export      = __webpack_require__(0)
   , $typed       = __webpack_require__(64)
   , buffer       = __webpack_require__(88)
   , anObject     = __webpack_require__(3)
-  , toIndex      = __webpack_require__(40)
+  , toIndex      = __webpack_require__(41)
   , toLength     = __webpack_require__(10)
   , isObject     = __webpack_require__(6)
   , ArrayBuffer  = __webpack_require__(4).ArrayBuffer
@@ -94837,7 +94888,7 @@ $export($export.P + $export.U + $export.F * __webpack_require__(5)(function(){
   }
 });
 
-__webpack_require__(39)(ARRAY_BUFFER);
+__webpack_require__(40)(ARRAY_BUFFER);
 
 /***/ }),
 /* 538 */
@@ -94852,7 +94903,7 @@ $export($export.G + $export.W + $export.F * !__webpack_require__(64).ABV, {
 /* 539 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Float32', 4, function(init){
+__webpack_require__(30)('Float32', 4, function(init){
   return function Float32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94862,7 +94913,7 @@ __webpack_require__(29)('Float32', 4, function(init){
 /* 540 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Float64', 8, function(init){
+__webpack_require__(30)('Float64', 8, function(init){
   return function Float64Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94872,7 +94923,7 @@ __webpack_require__(29)('Float64', 8, function(init){
 /* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int16', 2, function(init){
+__webpack_require__(30)('Int16', 2, function(init){
   return function Int16Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94882,7 +94933,7 @@ __webpack_require__(29)('Int16', 2, function(init){
 /* 542 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int32', 4, function(init){
+__webpack_require__(30)('Int32', 4, function(init){
   return function Int32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94892,7 +94943,7 @@ __webpack_require__(29)('Int32', 4, function(init){
 /* 543 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Int8', 1, function(init){
+__webpack_require__(30)('Int8', 1, function(init){
   return function Int8Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94902,7 +94953,7 @@ __webpack_require__(29)('Int8', 1, function(init){
 /* 544 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint16', 2, function(init){
+__webpack_require__(30)('Uint16', 2, function(init){
   return function Uint16Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94912,7 +94963,7 @@ __webpack_require__(29)('Uint16', 2, function(init){
 /* 545 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint32', 4, function(init){
+__webpack_require__(30)('Uint32', 4, function(init){
   return function Uint32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94922,7 +94973,7 @@ __webpack_require__(29)('Uint32', 4, function(init){
 /* 546 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint8', 1, function(init){
+__webpack_require__(30)('Uint8', 1, function(init){
   return function Uint8Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -94932,7 +94983,7 @@ __webpack_require__(29)('Uint8', 1, function(init){
 /* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(29)('Uint8', 1, function(init){
+__webpack_require__(30)('Uint8', 1, function(init){
   return function Uint8ClampedArray(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -95233,13 +95284,13 @@ $export($export.S, 'Object', {
 // https://github.com/zenparsing/es-observable
 var $export     = __webpack_require__(0)
   , global      = __webpack_require__(4)
-  , core        = __webpack_require__(26)
+  , core        = __webpack_require__(27)
   , microtask   = __webpack_require__(79)()
   , OBSERVABLE  = __webpack_require__(7)('observable')
   , aFunction   = __webpack_require__(13)
   , anObject    = __webpack_require__(3)
-  , anInstance  = __webpack_require__(33)
-  , redefineAll = __webpack_require__(38)
+  , anInstance  = __webpack_require__(34)
+  , redefineAll = __webpack_require__(39)
   , hide        = __webpack_require__(14)
   , forOf       = __webpack_require__(47)
   , RETURN      = forOf.RETURN;
@@ -95427,13 +95478,13 @@ hide($Observable.prototype, OBSERVABLE, function(){ return this; });
 
 $export($export.G, {Observable: $Observable});
 
-__webpack_require__(39)('Observable');
+__webpack_require__(40)('Observable');
 
 /***/ }),
 /* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                  = __webpack_require__(28)
+var metadata                  = __webpack_require__(29)
   , anObject                  = __webpack_require__(3)
   , toMetaKey                 = metadata.key
   , ordinaryDefineOwnMetadata = metadata.set;
@@ -95446,7 +95497,7 @@ metadata.exp({defineMetadata: function defineMetadata(metadataKey, metadataValue
 /* 566 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(28)
+var metadata               = __webpack_require__(29)
   , anObject               = __webpack_require__(3)
   , toMetaKey              = metadata.key
   , getOrCreateMetadataMap = metadata.map
@@ -95468,7 +95519,7 @@ metadata.exp({deleteMetadata: function deleteMetadata(metadataKey, target /*, ta
 
 var Set                     = __webpack_require__(121)
   , from                    = __webpack_require__(97)
-  , metadata                = __webpack_require__(28)
+  , metadata                = __webpack_require__(29)
   , anObject                = __webpack_require__(3)
   , getPrototypeOf          = __webpack_require__(19)
   , ordinaryOwnMetadataKeys = metadata.keys
@@ -95490,7 +95541,7 @@ metadata.exp({getMetadataKeys: function getMetadataKeys(target /*, targetKey */)
 /* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(28)
+var metadata               = __webpack_require__(29)
   , anObject               = __webpack_require__(3)
   , getPrototypeOf         = __webpack_require__(19)
   , ordinaryHasOwnMetadata = metadata.has
@@ -95512,7 +95563,7 @@ metadata.exp({getMetadata: function getMetadata(metadataKey, target /*, targetKe
 /* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                = __webpack_require__(28)
+var metadata                = __webpack_require__(29)
   , anObject                = __webpack_require__(3)
   , ordinaryOwnMetadataKeys = metadata.keys
   , toMetaKey               = metadata.key;
@@ -95525,7 +95576,7 @@ metadata.exp({getOwnMetadataKeys: function getOwnMetadataKeys(target /*, targetK
 /* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(28)
+var metadata               = __webpack_require__(29)
   , anObject               = __webpack_require__(3)
   , ordinaryGetOwnMetadata = metadata.get
   , toMetaKey              = metadata.key;
@@ -95539,7 +95590,7 @@ metadata.exp({getOwnMetadata: function getOwnMetadata(metadataKey, target /*, ta
 /* 571 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(28)
+var metadata               = __webpack_require__(29)
   , anObject               = __webpack_require__(3)
   , getPrototypeOf         = __webpack_require__(19)
   , ordinaryHasOwnMetadata = metadata.has
@@ -95560,7 +95611,7 @@ metadata.exp({hasMetadata: function hasMetadata(metadataKey, target /*, targetKe
 /* 572 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(28)
+var metadata               = __webpack_require__(29)
   , anObject               = __webpack_require__(3)
   , ordinaryHasOwnMetadata = metadata.has
   , toMetaKey              = metadata.key;
@@ -95574,7 +95625,7 @@ metadata.exp({hasOwnMetadata: function hasOwnMetadata(metadataKey, target /*, ta
 /* 573 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                  = __webpack_require__(28)
+var metadata                  = __webpack_require__(29)
   , anObject                  = __webpack_require__(3)
   , aFunction                 = __webpack_require__(13)
   , toMetaKey                 = metadata.key
@@ -95972,7 +96023,7 @@ __webpack_require__(564);
 __webpack_require__(586);
 __webpack_require__(585);
 __webpack_require__(584);
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(27);
 
 /***/ }),
 /* 588 */
@@ -97265,7 +97316,7 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 589 */
@@ -102532,7 +102583,7 @@ Raven.prototype.setReleaseContext = Raven.prototype.setRelease;
 
 module.exports = Raven;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 595 */
@@ -102570,7 +102621,7 @@ Raven.afterLoad();
 
 module.exports = Raven;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 596 */
@@ -103204,7 +103255,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
 
 module.exports = TraceKit;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 597 */
@@ -104027,7 +104078,7 @@ function serializer(replacer, cycleReplacer) {
   typeof self === "object" ? self : this
 );
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
 /* 599 */

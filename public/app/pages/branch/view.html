@@ -1,8 +1,8 @@
 <cover-photo
-  can-edit="Branch.BranchService.isModerator()"
-  image-url="Branch.BranchService.branch.coverUrl"
-  open-upload-cover-modal="Branch.openModal"
-  thumb-url="Branch.BranchService.branch.coverUrlThumb" >
+  can-edit="Ctrl.BranchService.isModerator()"
+  image-url="Ctrl.BranchService.branch.coverUrl"
+  open-upload-cover-modal="Ctrl.openModal"
+  thumb-url="Ctrl.BranchService.branch.coverUrlThumb" >
 </cover-photo>
 
 <div
@@ -11,13 +11,20 @@
   <sidebar></sidebar>
 
   <div
-    class="{{ Branch.getHeaderClassName() }} no-transition"
+    class="header style--fixed no-transition"
+    ng-if="Ctrl.hasFixedHeader()"
     no-constructor-transition>
     <div class="header__body" ui-view="header"></div>
   </div>
-  
+
   <div class="center">
     <div class="align">
+      <div
+        class="header no-transition"
+        ng-if="!Ctrl.hasFixedHeader()"
+        no-constructor-transition>
+        <div class="header__body" ui-view="header"></div>
+      </div>
       <div class="content" ui-view="content"></div>
     </div>
   </div>

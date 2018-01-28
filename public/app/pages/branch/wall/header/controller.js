@@ -13,9 +13,9 @@ class BranchWallHeaderController extends Injectable {
     super(BranchWallHeaderController.$inject, injections);
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
-    this.setDefaultControls = this.setDefaultControls.bind(this);
+    this.setDefaultFilters = this.setDefaultFilters.bind(this);
 
-    this.controls = {
+    this.filters = {
       postType: {
         items: Category,
         selectedIndex: -1,
@@ -37,24 +37,24 @@ class BranchWallHeaderController extends Injectable {
         title: 'posts from',
       },
     };
-    this.$timeout(() => this.setDefaultControls());
+    this.$timeout(() => this.setDefaultFilters());
 
-    const ctrls = this.controls;
+    const fltrs = this.filters;
     const {
       attachFilterListeners,
       getFilterFlatItems,
     } = this.UrlService;
 
-    this.postType = getFilterFlatItems(ctrls.postType);
-    this.sortBy = getFilterFlatItems(ctrls.sortBy);
-    this.statType = getFilterFlatItems(ctrls.statType);
-    this.timeRange = getFilterFlatItems(ctrls.timeRange);
+    this.postType = getFilterFlatItems(fltrs.postType);
+    this.sortBy = getFilterFlatItems(fltrs.sortBy);
+    this.statType = getFilterFlatItems(fltrs.statType);
+    this.timeRange = getFilterFlatItems(fltrs.timeRange);
 
     const { events } = this.EventService;
     this.initialized = false;
     const listeners = [
-      ...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown),
-      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultControls),
+      ...attachFilterListeners(this.$scope, fltrs, this.callbackDropdown),
+      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultFilters),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
@@ -75,7 +75,7 @@ class BranchWallHeaderController extends Injectable {
       sortBy,
       statType,
       timeRange,
-    } = this.controls;
+    } = this.filters;
 
     applyFilter(sortBy, 'sort');
     applyFilter(statType, 'stat');
@@ -84,28 +84,28 @@ class BranchWallHeaderController extends Injectable {
   }
 
   getPostType() {
-    return this.UrlService.getFilterItemParam(this.controls.postType, 'type');
+    return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
   }
 
   getSortBy() {
-    return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort');
+    return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort');
   }
 
   getStatType() {
-    return this.UrlService.getFilterItemParam(this.controls.statType, 'stat');
+    return this.UrlService.getFilterItemParam(this.filters.statType, 'stat');
   }
 
   getTimeRange() {
-    return this.UrlService.getFilterItemParam(this.controls.timeRange, 'time');
+    return this.UrlService.getFilterItemParam(this.filters.timeRange, 'time');
   }
 
-  setDefaultControls() {
+  setDefaultFilters() {
     const {
       postType,
       sortBy,
       statType,
       timeRange,
-    } = this.controls;
+    } = this.filters;
     const {
       getUrlSearchParams,
       urlToFilterItemIndex,

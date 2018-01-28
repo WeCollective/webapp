@@ -8,7 +8,7 @@ class CommentsComponent extends Injectable {
       changeUrl: '=',
     };
     this.controller = 'CommentsController';
-    this.controllerAs = 'Comments';
+    this.controllerAs = 'Ctrl';
     this.replace = true;
     this.restrict = 'E';
     this.scope = {};

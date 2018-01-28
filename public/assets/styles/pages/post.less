@@ -200,6 +200,13 @@
 
     .style--card-poll-answer {
       .list-item(70px);
+
+      // 10px padding for poll answers as they used to go to the edge in cases
+      // with very long strings.
+      .list-item-info {
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
     }
 
     p#no-answers { font-style: italic; }

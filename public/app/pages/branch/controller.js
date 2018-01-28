@@ -5,15 +5,8 @@ class BranchController extends Injectable {
     super(BranchController.$inject, injections);
   }
 
-  getHeaderClassName() {
-    let className = 'header';
-
-    // Every header apart from the post is fixed.
-    if (!this.$state.current.name.includes('weco.branch.post')) {
-      className += ' style--fixed';
-    }
-
-    return className;
+  hasFixedHeader() {
+    return !this.$state.current.name.includes('weco.branch.post');
   }
 
   openModal(modalType) {

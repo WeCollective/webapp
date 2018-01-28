@@ -1,3 +1,7 @@
+const MAX_POST_TEXT = 20000;
+const MAX_POST_TITLE = 300;
+const MIN_POLL_ANSWERS_COUNT = 2;
+
 const PostTypeAudio = 'audio';
 const PostTypeImage = 'image';
 const PostTypePage = 'page';
@@ -13,6 +17,12 @@ const PostTypes = [
   PostTypeAudio,
   PostTypePoll,
 ];
+
+const EntityLimits = {
+  pollAnswersMinCount: MIN_POLL_ANSWERS_COUNT,
+  postText: MAX_POST_TEXT,
+  postTitle: MAX_POST_TITLE,
+};
 
 const Category = [{
   label: 'all',
@@ -85,6 +95,11 @@ const SortItemPosts = {
   url: 'posts',
 };
 
+const SortItemReplies = {
+  label: 'replies',
+  url: 'replies',
+};
+
 const SortItemVotes = {
   label: 'votes',
   url: 'votes',
@@ -94,6 +109,12 @@ const SortBranch = [
   SortItemPoints,
   SortItemPosts,
   SortItemComments,
+  SortItemDate,
+];
+
+const SortComments = [
+  SortItemPoints,
+  SortItemReplies,
   SortItemDate,
 ];
 
@@ -132,11 +153,13 @@ export default {
   AllowedValues: {
     PostTypes,
   },
+  EntityLimits,
   Filters: {
     Category,
     Flag,
     Point,
     SortBranch,
+    SortComments,
     SortPost,
     SortVotes,
     Time,

@@ -1,4 +1,10 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  PostTypePoll,
+  PostTypeText,
+} = Constants;
 
 class BranchWallController extends Injectable {
   constructor(...injections) {
@@ -9,15 +15,8 @@ class BranchWallController extends Injectable {
 
     this.isInit = true;
     this.isWaitingForRequest = false;
-    this.items = [];
-    this.lastRequest = {
-      id: undefined,
-      lastId: undefined,
-      postType: undefined,
-      sortBy: undefined,
-      statType: undefined,
-      timeRange: undefined,
-    };
+
+    this.PostService.posts = [];
 
     const { events } = this.EventService;
     const listeners = [
@@ -29,61 +28,22 @@ class BranchWallController extends Injectable {
   }
 
   callbackScroll() {
-    const { items } = this;
-    if (items.length) {
-      this.getItems(items[items.length - 1].id);
+    const { posts } = this.PostService;
+    if (posts.length) {
+      this.getItems(posts[posts.length - 1].id);
     }
   }
 
-  getItems(lastId) {
+  getItems(lastPostId) {
     if (this.isWaitingForRequest || !this.$state.current.name.includes('weco.branch.wall')) {
       return;
     }
 
-    const filters = this.HeaderService.getFilters();
-    const id = this.$state.params.branchid;
-    const lr = this.lastRequest;
-    const {
-      postType,
-      sortBy,
-      statType,
-      timeRange,
-    } = filters;
-
-    // Don't send the request if the filters aren't initialised properly yet.
-    if (postType === null || postType === undefined || sortBy === null ||
-      sortBy === undefined || statType === null || statType === undefined ||
-      timeRange === null || timeRange === undefined) {
-      return;
-    }
-
-    // Don't send the request if nothing changed.
-    if (lr.id === id && lr.lastId === lastId &&
-      lr.postType === postType && lr.sortBy === sortBy &&
-      lr.statType === statType && lr.timeRange === timeRange) {
-      return;
-    }
-
-    // Update the last request values to compare with the next call.
-    this.lastRequest.id = id;
-    this.lastRequest.lastId = lastId;
-    this.lastRequest.postType = postType;
-    this.lastRequest.sortBy = sortBy;
-    this.lastRequest.statType = statType;
-    this.lastRequest.timeRange = timeRange;
+    const { branchid } = this.$state.params;
 
     this.isWaitingForRequest = true;
-    this.BranchService.getPosts(id, timeRange, sortBy, statType, postType, lastId, false)
-      .then(newPosts => this.$timeout(() => {
-        // If lastId was specified, we are fetching more posts, so append them.
-        const posts = lastId ? this.items.concat(newPosts) : newPosts;
-        this.items = posts;
-
-        // 30 is the length of the posts response sent back by server.
-        if (newPosts.length > 0 && newPosts.length < 30) {
-          this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-        }
-
+    this.PostService.getPosts(branchid, lastPostId, false)
+      .then(() => this.$timeout(() => {
         this.isInit = false;
         this.isWaitingForRequest = false;
       }))
@@ -97,13 +57,12 @@ class BranchWallController extends Injectable {
   // Return the correct ui-sref string.
   getLink(post) {
     const correctUiSrefForTypes = [
-      'poll',
-      'text',
+      PostTypePoll,
+      PostTypeText,
     ];
-    const postid = post.id;
 
     if (correctUiSrefForTypes.includes(post.type)) {
-      return this.$state.href('weco.branch.post', { postid });
+      return this.$state.href('weco.branch.post', { postid: post.id });
     }
 
     return post.text;
@@ -122,6 +81,7 @@ BranchWallController.$inject = [
   'BranchService',
   'EventService',
   'HeaderService',
+  'PostService',
 ];
 
 export default BranchWallController;

@@ -6,13 +6,10 @@ class BranchPostResultsController extends Injectable {
   constructor(...injections) {
     super(BranchPostResultsController.$inject, injections);
 
-    let cache = this.LocalStorageService.getObject('cache').postPoll || {};
-    cache = cache[this.PostService.post.id] || {};
-
-    this.answers = cache.answers || [];
+    this.answers = [];
     this.chart = {
-      data: cache.chartData || [],
-      labels: cache.chartLabels || [],
+      data: [],
+      labels: [],
       options: {
         legend: {
           display: false,
@@ -27,6 +24,8 @@ class BranchPostResultsController extends Injectable {
       },
       type: 'pie',
     };
+    this.isInit = true;
+    this.isWaitingForRequest = false;
 
     this.getPollAnswers();
 
@@ -39,19 +38,31 @@ class BranchPostResultsController extends Injectable {
 
   // Params: lastAnswerId
   getPollAnswers() {
+    if (this.isWaitingForRequest) return;
+
+    this.isWaitingForRequest = true;
+    this.isInit = false;
     this.PostService.getPollAnswers(this.PostService.post.id, 'votes', undefined)
       .then(answers => this.$timeout(() => {
-        const chartData = [];
-        const chartLabels = [];
-        // Check if the chart data is different - prevent the laggy render effect on data change.
+        this.isWaitingForRequest = false;
+
+        let chartData = [];
+        let chartLabels = [];
+        // Check if the chart data is different - prevents the laggy render effect on data change.
         let isDiff = false;
 
         const totalVotes = this.getTotalVotes(answers);
 
         answers.forEach((answer, index) => {
           if (index <= GROUP_ANSWERS_INDEX_LIMIT) {
-            chartData.push(answer.votes);
-            chartLabels.push(index + 1);
+            chartData = [
+              ...chartData,
+              answer.votes,
+            ];
+            chartLabels = [
+              ...chartLabels,
+              index + 1,
+            ];
           }
           else {
             chartData[GROUP_ANSWERS_INDEX_LIMIT] += answer.votes;
@@ -84,19 +95,11 @@ class BranchPostResultsController extends Injectable {
           this.chart.data = chartData;
           this.chart.labels = chartLabels;
         }
-
-        const cache = this.LocalStorageService.getObject('cache');
-        cache.postPoll = cache.postPoll || {};
-        cache.postPoll[this.PostService.post.id] = cache.postPoll[this.PostService.post.id] || {};
-        cache.postPoll[this.PostService.post.id].answers = this.answers;
-        cache.postPoll[this.PostService.post.id].chartData = this.chart.data;
-        cache.postPoll[this.PostService.post.id].chartLabels = this.chart.labels;
-        this.LocalStorageService.setObject('cache', cache);
       }))
       .catch(err => {
-        if (err.status !== 404) {
-          this.AlertsService.push('error', 'Error fetching poll answers.');
-        }
+        this.isWaitingForRequest = false;
+        if (err.status === 404) return;
+        this.AlertsService.push('error', 'Error fetching poll answers.');
       });
   }
 
@@ -123,7 +126,6 @@ BranchPostResultsController.$inject = [
   '$timeout',
   'AlertsService',
   'EventService',
-  'LocalStorageService',
   'PostService',
 ];
 

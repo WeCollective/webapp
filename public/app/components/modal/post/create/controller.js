@@ -1,55 +1,73 @@
+// todo stringify this on the server...
 import Constants from 'config/constants';
 import Generator from 'utils/generator';
 import Injectable from 'utils/injectable';
 
-const { PostTypes } = Constants.AllowedValues;
+const {
+  EntityLimits,
+  PostTypeImage,
+  PostTypePoll,
+  PostTypeText,
+} = Constants;
+const {
+  pollAnswersMinCount,
+  postText,
+  postTitle,
+} = EntityLimits;
+const { Category } = Constants.Filters;
 
 class CreatePostModalController extends Injectable {
   constructor(...injections) {
     super(CreatePostModalController.$inject, injections);
 
+    this.callbackDropdown = this.callbackDropdown.bind(this);
     this.handleModalCancel = this.handleModalCancel.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
+
+    this.filters = {
+      postType: {
+        items: Category.slice(1),
+        selectedIndex: -1,
+        title: 'category',
+      },
+    };
+
+    const {
+      attachFilterListeners,
+      getFilterFlatItems,
+    } = this.UrlService;
+    this.postType = getFilterFlatItems(this.filters.postType);
 
     this.errorMessage = '';
     this.file = null;
     this.isLoading = false;
-    this.newPost = {
-      branchids: [],
+    this.post = {
+      branches: [],
       captcha: '',
       locked: false,
       nsfw: false,
-      text: null,
-      url: null,
+      pollAnswers: [],
+      text: '',
+      title: '',
+      type: null,
+      url: '',
     };
-    this.pollAnswers = [];
-    this.postType = {
-      items: PostTypes,
-      selectedIndex: 0,
-    };
+    this.PostTypeImage = PostTypeImage;
+    this.PostTypePoll = PostTypePoll;
+    this.PostTypeText = PostTypeText;
     this.preview = false;
-
-    const parentBranch = this.ModalService.inputArgs.branchid;
-    if (parentBranch !== 'root') {
-      this.newPost.branchids = [
-        ...this.newPost.branchids,
-        {
-          isRemovable: false,
-          label: parentBranch,
-        },
-      ];
-    }
-
-    this.tags = this.newPost.branchids;
     this.url = '';
+
+    this.injectCurrentBranchTag();
 
     const { events } = this.EventService;
     const listeners = [
+      ...attachFilterListeners(this.$scope, this.filters, this.callbackDropdown),
       this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel),
       this.EventService.on(events.MODAL_OK, this.handleModalSubmit),
     ];
     /*
-    listeners.push(this.$scope.$watch(() => this.newPost.text, url => {
+    listeners.push(this.$scope.$watch(() => this.post.text, url => {
       if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
         return;
       }
@@ -72,11 +90,19 @@ class CreatePostModalController extends Injectable {
     }));
     */
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+    // Wait until listeners initialise.
+    setTimeout(() => {
+      this.filters.postType.selectedIndex = 0;
+    }, 0);
   }
 
-  flattenTagsArray(array) {
-    if (!array.length || typeof array[0] !== 'object') return array;
-    return array.map(item => item.label);
+  callbackDropdown() {
+    this.post.type = this.getPostType();
+  }
+
+  getPostType() {
+    return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
   }
 
   getUploadUrl(postid) {
@@ -101,76 +127,118 @@ class CreatePostModalController extends Injectable {
   handleModalSubmit(name) {
     if (name !== 'CREATE_POST') return;
 
-    this.newPost.type = this.postType.items[this.postType.selectedIndex].toLowerCase();
-
     const {
-      branchids,
+      branches,
+      locked,
+      nsfw,
+      pollAnswers,
       text,
       title,
       type,
       url,
-    } = this.newPost;
+    } = this.post;
+    const { id: branchid } = this.BranchService.branch;
+    let error = '';
 
-    // If not all fields are filled, display error.
-    if (!this.newPost || !title || (this.BranchService.branch.id !== 'root' && !branchids) ||
-      (!['poll', 'text'].includes(type) && !url) || (type === 'text' && !text)) {
-      this.$timeout(() => this.errorMessage = 'Please fill in all fields.');
+    // Check if required fields are filled.
+    if (!title || (![PostTypePoll, PostTypeText].includes(type) && !url) ||
+      (type === PostTypeText && !text)) {
+      error = 'Please fill in all fields.';
+    }
+    // Check if constraints are met.
+    else if (title.length > postTitle) {
+      error = `Title cannot be longer than ${postTitle} characters.`;
+    }
+    else if (text.length > postText) {
+      error = `Text cannot be longer than ${postText} characters.`;
+    }
+    else if (type === PostTypePoll && locked && pollAnswers.length < pollAnswersMinCount) {
+      error = `Please add at least ${pollAnswersMinCount} answers.`;
+    }
+
+    if (error) {
+      this.$timeout(() => {
+        this.errorMessage = error;
+      });
       return;
     }
 
-    if (title.length > 200) {
-      this.$timeout(() => this.errorMessage = 'Title cannot be more than 200 characters long.');
-      return;
-    }
-
-    // Perform the update.
+    this.$timeout(() => {
+      this.errorMessage = '';
+    });
     this.isLoading = true;
 
-    // create copy of post to not interfere with binding of items on tag-editor
-    const post = JSON.parse(JSON.stringify(this.newPost)); // JSON parsing facilitates shallow copy
-    post.branchids = JSON.stringify(this.flattenTagsArray(branchids));
+    // Create shallow copy to not interfere with binding of items on tag-editor.
+    const post = JSON.parse(JSON.stringify(this.post));
+    post.branches = branches.map(x => x.label);
+    if (!post.branches.includes('root')) {
+      post.branches = [
+        'root',
+        ...post.branches,
+      ];
+    }
+
+    if (type !== PostTypePoll) {
+      delete post.locked;
+      delete post.pollAnswers;
+    }
+
+    if ([PostTypePoll, PostTypeText].includes(type)) {
+      delete post.url;
+    }
 
     Generator.run(function* () { // eslint-disable-line func-names
+      let err;
       let postid;
+
       try {
         postid = yield this.PostService.create(post);
       }
-      catch (err) {
-        this.$timeout(() => {
-          this.errorMessage = err.message || 'Error creating post!';
-          this.isLoading = false;
-        });
-        return;
+      catch (e) {
+        err = e;
       }
 
-      // If it's a poll, add the poll answers.
-      if (type === 'poll') {
-        for (let i = 0; i < this.pollAnswers.length; i += 1) {
-          try {
-            yield this.PostService.createPollAnswer(postid, { text: this.pollAnswers[i] });
-          }
-          catch (err) {
-            this.$timeout(() => {
-              this.errorMessage = err.message || 'Error creating poll answers!';
-              this.isLoading = false;
-            });
-            return;
-          }
-        }
+      if (!err) {
+        // Mock the full server answer on client.
+        this.PostService.posts = [
+          {
+            branchid,
+            comment_count: 0,
+            date: Date.now(),
+            id: postid,
+            down: 0,
+            global: 1,
+            individual: 1,
+            local: 1,
+            locked,
+            nsfw,
+            type,
+            up: 1,
+            creator: this.UserService.user.username,
+            original_branches: JSON.stringify(post.branches),
+            pollAnswers,
+            text,
+            title,
+            url,
+            profileUrl: '',
+            profileUrlThumb: '',
+            userVoted: 'up',
+          },
+          ...this.PostService.posts,
+        ];
       }
 
       this.$timeout(() => {
-        this.errorMessage = '';
         this.isLoading = false;
       });
 
-      if (this.file && type !== 'image') {
+      if (!err && this.file && type !== PostTypeImage) {
         let uploadUrl;
 
         try {
           uploadUrl = yield this.getUploadUrl(postid);
         }
-        catch (err) {
+        catch (e) {
           this.AlertsService.push('error', 'Unable to upload photo!');
           this.ModalService.OK();
         }
@@ -180,27 +248,38 @@ class CreatePostModalController extends Injectable {
           this.file = null;
           this.ModalService.OK();
         }
-        catch (err) {
+        catch (e) {
           this.AlertsService.push('error', 'Unable to upload photo!');
           this.ModalService.OK();
         }
       }
-      else {
+      else if (!err) {
         this.ModalService.OK();
+      }
+      else {
+        this.$timeout(() => {
+          this.errorMessage = err.message || 'Error creating post!';
+          this.isLoading = false;
+        });
       }
     }, this);
   }
 
+  injectCurrentBranchTag() {
+    const parentBranchId = this.ModalService.inputArgs.branchid;
+    if (parentBranchId !== 'root') {
+      this.post.branches = [
+        {
+          isRemovable: false,
+          label: parentBranchId,
+        },
+        ...this.post.branches,
+      ];
+    }
+  }
+
   setFile(file) {
     this.file = file;
-  }
-
-  toggleLocked() {
-    this.newPost.locked = !this.newPost.locked;
-  }
-
-  toggleNSFW() {
-    this.newPost.nsfw = !this.newPost.nsfw;
   }
 
   togglePreview() {
@@ -218,6 +297,8 @@ CreatePostModalController.$inject = [
   'ModalService',
   'PostService',
   'UploadService',
+  'UrlService',
+  'UserService',
 ];
 
 export default CreatePostModalController;

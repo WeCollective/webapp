@@ -1,63 +1,65 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const { SortComments } = Constants.Filters;
 
 class CommentsController extends Injectable {
   constructor(...injections) {
     super(CommentsController.$inject, injections);
 
-    this.comments = [];
-    this.controls = {
+    this.callbackDropdown = this.callbackDropdown.bind(this);
+    this.setDefaultFilters = this.setDefaultFilters.bind(this);
+
+    this.filters = {
       sortBy: {
-        items: [{
-          label: 'points',
-          url: 'points',
-        }, {
-          label: 'replies',
-          url: 'replies',
-        }, {
-          label: 'date',
-          url: 'date',
-        }],
+        items: SortComments,
         selectedIndex: -1,
         title: 'sorted by',
       },
     };
-    this.sortBy = this.controls.sortBy.items.map(x => x.label);
     this.hasMoreComments = false;
-    this.isLoading = false;
+    this.isInit = true;
+    this.isWaitingForRequest = false;
+    this.items = [];
 
-    this.setDefaultControls = this.setDefaultControls.bind(this);
-    this.setDefaultControls();
+    const fltrs = this.filters;
+    const {
+      attachFilterListeners,
+      getFilterFlatItems,
+    } = this.UrlService;
+    this.sortBy = getFilterFlatItems(fltrs.sortBy);
 
-    const { sortBy } = this.controls;
+    this.setDefaultFilters();
+
     const { events } = this.EventService;
     const listeners = [
+      ...attachFilterListeners(this.$scope, fltrs, this.callbackDropdown),
       this.EventService.on(events.STATE_CHANGE_SUCCESS, this.reloadComments.bind(this)),
-      this.$rootScope.$watch(() => sortBy.selectedIndex, (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          if (this.changeUrl) {
-            const { sortBy: sort } = this.controls;
-            this.$location.search('sort', sort.items[sort.selectedIndex].url);
-          }
-          this.reloadComments();
-        }
-      }),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
+  callbackDropdown() {
+    if (this.changeUrl) {
+      const { applyFilter } = this.UrlService;
+      const { sortBy } = this.filters;
+      applyFilter(sortBy, 'sort');
+    }
+    this.reloadComments();
+  }
+
   exitSingleCommentView() {
-    this.$state.go('weco.branch.post', {
-      branchid: this.BranchService.branch.id,
-      postid: this.PostService.post.id,
-    });
+    const { id: branchid } = this.BranchService.branch;
+    const { id: postid } = this.PostService.post;
+    this.$state.go('weco.branch.post', { branchid, postid });
   }
 
   getAllCommentReplies(commentsArr) {
     return new Promise((resolve, reject) => {
-      const promises = [];
+      let promises = [];
 
       commentsArr.forEach(comment => {
-        promises.push(new Promise((resolve2, reject2) => {
+        const promise = new Promise((resolve2, reject2) => {
           this.getSingleCommentReplies(comment)
             .then(() => {
               if (comment.comments) {
@@ -69,7 +71,12 @@ class CommentsController extends Injectable {
               return resolve2();
             })
             .catch(reject2);
-        }));
+        });
+
+        promises = [
+          ...promises,
+          promise,
+        ];
       });
 
       return Promise.all(promises)
@@ -84,32 +91,36 @@ class CommentsController extends Injectable {
         this.AlertsService.push('error', 'Error loading comments.');
       }
 
-      this.isLoading = false;
+      this.isWaitingForRequest = false;
     };
 
     const successCb = res => this.$timeout(() => {
       if (this.isCommentPermalink()) {
-        this.comments = [res];
-        this.isLoading = false;
+        this.items = [res];
+        this.isWaitingForRequest = false;
         return;
       }
 
       const comments = [
-        ...this.comments,
+        ...this.items,
         ...res.comments,
       ];
-      this.comments = comments;
+      this.items = comments;
 
       this.hasMoreComments = res.comments.length === this.API.limits().comments;
 
       this.getAllCommentReplies(comments)
         .then(() => this.$timeout(() => {
-          this.isLoading = false;
+          this.isWaitingForRequest = false;
+        }))
+        .catch(() => this.$timeout(() => {
+          this.isWaitingForRequest = false;
         }));
     });
 
-    if (this.isLoading === true) return;
-    this.isLoading = true;
+    if (this.isWaitingForRequest === true) return;
+    this.isWaitingForRequest = true;
+    this.isInit = false;
 
     const {
       commentid,
@@ -123,8 +134,8 @@ class CommentsController extends Injectable {
     }
     else {
       // fetch all the comments for this post
-      const { sortBy } = this.controls;
-      const sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
+      const { sortBy } = this.filters;
+      const sort = this.UrlService.getFilterItemKey(sortBy, 'url');
 
       this.CommentService.getMany(postid, undefined, sort, lastCommentId)
         .then(successCb)
@@ -135,8 +146,8 @@ class CommentsController extends Injectable {
   getSingleCommentReplies(comment) {
     return new Promise((resolve, reject) => {
       const lastCommentId = false;
-      const { sortBy } = this.controls;
-      const sort = sortBy.items[sortBy.selectedIndex].label.toLowerCase();
+      const { sortBy } = this.filters;
+      const sort = this.UrlService.getFilterItemKey(sortBy, 'url');
 
       // fetch the replies to this comment, or just the number of replies
       return this.CommentService.getMany(comment.postid, comment.id, sort, lastCommentId)
@@ -156,34 +167,39 @@ class CommentsController extends Injectable {
     return this.$state.current.name === 'weco.branch.post.comment';
   }
 
+  isPostType(type) {
+    return this.PostService.post.type === type;
+  }
+
   onSubmitComment(comment, parent) { // eslint-disable-line no-unused-vars
-    this.comments.unshift(comment);
+    this.items = [
+      comment,
+      ...this.items,
+    ];
   }
 
   reloadComments() {
-    this.comments = [];
+    this.items = [];
     this.getComments();
   }
 
-  setDefaultControls() {
-    const query = this.$location.search();
+  setDefaultFilters() {
+    const { sortBy } = this.filters;
+    const {
+      getUrlSearchParams,
+      urlToFilterItemIndex,
+    } = this.UrlService;
+    const { sort } = getUrlSearchParams();
     const defaultSortByIndex = 0;
 
-    const { sortBy } = this.controls;
-    const urlIndexSortBy = this.urlToItemIndex(query.sort, sortBy.items);
+    const urlIndexSortBy = urlToFilterItemIndex(sort, sortBy);
+
     sortBy.selectedIndex = urlIndexSortBy !== -1 ? urlIndexSortBy : defaultSortByIndex;
 
-    this.reloadComments();
-  }
-
-  // Finds the item in array with the matching url value and returns its index.
-  urlToItemIndex(str, arr = []) {
-    for (let i = 0; i < arr.length; i += 1) {
-      if (arr[i].url === str) {
-        return i;
-      }
-    }
-    return -1;
+    // Set filters through service for other modules.
+    setTimeout(() => {
+      this.reloadComments();
+    }, 0);
   }
 }
 
@@ -199,6 +215,7 @@ CommentsController.$inject = [
   'CommentService',
   'EventService',
   'PostService',
+  'UrlService',
 ];
 
 export default CommentsController;

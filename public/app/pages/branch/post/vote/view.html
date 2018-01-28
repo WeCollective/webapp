@@ -1,8 +1,8 @@
 <div class="post__content-header header style--inner">
   <dropdown
     items="Ctrl.sortBy"
-    selected="Ctrl.controls.sortBy.selectedIndex"
-    title="Ctrl.controls.sortBy.title">
+    selected="Ctrl.filters.sortBy.selectedIndex"
+    title="Ctrl.filters.sortBy.title">
   </dropdown>
 
   <button
@@ -23,7 +23,10 @@
   </button>
 </div>
 
-<div class="post__content-wrapper">
+<div
+  class="post__content-wrapper"
+  loading
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
   <p
     id="no-answers"
     ng-show="!Ctrl.items.length">

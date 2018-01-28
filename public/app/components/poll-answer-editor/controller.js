@@ -8,16 +8,24 @@ class AnswerEditorController extends Injectable {
   }
 
   addAnswer() {
-    if (this.answer === undefined || this.answer === '') {
+    const { answer } = this;
+
+    if (answer === undefined || answer === '') {
       return;
     }
 
-    this.answers.push(this.answer);
+    this.answers = [
+      ...this.answers,
+      answer,
+    ];
     this.answer = '';
   }
 
   removeAnswer(index) {
-    this.answers.splice(index, 1);
+    this.answers = [
+      ...this.answers.slice(0, index),
+      ...this.answers.slice(index + 1),
+    ];
   }
 }
 

@@ -1,16 +1,14 @@
-<!--
-loading
-loading-when="CPMCtrl.isLoading"
--->
 <div
   class="modal__content-div"
-  ng-controller="CreatePostModalController as CPMCtrl">
+  ng-controller="CreatePostModalController as Ctrl">
   <h1>Submit a Post</h1>
 
-  <p class="error-message">{{ CPMCtrl.errorMessage }}</p>
+  <p class="error-message">{{ Ctrl.errorMessage }}</p>
 
   <div class="modal__header">
-    <div id="create-post-picture" ng-show="!CPMCtrl.UploadService.isUploading">
+    <div
+      id="create-post-picture"
+      ng-show="!Ctrl.UploadService.isUploading">
       <div
         id="dragdrop"
         ngf-drag-over-class="'dragover'"
@@ -21,40 +19,40 @@ loading-when="CPMCtrl.isLoading"
         <img
           alt=""
           id="graphic"
-          ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
-          ng-src="{{ CPMCtrl.url || '/assets/images/image.png' }}" />
+          ng-show="Ctrl.getPostType() !== Ctrl.PostTypeImage"
+          ng-src="{{ Ctrl.url || '/assets/images/image.png' }}" />
 
         <div
           id="image-preview"
-          ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'image'"
-          style="background-image: url('{{ CPMCtrl.AppService.getProxyUrl(CPMCtrl.url) }}'), url('/assets/images/invalid-image-url.jpg')">
+          ng-show="Ctrl.getPostType() === Ctrl.PostTypeImage"
+          style="background-image: url('{{ Ctrl.AppService.getProxyUrl(Ctrl.url) }}'), url('/assets/images/invalid-image-url.jpg')">
         </div>
 
-        <h2 ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'">
+        <h2 ng-show="Ctrl.getPostType() !== Ctrl.PostTypeImage">
           Drop an image here!
         </h2>
 
-        <div id="preview" ngf-background="CPMCtrl.file"></div>
+        <div id="preview" ngf-background="Ctrl.file"></div>
       </div>
 
       <div
         id="choose-file"
-        ng-show="CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] !== 'image'"
+        ng-show="Ctrl.getPostType() !== Ctrl.PostTypeImage"
         ngf-accept="'image/*'"
         ngf-fix-orientation="true"
-        ngf-select="CPMCtrl.setFile($file)">
+        ngf-select="Ctrl.setFile($file)">
         {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
       </div>
     </div>
 
     <div
       class="modal__header-content"
-      ng-show="!CPMCtrl.UploadService.isUploading">
+      ng-show="!Ctrl.UploadService.isUploading">
       <div class="modal__header">
         <dropdown
-          items="CPMCtrl.postType.items"
-          selected="CPMCtrl.postType.selectedIndex"
-          title="'post type'">
+          items="Ctrl.postType"
+          selected="Ctrl.filters.postType.selectedIndex"
+          title="Ctrl.filters.postType.title">
         </dropdown>
 
         <div class="modal__checkbox-wrapper">
@@ -63,42 +61,42 @@ loading-when="CPMCtrl.isLoading"
               nsfw
             </span>
             <span>
-              {{ CPMCtrl.newPost.nsfw ? 'on' : 'off' }}
+              {{ Ctrl.post.nsfw ? 'on' : 'off' }}
             </span>
           </div>
           <input
             id="checkbox-nsfw"
-            ng-model="CPMCtrl.newPost.nsfw"
+            ng-model="Ctrl.post.nsfw"
             type="checkbox" />
           <label class="checkbox" for="checkbox-nsfw"></label>
         </div>
 
         <div
           class="modal__checkbox-wrapper"
-          ng-show="CPMCtrl.postType.selectedIndex === 5">
+          ng-show="Ctrl.getPostType() === Ctrl.PostTypePoll">
           <div class="modal__checkbox-text">
             <span>
               lock answers
             </span>
             <span>
-              {{ CPMCtrl.newPost.locked ? 'on' : 'off' }}
+              {{ Ctrl.post.locked ? 'on' : 'off' }}
             </span>
           </div>
           <input
             id="checkbox-locked"
-            ng-model="CPMCtrl.newPost.locked"
+            ng-model="Ctrl.post.locked"
             type="checkbox" />
           <label class="checkbox" for="checkbox-locked"></label>
         </div>
       </div>
 
       <input
-        ng-model="CPMCtrl.newPost.title"
+        ng-model="Ctrl.post.title"
         placeholder="Title (max 200 characters)"
         type="text" />
 
       <tag-editor
-        items="CPMCtrl.tags"
+        items="Ctrl.post.branches"
         max="5"
         title="'Tag another branch, max 5 tags'">
       </tag-editor>
@@ -106,14 +104,14 @@ loading-when="CPMCtrl.isLoading"
   </div>
 
   <input
-    ng-model="CPMCtrl.newPost.url"
-    ng-show="!CPMCtrl.UploadService.isUploading && !['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])"
+    ng-model="Ctrl.post.url"
+    ng-show="!Ctrl.UploadService.isUploading && ![Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())"
     placeholder="Url"
     type="text" />
 
   <textarea
-    ng-model="CPMCtrl.newPost.text"
-    ng-show="!CPMCtrl.UploadService.isUploading && !CPMCtrl.preview" 
+    ng-model="Ctrl.post.text"
+    ng-show="!Ctrl.UploadService.isUploading && !Ctrl.preview" 
     placeholder="Describe this post..."
     type="text">
   </textarea>
@@ -121,29 +119,29 @@ loading-when="CPMCtrl.isLoading"
   <input
     class="captcha"
     name="captcha"
-    ng-model="CPMCtrl.newPost.captcha"
+    ng-model="Ctrl.post.captcha"
     type="text" />
 
   <div
     id="preview-content"
-    marked="CPMCtrl.newPost.text"
-    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.preview && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
+    marked="Ctrl.post.text"
+    ng-show="!Ctrl.UploadService.isUploading && Ctrl.preview && [Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())">
   </div>
 
   <p
     id="preview-post"
-    ng-click="CPMCtrl.togglePreview()"
-    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.newPost.text.length && ['poll', 'text'].includes(CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex])">
-    {{ CPMCtrl.preview ? 'Edit...' : 'Preview...' }}
+    ng-click="Ctrl.togglePreview()"
+    ng-show="!Ctrl.UploadService.isUploading && Ctrl.post.text.length && [Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())">
+    {{ Ctrl.preview ? 'Edit...' : 'Preview...' }}
   </p>
 
   <poll-answer-editor
-    answers="CPMCtrl.pollAnswers"
-    ng-show="!CPMCtrl.UploadService.isUploading && CPMCtrl.postType.items[CPMCtrl.postType.selectedIndex] === 'poll'"
+    answers="Ctrl.post.pollAnswers"
+    ng-show="!Ctrl.UploadService.isUploading && Ctrl.getPostType() === Ctrl.PostTypePoll"
     title="Create a new Answer">
   </poll-answer-editor>
 
-  <div id="progress-container" ng-show="CPMCtrl.UploadService.isUploading">
-    <div id="progress" style="width:{{ CPMCtrl.UploadService.progress }}%"></div>
+  <div id="progress-container" ng-show="Ctrl.UploadService.isUploading">
+    <div id="progress" style="width:{{ Ctrl.UploadService.progress }}%"></div>
   </div>
 </div>

@@ -4,10 +4,19 @@ class PostService extends Injectable {
   constructor(...injections) {
     super(PostService.$inject, injections);
 
-    this.post = {};
-    this.updating = false;
-
     this.updatePost = this.updatePost.bind(this);
+
+    this.lastRequest = {
+      id: undefined,
+      lastId: undefined,
+      postType: undefined,
+      sortBy: undefined,
+      statType: undefined,
+      timeRange: undefined,
+    };
+    this.post = {};
+    this.posts = [];
+    this.updating = false;
 
     this.updatePost();
 
@@ -65,6 +74,72 @@ class PostService extends Injectable {
       .get('/poll/:postid/answer', { postid }, { lastAnswerId, sortBy })
       .then(res => resolve(res.data))
       .catch(err => reject(err.data || err)));
+  }
+
+  getPosts(branchid, lastId, flag) {
+    const filters = this.HeaderService.getFilters();
+    const lr = this.lastRequest;
+    const {
+      postType,
+      sortBy,
+      statType,
+      timeRange,
+    } = filters;
+
+    // Don't send the request if the filters aren't initialised properly yet.
+    if (postType === null || postType === undefined || sortBy === null ||
+      sortBy === undefined || statType === null || statType === undefined ||
+      timeRange === null || timeRange === undefined) {
+      return Promise.resolve();
+    }
+
+    // Don't send the request if nothing changed.
+    if (lr.id === branchid && lr.lastId === lastId &&
+      lr.postType === postType && lr.sortBy === sortBy &&
+      lr.statType === statType && lr.timeRange === timeRange) {
+      return Promise.resolve();
+    }
+
+    const branchChanged = lr.id !== branchid;
+
+    // Update the last request values to compare with the next call.
+    this.lastRequest.id = branchid;
+    this.lastRequest.lastId = lastId;
+    this.lastRequest.postType = postType;
+    this.lastRequest.sortBy = sortBy;
+    this.lastRequest.statType = statType;
+    this.lastRequest.timeRange = timeRange;
+
+    const params = {
+      flag: !!flag,
+      postType,
+      sortBy,
+      stat: statType,
+      timeafter: timeRange,
+    };
+
+    if (lastId) params.lastPostId = lastId;
+
+    return this.API.get('/branch/:branchid/posts', { branchid }, params)
+      .then(res => {
+        const newPosts = res.data;
+
+        if (lastId && !branchChanged) {
+          this.posts = [
+            ...this.posts,
+            ...newPosts,
+          ];
+        }
+        else {
+          this.posts = [...newPosts];
+        }
+
+        this.EventService.emit(this.EventService.events.POSTS_LOADED);
+        // todo extract constants into a separate file
+        const reachedBottom = newPosts.lengtht < 30;
+        return Promise.resolve(reachedBottom);
+      })
+      .catch(err => Promise.reject(err.data || err));
   }
 
   updatePost() {
@@ -125,6 +200,7 @@ PostService.$inject = [
   'API',
   'BranchService',
   'EventService',
+  'HeaderService',
 ];
 
 export default PostService;

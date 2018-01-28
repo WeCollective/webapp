@@ -13,17 +13,16 @@ class BranchNucleusFlaggedPostsController extends Injectable {
     super(BranchNucleusFlaggedPostsController.$inject, injections);
 
     this.callbackDropdown = this.callbackDropdown.bind(this);
-    this.getPosts = this.getPosts.bind(this);
+    this.getItems = this.getItems.bind(this);
     this.getPostsCb = this.getPostsCb.bind(this);
-    this.setDefaultControls = this.setDefaultControls.bind(this);
+    this.setDefaultFilters = this.setDefaultFilters.bind(this);
 
-    this.isLoading = false;
-    this.isLoadingMore = false;
-    // To stop sending requests once we hit the bottom of posts.
-    this.lastFetchedPostId = false;
-    this.posts = [];
+    this.isInit = true;
+    this.isWaitingForRequest = false;
 
-    this.controls = {
+    this.PostService.posts = [];
+
+    this.filters = {
       postType: {
         items: Category,
         selectedIndex: -1,
@@ -45,127 +44,96 @@ class BranchNucleusFlaggedPostsController extends Injectable {
         title: 'flags from',
       },
     };
-    this.setDefaultControls();
+    this.setDefaultFilters();
 
-    const ctrls = this.controls;
+    const fltrs = this.filters;
     const {
       attachFilterListeners,
       getFilterFlatItems,
     } = this.UrlService;
 
-    this.postType = getFilterFlatItems(ctrls.postType);
-    this.sortBy = getFilterFlatItems(ctrls.sortBy);
-    this.statType = getFilterFlatItems(ctrls.statType);
-    this.timeRange = getFilterFlatItems(ctrls.timeRange);
+    this.postType = getFilterFlatItems(fltrs.postType);
+    this.sortBy = getFilterFlatItems(fltrs.sortBy);
+    this.statType = getFilterFlatItems(fltrs.statType);
+    this.timeRange = getFilterFlatItems(fltrs.timeRange);
 
     const { events } = this.EventService;
     const listeners = [
-      ...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown),
-      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.callbackDropdown),
-      this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultControls),
-      this.EventService.on(events.SCROLLED_TO_BOTTOM, this.getPostsCb),
+      ...attachFilterListeners(this.$scope, fltrs, this.callbackDropdown),
+      this.EventService.on(events.CHANGE_FILTER, () => this.getItems()),
+      this.EventService.on(events.SCROLLED_TO_BOTTOM, () => this.getPostsCb()),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   callbackDropdown() {
+    this.HeaderService.setFilters({
+      postType: this.getPostType(),
+      sortBy: this.getSortBy(),
+      statType: this.getStatType(),
+      timeRange: this.getTimeRange(),
+    });
+
     const { applyFilter } = this.UrlService;
-    const {
-      postType,
-      sortBy,
-      timeRange,
-    } = this.controls;
-
-    applyFilter(sortBy, 'sort');
-    applyFilter(timeRange, 'time');
-    applyFilter(postType, 'type');
-
-    return new Promise((resolve, reject) => {
-      if (!this.$state.current.name.includes('weco.branch.nucleus') ||
-        Object.keys(this.BranchService.branch).length < 2) {
-        return reject();
-      }
-
-      return this.getPosts();
-    });
-  }
-
-  getPosts(lastPostId) {
-    return new Promise((resolve, reject) => {
-      let { posts } = this;
-
-      if (this.isLoading === true || lastPostId === this.lastFetchedPostId) {
-        return resolve();
-      }
-
-      this.isLoading = true;
-
-      if (lastPostId) {
-        this.lastFetchedPostId = lastPostId;
-      }
-
-      const { id } = this.BranchService.branch;
-      const postType = this.getPostType();
-      const sortBy = this.getSortBy();
-      const statType = this.getStatType();
-      const timeafter = this.getTimeRange();
-
-      // fetch the posts for this branch and timefilter
-      return this.BranchService
-        .getPosts(id, timeafter, sortBy, statType, postType, lastPostId, true)
-        .then(newPosts => this.$timeout(() => {
-          // If lastPostId was specified, we are fetching more posts, so append them.
-          posts = lastPostId ? posts.concat(newPosts) : newPosts;
-          this.posts = posts;
-
-          // 30 is the length of the posts response sent back by server.
-          if (newPosts.length > 0 && newPosts.length < 30) {
-            this.lastFetchedPostId = newPosts[newPosts.length - 1].id;
-          }
-
-          this.isLoading = false;
-          this.isLoadingMore = false;
-          return resolve();
-        }))
-        .catch(() => this.$timeout(() => {
-          this.AlertsService.push('error', 'Error fetching posts.');
-          this.isLoading = false;
-          this.isLoadingMore = false;
-          return reject();
-        }));
-    });
-  }
-
-  getPostsCb() {
-    if (!this.isLoadingMore) {
-      this.isLoadingMore = true;
-      this.getPosts(this.posts[this.posts.length - 1].id);
-    }
-  }
-
-  getPostType() {
-    return this.UrlService.getFilterItemParam(this.controls.postType, 'type');
-  }
-
-  getSortBy() {
-    return this.UrlService.getFilterItemParam(this.controls.sortBy, 'sort-flag');
-  }
-
-  getStatType() {
-    return this.UrlService.getFilterItemParam(this.controls.statType, 'stat');
-  }
-
-  getTimeRange() {
-    return this.UrlService.getFilterItemParam(this.controls.timeRange, 'time');
-  }
-
-  setDefaultControls() {
     const {
       postType,
       sortBy,
       statType,
       timeRange,
-    } = this.controls;
+    } = this.filters;
+
+    applyFilter(sortBy, 'sort');
+    applyFilter(statType, 'stat');
+    applyFilter(timeRange, 'time');
+    applyFilter(postType, 'type');
+  }
+
+  getItems(lastPostId) {
+    if (this.isWaitingForRequest === true) return;
+
+    const { id } = this.BranchService.branch;
+
+    this.isWaitingForRequest = true;
+    this.PostService.getPosts(id, lastPostId, true)
+      .then(() => this.$timeout(() => {
+        this.isInit = false;
+        this.isWaitingForRequest = false;
+      }))
+      .catch(() => this.$timeout(() => {
+        this.AlertsService.push('error', 'Error fetching posts.');
+        this.isInit = false;
+        this.isWaitingForRequest = false;
+      }));
+  }
+
+  getPostsCb() {
+    const { posts } = this.PostService;
+    this.getItems(posts[posts.length - 1].id);
+  }
+
+  getPostType() {
+    return this.UrlService.getFilterItemParam(this.filters.postType, 'type');
+  }
+
+  getSortBy() {
+    return this.UrlService.getFilterItemParam(this.filters.sortBy, 'sort-flag');
+  }
+
+  getStatType() {
+    return this.UrlService.getFilterItemParam(this.filters.statType, 'stat');
+  }
+
+  getTimeRange() {
+    return this.UrlService.getFilterItemParam(this.filters.timeRange, 'time');
+  }
+
+  setDefaultFilters() {
+    const {
+      postType,
+      sortBy,
+      statType,
+      timeRange,
+    } = this.filters;
     const {
       getUrlSearchParams,
       urlToFilterItemIndex,
@@ -205,6 +173,8 @@ BranchNucleusFlaggedPostsController.$inject = [
   'AlertsService',
   'BranchService',
   'EventService',
+  'HeaderService',
+  'PostService',
   'UrlService',
 ];
 

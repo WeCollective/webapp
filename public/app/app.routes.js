@@ -120,7 +120,7 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/branch/view.html',
         controller: 'BranchController',
-        controllerAs: 'Branch',
+        controllerAs: 'Ctrl',
       })
 
       // Branch Nucleus
@@ -174,7 +174,7 @@ class AppRoutes extends Injectable {
         url: '/flaggedposts',
         templateUrl: '/app/pages/branch/nucleus/flagged-posts/view.html',
         controller: 'BranchNucleusFlaggedPostsController',
-        controllerAs: 'FlaggedPosts',
+        controllerAs: 'Ctrl',
       })
 
       // Subbranches
@@ -251,7 +251,7 @@ class AppRoutes extends Injectable {
         url: '/results',
         templateUrl: '/app/pages/branch/post/results/view.html',
         controller: 'BranchPostResultsController',
-        controllerAs: 'BranchPostResults',
+        controllerAs: 'Ctrl',
         pageTrack: '/p/:postid/results',
       })
 

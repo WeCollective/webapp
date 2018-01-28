@@ -1,7 +1,4 @@
-<div
-  class="post"
-  loading
-  loading-when="Ctrl.isLoading">
+<div class="post">
   <div class="post__scrollable-view">
     <div
       class="post__preview"
@@ -11,7 +8,7 @@
           alt="Toggle the post preview cinema mode"
           class="post__preview-control-btn"
           ng-click="Ctrl.toggleCinemaMode()"
-          ng-show="Ctrl.previewState !== 'hide' && (Ctrl.PostService.post.type === 'video' || Ctrl.PostService.post.type === 'image')"
+          ng-show="Ctrl.previewState !== 'hide' && (Ctrl.isPostType(Ctrl.PostTypeImage) || Ctrl.isPostType(Ctrl.PostTypeVideo))"
           ng-src="/assets/images/icons/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.svg"
           offset-y="40"
           text="Ctrl.previewState === 'maximise' ? 'Shrink' : 'Expand'"
@@ -36,20 +33,20 @@
     <tabs
       class="style--border style--content-block"
       items="Ctrl.labels"
-      ng-if="Ctrl.isPostType('poll')"
+      ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)"
       states="Ctrl.tabStates"
       state-params="Ctrl.tabStateParams">
     </tabs>
     
     <div
       class="post__body"
-      ng-if="Ctrl.isPostType('poll')"
+      ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)"
       ui-view>
     </div>
 
     <div
       class="post__body"
-      ng-if="!Ctrl.isPostType('poll')">
+      ng-if="!Ctrl.isPostType(Ctrl.PostTypePoll)">
       <comments change-url="true"></comments>
     </div>
   </div>

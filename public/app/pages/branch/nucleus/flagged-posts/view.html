@@ -2,21 +2,21 @@
   <div class="header__body">
     <div class="header__controls">
       <dropdown
-        items="FlaggedPosts.timeRange"
-        selected="FlaggedPosts.controls.timeRange.selectedIndex"
-        title="FlaggedPosts.controls.timeRange.title">
+        items="Ctrl.timeRange"
+        selected="Ctrl.filters.timeRange.selectedIndex"
+        title="Ctrl.filters.timeRange.title">
       </dropdown>
 
       <dropdown
-        items="FlaggedPosts.postType"
-        selected="FlaggedPosts.controls.postType.selectedIndex"
-        title="FlaggedPosts.controls.postType.title">
+        items="Ctrl.postType"
+        selected="Ctrl.filters.postType.selectedIndex"
+        title="Ctrl.filters.postType.title">
       </dropdown>
 
       <dropdown
-        items="FlaggedPosts.sortBy"
-        selected="FlaggedPosts.controls.sortBy.selectedIndex"
-        title="FlaggedPosts.controls.sortBy.title">
+        items="Ctrl.sortBy"
+        selected="Ctrl.filters.sortBy.selectedIndex"
+        title="Ctrl.filters.sortBy.title">
       </dropdown>
     </div>
   </div>
@@ -25,13 +25,13 @@
 <div
   class="content__body"
   loading
-  loading-when="FlaggedPosts.isLoading && !FlaggedPosts.posts.length">
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
   <ul class="content__list">
     <li
       class="branch__post list-item"
       index="$index"
       list-item
-      ng-repeat="post in FlaggedPosts.posts track by $index"
+      ng-repeat="post in Ctrl.PostService.posts track by $index"
       post="post">
     </li>
   </ul>

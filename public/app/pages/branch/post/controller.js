@@ -1,14 +1,25 @@
+import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
+
+const {
+  PostTypeImage,
+  PostTypePoll,
+  PostTypeText,
+  PostTypeVideo,
+} = Constants;
 
 class BranchPostController extends Injectable {
   constructor(...injections) {
     super(BranchPostController.$inject, injections);
 
-    this.isLoading = true;
+    this.redirect = this.redirect.bind(this);
 
+    this.PostTypeImage = PostTypeImage;
+    this.PostTypePoll = PostTypePoll;
+    this.PostTypeText = PostTypeText;
+    this.PostTypeVideo = PostTypeVideo;
     // Possible states: show, maximise, hide.
     this.previewState = false;
-
     this.tabItems = [{
       label: 'vote',
       url: 'vote',
@@ -19,27 +30,22 @@ class BranchPostController extends Injectable {
       label: 'results',
       url: 'results',
     }];
-    this.labels = this.tabItems.map(x => x.label);
-    this.urls = this.tabItems.map(x => x.url);
-
     this.tabStates = [
       'weco.branch.post.vote',
       ['weco.branch.post.discussion', 'weco.branch.post.comment'],
       'weco.branch.post.results',
     ];
 
-    this.tabStateParams = [{
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid,
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid,
-    }, {
-      branchid: this.BranchService.branch.id,
-      postid: this.$state.params.postid,
-    }];
+    const { id: branchid } = this.BranchService.branch;
+    const { postid } = this.$state.params;
+    this.tabStateParams = [
+      { branchid, postid },
+      { branchid, postid },
+      { branchid, postid },
+    ];
 
-    this.redirect = this.redirect.bind(this);
+    this.labels = this.tabItems.map(x => x.label);
+    this.urls = this.tabItems.map(x => x.url);
 
     const { events } = this.EventService;
     const listeners = [
@@ -97,45 +103,39 @@ class BranchPostController extends Injectable {
   }
 
   redirect() {
-    // post not updated yet, wait for CHANGE_POST event
-    if (this.$state.params.postid !== this.PostService.post.id) {
-      return;
-    }
+    const {
+      postid,
+      tab,
+    } = this.$state.params;
 
-    const { post } = this.PostService;
+    const {
+      branchid,
+      id,
+    } = this.PostService.post;
+
+    // Post not updated yet, wait for the CHANGE_POST event.
+    if (postid !== id) return;
 
     // update state params for tabs
     for (const i in this.tabStateParams) { // eslint-disable-line guard-for-in, no-restricted-syntax
-      this.tabStateParams[i].branchid = post.branchid;
-      this.tabStateParams[i].postid = post.id;
+      this.tabStateParams[i].branchid = branchid;
+      this.tabStateParams[i].postid = id;
     }
 
-    if (post.type === 'poll' && this.$state.current.name === 'weco.branch.post') {
-      const tabIndex = this.urls.indexOf(this.$state.params.tab);
+    if (this.isPostType(PostTypePoll) && this.$state.current.name === 'weco.branch.post') {
+      const tabIndex = this.urls.indexOf(tab);
+      let state = '';
 
       if (tabIndex !== -1) {
-        const state = Array.isArray(this.tabStates[tabIndex]) ?
+        state = Array.isArray(this.tabStates[tabIndex]) ?
           this.tabStates[tabIndex][0]
           : this.tabStates[tabIndex];
-
-        this.$state.go(state, {
-          branchid: post.branchid,
-          postid: this.$state.params.postid,
-        }, {
-          location: 'replace',
-        });
       }
       else {
-        this.$state.go(this.tabStates[0], {
-          branchid: post.branchid,
-          postid: this.$state.params.postid,
-        }, {
-          location: 'replace',
-        });
+        [state] = this.tabStates;
       }
-    }
-    else {
-      this.isLoading = false;
+
+      this.$state.go(state, { branchid, postid }, { location: 'replace' });
     }
   }
 
