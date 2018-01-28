@@ -120,7 +120,7 @@ class AppRoutes extends Injectable {
         abstract: true,
         templateUrl: '/app/pages/branch/view.html',
         controller: 'BranchController',
-        controllerAs: 'Ctrl',
+        controllerAs: 'Branch',
       })
 
       // Branch Nucleus

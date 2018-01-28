@@ -66415,7 +66415,7 @@ var AppRoutes = function (_Injectable) {
       abstract: true,
       templateUrl: '/app/pages/branch/view.html',
       controller: 'BranchController',
-      controllerAs: 'Ctrl'
+      controllerAs: 'Branch'
     })
 
     // Branch Nucleus
@@ -74000,7 +74000,7 @@ var BranchController = function (_Injectable) {
   return BranchController;
 }(_injectable2.default);
 
-BranchController.$inject = ['$state', '$timeout', 'AlertsService', 'AppService', 'BranchService', 'EventService', 'ModalService', 'UserService'];
+BranchController.$inject = ['$scope', '$state', 'BranchService', 'ModalService'];
 
 exports.default = BranchController;
 

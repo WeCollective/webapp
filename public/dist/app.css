@@ -388,6 +388,7 @@ span {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
   padding: 12px;
   width: 100%;
 }

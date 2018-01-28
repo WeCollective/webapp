@@ -24,14 +24,10 @@ class BranchController extends Injectable {
 }
 
 BranchController.$inject = [
+  '$scope',
   '$state',
-  '$timeout',
-  'AlertsService',
-  'AppService',
   'BranchService',
-  'EventService',
   'ModalService',
-  'UserService',
 ];
 
 export default BranchController;
