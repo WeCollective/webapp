@@ -78,7 +78,9 @@
         <div
           class="modal__checkbox-wrapper"
           ng-show="Ctrl.getPostType() === Ctrl.PostTypePoll">
-          <div class="modal__checkbox-text">
+          <div
+            class="modal__checkbox-text"
+            ng-class="{ 'style--disabled': Ctrl.isLoading }">
             <span>
               lock answers
             </span>
