@@ -208,13 +208,12 @@
         padding-top: 10px;
       }
     }
-
-    p#no-answers { font-style: italic; }
   }
 
   .post__content-header {
     // Overwrites .header
     align-items: center !important;
+    border-bottom: 1px solid @light-grey;
     display: flex !important;
     justify-content: flex-start !important;
     overflow-x: auto !important;
@@ -233,4 +232,6 @@
       width: calc(~'100% - 20px');
     }
   });
+
+  #no-answers { font-style: italic; }
 }

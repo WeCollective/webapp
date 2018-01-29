@@ -20,18 +20,20 @@
       </p>
     </div>
 
-    <dropdown
-      class="style--horizontal"
-      items="Ctrl.sortBy"
-      ng-if="!Ctrl.isCommentPermalink()"
-    	selected="Ctrl.filters.sortBy.selectedIndex"
-    	title="Ctrl.filters.sortBy.title">
-    </dropdown>
+    <div class="post__content-header header style--inner style--comments">
+      <dropdown
+        class="style--horizontal"
+        items="Ctrl.sortBy"
+        ng-if="!Ctrl.isCommentPermalink()"
+      	selected="Ctrl.filters.sortBy.selectedIndex"
+      	title="Ctrl.filters.sortBy.title">
+      </dropdown>
+    </div>
 
     <!-- <loader-bar hidden="!Ctrl.isWaitingForRequest"></loader-bar> -->
 
     <div
-      class="empty-wrapper"
+      id="no-answers"
       ng-if="!Ctrl.isCommentPermalink() && !Ctrl.items.length">
       <p class="empty__text">
         No comments yet!

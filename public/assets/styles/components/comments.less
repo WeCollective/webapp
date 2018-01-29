@@ -4,12 +4,12 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  padding: @g-padding-post;
   width: 100%;
 
   .comment {
     .comment__input-wrapper {
       margin-top: @g-padding-post / 2;
+      padding: 0;
 
       & + .comment__replies { margin-top: @g-padding-post; }
     }
@@ -29,6 +29,7 @@
   .comment__input-wrapper {
     align-items: center;
     display: flex;
+    padding: @g-padding-post @g-padding-post 0;
 
     .comment__input {
       border-color: @primary-6;
@@ -94,5 +95,6 @@
   .comments__wrapper {
     flex: 1;
     overflow-y: auto;
+    padding: 0 @g-padding-post @g-padding-post;
   }
 }

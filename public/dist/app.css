@@ -389,11 +389,11 @@ span {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  padding: 12px;
   width: 100%;
 }
 .comments .comment .comment__input-wrapper {
   margin-top: 6px;
+  padding: 0;
 }
 .comments .comment .comment__input-wrapper + .comment__replies {
   margin-top: 12px;
@@ -680,6 +680,7 @@ span {
 .comments .comment__input-wrapper {
   align-items: center;
   display: flex;
+  padding: 12px 12px 0;
 }
 .comments .comment__input-wrapper .comment__input {
   border-color: #b3b3b3;
@@ -743,6 +744,7 @@ span {
 .comments .comments__wrapper {
   flex: 1;
   overflow-y: auto;
+  padding: 0 12px 12px;
 }
 .cover-photo {
   background-position: center;
@@ -3924,6 +3926,12 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-right: 4px;
   margin-top: 0;
 }
+.header.style--comments {
+  padding: 0 !important;
+}
+.header.style--comments .dropdown {
+  margin-left: 0;
+}
 @media screen and (min-width: 768px) {
   .header {
     width: calc(100% - 201px);
@@ -4493,11 +4501,9 @@ div#notfound div h2 {
   padding-bottom: 10px;
   padding-top: 10px;
 }
-.post .post__content-wrapper p#no-answers {
-  font-style: italic;
-}
 .post .post__content-header {
   align-items: center !important;
+  border-bottom: 1px solid #e7e7e7;
   display: flex !important;
   justify-content: flex-start !important;
   overflow-x: auto !important;
@@ -4513,4 +4519,7 @@ div#notfound div h2 {
     height: calc(100% - 20px);
     width: calc(100% - 20px);
   }
+}
+.post #no-answers {
+  font-style: italic;
 }
