@@ -17,6 +17,8 @@ class BranchController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
+  // Hack fix for Angular momentarily showing both header templates on state change where
+  // one of them would be detached and showing raw code, not a good UX.
   getUIViewName(isFixed) {
     if (this.isHeaderHidden) {
       return '';
