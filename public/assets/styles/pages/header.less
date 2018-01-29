@@ -22,7 +22,7 @@
     }
 
     @media screen and (min-width: @screen-lg) {
-      margin-left: @sidebar-w-lg;
+      margin-left: 0;
     }
   }
 
@@ -152,6 +152,10 @@
       @media screen and (min-width: @screen-md) {
         padding: @g-padding-sidebar (@g-padding-sidebar / 2) 0 @g-padding-sidebar;
       }
+
+      @media screen and (min-width: @screen-lg) {
+        margin-left: @sidebar-w-lg;
+      }
     }
 
     .mediaQuery(@screen-md, {
@@ -193,7 +197,7 @@
       }
 
       @media screen and (min-width: @screen-lg) {
-        width: calc(~'100% - @{sidebar-w-lg}');
+        width: 100%;
       }
     }
 
@@ -237,7 +241,7 @@
   }
 
   @media screen and (min-width: @screen-lg) {
-    margin-right: auto;
+    margin-right: initial;
     width: calc(~'100% - @{sidebar-w-lg}');
   }
 }

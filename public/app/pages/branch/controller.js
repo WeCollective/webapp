@@ -5,13 +5,19 @@ class BranchController extends Injectable {
     super(BranchController.$inject, injections);
 
     this.isHeaderHidden = false;
+    this.isLocked = false;
 
     const listeners = [
       this.EventService.on('$stateChangeSuccess', () => {
-        this.isHeaderHidden = true;
+        if (this.isLocked) return;
+        this.isLocked = true;
         this.$timeout(() => {
-          this.isHeaderHidden = false;
-        }, 1);
+          this.isHeaderHidden = true;
+          this.$timeout(() => {
+            this.isHeaderHidden = false;
+            this.isLocked = false;
+          });
+        });
       }),
     ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));

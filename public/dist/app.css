@@ -3194,7 +3194,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 @media screen and (min-width: 992px) {
   .header .header__body {
-    margin-left: 249px;
+    margin-left: 0;
   }
 }
 .header .header__button {
@@ -3850,6 +3850,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     padding: 16px 8px 0 16px;
   }
 }
+@media screen and (min-width: 992px) {
+  .header.style--fixed .header__body {
+    margin-left: 249px;
+  }
+}
 @media only screen and (min-width: 768px) {
   .header.style--fixed {
     left: 201px;
@@ -3891,7 +3896,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 @media screen and (min-width: 992px) {
   .header.style--fixed .header__body {
-    width: calc(100% - 249px);
+    width: 100%;
   }
 }
 .header.style--fixed .header__button.style--sidebar-toggle {
@@ -3936,7 +3941,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 }
 @media screen and (min-width: 992px) {
   .header {
-    margin-right: auto;
+    margin-right: initial;
     width: calc(100% - 249px);
   }
 }
