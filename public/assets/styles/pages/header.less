@@ -19,6 +19,7 @@
 
     @media screen and (min-width: @screen-md) {
       padding: @g-padding-post 0;
+      width: calc(~'100% - @{sidebar-w-md}');
     }
 
     @media screen and (min-width: @screen-lg) {
@@ -226,6 +227,6 @@
 
   @media screen and (min-width: @screen-lg) {
     margin-right: auto;
-    width: 100%;
+    width: calc(~'100% - @{sidebar-w-lg}');
   }
 }

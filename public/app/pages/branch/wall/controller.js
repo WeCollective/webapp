@@ -24,7 +24,10 @@ class BranchWallController extends Injectable {
       this.EventService.on(events.CHANGE_FILTER, () => this.getItems()),
       this.EventService.on(events.SCROLLED_TO_BOTTOM, this.callbackScroll),
     ];
-    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+    this.$scope.$on('$destroy', () => {
+      listeners.forEach(deregisterListener => deregisterListener());
+      this.PostService.resetLastRequest();
+    });
   }
 
   callbackScroll() {

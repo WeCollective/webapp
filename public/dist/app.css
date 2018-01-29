@@ -3188,6 +3188,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 @media screen and (min-width: 768px) {
   .header .header__body {
     padding: 12px 0;
+    width: calc(100% - 201px);
   }
 }
 @media screen and (min-width: 992px) {
@@ -3923,7 +3924,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 @media screen and (min-width: 992px) {
   .header {
     margin-right: auto;
-    width: 100%;
+    width: calc(100% - 249px);
   }
 }
 div#home-content {

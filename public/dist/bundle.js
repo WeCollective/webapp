@@ -74330,9 +74330,10 @@ var BranchNucleusFlaggedPostsController = function (_Injectable) {
       return _this.getPostsCb();
     })]);
     _this.$scope.$on('$destroy', function () {
-      return listeners.forEach(function (deregisterListener) {
+      listeners.forEach(function (deregisterListener) {
         return deregisterListener();
       });
+      _this.PostService.resetLastRequest();
     });
     return _this;
   }
@@ -76111,9 +76112,10 @@ var BranchWallController = function (_Injectable) {
       return _this.getItems();
     }), _this.EventService.on(events.SCROLLED_TO_BOTTOM, _this.callbackScroll)];
     _this.$scope.$on('$destroy', function () {
-      return listeners.forEach(function (deregisterListener) {
+      listeners.forEach(function (deregisterListener) {
         return deregisterListener();
       });
+      _this.PostService.resetLastRequest();
     });
     return _this;
   }
@@ -76510,14 +76512,11 @@ var ProfileController = function (_Injectable) {
 
     var events = _this.EventService.events;
 
-    var listeners = [];
-    listeners.push(_this.EventService.on(events.CHANGE_USER, _this.renderTabs));
-    listeners.push(_this.EventService.on(events.LOADING_ACTIVE, function () {
+    var listeners = [_this.EventService.on(events.CHANGE_USER, _this.renderTabs), _this.EventService.on(events.LOADING_ACTIVE, function () {
       return _this.showLoader = true;
-    }));
-    listeners.push(_this.EventService.on(events.LOADING_INACTIVE, function () {
+    }), _this.EventService.on(events.LOADING_INACTIVE, function () {
       return _this.showLoader = false;
-    }));
+    })];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -78187,18 +78186,12 @@ var PostService = function (_Injectable) {
 
     _this.updatePost = _this.updatePost.bind(_this);
 
-    _this.lastRequest = {
-      id: undefined,
-      lastId: undefined,
-      postType: undefined,
-      sortBy: undefined,
-      statType: undefined,
-      timeRange: undefined
-    };
+    _this.lastRequest = null;
     _this.post = {};
     _this.posts = [];
     _this.updating = false;
 
+    _this.resetLastRequest();
     _this.updatePost();
 
     _this.EventService.on(_this.EventService.events.STATE_CHANGE_SUCCESS, _this.updatePost);
@@ -78355,6 +78348,18 @@ var PostService = function (_Injectable) {
       }).catch(function (err) {
         return Promise.reject(err.data || err);
       });
+    }
+  }, {
+    key: 'resetLastRequest',
+    value: function resetLastRequest() {
+      this.lastRequest = {
+        id: undefined,
+        lastId: undefined,
+        postType: undefined,
+        sortBy: undefined,
+        statType: undefined,
+        timeRange: undefined
+      };
     }
   }, {
     key: 'updatePost',

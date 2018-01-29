@@ -6,18 +6,12 @@ class PostService extends Injectable {
 
     this.updatePost = this.updatePost.bind(this);
 
-    this.lastRequest = {
-      id: undefined,
-      lastId: undefined,
-      postType: undefined,
-      sortBy: undefined,
-      statType: undefined,
-      timeRange: undefined,
-    };
+    this.lastRequest = null;
     this.post = {};
     this.posts = [];
     this.updating = false;
 
+    this.resetLastRequest();
     this.updatePost();
 
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.updatePost);
@@ -140,6 +134,17 @@ class PostService extends Injectable {
         return Promise.resolve(reachedBottom);
       })
       .catch(err => Promise.reject(err.data || err));
+  }
+
+  resetLastRequest() {
+    this.lastRequest = {
+      id: undefined,
+      lastId: undefined,
+      postType: undefined,
+      sortBy: undefined,
+      statType: undefined,
+      timeRange: undefined,
+    };
   }
 
   updatePost() {
