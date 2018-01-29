@@ -67068,6 +67068,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -67130,6 +67132,10 @@ var ListItemController = function (_Injectable) {
       if (this.post.original_branches) {
         try {
           branches = JSON.parse(this.post.original_branches);
+          var index = branches.indexOf('root');
+          if (index !== -1 && branches.length > 1) {
+            branches = [].concat(_toConsumableArray(branches.slice(0, index)), _toConsumableArray(branches.slice(index + 1)));
+          }
         } catch (err) {
           console.log(err);
         }
@@ -67144,7 +67150,9 @@ var ListItemController = function (_Injectable) {
       var string = '';
 
       for (var i = 1; i < originalBranches.length; i += 1) {
-        string += originalBranches[i] + (i < originalBranches.length ? '\n' : '');
+        var newline = i < originalBranches.length ? '\n' : '';
+        var id = originalBranches[i];
+        if (id !== 'root') string += id + newline;
       }
 
       return string;
@@ -67158,20 +67166,16 @@ var ListItemController = function (_Injectable) {
   }, {
     key: 'getPostTarget',
     value: function getPostTarget(post) {
-      var id = post.id,
+      var postid = post.id,
           type = post.type;
 
 
       switch (type) {
         case PostTypePoll:
-          return this.$state.href('weco.branch.post.vote', {
-            postid: id
-          });
+          return this.$state.href('weco.branch.post.vote', { postid: postid });
 
         default:
-          return this.$state.href('weco.branch.post', {
-            postid: id
-          });
+          return this.$state.href('weco.branch.post', { postid: postid });
       }
     }
   }, {
@@ -74038,10 +74042,38 @@ var BranchController = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
+    var _this = _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
+
+    _this.isHeaderHidden = false;
+
+    var listeners = [_this.EventService.on('$stateChangeSuccess', function () {
+      _this.isHeaderHidden = true;
+      _this.$timeout(function () {
+        _this.isHeaderHidden = false;
+      }, 1);
+    })];
+    _this.$scope.$on('$destroy', function () {
+      return listeners.forEach(function (deregisterListener) {
+        return deregisterListener();
+      });
+    });
+    return _this;
   }
 
   _createClass(BranchController, [{
+    key: 'getUIViewName',
+    value: function getUIViewName(isFixed) {
+      if (this.isHeaderHidden) {
+        return '';
+      }
+
+      if (isFixed && this.hasFixedHeader() || !isFixed && !this.hasFixedHeader()) {
+        return 'header';
+      }
+
+      return '';
+    }
+  }, {
     key: 'hasFixedHeader',
     value: function hasFixedHeader() {
       return !this.$state.current.name.includes('weco.branch.post');
@@ -74060,7 +74092,7 @@ var BranchController = function (_Injectable) {
   return BranchController;
 }(_injectable2.default);
 
-BranchController.$inject = ['$scope', '$state', 'BranchService', 'ModalService'];
+BranchController.$inject = ['$scope', '$state', '$timeout', 'BranchService', 'EventService', 'ModalService'];
 
 exports.default = BranchController;
 

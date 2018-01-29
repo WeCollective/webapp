@@ -48,6 +48,13 @@ class ListItemController extends Injectable {
     if (this.post.original_branches) {
       try {
         branches = JSON.parse(this.post.original_branches);
+        const index = branches.indexOf('root');
+        if (index !== -1 && branches.length > 1) {
+          branches = [
+            ...branches.slice(0, index),
+            ...branches.slice(index + 1),
+          ];
+        }
       }
       catch (err) {
         console.log(err);
@@ -62,7 +69,9 @@ class ListItemController extends Injectable {
     let string = '';
 
     for (let i = 1; i < originalBranches.length; i += 1) {
-      string += originalBranches[i] + (i < originalBranches.length ? '\n' : '');
+      const newline = i < originalBranches.length ? '\n' : '';
+      const id = originalBranches[i];
+      if (id !== 'root') string += id + newline;
     }
 
     return string;
@@ -75,20 +84,16 @@ class ListItemController extends Injectable {
 
   getPostTarget(post) {
     const {
-      id,
+      id: postid,
       type,
     } = post;
 
     switch (type) {
       case PostTypePoll:
-        return this.$state.href('weco.branch.post.vote', {
-          postid: id,
-        });
+        return this.$state.href('weco.branch.post.vote', { postid });
 
       default:
-        return this.$state.href('weco.branch.post', {
-          postid: id,
-        });
+        return this.$state.href('weco.branch.post', { postid });
     }
   }
 

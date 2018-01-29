@@ -3,6 +3,30 @@ import Injectable from 'utils/injectable';
 class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
+
+    this.isHeaderHidden = false;
+
+    const listeners = [
+      this.EventService.on('$stateChangeSuccess', () => {
+        this.isHeaderHidden = true;
+        this.$timeout(() => {
+          this.isHeaderHidden = false;
+        }, 1);
+      }),
+    ];
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+  }
+
+  getUIViewName(isFixed) {
+    if (this.isHeaderHidden) {
+      return '';
+    }
+
+    if ((isFixed && this.hasFixedHeader()) || (!isFixed && !this.hasFixedHeader())) {
+      return 'header';
+    }
+
+    return '';
   }
 
   hasFixedHeader() {
@@ -26,7 +50,9 @@ class BranchController extends Injectable {
 BranchController.$inject = [
   '$scope',
   '$state',
+  '$timeout',
   'BranchService',
+  'EventService',
   'ModalService',
 ];
 

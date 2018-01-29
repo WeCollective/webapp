@@ -3926,9 +3926,6 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-right: 4px;
   margin-top: 0;
 }
-.header.style--comments {
-  padding: 0 !important;
-}
 .header.style--comments .dropdown {
   margin-left: 0;
 }
