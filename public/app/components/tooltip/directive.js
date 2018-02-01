@@ -24,8 +24,8 @@ class TooltipComponent extends Injectable {
   }
 
   link(scope, element) {
-    // Disable on touch devices.
-    if (this.AppService.hasTouch()) return;
+    // Disable on touch devices without mouse.
+    if (!this.AppService.hasMouse && this.AppService.hasTouch()) return;
 
     const el = element[0];
     let rect = el.getBoundingClientRect();

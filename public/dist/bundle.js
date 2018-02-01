@@ -66728,8 +66728,13 @@ var AppService = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (AppService.__proto__ || Object.getPrototypeOf(AppService)).call(this, AppService.$inject, injections));
 
+    _this.handleMouseMove = _this.handleMouseMove.bind(_this);
+
+    _this.hasMouse = false;
     _this.isNavbarMenuOpen = false;
     _this.isSidebarOpen = false;
+
+    document.addEventListener('mousemove', _this.handleMouseMove, false);
     return _this;
   }
 
@@ -66758,6 +66763,13 @@ var AppService = function (_Injectable) {
           navigator = _window$navigator === undefined ? {} : _window$navigator;
 
       return 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+    }
+  }, {
+    key: 'handleMouseMove',
+    value: function handleMouseMove() {
+      this.hasMouse = true;
+      console.log('mouse moved...');
+      document.removeEventListener('mousemove', this.handleMouseMove, false);
     }
   }, {
     key: 'toggleNavbarMenu',
@@ -73097,7 +73109,7 @@ var TooltipComponent = function (_Injectable) {
       var _this3 = this;
 
       // Disable on touch devices.
-      if (this.AppService.hasTouch()) return;
+      if (!this.AppService.hasMouse && this.AppService.hasTouch()) return;
 
       var el = element[0];
       var rect = el.getBoundingClientRect();

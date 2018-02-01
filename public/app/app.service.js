@@ -3,8 +3,13 @@ import Injectable from 'utils/injectable';
 class AppService extends Injectable {
   constructor(...injections) {
     super(AppService.$inject, injections);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+
+    this.hasMouse = false;
     this.isNavbarMenuOpen = false;
     this.isSidebarOpen = false;
+
+    document.addEventListener('mousemove', this.handleMouseMove, false);
   }
 
   applyState() {
@@ -27,6 +32,11 @@ class AppService extends Injectable {
     return 'ontouchstart' in document.documentElement
        || navigator.maxTouchPoints > 0
        || navigator.msMaxTouchPoints > 0;
+  }
+
+  handleMouseMove() {
+    this.hasMouse = true;
+    document.removeEventListener('mousemove', this.handleMouseMove, false);
   }
 
   toggleNavbarMenu(state = !this.isNavbarMenuOpen) {
