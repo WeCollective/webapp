@@ -4527,4 +4527,5 @@ div#notfound div h2 {
 }
 .post #no-answers {
   font-style: italic;
+  padding-left: 15px;
 }
