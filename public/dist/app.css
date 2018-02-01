@@ -3883,27 +3883,27 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-right: auto;
   }
 }
-.header.style--fixed + .center {
+.header:not(.ng-leave).style--fixed + .center {
   padding-top: 56px;
 }
-.header.style--fixed .header__body {
+.header:not(.ng-leave).style--fixed .header__body {
   align-items: flex-start;
 }
 @media screen and (min-width: 768px) {
-  .header.style--fixed .header__body {
+  .header:not(.ng-leave).style--fixed .header__body {
     width: calc(100% - 201px);
   }
 }
 @media screen and (min-width: 992px) {
-  .header.style--fixed .header__body {
+  .header:not(.ng-leave).style--fixed .header__body {
     width: 100%;
   }
 }
-.header.style--fixed .header__button.style--sidebar-toggle {
+.header:not(.ng-leave).style--fixed .header__button.style--sidebar-toggle {
   margin: 4px 10px 0 0;
 }
 @media screen and (max-width: 768px) {
-  .header.style--fixed.toggled {
+  .header:not(.ng-leave).style--fixed.toggled {
     transform: translateX(201px);
   }
 }
@@ -3944,6 +3944,9 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     margin-right: initial;
     width: calc(100% - 249px);
   }
+}
+.header.ng-leave {
+  display: none !important;
 }
 div#home-content {
   left: 50%;

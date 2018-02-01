@@ -186,7 +186,7 @@
     }
   }
 
-  &.style--fixed {
+  &:not(.ng-leave).style--fixed {
     & + .center { padding-top: @header-h; }
 
     .header__body {
@@ -244,4 +244,6 @@
     margin-right: initial;
     width: calc(~'100% - @{sidebar-w-lg}');
   }
+
+  &.ng-leave { display: none !important; }
 }

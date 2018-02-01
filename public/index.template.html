@@ -37,6 +37,8 @@
     <link rel="shortcut icon" href="/assets/images/icons/favicon.ico" />
     <link rel="stylesheet" href="/dist/app.css" />
     <link rel="stylesheet" href="/dist/app-sass.css" />
+
+    <script src="/dist/%WECO_APP_SCRIPT%" type="text/javascript"></script>
   </head>
   <body
     ng-app="wecoApp"
@@ -63,6 +65,5 @@ window.prerenderReady = false;
     </script>
 
     <script src="%SOCKET_IO_ENDPOINT%"></script>
-    <script src="/dist/%WECO_APP_SCRIPT%" type="text/javascript"></script>
   </body>
 </html>
