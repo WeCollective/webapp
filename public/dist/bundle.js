@@ -71620,6 +71620,7 @@ var ModalService = function (_Injectable) {
       var _this4 = this;
 
       this.addListeners();
+      this.enableButtons();
 
       return new Promise(function (resolve, reject) {
         args = args || {};

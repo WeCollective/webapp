@@ -117,6 +117,7 @@ class ModalService extends Injectable {
 
   open(name, args, successMsg, errMsg) {
     this.addListeners();
+    this.enableButtons();
 
     return new Promise((resolve, reject) => {
       args = args || {};
