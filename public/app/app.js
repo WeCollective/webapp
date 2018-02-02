@@ -28,6 +28,8 @@ import Registrar from 'utils/component-registrar';
 import buggyfill from 'viewport-units-buggyfill';
 import Raven from 'raven-js';
 
+import Constants from 'config/constants';
+
 if (constEnvironment.name === 'production') {
   Raven
     .config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026', {
@@ -61,6 +63,19 @@ app.constant('NotificationTypes', constNotificationTypes);
 // Filters.
 app.filter('capitalize', filters.capitalize);
 app.filter('reverse', filters.reverse);
+
+app.config(['markedProvider', markedProvider => {
+  markedProvider.setRenderer({
+    link(href, title, text) {
+      const isUrl = Constants.Policy.url.test(href);
+      if (isUrl && !href.includes('http')) href = `https://${href}`;
+      if (href.indexOf('//') === 0) href = `https:${href}`;
+      const target = isUrl ? ' target="_blank"' : '';
+      const t = title ? ` title="${title}"` : '';
+      return `<a href="${href}"${t}${target}>${text}</a>`;
+    },
+  });
+}]);
 
 // Config.
 registrar.config(AppConfig);

@@ -56,16 +56,11 @@ div.poll-answer-editor {
         padding: 10px;
         width: 100%;
         word-break: break-all;
-
-        h3 {
-          font-size: @font-size-sm;
-          font-weight: @font-weight-normal;
-        }
       }
-
-      p { font-style: italic; }
     }
   }
+
+  .empty__state { font-style: italic; }
 
   input {
     border: 1px solid @light-grey;
@@ -76,6 +71,12 @@ div.poll-answer-editor {
     margin: 10px 0;
     padding: 10px 15px;
     width: 100%;
+  }
+
+  .poll__answer {
+    font-size: @font-size-sm;
+    font-weight: @font-weight-normal;
+    margin: 0;
   }
 
   .remove-item-button {

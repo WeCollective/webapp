@@ -1,5 +1,7 @@
 <div class="poll-answer-editor">
-  <div class="add-item">
+  <div
+    class="add-item"
+    ng-show="!Editor.preview">
     <input
       ng-disabled="Editor.disabled"
       ng-model="Editor.answer"
@@ -15,16 +17,33 @@
         src="/assets/images/icons/plus.svg" />
     </button>
   </div>
+
   <div class="answers">
     <h2>Answers</h2>
     <ul>
-      <p ng-show="!Editor.answers.length">No answers yet.</p>
+      <p
+        class="empty__state"
+        ng-show="!Editor.preview && !Editor.answers.length">
+        No answers yet.
+      </p>
+
       <li ng-repeat="answer in Editor.answers track by $index">
-        <h3>{{ answer }}</h3>
+        <p
+          class="poll__answer"
+          ng-show="!Editor.preview">
+          {{ answer }}
+        </p>
+        <div
+          class="poll__answer"
+          marked="answer"
+          ng-show="Editor.preview">
+        </div>
+
         <button
           class="remove-item-button"
           ng-click="Editor.removeAnswer($index)"
-          ng-disabled="Editor.disabled">
+          ng-disabled="Editor.disabled"
+          ng-show="!Editor.preview">
           <img
             alt=""
             src="/assets/images/icons/close.svg" />

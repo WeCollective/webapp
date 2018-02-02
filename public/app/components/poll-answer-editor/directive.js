@@ -7,6 +7,7 @@ class PollAnswerEditorComponent extends Injectable {
     this.bindToController = {
       answers: '=',
       disabled: '=',
+      preview: '=',
       title: '@',
     };
     this.controller = 'PollAnswerEditorController';

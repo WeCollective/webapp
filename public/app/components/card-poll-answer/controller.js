@@ -13,6 +13,10 @@ class CardPollAnswerController extends Injectable {
     // const IMG_DIR = '/assets/images/placeholders/';
     // return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
   }
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
 }
 
 CardPollAnswerController.$inject = [

@@ -2,6 +2,8 @@ const MAX_POST_TEXT = 20000;
 const MAX_POST_TITLE = 300;
 const MIN_POLL_ANSWERS_COUNT = 2;
 
+const POLICY_URL = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
+
 const PostTypeAudio = 'audio';
 const PostTypeImage = 'image';
 const PostTypePage = 'page';
@@ -163,6 +165,9 @@ export default {
     SortPost,
     SortVotes,
     Time,
+  },
+  Policy: {
+    url: POLICY_URL,
   },
   PostTypeAudio,
   PostTypeImage,

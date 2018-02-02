@@ -12,6 +12,21 @@
     .dropdown { margin-left: 0; }
   }
 
+  .modal__title { display: inline; }
+
+  .modal__toggle {
+    color: @accent-0;
+    font-size: @font-size-sm;
+    line-height: 1;
+    margin: 0 0 0 4px;
+    vertical-align: middle;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
   div#create-post-picture {
     float: left;
     margin-right: 15px;
@@ -89,21 +104,11 @@
 
   div#preview-content {
     box-sizing: border-box;
+    margin: 10px 0px;
     max-height: 300px;
     overflow-y: auto;
-    padding: 0 15px;
+    padding: 10px 0px;
     width: 100%;
-  }
-
-  p#preview-post {
-    color: @accent-0;
-    font-size: @font-size-sm;
-    margin: 0;
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
   }
 
   div#progress-container {

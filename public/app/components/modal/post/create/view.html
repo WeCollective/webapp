@@ -1,9 +1,18 @@
 <div
   class="modal__content-div"
   ng-controller="CreatePostModalController as Ctrl">
-  <h1>Submit a Post</h1>
+  <h1 class="modal__title">Submit a Post</h1>
 
-  <p class="error-message">{{ Ctrl.errorMessage }}</p>
+  <span
+    class="modal__toggle"
+    ng-click="Ctrl.togglePreview()"
+    ng-show="Ctrl.isPreviewToggleVisible()">
+    {{ Ctrl.preview ? 'Edit' : 'Preview' }}
+  </span>
+
+  <p class="error-message">
+    {{ Ctrl.errorMessage }}
+  </p>
 
   <div class="modal__header">
     <div
@@ -50,7 +59,7 @@
       ng-show="!Ctrl.UploadService.isUploading">
       <div class="modal__header">
         <dropdown
-          disabled="Ctrl.isLoading"
+          disabled="Ctrl.isLoading || Ctrl.preview"
           items="Ctrl.postType"
           selected="Ctrl.filters.postType.selectedIndex"
           title="Ctrl.filters.postType.title">
@@ -69,7 +78,7 @@
           </div>
           <input
             id="checkbox-nsfw"
-            ng-disabled="Ctrl.isLoading"
+            ng-disabled="Ctrl.isDisabled()"
             ng-model="Ctrl.post.nsfw"
             type="checkbox" />
           <label class="checkbox" for="checkbox-nsfw"></label>
@@ -90,7 +99,7 @@
           </div>
           <input
             id="checkbox-locked"
-            ng-disabled="Ctrl.isLoading"
+            ng-disabled="Ctrl.isDisabled()"
             ng-model="Ctrl.post.locked"
             type="checkbox" />
           <label class="checkbox" for="checkbox-locked"></label>
@@ -98,13 +107,13 @@
       </div>
 
       <input
-        ng-disabled="Ctrl.isLoading"
+        ng-disabled="Ctrl.isDisabled()"
         ng-model="Ctrl.post.title"
         placeholder="Title (max 200 characters)"
         type="text" />
 
       <tag-editor
-        disabled="Ctrl.isLoading"
+        disabled="Ctrl.isDisabled()"
         items="Ctrl.post.branches"
         max="5"
         title="'Tag another branch, max 5 tags'">
@@ -113,14 +122,14 @@
   </div>
 
   <input
-    ng-disabled="Ctrl.isLoading"
+    ng-disabled="Ctrl.isDisabled()"
     ng-model="Ctrl.post.url"
     ng-show="!Ctrl.UploadService.isUploading && ![Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())"
     placeholder="Url"
     type="text" />
 
   <textarea
-    ng-disabled="Ctrl.isLoading"
+    ng-disabled="Ctrl.isDisabled()"
     ng-model="Ctrl.post.text"
     ng-show="!Ctrl.UploadService.isUploading && !Ctrl.preview" 
     placeholder="Describe this post..."
@@ -130,28 +139,21 @@
   <input
     class="captcha"
     name="captcha"
-    ng-disabled="Ctrl.isLoading"
+    ng-disabled="Ctrl.isDisabled()"
     ng-model="Ctrl.post.captcha"
     type="text" />
 
   <div
     id="preview-content"
     marked="Ctrl.post.text"
-    ng-show="!Ctrl.UploadService.isUploading && Ctrl.preview && [Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())">
+    ng-show="Ctrl.isPreviewToggleVisible() && Ctrl.preview && Ctrl.post.text">
   </div>
-
-  <p
-    id="preview-post"
-    ng-click="Ctrl.togglePreview()"
-    ng-disabled="Ctrl.isLoading"
-    ng-show="!Ctrl.UploadService.isUploading && Ctrl.post.text.length && [Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())">
-    {{ Ctrl.preview ? 'Edit...' : 'Preview...' }}
-  </p>
 
   <poll-answer-editor
     answers="Ctrl.post.pollAnswers"
-    disabled="Ctrl.isLoading"
+    disabled="Ctrl.isDisabled()"
     ng-show="!Ctrl.UploadService.isUploading && Ctrl.getPostType() === Ctrl.PostTypePoll"
+    preview="Ctrl.preview"
     title="Create a new Answer">
   </poll-answer-editor>
 
