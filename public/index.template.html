@@ -51,7 +51,7 @@
       ng-style="{ 'top': App.TooltipService.y + 'px', 'left': App.TooltipService.x + 'px' }">
       <span
         class="tooltip-text"
-        ng-bind-html="App.TooltipService.text.split('\n').join('<br>')">
+        bind-html-compile="App.TooltipService.text">
       </span>
     </div>
     

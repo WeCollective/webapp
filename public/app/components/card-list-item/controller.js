@@ -69,9 +69,11 @@ class ListItemController extends Injectable {
     let string = '';
 
     for (let i = 1; i < originalBranches.length; i += 1) {
-      const newline = i < originalBranches.length ? '\n' : '';
-      const id = originalBranches[i];
-      if (id !== 'root') string += id + newline;
+      const branchid = originalBranches[i];
+      if (branchid !== 'root') {
+        const target = this.$state.href('weco.branch.wall', { branchid });
+        string += `<a class="tooltip-row" ng-href="${target}">${branchid}</a>`;
+      }
     }
 
     return string;

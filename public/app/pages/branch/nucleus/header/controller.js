@@ -17,10 +17,6 @@ class BranchNucleusHeaderController extends Injectable {
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
-  addHTMLLineBreaks(str) {
-    return str ? str.split('\n').join('<br>') : str;
-  }
-
   getInitialState() {
     const branchid = this.BranchService.branch.id;
     return {

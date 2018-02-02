@@ -4,16 +4,18 @@ class TooltipController extends Injectable {
   constructor(...injections) {
     super(TooltipController.$inject, injections);
 
-    this.EventService.on('$stateChangeSuccess', () => {
-      this.$timeout(() => this.TooltipService.visible = false);
-    });
+    const listeners = [
+      this.EventService.on('$stateChangeSuccess', () => this.$timeout(() => {
+        this.TooltipService.visible = false;
+      })),
+    ];
+    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 }
 
 TooltipController.$inject = [
-  '$state',
+  '$scope',
   '$timeout',
-  'AppService',
   'EventService',
   'TooltipService',
 ];

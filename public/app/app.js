@@ -7,6 +7,8 @@ import ngMarked from 'angular-marked';
 import ngSanitize from 'angular-sanitize';
 import UIRouter from 'angular-ui-router';
 
+import bindCompile from 'angular-bind-html-compile';
+
 import AppConfig from 'app.config';
 import AppRoutes from 'app.routes';
 import AppRun from 'app.run';
@@ -46,6 +48,7 @@ const app = angular.module(appName, [
   ngMarked,
   ngSanitize,
   UIRouter,
+  bindCompile,
 ]);
 
 const registrar = new Registrar(app);
