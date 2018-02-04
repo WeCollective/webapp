@@ -68019,21 +68019,23 @@ var CommentInputBoxController = function (_Injectable) {
 
     var _this = _possibleConstructorReturn(this, (CommentInputBoxController.__proto__ || Object.getPrototypeOf(CommentInputBoxController)).call(this, CommentInputBoxController.$inject, injections));
 
+    _this.handleKeyDown = _this.handleKeyDown.bind(_this);
+
     _this.input = _this.value || '';
     _this.isLoading = false;
 
     // Auto-expand the textarea on load.
     _this.autoGrow(_this.$element[0].children[0]);
 
-    var listeners = [];
+    var listeners = [
     // Set the input value to the current value on edit.
-    listeners.push(_this.$rootScope.$watch(function () {
+    _this.$rootScope.$watch(function () {
       return _this.update;
     }, function (newValue) {
       if (newValue === true) {
         _this.input = _this.originalCommentText();
       }
-    }));
+    })];
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -68065,6 +68067,17 @@ var CommentInputBoxController = function (_Injectable) {
     }
     */
 
+  }, {
+    key: 'handleKeyDown',
+    value: function handleKeyDown(event) {
+      this.autoGrow(event.target);
+
+      // Enable Ctrl + Enter on Windows or ⌘ + Enter on macOS for comment submission.
+      // Ctrl + Enter on macOS will also work as will ⊞ + Enter on Windows.
+      if (event.which === 13 && (event.metaKey || event.ctrlKey)) {
+        this.handleSubmit();
+      }
+    }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit() {

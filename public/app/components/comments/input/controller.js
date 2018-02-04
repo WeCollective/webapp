@@ -4,19 +4,22 @@ class CommentInputBoxController extends Injectable {
   constructor(...injections) {
     super(CommentInputBoxController.$inject, injections);
 
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+
     this.input = this.value || '';
     this.isLoading = false;
 
     // Auto-expand the textarea on load.
     this.autoGrow(this.$element[0].children[0]);
 
-    const listeners = [];
-    // Set the input value to the current value on edit.
-    listeners.push(this.$rootScope.$watch(() => this.update, newValue => {
-      if (newValue === true) {
-        this.input = this.originalCommentText();
-      }
-    }));
+    const listeners = [
+      // Set the input value to the current value on edit.
+      this.$rootScope.$watch(() => this.update, newValue => {
+        if (newValue === true) {
+          this.input = this.originalCommentText();
+        }
+      }),
+    ];
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
@@ -40,6 +43,16 @@ class CommentInputBoxController extends Injectable {
     });
   }
   */
+
+  handleKeyDown(event) {
+    this.autoGrow(event.target);
+
+    // Enable Ctrl + Enter on Windows or ⌘ + Enter on macOS for comment submission.
+    // Ctrl + Enter on macOS will also work as will ⊞ + Enter on Windows.
+    if (event.which === 13 && (event.metaKey || event.ctrlKey)) {
+      this.handleSubmit();
+    }
+  }
 
   handleSubmit() {
     if (this.isLoading === true) return;
