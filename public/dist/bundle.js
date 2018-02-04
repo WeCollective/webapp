@@ -74183,28 +74183,7 @@ var BranchController = function (_Injectable) {
       injections[_key] = arguments[_key];
     }
 
-    var _this = _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
-
-    _this.isHeaderHidden = false;
-    _this.isLocked = false;
-
-    var listeners = [_this.EventService.on('$stateChangeSuccess', function () {
-      if (_this.isLocked) return;
-      _this.isLocked = true;
-      _this.$timeout(function () {
-        _this.isHeaderHidden = true;
-        _this.$timeout(function () {
-          _this.isHeaderHidden = false;
-          _this.isLocked = false;
-        });
-      });
-    })];
-    _this.$scope.$on('$destroy', function () {
-      return listeners.forEach(function (deregisterListener) {
-        return deregisterListener();
-      });
-    });
-    return _this;
+    return _possibleConstructorReturn(this, (BranchController.__proto__ || Object.getPrototypeOf(BranchController)).call(this, BranchController.$inject, injections));
   }
 
   // Hack fix for Angular momentarily showing both header templates on state change where
@@ -74214,10 +74193,6 @@ var BranchController = function (_Injectable) {
   _createClass(BranchController, [{
     key: 'getUIViewName',
     value: function getUIViewName(isFixed) {
-      if (this.isHeaderHidden) {
-        return '';
-      }
-
       if (isFixed && this.hasFixedHeader() || !isFixed && !this.hasFixedHeader()) {
         return 'header';
       }

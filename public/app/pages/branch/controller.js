@@ -3,33 +3,11 @@ import Injectable from 'utils/injectable';
 class BranchController extends Injectable {
   constructor(...injections) {
     super(BranchController.$inject, injections);
-
-    this.isHeaderHidden = false;
-    this.isLocked = false;
-
-    const listeners = [
-      this.EventService.on('$stateChangeSuccess', () => {
-        if (this.isLocked) return;
-        this.isLocked = true;
-        this.$timeout(() => {
-          this.isHeaderHidden = true;
-          this.$timeout(() => {
-            this.isHeaderHidden = false;
-            this.isLocked = false;
-          });
-        });
-      }),
-    ];
-    this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
 
   // Hack fix for Angular momentarily showing both header templates on state change where
   // one of them would be detached and showing raw code, not a good UX.
   getUIViewName(isFixed) {
-    if (this.isHeaderHidden) {
-      return '';
-    }
-
     if ((isFixed && this.hasFixedHeader()) || (!isFixed && !this.hasFixedHeader())) {
       return 'header';
     }
