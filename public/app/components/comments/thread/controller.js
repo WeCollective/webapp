@@ -111,6 +111,13 @@ class CommentThreadController extends Injectable {
         openReply: true,
         update: isEdit,
       };
+
+      // Focus on the opened input element.
+      const node = this.$element[0];
+      this.$timeout(() => {
+        const input = node.getElementsByClassName('comment__input')[0];
+        if (input) input.focus();
+      });
     });
   }
 
@@ -200,6 +207,7 @@ class CommentThreadController extends Injectable {
 }
 
 CommentThreadController.$inject = [
+  '$element',
   '$state',
   '$timeout',
   'AlertsService',

@@ -68379,6 +68379,13 @@ var CommentThreadController = function (_Injectable) {
           openReply: true,
           update: isEdit
         };
+
+        // Focus on the opened input element.
+        var node = _this6.$element[0];
+        _this6.$timeout(function () {
+          var input = node.getElementsByClassName('comment__input')[0];
+          if (input) input.focus();
+        });
       });
     }
   }, {
@@ -68469,7 +68476,7 @@ var CommentThreadController = function (_Injectable) {
   return CommentThreadController;
 }(_injectable2.default);
 
-CommentThreadController.$inject = ['$state', '$timeout', 'AlertsService', 'CommentService', 'EventService', 'ModalService', 'UserService'];
+CommentThreadController.$inject = ['$element', '$state', '$timeout', 'AlertsService', 'CommentService', 'EventService', 'ModalService', 'UserService'];
 
 exports.default = CommentThreadController;
 
