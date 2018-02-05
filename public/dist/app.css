@@ -727,7 +727,7 @@ span {
   text-decoration: underline;
 }
 .comments .comments__text-wrapper {
-  margin-top: 12px;
+  margin: 12px 12px 0;
 }
 .comments .comments__text-wrapper a {
   color: #3498db;

@@ -128,7 +128,7 @@ class CommentsController extends Injectable {
     } = this.$state.params;
 
     if (this.isCommentPermalink()) {
-      this.CommentService.fetch(postid, commentid)
+      this.CommentService.get(postid, commentid)
         .then(successCb)
         .catch(errorCb);
     }

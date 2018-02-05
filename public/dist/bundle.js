@@ -20237,11 +20237,7 @@ var _constants6 = _interopRequireDefault(_constants5);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 if (_env2.default.name === 'production') {
-  _ravenJs2.default.config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026', {
-    fetchParameters: {
-      credentials: ''
-    }
-  }).install();
+  _ravenJs2.default.config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026').install();
 }
 
 var appName = 'wecoApp';
@@ -67839,7 +67835,7 @@ var CommentsController = function (_Injectable) {
 
 
       if (this.isCommentPermalink()) {
-        this.CommentService.fetch(postid, commentid).then(successCb).catch(errorCb);
+        this.CommentService.get(postid, commentid).then(successCb).catch(errorCb);
       } else {
         // fetch all the comments for this post
         var sortBy = this.filters.sortBy;
@@ -68241,6 +68237,8 @@ var _injectable2 = _interopRequireDefault(_injectable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -68344,7 +68342,7 @@ var CommentThreadController = function (_Injectable) {
       // The comment was edited...
       if (this.parentComment.meta.update) {
         // Reload the comment data.
-        this.CommentService.fetch(this.parentComment.postid, this.parentComment.id).then(function (response) {
+        this.CommentService.get(this.parentComment.postid, this.parentComment.id).then(function (response) {
           return _this5.$timeout(function () {
             // Copy keys to avoid destroying 'parentComment' object
             // reference to 'comment' in the comments array.
@@ -68363,7 +68361,7 @@ var CommentThreadController = function (_Injectable) {
       // We created a new comment.
       else {
           this.closeReply();
-          parent.comments.unshift(comment);
+          parent.comments = [comment].concat(_toConsumableArray(parent.comments));
         }
     }
   }, {
@@ -77725,8 +77723,8 @@ var CommentService = function (_Injectable) {
       });
     }
   }, {
-    key: 'fetch',
-    value: function fetch(postid, commentid) {
+    key: 'get',
+    value: function get(postid, commentid) {
       var _this4 = this;
 
       return new Promise(function (resolve, reject) {

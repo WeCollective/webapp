@@ -75,7 +75,7 @@ class CommentThreadController extends Injectable {
     // The comment was edited...
     if (this.parentComment.meta.update) {
       // Reload the comment data.
-      this.CommentService.fetch(this.parentComment.postid, this.parentComment.id)
+      this.CommentService.get(this.parentComment.postid, this.parentComment.id)
         .then(response => this.$timeout(() => {
           // Copy keys to avoid destroying 'parentComment' object
           // reference to 'comment' in the comments array.
@@ -93,7 +93,10 @@ class CommentThreadController extends Injectable {
     // We created a new comment.
     else {
       this.closeReply();
-      parent.comments.unshift(comment);
+      parent.comments = [
+        comment,
+        ...parent.comments,
+      ];
     }
   }
 

@@ -32,11 +32,7 @@ import Constants from 'config/constants';
 
 if (constEnvironment.name === 'production') {
   Raven
-    .config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026', {
-      fetchParameters: {
-        credentials: '',
-      },
-    })
+    .config('https://d3f5977a31b0425f947ec4394bb26805@sentry.io/271026')
     .install();
 }
 

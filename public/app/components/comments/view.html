@@ -20,11 +20,12 @@
       </p>
     </div>
 
-    <div class="post__content-header header style--inner style--comments">
+    <div
+      class="post__content-header header style--inner style--comments"
+      ng-if="!Ctrl.isCommentPermalink()">
       <dropdown
         class="style--horizontal"
         items="Ctrl.sortBy"
-        ng-if="!Ctrl.isCommentPermalink()"
       	selected="Ctrl.filters.sortBy.selectedIndex"
       	title="Ctrl.filters.sortBy.title">
       </dropdown>

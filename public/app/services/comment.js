@@ -20,7 +20,7 @@ class CommentService extends Injectable {
     });
   }
 
-  fetch(postid, commentid) {
+  get(postid, commentid) {
     return new Promise((resolve, reject) => {
       this.API.get('/post/:postid/comments/:commentid', { commentid, postid })
         .then(res => {
