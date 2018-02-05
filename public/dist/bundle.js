@@ -70591,6 +70591,7 @@ var pollAnswersMinCount = EntityLimits.pollAnswersMinCount,
     postText = EntityLimits.postText,
     postTitle = EntityLimits.postTitle;
 var Category = _constants2.default.Filters.Category;
+var UrlPolicy = _constants2.default.Policy.url;
 
 var CreatePostModalController = function (_Injectable) {
   _inherits(CreatePostModalController, _Injectable);
@@ -70607,6 +70608,7 @@ var CreatePostModalController = function (_Injectable) {
     _this.callbackDropdown = _this.callbackDropdown.bind(_this);
     _this.handleModalCancel = _this.handleModalCancel.bind(_this);
     _this.handleModalSubmit = _this.handleModalSubmit.bind(_this);
+    _this.handleUrlChange = _this.handleUrlChange.bind(_this);
 
     _this.filters = {
       postType: {
@@ -70640,34 +70642,16 @@ var CreatePostModalController = function (_Injectable) {
     _this.PostTypePoll = PostTypePoll;
     _this.PostTypeText = PostTypeText;
     _this.preview = false;
+    _this.timer = null;
     _this.url = '';
 
     _this.injectCurrentBranchTag();
 
     var events = _this.EventService.events;
 
-    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, _this.filters, _this.callbackDropdown)), [_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel), _this.EventService.on(events.MODAL_OK, _this.handleModalSubmit)]);
-    /*
-    listeners.push(this.$scope.$watch(() => this.post.text, url => {
-      if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
-        return;
-      }
-       const test = new RegExp('^(http|https|ftp)?(://)?(www|ftp)?.?[a-z0-9-]+(.|:)([a-z0-9-]+)+([/?].*)?$');
-      const matches = url.match(test);
-       if (matches) {
-        const match = matches[0];
-        this.PostService.getPictureUrlFromWebsiteUrl(match)
-          .then(src => {
-            this.url = src;
-          })
-          .catch(err => {
-            if (err.status !== 400) {
-              this.AlertsService.push('error', err);
-            }
-          });
-      }
-    }));
-    */
+    var listeners = [].concat(_toConsumableArray(attachFilterListeners(_this.$scope, _this.filters, _this.callbackDropdown)), [_this.EventService.on(events.MODAL_CANCEL, _this.handleModalCancel), _this.EventService.on(events.MODAL_OK, _this.handleModalSubmit), _this.$scope.$watch(function () {
+      return _this.post.url;
+    }, _this.handleUrlChange)]);
     _this.$scope.$on('$destroy', function () {
       return listeners.forEach(function (deregisterListener) {
         return deregisterListener();
@@ -70903,6 +70887,52 @@ var CreatePostModalController = function (_Injectable) {
           }
         }, _callee, this, [[2, 8], [15, 21], [25, 32]]);
       }), this);
+    }
+  }, {
+    key: 'handleUrlChange',
+    value: function handleUrlChange(str) {
+      var _this6 = this;
+
+      if (!str) return;
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(function () {
+        _this6.timer = null;
+
+        var isUrl = UrlPolicy.test(str);
+        if (!isUrl) return;
+
+        _this6.PostService.getLinkMetaData(str).then(function (data) {
+          return _this6.$timeout(function () {
+            // old (src)
+            // this.url = src;
+
+            if (data.title && !_this6.post.title) {
+              _this6.post.title = data.title;
+            }
+
+            if (data.text && !_this6.post.text) {
+              _this6.post.text = data.text;
+            }
+
+            if (data.url && data.url !== _this6.post.url) {
+              _this6.post.url = data.url;
+            }
+
+            if (data.type) {
+              var urlToFilterItemIndex = _this6.UrlService.urlToFilterItemIndex;
+
+              var index = urlToFilterItemIndex(data.type, _this6.filters.postType);
+              _this6.filters.selectedIndex = index;
+              _this6.post.type = data.type;
+            }
+          });
+        }).catch(function (err) {
+          if (err.status !== 400) {
+            _this6.AlertsService.push('error', err);
+          }
+        });
+      }, 300);
     }
   }, {
     key: 'injectCurrentBranchTag',
@@ -78425,12 +78455,12 @@ var PostService = function (_Injectable) {
       });
     }
   }, {
-    key: 'getPictureUrlFromWebsiteUrl',
-    value: function getPictureUrlFromWebsiteUrl(url) {
+    key: 'getLinkMetaData',
+    value: function getLinkMetaData(url) {
       var _this7 = this;
 
       return new Promise(function (resolve, reject) {
-        return _this7.API.get('/post/picture-suggestion', null, { url: url }).then(function (res) {
+        return _this7.API.get('/scraper', null, { url: url }).then(function (res) {
           return resolve(res.data);
         }).catch(function (err) {
           return reject(err.data || err);

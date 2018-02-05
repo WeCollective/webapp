@@ -52,9 +52,9 @@ class PostService extends Injectable {
       .catch(err => reject(err.data || err)));
   }
 
-  getPictureUrlFromWebsiteUrl(url) {
+  getLinkMetaData(url) {
     return new Promise((resolve, reject) => this.API
-      .get('/post/picture-suggestion', null, { url })
+      .get('/scraper', null, { url })
       .then(res => resolve(res.data))
       .catch(err => reject(err.data || err)));
   }

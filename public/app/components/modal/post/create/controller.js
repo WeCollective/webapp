@@ -15,6 +15,7 @@ const {
   postTitle,
 } = EntityLimits;
 const { Category } = Constants.Filters;
+const { url: UrlPolicy } = Constants.Policy;
 
 class CreatePostModalController extends Injectable {
   constructor(...injections) {
@@ -23,6 +24,7 @@ class CreatePostModalController extends Injectable {
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.handleModalCancel = this.handleModalCancel.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
+    this.handleUrlChange = this.handleUrlChange.bind(this);
 
     this.filters = {
       postType: {
@@ -56,6 +58,7 @@ class CreatePostModalController extends Injectable {
     this.PostTypePoll = PostTypePoll;
     this.PostTypeText = PostTypeText;
     this.preview = false;
+    this.timer = null;
     this.url = '';
 
     this.injectCurrentBranchTag();
@@ -65,30 +68,8 @@ class CreatePostModalController extends Injectable {
       ...attachFilterListeners(this.$scope, this.filters, this.callbackDropdown),
       this.EventService.on(events.MODAL_CANCEL, this.handleModalCancel),
       this.EventService.on(events.MODAL_OK, this.handleModalSubmit),
+      this.$scope.$watch(() => this.post.url, this.handleUrlChange),
     ];
-    /*
-    listeners.push(this.$scope.$watch(() => this.post.text, url => {
-      if (!url || ['text', 'poll'].includes(this.postType.items[this.postType.selectedIndex])) {
-        return;
-      }
-
-      const test = new RegExp('^(http|https|ftp)?(://)?(www|ftp)?.?[a-z0-9-]+(.|:)([a-z0-9-]+)+([/?].*)?$');
-      const matches = url.match(test);
-
-      if (matches) {
-        const match = matches[0];
-        this.PostService.getPictureUrlFromWebsiteUrl(match)
-          .then(src => {
-            this.url = src;
-          })
-          .catch(err => {
-            if (err.status !== 400) {
-              this.AlertsService.push('error', err);
-            }
-          });
-      }
-    }));
-    */
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
     // Wait until listeners initialise.
@@ -269,6 +250,47 @@ class CreatePostModalController extends Injectable {
         });
       }
     }, this);
+  }
+
+  handleUrlChange(str) {
+    if (!str) return;
+
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.timer = null;
+
+      const isUrl = UrlPolicy.test(str);
+      if (!isUrl) return;
+
+      this.PostService.getLinkMetaData(str)
+        .then(data => this.$timeout(() => { // old (src)
+          // this.url = src;
+
+          if (data.title && !this.post.title) {
+            this.post.title = data.title;
+          }
+
+          if (data.text && !this.post.text) {
+            this.post.text = data.text;
+          }
+
+          if (data.url && data.url !== this.post.url) {
+            this.post.url = data.url;
+          }
+
+          if (data.type) {
+            const { urlToFilterItemIndex } = this.UrlService;
+            const index = urlToFilterItemIndex(data.type, this.filters.postType);
+            this.filters.selectedIndex = index;
+            this.post.type = data.type;
+          }
+        }))
+        .catch(err => {
+          if (err.status !== 400) {
+            this.AlertsService.push('error', err);
+          }
+        });
+    }, 300);
   }
 
   injectCurrentBranchTag() {
