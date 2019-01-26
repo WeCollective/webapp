@@ -1,2 +1,23 @@
-node_modules/
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+public/dist
+public/index.html
+
+# Local development
+.eslintcache
+.env
+.dev
+.DS_Store
 .gulp-env
+.trash
+
+# misc
+.sass-cache
+npm-debug.log*
+package-log.json
