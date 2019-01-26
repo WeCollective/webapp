@@ -7,6 +7,7 @@ coverage
 # production
 build
 public/dist
+public/index.html
 
 # Local development
 .eslintcache
