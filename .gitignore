@@ -6,12 +6,12 @@ coverage
 
 # production
 build
-public/dist
-public/index.html
+# public/dist
+# public/index.html
 
 # Local development
 .eslintcache
-.env
+# .env
 .dev
 .DS_Store
 .gulp-env
