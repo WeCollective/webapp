@@ -2,7 +2,6 @@ import angular from 'angular';
 import CacheFactory from 'angular-cache';
 import ngAnimate from 'angular-animate';
 import ngFileUpload from 'ng-file-upload';
-import ngGoogleAnalytics from 'angular-google-analytics';
 import ngMarked from 'angular-marked';
 import ngSanitize from 'angular-sanitize';
 import UIRouter from 'angular-ui-router';
@@ -42,7 +41,6 @@ const app = angular.module(appName, [
   CacheFactory,
   ngAnimate,
   ngFileUpload,
-  ngGoogleAnalytics,
   ngMarked,
   ngSanitize,
   UIRouter,
