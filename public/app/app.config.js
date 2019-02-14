@@ -20,17 +20,6 @@ class AppConfig extends Injectable {
       '*://www.youtube.com/**',
     ]);
 
-    // Google Analytics.
-    this.AnalyticsProvider
-      .setAccount(UA)
-      .setPageEvent('$stateChangeSuccess')
-      .logAllCalls(true);
-
-    if (constEnvironment.debugAnalytics === true && this.ENV.name !== 'production') {
-      console.log(`Setting Google Analytics account to ${UA}.`);
-      this.AnalyticsProvider.enterDebugMode(true);
-    }
-
     // cache
     angular.extend(this.CacheFactoryProvider.defaults, {
       deleteOnExpire: 'aggressive',
@@ -49,7 +38,6 @@ class AppConfig extends Injectable {
 
 AppConfig.$inject = [
   '$sceDelegateProvider',
-  'AnalyticsProvider',
   'CacheFactoryProvider',
   'ENV',
   'markedProvider',

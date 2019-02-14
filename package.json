@@ -33,7 +33,6 @@
     "angular-bind-html-compile": "^1.4.1",
     "angular-cache": "^4.6.0",
     "angular-chart.js": "^1.1.1",
-    "angular-google-analytics": "^1.1.7",
     "angular-marked": "^1.2.2",
     "angular-resource": "^1.5.7",
     "angular-sanitize": "^1.5.7",
