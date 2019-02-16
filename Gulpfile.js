@@ -3,10 +3,10 @@ require('dotenv').config();
 
 const { argv } = require('yargs');
 const gulp = require('gulp');
-const gutil = require('gulp-util');
 const less = require('gulp-less');
 const nodemon = require('gulp-nodemon');
 const path = require('path');
+const PluginError = require('plugin-error');
 const plumber = require('gulp-plumber');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
@@ -26,8 +26,10 @@ if (!config) {
   return;
 }
 
-const ensureSlash = str => str[str.length - 1] === '/' ? str : `${str}/`; // eslint-disable-line
-const getBundleName = () => (env === 'production' ? 'bundle.min.js' : 'bundle.js');
+console.log(`🚀 Setting up ${env} environment`, local ? 'on local...' : '...', '\n');
+
+const ensureSlash = str => str.endsWith('/') ? str : `${str}/`; // eslint-disable-line no-confusing-arrow
+const getBundleName = () => env === 'production' ? 'bundle.min.js' : 'bundle.js'; // eslint-disable-line no-confusing-arrow
 const select = (...rest) => path.join(PUBLIC_DIR, ...rest);
 
 const removeSubstring = (string, needle) => {
@@ -41,7 +43,7 @@ const removeSubstring = (string, needle) => {
 const setExtension = (string, ext) => {
   if (ext) {
     const extIndex = string.lastIndexOf('.');
-    if (ext[0] !== '.') ext = `.${ext}`;
+    if (!ext.startsWith('.')) ext = `.${ext}`;
     string = string.substring(0, extIndex) + ext;
   }
   return string;
@@ -103,33 +105,7 @@ const WEBPACK_CONFIG = {
   ] : [],
 };
 
-gulp.task('build', ['template-strings', 'webpack']);
-
-gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
-  .pipe(less())
-  .pipe(rename('app.css'))
-  .pipe(gulp.dest(DEST_DIR)));
-
-gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
-  .pipe(plumber())
-  .pipe(sass())
-  .pipe(rename('app-sass.css'))
-  .pipe(gulp.dest(DEST_DIR)));
-
-gulp.task('nodemon', () => {
-  if (!local) return;
-
-  nodemon({
-    env: {
-      NODE_ENV: local ? 'local' : env,
-    },
-    quiet: true,
-    script: 'server.js',
-    verbose: false,
-  });
-});
-
-gulp.task('template-strings', () => {
+gulp.task('template-strings', done => {
   processTemplate('index.template.html', [{
     test: /%SOCKET_IO_ENDPOINT%/g,
     value: local ?
@@ -149,34 +125,67 @@ gulp.task('template-strings', () => {
       `https://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
       : `${ensureSlash(config.api_url) + process.env.API_VERSION}`,
   }]);
+
+  done();
 });
 
 gulp.task('webpack', done => {
   WEBPACK_CONFIG.output.filename = getBundleName();
 
-  webpack(WEBPACK_CONFIG, (err, stats) => { // eslint-disable-line no-unused-vars
-    if (err) throw new gutil.PluginError('webpack', err);
-    // gutil.log('[webpack]', stats.toString());
+  webpack(WEBPACK_CONFIG, err => {
+    if (err) {
+      throw new PluginError({
+        plugin: 'webpack',
+        message: err,
+      });
+    }
     done();
   });
 });
 
-gulp.task('default', ['build', 'compile-less', 'compile-sass', 'nodemon'], () => {
-  gulp.watch([
-    select('**', '*'),
-    `!${select('dist', '**', '*')}`,
-    `!${select('assets', 'styles', '**', '*')}`,
-    `!${select('index.html')}`,
-    `!${select('app', 'env.config.js')}`,
-  ], ['build']);
+gulp.task('build', gulp.series('template-strings', 'webpack'));
 
-  gulp.watch(select('**', '*.less'), ['compile-less']);
-  gulp.watch(select('**', '*.scss'), ['compile-sass']);
-  gulp.watch(select('**', '*.template.*'), ['template-strings']);
+gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
+  .pipe(less())
+  .pipe(rename('app.css'))
+  .pipe(gulp.dest(DEST_DIR)));
 
-  // Return the process in build as we wouldn't be able to execute multiple tasks otherwise.
-  // Read more: https://github.com/gulpjs/gulp/issues/417.
-  if (!local) {
-    process.exit(0);
+gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
+  .pipe(plumber())
+  .pipe(sass())
+  .pipe(rename('app-sass.css'))
+  .pipe(gulp.dest(DEST_DIR)));
+
+gulp.task('nodemon', done => {
+  if (local) {
+    nodemon({
+      env: {
+        NODE_ENV: local ? 'local' : env,
+      },
+      quiet: true,
+      script: 'server.js',
+      verbose: false,
+    });
   }
+  done();
 });
+
+gulp.task('watch', done => {
+  if (local) {
+    gulp.watch([
+      select('**', '*'),
+      `!${select('dist', '**', '*')}`,
+      `!${select('assets', 'styles', '**', '*')}`,
+      `!${select('index.html')}`,
+      `!${select('app', 'env.config.js')}`,
+    ], gulp.series('build'));
+
+    gulp.watch(select('**', '*.less'), gulp.series('compile-less'));
+    gulp.watch(select('**', '*.scss'), gulp.series('compile-sass'));
+    gulp.watch(select('**', '*.template.*'), gulp.series('template-strings'));
+  }
+
+  done();
+});
+
+gulp.task('default', gulp.series('build', 'compile-less', 'compile-sass', 'nodemon', 'watch'));

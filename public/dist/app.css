@@ -279,11 +279,11 @@ span {
 .alerts .alerts__icon {
   cursor: pointer;
   height: 12px;
-  opacity: .3;
+  opacity: 0.3;
   width: 12px;
 }
 .alerts .alerts__icon:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 .alerts .alerts__item {
   background-color: #fff;
@@ -333,7 +333,7 @@ span {
   font-weight: 400;
   margin-left: 10px;
   padding: 0 10px;
-  transition: opacity .1s;
+  transition: opacity 0.1s;
 }
 .btn.btn--block {
   display: block;
@@ -449,7 +449,7 @@ span {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .comments .comment__content img.list-item__detail:hover {
@@ -561,7 +561,7 @@ span {
 .comments .comment__content .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -623,17 +623,17 @@ span {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -642,11 +642,11 @@ span {
   fill: #9fc3e7;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .comments .comment__content .list-item__votes .list-item__vote-icon:focus {
   outline: none;
@@ -765,18 +765,18 @@ span {
   bottom: 6px;
   cursor: pointer;
   height: 26px;
-  opacity: .4;
+  opacity: 0.4;
   position: absolute;
-  transform: translateY(calc(38px));
+  transform: translateY(calc(6px + 26px + 6px));
   width: 26px;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 .cover-photo img:hover {
   opacity: 1;
 }
 .cover-photo img.cover-photo-toggle {
   right: 6px;
-  transform: translateY(calc(38px)) rotateZ(0);
+  transform: translateY(calc(6px + 26px + 6px)) rotateZ(0);
 }
 .cover-photo img#cover-photo-edit {
   right: 38px;
@@ -890,7 +890,7 @@ div[loading] div.loading-container img {
   display: block;
   height: 4px;
   transform-origin: 50% 0%;
-  transition: transform .8s;
+  transition: transform 0.8s;
   animation: movie-loader-bar 1.4s linear infinite forwards;
 }
 .loader__bar--hidden {
@@ -962,7 +962,7 @@ div[loading] div.loading-container img {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .notification img.list-item__detail:hover {
@@ -1074,7 +1074,7 @@ div[loading] div.loading-container img {
 .notification .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -1136,17 +1136,17 @@ div[loading] div.loading-container img {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .notification .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .notification .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .notification .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -1155,11 +1155,11 @@ div[loading] div.loading-container img {
   fill: #9fc3e7;
 }
 .notification .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .notification .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .notification .list-item__votes .list-item__vote-icon:focus {
   outline: none;
@@ -1207,13 +1207,13 @@ div.poll-answer-editor .add-item-button {
   border: none;
   cursor: pointer;
   height: 20px;
-  opacity: .5;
+  opacity: 0.5;
   padding: 0;
   position: absolute;
   right: 10px;
   top: calc(50% - 15px);
   width: 20px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 div.poll-answer-editor .add-item-button img {
   display: block;
@@ -1271,10 +1271,10 @@ div.poll-answer-editor .remove-item-button {
   cursor: pointer;
   height: 15px;
   margin-left: 10px;
-  opacity: .5;
+  opacity: 0.5;
   padding: 0;
   width: 15px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 div.poll-answer-editor .remove-item-button img {
   display: block;
@@ -1353,15 +1353,15 @@ div.poll-answer-editor .remove-item-button:not(:disabled):hover {
 .sidebar .sidebar__link > img {
   height: 24px;
   margin-right: 16px;
-  opacity: .2;
+  opacity: 0.2;
   width: 24px;
-  transition: opacity .1s;
+  transition: opacity 0.1s;
 }
 .sidebar .sidebar__link > span {
   color: #b3b3b3;
   font-size: 14px;
   font-weight: 600;
-  transition: color .1s;
+  transition: color 0.1s;
 }
 .sidebar .sidebar__link:not(.disabled):hover {
   cursor: pointer;
@@ -1375,7 +1375,7 @@ div.poll-answer-editor .remove-item-button:not(:disabled):hover {
 }
 .sidebar .sidebar__link:not(.disabled):hover > img,
 .sidebar .sidebar__link.selected > img {
-  opacity: .7;
+  opacity: 0.7;
 }
 .sidebar .sidebar__link:not(.disabled):hover > span,
 .sidebar .sidebar__link.selected > span {
@@ -1406,13 +1406,13 @@ div.poll-answer-editor .remove-item-button:not(:disabled):hover {
 .sidebar .sidebar-picture img#edit {
   bottom: 6px;
   height: 26px;
-  opacity: .4;
+  opacity: 0.4;
   position: absolute;
   right: 6px;
   width: 26px;
 }
 .sidebar .sidebar-picture img#edit.style--default {
-  opacity: .2;
+  opacity: 0.2;
 }
 .sidebar .sidebar-picture img#edit:hover {
   cursor: pointer;
@@ -1487,7 +1487,7 @@ ul.tabs .tabs__item:not(.selected):hover {
 ul.tabs .tabs__item.ng-enter,
 ul.tabs .tabs__item.ng-leave,
 ul.tabs .tabs__item.ng-move {
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 ul.tabs .tabs__item.ng-enter,
 ul.tabs .tabs__item.ng-leave.ng-leave-active,
@@ -1532,7 +1532,7 @@ ul.tabs.style--border {
   margin-left: 6px;
   padding: 0;
   width: 16px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .tags__icon svg {
   display: block;
@@ -1546,7 +1546,7 @@ ul.tabs.style--border {
   cursor: initial;
 }
 .tags__icon:not(:disabled):hover {
-  opacity: .5;
+  opacity: 0.5;
 }
 .tags__input {
   border: 1px solid #e7e7e7;
@@ -1564,13 +1564,13 @@ ul.tabs.style--border {
   border: none;
   cursor: pointer;
   height: 20px;
-  opacity: .5;
+  opacity: 0.5;
   padding: 0;
   position: absolute;
   right: 10px;
   top: calc(50% - 15px);
   width: 20px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .tags__input-icon > img {
   display: block;
@@ -1807,7 +1807,7 @@ body.style--modal-open {
 .modal__checkbox-text span {
   display: block;
   position: relative;
-  transition: color .2s;
+  transition: color 0.2s;
 }
 .modal__checkbox-text span:first-child {
   color: #c8c8c8;
@@ -1905,7 +1905,7 @@ div#upload-image-modal div#dragdrop {
   padding: 25px 15px;
   text-align: center;
   width: 100%;
-  transition: border .3s linear;
+  transition: border 0.3s linear;
 }
 div#upload-image-modal div#dragdrop h2 {
   font-size: 18px;
@@ -1926,7 +1926,7 @@ div#upload-image-modal div#dragdrop img#preview {
 }
 div#upload-image-modal div#dragdrop.dragover {
   border: 1px dashed #444444;
-  transition: border .3s linear;
+  transition: border 0.3s linear;
 }
 div#upload-image-modal div#dragdrop.ng-hide.ng-hide-animate {
   display: none !important;
@@ -2153,7 +2153,7 @@ div#nucleus-reviewsubbranchrequests-inputs li:last-child {
   position: relative;
   text-align: center;
   width: 150px;
-  transition: border .3s linear;
+  transition: border 0.3s linear;
 }
 .modal__content-div div#create-post-picture div#dragdrop div#image-preview {
   background-position: center;
@@ -2187,7 +2187,7 @@ div#nucleus-reviewsubbranchrequests-inputs li:last-child {
 }
 .modal__content-div div#create-post-picture div#dragdrop.dragover {
   border: 1px dashed #444444;
-  transition: border .3s linear;
+  transition: border 0.3s linear;
 }
 .modal__content-div div#create-post-picture div#dragdrop.ng-hide.ng-hide-animate {
   display: none !important;
@@ -2336,7 +2336,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .branch__post img.list-item__detail:hover {
@@ -2448,7 +2448,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__post .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -2510,17 +2510,17 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .branch__post .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .branch__post .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -2529,11 +2529,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   fill: #9fc3e7;
 }
 .branch__post .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .branch__post .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .branch__post .list-item__votes .list-item__vote-icon:focus {
   outline: none;
@@ -2615,7 +2615,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     color: #b3b3b3;
     cursor: pointer;
     height: 16px;
-    opacity: .3;
+    opacity: 0.3;
     width: 16px;
   }
   .branch__post img.list-item__detail:hover {
@@ -2722,7 +2722,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .branch__post .list-item__stats .list-item__stats-header .list-item__stats-icon {
     display: inline-block;
     height: 24px;
-    opacity: .3;
+    opacity: 0.3;
     position: relative;
     top: 3px;
     vertical-align: bottom;
@@ -2784,17 +2784,17 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     border: none;
     cursor: pointer;
     height: 22px;
-    opacity: .1;
+    opacity: 0.1;
     padding: 0;
     width: 22px;
-    transition: opacity .2s;
+    transition: opacity 0.2s;
   }
   .branch__post .list-item__votes .list-item__vote-icon svg {
     height: 100%;
     width: auto;
   }
   .branch__post .list-item__votes .list-item__vote-icon svg path {
-    transition: fill .2s;
+    transition: fill 0.2s;
   }
   .branch__post .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
     opacity: 1;
@@ -2803,11 +2803,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     fill: #9fc3e7;
   }
   .branch__post .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-    opacity: .6;
+    opacity: 0.6;
   }
   .branch__post .list-item__votes .list-item__vote-icon:disabled {
     cursor: initial;
-    opacity: .1;
+    opacity: 0.1;
   }
   .branch__post .list-item__votes .list-item__vote-icon:focus {
     outline: none;
@@ -2894,7 +2894,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .branch__subbranch img.list-item__detail:hover {
@@ -3006,7 +3006,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .branch__subbranch .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -3068,17 +3068,17 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -3087,11 +3087,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   fill: #9fc3e7;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .branch__subbranch .list-item__votes .list-item__vote-icon:focus {
   outline: none;
@@ -3251,12 +3251,12 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   margin-top: 4px;
   padding: 0;
   width: 26px;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 .header .header__button.style--sidebar-toggle,
 .header .header__button > div svg {
-  opacity: .3;
-  transition: opacity .2s;
+  opacity: 0.3;
+  transition: opacity 0.2s;
 }
 .header .header__button > div {
   height: 26px;
@@ -3374,7 +3374,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .header .list-item img.list-item__detail:hover {
@@ -3486,7 +3486,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
 .header .list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -3548,17 +3548,17 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .header .list-item .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .header .list-item .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -3567,11 +3567,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   fill: #9fc3e7;
 }
 .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .header .list-item .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .header .list-item .list-item__votes .list-item__vote-icon:focus {
   outline: none;
@@ -3658,7 +3658,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     color: #b3b3b3;
     cursor: pointer;
     height: 16px;
-    opacity: .3;
+    opacity: 0.3;
     width: 16px;
   }
   .header .list-item img.list-item__detail:hover {
@@ -3765,7 +3765,7 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
   .header .list-item .list-item__stats .list-item__stats-header .list-item__stats-icon {
     display: inline-block;
     height: 24px;
-    opacity: .3;
+    opacity: 0.3;
     position: relative;
     top: 3px;
     vertical-align: bottom;
@@ -3827,17 +3827,17 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     border: none;
     cursor: pointer;
     height: 22px;
-    opacity: .1;
+    opacity: 0.1;
     padding: 0;
     width: 22px;
-    transition: opacity .2s;
+    transition: opacity 0.2s;
   }
   .header .list-item .list-item__votes .list-item__vote-icon svg {
     height: 100%;
     width: auto;
   }
   .header .list-item .list-item__votes .list-item__vote-icon svg path {
-    transition: fill .2s;
+    transition: fill 0.2s;
   }
   .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
     opacity: 1;
@@ -3846,11 +3846,11 @@ div#resolve-flag-post-modal div#resolve-flag-post-modal-content ul#flag-list {
     fill: #9fc3e7;
   }
   .header .list-item .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-    opacity: .6;
+    opacity: 0.6;
   }
   .header .list-item .list-item__votes .list-item__vote-icon:disabled {
     cursor: initial;
-    opacity: .1;
+    opacity: 0.1;
   }
   .header .list-item .list-item__votes .list-item__vote-icon:focus {
     outline: none;
@@ -4026,7 +4026,7 @@ div#home-content form {
 }
 div#home-content form img {
   height: 20px;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   right: 20px;
   top: 10px;
@@ -4335,7 +4335,7 @@ div#notfound div h2 {
   color: #b3b3b3;
   cursor: pointer;
   height: 16px;
-  opacity: .3;
+  opacity: 0.3;
   width: 16px;
 }
 .post .post__content-wrapper .style--card-poll-answer img.list-item__detail:hover {
@@ -4447,7 +4447,7 @@ div#notfound div h2 {
 .post .post__content-wrapper .style--card-poll-answer .list-item__stats .list-item__stats-header .list-item__stats-icon {
   display: inline-block;
   height: 24px;
-  opacity: .3;
+  opacity: 0.3;
   position: relative;
   top: 3px;
   vertical-align: bottom;
@@ -4509,17 +4509,17 @@ div#notfound div h2 {
   border: none;
   cursor: pointer;
   height: 22px;
-  opacity: .1;
+  opacity: 0.1;
   padding: 0;
   width: 22px;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon svg {
   height: 100%;
   width: auto;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon svg path {
-  transition: fill .2s;
+  transition: fill 0.2s;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(:disabled).style--active {
   opacity: 1;
@@ -4528,11 +4528,11 @@ div#notfound div h2 {
   fill: #9fc3e7;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:not(:disabled):hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:disabled {
   cursor: initial;
-  opacity: .1;
+  opacity: 0.1;
 }
 .post .post__content-wrapper .style--card-poll-answer .list-item__votes .list-item__vote-icon:focus {
   outline: none;
