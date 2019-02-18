@@ -86,22 +86,10 @@ class ModalService extends Injectable {
   }
 
   handleKey(event) {
-    let keyMatched = true;
-
-    switch (event.which) {
-      // Escape.
-      case 27:
-        this.handleCancel();
-        break;
-
-      // Do nothing.
-      default:
-        keyMatched = false;
-        break;
-    }
-
-    if (keyMatched) {
+    // Escape key.
+    if (event.which === 27) {
       event.preventDefault();
+      this.handleCancel();
     }
   }
 

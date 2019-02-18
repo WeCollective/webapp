@@ -79904,22 +79904,10 @@ var ModalService = function (_Injectable) {
   }, {
     key: 'handleKey',
     value: function handleKey(event) {
-      var keyMatched = true;
-
-      switch (event.which) {
-        // Escape.
-        case 27:
-          this.handleCancel();
-          break;
-
-        // Do nothing.
-        default:
-          keyMatched = false;
-          break;
-      }
-
-      if (keyMatched) {
+      // Escape key.
+      if (event.which === 27) {
         event.preventDefault();
+        this.handleCancel();
       }
     }
   }, {
