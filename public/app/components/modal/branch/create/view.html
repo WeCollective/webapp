@@ -1,11 +1,27 @@
 <div id="create-branch-modal" ng-controller="CreateBranchModalController as CreateBranchModal">
   <div loading when="CreateBranchModal.isLoading">
-    <h1>Create a new {{ CreateBranchModal.newBranch.parentid === 'root' ? 'Root' : 'Child' }} Branch</h1>
-    <p class="error-message">{{ CreateBranchModal.errorMessage }}</p>
+    <h1>
+      Create a new {{ CreateBranchModal.newBranch.parentid === 'root' ? 'Root' : 'Child' }} Branch
+    </h1>
+    <p class="error-message">
+      {{ CreateBranchModal.errorMessage }}
+    </p>
     <div id="create-branch-inputs">
-      <p class="explanatory" ng-show="CreateBranchModal.newBranch.parentid !== 'root'">A parent branch request will be sent to the moderators of this branch. Until they accept it, your new branch will be a Root branch.</p>
-      <input id="id" ng-model="CreateBranchModal.newBranch.id" placeholder="Unique Name" type="text" ng-change="CreateBranchModal.newBranch.id = CreateBranchModal.newBranch.id.split(' ').join('')"></input>
-      <input ng-model="CreateBranchModal.newBranch.name" placeholder="Visible Name" type="text"></input>
+      <p
+        class="explanatory"
+        ng-show="CreateBranchModal.newBranch.parentid !== 'root'">
+        A parent branch request will be sent to the moderators of this branch. Until they accept it, your new branch will be a Root branch.
+      </p>
+      <input
+        id="id"
+        ng-change="CreateBranchModal.newBranch.id = CreateBranchModal.newBranch.id.split(' ').join('')"
+        ng-model="CreateBranchModal.newBranch.id"
+        placeholder="Unique Name"
+        type="text" />
+      <input
+        ng-model="CreateBranchModal.newBranch.name"
+        placeholder="Visible Name"
+        type="text" />
     </div>
   </div>
 </div>

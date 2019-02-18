@@ -3,9 +3,10 @@
   ng-show="ModalService.isOpen && ModalService.contentLoaded">
 </div>
 
-<div
+<form
   class="modal ng-hide"
-  ng-show="ModalService.isOpen && ModalService.contentLoaded">
+  ng-show="ModalService.isOpen && ModalService.contentLoaded"
+  novalidate>
   <div
     class="modal__content"
     ng-include="ModalService.templateUrl"
@@ -13,17 +14,17 @@
   </div>
 
   <div class="modal__controls">
-    <button
+    <input
       class="modal__button style--secondary text--uppercase"
       ng-click="ModalService.handleCancel()"
-      ng-disabled="ModalService.disabled">
-      cancel
-    </button>
-    <button
+      ng-disabled="ModalService.disabled"
+      type="button"
+      value="cancel" />
+    <input
       class="modal__button style--primary text--uppercase"
       ng-click="ModalService.handleSubmit()"
-      ng-disabled="ModalService.disabled">
-      ok
-    </button>
+      ng-disabled="ModalService.disabled"
+      type="submit"
+      value="ok" />
   </div>
-</div>
+</form>
