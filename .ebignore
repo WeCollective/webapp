@@ -1,0 +1,2 @@
+# Include empty file to deploy current working folder instead of git archive
+# https://forums.aws.amazon.com/message.jspa?messageID=625778
