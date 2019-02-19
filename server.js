@@ -9,14 +9,13 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 */
-const express = require('express'); // call express
+const express = require('express');
 const fs = require('fs');
 const helmet = require('helmet'); // protect against common web vulnerabilities
 const https = require('https');
 
-const app = express(); // define our app using express
+const app = express();
 
-// SET ENVIRONMENT AND PORT
 const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 8081;
 
@@ -33,11 +32,12 @@ if (env === 'production') {
 
   // REDIRECT APEX DOMAIN TO WWW. SUBDOMAIN
   app.use((req, res, next) => {
-    if (req.get('Host').match(/^www\..*/i)) {
+    const host = req.get('Host');
+    if (host.match(/^www\..*/i)) {
       next();
     }
     else {
-      res.redirect(301, `https://www.${req.get('Host') + req.url}`);
+      res.redirect(301, `https://www.${host + req.url}`);
     }
   });
 
