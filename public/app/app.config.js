@@ -1,12 +1,9 @@
 import angular from 'angular';
-import constEnvironment from 'env.config';
 import Injectable from 'utils/injectable';
 
 class AppConfig extends Injectable {
   constructor(...injections) {
     super(AppConfig.$inject, injections);
-
-    const UA = this.ENV.name === 'production' ? 'UA-84400255-1' : 'UA-84400255-2';
 
     // GitHub flavoured markdown
     this.markedProvider.setOptions({
@@ -39,7 +36,6 @@ class AppConfig extends Injectable {
 AppConfig.$inject = [
   '$sceDelegateProvider',
   'CacheFactoryProvider',
-  'ENV',
   'markedProvider',
 ];
 

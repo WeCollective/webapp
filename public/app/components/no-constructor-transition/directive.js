@@ -6,7 +6,7 @@ class NoConstructorTransitionComponent extends Injectable {
     this.restrict = 'A';
   }
 
-  link(scope, element, attrs) {
+  link(scope, element) {
     this.$timeout(() => element[0].classList.remove('no-transition'));
   }
 }
