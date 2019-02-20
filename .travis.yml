@@ -10,5 +10,6 @@ jobs:
     - stage: test
       script: npm test
     - stage: "Build and Deploy"
-      script: npm run build:dev
-      script: npm run upload:dev
+      script:
+        - npm run build:dev
+        - npm run upload:dev
