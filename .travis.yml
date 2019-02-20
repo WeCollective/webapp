@@ -1,16 +1,9 @@
 language: node_js
 cache: npm
 
-stages:
-  - test
-  - Build and Deploy
-
-jobs:
-  include:
-  - stage: test
-    script: npm test
-  - stage: Build and Deploy
-    script: npm run build
+script:
+ - npm test
+ - npm run build
 
 deploy:
   provider: elasticbeanstalk
