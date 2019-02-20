@@ -17,6 +17,10 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const APP_DIR = path.join(PUBLIC_DIR, 'app');
 const DEST_DIR = path.join(PUBLIC_DIR, 'dist');
 
+console.log('-----------------------');
+console.log(process.env.TRAVIS_BRANCH);
+console.log('-----------------------');
+
 const env = argv.env || 'development';
 const local = env !== 'production' && !!argv.local;
 const config = require('./config/gulp.config.json')[env];
