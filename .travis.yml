@@ -22,3 +22,5 @@ deploy:
   app: webapp-dev
   env: WECO
   bucket_name: dev.weco.io
+  on:
+    branch: develop
