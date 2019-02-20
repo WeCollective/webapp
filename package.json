@@ -6,9 +6,9 @@
   "scripts": {
     "beanstalk:dev": "eb deploy webapp-dev --profile weco-iam",
     "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
-    "build:dev": "npm-run-all gulp:dev",
+    "build": "gulp",
     "build:production": "npm-run-all gulp:production",
-    "deploy:dev": "npm-run-all build:dev upload:dev",
+    "deploy:dev": "npm-run-all build upload:dev",
     "deploy:production": "npm-run-all build:production upload:production",
     "gulp:dev": "gulp --env=development",
     "gulp:production": "gulp --env=production",

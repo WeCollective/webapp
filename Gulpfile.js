@@ -17,11 +17,17 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const APP_DIR = path.join(PUBLIC_DIR, 'app');
 const DEST_DIR = path.join(PUBLIC_DIR, 'dist');
 
-console.log('-----------------------');
-console.log(process.env.TRAVIS_BRANCH);
-console.log('-----------------------');
+const branchToEnvironment = branch => {
+  switch (branch) {
+    case 'master':
+      return 'production';
+    default:
+      return 'development';
+  }
+};
 
-const env = argv.env || 'development';
+const branch = process.env.TRAVIS_BRANCH || argv.branch || 'develop';
+const env = argv.env || branchToEnvironment(branch);
 const local = env !== 'production' && !!argv.local;
 const config = require('./config/gulp.config.json')[env];
 
@@ -30,7 +36,7 @@ if (!config) {
   return;
 }
 
-console.log(`🚀 Setting up ${env} environment`, local ? 'on local...' : '...', '\n');
+console.log(`🚀 Setting up ${env} environment on ${local ? 'local' : `branch ${branch}`}...\n`);
 
 const ensureSlash = str => str.endsWith('/') ? str : `${str}/`; // eslint-disable-line no-confusing-arrow
 const getBundleName = () => env === 'production' ? 'bundle.min.js' : 'bundle.js'; // eslint-disable-line no-confusing-arrow
