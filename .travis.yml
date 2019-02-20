@@ -20,5 +20,6 @@ deploy:
   region: eu-west-1
   app: webapp-dev
   env: WECO
+  bucket_name: travis-dev.weco.io
   on:
     branch: develop
