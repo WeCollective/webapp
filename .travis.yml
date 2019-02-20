@@ -1,6 +1,14 @@
 language: node_js
 cache: npm
 
-script:
-  - npm test
-  - npm run build:dev
+stages:
+  - test
+  - "Build and Deploy"
+
+jobs:
+  include:
+    - stage: test
+      script: npm test
+    - stage: "Build and Deploy"
+      script: npm run build:dev
+      script: npm run upload:dev
