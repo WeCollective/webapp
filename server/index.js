@@ -18,7 +18,6 @@ const app = express();
 
 const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 8081;
-const BUILD_DIR = `${__dirname}/build`;
 
 if (env === 'production') {
   // REDIRECT TRAFFIC ON HTTP TO HTTPS
@@ -54,11 +53,11 @@ app.use(helmet());
 app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 
 // SERVE THE ANGULAR APPLICATION
-app.use('/', express.static(BUILD_DIR));
+app.use('/', express.static(__dirname));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', (req, res) => {
-  res.sendFile('index.html', { root: BUILD_DIR });
+  res.sendFile('index.html', { root: __dirname });
 });
 
 // Start the server, mock SSL in local environment.
