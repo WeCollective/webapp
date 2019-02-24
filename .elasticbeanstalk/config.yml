@@ -1,0 +1,8 @@
+deploy:
+  artifact: bundle.zip
+global:
+  application_name: WECO
+  default_platform: Node.js
+  default_region: eu-west-1
+  profile: default
+  sc: git

@@ -1,0 +1,103 @@
+div.poll-answer-editor {
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+
+  div.add-item {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  .add-item-button {
+    @size: 20px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: @size;
+    opacity: .5;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: calc(~'50% - 15px');
+    width: @size;
+    transition: opacity .2s;
+
+    img {
+      display: block;
+      height: 100%;
+    }
+
+    &:disabled { cursor: initial; }
+    &:not(:disabled):hover { opacity: 1; }
+  }
+
+  div.answers {
+    h2 {
+      font-size: @font-size-md;
+      font-weight: @font-weight-normal;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      max-height: 150px;
+      overflow-y: auto;
+      width: 100%;
+
+      li {
+        align-items: center;
+        background-color: @light-grey;
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 100%;
+        word-break: break-all;
+      }
+    }
+  }
+
+  .empty__state { font-style: italic; }
+
+  input {
+    border: 1px solid @light-grey;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: @font-size-sm;
+    font-weight: @font-weight-light;
+    margin: 10px 0;
+    padding: 10px 15px;
+    width: 100%;
+  }
+
+  .poll__answer {
+    font-size: @font-size-sm;
+    font-weight: @font-weight-normal;
+    margin: 0;
+  }
+
+  .remove-item-button {
+    @size: 15px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: @size;
+    margin-left: 10px;
+    opacity: .5;
+    padding: 0;
+    width: @size;
+    transition: opacity .2s;
+
+    img {
+      display: block;
+      height: 100%;
+    }
+
+    &:disabled { cursor: initial; }
+    &:not(:disabled):hover { opacity: 1; }
+  }
+}

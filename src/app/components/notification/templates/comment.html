@@ -1,0 +1,28 @@
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.profile.about({ username: notification.data.username })">
+  {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
+</a>
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.commentid })">
+  {{ notification.data.parentid === 'none' ? 'commented' : 'replied' }}
+</a>
+<span>
+  {{ notification.data.parentid === 'none' ? 'on' : 'to' }} your
+</span>
+<span class="ng-hide" ng-show="notification.data.parentid !== 'none'">
+  <a
+    ng-click="NotificationService.markAsRead(index)"
+    ui-sref="weco.branch.post.comment({ branchid: notification.data.branchid, postid: notification.data.postid, commentid: notification.data.parentid })">
+    comment
+  </a>
+  <span>
+    on a
+  </span>
+</span>
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
+  post
+</a>

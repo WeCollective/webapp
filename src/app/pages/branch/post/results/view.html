@@ -1,0 +1,29 @@
+<div
+  class="post__content-wrapper"
+  loading
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.answers.length">
+  <chart
+    chart-data="Ctrl.chart.data"
+    labels="Ctrl.chart.labels"
+    ng-show="Ctrl.hasSomeVotes()"
+    options="Ctrl.chart.options"
+    type="Ctrl.chart.type">
+  </chart>
+
+  <p
+    id="no-answers"
+    ng-show="!Ctrl.answers.length">
+    No answers yet!
+  </p>
+
+  <ul>
+    <li
+      answer="answer"
+      card-poll-answer
+      class="style--result"
+      index="$index"
+      ng-repeat="answer in Ctrl.answers track by $index"
+      type="result">
+    </li>
+  </ul>
+</div>

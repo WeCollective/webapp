@@ -1,0 +1,34 @@
+<div ng-controller="RemoveModModalController as RemoveModModal">
+  <div
+    loading
+    loading-when="RemoveModModal.isLoading">
+    <h1>
+      Remove a Moderator
+    </h1>
+
+    <p class="error-message">
+      {{ RemoveModModal.errorMessage }}
+    </p>
+
+    <div id="nucleus-removemod-inputs">
+      <p ng-show="(!RemoveModModal.mods || !RemoveModModal.mods.length) && !RemoveModModal.isLoading">
+        There are no moderators available for removal. <br>
+        Note that you can only remove moderators who became mods after you did.
+      </p>
+
+      <ul>
+        <li
+          ng-class="{ 'selected': RemoveModModal.selectedMod.username === mod.username }"
+          ng-click="RemoveModModal.select(mod)"
+          ng-repeat="mod in RemoveModModal.mods">
+          <div class="profile-picture" style="background-image: url('{{ mod.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+          </div>
+          <div class="details">
+            <h2 class="name">{{ mod.name }}</span>
+            <h2 class="username">{{ mod.username }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

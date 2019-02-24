@@ -1,0 +1,29 @@
+<p class="auth__message">
+  You're almost there! Enter a new password and you're ready to go.
+</p>
+
+<form
+  class="auth__form"
+  ng-submit="ResetPassword.resetPassword()">
+  <input
+    class="auth__input"
+    name="password"
+    ng-model="ResetPassword.credentials.password"
+    placeholder="password"
+    required
+    type="password" />
+
+  <input
+    class="auth__input"
+    name="confirmPassword"
+    ng-model="ResetPassword.credentials.confirmPassword"
+    placeholder="repeat password"
+    required
+    type="password" />
+
+  <input
+    class="auth__submit"
+    ng-disabled="ResetPassword.isLoading"
+    type="submit"
+    value="Set password" />
+</form>

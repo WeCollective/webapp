@@ -1,0 +1,95 @@
+<div class="content__list style--full-padding text--center">
+  <ul class="branch__list">
+    <li
+      class="branch__item"
+      ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
+      <span
+        class="branch__text branch__link style--red"
+        ng-click="ToolsCtrl.handleClick('homepage-stats')">
+        Edit the Homepage Stats
+      </span>
+    </li>
+
+    <li class="branch__item">
+      <span
+        class="branch__text branch__link style--colorless"
+        ng-click="ToolsCtrl.handleClick('mod-add')">
+        Add a Moderator
+      </span>
+    </li>
+
+    <li class="branch__item">
+      <span
+        class="branch__text branch__link style--red"
+        ng-click="ToolsCtrl.handleClick('mod-delete')">
+        Remove a Moderator
+      </span>
+    </li>
+
+    <li class="branch__item">
+      <span
+        class="branch__text branch__link style--colorless"
+        ng-click="ToolsCtrl.handleClick('branch-review')">
+        Review Child Branch Requests
+      </span>
+    </li>
+
+    <li class="branch__item">
+      <span
+        class="branch__text branch__link style--red"
+        ng-click="ToolsCtrl.handleClick('branch-detach-child')">
+        {{ ToolsCtrl.BranchService.branch.id !== 'root' ? 'Detach a Child Branch' : 'Delete a Branch' }}
+      </span>
+    </li>
+
+    <li
+      class="branch__item ng-hide"
+      ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
+      <span
+        class="branch__text branch__link style--red"
+        ng-click="ToolsCtrl.handleClick('branch-delete')">
+        Delete <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span>
+      </span>
+    </li>
+
+    <li class="branch__item" ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
+      <span
+        class="branch__text branch__link style--red"
+        ng-click="ToolsCtrl.handleClick('ban-user')">
+        Ban User
+      </span>
+    </li>
+
+    <li
+      class="branch__item"
+      ng-hide="ToolsCtrl.BranchService.branch.id === 'root'">
+      <span
+        class="branch__text branch__link style--colorless"
+        ng-click="ToolsCtrl.handleClick('branch-request')">
+        Move <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span> to Another Branch
+      </span>
+    </li>
+  </ul>
+</div>
+
+<div
+  class="content__list style--full-padding text--center"
+  loading
+  loading-when="!ToolsCtrl.log.length && ToolsCtrl.isLoading">
+  <h2 class="header__subtitle">Moderator Action Log</h2>
+
+  <h3
+    class="header__empty-state"
+    ng-show="!ToolsCtrl.log || !ToolsCtrl.log.length">
+    No entries to display
+  </h3>
+
+  <ul class="branch__list">
+    <li
+      class="branch__item style--small-text"
+      entry="entry"
+      mod-log-entry
+      ng-repeat="entry in ToolsCtrl.log">
+    </li>
+  </ul>
+</div>

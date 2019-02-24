@@ -6,8 +6,6 @@ coverage
 
 # production
 build
-# public/dist
-# public/index.html
 
 # Local development
 .eslintcache
@@ -16,6 +14,7 @@ build
 .DS_Store
 .gulp-env
 .trash
+*.zip
 
 # misc
 .sass-cache

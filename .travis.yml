@@ -1,20 +1,12 @@
 language: node_js
 cache: npm
 
+# TODO: Separate jobs into stages, change environments based on branch
 script:
- - npm test
- - npm run build
-
-deploy:
-  provider: elasticbeanstalk
-  skip_cleanup: true
-  access_key_id:
-    secure: NBuJGJnRTlOes6Y6915xLrc4r3rG5+8l7Pj9Ah0WDyPQ3+HjvBv0Qeb5HuNx0IyI2fHfK85j9w78x3xdniXO2nUS1XviRcQ8fcTuvo0hKmTQcu1E/BATslJnNtRly4zDokFuwURPD326rA8mrjy1KM2Ty9kEatZLh8B4+TP08C74PnGgqH8xrzNjPzN6X6DHubGqCWI1Xq208M1zLT/vLxG+vOrz9WJg7KlOgdMN4jnZYa69jp/l3rBkosWCzwyQbqqspvKYfDsAMY1XioraDob62VAhxLg8S6+xmNlWC/sMOLFdGSg7mH4uS/BbR9wQq4smzlGf6e2xN5Lko3kp9TCHgz7VAmlBSfXJiWtEYWe+ZJ+OHQWWbiLIctQSSs8MIu+Jost/QuwADGkzXKkUAuhLDD3KQz65aeRaGVgtq1ham14mWcmJrRd5QglF2e94VtrOjveR71FXmk5AMmy8I2IE1KRji2OCJDv8p5MbWCSv4BnmhA63DKvi9is/F6sORN967D+Zw00tnqJxoe147jHOuy/kg4ekL10hvonP1SoJfpvNzyt/z8Q6Tt8Xit+0VhkBDeWbknxmNtgyUuIgVSST7CsE7Em99KbqWQ3tT/vc3Khby0qqJYWxn76aOcyMMGo1inRZ1uHiCw0sSB8zyRMiAQoXJz6wzLfN5l+t+YA=
-  secret_access_key:
-    secure: bxr1iFrT1pB1viXgmO+XT11a1iQssn//YyUkV6a7uLbkmFUmlwZIIQ+xZAYRXVfTMYKK6VLd21dSQaAexSTpwHVRtRyPmTWDgIh5wqnaj1D6f9dEzzk25l6BnSVvJVsVK+sRpA19cLgsV59q/HCf/D6eWs0vk9eYXzwMNorGSLVVVYS0f+LPPaJYTpKvER6USNKXgpFuUgyUNHrCzaqEqu8dd6jZYW3XYEKZ6HY/K3z4iUO5dAkWgZO7S9FasG+nwV1pTV1D4x580AjL/nGbPM3P/RRMMTZNC60RThkB4VePiHlcl77UgFzglfvbOwBt35WjCOujEEAVxbZABygSceoWPELEClYiu8IviUy+8qWeiVpWP7nehv97i8Y0QoUkvvCs4NfZyaknKBBU4n+wTRAvZq83CYoGnks3BqAPoAFu1stD+BG9eopX9t0JsMLea+SO1XMylL4N6pOKVQdFmoDuc0SVaTm2YZVTQ5bToMSkLe6Z4l8ZZULttJ2E1LKP3Z5EInBNIojb7LUlOG6wVqSLORAwSRs1k7PBA1t2E/w+aCHT9YqIaSuq91+a75ZOeV3bgvygBdVGWURGh0IxYPAUmtfSlEwc9LMoI3ZoilnpM1iar7fbaGzQRRzVwpLLCLX3qnwJ7ovMKU5xv7wVUl/l+oko2+ue3tqC10kBdQM=
-  region: eu-west-1
-  app: webapp-dev
-  env: WECO
-  bucket_name: travis-dev.weco.io
-  on:
-    branch: develop
+  - npm test
+  - npm run build
+  - apt-get update && apt-get install -qq -y python-pip libpython-dev zip
+  - curl https://bootstrap.pypa.io/get-pip.py | python
+  - pip install -qq awscli awsebcli
+  - mkdir ~/.aws; echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+  - node ./config/deploy.js

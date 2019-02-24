@@ -1,0 +1,59 @@
+<li class="list-item style--card-poll-answer">
+  <span
+    class="list-item-index ng-hide"
+    ng-class="{ 'style--colour-coded': CardPollAnswer.type === 'result' }"
+    ng-show="CardPollAnswer.index >= 0"
+    ng-style="CardPollAnswer.type === 'result' ? { 'background-color': CardPollAnswer.getAnswerColor(CardPollAnswer.index) } : {}">
+    {{ CardPollAnswer.index + 1 }}
+  </span>
+
+  <input
+    id="answer-{{ CardPollAnswer.index }}"
+    ng-model="CardPollAnswer.selected"
+    read-only="true"
+    type="checkbox" />
+  <label
+    class="checkbox style--poll ng-hide"
+    for="answer-{{ CardPollAnswer.index }}"
+    ng-show="CardPollAnswer.type !== 'result'">
+  </label>
+
+  <div
+    class="list-item__stats ng-hide"
+    ng-show="CardPollAnswer.type === 'result'">
+    <div class="list-item__stats-header">
+      <span class="list-item__stats-votes">
+        {{ CardPollAnswer.answer.votes }}
+      </span>
+
+      <div
+        class="list-item__stats-icon"
+        ng-include="'/assets/images/icons/arrow-up.svg'">
+      </div>
+    </div>
+
+    <span class="list-item__stats-percentage">
+      {{ CardPollAnswer.answer.ratioOfTotal + '%' }}
+    </span>
+  </div>
+
+  <div class="list-item-info">
+    <div
+      class="list-item__title"
+      ng-click="CardPollAnswer.stopPropagation($event)"
+      marked="CardPollAnswer.answer.text">
+    </div>
+
+    <span class="list-item__block">
+      <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardPollAnswer.answer.creator })">{{ CardPollAnswer.answer.creator }}</a>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ CardPollAnswer.answer.date | date:'HH:mm' }}</span>
+
+      <span class="list-item__separator"></span>
+
+      <span class="list-item__detail">{{ CardPollAnswer.answer.date | date:'dd-MMMM-yyyy' }}</span>
+    </span>
+  </div>
+</li>

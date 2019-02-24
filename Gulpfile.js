@@ -13,18 +13,13 @@ const replace = require('gulp-replace');
 const sass = require('gulp-sass');
 const webpack = require('webpack');
 
-const PUBLIC_DIR = path.join(__dirname, 'public');
-const APP_DIR = path.join(PUBLIC_DIR, 'app');
-const DEST_DIR = path.join(PUBLIC_DIR, 'dist');
+const BUILD_DIR = path.join(__dirname, 'build');
+const SRC_DIR = path.join(__dirname, 'src');
 
-const branchToEnvironment = branch => {
-  switch (branch) {
-    case 'master':
-      return 'production';
-    default:
-      return 'development';
-  }
-};
+const APP_DIR = path.join(SRC_DIR, 'app');
+const STATIC_DIR = path.join(BUILD_DIR, 'static');
+
+const branchToEnvironment = branch => branch === 'master' ? 'production' : 'development'; // eslint-disable-line no-confusing-arrow
 
 const branch = process.env.TRAVIS_BRANCH || argv.branch || 'develop';
 const env = argv.env || branchToEnvironment(branch);
@@ -40,7 +35,7 @@ console.log(`🚀 Setting up ${env} environment on ${local ? 'local' : `branch $
 
 const ensureSlash = str => str.endsWith('/') ? str : `${str}/`; // eslint-disable-line no-confusing-arrow
 const getBundleName = () => env === 'production' ? 'bundle.min.js' : 'bundle.js'; // eslint-disable-line no-confusing-arrow
-const select = (...rest) => path.join(PUBLIC_DIR, ...rest);
+const select = (...rest) => path.join(SRC_DIR, ...rest);
 
 const removeSubstring = (string, needle) => {
   if (needle) {
@@ -59,7 +54,9 @@ const setExtension = (string, ext) => {
   return string;
 };
 
-const processTemplate = (file, loaders) => {
+const processTemplate = (options = {}) => {
+  let { file, loaders, output } = options;
+
   if (typeof file !== 'object') {
     file = {
       path: file,
@@ -67,15 +64,16 @@ const processTemplate = (file, loaders) => {
   }
 
   if (!loaders) loaders = [];
+  if (!output) output = SRC_DIR;
 
-  let stream = gulp.src(select(file.path), { base: PUBLIC_DIR });
+  let stream = gulp.src(select(file.path), { base: SRC_DIR });
 
   for (let i = 0; i < loaders.length; i += 1) {
     stream = stream.pipe(replace(loaders[i].test, loaders[i].value));
   }
 
   stream.pipe(rename(setExtension(removeSubstring(file.path, '.template'), file.ext)))
-    .pipe(gulp.dest(PUBLIC_DIR));
+    .pipe(gulp.dest(output));
 
   return stream;
 };
@@ -84,7 +82,7 @@ const WEBPACK_CONFIG = {
   entry: ['babel-polyfill', path.join(APP_DIR, 'app.js')],
   output: {
     filename: '',
-    path: DEST_DIR,
+    path: STATIC_DIR,
   },
   devtool: 'source-map',
   resolve: {
@@ -115,26 +113,39 @@ const WEBPACK_CONFIG = {
   ] : [],
 };
 
-gulp.task('template-strings', done => {
-  processTemplate('index.template.html', [{
-    test: /%SOCKET_IO_ENDPOINT%/g,
-    value: local ?
-      `https://localhost:${process.env.SERVER_PORT}/${process.env.WEBSOCKET_PATH}`
-      : `${ensureSlash(config.api_url) + process.env.WEBSOCKET_PATH}`,
-  }, {
-    test: /%WECO_APP_SCRIPT%/g,
-    value: getBundleName(),
-  }]);
+gulp.task('assets', () => gulp.src(select('assets', '**', '*'))
+  .pipe(gulp.dest(path.join(BUILD_DIR, 'assets'))));
 
-  processTemplate('app/env.config.template.js', [{
-    test: /%ENV_NAME%/g,
-    value: env,
-  }, {
-    test: /%ENV_ENDPOINT%/g,
-    value: local ?
-      `https://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
-      : `${ensureSlash(config.api_url) + process.env.API_VERSION}`,
-  }]);
+gulp.task('app', () => gulp.src(select('app', '**', '*'))
+  .pipe(gulp.dest(path.join(BUILD_DIR, 'app'))));
+
+gulp.task('template-strings', done => {
+  processTemplate({
+    file: 'index.template.html',
+    output: BUILD_DIR,
+    loaders: [{
+      test: /%SOCKET_IO_ENDPOINT%/g,
+      value: local ?
+        `https://localhost:${process.env.SERVER_PORT}/${process.env.WEBSOCKET_PATH}`
+        : `${ensureSlash(config.api_url) + process.env.WEBSOCKET_PATH}`,
+    }, {
+      test: /%WECO_APP_SCRIPT%/g,
+      value: getBundleName(),
+    }],
+  });
+
+  processTemplate({
+    file: 'app/env.config.template.js',
+    loaders: [{
+      test: /%ENV_NAME%/g,
+      value: env,
+    }, {
+      test: /%ENV_ENDPOINT%/g,
+      value: local ?
+        `https://localhost:${process.env.SERVER_PORT}/${process.env.API_VERSION}`
+        : `${ensureSlash(config.api_url) + process.env.API_VERSION}`,
+    }],
+  });
 
   done();
 });
@@ -153,18 +164,18 @@ gulp.task('webpack', done => {
   });
 });
 
-gulp.task('build', gulp.series('template-strings', 'webpack'));
+gulp.task('build', gulp.series('template-strings', 'assets', 'app', 'webpack'));
 
 gulp.task('compile-less', () => gulp.src(select('assets', 'styles', 'app.less'))
   .pipe(less())
   .pipe(rename('app.css'))
-  .pipe(gulp.dest(DEST_DIR)));
+  .pipe(gulp.dest(STATIC_DIR)));
 
 gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
   .pipe(plumber())
   .pipe(sass())
   .pipe(rename('app-sass.css'))
-  .pipe(gulp.dest(DEST_DIR)));
+  .pipe(gulp.dest(STATIC_DIR)));
 
 gulp.task('nodemon', done => {
   if (local) {
@@ -184,7 +195,7 @@ gulp.task('watch', done => {
   if (local) {
     gulp.watch([
       select('**', '*'),
-      `!${select('dist', '**', '*')}`,
+      `!${select('build', '**', '*')}`,
       `!${select('assets', 'styles', '**', '*')}`,
       `!${select('index.html')}`,
       `!${select('app', 'env.config.js')}`,

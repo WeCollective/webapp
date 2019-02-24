@@ -1,0 +1,21 @@
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.profile.about({ username: notification.data.username })">
+  {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
+</a>
+<span>
+  {{ notification.data.action }}ed your parent branch request from
+</span>
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.nucleus.about({ branchid: notification.data.childid })">
+  b/{{ notification.data.childid }}
+</a>
+<span>
+  to
+</span>
+<a
+  ng-click="NotificationService.markAsRead(index)"
+  ui-sref="weco.branch.nucleus.about({ branchid: notification.data.parentid })">
+  b/{{ notification.data.parentid }}
+</a>

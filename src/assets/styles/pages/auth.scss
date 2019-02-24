@@ -1,0 +1,115 @@
+.page.auth {
+  background: #444; // temp
+  background: radial-gradient(#444, #222); // temp
+  overflow-y: auto;
+  position: relative;
+
+  .auth__card {
+    background-color: $c-white;
+    border-radius: 2px;
+    box-shadow: 0 8px 10px rgba($c-black, .5);
+    max-width: $s-auth-card-max-w;
+    padding: ($s-spacing * 4) ($s-spacing * 5) ($s-spacing * 6);
+    width: 100%;
+    z-index: 1;
+  }
+
+  .auth__form {
+    margin-bottom: $s-spacing * 1.5;
+  }
+
+  .auth__input {
+    @include placeholder($c-text-placeholder);
+
+    background-color: $c-input-bg;
+    border: 1px solid $c-border-input;
+    color: $c-text;
+    font-family: $f-sans-serif;
+    padding: 0 $s-spacing;
+  }
+
+  .auth__link {
+    font-weight: 600;
+  }
+
+  .auth__logo {
+    display: block;
+    height: $s-auth-logo;
+    margin: 0 auto $s-spacing;
+    width: $s-auth-logo;
+  }
+
+  .auth__message {
+    font-family: $f-sans-serif;
+    line-height: 1.3;
+  }
+
+  .auth__overlay {
+    background-color: rgba($c-black, .35);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .auth__separator {
+    background-color: $c-separator-bg;
+    display: block;
+    height: 1px;
+    width: 100%;
+  }
+
+  .auth__submit {
+    background-color: $c-blue;
+    border: none;
+    color: $c-white;
+    font-family: $f-serif;
+    padding-top: 4px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .auth__input,
+  .auth__submit {
+    border-radius: 0px;
+    font-size: 16px;
+    height: $s-auth-input-h;
+    line-height: 1;
+    margin-bottom: $s-spacing;
+    max-width: 100%;
+    width: $s-auth-input-w;
+
+    &:last-child { margin-bottom: 0; }
+
+    &:focus { outline-color: $c-blue; }
+  }
+
+  .auth__text {
+    font-family: $f-sans-serif;
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    line-height: 1;
+    margin-bottom: $s-spacing;
+    margin-top: $s-spacing;
+    text-align: center;
+  }
+
+  .auth__title {
+    color: $c-text;
+    font-family: $f-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    margin-bottom: $s-spacing * 2;
+    text-align: center;
+  }
+
+  @media screen and (min-width: $s-auth-card-max-w) {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
