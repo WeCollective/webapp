@@ -24,6 +24,25 @@
     </div>
     
     <ul class="sidebar__controls">
+      <li
+        class="sidebar__button"
+        ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'">
+        <button
+          class="sidebar__link"
+          ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
+          ng-click="Ctrl.toggleFollowBranch()"
+          offset-y="60"
+          text="Ctrl.getLabelFollowButton()"
+          tooltip>
+          <img
+            alt="Toggle branch follow status button"
+            ng-src="/assets/images/icons/eye.svg" />
+          <span>
+            {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
+          </span>
+        </button>
+      </li>
+      
       <li class="sidebar__button">
         <a
           class="sidebar__link"
@@ -62,25 +81,7 @@
           <span>Branches</span>
         </a>
       </li>
-
-      <li
-        class="sidebar__button"
-        ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'">
-        <button
-          class="sidebar__link"
-          ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
-          ng-click="Ctrl.toggleFollowBranch()"
-          offset-y="60"
-          text="Ctrl.getLabelFollowButton()"
-          tooltip>
-          <img
-            alt="Toggle branch follow status button"
-            ng-src="/assets/images/icons/eye.svg" />
-          <span>
-            {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
-          </span>
-        </button>
-      </li>
+      
     </ul>
   </div>
 </div>
