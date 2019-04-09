@@ -6,13 +6,15 @@
   src="/assets/images/icons/show.svg" />
 
 <a
-  class="header__button"
+  class="header__button ng-hide"
   ng-click="Ctrl.WallService.handleHeaderButtonClick()"
   ng-show="Ctrl.WallService.isHeaderButtonVisible()"
   offset-y="40"
   text="Ctrl.WallService.getHeaderButtonTooltip()"
   tooltip>
-  <div ng-include="'/assets/images/icons/plus.svg'"></div>
+  <div style="background-color: #ccc; height: 26px; border-radius: 3px;">
+    <div style="padding: 1px 10px 0px 10px; color: white;">Create new branch</div>
+  </div>
 </a>
 
 <div class="header__controls style--has-dropdown">
