@@ -184,7 +184,7 @@ gulp.task('nodemon', done => {
         NODE_ENV: local ? 'local' : env,
       },
       quiet: true,
-      script: 'server.js',
+      script: 'server/index.js',
       verbose: false,
     });
   }
