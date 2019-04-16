@@ -26,6 +26,8 @@ const env = argv.env || branchToEnvironment(branch);
 const local = env !== 'production' && !!argv.local;
 const config = require('./config/gulp.config.json')[env];
 
+console.log('local', local);
+
 if (!config) {
   console.warn(`Config for environment "${env}" not found!`);
   return;
@@ -184,7 +186,7 @@ gulp.task('nodemon', done => {
         NODE_ENV: local ? 'local' : env,
       },
       quiet: true,
-      script: 'server.js',
+      script: 'server/index.js',
       verbose: false,
     });
   }
