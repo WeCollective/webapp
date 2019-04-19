@@ -26,8 +26,6 @@ const env = argv.env || branchToEnvironment(branch);
 const local = env !== 'production' && !!argv.local;
 const config = require('./config/gulp.config.json')[env];
 
-console.log('local', local);
-
 if (!config) {
   console.warn(`Config for environment "${env}" not found!`);
   return;
