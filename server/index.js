@@ -53,11 +53,11 @@ app.use(helmet());
 app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 
 // SERVE THE ANGULAR APPLICATION
-app.use('/', express.static(`${__dirname}/build`));
+app.use('/', express.static(__dirname));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', (req, res) => {
-  res.sendFile('index.html', { root: `${__dirname}/build` });
+  res.sendFile('index.html', { root: __dirname });
 });
 
 // Start the server, mock SSL in local environment.
