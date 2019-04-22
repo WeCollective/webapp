@@ -53,18 +53,18 @@ app.use(helmet());
 app.use('/dependencies/node', express.static(`${__dirname}/node_modules`));
 
 // SERVE THE ANGULAR APPLICATION
-app.use('/', express.static(`${__dirname}/build`));
+app.use('/', express.static(`${__dirname}/../build`));
 
 // Send the index.html for other files to support HTML5Mode
 app.all('/*', (req, res) => {
-  res.sendFile('index.html', { root: `${__dirname}/build` });
+  res.sendFile('index.html', { root: `${__dirname}/../build` });
 });
 
 // Start the server, mock SSL in local environment.
 if (env === 'local') {
   const httpsOptions = {
-    cert: fs.readFileSync('./config/ssl/local-cert.pem'),
-    key: fs.readFileSync('./config/ssl/local-key.pem'),
+    cert: fs.readFileSync('../config/ssl/local-cert.pem'),
+    key: fs.readFileSync('../config/ssl/local-key.pem'),
     rejectUnauthorized: false,
     requestCert: false,
   };
