@@ -3,7 +3,8 @@
   class="header__button style--sidebar-toggle"
   ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
   ng-click="Navbar.AppService.toggleSidebar()"
-  src="/assets/images/icons/show.svg" />
+  src="/assets/images/icons/show.svg" 
+  style="width: 26px;"/>
 
 <a
   class="header__button style--secondary ng-hide"
@@ -11,7 +12,7 @@
   ng-show="Ctrl.WallService.isHeaderButtonVisible()"
   offset-y="40"
   text="Ctrl.WallService.getHeaderButtonTooltip()"
-  style="min-width: 160px">Create new branch
+  style="min-width: 152px">Create new branch
 </a>
 
 <div class="header__controls style--has-dropdown">
