@@ -27,16 +27,23 @@
   }
 
   .header__button {
-    @size: 26px;
-
-    border: none;
-    cursor: pointer;
-    display: block;
-    height: @size;
-    margin-right: @dropdown-padding-left;
-    margin-top: @button-offset;
+    @height: 26px;
     padding: 0;
-    transition: transform .2s;
+      
+    &.style--secondary {
+      .button(#fff, @primary-6, @height, {
+        background-color: @primary-5;
+        box-shadow: @shadow-2;
+      });
+    }
+    
+    &.style--primary {
+      .button(#fff, @accent-1, @height, {
+        background-color: @accent-0;
+        box-shadow: @shadow-2;
+      });
+    }
+    
 
     &.style--sidebar-toggle,
     > div svg {
@@ -45,17 +52,16 @@
     }
 
     > div {
-      height: @size;
-
+      height: @height;
+      }
 
       svg {
         height: 100%;
         width: auto;
       }
-    }
+    
 
     &.style--sidebar-toggle {
-      margin: @g-padding-post;
       transform: rotateZ(-90deg);
 
       &.style--toggled { transform: rotateZ(90deg); }
@@ -71,6 +77,7 @@
     }
 
     & + .header__controls .dropdown:first-child { margin-left: 18px; }
+
   }
 
   .header__controls {
@@ -78,10 +85,10 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    margin-top: @button-offset;
+    margin-top: 0;
 
     &.style--has-dropdown {
-      margin-left: -@dropdown-padding-left;
+      margin-left: 0;
       padding-bottom: @g-padding-post / 2;
     }
 
@@ -200,7 +207,7 @@
       }
     }
 
-    .header__button.style--sidebar-toggle { margin: @button-offset 10px 0 0; }
+    .header__button.style--sidebar-toggle { margin: 0 10px 0 0; }
 
     @media screen and (max-width: @screen-md) {
       // Important so it overwrites the cover-photo styles.
