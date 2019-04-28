@@ -1,10 +1,16 @@
 <li class="list-item">
+  
+<!--Post number/rank on wall-->
+  
   <span
     class="list-item-index ng-hide"
     ng-show="ListItem.index >= 0">
     {{ ListItem.index + 1 }}
   </span>
   
+<!--Number of flags
+Only visible is post is being viewed in the Flagged Posts section of a branch Nucleus-->
+
   <div
     class="list-item-flags ng-hide"
     ng-click="ListItem.openResolveFlagPostModal()"
@@ -12,6 +18,8 @@
     <div ng-include="'/assets/images/icons/flag.svg'"></div>
     <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
+
+<!--Upvote Button-->
 
   <div class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
     <button
@@ -24,23 +32,27 @@
 
     <p>{{ ListItem.post[ListItem.stat] }}</p>
 
-    <!--
+<!--Down-Vote Button [Removed in 2017?]
+    
     <img
       alt="Downvote post"
       ng-click="ListItem.vote('down', $event.target)"
-      src="/assets/images/icons/black/arrow-down.png" />
-    -->
+      src="/assets/images/icons/black/arrow-down.png" />-->
+
   </div>
-  
-  <!-- Two DOM elements conditionally displayed if the post is a text type.
-       One is to perform internal state transition with uisref. (Text posts)
-       One is to link to an external site. (Non-text posts) -->
+
+<!--Post Thumbnail Image
+Two DOM elements conditionally displayed depending on whether link is to an internal or external url:
+If 'text' or 'poll' post that links to another page on Weco (performs internal state transition with uisref)-->
+
   <a
     class="list-item-image"
     ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
     ng-if="['text', 'poll'].includes(ListItem.post.type)">
     <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
   </a>
+
+<!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
 
   <a
     class="list-item-image"
@@ -49,12 +61,19 @@
     target="_blank">
     <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
   </a>
-  
+
+<!--NSFW Label
+Only displays if post has been marked as Not Safe For Work-->
+
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
     <span class="text--uppercase">nsfw</span>
   </div>
 
   <div class="list-item-info">
+
+<!--Post Type Marker
+Colored circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
+
     <span
       class="list-item__circle"
       ng-class="ListItem.getMarkerClass(ListItem.post.type)"
@@ -63,7 +82,10 @@
       tooltip>
     </span>
 
-    <!-- Two DOM elements conditionally displayed again - see above. -->
+<!--Post Tile
+Two DOM elements conditionally displayed again (see above):
+If 'text' or 'poll' post that links to another page on Weco (performs internal state transition with uisref)-->
+
     <a
       class="list-item__title"
       ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
@@ -71,6 +93,8 @@
       {{ ListItem.post.title }}
     </a>
 
+<!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
+    
     <a
       class="list-item__title"
       href="{{ ListItem.getPostUrl() }}"
@@ -82,6 +106,10 @@
     <br />
     
     <span>
+      
+<!--Comments Button
+Includes comment icon and number of comments, both of which link to the posts comment page-->
+
       <a
         class="list-item__detail style--has-children"
         offset-y="20"
@@ -95,6 +123,8 @@
         <span>{{ ListItem.post.comment_count }}</span>
       </a>
 
+<!--Flag Post Button-->
+      
       <img
         alt="Flag post"
         class="list-item__detail style--icon"
@@ -104,6 +134,8 @@
         src="/assets/images/icons/flag.svg"
         text="'Flag post'"
         tooltip />
+
+<!--Delete Post Button-->
 
       <img
         alt="Delete post"
@@ -115,13 +147,19 @@
         text="'Delete post'"
         tooltip />
 
+<!--Divider Line-->
+
       <span class="list-item__separator"></span>
+
+<!--Post Creator-->
 
       <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
         {{ ListItem.post.creator }}
       </a>
 
       <span class="list-item__separator"></span>
+
+<!--Tagged Branches-->
 
       <a class="list-item__detail" ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
         b/{{ ListItem.getOriginalBranches()[0] }}
@@ -137,7 +175,11 @@
         and {{ ListItem.getOriginalBranches().length - 1 }} others
       </span>
 
+<!--Divider Line-->
+
       <span class="list-item__separator"></span>
+
+<!--Post Date-->
 
       <span class="list-item__detail">{{ ListItem.DateService.getElapsedTime(ListItem.post.date) }}</span>
     </span>
