@@ -9,7 +9,7 @@
   </span>
   
 <!--Number of flags
-Only visible is post is being viewed in the Flagged Posts section of a branch Nucleus-->
+Only visible if post is being viewed in the 'Flagged Posts' section of a branch Nucleus-->
 
   <div
     class="list-item-flags ng-hide"
@@ -42,8 +42,8 @@ Only visible is post is being viewed in the Flagged Posts section of a branch Nu
   </div>
 
 <!--Post Thumbnail Image
-Two DOM elements conditionally displayed depending on whether link is to an internal or external url:
-If 'text' or 'poll' post that links to another page on Weco (performs internal state transition with uisref)-->
+Two DOM elements conditionally displayed depending on whether href link is to an internal or external url:
+If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
 
   <a
     class="list-item-image"
@@ -63,7 +63,7 @@ If 'text' or 'poll' post that links to another page on Weco (performs internal s
   </a>
 
 <!--NSFW Label
-Only displays if post has been marked as Not Safe For Work-->
+Only displays if post has been marked as 'Not Safe For Work'-->
 
   <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
     <span class="text--uppercase">nsfw</span>
@@ -72,7 +72,7 @@ Only displays if post has been marked as Not Safe For Work-->
   <div class="list-item-info">
 
 <!--Post Type Marker
-Colored circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
+Coloured circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
 
     <span
       class="list-item__circle"
@@ -84,7 +84,7 @@ Colored circles representing different post types (Image, Video, Audio, Text, Pa
 
 <!--Post Tile
 Two DOM elements conditionally displayed again (see above):
-If 'text' or 'poll' post that links to another page on Weco (performs internal state transition with uisref)-->
+If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
 
     <a
       class="list-item__title"
@@ -108,7 +108,7 @@ If 'text' or 'poll' post that links to another page on Weco (performs internal s
     <span>
       
 <!--Comments Button
-Includes comment icon and number of comments, both of which link to the posts comment page-->
+Includes comment icon and number of comments, both of which link to the posts comment thread-->
 
       <a
         class="list-item__detail style--has-children"
