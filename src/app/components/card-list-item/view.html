@@ -19,61 +19,52 @@ Only visible if post is being viewed in the 'Flagged Posts' section of a branch 
     <span>{{ ListItem.getTotalFlagCount() }}</span>
   </div>
 
-<!--Upvote Button-->
+<!--"Post__info" section
+Contains post creator, post location, and time-stamp-->
 
-  <div class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
-    <button
-      class="list-item__vote-icon"
-      ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
-      ng-click="ListItem.vote('up', $event.target)"
-      ng-disabled="!ListItem.UserService.isAuthenticated()"
-      ng-include="'/assets/images/icons/arrow-up.svg'">
-    </button>
+  <div class="post__info">
 
-    <p>{{ ListItem.post[ListItem.stat] }}</p>
+<!--Post Creator-->
 
-<!--Down-Vote Button [Removed in 2017?]
-    
-    <img
-      alt="Downvote post"
-      ng-click="ListItem.vote('down', $event.target)"
-      src="/assets/images/icons/black/arrow-down.png" />-->
 
-  </div>
+    <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
+      {{ ListItem.post.creator }}
+    </a>
 
 <!--Post Thumbnail Image
 Two DOM elements conditionally displayed depending on whether href link is to an internal or external url:
 If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
 
-  <a
-    class="list-item-image"
-    ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
-    ng-if="['text', 'poll'].includes(ListItem.post.type)">
-    <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
-  </a>
+  <div class="post__content">
+    <a
+      class="list-item-image"
+      ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
+      ng-if="['text', 'poll'].includes(ListItem.post.type)">
+      <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
+    </a>
 
 <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
 
-  <a
-    class="list-item-image"
-    href="{{ ListItem.getPostUrl() }}"
-    ng-if="!['text', 'poll'].includes(ListItem.post.type)"
-    target="_blank">
-    <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
-  </a>
+    <a
+      class="list-item-image"
+      href="{{ ListItem.getPostUrl() }}"
+      ng-if="!['text', 'poll'].includes(ListItem.post.type)"
+      target="_blank">
+      <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
+    </a>
 
 <!--NSFW Label
 Only displays if post has been marked as 'Not Safe For Work'-->
 
-  <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
-    <span class="text--uppercase">nsfw</span>
-  </div>
+    <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
+      <span class="text--uppercase">nsfw</span>
+    </div>
 
-  <div class="list-item-info">
 
 <!--Post Type Marker
 Coloured circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
 
+    <div class="list-item__info">
     <span
       class="list-item__circle"
       ng-class="ListItem.getMarkerClass(ListItem.post.type)"
@@ -107,6 +98,29 @@ If 'text' or 'poll' post that links to another page on Weco (perform internal st
     
     <span>
       
+<!--Upvote Button-->
+
+      <span class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
+        
+        <button
+          class="list-item__vote-icon"
+          ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
+          ng-click="ListItem.vote('up', $event.target)"
+          ng-disabled="!ListItem.UserService.isAuthenticated()"
+          ng-include="'/assets/images/icons/arrow-up.svg'">
+        </button>
+
+        <span>{{ ListItem.post[ListItem.stat] }}</span>
+
+<!--Down-Vote Button [Removed in 2017?]
+  
+      <img
+      alt="Downvote post"
+      ng-click="ListItem.vote('down', $event.target)"
+      src="/assets/images/icons/black/arrow-down.png" />-->
+
+      </span>
+  
 <!--Comments Button
 Includes comment icon and number of comments, both of which link to the posts comment thread-->
 
@@ -151,11 +165,7 @@ Includes comment icon and number of comments, both of which link to the posts co
 
       <span class="list-item__separator"></span>
 
-<!--Post Creator-->
-
-      <a class="list-item__detail" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
-        {{ ListItem.post.creator }}
-      </a>
+<!--Divider Line-->
 
       <span class="list-item__separator"></span>
 
@@ -184,4 +194,5 @@ Includes comment icon and number of comments, both of which link to the posts co
       <span class="list-item__detail">{{ ListItem.DateService.getElapsedTime(ListItem.post.date) }}</span>
     </span>
   </div>
+</div>
 </li>
