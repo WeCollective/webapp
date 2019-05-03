@@ -1,6 +1,7 @@
 import Constants from 'config/constants';
 import Injectable from 'utils/injectable';
 
+
 const {
   PostTypeAudio,
   PostTypeImage,
@@ -15,6 +16,9 @@ class ListItemController extends Injectable {
     super(ListItemController.$inject, injections);
   }
 
+
+
+ 
   getMarkerClass() {
     const prefix = 'style--';
 
@@ -41,6 +45,7 @@ class ListItemController extends Injectable {
         return '';
     }
   }
+
 
   getOriginalBranches() {
     let branches = [];
@@ -79,8 +84,11 @@ class ListItemController extends Injectable {
     return string;
   }
 
+
+
   getPostImage() {
     const IMG_DIR = '/assets/images/placeholders/';
+    console.log(IMG_DIR);
     return this.post.profileUrlThumb || `${IMG_DIR}post--${this.post.type}.svg`;
   }
 
