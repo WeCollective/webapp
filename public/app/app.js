@@ -60,8 +60,8 @@ app.constant('NotificationTypes', constNotificationTypes);
 app.filter('capitalize', filters.capitalize);
 app.filter('reverse', filters.reverse);
 
-app.config(['markedProvider', markedProvider => {
-  markedProvider.setRenderer({
+app.config (['markedProvider', markedProvider => {
+  markedProvider.setRenderer ({
     link(href, title, text) {
       const isUrl = Constants.Policy.url.test(href);
       if (isUrl && !href.includes('http')) href = `https://${href}`;

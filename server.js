@@ -10,7 +10,7 @@
   SOFTWARE.
 */
 const express = require('express'); // call express
-const fs = require('fs');
+// const fs = require('fs');
 const helmet = require('helmet'); // protect against common web vulnerabilities
 const https = require('https');
 
