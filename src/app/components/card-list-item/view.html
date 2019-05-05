@@ -3,12 +3,16 @@
   <!--"Post index" section
   Conatins "Post index content" section.-->  
   
-  <div class="post__index__new">
+  <div 
+    class="post__index__new ng-hide"
+    ng-show="ListItem.index >= 0">
 
     <!--"Post index content" section
     Contains the posts "wall rank" and "flag count".-->
 
-    <div class="post__index__content__new">
+    <div 
+      class="post__index__content__new ng-hide"
+      ng-show="ListItem.index >= 0">
 
       <!--Wall rank
       Displays the posts numerical position on the wall.-->
@@ -97,10 +101,11 @@
       Coloured circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
 
       <span
-        class="list-item__circle"
+        class="post_type_marker"
         ng-class="ListItem.getMarkerClass(ListItem.post.type)"
+        tooltip
         text="ListItem.post.type | capitalize"
-        tooltip>
+        offset-y="20">
       </span>
 
     </div> <!--End of "Post tags"-->
@@ -181,17 +186,34 @@
 
           <!--Upvote/like button-->
 
-          <span class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
+          <a class="post__tags__text">
+
+            <span 
+              class="post__interact__icon__new"
+              ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
+              ng-click="ListItem.vote('up', $event.target)"
+              ng-disabled="!ListItem.UserService.isAuthenticated()"
+              ng-include="'/assets/images/icons/heart-icon.svg'"
+              tooltip
+              text="'Like post'"
+              offset-y="30">
+            </span>
+
+            <span class="post__tags__text">{{ ListItem.post[ListItem.stat] }} Likes</span>
+
+          </a>
+
+          <!--<span class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
                   
             <button
-              class="list-item__vote-icon"
+              class="post__interact__icon__new"
               ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
               ng-click="ListItem.vote('up', $event.target)"
               ng-disabled="!ListItem.UserService.isAuthenticated()"
               ng-include="'/assets/images/icons/heart-icon.svg'">
             </button>
 
-            <span class="post__tags__text">{{ ListItem.post[ListItem.stat] }} Likes</span>
+            <span class="post__tags__text">{{ ListItem.post[ListItem.stat] }} Likes</span>-->
 
             <!--Down-vote button [Removed in 2017?]
 
@@ -207,12 +229,15 @@
 
           <a
             class="post__tags__text"
+            ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })"
+            tooltip
             text="'View comment thread'"
-            ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
+            offset-y="30"
+            >
 
             <img
               alt="View post discussion"
-              class="post__icon__new"
+              class="post__interact__icon__new"
               src="/assets/images/icons/comment.svg" />
 
             <span class="post__tags__text greylink">{{ ListItem.post.comment_count }} Comments</span>
@@ -225,31 +250,36 @@
             class="post__tags__text"
             ng-click="ListItem.openFlagPostModal()"
             ng-hide="ListItem.showFlags() || !ListItem.UserService.isAuthenticated()"
-            offset-y="20">
+            tooltip
+            text="'Flag post'"
+            offset-y="30">
 
             <img
-              alt="Flag post"
-              class="post__icon__new"
-              src="/assets/images/icons/flag.svg"
-              text="flag">
+              class="post__interact__icon__new"
+              src="/assets/images/icons/flag.svg"/>
 
-            <span class="post__tags__text">Flag</span>
+            <span class="post__tags__text greylink">Flag</span>
 
           </a>
 
           <!--Delete post button-->
 
-          <img
-            alt="Delete post"
-            class="post__icon__new"
-            ng-click="ListItem.openDeletePostModal()"
+          <a
+            class="post__tags__text"
             ng-show="ListItem.isOwnPost()"
-            offset-y="20"
-            src="/assets/images/icons/delete.svg"
+            ng-click="ListItem.openDeletePostModal()"
+            tooltip
             text="'Delete post'"
-            tooltip />
+            offset-y="30">
 
-          <span class="post__tags__text">Delete</span>
+            <img
+              alt="Delete post"
+              class="post__interact__icon__new"
+              src="/assets/images/icons/delete.svg"/>
+
+            <span class="post__tags__text greylink">Delete</span>
+
+          </a>
 
         </div> <!--End of "Post interact"-->
 

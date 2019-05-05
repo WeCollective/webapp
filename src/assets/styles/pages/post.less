@@ -240,6 +240,7 @@
   }
 }
 
+//------------------------------------------------------------------------------------------------------//
 
 //Post layout redesign [May 2019]
 //Remove "__new" postfix from classes when redesign is complete and old classes have been removed.
@@ -351,7 +352,7 @@
 
 //------------------------------------------------------------------------------------------------------//
 
-//Images:
+//Elements:
 
 //Main post thumbnail image
 
@@ -377,14 +378,54 @@
   margin-right: 8px;
 }
 
-//Icons
+//Post interact icon
 
-.post__icon__new {
-  width: 16px;
+.post__interact__icon__new {
   height: 16px;
-  opacity: .3;
-  margin-right: 3px;
+  opacity: .25;
+  margin-right: 4px;
   cursor: pointer;
+
+  svg {
+    height: 16px;
+    width: auto;
+
+    path { transition: fill .2s; }
+  }
+
+  &:not(:disabled) {
+    &.style--active {
+      opacity: 1;
+
+      path { fill: #FE939B; } //Light red: #FE939B, light blue: #9fc3e7//
+    }
+
+    &:hover { opacity: .6; }
+  }
+
+  &:disabled {
+    cursor: initial;
+    opacity: .1;
+  }
+
+  &:focus { outline: none; }
+}
+
+//Post type marker
+
+.post_type_marker {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  vertical-align: top;
+  width: 10px;
+
+  &.style--audio { background-color: @post-type-audio; }
+  &.style--image { background-color: @post-type-image; }
+  &.style--page { background-color: @post-type-page; }
+  &.style--poll { background-color: @post-type-poll; }
+  &.style--text { background-color: @post-type-text; }
+  &.style--video { background-color: @post-type-video; }
 }
 
 //------------------------------------------------------------------------------------------------------//
@@ -392,6 +433,7 @@
 //Mixins:
 
 @light-grey-text: #ccc;
+@mid-grey-text: #666;
 @dark-grey-text: #333;
 @blue-link-text: #3498db;
 
@@ -418,7 +460,7 @@
 //Post index number
 
 .post__index__content__new {
-  color: @light-grey-text;
+  color: #ddd;
   font-size: 14px;
   font-weight: 400;
 }
@@ -453,6 +495,7 @@
     color: @light-grey-text;
 
     &:hover {
+      color: @mid-grey-text;
       cursor: pointer;
       text-decoration: underline;
     }
