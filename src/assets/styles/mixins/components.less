@@ -205,7 +205,7 @@
       background-size: cover;
       border-radius: 4px;
       height: @height;
-      margin: 0 10px 0 @g-padding-post;
+      margin: 0;
       width: @width;
 
       &:hover { box-shadow: @shadow-2; }
@@ -323,15 +323,16 @@
   }
 
   .list-item__votes {
-    align-items: center;
+    height: 18px;
     display: flex;
-    flex-direction: column;
-    height: @height;
-    margin-left: 6px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 5px;
 
     .list-item__vote-icon {
-      @size: 22px;
-
+      @size: 18px;
+      margin-right: 3px;
       background-color: transparent;
       border: none;
       cursor: pointer;
@@ -352,7 +353,7 @@
         &.style--active {
           opacity: 1;
 
-          path { fill: #9fc3e7; }
+          path { fill: #FE939B; } //Light red: #FE939B, light blue: #9fc3e7//
         }
 
         &:hover { opacity: .6; }

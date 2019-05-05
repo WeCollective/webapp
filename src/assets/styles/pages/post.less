@@ -239,3 +239,255 @@
     padding-left: 15px;
   }
 }
+
+
+//Post layout redesign [May 2019]
+//Remove "__new" postfix from classes when redesign is complete and old classes have been removed.
+
+//------------------------------------------------------------------------------------------------------//
+
+//Layout of sections:
+
+//Post wraper
+//Contains the entire post
+
+.post__wrapper__new {
+  width: 100%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post index
+//Contains "Post index content" section
+
+.post__index__new {
+  width: 20px;
+  height: 168px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Post index content
+//Contains the posts numerical position on the wall (and the number of flags it has recieved if viewed by mods in the "Flagged Posts" section of a branches nucleus).
+
+.post__index__content__new {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Post body
+//Contains "Post tags" and "Post content" sections
+
+.post__body__new {
+  margin-left: 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post tags
+//Contains profile picture and username of post creator, tagged branches, and post date.
+
+.post__tags__new {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Post content
+//Contains post thumbnail image, NSFW label, and "Post info" section.
+
+.post__content__new {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post thumbnail
+//Conatins main post thumbnail image
+
+.post__thumbnail__new {
+  width: 230px;
+  height: 130px;
+  margin-right: 10px;
+}
+
+//Post info
+//Contains post type marker, post title, post description, and "Post interact" section.
+
+.post__info__new {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post interact
+//Contains upvote/like button, comment button, flag button, and delete button.
+
+.post__interact__new {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//------------------------------------------------------------------------------------------------------//
+
+//Images:
+
+//Main post thumbnail image
+
+.post__thumbnail__new {
+  img,
+  div {
+      background-position: center;
+      background-size: cover;
+      border-radius: 4px;
+      height: 130px;
+      width: 230px;
+
+      &:hover { box-shadow: @shadow-2; }
+  }
+}
+
+//Small user and branch thumnails
+
+.thumbnail__small__new {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+//Icons
+
+.post__icon__new {
+  width: 16px;
+  height: 16px;
+  opacity: .3;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+//------------------------------------------------------------------------------------------------------//
+
+//Mixins:
+
+@light-grey-text: #ccc;
+@dark-grey-text: #333;
+@blue-link-text: #3498db;
+
+//------------------------------------------------------------------------------------------------------//
+
+//Text:
+
+//Post title text
+
+.post__title__new {
+  color: @dark-grey-text;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+//Post description text
+
+.post__description__new {
+  color: @dark-grey-text;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+//Post index number
+
+.post__index__content__new {
+  color: @light-grey-text;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+//Post tags text
+
+.post__tags__text {
+  color: @light-grey-text;
+  font-size: 13px;
+  font-weight: 400;
+  margin-right: 5px;
+  height: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  //& blue hyperlink
+
+  &.bluelink {
+    color: @blue-link-text;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  //& grey hyperlink
+
+  &.greylink {
+    color: @light-grey-text;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+
+
+a.post__detail__new {
+  margin-right: 5px;
+
+  &.text {
+    color: #d7d7d7;
+    font-size: 13px;
+    font-weight: 500;
+
+    &.link {
+      color: @accent-0;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+span.post__detail__new {
+  margin-right: 5px;
+
+  &.text {
+    color: #d7d7d7;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
