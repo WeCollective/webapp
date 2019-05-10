@@ -1,14 +1,7 @@
 <div
   class="modal__content-div"
   ng-controller="CreatePostModalController as Ctrl">
-  <h1 class="modal__title">Submit a Post</h1>
-
-  <span
-    class="modal__toggle"
-    ng-click="Ctrl.togglePreview()"
-    ng-show="Ctrl.isPreviewToggleVisible()">
-    {{ Ctrl.preview ? 'Edit' : 'Preview' }}
-  </span>
+  <h1 class="modal__title">Create new post</h1>
 
   <p class="error-message">
     {{ Ctrl.errorMessage }}
@@ -53,6 +46,8 @@
         {{ dropSupported ? 'Or choose from file...' : 'Choose from file...' }}
       </div>
     </div>
+
+    <!--Modal header content-->
 
     <div
       class="modal__header-content"
@@ -121,12 +116,16 @@
     </div>
   </div>
 
+  <!--URL Input-->
+
   <input
     ng-disabled="Ctrl.isDisabled()"
     ng-model="Ctrl.post.url"
     ng-show="!Ctrl.UploadService.isUploading && ![Ctrl.PostTypePoll, Ctrl.PostTypeText].includes(Ctrl.getPostType())"
     placeholder="Url"
     type="text" />
+
+  <!--Post description-->
 
   <textarea
     ng-disabled="Ctrl.isDisabled()"
@@ -143,11 +142,25 @@
     ng-model="Ctrl.post.captcha"
     type="text" />
 
+  <!--Preview toggle [Removed]
+
+  <span
+    class="modal__toggle"
+    ng-click="Ctrl.togglePreview()"
+    ng-show="Ctrl.isPreviewToggleVisible()">
+    {{ Ctrl.preview ? 'Edit' : 'Preview' }}
+  </span>-->
+
+  <!--Text preview-->
+
   <div
     id="preview-content"
     marked="Ctrl.post.text"
     ng-show="Ctrl.isPreviewToggleVisible() && Ctrl.preview && Ctrl.post.text">
   </div>
+
+  <!--Poll answer section
+  Only displayed on "poll" type posts-->
 
   <poll-answer-editor
     answers="Ctrl.post.pollAnswers"
@@ -156,6 +169,8 @@
     preview="Ctrl.preview"
     title="Create a new Answer">
   </poll-answer-editor>
+
+  <!--Upload progress bar-->
 
   <div id="progress-container" ng-show="Ctrl.UploadService.isUploading">
     <div id="progress" style="width:{{ Ctrl.UploadService.progress }}%"></div>

@@ -315,7 +315,7 @@ class CreatePostModalController extends Injectable {
       pollAnswers,
       text,
     } = this.post;
-    const allowedType = [PostTypePoll, PostTypeText].includes(this.getPostType());
+    const allowedType = [PostTypePoll, PostTypeText, PostTypeVideo].includes(this.getPostType());
     const hasContent = text.length || pollAnswers.length;
     const notLoading = !this.UploadService.isUploading && !this.isLoading;
     return notLoading && hasContent && allowedType;
