@@ -188,6 +188,25 @@ Remove "_new" postfix from class names when redesign is complete and old styles 
 
     <div class="comment_interact_new">
 
+      <!--Like button-->
+
+      <a class="post__tags__text">
+
+        <span 
+          class="post__interact__icon__new"
+          ng-class="{ 'style--active': comment.userVoted === 'up' }"
+          ng-click="Thread.vote(comment, 'up', $event.target)"
+          ng-disabled="comment.data.deleted || !Thread.UserService.isAuthenticated()"
+          ng-include="'/assets/images/icons/heart-icon.svg'"
+          tooltip
+          text="'Like comment'"
+          offset-y="30">
+        </span>
+
+        <span class="post__tags__text">{{ comment.individual }} Likes</span>
+
+      </a>
+
       <!--Reply button-->
 
       <a
