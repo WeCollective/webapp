@@ -2,8 +2,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 80%;
 
   .comment {
     .comment__input-wrapper {
@@ -32,8 +30,8 @@
     padding: @g-padding-post @g-padding-post 0;
 
     .comment__input {
-      border-color: @primary-6;
-      border-radius: 3px;
+      border-color: @primary-9;
+      border-radius: 20px;
       box-sizing: border-box;
       font-family: inherit;
       font-size: @font-size-xs;
@@ -107,7 +105,6 @@
 //Sections:
 
 .comment_thread_wrapper_new {
-  width: 100%;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
@@ -118,7 +115,7 @@
 //Comment wrapper
 
 .comment_wrapper_new {
-  width: 100%;
+  max-width: 800px;
   margin-top: 10px;
   display: flex;
   flex-direction: row;
@@ -129,7 +126,6 @@
 //Comment body
 
 .comment_body_new {
-  width: 100%;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
