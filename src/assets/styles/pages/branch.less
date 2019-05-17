@@ -58,3 +58,62 @@
   font-size: @font-size-sm;
   font-weight: 600;
 }
+
+
+//Child-branch layout redesign [May 2019]
+
+//Child branch wrapper
+
+.child_branch_wrapper_new {
+  margin-left: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Child branch index
+
+.child_branch_index_new {
+  margin-left: 10px;
+  width: 20px;
+  height: 140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: #ddd;
+  font-size: 14px;
+  font-weight: 400;
+
+  @media screen and (max-width: @screen-md) {
+    display: none;
+  }
+}
+
+//Child branch thumbnail
+
+.child_branch_image_new {
+  img,
+  div {
+    background-position: center;
+    background-size: cover;
+    border-radius: 4px;
+    height: 140px;
+    width: 140px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    &:hover { box-shadow: @shadow-2; }
+  }
+}
+
+//Child branch info
+
+.child_branch_info_new {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
