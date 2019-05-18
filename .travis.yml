@@ -21,6 +21,7 @@ script:
   - npm test
   
   - npm run build:production
+  - ls
   
   - npm install shelljs
   
