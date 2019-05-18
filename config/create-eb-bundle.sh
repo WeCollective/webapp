@@ -1,5 +1,5 @@
 rm bundle.zip
-
+pwd
 ~/.aws/config
 
 cd ..
