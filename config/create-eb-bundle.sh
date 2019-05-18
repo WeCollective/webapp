@@ -1,6 +1,6 @@
 rm bundle.zip
 
-aws configure --profile "James"
+~/.aws/config
 
 cd ..
 cd ..
