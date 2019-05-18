@@ -19,7 +19,9 @@ branches:
 script:
 
   - npm test
-
+  
+  - npm run build
+  
   - npm install shelljs
   
   - sudo pip install -qq awscli awsebcli
