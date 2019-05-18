@@ -1,1 +1,29 @@
 language: node_js
+
+cache: npm
+
+
+
+# safelist
+
+branches:
+
+  only:
+
+  - master
+
+
+
+# TODO: Separate jobs into stages, change environments based on branch
+
+script:
+
+  - npm test
+
+  - npm run build
+
+  - sudo pip install -qq awscli awsebcli
+
+  - mkdir ~/.aws; echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+
+  - node ./config/deploy.js master
