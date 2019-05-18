@@ -1,5 +1,13 @@
 rm bundle.zip
 
-cd build
+pwd
+
+ls
+
+cd ../build
+
+pwd
+
+ls
 
 zip -ur ../bundle.zip . -qq
