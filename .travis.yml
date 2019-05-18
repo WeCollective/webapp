@@ -21,7 +21,6 @@ script:
   - npm test
   
   - npm run build:production
-  - ls
   
   - npm install shelljs
   
@@ -31,4 +30,4 @@ script:
   
   - echo -e "[profile weco]\nregion=eu-west-1\n" > ~/.aws/config
   
-  - node ./config/deploy.js master
+  - npm run deploy:production
