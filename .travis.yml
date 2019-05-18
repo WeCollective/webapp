@@ -20,7 +20,7 @@ script:
 
   - npm test
   
-  - npm run build
+  - npm run build:production
   
   - npm install shelljs
   
