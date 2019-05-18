@@ -26,8 +26,6 @@ script:
   
   - sudo pip install -qq awscli awsebcli
 
-  - mkdir ~/.aws; echo -e "[weco]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
-  
-  - echo -e "[profile weco]\nregion=eu-west-1\n" > ~/.aws/config
-  
+  - mkdir ~/.aws; echo -e "[weco-iam]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+    
   - npm run deploy:production
