@@ -21,17 +21,3 @@ if (bundled.code !== 0) {
   shell.exit(bundled.code);
 
 }
-
-
-
-command = `eb deploy ${env}`;
-
-console.log(`Deploying to environment ${env}...`);
-
-const deployed = shell.exec(command);
-
-if (deployed.code !== 0) {
-
-  shell.exit(deployed.code);
-
-}
