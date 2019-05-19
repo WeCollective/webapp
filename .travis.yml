@@ -20,7 +20,7 @@ script:
 
   - npm test
   
-  - run npm run build:production
+  - npm run build
   
   - ls
     
