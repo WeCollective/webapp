@@ -20,6 +20,8 @@ script:
 
   - npm test
   
+  - npm cache clean
+  
   - npm run build:production
   
   - sudo pip install -qq awscli awsebcli
