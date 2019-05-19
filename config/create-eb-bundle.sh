@@ -1,5 +1,5 @@
 rm bundle.zip
 
-cd build
+cd public
 
 zip -ur ../bundle.zip . -qq
