@@ -13,7 +13,7 @@
     "gulp:dev": "gulp --env=development",
     "gulp:production": "gulp --env=production",
     "lint": "eslint .",
-    "start": "npm run gulp:production",
+    "start": "npm cache clean;npm install --global gulp-cli;npm run gulp:production",
     "start-server": "node server.js",
     "test": "npm run lint",
     "upload:dev": "npm-run-all beanstalk:dev",
