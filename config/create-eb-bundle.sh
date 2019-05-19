@@ -5,5 +5,4 @@ zip -ur ../bundle.zip . -qq
 ls
 cd ..
 ls
-zip -r bundle.zip package.json
-
+zip -r bundle.zip server.js
