@@ -28,9 +28,11 @@ script:
   
   - npm install shelljs
   
+  - npm install --global gulp-cli
+  
   - node ./config/deploy.js
   
   - zipinfo -l bundle
-  
+    
   - npm run deploy:production
  
