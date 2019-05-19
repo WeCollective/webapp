@@ -20,28 +20,11 @@ script:
 
   - npm test
   
-  - npm run build:production
-  
-  - ls
-  
-  - npm install shelljs
-  
-  - sudo pip install -qq awscli awsebcli
-  
-  - mkdir ~/.aws; echo -e "[weco-iam]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
-  
-  - ls
-  
-  - cd..
-  
-  - ls
-  
-  - cd..
-  
-  - ls
-  
-  - cd ..
+  - npm run build:dev
   
   - ls
     
-  - npm run deploy:production
+  - sudo pip install -qq awscli awsebcli
+  
+  - mkdir ~/.aws; echo -e "[weco-iam]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+ 
