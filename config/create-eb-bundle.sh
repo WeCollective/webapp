@@ -1,4 +1,3 @@
 rm bundle.zip
 
-cd public
-zip -ur ../bundle.zip . -qq
+zip -ur bundle.zip . -qq
