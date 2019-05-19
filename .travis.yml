@@ -22,9 +22,9 @@ script:
   
   - npm run build:production
   
-  - public
+  - cd public
   
-  -ls
+  - ls
     
   - sudo pip install -qq awscli awsebcli
   
