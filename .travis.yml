@@ -20,6 +20,10 @@ script:
 
   - npm test
   
+  - npm rm --global gulp
+  
+  - npm install --global gulp-cli
+  
   - npm run build:production
   
   - sudo pip install -qq awscli awsebcli
