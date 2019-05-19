@@ -22,7 +22,7 @@ script:
   
   - npm run build
   
-  - ~/home/travis/.npm/_logs/2019-05-19T00_41_59_917Z-debug.log
+  - ~/.npm/_logs/2019-05-19T00_45_42_062Z-debug.log
     
   - sudo pip install -qq awscli awsebcli
   
