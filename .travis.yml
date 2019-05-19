@@ -22,15 +22,11 @@ script:
   
   - npm run build:production
   
-  - cd public
-  
-  - cd dist
-  
-  - ls
-    
   - sudo pip install -qq awscli awsebcli
   
   - mkdir ~/.aws; echo -e "[weco-iam]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY\n" > ~/.aws/credentials
+  
+  - node ./config/deploy.js
   
   - npm run deploy:production
  
