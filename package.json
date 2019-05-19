@@ -13,7 +13,7 @@
     "gulp:dev": "gulp --env=development",
     "gulp:production": "gulp --env=production",
     "lint": "eslint .",
-    "start": "npm run gulp:dev -- --local",
+    "start": "npm run gulp:production -- --local",
     "start-server": "node server.js",
     "test": "npm run lint",
     "upload:dev": "npm-run-all beanstalk:dev",
