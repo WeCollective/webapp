@@ -28,7 +28,7 @@ script:
   
   - npm install shelljs
   
-  - npm install --global gulp-cli
+  - npm install gulp-cli
   
   - node ./config/deploy.js
   
