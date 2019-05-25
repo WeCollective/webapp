@@ -1,0 +1,12 @@
+<div ng-controller="UpdateHomepageStatsModalController as UpdateHomepageStatsModal">
+  <div loading when="UpdateHomepageStatsModal.isLoading">
+    <h1>Update Homepage Stats</h1>
+    <p class="error-message">{{ UpdateHomepageStatsModal.errorMessage }}</p>
+    <div id="nucleus-update-homepage-stats-inputs">
+      <p>Amount Given to Charity (£)</p>
+      <input ng-model="UpdateHomepageStatsModal.stats.donation_total" type="text"></input>
+      <p>Amount Raised (£)</p>
+      <input ng-model="UpdateHomepageStatsModal.stats.raised_total" type="text"></input>
+    </div>
+  </div>
+</div>

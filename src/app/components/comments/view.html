@@ -1,0 +1,58 @@
+<div class="post__content-wrapper">
+  <div
+    class="comments"
+    loading
+    loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
+    <comment-input-box
+    	on-submit="Ctrl.onSubmitComment.bind(Ctrl)"
+    	parentid="none"
+    	placeholder="Write a comment..."
+    	postid="{{ Ctrl.PostService.post.id }}"
+    	update="false">
+    </comment-input-box>
+    
+    <div
+      class="comments__text-wrapper comments__text-wrapper--bg"
+      ng-click="Ctrl.exitSingleCommentView()"
+      ng-if="Ctrl.isCommentPermalink()">
+      <p class="comments__text">
+      	You are viewing a single comment's thread. <a ng-if="!Ctrl.isPostType('poll')" ui-sref="weco.branch.post({ postid: Ctrl.PostService.post.id })"><a ng-if="Ctrl.isPostType('poll')" ui-sref="weco.branch.post.discussion({ postid: Ctrl.PostService.post.id})">View all comments</a>
+      </p>
+    </div>
+
+    <div
+      class="post__content-header header style--inner style--comments"
+      ng-if="!Ctrl.isCommentPermalink()">
+      <dropdown
+        class="style--horizontal"
+        items="Ctrl.sortBy"
+      	selected="Ctrl.filters.sortBy.selectedIndex"
+      	title="Ctrl.filters.sortBy.title">
+      </dropdown>
+    </div>
+
+    <!-- <loader-bar hidden="!Ctrl.isWaitingForRequest"></loader-bar> -->
+
+    <div
+      id="no-answers"
+      ng-if="!Ctrl.isCommentPermalink() && !Ctrl.items.length">
+      <p class="empty__text">
+        No comments yet!
+      </p>
+    </div>
+
+    <div class="comments__wrapper">
+      <comment-thread
+        comments="Ctrl.items"
+        ng-if="Ctrl.items.length"
+      	sort-by="Ctrl.UrlService.getFilterItemKey(Ctrl.filters.sortBy, 'url')">
+      </comment-thread>
+      <span
+        class="comments__text text--uppercase ng-hide"
+        ng-click="Ctrl.getComments(Ctrl.items[Ctrl.items.length - 1].id)"
+        ng-show="Ctrl.hasMoreComments">
+        load more comments
+      </span>
+    </div>
+  </div>
+</div>

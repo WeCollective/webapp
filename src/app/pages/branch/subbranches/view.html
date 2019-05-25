@@ -1,0 +1,34 @@
+<div
+  class="content__body"
+  loading
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
+  <ul
+    class="content__list"
+    ng-if="Ctrl.items.length">
+    <li
+      branch="branch"
+      card-branch
+      class="branch__subbranch"
+      index="$index"
+      ng-repeat="branch in Ctrl.items track by $index">
+    </li>
+  </ul>
+
+  <div
+    class="text--center"
+    ng-if="!Ctrl.items.length">
+    <p class="branch__empty-title">
+      There don't seem to be any child branches attached to this branch that match the current filter settings
+    </p>
+    <img
+      alt="Empty state icon"
+      class="branch__empty-icon"
+      src="/assets/images/empty-state.jpg" />
+    <p class="branch__empty-text">
+      To attach a new branch: <br>
+      Click the 'Add New Content' button (+) above and create a new branch. <br>
+      <span class="text--italic">or</span><br>
+      Submit a 'Parent Branch Request' from the Mod Tools section in the Nucleus of a branch you already moderate.
+    </p>
+  </div>
+</div>

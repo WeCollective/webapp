@@ -1,0 +1,45 @@
+#weco-root {
+  height: 100%;
+  width: 100%;
+}
+
+.view {
+  height: @u-nav-no-hero;
+  overflow: hidden;
+  position: relative;
+}
+
+.page {
+  background-color: @primary-11;
+  height: 100%;
+  overflow-x: hidden;
+  // Keeps restricted scroll bar area on Windows, because otherwise the whole content
+  // would shift by the width of scrollbar slider. This issue doesn't affect Mac.
+  overflow-y: scroll;
+  position: relative;
+  width: 100%;
+  transition: height @tr-speed;
+
+  > .center {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100vw;
+    transition: @tr;
+
+    > .align {
+      height: 100%;
+      margin: 0 auto;
+      max-width: @s-aligner-sm;
+      position: relative;
+
+      .mediaQuery(@screen-md, { max-width: @s-aligner-md; });
+      .mediaQuery(@screen-lg, { max-width: @s-aligner-lg; });
+    }
+
+    &.toggled { transform: translateX(@sidebar-w-sm); }
+
+    .mediaQuery(@screen-md, {
+      &.toggled { transform: translateX(0); }
+    });
+  }
+}

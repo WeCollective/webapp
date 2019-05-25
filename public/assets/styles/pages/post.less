@@ -165,7 +165,21 @@
       }
     }
   }
-
+  
+  #toggle:after
+  {
+   content: url("/assets/images/Expand.png");
+   width: 20px;
+   height: 20px;
+  }
+  
+  #toggle:checked:after
+  {
+   content: url("/assets/images/Shrink.png");
+   width: 20px;
+   height: 20px;
+  }
+  
   .post__preview-image {
     // fallback for older browsers
     background-position: center center;

@@ -1,0 +1,14 @@
+<div ng-controller="BanUserModalController as BanUserModal">
+  <div
+    loading
+    loading-when="BanUserModal.isLoading">
+    <h1>Ban User</h1>
+    <p class="error-message">{{ BanUserModal.errorMessage }}</p>
+    <div>
+      <input
+        ng-model="BanUserModal.data.username"
+        placeholder="Username"
+        type="text" />
+    </div>
+  </div>
+</div>

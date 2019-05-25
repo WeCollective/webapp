@@ -1,0 +1,30 @@
+<img
+  alt="Toggle sidebar"
+  class="header__button style--sidebar-toggle"
+  ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+  ng-click="Navbar.AppService.toggleSidebar()"
+  src="/assets/images/icons/show.svg" 
+  style="width: 26px;"/>
+
+<a
+  class="header__button style--secondary ng-hide"
+  ng-click="Ctrl.WallService.handleHeaderButtonClick()"
+  ng-show="Ctrl.WallService.isHeaderButtonVisible()"
+  offset-y="40"
+  text="Ctrl.WallService.getHeaderButtonTooltip()"
+  style="min-width: 152px">Create new branch
+</a>
+
+<div class="header__controls style--has-dropdown">
+  <dropdown
+    items="Ctrl.timeRange"
+    selected="Ctrl.controls.timeRange.selectedIndex"
+    title="Ctrl.controls.timeRange.title">
+  </dropdown>
+
+  <dropdown
+    items="Ctrl.sortBy"
+    selected="Ctrl.controls.sortBy.selectedIndex"
+    title="Ctrl.controls.sortBy.title">
+  </dropdown>
+</div>

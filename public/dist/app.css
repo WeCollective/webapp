@@ -4262,6 +4262,16 @@ div#notfound div h2 {
   opacity: 0.5;
   transform: scale(1);
 }
+.post #toggle:after {
+  content: url("/assets/images/Expand.png");
+  width: 20px;
+  height: 20px;
+}
+.post #toggle:checked:after {
+  content: url("/assets/images/Shrink.png");
+  width: 20px;
+  height: 20px;
+}
 .post .post__preview-image {
   background-position: center center;
   background-repeat: no-repeat;

@@ -1,0 +1,22 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  // Support iOS scroll rubber effect.
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: rgba(#000, 0);
+}
+
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  margin: 0;
+  max-height: 100vh;
+  padding: 0;  
+  width: 100%;
+}

@@ -1,0 +1,73 @@
+<ul class="branch__list content__list style--full-padding">
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.name">
+    <span class="branch_text_title">
+      Name:
+    </span>
+    <span class="branch__text">
+      {{ Branch.BranchService.branch.name }}
+    </span>
+  </li>
+
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.name">
+    <span class="branch_text_title">
+      URL:
+    </span>
+    <a
+      class="branch__link branch__text"
+      ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
+      b/{{ Branch.BranchService.branch.id }}
+    </a>
+  </li>
+
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.date">
+    <span class="branch_text_title">
+      Created on:
+    </span>
+    <span class="branch__text">
+      {{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}
+    </span>
+  </li>
+
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.creator">
+    <span class="branch_text_title">
+      Created by:
+    </span>
+    <a
+      class="branch__link branch__text"
+      ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
+      {{ Branch.BranchService.branch.creator }}
+    </a>
+  </li>
+
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.description">
+    <div class="branch_text_title">
+      Description:
+    </div>
+    <div
+      class="branch__text"
+      marked="Branch.BranchService.branch.description || 'Not Set'">
+    </div>
+  </li>
+
+  <li
+    class="branch__item"
+    ng-show="Branch.BranchService.branch.rules">
+    <div class="branch_text_title">
+      Rules &amp; Etiquette:
+    </div>
+    <div
+      class="branch__text"
+      marked="Branch.BranchService.branch.rules || 'Not Set'">
+    </div>
+  </li>
+</ul>

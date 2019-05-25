@@ -1,0 +1,13 @@
+{
+  "name": "weco-web-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "proxy": "http://localhost:8080",
+  "dependencies": {
+    "express": "^4.13.4",
+    "helmet": "^2.1.1",
+    "prerender-node": "^2.4.0"
+  }
+}

@@ -1,0 +1,28 @@
+.tooltip {
+  background-color: @primary-1;
+  border: 1px solid @primary-0;
+  border-radius: 3px;
+  box-shadow: @shadow-2;
+  padding: 6px 10px;
+  position: absolute;
+  z-index: 1000;
+
+  .tooltip-row {
+    display: block;
+    margin-bottom: 4px;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .tooltip-text {
+    @font-weight: @font-weight-normal;
+
+    color: #fff;
+    display: block;
+    font-size: @font-size-xs;
+    
+    .mediaQuery(@screen-sm, { font-size: @font-size-xs; })
+  }
+
+  &:empty { display: none; }
+}

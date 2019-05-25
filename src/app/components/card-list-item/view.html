@@ -1,0 +1,224 @@
+<li class="post__wrapper__new">
+
+  <!--"Post index" section
+  Conatins "Post index content" section.-->
+
+  <div class="post__index__new">
+
+    <!--"Post index content" section
+    Contains the posts "wall rank" and "flag count".-->
+
+    <div class="post__index__content__new">
+
+      <!--Wall rank
+      Displays the posts numerical position on the wall.-->
+
+      <span class="post__index__content__new ng-hide" ng-show="ListItem.index >= 0">
+        {{ ListItem.index + 1 }}
+      </span>
+
+      <!--Flag count
+      Displays the number of flags the post has recieved. Only visible if post is being viewed by mods in the "Flagged Posts" section of a branches Nucleus.-->
+
+      <div class="list-item-flags ng-hide" ng-click="ListItem.openResolveFlagPostModal()" ng-show="ListItem.showFlags()">
+
+        <div ng-include="'/assets/images/icons/flag.svg'"></div>
+
+        <span>{{ ListItem.getTotalFlagCount() }}</span>
+
+      </div>
+
+    </div>
+    <!--End of "Post index content"-->
+
+  </div>
+  <!--End of "Post index"-->
+
+  <!--"Post body" section
+  Contains "Post tags" and "Post content" sections.-->
+
+  <div class="post__body__new">
+
+    <!--"Post tags" section
+    Contains profile picture and username of post creator, tagged branches, and post date.-->
+
+    <div class="post__tags__new">
+
+      <!--Profile picture of post creator-->
+
+      <a class="thumbnail__small__new" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
+        <img class="thumbnail__small__new" src="/assets/images/default-profile.jpg" />
+      </a>
+
+      <!--User name of post creator-->
+
+      <a class="post__tags__text bluelink" ui-sref="weco.profile.about({ username: ListItem.post.creator })">
+        {{ ListItem.post.creator }}
+      </a>
+
+      <span class="post__tags__text">to</span>
+
+      <!--Flag image of first tagged branch [Currently not used]-->
+
+      <!--<a class="thumbnail__small__new" ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
+        <img class="thumbnail__small__new"
+          src="/assets/images/default-branch.jpg" />
+      </a>-->
+
+      <!--Tagged branches-->
+
+      <a class="post__tags__text bluelink" ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">
+        b/{{ ListItem.getOriginalBranches()[0] }}
+      </a>
+
+      <span class="post__tags__text ng-hide" ng-show="ListItem.getOriginalBranches().length > 1" offset-x="30" offset-y="30" text="ListItem.getOriginalBranchesTooltipString()"
+        tooltip>
+        and {{ ListItem.getOriginalBranches().length - 1 }} others
+      </span>
+
+      <!--Divider line-->
+
+      <span class="post__tags__text">|</span>
+
+      <!--Post date-->
+
+      <span class="post__tags__text">{{ ListItem.DateService.getElapsedTime(ListItem.post.date) }}</span>
+
+      <!--Post type marker
+      Coloured circles representing different post types (Image, Video, Audio, Text, Page, Poll). Could be updated to symbols in the future.-->
+
+      <span class="list-item__circle" ng-class="ListItem.getMarkerClass(ListItem.post.type)" text="ListItem.post.type | capitalize"
+        tooltip>
+      </span>
+
+    </div>
+    <!--End of "Post tags"-->
+
+    <!--"Post content" section
+    Contains post thumbnail image, NSFW label, and "Post info" section.-->
+
+    <div class="post__content__new">
+
+      <!--Post thumbnail image
+      Two DOM elements conditionally displayed depending on whether href link is to an internal or external url:-->
+
+      <div class="post__thumbnail__new">
+
+        <!--If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
+
+        <a ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)">
+          <div style="background-image: url('{{ ListItem.getPostImage() }}')"></div>
+        </a>
+
+        <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
+
+        <a href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank">
+          <div style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')"></div>
+        </a>
+
+      </div>
+
+      <!--NSFW Label
+      Only displays if post has been marked as 'Not Safe For Work'-->
+
+      <div class="list-item-nsfw-label ng-hide" ng-show="ListItem.post.nsfw">
+
+        <span class="text--uppercase">nsfw</span>
+
+      </div>
+
+      <!--"Post info" section
+      Contains post type marker, title, description, and "Post interact" section.-->
+
+      <div class="post__info__new">
+
+        <!--Post tile
+        Two DOM elements conditionally displayed again (see above):
+
+        If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
+
+        <a class="post__title__new" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)">
+          {{ ListItem.post.title }}
+        </a>
+
+        <label> 
+          <input type="checkbox" ng-model="Expand" id="toggle">
+        </label>
+
+        <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
+
+        <a class="post__title__new" href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank">
+          {{ ListItem.post.title }}
+        </a>
+
+        <!--Post description-->
+
+        <span class="post__description__new">{{ ListItem.post.text }}</span>
+
+        <!--"Post interact" section
+        Contains upvote/like button, comment button, flag button, and delete button.-->
+
+        <div class="post__interact__new">
+
+          <!--Upvote/like button-->
+
+          <span class="list-item__votes ng-hide" ng-show="ListItem.showVotes()">
+
+            <button class="list-item__vote-icon" ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }" ng-click="ListItem.vote('up', $event.target)"
+              ng-disabled="!ListItem.UserService.isAuthenticated()" ng-include="'/assets/images/icons/heart-icon.svg'">
+            </button>
+
+            <span class="post__tags__text">{{ ListItem.post[ListItem.stat] }} Likes</span>
+
+            <!--Down-vote button [Removed in 2017?]
+
+            <img
+            alt="Downvote post"
+            ng-click="ListItem.vote('down', $event.target)"
+            src="/assets/images/icons/black/arrow-down.png" />-->
+
+          </span>
+
+          <!--Comment button
+          Includes comment icon and number of comments, both of which link to the posts comment thread page-->
+
+          <a class="post__tags__text" text="'View comment thread'" ui-sref="weco.branch.post.discussion({ postid: ListItem.post.id })">
+
+            <img alt="View post discussion" class="post__icon__new" src="/assets/images/icons/comment.svg" />
+
+            <span class="post__tags__text greylink">{{ ListItem.post.comment_count }} Comments</span>
+
+          </a>
+
+          <!--Flag post button-->
+
+          <a class="post__tags__text" ng-click="ListItem.openFlagPostModal()" ng-hide="ListItem.showFlags() || !ListItem.UserService.isAuthenticated()"
+            offset-y="20">
+
+            <img alt="Flag post" class="post__icon__new" src="/assets/images/icons/flag.svg" text="flag">
+
+            <span class="post__tags__text">Flag</span>
+
+          </a>
+
+          <!--Delete post button-->
+
+          <img alt="Delete post" class="post__icon__new" ng-click="ListItem.openDeletePostModal()" ng-show="ListItem.isOwnPost()" offset-y="20"
+            src="/assets/images/icons/delete.svg" text="'Delete post'" tooltip />
+
+          <span class="post__tags__text">Delete</span>
+
+        </div>
+        <!--End of "Post interact"-->
+
+      </div>
+      <!--End of "Post info"-->
+
+    </div>
+    <!--End of "Post content"-->
+
+  </div>
+  <!--End of "Post body"-->
+
+</li>
+<!--End of "Post wrapper"-->

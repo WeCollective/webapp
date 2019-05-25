@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1024 1024"
+   height="1024.0pt"
+   width="1024.0pt"
+   version="1.1"
+   id="svg11158"
+   sodipodi:docname="Drop Down (Small).svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata11164">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs11162" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="716"
+     inkscape:window-height="480"
+     id="namedview11160"
+     showgrid="false"
+     inkscape:pagecheckerboard="true"
+     inkscape:zoom="0.17285156"
+     inkscape:cx="682.66667"
+     inkscape:cy="682.66667"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg11158" />
+  <path
+     d="M 0.00 0.00 L 1024.00 0.00 L 1024.00 1024.00 L 0.00 1024.00 L 0.00 0.00 Z"
+     fill="#ffffff"
+     id="path11154"
+     style="opacity:0" />
+  <path
+     d="M 241.00 202.36 C 424.68 202.36 608.36 202.35 792.04 202.36 C 807.22 202.46 822.30 205.69 836.23 211.72 C 858.55 221.36 877.48 238.36 889.48 259.51 C 898.71 275.50 903.46 293.62 904.28 312.00 C 904.86 331.23 900.49 350.54 891.60 367.61 C 888.20 374.24 883.81 380.45 879.62 386.61 C 790.14 512.47 700.65 638.32 611.17 764.18 C 603.64 774.77 596.29 784.82 586.36 793.34 C 571.96 805.84 554.33 814.73 535.67 818.70 C 514.37 823.24 491.68 821.52 471.36 813.64 C 453.98 806.97 438.32 795.94 426.20 781.81 C 423.02 777.96 420.04 773.94 417.08 769.93 C 326.90 643.10 236.73 516.28 146.55 389.45 C 144.73 386.92 142.98 384.35 141.23 381.76 C 129.85 366.31 122.73 347.92 120.49 328.87 C 118.55 313.42 120.23 297.50 124.59 282.58 C 131.42 259.95 145.56 239.66 164.41 225.40 C 180.75 212.95 200.56 205.10 220.99 202.98 C 227.69 202.21 234.28 202.37 241.00 202.36 Z"
+     fill="#000000"
+     id="path11156" />
+</svg>

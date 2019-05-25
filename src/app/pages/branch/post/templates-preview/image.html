@@ -1,0 +1,14 @@
+<div
+  class="post__preview-content style--image"
+  ng-class="{ 'maximised': Ctrl.previewState === 'maximise' }"
+  ng-show="Ctrl.previewState !== 'hide'">
+  <div class="post__preview-image-container">
+    <img
+      alt="Post preview image"
+      class="post__preview-image"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      style="background-image: url('{{ Ctrl.AppService.getProxyUrl(Ctrl.PostService.post.url || Ctrl.PostService.post.text) }}')" />
+  </div>
+
+  <div marked="Ctrl.PostService.post.url ? Ctrl.PostService.post.text : ''"></div>
+</div>

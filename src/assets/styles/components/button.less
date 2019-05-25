@@ -1,0 +1,68 @@
+.btn {
+  @btn-height: 30px;
+
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: @font-size-sm;
+  font-weight: @font-weight-normal;
+  margin-left: 10px;
+  padding: 0 10px;
+  transition: opacity .1s;
+
+  &.btn--block {
+    display: block;
+    margin: @g-padding-post auto;
+    max-width: 150px;
+  }
+
+  &.btn--large { padding: 10px; }
+  
+  &.btn--primary {
+    background-color: @accent-1;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: @font-weight-heavy;
+    height: @btn-height;
+    line-height: @btn-height;
+    text-align: center;
+    transition:
+      background-color .3s ease-out,
+      box-shadow .3s ease-out,
+      opacity .1s;
+
+    .btn__label { font-size: inherit; }
+
+    &:not(:disabled):hover {
+      background-color: @accent-0;
+      box-shadow: @shadow-2;
+    }
+  }
+
+  &.btn--secondary {
+    background-color: @primary-6;
+    border-radius: 3px;
+    color: #fff;
+    height: @btn-height;
+    line-height: @btn-height;
+    text-align: center;
+    transition:
+      background-color .3s ease-out,
+      box-shadow .3s ease-out,
+      opacity .1s;
+
+    .btn__label { font-size: inherit; }
+
+    &:not(:disabled):hover {
+      background-color: @primary-5;
+      box-shadow: @shadow-2;
+    }
+  }
+
+  &:disabled { cursor: initial; }
+
+  &.ng-hide-remove,
+  &.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+  }
+}

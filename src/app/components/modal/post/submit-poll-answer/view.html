@@ -1,0 +1,16 @@
+<!--
+loading
+loading-when="SubmitPollAnswerModal.isLoading"
+-->
+<div
+  id="submit-poll-answer-modal"
+  ng-controller="SubmitPollAnswerModalController as SubmitPollAnswerModal">
+  <h1>Submit a new answer</h1>
+  <p class="error-message">
+  	{{ SubmitPollAnswerModal.errorMessage }}
+  </p>
+  <input
+    ng-model="SubmitPollAnswerModal.newAnswer"
+    placeholder="New answer..." 
+    type="text" />
+</div>

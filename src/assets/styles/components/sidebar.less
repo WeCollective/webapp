@@ -1,0 +1,173 @@
+.sidebar {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(140, 144, 155, .15);
+  box-sizing: border-box;
+  height: @u-nav-no-hero;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: @navbar-h;
+  width: @sidebar-w-sm;
+  z-index: @z-sidebar;
+  transition: @tr, height @tr-speed;
+
+  * { pointer-events: initial; }
+
+  // Button.
+  .sidebar__button {
+    @height: 36px;
+
+    box-sizing: border-box;
+    height: @height;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .sidebar__controls {
+    box-sizing: border-box;
+    margin: @g-padding-post 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .sidebar-info {
+    padding: @g-padding-sidebar;
+
+    #inf-symbol { font-size: @font-size-lg; }
+
+    h1 {
+      font-size: @font-size-lg;
+      font-weight: 500;
+      hyphens: auto;
+      overflow-wrap: break-word;
+
+      .mediaQuery(@screen-md, { font-size: @font-size-xl; });
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: @font-weight-heavy;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+  }
+
+  // Make the whole button clickable.
+  .sidebar__link {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    height: 100%;
+    margin: 0;
+    outline: none;
+    padding: (@g-padding-post / 2) @g-padding-sidebar;
+    width: 100%;
+    transition: background-color .1s;
+
+    > img {
+      @icon-size: 24px;
+      height: @icon-size;
+      margin-right: @g-padding-sidebar;
+      opacity: .2;
+      width: @icon-size;
+      transition: opacity .1s;
+    }
+
+    > span {
+      color: @primary-6;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .1s;
+    }
+
+    &:not(.disabled):hover { cursor: pointer; }
+    &.selected:hover { cursor: initial; }
+
+    &:not(.disabled):hover,
+    &.selected {
+      background-color: rgba(44, 44, 44, .1);
+
+      > img { opacity: .7; }
+      > span { color: @primary-3; }
+    }
+  }
+
+  .sidebar-picture {
+    @picture-size: @sidebar-w-sm;
+    background-position: center;
+    background-size: cover;
+    border-top: solid 1px @light-grey;
+    box-sizing: border-box;
+    height: @picture-size;
+    // Fix the blurry picture in Webkit.
+    image-rendering: -webkit-optimize-contrast;
+    // Relative because of the edit button (below).
+    position: relative;
+    width: @picture-size;
+
+    .mediaQuery(@screen-md, {
+      @picture-size: @sidebar-w-md;
+      height: @picture-size;
+      width: @picture-size;
+    });
+
+    .mediaQuery(@screen-lg, {
+      @picture-size: @sidebar-w-lg;
+      height: @picture-size;
+      width: @picture-size;
+    });
+
+    img#edit {
+      @margin: 6px;
+      @size: 26px;
+
+      bottom: @margin;
+      height: @size;
+      opacity: .4;
+      position: absolute;
+      right: @margin;
+      width: @size;
+
+      &.style--default { opacity: .2; }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
+  }
+
+  .sidebar__scrollable {
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    pointer-events: initial;
+  }
+
+  ul {
+    li {
+      font-size: @font-size-sm;
+      font-weight: @font-weight-light;
+      padding-bottom: 5px;
+      
+      span { font-weight: @font-weight-heavy; }
+    }
+  }
+
+  @media screen and (max-width: @screen-md) {
+    transform: translateX(-100%);
+
+    & + .header.style--fixed.toggled { transform: translateX(@sidebar-w-sm); }
+    &.toggled { transform: translateX(0); }
+  }
+
+  .mediaQuery(@screen-md, { width: @sidebar-w-md; });
+  .mediaQuery(@screen-lg, { width: @sidebar-w-lg; });
+
+  .mediaQuery(@s-aligner-lg, {
+    @offset-lg: @s-aligner-lg / 2;
+    left: calc(~'50% - @{offset-lg}');
+  });
+}

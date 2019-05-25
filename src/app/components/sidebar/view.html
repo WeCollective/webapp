@@ -1,0 +1,87 @@
+<div
+  class="sidebar no-transition"
+  ng-class="{ 'toggled': Ctrl.AppService.isSidebarOpen }"
+  no-constructor-transition>
+  <div class="sidebar__scrollable">
+    <div class="sidebar-info">
+      <h2 ng-show="Ctrl.BranchService.branch.parent.id !== 'none'">
+        <a ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+          {{ Ctrl.BranchService.branch.parent.name || 'All' }} /
+        </a>
+      </h2>
+
+      <h1>{{ Ctrl.BranchService.branch.name }}</h1>
+    </div>
+    
+    <div class="sidebar-picture" style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+      <img
+        alt="Change the branch profile image."
+        id="edit"
+        ng-class="{ 'style--default': !Ctrl.BranchService.branch.profileUrl }"
+        ng-click="Ctrl.openModal('profile-picture')"
+        ng-show="Ctrl.BranchService.isModerator()"
+        src="/assets/images/icons/edit.svg" />
+    </div>
+    
+    <ul class="sidebar__controls">
+      <li
+        class="sidebar__button"
+        ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'">
+        <button
+          class="sidebar__link"
+          ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
+          ng-click="Ctrl.toggleFollowBranch()"
+          offset-y="60"
+          text="Ctrl.getLabelFollowButton()"
+          tooltip>
+          <img
+            alt="Toggle branch follow status button"
+            ng-src="/assets/images/icons/eye.svg" />
+          <span>
+            {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
+          </span>
+        </button>
+      </li>
+      
+      <li class="sidebar__button">
+        <a
+          class="sidebar__link"
+          ng-class="{ 'selected' : Ctrl.isControlSelected('nucleus') }"
+          offset-y="60"
+          text="'About'"
+          tooltip
+          ui-sref="weco.branch.nucleus.about({ branchid: Ctrl.BranchService.branch.id })">
+          <img alt="Go to branch nucleus" src="/assets/images/icons/nucleus.svg" />
+          <span>About</span>
+        </a>
+      </li>
+
+      <li class="sidebar__button">
+        <a
+          class="sidebar__link"
+          ng-class="{ 'selected' : Ctrl.isControlSelected('wall') }"
+          offset-y="60"
+          text="'Wall'"
+          tooltip
+          ui-sref="weco.branch.wall({ branchid: Ctrl.BranchService.branch.id })">
+          <img alt="Go to branch wall" src="/assets/images/icons/wall.svg" />
+          <span>Wall</span>
+        </a>
+      </li>
+
+      <li class="sidebar__button">
+        <a
+          class="sidebar__link"
+          ng-class="{ 'selected' : Ctrl.isControlSelected('subbranches') }"
+          offset-y="60"
+          text="'Communities'"
+          tooltip
+          ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })" >
+          <img alt="Go to branch subbranches" src="/assets/images/icons/branch.svg" />
+          <span>Communities</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
