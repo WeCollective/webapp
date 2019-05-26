@@ -4,6 +4,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -17,21 +18,8 @@ body {
   padding: 0;
   width: 100%; }
 
-
-#toggle:after
-{
- content: url("/assets/images/Expand.png");
- width: 20px;
- height: 20px;
-
-}
-
-#toggle:checked:after
-{
- content: url("/assets/images/Shrink.png");
- width: 20px;
- height: 20px;
-}
+input[type=checkbox] {
+  display: none; }
 
 .checkbox {
   background-color: transparent;
