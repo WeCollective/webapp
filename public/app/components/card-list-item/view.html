@@ -55,6 +55,21 @@
   </div>
 
   <div class="list-item-info">
+    
+   
+      <input type = "checkbox" ng-model = "Expand" id = "toggle" >
+    
+    <br><br>
+
+    <br>
+    <div ng-show = "Expand">
+      <p> {{ ListItem.post. }} </p> <br>
+      
+      <a href = "{{ ListItem.getPostUrl() }}">
+      <img ng-src = "{{ ListItem.getPostImage() }}" class = "img1">
+      </a>
+
+    </div>
     <span
       class="list-item__circle"
       ng-class="ListItem.getMarkerClass(ListItem.post.type)"
