@@ -175,8 +175,16 @@
           {{ ListItem.post.title }}
         </a>
 
-        <!--Post description-->
 
+        <input type = "checkbox" ng-model = "Expand" id = "toggle" >
+    
+       
+          <p> {{ ListItem.post. }} </p> <br>
+        <!--Post description-->
+        <br><br>
+    
+        <br>
+        <div ng-show = "Expand">
         <span class="post__description__new">{{ ListItem.post.text }}</span>
         
         <!--"Post interact" section
