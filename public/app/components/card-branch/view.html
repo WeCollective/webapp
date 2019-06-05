@@ -1,44 +1,63 @@
-<li class="list-item style--card-branch">
+<li class="child_branch_wrapper_new">
   <span
-    class="list-item-index ng-hide"
+    class="child_branch_index_new ng-hide"
     ng-show="CardBranch.index >= 0">
     {{ CardBranch.index + 1 }}
   </span>
   
   <a
-    class="list-item-image"
+    class="child_branch_image_new"
     ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
     <div style="background-image: url('{{ CardBranch.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
   </a>
 
-  <div class="list-item-info">
+<!--Branch info section-->
+
+  <div class="child_branch_info_new">
+    
+    <!--Branch name-->
+
     <a
-     class="list-item__title"
+     class="branch__title__new"
      ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
       {{ CardBranch.branch.name }}
     </a>
 
-    <br />
+    <!--Branch description [Not working]-->
 
-    <span>
-      <a class="list-item__detail" ui-sref="weco.profile.about({ username: CardBranch.branch.creator })">{{ CardBranch.branch.creator }}</a>
+    <!--<a
+      class="post__description__new"
+      ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
+      {{ CardBranch.branch.description }}
+    </a>-->
 
-      <span class="list-item__separator"></span>
+    <!--Branch tags section-->
 
-      <span class="list-item__detail">{{ CardBranch.branch.date | date:'dd-MMMM-yyyy' }}</span>
+    <span class="post__tags__new">
+
+      <!--Branch creator-->
+
+      <a class="post__tags__text bluelink" ui-sref="weco.profile.about({ username: CardBranch.branch.creator })">{{ CardBranch.branch.creator }}</a>
+
+      <!--Divider line-->
+
+      <span class="post__tags__text">|</span>
+
+      <!--Date branch was created-->
+
+      <span class="post__tags__text">{{ CardBranch.branch.date | date:'dd-MMMM-yyyy' }}</span>
+
     </span>
 
-    <br />
-
-    <div class="list-item__detail">
+    <div class="post__tags__text">
       Points: {{ CardBranch.branch.post_points }}
     </div>
 
-    <div class="list-item__detail">
+    <div class="post__tags__text">
       Posts: {{ CardBranch.branch.post_count }}
     </div>
 
-    <div class="list-item__detail">
+    <div class="post__tags__text">
       Comments: {{ CardBranch.branch.post_comments }}
     </div>
   </div>

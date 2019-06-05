@@ -2,9 +2,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
 
   .comment {
     .comment__input-wrapper {
@@ -23,6 +20,7 @@
     .list-item__votes {
       margin-left: 0;
       margin-right: @g-padding-post;
+      width: 20px;
     }
   }
 
@@ -32,8 +30,8 @@
     padding: @g-padding-post @g-padding-post 0;
 
     .comment__input {
-      border-color: @primary-6;
-      border-radius: 3px;
+      border-color: @primary-9;
+      border-radius: 20px;
       box-sizing: border-box;
       font-family: inherit;
       font-size: @font-size-xs;
@@ -55,7 +53,7 @@
     border-left: 1px solid @light-grey;
     box-sizing: border-box;
     margin-top: @g-padding-post / 2;
-    padding-left: @g-padding-post;
+    //padding-left: @g-padding-post;
   }
 
   .comments__text {
@@ -98,3 +96,92 @@
     padding: 0 @g-padding-post @g-padding-post;
   }
 }
+
+//---------------------------------------------------------------------------------------------//
+
+//Comments redesign [May 2019]
+//Remove "_new" postfix when complete
+
+//Sections:
+
+.comment_thread_wrapper_new {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Comment wrapper
+
+.comment_wrapper_new {
+  max-width: 800px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Comment index
+
+.comment_index_new {
+  width: 40px;
+  height: 40px;
+}
+
+//Comment body
+
+.comment_body_new {
+  //margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Comment tags
+
+.comment_tags_new {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Comment text
+
+.comment_text_new {
+  margin-bottom: 6px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Comment interact
+
+.comment_interact_new {
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Comment reply
+
+.comment_reply_new {
+  border-left: 1px solid @light-grey;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//-----------------------------------------------------------------//
+
+//Styles

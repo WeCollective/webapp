@@ -157,6 +157,8 @@ gulp.task('compile-sass', () => gulp.src(select('assets', 'styles', 'app.scss'))
   .pipe(gulp.dest(DEST_DIR)));
 
 gulp.task('nodemon', done => {
+	console.log("\n\nlocal: "+local+"\n\n");
+
   if (local) {
     nodemon({
       env: {

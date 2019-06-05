@@ -1,5 +1,5 @@
 {
-  "name": "web-app",
+    "name": "web-app",
   "version": "1.0.0",
   "description": "The front-end AngularJS app and server for WECO.",
   "main": "server.js",

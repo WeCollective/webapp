@@ -1,10 +1,17 @@
 <div class="post">
   <div class="post__scrollable-view">
+    
     <div
       class="post__preview"
       ng-show="Ctrl.canPreviewPost()">
+
+      <!--Embedded media controls-->
+
       <div class="post__preview-controls">
-        <img
+
+        <!--Expand/Shrink embedded media [Removed]-->
+        
+        <!--<img
           alt="Toggle the post preview cinema mode"
           class="post__preview-control-btn"
           ng-click="Ctrl.toggleCinemaMode()"
@@ -12,10 +19,11 @@
           ng-src="/assets/images/icons/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.svg"
           offset-y="40"
           text="Ctrl.previewState === 'maximise' ? 'Shrink' : 'Expand'"
-          tooltip />
+          tooltip />-->
 
-        <!--
-        <img
+        <!--Hide/Reveal embedded media [Removed] -->
+
+        <!--<img
           alt="Toggle the post preview visibility"
           class="post__preview-control-btn"
           ng-class="{ 'toggled': Ctrl.previewState !== 'hide' }"
@@ -23,11 +31,14 @@
           offset-y="40"
           src="/assets/images/icons/show.svg"
           text="Ctrl.previewState === 'hide' ? 'Show' : 'Hide'"
-          tooltip />
-        -->
+          tooltip />-->
+        
       </div>
 
+      <!--Embedded media-->
+
       <ng-include src="Ctrl.getPreviewTemplate()"></ng-include>
+
     </div>
 
     <tabs

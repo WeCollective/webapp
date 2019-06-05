@@ -10,7 +10,6 @@
 
   .content__list {
     overflow: hidden;
-    padding: 0 10px;
 
     .content__list-item {
       cursor: pointer;
@@ -62,7 +61,7 @@
     &.content__list--no-padding { padding: 0; }
     &.style--full-padding { padding: @g-padding-sidebar; }
 
-    .mediaQuery(@screen-md, { padding: 0 @g-padding-sidebar; });
+    //.mediaQuery(@screen-md, { padding: 0 @g-padding-sidebar; });
   }
 
   .mediaQuery(@screen-md, { width: calc(~'100% - @{sidebar-w-md}'); });

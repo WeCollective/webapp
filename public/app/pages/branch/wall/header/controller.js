@@ -19,22 +19,22 @@ class BranchWallHeaderController extends Injectable {
       postType: {
         items: Category,
         selectedIndex: -1,
-        title: 'category',
+        title: 'Post Type',
       },
       sortBy: {
         items: SortPost,
         selectedIndex: -1,
-        title: 'sorted by',
+        title: 'Sorted By',
       },
       statType: {
         items: Point,
         selectedIndex: -1,
-        title: 'point type',
+        title: 'Point Type',
       },
       timeRange: {
         items: Time,
         selectedIndex: -1,
-        title: 'posts from',
+        title: 'Time Range',
       },
     };
     this.$timeout(() => this.setDefaultFilters());

@@ -1,13 +1,19 @@
 .dropdown {
+
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
   $dropdown-font-size: 11px !default;
   $dropdown-item-vertical-padding: 2px !default;
   $dropdown-list-padding: $s-spacing-sm + $dropdown-item-vertical-padding !default;
 
   font-size: $dropdown-font-size;
-  margin-left: $s-spacing-sm * 1.5;
+  margin-left: 20px;
   position: relative;
 
   .dropdown__list {
+    -moz-appearance: none;
+    -webkit-appearance: none;
     background-color: transparent;
     border: none;
     border-radius: 0;
@@ -15,16 +21,11 @@
     cursor: pointer;
     display: block;
     font-size: $dropdown-font-size;
-    left: 0;
-    max-width: 100%;
     padding-top: $dropdown-list-padding;
     position: absolute;
     text-transform: uppercase;
     top: 0;
-    width: 100%;
     z-index: 1;
-    -moz-appearance: none;
-    -webkit-appearance: none;
     transition: color $tr-fast;
 
     &:focus { outline: none; }

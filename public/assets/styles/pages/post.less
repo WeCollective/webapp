@@ -45,10 +45,10 @@
     ng-include {
       display: block;
       height: 100%;
-      margin: 0 @g-padding-post @g-padding-post;
+      margin: @g-padding-post;
       overflow: hidden;
       // Must be padding so the content animation goes to the top edge.
-      padding-top: @g-padding-post;
+      padding-top: 0;
       position: relative;
     }
   }
@@ -56,7 +56,8 @@
   .post__preview-content {
     transition: all @post__preview-control-btn-animation-speed @post__preview-control-btn-animation-easing;
 
-    p { margin: 0; }
+    p { margin: 10px;
+        font-size: @font-size-sm; }
 
     &.ng-hide-add {
       opacity: @post__preview-content-animation-start-opacity;
@@ -236,5 +237,308 @@
   #no-answers {
     font-style: italic;
     padding-left: 15px;
+  }
+}
+
+//------------------------------------------------------------------------------------------------------//
+
+//Post layout redesign [May 2019]
+//Remove "__new" postfix from classes when redesign is complete and old classes have been removed.
+
+//------------------------------------------------------------------------------------------------------//
+
+//Layout of sections:
+
+//Post wraper
+//Contains the entire post
+
+.post__wrapper__new {
+  margin-left: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post index
+//Contains "Post index content" section
+
+.post__index__new {
+  margin-left: 10px;
+  margin-right: 10px;
+  //width: 20px;
+  height: 168px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media screen and (max-width: @screen-md) {
+    display: none;
+  }
+}
+
+//Post index content
+//Contains the posts numerical position on the wall (and the number of flags it has recieved if viewed by mods in the "Flagged Posts" section of a branches nucleus).
+
+.post__index__content__new {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Post body
+//Contains "Post tags" and "Post content" sections
+
+.post__body__new {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post tags
+//Contains profile picture and username of post creator, tagged branches, and post date.
+
+.post__tags__new {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//Post content
+//Contains post thumbnail image, NSFW label, and "Post info" section.
+
+.post__content__new {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+//Post thumbnail
+//Conatins main post thumbnail image
+
+.post__thumbnail__new {
+  width: 230px;
+  height: 130px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+}
+
+//Post info
+//Contains post type marker, post title, post description, and "Post interact" section.
+
+.post__info__new {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+//Post interact
+//Contains upvote/like button, comment button, flag button, and delete button.
+
+.post__interact__new {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+//------------------------------------------------------------------------------------------------------//
+
+//Elements:
+
+//Main post thumbnail image
+
+.post__thumbnail__new {
+  img,
+  div {
+      background-position: center;
+      background-size: cover;
+      border-radius: 4px;
+      height: 130px;
+      width: 230px;
+
+      &:hover { box-shadow: @shadow-2; }
+  }
+}
+
+//User and branch thumnails
+
+.thumbnail__small__new {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-position: center;
+  background-size: cover;
+}
+
+//Post interact icon
+
+.post__interact__icon__new {
+  height: 16px;
+  opacity: .25;
+  margin-right: 4px;
+  cursor: pointer;
+
+  svg {
+    height: 16px;
+    width: auto;
+
+    path { transition: fill .2s; }
+  }
+
+  &:not(:disabled) {
+    &.style--active {
+      opacity: 1;
+
+      path { fill: #FE939B; } //Light red: #FE939B, light blue: #9fc3e7//
+    }
+
+    &:hover { opacity: .6; }
+  }
+
+  &:disabled {
+    cursor: initial;
+    opacity: .1;
+  }
+
+  &:focus { outline: none; }
+}
+
+//Post type marker
+
+.post_type_marker {
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  vertical-align: top;
+  width: 10px;
+
+  &.style--audio { background-color: @post-type-audio; }
+  &.style--image { background-color: @post-type-image; }
+  &.style--page { background-color: @post-type-page; }
+  &.style--poll { background-color: @post-type-poll; }
+  &.style--text { background-color: @post-type-text; }
+  &.style--video { background-color: @post-type-video; }
+}
+
+//------------------------------------------------------------------------------------------------------//
+
+//Mixins:
+
+@light-grey-text: #ccc;
+@mid-grey-text: #666;
+@dark-grey-text: #333;
+@blue-link-text: #3498db;
+
+//------------------------------------------------------------------------------------------------------//
+
+//Text:
+
+//Post title text
+
+.post__title__new {
+  color: @dark-grey-text;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+//Post description text
+
+.post__description__new {
+  color: @dark-grey-text;
+  font-size: 15px;
+  font-weight: 400;
+  max-height: 80px;
+  overflow: hidden;
+}
+
+//Post index number
+
+.post__index__content__new {
+  color: #ddd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+//Post tags text
+
+.post__tags__text {
+  color: @light-grey-text;
+  font-size: 13px;
+  font-weight: 400;
+  margin-right: 5px;
+  height: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  //& blue hyperlink
+
+  &.bluelink {
+    color: @blue-link-text;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  //& grey hyperlink
+
+  &.greylink {
+    color: @light-grey-text;
+
+    &:hover {
+      color: @mid-grey-text;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+
+
+a.post__detail__new {
+  margin-right: 5px;
+
+  &.text {
+    color: #d7d7d7;
+    font-size: 13px;
+    font-weight: 500;
+
+    &.link {
+      color: @accent-0;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+span.post__detail__new {
+  margin-right: 5px;
+
+  &.text {
+    color: #d7d7d7;
+    font-size: 13px;
+    font-weight: 500;
   }
 }
