@@ -13,6 +13,8 @@ const {
 class ListItemController extends Injectable {
   constructor(...injections) {
     super(ListItemController.$inject, injections);
+    this.usr = null;
+    this.done = false;
   }
 
   getMarkerClass() {
@@ -226,6 +228,27 @@ class ListItemController extends Injectable {
         this.AlertsService.push('error', error);
       });
   }
+  getUser() {
+ 
+
+    //lock so that it does not make more than one api call
+        if(this.done == false){
+       this.done = true;
+   
+       //get the user and set
+         var md = new Promise(resolve => this.UserService.fetch('' +this.post.creator)
+         .then(user => resolve(user))
+         .catch(() => {
+           this.AlertsService.push('error', 'Error fetching moderator.');
+           return resolve();
+         }));
+         md.then(user => {
+         this.usr = user;
+       });
+        }
+   
+        return this.usr;
+     }
 }
 
 ListItemController.$inject = [
