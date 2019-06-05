@@ -6,7 +6,7 @@
 
   .auth__card {
     background-color: $c-white;
-    border-radius: 10px;
+    border-radius: 2px;
     box-shadow: 0 8px 10px rgba($c-black, .5);
     max-width: $s-auth-card-max-w;
     padding: ($s-spacing * 4) ($s-spacing * 5) ($s-spacing * 6);
@@ -34,9 +34,9 @@
 
   .auth__logo {
     display: block;
-    height: 100px;
-    width: 100px;
-    margin: 0 auto 10px;
+    height: $s-auth-logo;
+    margin: 0 auto $s-spacing;
+    width: $s-auth-logo;
   }
 
   .auth__message {
@@ -99,6 +99,7 @@
 
   .auth__title {
     color: $c-text;
+    font-family: $f-serif;
     font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.6px;

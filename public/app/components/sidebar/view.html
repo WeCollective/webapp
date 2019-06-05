@@ -48,11 +48,11 @@
           class="sidebar__link"
           ng-class="{ 'selected' : Ctrl.isControlSelected('nucleus') }"
           offset-y="60"
-          text="'About'"
+          text="'Nucleus'"
           tooltip
           ui-sref="weco.branch.nucleus.about({ branchid: Ctrl.BranchService.branch.id })">
           <img alt="Go to branch nucleus" src="/assets/images/icons/nucleus.svg" />
-          <span>About</span>
+          <span>Nucleus</span>
         </a>
       </li>
 
@@ -74,14 +74,14 @@
           class="sidebar__link"
           ng-class="{ 'selected' : Ctrl.isControlSelected('subbranches') }"
           offset-y="60"
-          text="'Communities'"
+          text="'Child Branches'"
           tooltip
           ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })" >
           <img alt="Go to branch subbranches" src="/assets/images/icons/branch.svg" />
-          <span>Communities</span>
+          <span>Branches</span>
         </a>
       </li>
-      
+
     </ul>
   </div>
 </div>

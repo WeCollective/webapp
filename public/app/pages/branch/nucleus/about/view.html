@@ -1,9 +1,9 @@
-<ul class="branch__list content__list style--full-padding">
+<ul class="branch__list content__list style--full-padding text--center">
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.name">
-    <span class="branch_text_title">
-      Name:
+    <span class="branch__text style--dark">
+      Visible Name:
     </span>
     <span class="branch__text">
       {{ Branch.BranchService.branch.name }}
@@ -12,21 +12,8 @@
 
   <li
     class="branch__item"
-    ng-show="Branch.BranchService.branch.name">
-    <span class="branch_text_title">
-      URL:
-    </span>
-    <a
-      class="branch__link branch__text"
-      ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-      b/{{ Branch.BranchService.branch.id }}
-    </a>
-  </li>
-
-  <li
-    class="branch__item"
     ng-show="Branch.BranchService.branch.date">
-    <span class="branch_text_title">
+    <span class="branch__text style--dark">
       Created on:
     </span>
     <span class="branch__text">
@@ -37,7 +24,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.creator">
-    <span class="branch_text_title">
+    <span class="branch__text style--dark">
       Created by:
     </span>
     <a
@@ -50,7 +37,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.description">
-    <div class="branch_text_title">
+    <div class="branch__text style--dark">
       Description:
     </div>
     <div
@@ -62,7 +49,7 @@
   <li
     class="branch__item"
     ng-show="Branch.BranchService.branch.rules">
-    <div class="branch_text_title">
+    <div class="branch__text style--dark">
       Rules &amp; Etiquette:
     </div>
     <div

@@ -76,14 +76,10 @@ input[type=checkbox]:disabled + .checkbox {
     background-color: #b3b3b3; }
 
 .dropdown {
-  -moz-appearance: none;
-  -webkit-appearance: none;
   font-size: 11px;
-  margin-left: 20px;
+  margin-left: 18px;
   position: relative; }
   .dropdown .dropdown__list {
-    -moz-appearance: none;
-    -webkit-appearance: none;
     background-color: transparent;
     border: none;
     border-radius: 0;
@@ -91,11 +87,16 @@ input[type=checkbox]:disabled + .checkbox {
     cursor: pointer;
     display: block;
     font-size: 11px;
+    left: 0;
+    max-width: 100%;
     padding-top: 14px;
     position: absolute;
     text-transform: uppercase;
     top: 0;
+    width: 100%;
     z-index: 1;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     transition: color 0.2s; }
     .dropdown .dropdown__list:focus {
       outline: none; }
@@ -500,7 +501,7 @@ input[type=checkbox]:disabled + .checkbox {
   position: relative; }
   .page.auth .auth__card {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 2px;
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.5);
     max-width: 440px;
     padding: 64px 80px 96px;
@@ -530,9 +531,9 @@ input[type=checkbox]:disabled + .checkbox {
     font-weight: 600; }
   .page.auth .auth__logo {
     display: block;
-    height: 100px;
-    width: 100px;
-    margin: 0 auto 10px; }
+    height: 62px;
+    margin: 0 auto 16px;
+    width: 62px; }
   .page.auth .auth__message {
     font-family: "Open Sans", Helvetica, sans-serif;
     line-height: 1.3; }
@@ -583,6 +584,7 @@ input[type=checkbox]:disabled + .checkbox {
     text-align: center; }
   .page.auth .auth__title {
     color: #2c2c2c;
+    font-family: georgia, "times new roman", times, serif;
     font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.6px;

@@ -3,14 +3,16 @@
   class="header__button style--sidebar-toggle"
   ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
   ng-click="Navbar.AppService.toggleSidebar()"
-  src="/assets/images/icons/show.svg"/>
+  src="/assets/images/icons/show.svg" />
 
-<a class="header__button style--secondary ng-hide"
+<a
+  class="header__button ng-hide"
   ng-click="Ctrl.WallService.handleHeaderButtonClick()"
   ng-show="Ctrl.WallService.isHeaderButtonVisible()"
   offset-y="40"
   text="Ctrl.WallService.getHeaderButtonTooltip()"
-  style="min-width: 134px;">Create new post
+  tooltip>
+  <div ng-include="'/assets/images/icons/plus.svg'"></div>
 </a>
 
 <div class="header__controls style--has-dropdown">

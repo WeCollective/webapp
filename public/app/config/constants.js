@@ -30,9 +30,6 @@ const Category = [{
   label: 'all',
   url: 'all',
 }, {
-  label: `${PostTypePage}s`,
-  url: PostTypePage,
-}, {
   label: `${PostTypeImage}s`,
   url: PostTypeImage,
 }, {
@@ -44,6 +41,9 @@ const Category = [{
 }, {
   label: PostTypeText,
   url: PostTypeText,
+}, {
+  label: `${PostTypePage}s`,
+  url: PostTypePage,
 }, {
   label: `${PostTypePoll}s`,
   url: PostTypePoll,

@@ -1,7 +1,7 @@
 .button(@color, @background-color, @height, @hover-rules) {
   background-color: @background-color;
   border: none;
-  border-radius: 20px;
+  border-radius: 3px;
   color: @color;
   display: inline-block;
   font-size: @font-size-sm;
@@ -134,11 +134,10 @@
   }
 
   span.list-item-index {
-    color: #dfdfdf;
+    color: @dark-grey;
     font-size: @font-size-sm;
     font-weight: @font-weight-heavy;
     line-height: @height;
-    margin-right: 10px;
 
     &.style--colour-coded {
       @size: 40px;
@@ -162,7 +161,7 @@
     background-color: @caution-1;
     border-radius: 5px;
     height: 30px;
-    margin-left: 10px;
+    margin: 0 10px;
     min-width: 50px;
     position: relative;
     text-align: center;
@@ -206,7 +205,7 @@
       background-size: cover;
       border-radius: 4px;
       height: @height;
-      margin-right: 10px;
+      margin: 0 10px 0 @g-padding-post;
       width: @width;
 
       &:hover { box-shadow: @shadow-2; }
@@ -324,16 +323,15 @@
   }
 
   .list-item__votes {
-    height: 18px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
-    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    height: @height;
+    margin-left: 6px;
 
     .list-item__vote-icon {
-      @size: 18px;
-      margin-right: 3px;
+      @size: 22px;
+
       background-color: transparent;
       border: none;
       cursor: pointer;
@@ -354,7 +352,7 @@
         &.style--active {
           opacity: 1;
 
-          path { fill: #FE939B; } //Light red: #FE939B, light blue: #9fc3e7//
+          path { fill: #9fc3e7; }
         }
 
         &:hover { opacity: .6; }

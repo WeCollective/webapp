@@ -10,10 +10,10 @@ class WallService extends Injectable {
   getHeaderButtonTooltip() {
     switch (this.$state.current.name) {
       case 'weco.branch.subbranches':
-        return 'Create new branch';
+        return 'Create New Branch';
 
       case 'weco.branch.wall':
-        return 'Create new post';
+        return 'Add New Post';
 
       case 'weco.branch.post':
         return 'Write a Comment';

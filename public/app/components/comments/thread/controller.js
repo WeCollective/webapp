@@ -4,31 +4,7 @@ class CommentThreadController extends Injectable {
   constructor(...injections) {
     super(CommentThreadController.$inject, injections);
     this.parentComment = undefined; // the comment which is being replied to
-    this.usrs = new Map();
-    this.locks = new Map();
   }
-
-  getUser(comment) {
-
-
-    //lock so that it does not make more than one api call
-    if(this.locks.get(comment.data.creator)===undefined){
-        this.locks.set(comment.data.creator,true);
-  
-      //get the user and set
-        var md = new Promise(resolve => this.UserService.fetch('' +comment.data.creator)
-        .then(user => resolve(user))
-        .catch(() => {
-          this.AlertsService.push('error', 'Error fetching usr.');
-          return resolve();
-        }));
-        md.then(user => {
-        this.usrs.set(comment.data.creator,user);
-      });
-    }
-  
-    return this.usrs.get(comment.data.creator);
-    }
 
   closeReply() {
     this.$timeout(() => this.parentComment.meta = {
