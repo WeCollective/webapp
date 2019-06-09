@@ -136,9 +136,10 @@ Remove "_new" postfix from class names when redesign is complete and old styles 
 
   <!--Comment creators profile picture-->
 
-  <a class="thumbnail__small__new" ui-sref="weco.profile.about({ username: comment.data.creator })">
-      <img class="thumbnail__small__new"
-        src="/assets/images/default-profile.jpg" />
+  <a 
+    class="thumbnail__small__new"
+    ui-sref="weco.profile.about({ username: comment.data.creator })"
+    style="background-image: url('{{ Thread.getUser(comment).profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
   </a>
 
   <!--"Comment body" section-->

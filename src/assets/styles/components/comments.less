@@ -53,7 +53,7 @@
     border-left: 1px solid @light-grey;
     box-sizing: border-box;
     margin-top: @g-padding-post / 2;
-    padding-left: @g-padding-post;
+    //padding-left: @g-padding-post;
   }
 
   .comments__text {
@@ -123,10 +123,17 @@
   align-items: flex-start;
 }
 
+//Comment index
+
+.comment_index_new {
+  width: 40px;
+  height: 40px;
+}
+
 //Comment body
 
 .comment_body_new {
-  margin-left: 10px;
+  //margin-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -147,6 +154,7 @@
 
 .comment_text_new {
   margin-bottom: 6px;
+  max-width: 600px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

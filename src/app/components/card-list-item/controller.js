@@ -13,8 +13,8 @@ const {
 class ListItemController extends Injectable {
   constructor(...injections) {
     super(ListItemController.$inject, injections);
-    this.usr = null;
-    this.done = false;
+    this.usrs = new Map();
+    this.locks = new Map();
   }
 
   getMarkerClass() {
@@ -228,26 +228,29 @@ class ListItemController extends Injectable {
         this.AlertsService.push('error', error);
       });
   }
-  getUser() {
- 
+  getUser(username) {
 
-    //lock so that it does not make more than one api call
-        if(this.done == false){
-       this.done = true;
+    if (username == null)
+        return;
+   
+     //lock so that it does not make more than one api call
+     if(this.locks.get(username)===undefined){
+   
+         this.locks.set(username,true);
    
        //get the user and set
-         var md = new Promise(resolve => this.UserService.fetch('' +this.post.creator)
+         var md = new Promise(resolve => this.UserService.fetch('' +username)
          .then(user => resolve(user))
          .catch(() => {
-           this.AlertsService.push('error', 'Error fetching moderator.');
+           this.AlertsService.push('error', 'Error fetching user.');
            return resolve();
          }));
          md.then(user => {
-         this.usr = user;
+         this.usrs.set(username,user);
        });
-        }
+     }
    
-        return this.usr;
+     return this.usrs.get(username);
      }
 }
 
