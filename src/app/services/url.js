@@ -85,6 +85,7 @@ class Url extends Injectable {
     filter = filterSanityCheck(filter);
     const item = filter.items[filter.selectedIndex] || {};
     return item[key];
+	
   }
 
   getUrlSearchParams() {

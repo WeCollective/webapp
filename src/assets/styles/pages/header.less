@@ -253,4 +253,89 @@
   }
 
   &.ng-leave { display: none !important; }
+  
+  
+  
+ 
 }
+
+ .srch-item {
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+
+    &:hover,
+    &.style--highlighted {
+      background-color: white;
+    }
+
+    > * {
+      display: block;
+      padding: (5 / 2) 5;
+    }
+  }
+  
+  
+  .srch-results {
+    background-color: black;
+    color: white;
+    position: absolute;
+    top: 100%;
+    // Hide it under the cube.
+    z-index: 1;
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: transform .2s, opacity .2s;
+    }
+
+    &.ng-hide-add {
+      opacity: 1;
+      transform: translateY(0);
+
+      &.ng-hide-add-active {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+
+    &.ng-hide-remove {
+      opacity: 0;
+      transform: translateY(10px);
+
+      &.ng-hide-remove-active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  
+   .srch-results {
+    left: 10;
+    padding: 5;
+    top: 5 - ((5- 7) / 2);
+    width: 100%;
+
+    @media screen and (min-width: 10) {
+      left: -5;
+      top: 100%;
+      width: calc(100%);
+    }
+  }
+  
+  
+ 
+  .srch-text {
+    border: none;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    &:focus { outline: none; }
+  }
+  
+
+  
