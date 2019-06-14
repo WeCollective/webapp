@@ -10,6 +10,9 @@ class BranchSubbranchesHeaderController extends Injectable {
   constructor(...injections) {
     super(BranchSubbranchesHeaderController.$inject, injections);
 
+	this.results = this.SearchService.getResults();
+    this.query = '';
+	
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.setDefaultControls = this.setDefaultControls.bind(this);
 
@@ -41,13 +44,69 @@ class BranchSubbranchesHeaderController extends Injectable {
       ...attachFilterListeners(this.$scope, ctrls, this.callbackDropdown),
       this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultControls),
     ];
+	
+	listeners.push(this.EventService.on(events.SEARCH, () => this.handleSearch()));
+    listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.searchBranches(q,this.$state.params.branchid))); //add the rootid
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
+  
+  //SEARCHING
+  
+  clearQuery() {
+    this.query = '';
+  }
+  
+      getSearchNode() {
+    return document.getElementsByClassName('srch-text')[0];
+  }
+    search(res){
+	   this.query = res;
+	   this.callbackDropdown();
+  }
+  
+  
+   handleKeyPress(event) {
+    const { which } = event;
+    switch (which) {
+      // Enter.
+      case 13: {
+        this.search(this.query);
+		const input = this.getSearchNode();
+        if (input) input.blur();
+        break;
+      }
+
+      // Escape.
+      case 27: {
+        const input = this.getSearchNode();
+        if (input) input.blur();
+        break;
+      }
+
+      default:
+        // Do nothing.
+        break;
+    }
+  }
+  
+  
+ 
+   handleSearch() {
+    this.results = this.SearchService.getResults();
+  }
+
+ 
+  
+  //SEARCHING END
+ 
+  
+
 
   callbackDropdown() {
     this.HeaderService.setFilters({
       sortBy: this.getSortBy(),
       timeRange: this.getTimeRange(),
+	  query: this.query,
     });
 
     const { applyFilter } = this.UrlService;
@@ -99,10 +158,13 @@ class BranchSubbranchesHeaderController extends Injectable {
 BranchSubbranchesHeaderController.$inject = [
   '$scope',
   '$timeout',
+  '$state',
   'EventService',
   'HeaderService',
   'UrlService',
   'WallService',
+  'SearchService',
+
 ];
 
 export default BranchSubbranchesHeaderController;

@@ -15,6 +15,7 @@ class BranchSubbranchesController extends Injectable {
       lastId: undefined,
       sortBy: undefined,
       timeRange: undefined,
+	  query: undefined,
     };
 
     const { events } = this.EventService;
@@ -49,11 +50,12 @@ class BranchSubbranchesController extends Injectable {
     const {
       sortBy,
       timeRange,
+	  query,
     } = filters;
 
     // Don't send the request if nothing changed.
     if (lr.id === id && lr.lastId === lastId &&
-      lr.sortBy === sortBy && lr.timeRange === timeRange) {
+      lr.sortBy === sortBy && lr.timeRange === timeRange && lr.query === query) {
       return;
     }
 
@@ -62,9 +64,10 @@ class BranchSubbranchesController extends Injectable {
     this.lastRequest.lastId = lastId;
     this.lastRequest.sortBy = sortBy;
     this.lastRequest.timeRange = timeRange;
+	this.lastRequest.query = query;
 
     this.isWaitingForRequest = true;
-    this.BranchService.getSubbranches(id, timeRange, sortBy, lastId)
+    this.BranchService.getSubbranches(id, timeRange, sortBy, lastId,query)
       .then(branches => this.$timeout(() => {
         // if lastId was specified we are fetching _more_ branches, so append them
         this.items = lastId ? this.items.concat(branches) : branches;

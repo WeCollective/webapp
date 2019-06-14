@@ -14,6 +14,8 @@ class PostService extends Injectable {
     this.resetLastRequest();
     this.updatePost();
 
+	this.lastIdToPass = null;
+	this.lastFiltered = null;
     this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.updatePost);
   }
 
@@ -78,19 +80,21 @@ class PostService extends Injectable {
       sortBy,
       statType,
       timeRange,
+	  query,
     } = filters;
 
     // Don't send the request if the filters aren't initialised properly yet.
     if (postType === null || postType === undefined || sortBy === null ||
       sortBy === undefined || statType === null || statType === undefined ||
-      timeRange === null || timeRange === undefined) {
+      timeRange === null || timeRange === undefined || query === undefined) {
       return Promise.resolve();
     }
 
     // Don't send the request if nothing changed.
+	//TODO: if filters are the same but query has changed just filter current data
     if (lr.id === branchid && lr.lastId === lastId &&
       lr.postType === postType && lr.sortBy === sortBy &&
-      lr.statType === statType && lr.timeRange === timeRange) {
+      lr.statType === statType && lr.timeRange === timeRange && lr.query===query) {
       return Promise.resolve();
     }
 
@@ -103,6 +107,7 @@ class PostService extends Injectable {
     this.lastRequest.sortBy = sortBy;
     this.lastRequest.statType = statType;
     this.lastRequest.timeRange = timeRange;
+	this.lastRequest.query = query;
 
     const params = {
       flag: !!flag,
@@ -110,14 +115,39 @@ class PostService extends Injectable {
       sortBy,
       stat: statType,
       timeafter: timeRange,
+	  query:query,
     };
 
-    if (lastId) params.lastPostId = lastId;
+    if (lastId) {
+		params.lastPostId = this.lastIdToPass;
+		if(!!this.lastFiltered)
+			params.lastFiltered = this.lastFiltered;
+	}
+	
 
+	
     return this.API.get('/branch/:branchid/posts', { branchid }, params)
       .then(res => {
         const newPosts = res.data;
-
+		//case when searching post:
+			//case actual results are 0 newPosts = [] 
+			//case actual results are n newPosts = [n] and newPosts[last] = the final search post, take it out and use it in later requests
+			//case results are 30 and lastfilterid exists, next time pagnating and have to attach lastFiltered with the id of lastfilterid
+			//err case when queryIsOk is false on the API side - make sure that queryIsOk returns false only when filtering without a search
+			//otherwise fail first here and don't send the request, make the checks on the client-side checkout branchwallposts controller get function queryIsOk variable
+		//case when not searching post:
+			//case results are normal and post at the end
+			
+		if(newPosts.length>0) {
+			let temp = newPosts.splice(newPosts.length-1,1);
+			this.lastIdToPass = temp[0].id;
+			if(!!temp[0].lastfilterid){
+				this.lastFiltered = temp[0].lastfilterid;
+			}
+			else
+				this.lastFiltered = null;
+		}
+		
         if (lastId && !branchChanged) {
           this.posts = [
             ...this.posts,
@@ -144,7 +174,10 @@ class PostService extends Injectable {
       sortBy: undefined,
       statType: undefined,
       timeRange: undefined,
+	  query: undefined,
     };
+	this.lastIdToPass = null;
+	this.lastFiltered = null;
   }
 
   updatePost() {

@@ -11,10 +11,15 @@ const {
 class BranchWallHeaderController extends Injectable {
   constructor(...injections) {
     super(BranchWallHeaderController.$inject, injections);
-
+	
     this.callbackDropdown = this.callbackDropdown.bind(this);
     this.setDefaultFilters = this.setDefaultFilters.bind(this);
 
+
+	this.results = this.SearchService.getResults();
+    this.query = '';
+	
+	
     this.filters = {
       postType: {
         items: Category,
@@ -56,8 +61,62 @@ class BranchWallHeaderController extends Injectable {
       ...attachFilterListeners(this.$scope, fltrs, this.callbackDropdown),
       this.EventService.on(events.CHANGE_BRANCH_PREFETCH, this.setDefaultFilters),
     ];
+	
+	
+	listeners.push(this.EventService.on(events.SEARCH, () => this.handleSearch()));
+    listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.searchPosts(q)));
     this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
   }
+  
+    //SEARCHING
+  
+  clearQuery() {
+    this.query = '';
+  }
+  
+      getSearchNode() {
+    return document.getElementsByClassName('srch-text')[0];
+  }
+    search(res){
+	   this.query = res;
+	   this.callbackDropdown();
+  }
+  
+  
+   handleKeyPress(event) {
+    const { which } = event;
+    switch (which) {
+      // Enter.
+      case 13: {
+        this.search(this.query);
+		const input = this.getSearchNode();
+        if (input) input.blur();
+        break;
+      }
+
+      // Escape.
+      case 27: {
+        const input = this.getSearchNode();
+        if (input) input.blur();
+        break;
+      }
+
+      default:
+        // Do nothing.
+        break;
+    }
+  }
+  
+  
+ 
+   handleSearch() {
+    this.results = this.SearchService.getResults();
+  }
+
+ 
+  
+  //SEARCHING END
+ 
 
   callbackDropdown() {
     if (!this.initialized) return;
@@ -67,6 +126,7 @@ class BranchWallHeaderController extends Injectable {
       sortBy: this.getSortBy(),
       statType: this.getStatType(),
       timeRange: this.getTimeRange(),
+	  query: this.query,
     });
 
     const { applyFilter } = this.UrlService;
@@ -81,6 +141,7 @@ class BranchWallHeaderController extends Injectable {
     applyFilter(statType, 'stat');
     applyFilter(timeRange, 'time');
     applyFilter(postType, 'type');
+
   }
 
   getPostType() {
@@ -148,6 +209,7 @@ BranchWallHeaderController.$inject = [
   'HeaderService',
   'UrlService',
   'WallService',
+  'SearchService',
 ];
 
 export default BranchWallHeaderController;

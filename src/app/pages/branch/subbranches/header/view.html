@@ -14,8 +14,33 @@
   text="Ctrl.WallService.getHeaderButtonTooltip()"
   style="min-width: 152px">Create new branch
 </a>
-
 <div class="header__controls style--has-dropdown">
+<div class="srch-wrapper ng-scope">
+
+       <input class="srch-text"
+		id="searchField"
+		ng-blur="Ctrl.SearchService.hide();"
+		ng-focus="Ctrl.SearchService.show()" 
+		ng-keydown="Ctrl.handleKeyPress($event)"
+		ng-model="Ctrl.query"
+		placeholder="Find a branch"
+		type="text">
+	
+		
+		   <ul
+          class="srch-results"
+         ng-show="Ctrl.SearchService.isVisible"> 
+          <li
+            class="srch-item"
+            ng-repeat="result in Ctrl.results"
+			ng-click="Ctrl.search(result.text);">
+			
+            {{result.text}}
+          </li>
+        </ul>
+      </div>
+	  
+	  
   <dropdown
     items="Ctrl.timeRange"
     selected="Ctrl.controls.timeRange.selectedIndex"

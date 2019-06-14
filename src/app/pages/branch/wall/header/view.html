@@ -13,7 +13,34 @@
   style="min-width: 134px;">Create new post
 </a>
 
+
 <div class="header__controls style--has-dropdown">
+<div class="srch-wrapper ng-scope">
+
+       <input class="srch-text"
+		id="searchField"
+		ng-blur="Ctrl.SearchService.hide();"
+		ng-focus="Ctrl.SearchService.show()" 
+		ng-keydown="Ctrl.handleKeyPress($event)"
+		ng-model="Ctrl.query"
+		placeholder="Find a branch, post, or a user."
+		type="text">
+	
+		
+		   <ul
+          class="srch-results"
+         ng-show="Ctrl.SearchService.isVisible"> 
+          <li
+            class="srch-item"
+            ng-repeat="result in Ctrl.results"
+			ng-click="Ctrl.search(result.text);">
+			
+            {{result.text}}
+          </li>
+        </ul>
+      </div>
+	  
+
   <dropdown
     items="Ctrl.timeRange"
     selected="Ctrl.filters.timeRange.selectedIndex"
@@ -39,3 +66,4 @@
     title="Ctrl.filters.statType.title">
   </dropdown>
 </div>
+

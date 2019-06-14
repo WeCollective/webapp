@@ -154,12 +154,16 @@ class BranchService extends Injectable {
     });
   }
 
-  getSubbranches(branchid, timeafter, sortBy, lastBranchId) {
+  getSubbranches(branchid, timeafter, sortBy, lastBranchId,query) {
     return new Promise((resolve, reject) => {
-      const params = {
+    const params = {
         sortBy,
         timeafter,
       };
+
+	
+	  if(query)
+		  params.query = query;
 
       if (lastBranchId) {
         params.lastBranchId = lastBranchId;
