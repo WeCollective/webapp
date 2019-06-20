@@ -120,6 +120,7 @@ class CreatePostModalController extends Injectable {
       type,
       url,
     } = this.post;
+	var profileUrlThumb = (!!this.post.profileUrlThumb)? this.post.profileUrlThumb : '';
     const { id: branchid } = this.BranchService.branch;
     let error = '';
 
@@ -206,7 +207,7 @@ class CreatePostModalController extends Injectable {
             title,
             url,
             profileUrl: '',
-            profileUrlThumb: '',
+            profileUrlThumb: profileUrlThumb,
             userVoted: 'up',
           },
           ...this.PostService.posts,
@@ -277,6 +278,14 @@ class CreatePostModalController extends Injectable {
           if (data.url && data.url !== this.post.url) {
             this.post.url = data.url;
           }
+		  
+		  if(data.image){
+		  if (data.image.url && data.image.url !== this.post.profileUrlThumb) {
+            this.post.profileUrlThumb = data.image.url;
+			this.url = data.image.url;
+			this.file = null;
+          }
+		}
 
           if (data.type) {
             const { urlToFilterItemIndex } = this.UrlService;
@@ -322,7 +331,15 @@ class CreatePostModalController extends Injectable {
   }
 
   setFile(file) {
-    this.file = file;
+	      this.file = file;
+
+	//if null is passed assume you want to go back to the originally gotten thumbnail if it exists
+	if(!file){
+		this.post.profileUrlThumb = (!!this.url) ? this.url : '';
+	}
+	else 
+		this.post.profileUrlThumb = '';
+	
   }
 
   togglePreview() {
