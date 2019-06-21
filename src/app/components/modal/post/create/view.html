@@ -29,7 +29,7 @@
           alt=""
           id="graphic"
           ng-show="Ctrl.getPostType() !== Ctrl.PostTypeImage"
-          ng-src="{{ Ctrl.url || '/assets/images/image.png' }}" />
+          ng-src="{{ '/assets/images/image.png' }}" />
 
         <div
           id="image-preview"
@@ -40,8 +40,8 @@
         <h2 ng-show="Ctrl.getPostType() !== Ctrl.PostTypeImage">
           Drop an image here!
         </h2>
-
-        <div id="preview" ngf-background="Ctrl.file"></div>
+		
+        <div id="preview" ngf-background="Ctrl.file || Ctrl.url"></div>
       </div>
 
       <div
@@ -74,8 +74,11 @@
             </span>
             <span>
               {{ Ctrl.post.nsfw ? 'on' : 'off' }}
+			  
             </span>
+			
           </div>
+
           <input
             id="checkbox-nsfw"
             ng-disabled="Ctrl.isDisabled()"
