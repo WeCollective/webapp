@@ -7,7 +7,7 @@ branches:
   only:
   - develop
 
-# TODO: Separate jobs into stages, change environments based on branch
+# TODO: Separate jobs into stages, change environments based on branchh
 script:
   - npm test
   - npm run build
