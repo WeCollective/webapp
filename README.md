@@ -23,7 +23,7 @@
 -   Request the server environment variables file from Weco Admins
     
 
-	-   Email james@weco.io or send us a message on Discord
+	-   Email james@weco.io or send us a message on Discord (make sure the file is named .env)
     
 
 # Setup
