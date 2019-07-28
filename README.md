@@ -65,6 +65,15 @@
 
 	-   “npm run stop:localstack”
     
+# Setup SSL first time running the project:
+
+1. to run the project and use the certificates you have to install them first
+2. to install them go to
+	for server: config\ssl and double click on ia.p12, that will self-sign the cert for the api, just continue clicking next and accept at the end
+	for the webapp: go to config\ssl and click on the ia.p12, install that (click next a bunch of times)
+3. You're good to go! https should not give you a problem and certificates should show up as verified (little lock left of the url isn't red)
+_P.S. Not green because the certificate is self-signed_
+
 
 # Pushing changes to GitHub
 
