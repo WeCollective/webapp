@@ -19,6 +19,11 @@
     
 
 	-   You have to use an account you can create one or you can ask for the shared one
+	
+-   Request the server environment variables file from Weco Admins
+    
+
+	-   Email james@weco.io or send us a message on Discord
     
 
 # Setup
