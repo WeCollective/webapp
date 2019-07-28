@@ -120,7 +120,8 @@ class CreatePostModalController extends Injectable {
       type,
       url,
     } = this.post;
-	var profileUrlThumb = (!!this.post.profileUrlThumb)? this.post.profileUrlThumb : '';
+	var profileUrlThumb = (!!this.post.profileUrlThumb)? this.post.profileUrlThumb : ''; //link to img
+
     const { id: branchid } = this.BranchService.branch;
     let error = '';
 
@@ -186,32 +187,74 @@ class CreatePostModalController extends Injectable {
 
       if (!err) {
         // Mock the full server answer on client.
-        this.PostService.posts = [
-          {
-            branchid,
-            comment_count: 0,
-            date: Date.now(),
-            id: postid,
-            down: 0,
-            global: 1,
-            individual: 1,
-            local: 1,
-            locked,
-            nsfw,
-            type,
-            up: 1,
-            creator: this.UserService.user.username,
-            original_branches: JSON.stringify(post.branches),
-            pollAnswers,
-            text,
-            title,
-            url,
-            profileUrl: '',
-            profileUrlThumb: profileUrlThumb,
-            userVoted: 'up',
-          },
-          ...this.PostService.posts,
-        ];
+		
+		//display pic uploaded by file
+       if(this.file){
+		    var reader = new FileReader();
+		let userserv = this.UserService;
+		let postserv = this.PostService;
+		reader.onload = function (e) {
+				postserv.posts = [
+				  {
+					branchid,
+					comment_count: 0,
+					date: Date.now(),
+					id: postid,
+					down: 0,
+					global: 1,
+					individual: 1,
+					local: 1,
+					locked,
+					nsfw,
+					type,
+					up: 1,
+					creator: userserv.user.username,
+					original_branches: JSON.stringify(post.branches),
+					pollAnswers,
+					text,
+					title,
+					url,
+					profileUrl: e.target.result,
+					profileUrlThumb: e.target.result,
+					userVoted: 'up',
+				  },
+				  ...postserv.posts,
+				];
+		   }
+		   
+		reader.readAsDataURL(this.file);
+
+	   }
+	   
+		//display pick uploaded by url
+		else{
+			 this.PostService.posts = [
+			  {
+				branchid,
+				comment_count: 0,
+				date: Date.now(),
+				id: postid,
+				down: 0,
+				global: 1,
+				individual: 1,
+				local: 1,
+				locked,
+				nsfw,
+				type,
+				up: 1,
+				creator: this.UserService.user.username,
+				original_branches: JSON.stringify(post.branches),
+				pollAnswers,
+				text,
+				title,
+				url,
+				profileUrl: profileUrlThumb,
+				profileUrlThumb: profileUrlThumb,
+				userVoted: 'up',
+			  },
+			  ...this.PostService.posts,
+			];
+		}
       }
 
       this.$timeout(() => {
@@ -219,6 +262,7 @@ class CreatePostModalController extends Injectable {
         this.ModalService.disabled = false;
       });
 
+//if file
       if (!err && this.file && type !== PostTypeImage) {
         let uploadUrl;
 
@@ -239,6 +283,24 @@ class CreatePostModalController extends Injectable {
           this.AlertsService.push('error', 'Unable to upload photo!');
           this.ModalService.OK();
         }
+      }
+//if link
+	  else if (!err && profileUrlThumb && type !== PostTypeImage) {
+
+        try {
+		  const uploadUrlRoute = `post/${postid}/picture`;
+		  yield this.UploadService.uploadImageFromUrl(uploadUrlRoute,profileUrlThumb,postid)
+
+          profileUrlThumb = null;
+		  this.post.profileUrlThumb = null;
+		  this.url = null;
+          this.ModalService.OK();
+        }
+        catch (e) {
+          this.AlertsService.push('error', 'Unable to upload photo!');
+          this.ModalService.OK();
+        }
+		
       }
       else if (!err) {
         this.ModalService.OK();
@@ -349,6 +411,7 @@ class CreatePostModalController extends Injectable {
 
 CreatePostModalController.$inject = [
   '$scope',
+  '$http',
   '$timeout',
   'AlertsService',
   'AppService',
