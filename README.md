@@ -1,6 +1,6 @@
 # WECO Web App
 
-# **Weco Codebase Setup Instructions**
+# **Weco Codebase Setup Instructions For Local Development**
 ~ 2019
 
 # Pre-setup Requirements
@@ -60,7 +60,7 @@
 	-   Changes made to your local code repository will now appear at [](https://localhost:8081/) [https://localhost:8081](https://localhost:8081)
     
 
--   This will start a service called localstack which emulates AWS services. It will run in the background until you stop it. It is suggested that you run it until you want to stop working as it takes 4 minutes to restart. At the end of the work session to stop it run:
+-   This will start a service called localstack which emulates AWS services. Any changes or interactions with aws can be done using command-line arguments through the aws api, which should be installed already (see documentation at: https://docs.aws.amazon.com/cli/latest/index.html). It will run in the background until you stop it. It is suggested that you run it until you want to stop working as it takes 4 minutes to restart. At the end of the work session to stop it run:
     
 
 	-   “npm run stop:localstack”
