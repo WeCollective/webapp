@@ -1,5 +1,6 @@
 # WECO Web App
 
+
 # **Weco Codebase Setup Instructions For Local Development**
 ~ 2019
 
@@ -14,12 +15,26 @@
 -   Download and install Git: [](https://git-scm.com/download) [https://git-scm.com/download#](https://git-scm.com/download#)
     
 -   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)
-    
--   Download and Install Docker: [https://hub.docker.com/](https://hub.docker.com/)
-    
 
-	-   You have to use an account you can create one or you can ask for the shared one
+-   Download and install Python https://www.python.org/
+
+-   Download and install PiP https://www.liquidweb.com/kb/install-pip-windows/
     
+-   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/overview/](https://docs.docker.com/toolbox/overview/)
+    
+	-   You will have to create new account in the process. Keep your user id and password stored safely for future access
+	
+	-   After you run the installer, restart your computer before opening the application or it may cause your computer to crash
+	
+	-   Go to the installation folder of docker and from ~/.docker/config.json just remove the "credsStore": "wincred
+	
+	-   after that install pip packages using the commands:
+			"pip install boto" and
+			"pip install boto3"
+	
+	-   Request the server environment variables file from Weco Admins
+    
+	-   Email james@weco.io or send us a message on [Discord](https://discord.gg/n4xqXj7)    
 
 # Setup
 
@@ -28,40 +43,46 @@
 -   Open your terminal and navigate to the new folder
     
 -   Clone the “webb app” (development branch) and “server” (local branch) repositories from [https://github.com/WeCollective](https://github.com/WeCollective) to the folder
-    
 
-	-   Enter “git clone --single-branch --branch develop https://github.com/WeCollective/webapp.git”
+	-   Enter “git clone --single-branch --branch develop [https://github.com/WeCollective/webapp.git](https://github.com/WeCollective/webapp.git)”
     
 	-   Enter “git clone --single-branch --branch local [https://github.com/WeCollective/server.git](https://github.com/WeCollective/server.git)”
-    
 
--   Navigate in your terminal to the “webapp” folder
-    
+-   Add the server environment variables file to the "server" folder
+
+	-   Make sure the file is named ".env" with a full stop at the start, not just "env", or else it won't work. You can rename the file this way using Notepad on Windows
+	
+-   Open the "Docker Quickstart Terminal" and wait for it to load
+
+-   After Booting up docker open up Kitematic (Should be installed with docker toolbox)
+
+-   At the bottom left click on Docker CLI
+
+-   NPM will probably give you an error with powershell, to fix that, locate where nodejs is installed on your pc (usually at C:\Program Files\nodejs) then go to .\node_modules\npm and open up npmrc and change prefix=${APP_DATA} to prefix=C:\Program Files\nodejs\node_modules\npm    (change ${APP_DATA} to your npm module in your nodejs folder)
+
+-   Navigate in your powershell teminal to the “webapp” folder 
 
 	-   Enter “npm install”
     
 	-   Enter “npm start”
     
 	-   If this has worked correctly [https://localhost:8081](https://localhost:8081/) will now display Weco’s template in your browser but won’t load any content
-    
 
--   Open a new terminal and navigate to the “server” folder
-    
+-   Open a new docker CLI terminal from Kitematic and navigate to the “server” folder
 
 	-   Enter “npm install”
+
+	-   Enter “npm install shelljs”
     
 	-   Enter “npm run [start:local](https://github.com/WeCollective/server/blob/master/package.json#L15)” and wait for 4 minutes until the server and localstack have been correctly loaded
     
 	-   If this has worked correctly [https://localhost:8081](https://localhost:8081/) will now load content from Weco’s [development environment](https://en.wikipedia.org/wiki/Deployment_environment#Development)
-    
 
 	-   Note: Posts and Users will be added only from the dump db files and any users or posts you create will not be kept throughout localstack restarts (to keep them you can add an entry as a json file at (lambda_stuff/dump/the corresponding table) )
     
 	-   Changes made to your local code repository will now appear at [](https://localhost:8081/) [https://localhost:8081](https://localhost:8081)
-    
 
 -   This will start a service called localstack which emulates AWS services. Any changes or interactions with aws can be done using command-line arguments through the aws api, which should be installed already (see documentation at: https://docs.aws.amazon.com/cli/latest/index.html). It will run in the background until you stop it. It is suggested that you run it until you want to stop working as it takes 4 minutes to restart. At the end of the work session to stop it run:
-    
 
 	-   “npm run stop:localstack”
     
