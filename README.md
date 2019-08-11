@@ -15,9 +15,9 @@
     
 -   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)
 
--   Download and install Python 
+-   Download and install Python https://www.python.org/
 
--   Download and install PiP
+-   Download and install PiP https://www.liquidweb.com/kb/install-pip-windows/
     
 -   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/overview/](https://docs.docker.com/toolbox/overview/)
     
@@ -27,9 +27,9 @@
 	
 	-   Go to the installation folder of docker and from ~/.docker/config.json just remove the "credsStore": "wincred
 	
-	-   after that install pip packages using the commands below:
-			pip install boto
-			pip install boto3
+	-   after that install pip packages using the commands:
+			"pip install boto" and
+			"pip install boto3"
 	
 	-   Request the server environment variables file from Weco Admins
     
