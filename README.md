@@ -17,7 +17,7 @@
     
 -   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/toolbox_install_windows/](https://docs.docker.com/toolbox/toolbox_install_windows/)
     
-	-   You have to use an account you can create one or you can ask for the shared one
+	-   You will have to create new account in the process. Keep your user id and password stored safely for future access
 	
 	-   After you run the installer, restart your computer before opening the application or it may cause your computer to crash
 	
