@@ -14,6 +14,10 @@
 -   Download and install Git: [](https://git-scm.com/download) [https://git-scm.com/download#](https://git-scm.com/download#)
     
 -   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)
+
+-   Download and install Python 
+
+-   Download and install PiP
     
 -   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/overview/](https://docs.docker.com/toolbox/overview/)
     
@@ -21,7 +25,13 @@
 	
 	-   After you run the installer, restart your computer before opening the application or it may cause your computer to crash
 	
--   Request the server environment variables file from Weco Admins
+	-   Go to the installation folder of docker and from ~/.docker/config.json just remove the "credsStore": "wincred
+	
+	-   after that install pip packages using the commands below:
+			pip install boto
+			pip install boto3
+	
+	-   Request the server environment variables file from Weco Admins
     
 	-   Email james@weco.io or send us a message on [Discord](https://discord.gg/n4xqXj7)    
 
@@ -43,7 +53,13 @@
 	
 -   Open the "Docker Quickstart Terminal" and wait for it to load
 
--   Navigate in your terminal to the “webapp” folder 
+-   After Booting up docker open up Kitematic (Should be installed with docker toolbox)
+
+-   At the bottom left click on Docker CLI
+
+-   NPM will probably give you an error with powershell, to fix that, locate where nodejs is installed on your pc (usually at C:\Program Files\nodejs) then go to .\node_modules\npm and open up npmrc and change prefix=${APP_DATA} to prefix=C:\Program Files\nodejs\node_modules\npm    (change ${APP_DATA} to your npm module in your nodejs folder)
+
+-   Navigate in your powershell teminal to the “webapp” folder 
 
 	-   Enter “npm install”
     
@@ -51,9 +67,11 @@
     
 	-   If this has worked correctly [https://localhost:8081](https://localhost:8081/) will now display Weco’s template in your browser but won’t load any content
 
--   Open a new terminal and navigate to the “server” folder
+-   Open a new docker CLI terminal from Kitematic and navigate to the “server” folder
 
 	-   Enter “npm install”
+
+	-   Enter “npm install shelljs”
     
 	-   Enter “npm run [start:local](https://github.com/WeCollective/server/blob/master/package.json#L15)” and wait for 4 minutes until the server and localstack have been correctly loaded
     
