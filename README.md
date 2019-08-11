@@ -15,7 +15,7 @@
     
 -   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)
     
--   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/toolbox_install_windows/](https://docs.docker.com/toolbox/toolbox_install_windows/)
+-   Download and Install Docker Toolbox: [https://docs.docker.com/toolbox/overview/](https://docs.docker.com/toolbox/overview/)
     
 	-   You will have to create new account in the process. Keep your user id and password stored safely for future access
 	
