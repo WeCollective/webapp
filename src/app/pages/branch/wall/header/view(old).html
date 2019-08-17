@@ -1,0 +1,69 @@
+<img
+  alt="Toggle sidebar"
+  class="header__button style--sidebar-toggle"
+  ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+  ng-click="Navbar.AppService.toggleSidebar()"
+  src="/assets/images/icons/show.svg"/>
+
+<a class="header__button style--secondary ng-hide"
+  ng-click="Ctrl.WallService.handleHeaderButtonClick()"
+  ng-show="Ctrl.WallService.isHeaderButtonVisible()"
+  offset-y="40"
+  text="Ctrl.WallService.getHeaderButtonTooltip()"
+  style="min-width: 134px;">Create new post
+</a>
+
+
+<div class="header__controls style--has-dropdown">
+<div class="srch-wrapper ng-scope">
+
+       <input class="srch-text"
+		id="searchField"
+		ng-blur="Ctrl.SearchService.hide();"
+		ng-focus="Ctrl.SearchService.show()" 
+		ng-keydown="Ctrl.handleKeyPress($event)"
+		ng-model="Ctrl.query"
+		placeholder="Find a branch, post, or a user."
+		type="text">
+	
+		
+		   <ul
+          class="srch-results"
+         ng-show="Ctrl.SearchService.isVisible"> 
+          <li
+            class="srch-item"
+            ng-repeat="result in Ctrl.results"
+			ng-click="Ctrl.search(result.text);">
+			
+            {{result.text}}
+          </li>
+        </ul>
+      </div>
+	  
+
+  <dropdown
+    items="Ctrl.timeRange"
+    selected="Ctrl.filters.timeRange.selectedIndex"
+    title="Ctrl.filters.timeRange.title">
+  </dropdown>
+  
+  <dropdown
+    items="Ctrl.postType"
+    post-types="true"
+    selected="Ctrl.filters.postType.selectedIndex"
+    title="Ctrl.filters.postType.title">
+  </dropdown>
+
+  <dropdown
+    items="Ctrl.sortBy"
+    selected="Ctrl.filters.sortBy.selectedIndex"
+    title="Ctrl.filters.sortBy.title">
+  </dropdown>
+
+  <dropdown
+    items="Ctrl.statType"
+    selected="Ctrl.filters.statType.selectedIndex"
+    title="Ctrl.filters.statType.title">
+  </dropdown>
+</div>
+

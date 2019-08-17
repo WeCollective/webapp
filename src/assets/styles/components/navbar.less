@@ -1,14 +1,14 @@
 //---------------------- Imports ----------------------//
 
-@import "styles.scss";
+@import "styles.less";
 
 //---------------------- Controls ----------------------//
 
-$nav-bar-height: 50px; //
+@nav-bar-height: 50px; //
 
-$nav-bar-color: #222;
+@nav-bar-color: #222;
 
-$nav-bar-icon-size: 26px;
+@nav-bar-icon-size: 26px;
 
 //---------------------- Components ----------------------//
 
@@ -16,26 +16,26 @@ $nav-bar-icon-size: 26px;
     z-index: 10;
     position: fixed;
     width: 100%;
-    height: $nav-bar-height;
-    background-color: $nav-bar-color;
+    height: @nav-bar-height;
+    background-color: @nav-bar-color;
 }
 
     .nav-bar-content {
-        width: $main-content-width;
-        height: $nav-bar-height;
+        width: @main-content-width;
+        height: @nav-bar-height;
         margin: auto;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
 
-        @media screen and (max-width: $main-content-width) {
+        @media screen and (max-width: @main-content-width) {
             width: 100%;
         }
     }
 
         .nav-bar-left {
-            height: $nav-bar-height;
+            height: @nav-bar-height;
             float: left;
             display: flex;
             flex-direction: row;
@@ -48,7 +48,7 @@ $nav-bar-icon-size: 26px;
         }
 
             .nav-bar-left-dropdown-button {
-                height: $nav-bar-height;
+                height: @nav-bar-height;
 
                 @media screen and (min-width: 701px) {
                     display: none;
@@ -104,7 +104,7 @@ $nav-bar-icon-size: 26px;
                         }
 
         .nav-bar-center {
-            height: $nav-bar-height;
+            height: @nav-bar-height;
             width: 400px;
             float: center;
             display: flex;
@@ -130,8 +130,8 @@ $nav-bar-icon-size: 26px;
                 .global-search-bar-input {
                     border: none;
                     padding: 0 16px;
-                    font-size: $small-text;
-                    color: $dark-grey-text;
+                    font-size: @small-text;
+                    color: @dark-grey-text;
                     height: 100%;
                     width: 100%;
                     background-color: transparent;
@@ -156,7 +156,7 @@ $nav-bar-icon-size: 26px;
                 }     
 
         .nav-bar-right {
-            height: $nav-bar-height;
+            height: @nav-bar-height;
             right: 0;
             display: flex;
             flex-direction: row;
@@ -176,7 +176,7 @@ $nav-bar-icon-size: 26px;
             
             .nav-bar-username {
                 margin: auto;
-                font-size: $medium-text;
+                font-size: @medium-text;
                 color: white;
                 opacity: 0.6;
             
@@ -186,7 +186,7 @@ $nav-bar-icon-size: 26px;
             }
 
         .nav-bar-right-dropdown-button {
-            height: $nav-bar-height;
+            height: @nav-bar-height;
             
             @media screen and (min-width: 701px) {
                 display: none;

@@ -17,12 +17,12 @@
 
 // Nav bar controls defined in "nav-bar.less"
 
-$main-content-width: 1400px; // 100%, 1400px, 1200px  |  Used on this page and in "main-content-wrapper" and "nav-bar-content"
-$header-height: 80px; // Used in "left-side-bar" and "central-panel"
-$left-side-bar-width: 270px;
-$central-panel-width: 820px;
-$right-side-bar-width: 250px;
-$small-circular-thumbnail: 40px; // Used for all small branch and user thumnail images
+@main-content-width: 1400px; // 100%, 1400px, 1200px  |  Used on this page and in "main-content-wrapper" and "nav-bar-content"
+@header-height: 80px; // Used in "left-side-bar" and "central-panel"
+@left-side-bar-width: 270px;
+@central-panel-width: 820px;
+@right-side-bar-width: 250px;
+@small-circular-thumbnail: 40px; // Used for all small branch and user thumnail images
 
 // Post layout controls defined in "post.less"
 
@@ -37,27 +37,27 @@ $small-circular-thumbnail: 40px; // Used for all small branch and user thumnail 
 
 //---------------------- Colours ----------------------//
 
-$brand-blue: #98cbff; // rgb(153, 196, 228) // Used on buttons, post type markers, and links
+@brand-blue: #98cbff; // rgb(153, 196, 228) // Used on buttons, post type markers, and links
 
 // Font Colours:
-$dark-grey-text: #666;  //  Used in "main-text" and "title"
-$light-grey-text: #ccc;  // Used in "sub-text" and side bar buttons
+@dark-grey-text: #666;  //  Used in "main-text" and "title"
+@light-grey-text: #ccc;  // Used in "sub-text" and side bar buttons
 
 // Post Type Marker Colours:
-//$purple-post-type-marker
-$blue-post-type-marker: $brand-blue;
-//$green-post-type-marker
-//$yellow-post-type-marker
-//$orange-post-type-marker
-//$red-post-type-marker
+//@purple-post-type-marker
+@blue-post-type-marker: @brand-blue;
+//@green-post-type-marker
+//@yellow-post-type-marker
+//@orange-post-type-marker
+//@red-post-type-marker
 
 // Background Colours:
-$light-grey-0: rgb(248, 248, 248);// rgb(244, 244, 244);
-$light-grey-1: #eee;
-$light-grey-2: #ddd;
-$light-grey-3: #ccc;
-$light-grey-4: #bbb;
-$light-grey-5: #aaa;
+@light-grey-0: rgb(248, 248, 248);// rgb(244, 244, 244);
+@light-grey-1: #eee;
+@light-grey-2: #ddd;
+@light-grey-3: #ccc;
+@light-grey-4: #bbb;
+@light-grey-5: #aaa;
 
 //---------------------- Fonts ----------------------//
 
@@ -77,92 +77,92 @@ $light-grey-5: #aaa;
 }
 
 // Sizes:
-$small-text: 14px;
-$medium-text: 16px;
-$large-text: 24px;
+@small-text: 14px;
+@medium-text: 16px;
+@large-text: 24px;
 
 // Weights:
-$regular-font-weight: 400;
-$bold-font-weight: 600;
+@regular-font-weight: 400;
+@bold-font-weight: 600;
 
 // Styles:
 
 .title-text { // Used for post and branch titles
-    color: $dark-grey-text;
-    font-size: $large-text;
-    font-weight: $regular-font-weight;
-    line-height: $large-text;
+    color: @dark-grey-text;
+    font-size: @large-text;
+    font-weight: @regular-font-weight;
+    line-height: @large-text;
 }
 
 .main-text { // Used for post and branch descriptions and comments
-    color: $dark-grey-text;
-    font-size: $small-text;
-    font-weight: $regular-font-weight;
+    color: @dark-grey-text;
+    font-size: @small-text;
+    font-weight: @regular-font-weight;
 
     &.link {
-        color: $brand-blue;
-        //font-weight: $bold-font-weight;
+        color: @brand-blue;
+        //font-weight: @bold-font-weight;
 
         &:hover {
-            color:  darken($brand-blue, 10%);
+            color:  darken(@brand-blue, 10%);
         }
     }
 
     &.bold {
-        font-weight: $bold-font-weight;
+        font-weight: @bold-font-weight;
     }
 
     &.large {
-        font-size: $medium-text;
+        font-size: @medium-text;
     }
 }
 
 .sub-text { // Used on post-tags and post-interact text
-    color: $light-grey-text;
-    font-size: $small-text;
-    font-weight: $regular-font-weight;
+    color: @light-grey-text;
+    font-size: @small-text;
+    font-weight: @regular-font-weight;
     flex-shrink: 0;
 
     &.link {
-        //font-weight: $bold-font-weight;
+        //font-weight: @bold-font-weight;
 
         &:hover {
-            color:  darken($light-grey-text, 10%);
+            color:  darken(@light-grey-text, 10%);
         }
     }
 
     &.dark-link {
-        //font-weight: $bold-font-weight;
-        color:  darken($light-grey-text, 20%);
+        //font-weight: @bold-font-weight;
+        color:  darken(@light-grey-text, 20%);
 
         &:hover {
-            color:  darken($light-grey-text, 40%);
+            color:  darken(@light-grey-text, 40%);
         }
     }
 
     &.blue { // Not currently in use
-        color: $brand-blue;
+        color: @brand-blue;
         &:hover {
-            color: darken($brand-blue, 10%);
+            color: darken(@brand-blue, 10%);
         }
     }
 }
 
 .link-text {
-    color: $light-grey-text;
-    font-size: $medium-text;
-    font-weight: $regular-font-weight;
+    color: @light-grey-text;
+    font-size: @medium-text;
+    font-weight: @regular-font-weight;
     text-decoration: none;
 
     &:hover {
-        color:  darken($light-grey-text, 10%);   
+        color:  darken(@light-grey-text, 10%);   
     }
 }
 
 .drop-down-title {
-    color: $light-grey-text;
+    color: @light-grey-text;
     font-size: 14px;
-    font-weight: $regular-font-weight;
+    font-weight: @regular-font-weight;
     margin-left: 4px;
 
     @media screen and (max-width: 700px) {
@@ -171,9 +171,9 @@ $bold-font-weight: 600;
 }
 
 .drop-down-option {
-    color: $dark-grey-text;
+    color: @dark-grey-text;
     font-size: 14px;
-    font-weight: $regular-font-weight;
+    font-weight: @regular-font-weight;
     padding: 0;
     border: none;
     outline: none;
@@ -191,7 +191,7 @@ $bold-font-weight: 600;
     height: 30px;
     border-radius: 50px;
     //background-image: linear-gradient(to right,#58afd4,#63c6b6);
-    background-color: $brand-blue;
+    background-color: @brand-blue;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -208,9 +208,9 @@ $bold-font-weight: 600;
     .primary-button-text {
         margin: auto;
         color: white;
-        font-weight: $regular-font-weight;
-        font-size: $small-text;
-        line-height: $small-text;
+        font-weight: @regular-font-weight;
+        font-size: @small-text;
+        line-height: @small-text;
     }
 
 .secondary-button {
@@ -218,7 +218,7 @@ $bold-font-weight: 600;
     height: 50px;
     border-radius: 4px;
     background-image: linear-gradient(to right,#58afd4,#63c6b6);
-    //background-color: $brand-blue;
+    //background-color: @brand-blue;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -235,9 +235,9 @@ $bold-font-weight: 600;
     .secondary-button-text {
         margin: auto;
         color: white;
-        font-weight: $regular-font-weight;
-        font-size: $medium-text;
-        line-height: $small-text;
+        font-weight: @regular-font-weight;
+        font-size: @medium-text;
+        line-height: @small-text;
     }
 
 .learn-more-button {
@@ -246,7 +246,7 @@ $bold-font-weight: 600;
     border-radius: 4px;
     border: 1px solid #ccc;
     //background-image: linear-gradient(to right,#58afd4,#63c6b6);
-    //background-color: $light-grey-0;
+    //background-color: @light-grey-0;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -262,10 +262,10 @@ $bold-font-weight: 600;
 
     .learn-more-button-text {
         margin: auto;
-        color: $dark-grey-text;
-        font-weight: $regular-font-weight;
-        font-size: $small-text;
-        line-height: $small-text;
+        color: @dark-grey-text;
+        font-weight: @regular-font-weight;
+        font-size: @small-text;
+        line-height: @small-text;
     }
 
 //---------------------- Global Classes ----------------------//
@@ -281,7 +281,7 @@ html {
 }
 
 body {
-    background-color: $light-grey-0; // Original light-grey: rgb(248, 248, 248);
+    background-color: @light-grey-0; // Original light-grey: rgb(248, 248, 248);
     margin: 0;
 }
 
@@ -309,22 +309,22 @@ body {
 }
 
 .main-content-wrapper { // Contains "left-side-bar", "central-panel", and "side-bar-right"
-    width: $main-content-width;
+    width: @main-content-width;
     margin: auto; // Floats in the middle of the screen
     //background-color: #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between; // Contained divs spread across full width of wrapper
 
-    @media screen and (max-width: $main-content-width) {
+    @media screen and (max-width: @main-content-width) {
         width: 100%;
         justify-content: flex-start;
     }
 }
 
 .small-circular-thumbnail {  // Used for all small circular thumbnail images on the site
-    width: $small-circular-thumbnail;
-    height: $small-circular-thumbnail;
+    width: @small-circular-thumbnail;
+    height: @small-circular-thumbnail;
     border-radius: 50%;
     background-position: center; 
     background-size: cover;
