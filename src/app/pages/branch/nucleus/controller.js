@@ -21,8 +21,8 @@ class BranchNucleusController extends Injectable {
     const branchid = this.BranchService.branch.id;
     return {
       tabItems: [
-        'about',
-        'moderators',
+        'About',
+        'Moderators',
       ],
       tabStates: [
         'weco.branch.nucleus.about',
@@ -52,17 +52,17 @@ class BranchNucleusController extends Injectable {
     // Add moderator tabs.
     if (this.UserService.isAuthenticated() && this.BranchService.isModerator()) {
       // Settings.
-      newState.tabItems.push('settings');
+      newState.tabItems.push('Settings');
       newState.tabStates.push('weco.branch.nucleus.settings');
       newState.tabStateParams.push({ branchid });
 
       // Mod tools.
-      newState.tabItems.push('mod tools');
+      newState.tabItems.push('Mod Tools');
       newState.tabStates.push('weco.branch.nucleus.modtools');
       newState.tabStateParams.push({ branchid });
 
       // Flagged posts.
-      newState.tabItems.push('flagged posts');
+      newState.tabItems.push('Flagged posts');
       newState.tabStates.push('weco.branch.nucleus.flaggedposts');
       newState.tabStateParams.push({ branchid });
     }

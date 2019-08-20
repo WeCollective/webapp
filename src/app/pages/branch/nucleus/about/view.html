@@ -1,73 +1,75 @@
-<ul class="branch__list content__list style--full-padding">
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.name">
-    <span class="branch_text_title">
-      Name:
-    </span>
-    <span class="branch__text">
-      {{ Branch.BranchService.branch.name }}
-    </span>
-  </li>
+<div class="tab-page">
 
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.name">
-    <span class="branch_text_title">
-      URL:
-    </span>
-    <a
-      class="branch__link branch__text"
-      ui-sref="weco.branch.wall({ branchid: Branch.BranchService.branch.id })">
-      b/{{ Branch.BranchService.branch.id }}
-    </a>
-  </li>
+    <span class="title-text margin-bottom-small">{{ Branch.BranchService.branch.name }}</span>
 
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.date">
-    <span class="branch_text_title">
-      Created on:
-    </span>
-    <span class="branch__text">
-      {{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}
-    </span>
-  </li>
+    <span class="sub-text link margin-bottom-large">b/{{ Branch.BranchService.branch.id }}</span>
 
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.creator">
-    <span class="branch_text_title">
-      Created by:
-    </span>
-    <a
-      class="branch__link branch__text"
-      ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
-      {{ Branch.BranchService.branch.creator }}
-    </a>
-  </li>
+    <div class="tab-page-section fixed-height"><!--Followers-->
 
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.description">
-    <div class="branch_text_title">
-      Description:
+        <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>0</b> Followers</a>
+
+        <div class="overlapping-thumbnails">
+
+            <a 
+                class="small-circular-thumbnail" 
+                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
+                href="">
+            </a>
+
+            <a 
+                class="small-circular-thumbnail" 
+                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
+                href="">
+            </a>
+
+            <a 
+                class="small-circular-thumbnail" 
+                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
+                href="">
+            </a>
+            
+        </div><!--End of "overlapping-thumbnails"-->
+
+    </div><!--End of Followers-->
+
+    <div class="tab-page-section fixed-height"><!--Branch Stats-->
+
+        <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
+
+        <span class="sub-text margin-right-large" href="">14 Posts</span>
+        
+        <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/like-01.svg">
+
+        <span class="sub-text margin-right-large" href="">6 Likes</span>
+
+        <img class="tab-stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
+
+        <span class="sub-text margin-right-large" href="">2 Comments</span>
+
+    </div><!--End of Branch Stats-->
+
+    <div class="tab-page-section fixed-height margin-bottom-large"><!--Branch Creator-->
+
+        <span class="sub-text margin-right-medium">Created by</span>
+
+        <a 
+            class="small-circular-thumbnail margin-right-medium" 
+            style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg');"
+            href="">
+        </a>
+
+        <span class="sub-text link margin-right-medium">{{ Branch.BranchService.branch.creator }}</span>
+
+        <span class="sub-text margin-right-medium">on</span>
+
+        <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
+
+    </div><!--End of Branch Creator-->
+
+    <div class="tab-page-section">
+
+        <span class="sub-text margin-bottom-large"> Description:<br><span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
+
     </div>
-    <div
-      class="branch__text"
-      marked="Branch.BranchService.branch.description || 'Not Set'">
-    </div>
-  </li>
 
-  <li
-    class="branch__item"
-    ng-show="Branch.BranchService.branch.rules">
-    <div class="branch_text_title">
-      Rules &amp; Etiquette:
-    </div>
-    <div
-      class="branch__text"
-      marked="Branch.BranchService.branch.rules || 'Not Set'">
-    </div>
-  </li>
-</ul>
+</div>
