@@ -20,7 +20,10 @@
         <a class="create-post-button-large"
             ng-click="Ctrl.WallService.handleHeaderButtonClick()"
             ng-show="Ctrl.WallService.isHeaderButtonVisible()"
-            text="Ctrl.WallService.getHeaderButtonTooltip()">Create new post
+            text="Ctrl.WallService.getHeaderButtonTooltip()">
+
+            <text class="primary-button-text">Create Post</text>
+
         </a>
 
         <!--Small Create Post Button (hidden when screen width > 900px)-->
@@ -45,7 +48,7 @@
                     <li class="srch-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
                 </ul>
             
-            <img class="local-search-bar-button" src="/images/icons/search-01.png">
+            <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">
         
         </div>
 
