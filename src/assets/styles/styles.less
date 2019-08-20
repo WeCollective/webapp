@@ -149,13 +149,13 @@
 }
 
 .link-text {
-    color: @light-grey-text;
+    color: @dark-grey-text;
     font-size: @medium-text;
     font-weight: @regular-font-weight;
     text-decoration: none;
 
     &:hover {
-        color:  darken(@light-grey-text, 10%);   
+        color:  darken(@dark-grey-text, 10%);   
     }
 }
 
@@ -387,6 +387,15 @@ body {
         background-size: cover;
     }
 
+.empty-state-image {
+    width: 200px;
+    height: 200px;
+}
+
+.center-aligned {
+    align-items: center;
+}
+
 .margin-right-small { // Used between icons and text of "post-interact" buttons
     margin-right: 4px;
 }
@@ -462,7 +471,7 @@ body {
     }
 
     &.grey {
-        opacity: 0.3;
+        opacity: 0.4;
 
         &:hover {
             opacity: 1;    

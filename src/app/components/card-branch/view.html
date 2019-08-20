@@ -1,64 +1,80 @@
-<li class="child_branch_wrapper_new">
-  <span
-    class="child_branch_index_new ng-hide"
-    ng-show="CardBranch.index >= 0">
-    {{ CardBranch.index + 1 }}
-  </span>
-  
-  <a
-    class="child_branch_image_new"
-    ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
-    <div style="background-image: url('{{ CardBranch.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"></div>
-  </a>
+<div class="branch">
 
-<!--Branch info section-->
+    <div class="branch-index">
 
-  <div class="child_branch_info_new">
-    
-    <!--Branch name-->
+        <div class="branch-index-content">
 
-    <a
-     class="branch__title__new"
-     ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
-      {{ CardBranch.branch.name }}
+            <div class="branch-index-content-padding">
+
+                <span class="branch-index-text">{{ CardBranch.index + 1 }}</span>
+
+            </div>
+
+        </div>
+
+    </div><!--end of "branch-index"-->
+
+    <a 
+        class="branch-flag-image"
+        ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })"
+        style="background-image: url('{{ CardBranch.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
     </a>
 
-    <!--Branch description [Not working]-->
+    <div class="branch-body">
 
-    <!--<a
-      class="post__description__new"
-      ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">
-      {{ CardBranch.branch.description }}
-    </a>-->
+        <div class="branch-title">
+            <a class="title-text" ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })">{{ CardBranch.branch.name }}</a>
+        </div>
 
-    <!--Branch tags section-->
+        <div class="branch-description">
+            <span class="main-text">Branch description:</span>
+            <span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
+        </div>
 
-    <span class="post__tags__new">
+        <div class="branch-followers">
 
-      <!--Branch creator-->
+            <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>6</b> Followers</a>
 
-      <a class="post__tags__text bluelink" ui-sref="weco.profile.about({ username: CardBranch.branch.creator })">{{ CardBranch.branch.creator }}</a>
+            <div class="overlapping-thumbnails">
 
-      <!--Divider line-->
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/images/user-images/user-image-04.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
+                    href="">
+                </a>
 
-      <span class="post__tags__text">|</span>
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/images/user-images/user-image-05.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
+                    href="">
+                </a>
 
-      <!--Date branch was created-->
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/images/user-images/user-image-06.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
+                    href="">
+                </a>
+                
+            </div><!--End of "overlapping-thumbnails"-->
 
-      <span class="post__tags__text">{{ CardBranch.branch.date | date:'dd-MMMM-yyyy' }}</span>
+        </div><!--End of "branch-followers"-->
 
-    </span>
+        <div class="branch-stats">
 
-    <div class="post__tags__text">
-      Points: {{ CardBranch.branch.post_points }}
-    </div>
+            <img class="branch-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
 
-    <div class="post__tags__text">
-      Posts: {{ CardBranch.branch.post_count }}
-    </div>
+            <span class="sub-text margin-right-large" href="">14 Posts</span>
+            
+            <img class="branch-stat-icon heart margin-right-small" src="/assets/images/icons/like-01.svg">
 
-    <div class="post__tags__text">
-      Comments: {{ CardBranch.branch.post_comments }}
-    </div>
-  </div>
-</li>
+            <span class="sub-text margin-right-large" href="">6 Likes</span>
+
+            <img class="branch-stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
+
+            <span class="sub-text margin-right-large" href="">2 Comments</span>
+
+        </div><!--End of "branch-stats"-->
+        
+    </div><!--End of "branch-body"-->
+
+</div>

@@ -1,0 +1,120 @@
+.branch {
+    margin: 0 10px 20px 10px;
+    padding: 20px 6px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    //align-items: center;
+    z-index: 8;
+
+    @media screen and (max-width: 700px) {
+        padding: 18px 6px 14px 6px;
+    }
+
+    @media screen and (max-width: 500px) {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+
+    }
+}
+
+    .branch-index {
+        width: 30px;
+        //background-color: @light-grey-2;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-shrink: 0;
+
+        @media screen and (max-width: 700px) {
+            display: none;
+        }
+
+    }
+
+        .branch-index-content {
+            width: 30px;
+            height: 30px;
+        }
+
+            .branch-index-content-padding {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+                .branch-index-text {
+                    color: #ddd;
+                    font-size: @small-text;
+                    font-weight: @regular-font-weight;
+                    margin: auto;
+                }
+
+    .branch-flag-image {
+        margin: 0 10px;
+        height: 160px;
+        width: 160px;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    .branch-body {
+        height: 100%;
+        margin-left: 10px;
+        //background-color: @light-grey-1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        //align-items: center;
+    }
+
+        .branch-title {
+            margin-bottom: 4px;
+            padding-right: 10px;
+
+            @media screen and (max-width: 500px) {
+                margin-top: 15px;
+            }
+        }
+
+        .branch-description {
+            padding-right: 10px;
+            overflow: hidden;
+        }
+
+        .branch-followers {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .branch-stats {
+            height: 30px;
+            //background-color: @light-grey-3;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+            .branch-stat-icon {
+                width: 16px;
+                height: 16px;
+                //fill: #FE939B;
+                opacity: 0.2;
+            
+                &:hover {
+                    opacity: 0.4;
+                }
+            }

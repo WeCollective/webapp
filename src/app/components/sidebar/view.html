@@ -10,7 +10,10 @@
 
         <div class="side-bar-header-padding">
 
-            <a class="main-text" ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">{{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
+            <a class="main-text" 
+                ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
+                ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+                {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
             <a class="title-text">{{ Ctrl.BranchService.branch.name }}</a>
 
@@ -60,6 +63,7 @@
     </div><!--End of "followers-link"-->
 
     <div class="side-bar-description">
+        <span class="main-text">Branch description:</span>
         <span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
     </div>
 
