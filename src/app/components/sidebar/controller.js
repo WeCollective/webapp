@@ -3,7 +3,19 @@ import Injectable from 'utils/injectable';
 class SidebarController extends Injectable {
   constructor(...injections) {
     super(SidebarController.$inject, injections);
-  }
+	
+	this.topBranches = undefined;
+
+	this.BranchService.getSubbranches(this.BranchService.branch.id, 0, "post_points")
+	  .then(branches => {
+		    
+			this.topBranches = branches.slice(0, 7);; //cut out only first 7
+	  })
+	  .catch(() => this.$timeout(() => {
+			this.AlertsService.push('error', 'Error fetching top branches.');
+			}));
+
+	  }
 
   getBreadcrumbsDynamicLink() {
     const viewName = this.$state.current.name;
