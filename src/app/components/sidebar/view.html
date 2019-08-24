@@ -81,7 +81,12 @@
           <span>Communities</span>
         </a>
       </li>
-      
+      <!--JAMES MAKE IT PRETTY  use branch. (profileUrlThumb or profileUrl) to get img-->
+	  <li  class="sidebar__button" ng-repeat="branch in Ctrl.topBranches"> 
+		<span>{{branch.name}}</span>
+	  </li>
+
+
     </ul>
   </div>
 </div>
