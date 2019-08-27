@@ -7,10 +7,10 @@
         ng-if="Ctrl.PostService.posts.length">
         <li
             class="post"
-            index="$index"
             list-item
-            ng-repeat="post in Ctrl.PostService.posts track by $index"
             post="post"
+            index="$index"
+            ng-repeat="post in Ctrl.PostService.posts track by $index"
             stat="Ctrl.getStatType()">
         </li>
 
@@ -28,7 +28,7 @@
         <span class="main-text margin-top-medium" style="text-align: center">
             Click 'Create Post' above to create the first post<br>
             or<br>
-            tag a post elsewhere on the site with this branches unique name: '{{ Ctrl.BranchService.branch.id }}'.
+            Tag a post elsewhere on the site with this branches unique name: '{{ Ctrl.BranchService.branch.id }}'.
         </span>
     
     </div>
