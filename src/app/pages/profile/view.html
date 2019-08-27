@@ -1,82 +1,177 @@
-<cover-photo
-  can-edit="Profile.profileUser.username === Profile.UserService.user.username"
-  image-url="Profile.profileUser.coverUrl"
-  is-open="Profile.showCover"
-  open-upload-cover-modal="Profile.openCoverPictureModal"
-  thumb-url="Profile.profileUser.coverUrlThumb">
-</cover-photo>
+<!--<cover-photo
+    can-edit="Profile.profileUser.username === Profile.UserService.user.username"
+    image-url="Profile.profileUser.coverUrl"
+    is-open="Profile.showCover"
+    open-upload-cover-modal="Profile.openCoverPictureModal"
+    thumb-url="Profile.profileUser.coverUrlThumb">
+</cover-photo>-->
+
+<div class="fixed-nav-bar-padding"></div>
+
+<div class="cover-image sticky-cover"></div>
 
 <div
-  class="page"
-  emit-on-scroll-to-bottom
-  loading
-  loading-when="Profile.isLoading">
-  <div
-    class="sidebar no-transition"
-    ng-class="{ 'toggled': Profile.AppService.isSidebarOpen }"
-    no-constructor-transition>
-    <div class="sidebar-info">
-      <h1>{{ Profile.profileUser.name }}</h1>
-      
-      <h2>{{ Profile.profileUser.username }}</h2>
+    class="page"
+    emit-on-scroll-to-bottom
+    loading
+    loading-when="Profile.isLoading">
+    
+    <!--<div class="sticky-header">-->   <!--Remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
+
+    <div class="left-side-bar">
+    
+        <div class="side-bar-header sticky-header">
+
+            <div 
+                class="side-bar-flag-image-small"
+                style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+            </div>
+    
+            <div class="side-bar-header-padding">
+    
+                <a class="title-text" href="">{{ Profile.profileUser.name }}</a>
+    
+                <a class="sub-text link" href="">{{ Profile.profileUser.username }}</a>
+    
+            </div>
+    
+        </div>
+    
+        <div 
+            class="side-bar-flag-image-large"
+            style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+        
+            <img
+                class="icon grey"
+                id="edit"
+                ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
+                ng-click="Profile.openProfilePictureModal()"
+                ng-show="Profile.profileUser.username === Profile.UserService.user.username"
+                offset-y="30"
+                src="/assets/images/icons/edit.svg"
+                text="'Upload New Image'"
+                tooltip />
+        </div>
+    
+        <div class="side-bar-followers">
+    
+            <a class="main-text" style="font-size: 15px"><b>0</b> Followers</a>
+    
+            <div class="overlapping-thumbnails">
+    
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
+                    href="/user-followers.html">
+                </a>
+    
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
+                    href="/user-followers.html">
+                </a>
+    
+                <a 
+                    class="small-circular-thumbnail" 
+                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
+                    href="/user-followers.html">
+                </a>
+                
+            </div><!--End of "overlapping-thumbnails"-->
+    
+        </div><!--End of "followers-link"-->
+    
+        <div class="side-bar-description">
+            <span class="main-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, blanditiis id temporibus tempore consequuntur ut quasi, amet nemo beatae similique.</span>
+        </div>
+    
+        <div class="side-bar-links">
+    
+            <span class="sub-text" href="">Private:</span>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Settings">
+                    <img class="icon grey" src="/assets/images/icons/settings-01.png">
+                </a>
+                <a class="link-text" title="Settings">Settings</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Stream">
+                    <img class="icon grey" src="/assets/images/icons/wall-01.png">
+                </a>
+                <a class="link-text" title="Stream">Stream</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Messages">
+                    <img class="icon grey" src="/assets/images/icons/messages-01.png">
+                </a>
+                <a class="link-text" title="Messages">Messages</a>
+            </div>
+    
+            <div class="side-bar-link margin-bottom-large">
+                <a class="icon-padding small" title="Notifications">
+                    <img class="icon grey" src="/assets/images/icons/notifications-01.png">
+                </a>
+                <a class="link-text" title="Notifications">Notifications</a>
+            </div>
+    
+            <span class="sub-text">Public:</span>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="About">
+                    <img class="icon grey" src="/assets/images/icons/about-01.png">
+                </a>
+                <a class="link-text" title="About">About</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Posts">
+                    <img class="icon grey" src="/assets/images/icons/post-01.png">
+                </a>
+                <a class="link-text" title="About">Posts</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Comments">
+                    <img class="icon grey" src="/assets/images/icons/comment-01.png">
+                </a>
+                <a class="link-text" title="About">Comments</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Likes">
+                    <img class="icon grey" src="/assets/images/icons/like-01.svg">
+                </a>
+                <a class="link-text" title="About">Likes</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Reposts">
+                    <img class="icon grey" src="/assets/images/icons/about-01.png">
+                </a>
+                <a class="link-text" title="About">Reposts</a>
+            </div>
+    
+            <div class="side-bar-link">
+                <a class="icon-padding small" title="Branches">
+                    <img class="icon grey" src="/assets/images/icons/node-01.png">
+                </a>
+                <a class="link-text" title="Branches">Branches</a>
+            </div>
+    
+        </div><!--end of "side-bar-buttons"-->
+    
     </div>
     
-    <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
-      <img
-        id="edit"
-        ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
-        ng-click="Profile.openProfilePictureModal()"
-        ng-show="Profile.profileUser.username === Profile.UserService.user.username"
-        offset-y="30"
-        src="/assets/images/icons/edit.svg"
-        text="'Upload New Image'"
-        tooltip />
+    <div class="center">
+        <div class="align">
+            <div class="content">
+                <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
+                <div class="content__body" ui-view></div>
+            </div>
+        </div>
     </div>
-    
-    <ul class="sidebar-info">
-      <li># of Posts: <span>{{ Profile.profileUser.num_posts }}</span></li>
-      <li># of Comments: <span>{{ Profile.profileUser.num_comments }}</span></li>
-      <li>Branches Created: <span>{{ Profile.profileUser.num_branches }}</span></li>
-      <li>Moderator Positions: <span>{{ Profile.profileUser.num_mod_positions }}</span></li>
-    </ul>
-  </div>
-
-  <div
-    class="header style--fixed no-transition"
-    no-constructor-transition>
-    <div class="header__body">
-      <img
-        alt="Toggle sidebar"
-        class="header__button style--sidebar-toggle"
-        ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-        ng-click="Navbar.AppService.toggleSidebar()"
-        src="/assets/images/icons/show.svg" />
-      
-      <div class="header__controls style--spaced">
-        <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
-
-        <button
-          class="header__read-all"
-          ng-click="Profile.markAllNotificationsAsSeen()"
-          ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
-          offset-x="-150"
-          offset-y="30"
-          text="'Mark all notifications as seen'"
-          tooltip >
-          <img
-            alt="Mark all notifications as read icon"
-            src="/assets/images/icons/tick--circle.svg" />
-        </button>
-      </div>
-    </div>
-  </div>
   
-  <div class="center">
-    <div class="align">
-      <div class="content">
-        <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
-        <div class="content__body" ui-view></div>
-      </div>
-    </div>
-  </div>
 </div>

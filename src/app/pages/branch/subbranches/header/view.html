@@ -1,55 +1,69 @@
-<img
-  alt="Toggle sidebar"
-  class="header__button style--sidebar-toggle"
-  ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-  ng-click="Navbar.AppService.toggleSidebar()"
-  src="/assets/images/icons/show.svg" 
-  style="width: 26px;"/>
+<div class="central-panel-header-section">
 
-<a
-  class="header__button style--secondary ng-hide"
-  ng-click="Ctrl.WallService.handleHeaderButtonClick()"
-  ng-show="Ctrl.WallService.isHeaderButtonVisible()"
-  offset-y="40"
-  text="Ctrl.WallService.getHeaderButtonTooltip()"
-  style="min-width: 152px">Create new branch
-</a>
-<div class="header__controls style--has-dropdown">
-<div class="srch-wrapper ng-scope">
+    <a id="sidebar-toggle-button" class="side-bar-toggle-button">
+        <!--<img id="toggle-button" onclick="rotateToggleButton()" src="/images/icons/toggle-02.png" class="icon toggle-out">-->
+        <img   
+            alt="Toggle sidebar"
+            class="icon"
+            ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
+            ng-click="Navbar.AppService.toggleSidebar()"
+            src="/assets/images/icons/toggle-02.png"/>
+    </a>
+    
+    <!--Large Create Post Button (hidden when screen width < 900px)-->
+    <!--<a id="create-post-button" class="create-post-button-large">
+        <text class="primary-button-text">Create Post</text>
+    </a>-->
 
-       <input class="srch-text"
-		id="searchField"
-		ng-blur="Ctrl.SearchService.hide();"
-		ng-focus="Ctrl.SearchService.show()" 
-		ng-keydown="Ctrl.handleKeyPress($event)"
-		ng-model="Ctrl.query"
-		placeholder="Find a branch"
-		type="text">
-	
-		
-		   <ul
-          class="srch-results"
-         ng-show="Ctrl.SearchService.isVisible"> 
-          <li
-            class="srch-item"
-            ng-repeat="result in Ctrl.results"
-			ng-click="Ctrl.search(result.text);">
-			
-            {{result.text}}
-          </li>
-        </ul>
-      </div>
-	  
-	  
-  <dropdown
-    items="Ctrl.timeRange"
-    selected="Ctrl.controls.timeRange.selectedIndex"
-    title="Ctrl.controls.timeRange.title">
-  </dropdown>
+    <a class="create-post-button-large"
+        ng-click="Ctrl.WallService.handleHeaderButtonClick()"
+        ng-show="Ctrl.WallService.isHeaderButtonVisible()"
+        text="Ctrl.WallService.getHeaderButtonTooltip()">
 
-  <dropdown
-    items="Ctrl.sortBy"
-    selected="Ctrl.controls.sortBy.selectedIndex"
-    title="Ctrl.controls.sortBy.title">
-  </dropdown>
+        <text class="primary-button-text">Create Branch</text>
+
+    </a>
+
+    <!--Small Create Post Button (hidden when screen width > 900px)-->
+    <a id="create-post-button" class="create-post-button-small">
+            <img src="/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
+    </a>
+
+    <div class="local-search-bar">
+        
+            <!--<input class="local-search-bar-input" placeholder="Search wall..." type="text">-->
+
+        <input class="local-search-bar-input"
+                id="searchField"
+                ng-blur="Ctrl.SearchService.hide();"
+                ng-focus="Ctrl.SearchService.show()" 
+                ng-keydown="Ctrl.handleKeyPress($event)"
+                ng-model="Ctrl.query"
+                placeholder="Search branches..."
+                type="text">
+
+            <ul class="srch-results" ng-show="Ctrl.SearchService.isVisible">
+                <li class="srch-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
+            </ul>
+        
+        <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">
+    
+    </div>
+
+</div>
+
+<div class="wall-filters">
+
+    <dropdown
+        items="Ctrl.timeRange"
+        selected="Ctrl.controls.timeRange.selectedIndex"
+        title="Ctrl.controls.timeRange.title">
+    </dropdown>
+
+    <dropdown
+        items="Ctrl.sortBy"
+        selected="Ctrl.controls.sortBy.selectedIndex"
+        title="Ctrl.controls.sortBy.title">
+    </dropdown>
+
 </div>

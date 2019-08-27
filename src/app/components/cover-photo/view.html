@@ -1,7 +1,7 @@
 <div
   class="cover-photo"
 	ng-class="{ 'closed': !Ctrl.hasUrls() || !Ctrl.WallService.isCoverOpen, 'open': Ctrl.WallService.isCoverOpen && Ctrl.hasUrls() }"
-	style="background-image: url('{{ Ctrl.imageUrl() }}'), url('{{ Ctrl.thumbUrl() }}')">
+	style="background-image: url('{{ Ctrl.imageUrl() }}'), url('{{ Ctrl.thumbUrl() }}')"> <!--Possible fall-back to add: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);-->
   <img
     alt="Upload new cover photo"
     class="ng-hide"

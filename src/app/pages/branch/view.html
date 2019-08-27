@@ -1,31 +1,28 @@
-<cover-photo
+<!--<cover-photo
   can-edit="Branch.BranchService.isModerator()"
   image-url="Branch.BranchService.branch.coverUrl"
   open-upload-cover-modal="Branch.openModal"
   thumb-url="Branch.BranchService.branch.coverUrlThumb" >
-</cover-photo>
+</cover-photo>-->
 
-<div
-  class="page"
-  emit-on-scroll-to-bottom>
-  <sidebar></sidebar>
+<div class="fixed-nav-bar-padding"></div>
 
-  <div
-    class="header style--fixed no-transition"
-    ng-if="Branch.hasFixedHeader()"
-    no-constructor-transition>
-    <div class="header__body" ui-view="{{ Branch.getUIViewName(true) }}"></div>
-  </div>
+<div class="cover-image sticky-cover"></div>
 
-  <div class="center">
-    <div class="align">
-      <div
-        class="header no-transition"
-        ng-if="!Branch.hasFixedHeader()"
-        no-constructor-transition>
-        <div class="header__body" ui-view="{{ Branch.getUIViewName() }}"></div>
-      </div>
-      <div class="content" ui-view="content"></div>
+<div class="page">
+
+    <sidebar></sidebar>
+
+    <div class="central-panel">
+
+        <div
+            class="central-panel-header sticky-header"
+            ui-view="{{ Branch.getUIViewName(true) }}"
+            no-constructor-transition>
+        </div>
+
+        <div class="content" ui-view="content"></div>
+
     </div>
-  </div>
+
 </div>

@@ -1,0 +1,273 @@
+
+
+//---------------------- Controls ----------------------//
+
+@nav-bar-height: 50px; //
+
+@nav-bar-color: #222;
+
+@nav-bar-icon-size: 26px;
+
+//---------------------- Components ----------------------//
+
+.nav-bar {
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    height: @nav-bar-height;
+    background-color: @nav-bar-color;
+}
+
+    .nav-bar-content {
+        width: @main-content-width;
+        height: @nav-bar-height;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        @media screen and (max-width: @main-content-width) {
+            width: 100%;
+        }
+    }
+
+        .nav-bar-left {
+            height: @nav-bar-height;
+            float: left;
+            display: flex;
+            flex-direction: row;
+            //justify-content: space-between;
+            align-items: center;
+
+            @media screen and (max-width: 700px) {
+                display: none;
+            }
+        }
+
+            .nav-bar-left-dropdown-button {
+                height: @nav-bar-height;
+
+                @media screen and (min-width: 701px) {
+                    display: none;
+                }
+            }
+
+                .nav-bar-left-dropdown-modal-wrapper {
+                    padding: 20px;
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1; /* Sit on top */
+                    //padding-top: 100px; /* Location of the box */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgb(0,0,0); /* Fallback color */
+                    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+                    /*@media screen and (min-width: 701px) {
+                        display: none;
+                    }*/
+                }
+
+                    .nav-bar-left-dropdown-modal-content { 
+                        width: calc(100% - 40px);
+                        max-width: 300px;
+                        //height: 400px;
+                        padding: 20px;
+                        position: fixed;
+                        //left: 50%;
+                        top: 70px;
+                        border-radius: 6px;
+                        background-color: white;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        //align-items: center;
+                        flex-shrink: 1;
+
+                        /*@media screen and (min-width: 701px) {
+                            display: none;
+                        }*/
+                    }
+
+                        .nav-bar-dropdown-link {
+                            height: 40px;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-start;
+                            align-items: center;
+                        }
+
+        .nav-bar-center {
+            height: @nav-bar-height;
+            width: 400px;
+            float: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .global-search-bar {
+                margin: 0 10px;
+                width: 100%;
+                height: 30px;
+                //border: 1px solid #ccc;
+                background-color: #bbb;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                //flex-shrink: 1;
+            }
+            
+                .global-search-bar-input {
+                    border: none;
+                    padding: 0 16px;
+                    font-size: @small-text;
+                    color: @dark-grey-text;
+                    height: 100%;
+                    width: 100%;
+                    background-color: transparent;
+                    //flex-shrink: 2;
+                
+                    &:focus { 
+                      outline: none; 
+                    }
+                }
+                
+                .global-search-bar-button {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    flex-shrink: 0;
+                    opacity: 0.6;
+                
+                    &:hover {
+                    opacity: 0.4;
+                    }
+                }     
+
+        .nav-bar-right {
+            height: @nav-bar-height;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            @media screen and (max-width: 700px) {
+                display: none;
+            }
+        }
+
+            .nav-bar-username-padding {
+                height: 50px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .nav-bar-username {
+                margin: auto;
+                font-size: @medium-text;
+                color: white;
+                opacity: 0.6;
+            
+                &:hover {
+                    opacity: 1;    
+                }
+            }
+
+        .nav-bar-right-dropdown-button {
+            height: @nav-bar-height;
+            
+            @media screen and (min-width: 701px) {
+                display: none;
+            }
+        }
+
+            .nav-bar-right-dropdown-modal-wrapper {
+                padding: 20px;
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                //padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+                /*@media screen and (min-width: 701px) {
+                    display: none;
+                }*/
+            }
+
+                .nav-bar-right-dropdown-modal-content { 
+                    width: calc(100% - 40px);
+                    max-width: 300px;
+                    //height: 400px;
+                    padding: 20px;
+                    position: fixed;
+                    right: 20px;
+                    top: 70px;
+                    border-radius: 6px;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    //align-items: center;
+                    flex-shrink: 1;
+
+                    /*@media screen and (min-width: 701px) {
+                        display: none;
+                    }*/
+                }
+
+
+//Modal tests
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }

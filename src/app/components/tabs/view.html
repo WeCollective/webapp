@@ -1,12 +1,13 @@
-<ul class="tabs">
+<ul class="central-panel-header-with-tabs sticky-header">
   <li
-    class="tabs__item"
+    class="header-tab"
     ng-class="{ 'selected': Tabs.isSelected($index) }"
     ng-repeat="item in Tabs.items">
     <a
-     class="tabs__link"
-     ng-href="{{ Tabs.getLink($index) }}">
-      <span class="text--uppercase">{{ item }}</span>
+      class="header-title-text"
+      ng-class="{ 'selected': Tabs.isSelected($index) }"
+      ng-href="{{ Tabs.getLink($index) }}">
+      {{ item }}
     </a>
   </li>
 </ul>

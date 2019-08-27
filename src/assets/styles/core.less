@@ -1,5 +1,5 @@
 #weco-root {
-  height: 100%;
+  //height: 100%;
   width: 100%;
 }
 
@@ -10,15 +10,17 @@
 }
 
 .page {
-  background-color: @primary-11;
-  height: 100%;
-  overflow-x: hidden;
-  // Keeps restricted scroll bar area on Windows, because otherwise the whole content
-  // would shift by the width of scrollbar slider. This issue doesn't affect Mac.
-  overflow-y: scroll;
-  position: relative;
-  width: 100%;
-  transition: height @tr-speed;
+  width: @main-content-width;
+  margin: auto; // Floats in the middle of the screen
+  //background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; // Contained divs spread across full width of wrapper
+
+  @media screen and (max-width: @main-content-width) {
+      width: 100%;
+      justify-content: flex-start;
+  }
 
   > .center {
     box-sizing: border-box;

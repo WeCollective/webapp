@@ -1,35 +1,36 @@
 <div
-  class="content__body"
-  loading
-  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
-  <ul
-    class="content__list"
-    ng-if="Ctrl.PostService.posts.length">
-    <li
-      class="branch__post"
-      index="$index"
-      list-item
-      ng-repeat="post in Ctrl.PostService.posts track by $index"
-      post="post"
-      stat="Ctrl.getStatType()">
-    </li>
-  </ul>
+    class="content__body"
+    loading
+    loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
+    <ul
+        class="content__list"
+        ng-if="Ctrl.PostService.posts.length">
+        <li
+            class="post"
+            index="$index"
+            list-item
+            ng-repeat="post in Ctrl.PostService.posts track by $index"
+            post="post"
+            stat="Ctrl.getStatType()">
+        </li>
 
-  <div
-    class="text--center"
-    ng-if="!Ctrl.PostService.posts.length">
-    <p class="branch__empty-title">
-      There don't seem to be any posts to this branch that match the current filter settings
-    </p>
-    <img
-      alt="Empty state icon"
-      class="branch__empty-icon"
-      src="/assets/images/empty-state.jpg" />
-    <p class="branch__empty-text">
-      To create the first post: <br>
-      Click the 'Add New Content' button (+) above <br>
-      <span class="text--italic">or</span><br>
-      Tag a post you submit elsewhere on the site with this branches unique name '{{ Ctrl.BranchService.branch.id }}'
-    </p>
-  </div>
+    </ul>
+
+    <div class="tab-page center-aligned" ng-if="!Ctrl.PostService.posts.length">
+
+        <span class="main-text margin-bottom-large">There don't appear to be any posts to this branch that match the current filter settings</span>
+
+        <img
+            alt="Empty state icon"
+            class="empty-state-image"
+            src="/assets/images/empty-state.jpg" />
+
+        <span class="main-text margin-top-medium" style="text-align: center">
+            Click 'Create Post' above to create the first post<br>
+            or<br>
+            tag a post elsewhere on the site with this branches unique name: '{{ Ctrl.BranchService.branch.id }}'.
+        </span>
+    
+    </div>
+
 </div>

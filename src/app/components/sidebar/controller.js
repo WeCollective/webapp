@@ -6,7 +6,6 @@ class SidebarController extends Injectable {
 	
 	this.topBranches = undefined;
 
-	
 	this.BranchService.getSubbranches(this.BranchService.branch.id, 0, "post_points")
 	  .then(branches => {
 		    
