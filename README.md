@@ -41,7 +41,7 @@
     
 -   Open your terminal and navigate to the new folder
     
--   Clone the “webb app” (development branch) and “server” (local branch) repositories from [https://github.com/WeCollective](https://github.com/WeCollective) to the folder
+-   Clone the “webb app” (develop branch) and “server” (local branch) repositories from [https://github.com/WeCollective](https://github.com/WeCollective) to the folder
 
 	-   Enter “git clone --single-branch --branch develop [https://github.com/WeCollective/webapp.git](https://github.com/WeCollective/webapp.git)”
     
