@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1024 1024"
+   height="1024.0pt"
+   width="1024.0pt"
+   version="1.1"
+   id="svg18864"
+   sodipodi:docname="Image Edit.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata18870">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs18868" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1047"
+     inkscape:window-height="689"
+     id="namedview18866"
+     showgrid="false"
+     inkscape:pagecheckerboard="true"
+     inkscape:zoom="0.34570312"
+     inkscape:cx="682.8138"
+     inkscape:cy="652.0185"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg18864" />
+  <path
+     d="M 0.00 0.00 L 101.84 0.00 C 77.44 0.70 53.54 10.02 35.34 26.32 C 13.89 45.09 1.05 72.51 0.00 100.97 L 0.00 0.00 Z"
+     fill="#fcfbf9"
+     id="path18848"
+     style="opacity:0" />
+  <path
+     d="M 101.84 0.00 L 923.01 0.00 C 943.61 0.72 963.81 7.43 980.55 19.47 C 1005.14 36.90 1021.45 65.07 1024.00 95.14 L 1024.00 929.46 C 1022.00 951.44 1012.86 972.64 998.14 989.10 C 980.47 1009.25 954.27 1022.59 927.43 1024.00 L 95.08 1024.00 C 70.35 1021.82 46.65 1010.45 29.47 992.52 C 11.35 974.00 0.80 948.77 0.00 922.89 L 0.00 100.97 C 1.05 72.51 13.89 45.09 35.34 26.32 C 53.54 10.02 77.44 0.70 101.84 0.00 Z"
+     fill="#000000"
+     id="path18850" />
+  <path
+     d="M 923.01 0.00 L 1024.00 0.00 L 1024.00 95.14 C 1021.45 65.07 1005.14 36.90 980.55 19.47 C 963.81 7.43 943.61 0.72 923.01 0.00 Z"
+     fill="#fcfbf9"
+     id="path18852"
+     style="opacity:0" />
+  <path
+     d="M 749.13 153.53 C 760.22 155.22 770.53 160.63 778.45 168.55 C 804.62 194.70 830.80 220.87 856.96 247.04 C 866.49 256.52 872.09 269.57 872.48 283.00 C 872.74 295.23 868.70 307.45 861.04 317.02 C 858.11 320.73 854.71 323.81 851.29 327.27 C 831.83 346.82 812.22 366.24 792.81 385.82 C 741.64 334.87 690.62 283.54 639.41 232.64 C 660.73 211.23 682.14 189.88 703.52 168.52 C 715.15 156.66 732.73 150.71 749.13 153.53 Z"
+     fill="#fcfbf9"
+     id="path18854" />
+  <path
+     d="M 592.92 279.10 C 643.92 330.01 695.07 381.25 746.02 432.09 C 745.03 433.91 743.12 435.23 741.72 436.76 C 628.99 549.58 515.59 662.65 402.97 775.47 C 351.90 724.35 300.66 673.34 249.66 622.15 C 364.10 507.93 478.50 393.37 592.92 279.10 Z"
+     fill="#fcfbf9"
+     id="path18856" />
+  <path
+     d="M 203.10 668.74 C 254.21 719.82 305.32 770.89 356.42 821.99 C 352.09 826.15 347.87 830.43 343.64 834.69 C 342.75 835.53 342.13 836.47 340.93 836.84 C 302.25 847.18 263.56 857.55 224.90 867.94 C 214.32 870.65 204.03 873.87 193.05 871.63 C 172.56 868.49 155.56 850.99 153.23 830.37 C 151.50 822.03 153.81 812.98 156.02 804.92 C 166.60 765.18 177.27 725.44 187.83 685.70 C 188.19 684.46 188.40 683.30 189.43 682.43 C 193.99 677.87 198.57 673.33 203.10 668.74 Z"
+     fill="#fcfbf9"
+     id="path18858" />
+  <path
+     d="M 0.00 922.89 C 0.80 948.77 11.35 974.00 29.47 992.52 C 46.65 1010.45 70.35 1021.82 95.08 1024.00 L 0.00 1024.00 L 0.00 922.89 Z"
+     fill="#fcfbf9"
+     id="path18860"
+     style="opacity:0" />
+  <path
+     d="M 1024.00 929.46 L 1024.00 1024.00 L 927.43 1024.00 C 954.27 1022.59 980.47 1009.25 998.14 989.10 C 1012.86 972.64 1022.00 951.44 1024.00 929.46 Z"
+     fill="#fcfbf9"
+     id="path18862"
+     style="opacity:0" />
+</svg>

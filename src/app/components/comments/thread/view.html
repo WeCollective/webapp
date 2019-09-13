@@ -1,103 +1,130 @@
-<!--
-<div class="comment_wrapper_new" ng-repeat="comment in Thread.comments track by $index">
+<div class="comment" ng-repeat="comment in Thread.comments track by $index">
 
-  <div class="comment_creator_profile_pic_new">
-    
-    <a class="thumbnail__small__new" ui-sref="weco.profile.about({ username: comment.data.creator })">
-        <img class="thumbnail__small__new"
-          src="/assets/images/default-profile.jpg" />
-    </a>
+    <div class="comment-tags">
 
-  </div>
+        <a 
+            class="small-circular-thumbnail margin-right-medium"
+            ui-sref="weco.profile.about({ username: comment.data.creator })" 
+            style="background-image: url('{{ Thread.getUser(comment).profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+        </a>
 
-  <div class="comment_body_new">
+        <a
+            class="sub-text link margin-right-medium ng-hide"
+            ng-show="comment.data.creator !== 'N/A'"
+            ui-sref="weco.profile.about({ username: comment.data.creator })">
+            {{ comment.data.creator }}
+        </a>
 
-    <div class="list-item__votes">
-      <button
-        class="list-item__vote-icon"
-        ng-class="{ 'style--active': comment.userVoted === 'up' }"
-        ng-click="Thread.vote(comment, 'up', $event.target)"
-        ng-disabled="comment.data.deleted || !Thread.UserService.isAuthenticated()"
-        ng-include="'/assets/images/icons/arrow-up.svg'">
-      </button>
+        <span class="sub-text margin-right-medium">|</span>
 
-      <p>{{ comment.individual }}</p>
+        <span class="sub-text margin-right-medium">{{ Thread.timeSince(comment.date) }}       
+            <span class="sub-text margin-right-medium" ng-if="comment.data.edited">(edited)</span>
+        </span>
+
+    </div><!--End of "comment-tags"-->
+
+    <div class="comment-text">
+        <span class="main-text" marked="comment.data.deleted ? '[Comment removed by the author]' : comment.data.text"></span>
     </div>
 
-    <div class="list-item-info">
-      <span class="list-item__title list-item__comment" marked="comment.data.deleted ? '[Comment removed by the author]' : comment.data.text"></span>
+    <div class="comment-interact">
 
-      <span>
-        <img
-          alt="Reply"
-          class="list-item__detail"
-          ng-click="Thread.openReply(comment, false)"
-          offset-y="20"
-          src="/assets/images/icons/reply.svg"
-          text="'Reply'"
-          tooltip />
+        <div class="comment-interact-section">
+            <a 
+                class="comment-interact-icon heart margin-right-small"
+                ng-class="{ 'style--active': comment.userVoted === 'up' }"
+                ng-click="Thread.vote(comment, 'up', $event.target)"
+                ng-disabled="comment.data.deleted || !Thread.UserService.isAuthenticated()"
+                ng-include="'/assets/images/icons/heart-icon.svg'"
+                tooltip
+                text="'Like comment'"
+                offset-y="30">
+            </a>
+            <a class="sub-text link margin-right-large">{{ comment.individual }} Likes</a>    
+        </div>
 
-        <img
-          alt="Permalink"
-          class="list-item__detail style--icon"
-          ng-click="Thread.commentPermalink(comment)"
-          offset-y="20"
-          src="/assets/images/icons/permalink.svg"
-          text="'Permalink'"
-          tooltip />
+        <div class="comment-interact-section">
 
-        <img
-          alt="Edit"
-          class="list-item__detail style--icon"
-          ng-click="Thread.openReply(comment, true)"
-          ng-if="Thread.isOwnComment(comment)"
-          offset-y="20"
-          src="/assets/images/icons/edit--comment.svg"
-          text="'Edit'"
-          tooltip />
+            <a
+                class="sub-text link margin-right-large"
+                ng-click="Thread.openReply(comment, false)"
+                tooltip
+                text="'Reply'"
+                offset-y="30">
+        
+                <img
+                  class="comment-interact-icon margin-right-small"
+                  src="/assets/images/icons/reply-01.png"/>
+        
+                <span class="sub-text link margin-right-large">Reply</span>       
+            </a>
 
-        <img
-          alt="Delete comment"
-          class="list-item__detail style--icon"
-          ng-click="Thread.delete(comment, $index)"
-          ng-if="Thread.isOwnComment(comment)"
-          offset-y="20"
-          src="/assets/images/icons/delete.svg"
-          text="'Delete'"
-          tooltip />
+        </div>
 
-        <!--
-        <a
-          class="list-item__detail style--has-children style--icon"
-          offset-y="20"
-          text="'View post discussion'"
-          tooltip
-          ui-sref="weco.branch.post.discussion({ postid: comment.postid })">
-          <img
-            alt="View post discussion"
-            class="list-item__detail"
-            src="/assets/images/icons/comment.svg" />
-          <span>{{ 0 }}</span>
-        </a>
-        -->
+        <div class="comment-interact-section">
 
-        <!--<span class="list-item__separator"></span>
+            <a
+                class="sub-text link margin-right-large"
+                ng-click="Thread.commentPermalink(comment)"
+                tooltip
+                text="'Permalink'"
+                offset-y="30">
+        
+                <img
+                  class="comment-interact-icon margin-right-small"
+                  src="/assets/images/icons/permalink-01.png"/>
+        
+                <span class="sub-text link margin-right-large">Permalink</span>
+        
+            </a>
 
-        <a
-          class="list-item__detail ng-hide"
-          ng-show="comment.data.creator !== 'N/A'"
-          ui-sref="weco.profile.about({ username: comment.data.creator })">
-          {{ comment.data.creator }}
-        </a>
+        </div>
 
-        <span class="list-item__separator ng-hide" ng-show="comment.data.creator !== 'N/A'"></span>
+        <div class="comment-interact-section">
 
-        <span class="list-item__detail">{{ Thread.timeSince(comment.date) }}
-          <span class="list-item__detail" ng-if="comment.data.edited">(edited)</span>
-        </span>
-      </span>
+            <a
+                class="sub-text link margin-right-large"
+                ng-click="Thread.openReply(comment, true)"
+                ng-if="Thread.isOwnComment(comment)"
+                tooltip
+                text="'Edit'"
+                offset-y="30">
+        
+                <img
+                  class="comment-interact-icon margin-right-small"
+                  src="/assets/images/icons/edit-01.png"/>
+        
+                <span class="sub-text link margin-right-large">Edit</span>
+        
+            </a>
 
-      <comment-input-box
+        </div>
+
+        <div class="comment-interact-section">
+
+            <a
+                class="sub-text link"
+                ng-click="Thread.delete(comment, $index)"
+                ng-if="Thread.isOwnComment(comment)"
+                tooltip
+                text="'Delete'"
+                offset-y="30">
+        
+                <img
+                  class="comment-interact-icon margin-right-small"
+                  src="/assets/images/icons/delete-01.png"/>
+        
+                <span class="sub-text link">Delete</span>
+        
+            </a>
+
+        </div>
+
+    </div><!--End of "comment-interact"-->
+
+    <!--Comment reply input box-->
+
+    <comment-input-box
         ng-if="comment.meta.openReply"
         on-submit="Thread.onSubmitComment.bind(Thread)"
         original-comment-text="comment.data.text"
@@ -106,210 +133,25 @@
         placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
         postid="{{ comment.postid }}"
         update="comment.meta.update">
-      </comment-input-box>
-
-      <div
-        class="comment__replies"
+    </comment-input-box>
+  
+    <!--Comment replies-->
+  
+    <div
+        class="comment_reply_new"
         ng-if="comment.comments.length">
         <comment-thread
-          comments="comment.comments"
-          sort-by="Thread.sortBy">
+            comments="comment.comments"
+            sort-by="Thread.sortBy">
         </comment-thread>
         <span
-          class="comments__text text--uppercase"
-          ng-click="Thread.loadMore(comment)"
-          ng-if="comment.hasMoreComments">
-          load more comments
+            class="comments__text text--uppercase"
+            ng-click="Thread.loadMore(comment)"
+            ng-if="comment.hasMoreComments">
+            load more comments
         </span>
-      </div>
     </div>
-  </div>
-</div>-->
+  
+    </div> <!--End of "Comment body" section-->
 
-
-<!--Comment card redesign [May 2019]
-Remove "_new" postfix from class names when redesign is complete and old styles have been removed.-->
-
-<!--"Comment wraper" section-->
-
-<div class="comment_wrapper_new" ng-repeat="comment in Thread.comments track by $index">
-
-  <!--Comment creators profile picture-->
-
-  <a 
-    class="thumbnail__small__new"
-    ui-sref="weco.profile.about({ username: comment.data.creator })"
-    style="background-image: url('{{ Thread.getUser(comment).profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
-  </a>
-
-  <!--"Comment body" section-->
-
-  <div class="comment_body_new">
-
-    <!--"Comment tags" section-->
-
-    <div class="comment_tags_new">
-
-      <!--Comment creators username-->
-
-      <a
-        class="post__tags__text bluelink ng-hide"
-        ng-show="comment.data.creator !== 'N/A'"
-        ui-sref="weco.profile.about({ username: comment.data.creator })">
-        {{ comment.data.creator }}
-      </a>
-
-      <!--Divider line-->
-
-      <span class="post__tags__text">|</span>
-
-      <!--Post date
-      Contains "(edited)" after date if post has been edited-->
-
-      <span class="post__tags__text">{{ Thread.timeSince(comment.date) }}
-        
-        <span class="post__tags__text" ng-if="comment.data.edited">(edited)</span>
-
-      </span>
-
-    </div> <!--End of "Comment tags" section-->
-
-    <!--"Comment text" section-->
-
-    <div class="comment_text_new">
-
-      <!--Main comment text
-      Marked with "[Comment removed by author]" if comment is deleted-->
-
-      <span class="list-item__title list-item__comment" marked="comment.data.deleted ? '[Comment removed by the author]' : comment.data.text"></span>
-
-    </div>
-
-    <!--"Comment interact" section-->
-
-    <div class="comment_interact_new">
-
-      <!--Like button-->
-
-      <a class="post__tags__text">
-
-        <span 
-          class="post__interact__icon__new"
-          ng-class="{ 'style--active': comment.userVoted === 'up' }"
-          ng-click="Thread.vote(comment, 'up', $event.target)"
-          ng-disabled="comment.data.deleted || !Thread.UserService.isAuthenticated()"
-          ng-include="'/assets/images/icons/heart-icon.svg'"
-          tooltip
-          text="'Like comment'"
-          offset-y="30">
-        </span>
-
-        <span class="post__tags__text">{{ comment.individual }} Likes</span>
-
-      </a>
-
-      <!--Reply button-->
-
-      <a
-        class="post__tags__text"
-        ng-click="Thread.openReply(comment, false)"
-        tooltip
-        text="'Reply'"
-        offset-y="30">
-
-        <img
-          class="post__interact__icon__new"
-          src="/assets/images/icons/reply.svg"/>
-
-        <span class="post__tags__text greylink">Reply</span>
-
-      </a>
-
-      <!--Permalink button-->
-
-      <a
-        class="post__tags__text"
-        ng-click="Thread.commentPermalink(comment)"
-        tooltip
-        text="'Permalink'"
-        offset-y="30">
-
-        <img
-          class="post__interact__icon__new"
-          src="/assets/images/icons/permalink.svg"/>
-
-        <span class="post__tags__text greylink">Permalink</span>
-
-      </a>
-
-      <!--Edit comment button-->
-
-      <a
-        class="post__tags__text"
-        ng-click="Thread.openReply(comment, true)"
-        ng-if="Thread.isOwnComment(comment)"
-        tooltip
-        text="'Edit'"
-        offset-y="30">
-
-        <img
-          class="post__interact__icon__new"
-          src="/assets/images/icons/edit--comment.svg"/>
-
-        <span class="post__tags__text greylink">Edit</span>
-
-      </a>
-
-      <!--Delete comment button-->
-
-      <a
-        class="post__tags__text"
-        ng-click="Thread.delete(comment, $index)"
-        ng-if="Thread.isOwnComment(comment)"
-        tooltip
-        text="'Delete'"
-        offset-y="30">
-
-        <img
-          class="post__interact__icon__new"
-          src="/assets/images/icons/delete.svg"/>
-
-        <span class="post__tags__text greylink">Delete</span>
-
-      </a>
-
-    </div> <!--End of "Comment interact" section-->
-
-    <!--Comment reply input box-->
-
-    <comment-input-box
-      ng-if="comment.meta.openReply"
-      on-submit="Thread.onSubmitComment.bind(Thread)"
-      original-comment-text="comment.data.text"
-      parentcomment="comment"
-      parentid="{{ comment.id }}"
-      placeholder="{{ comment.meta.update ? 'Edit your comment...' : 'Write a reply...' }}"
-      postid="{{ comment.postid }}"
-      update="comment.meta.update">
-    </comment-input-box>
-
-    <!--Comment replies-->
-
-    <div
-      class="comment_reply_new"
-      ng-if="comment.comments.length">
-      <comment-thread
-        comments="comment.comments"
-        sort-by="Thread.sortBy">
-      </comment-thread>
-      <span
-        class="comments__text text--uppercase"
-        ng-click="Thread.loadMore(comment)"
-        ng-if="comment.hasMoreComments">
-        load more comments
-      </span>
-    </div>
-
-  </div> <!--End of "Comment body" section-->
-
-</div> <!--End of "Comment wrapper" section-->
+</div>

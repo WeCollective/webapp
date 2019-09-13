@@ -1,14 +1,16 @@
-<div class="comment__input-wrapper">
+<div class="comment-input-wrapper">
   <textarea
-    class="comment__input"
+    class="comment-input"
+    rows="4"
+    cols="80"
     ng-keydown="Input.handleKeyDown($event)"
     ng-model="Input.input"
     placeholder="{{ Input.placeholder }}"></textarea>
 
-  <button
-    class="btn btn--primary text--uppercase"
+  <span
+    class="create-post-button-large"
     ng-click="Input.handleSubmit()"
     ng-disabled="!Input.input">
-  	Reply
-  </button>
+  	<text class="primary-button-text">Reply</text>
+  </span>
 </div>
