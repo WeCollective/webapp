@@ -83,6 +83,16 @@
                     
                         path { transition: fill .2s; }
                     }
+
+                    &:not(:disabled) {
+                        &.style--active {
+                            opacity: 1;
+                    
+                            path { fill: #FE939B; } //Light red: #FE939B, light blue: #9fc3e7//
+                        }
+
+                        &:hover { opacity: .6; }
+                    }
                 }
 
 .indented {

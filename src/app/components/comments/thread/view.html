@@ -55,61 +55,43 @@
         </div>
 
         <div class="comment-interact-section">
-
-            <a
-                class="sub-text link margin-right-large"
+        
+            <img
+                class="comment-interact-icon margin-right-small"
                 ng-click="Thread.commentPermalink(comment)"
-                tooltip
-                text="'Permalink'"
-                offset-y="30">
+                src="/assets/images/icons/permalink-01.png"/>
+    
+            <a class="sub-text link margin-right-large" ng-click="Thread.commentPermalink(comment)">Permalink</a>
         
-                <img
-                  class="comment-interact-icon margin-right-small"
-                  src="/assets/images/icons/permalink-01.png"/>
-        
-                <span class="sub-text link margin-right-large">Permalink</span>
-        
-            </a>
-
         </div>
 
         <div class="comment-interact-section">
-
-            <a
-                class="sub-text link margin-right-large"
+        
+            <img
+                class="comment-interact-icon margin-right-small"
                 ng-click="Thread.openReply(comment, true)"
                 ng-if="Thread.isOwnComment(comment)"
-                tooltip
-                text="'Edit'"
-                offset-y="30">
-        
-                <img
-                  class="comment-interact-icon margin-right-small"
-                  src="/assets/images/icons/edit-01.png"/>
-        
-                <span class="sub-text link margin-right-large">Edit</span>
-        
-            </a>
+                src="/assets/images/icons/edit-01.png"/>
+    
+            <a 
+                class="sub-text link margin-right-large" 
+                ng-click="Thread.openReply(comment, true)" 
+                ng-if="Thread.isOwnComment(comment)">Edit</a>
 
         </div>
 
         <div class="comment-interact-section">
-
-            <a
-                class="sub-text link"
+     
+            <img
+                class="comment-interact-icon margin-right-small"
                 ng-click="Thread.delete(comment, $index)"
                 ng-if="Thread.isOwnComment(comment)"
-                tooltip
-                text="'Delete'"
-                offset-y="30">
-        
-                <img
-                  class="comment-interact-icon margin-right-small"
-                  src="/assets/images/icons/delete-01.png"/>
-        
-                <span class="sub-text link">Delete</span>
-        
-            </a>
+                src="/assets/images/icons/delete-01.png"/>
+    
+            <a 
+                class="sub-text link"
+                ng-click="Thread.delete(comment, $index)"
+                ng-if="Thread.isOwnComment(comment)">Delete</a>
 
         </div>
 
