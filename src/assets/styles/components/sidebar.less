@@ -50,11 +50,26 @@
         border-radius: 50%;
         background-position: center;
         background-size: cover;
+        position: relative;
 
         @media screen and (max-width: 1000px) {
             display: none;
         }
     }
+
+        .side-bar-flag-image-upload-icon {
+            width: 26px;
+            height: 26px;
+            margin: auto;
+            opacity: 0.4;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            &:hover {
+                opacity: 1;    
+            }
+        }
 
     .side-bar-flag-image-small {
         margin: 10px 10px 10px 0;

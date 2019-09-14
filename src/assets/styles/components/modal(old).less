@@ -5,33 +5,6 @@ body.style--modal-open {
   position: fixed;
 }
 
-.modal-wrapper {
-    background-color: rgba(0, 0, 0, .75);
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: @z-modal;
-  
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: opacity @modal__animation__speed;
-    }
-  
-    &.ng-hide-add {
-      opacity: 1;
-  
-      &.ng-hide-add-active { opacity: 0; }
-    }
-  
-    &.ng-hide-remove {
-      opacity: 0;
-  
-      &.ng-hide-remove-active { opacity: 1; }
-    }
-  }
-
 .modal {
   background-color: #fff;
   height: 100%;
@@ -209,4 +182,29 @@ body.style--modal-open {
   padding: @g-padding-post;
 }
 
+.modal__overlay {
+  background-color: rgba(0, 0, 0, .75);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: @z-modal;
 
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: opacity @modal__animation__speed;
+  }
+
+  &.ng-hide-add {
+    opacity: 1;
+
+    &.ng-hide-add-active { opacity: 0; }
+  }
+
+  &.ng-hide-remove {
+    opacity: 0;
+
+    &.ng-hide-remove-active { opacity: 1; }
+  }
+}
