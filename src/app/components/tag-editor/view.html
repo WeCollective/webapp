@@ -17,7 +17,7 @@
       ng-disabled="TagEditor.disabled">
       <img
        alt="Add {{ TagEditor.tag }} to the tags"
-       src="/assets/images/icons/plus.svg" />
+       src="/assets/images/icons/add-01.png" />
     </button>
   </div>
 
@@ -29,13 +29,13 @@
         {{ TagEditor.renderTagLabel(tag) }}
       </span>
 
-      <button
+      <span
         class="tags__icon ng-hide"
         ng-click="TagEditor.removeTag(tag)"
         ng-disabled="TagEditor.disabled"
-        ng-include="'/assets/images/icons/close.svg'"
         ng-show="TagEditor.isRemovable(tag)">
-      </button>
+        <img class="post-interact-icon" src="/assets/images/icons/close-01.jpg"/>
+      </span>
     </div>
   </div>
 </div>
