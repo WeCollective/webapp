@@ -115,6 +115,30 @@
                 <img class="small-circular-thumbnail" style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
             </a>
 
+            <a
+                class="nav-bar-username-padding"
+                style="margin-right: 10px;"
+                ng-show="!Navbar.UserService.isAuthenticated()"
+                ui-sref="auth.login">
+                <span class="nav-bar-username">Log In</span>
+            </a>
+    
+            <a
+                class="nav-bar-username-padding"
+                style="margin-right: 10px;"
+                ng-show="!Navbar.UserService.isAuthenticated()"
+                ui-sref="auth.signup">
+                <span class="nav-bar-username">Sign up</span>
+            </a>
+
+            <a
+                class="nav-bar-username-padding"
+                style="margin-left: 10px;"
+                ng-show="Navbar.UserService.isAuthenticated()"
+                ng-click="Navbar.AppService.toggleNavbarMenu(); Navbar.logout()">
+                <span class="nav-bar-username">Log Out</span>
+            </a>
+
         </div><!--end of "nav-bar-right"-->
 
         <div class="nav-bar-right-dropdown-button"><!--Only visible when screen-width < 700px-->

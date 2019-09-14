@@ -44,20 +44,13 @@
         </div>
 
         <div class="comment-interact-section">
-
-            <a
-                class="sub-text link margin-right-large"
+        
+            <img
+                class="comment-interact-icon margin-right-small"
                 ng-click="Thread.openReply(comment, false)"
-                tooltip
-                text="'Reply'"
-                offset-y="30">
-        
-                <img
-                  class="comment-interact-icon margin-right-small"
-                  src="/assets/images/icons/reply-01.png"/>
-        
-                <span class="sub-text link margin-right-large">Reply</span>       
-            </a>
+                src="/assets/images/icons/reply-01.png"/>
+    
+            <a class="sub-text link margin-right-large" ng-click="Thread.openReply(comment, false)">Reply</a>       
 
         </div>
 
