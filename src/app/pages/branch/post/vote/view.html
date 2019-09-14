@@ -1,26 +1,29 @@
 <div class="post__content-header header style--inner">
+
+  <a
+    class="create-post-button-large"
+    style="margin-right: 0"
+    ng-click="Ctrl.openSubmitPollAnswerModal()"
+    ng-show="Ctrl.canSubmitNewAnswer()"
+    offset-y="40"
+    text="'submit new answer'"
+    tooltip>
+    <text class="primary-button-text">Create Answer</text>
+  </a>
+
   <dropdown
     items="Ctrl.sortBy"
     selected="Ctrl.filters.sortBy.selectedIndex"
     title="Ctrl.filters.sortBy.title">
   </dropdown>
 
-  <button
-    class="header__button ng-hide"
-    ng-click="Ctrl.openSubmitPollAnswerModal()"
-    ng-show="Ctrl.canSubmitNewAnswer()"
-    offset-y="40"
-    text="'submit new answer'"
-    tooltip>
-    <div ng-include="'/assets/images/icons/plus.svg'"></div>
-  </button>
-
-  <button
-    class="btn btn--primary text--uppercase"
+  <a
+    class="create-post-button-large"
+    style="margin-left: 20px; background-color: rgb(149, 229, 129)"
     ng-click="Ctrl.vote()"
     ng-show="Ctrl.selectedAnswerIndex !== -1">
-    cast your vote
-  </button>
+    <text class="primary-button-text">Cast Your Vote</text>
+</a>
 </div>
 
 <div
