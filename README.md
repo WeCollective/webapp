@@ -13,7 +13,7 @@
 
 -   Download and install Git: [](https://git-scm.com/download) [https://git-scm.com/download#](https://git-scm.com/download#)
     
--   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)
+-   Download and install Node.js: [https://nodejs.org/en/](https://nodejs.org/en/)  MAKE SURE TO GET THE STABLE VERSION
 
 -   Download and install Python https://www.python.org/
 
@@ -30,7 +30,13 @@
 	-   after that install pip packages using the commands:
 			"pip install boto" and
 			"pip install boto3"
+			
+	-   then run "pip install awscli"
 	
+	-   then run "aws configure"
+	
+	-   press enter and leave each field blank except for the last one "Default output format", enter "json" -make sure it's lowercase- and press enter to configure aws
+			
 	-   Request the server environment variables file from Weco Admins
     
 	-   Email james@weco.io or send us a message on [Discord](https://discord.gg/n4xqXj7)    
