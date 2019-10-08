@@ -221,11 +221,55 @@ class NavbarController extends Injectable {
     }
     this.cacheNotifications();
   }
+
+  openLeftModal() {
+    // Get the modal
+    var leftModal = document.getElementsByClassName("nav-bar-left-dropdown-modal-wrapper")[0];
+
+    // Get the button that opens the modal
+    var leftButton = document.getElementsByClassName("nav-bar-left-dropdown-button")[0];
+
+    // When the user clicks the button, open the modal 
+    leftButton.onclick = function() {
+        leftModal.style.display = "block";
+    }
+  }
+
+  openRightModal() {
+    // Get the modal
+    var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
+
+    // Get the button that opens the modal
+    var rightButton = document.getElementsByClassName("nav-bar-right-dropdown-button")[0];
+
+    // When the user clicks the button, open the modal 
+    rightButton.onclick = function() {
+      rightModal.style.display = "block";
+    }
+  }
+
+  closeRightModal() {
+    // Get the modal positioner
+    var rightModalPositioner = document.getElementsByClassName("nav-bar-right-dropdown-modal-positioner")[0];
+
+    // When the user clicks anywhere outside of either modal, close it
+    $window.onclick = function(event) {
+      if (event.target == leftModal) {
+          leftModal.style.display = "none";
+      } else if (event.target == rightModal) {
+          rightModal.style.display = "none";
+      } else if (event.target == rightModalPositioner) {
+          rightModal.style.display = "none";
+      }
+    }
+  }
 }
+
 
 NavbarController.$inject = [
   '$location',
   '$scope',
+  '$window',
   '$state',
   '$timeout',
   'AlertsService',

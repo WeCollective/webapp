@@ -30,7 +30,9 @@
 
         <div class="nav-bar-left-dropdown-button"><!--Only visible when screen-width < 700px-->
 
-            <a class="icon-padding" title="Home">
+            <a class="icon-padding" 
+                title="Home"
+                ng-click="Navbar.openLeftModal()">
                 <img class="icon white" src="/assets/images/icons/dropdown-01.png">
             </a>
 
@@ -41,33 +43,31 @@
             <div class="nav-bar-left-dropdown-modal-content">
 
                 <div class="nav-bar-dropdown-link">
-                    <a class="icon-padding small" href="/index.html" title="Home">
+                    <a class="icon-padding small" href="/" title="Home">
                         <img class="icon grey" src="/assets/images/icons/home-02.svg">
                     </a>
-                    <a class="link-text" href="/index.html" title="Home">Home</a>
+                    <a class="link-text" href="/" title="Home">Home</a>
                 </div>
         
                 <div class="nav-bar-dropdown-link">
-                    <a class="icon-padding small" href="/branch-about.html" title="About">
+                    <a class="icon-padding small" ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" title="About">
                         <img class="icon grey" src="/assets/images/icons/about-01.png">
                     </a>
-                    <a class="link-text" href="/branch-about.html" title="About">About</a>
+                    <a class="link-text" ui-sref="weco.branch.nucleus.about({ branchid: 'root' })" title="About">About</a>
                 </div>
         
                 <div class="nav-bar-dropdown-link">
-                    <a class="icon-padding small" title="Wall" 
-                    ng-class="{ 'style--opaque' : Navbar.isControlSelected('wall') }"
-                    ui-sref="weco.branch.wall({ branchid: 'root' })">
+                    <a class="icon-padding small" title="Wall" ui-sref="weco.branch.wall({ branchid: 'root' })">
                         <img class="icon grey" src="/assets/images/icons/wall-05.png">
                     </a>
-                    <a class="link-text" href="/branch-wall.html" title="Wall">Wall</a>
+                    <a class="link-text" ui-sref="weco.branch.wall({ branchid: 'root' })" title="Wall">Wall</a>
                 </div>
         
                 <div class="nav-bar-dropdown-link">
-                    <a class="icon-padding small" href="/branches.html" title="Branches">
+                    <a class="icon-padding small" ui-sref="weco.branch.subbranches({ branchid: 'root' })" title="Branches">
                         <img class="icon grey" src="/assets/images/icons/node-01.png">
                     </a>
-                    <a class="link-text" href="/branches.html" title="Branches">Branches</a>
+                    <a class="link-text" ui-sref="weco.branch.subbranches({ branchid: 'root' })" title="Branches">Branches</a>
                 </div>
 
             </div>
@@ -93,27 +93,34 @@
 
         <div class="nav-bar-right">
 
-            <a class="icon-padding" href="" title="Messages">
+            <a class="icon-padding hidden-on-small-screen"
+                href="" 
+                title="Messages"
+                ng-show="Navbar.UserService.isAuthenticated()">
                 <img class="icon white" src="/assets/images/icons/messages-01.png">
             </a>
 
-            <a class="icon-padding" title="Notifications"
+            <a class="icon-padding hidden-on-small-screen" title="Notifications"
                 ng-show="Navbar.UserService.isAuthenticated()"
                 ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
                 <img class="icon white" src="/assets/images/icons/notifications-01.png">
             </a>
 
-            <a class="nav-bar-username-padding" title="Username"
+            <a class="nav-bar-username-padding hidden-on-small-screen" title="Username"
                 ng-show="Navbar.UserService.isAuthenticated()"
                 ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })">
                 <span class="nav-bar-username">{{ Navbar.UserService.user.username }}</span>
             </a>
 
-            <a class="icon-padding" title="User" style="margin-left: 10px;"
-                ng-show="Navbar.UserService.isAuthenticated()"
-                ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })">
-                <img class="small-circular-thumbnail" style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
-            </a>
+            <div class="nav-bar-right-dropdown-button">
+                <a class="icon-padding" 
+                    title="User" 
+                    style="margin-left: 10px;"
+                    ng-click="Navbar.openRightModal()"
+                    ng-show="Navbar.UserService.isAuthenticated()">
+                    <img class="small-circular-thumbnail" style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+                </a>   
+            </div>
 
             <a
                 class="nav-bar-username-padding"
@@ -131,42 +138,36 @@
                 <span class="nav-bar-username">Sign up</span>
             </a>
 
-            <a
-                class="nav-bar-username-padding"
-                style="margin-left: 10px;"
-                ng-show="Navbar.UserService.isAuthenticated()"
-                ng-click="Navbar.AppService.toggleNavbarMenu(); Navbar.logout()">
-                <span class="nav-bar-username">Log Out</span>
-            </a>
-
         </div><!--end of "nav-bar-right"-->
-
-        <div class="nav-bar-right-dropdown-button"><!--Only visible when screen-width < 700px-->
-
-            <a class="icon-padding" title="User" style="margin-left: 10px;">
-                <img class="small-circular-thumbnail" style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
-            </a>
-
-        </div>
 
         <div class="nav-bar-right-dropdown-modal-wrapper">
 
-            <div class="nav-bar-right-dropdown-modal-content">
+            <div class="nav-bar-right-dropdown-modal-positioner">
+
+                <div class="nav-bar-right-dropdown-modal-content">
+
+                    <a
+                        class="nav-bar-username-padding"
+                        style="margin-bottom: 10px"
+                        ng-show="Navbar.UserService.isAuthenticated()"
+                        ng-click="Navbar.AppService.toggleNavbarMenu(); Navbar.logout()">
+                        <span class="link-text" style="font-weight: 600">Log Out</span>
+                    </a>
 
                     <span class="sub-text" href="">Private:</span>
 
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-settings.html" title="Settings">
+                        <a class="icon-padding small" ui-sref="weco.profile.settings({ username: Navbar.UserService.user.username })" title="Settings">
                             <img class="icon grey" src="/assets/images/icons/settings-01.png">
                         </a>
-                        <a class="link-text" href="/user-settings.html" title="Settings">Settings</a>
+                        <a class="link-text" ui-sref="weco.profile.settings({ username: Navbar.UserService.user.username })" title="Settings">Settings</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-stream.html" title="Stream">
+                        <a class="icon-padding small" href="" title="Stream">
                             <img class="icon grey" src="/assets/images/icons/wall-01.png">
                         </a>
-                        <a class="link-text" href="/user-stream.html" title="Stream">Stream</a>
+                        <a class="link-text" href="" title="Stream">Stream</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
@@ -182,58 +183,60 @@
                             ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
                             <img class="icon grey" src="/assets/images/icons/notifications-01.png">
                         </a>
-                        <a class="link-text" href="/user-notifications.html" title="Notifications">Notifications</a>
+                        <a class="link-text" ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })" title="Notifications">Notifications</a>
                     </div>
             
                     <span class="sub-text" href="">Public:</span>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-about.html" title="About">
+                        <a class="icon-padding small" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">
                             <img class="icon grey" src="/assets/images/icons/about-01.png">
                         </a>
-                        <a class="link-text" href="/user-about.html" title="About">About</a>
+                        <a class="link-text" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">About</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-posts.html" title="Posts">
+                        <a class="icon-padding small" href="" title="Posts">
                             <img class="icon grey" src="/assets/images/icons/post-01.png">
                         </a>
-                        <a class="link-text" href="/user-posts.html" title="About">Posts</a>
+                        <a class="link-text" href="" title="About">Posts</a>
+                
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-about.html" title="Comments">
+                        <a class="icon-padding small" href="" title="Comments">
                             <img class="icon grey" src="/assets/images/icons/comment-01.png">
                         </a>
-                        <a class="link-text" href="/user-posts.html" title="About">Comments</a>
+                        <a class="link-text" href="" title="About">Comments</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-about.html" title="Likes">
+                        <a class="icon-padding small" href="" title="Likes">
                             <img class="icon grey" src="/assets/images/icons/like-01.svg">
                         </a>
-                        <a class="link-text" href="/user-posts.html" title="About">Likes</a>
+                        <a class="link-text" href="" title="About">Likes</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/user-about.html" title="Reposts">
+                        <a class="icon-padding small" href="" title="Reposts">
                             <img class="icon grey" src="/assets/images/icons/about-01.png">
                         </a>
-                        <a class="link-text" href="/user-posts.html" title="About">Reposts</a>
+                        <a class="link-text" href="" title="About">Reposts</a>
                     </div>
             
                     <div class="nav-bar-dropdown-link">
-                        <a class="icon-padding small" href="/branches.html" title="Branches">
+                        <a class="icon-padding small" href="" title="Branches">
                             <img class="icon grey" src="/assets/images/icons/node-01.png">
                         </a>
-                        <a class="link-text" href="/user-branches.html" title="Branches">Branches</a>
+                        <a class="link-text" href="" title="Branches">Branches</a>
                     </div>
             
-                </div><!--end of "side-bar-buttons"-->
+                </div><!--end of "nav-bar-right-dropdown-modal-content"-->
 
-            </div>
+            </div><!--end of "nav-bar-right-dropdown-modal-positioner"-->
+
+        </div><!--end of "nav-bar-right-dropdown-modal-wrapper"-->
             
-        </div>
-
     </div><!--end of "nav-bar-content"-->
 
+</div><!--end of "nav-bar"-->
