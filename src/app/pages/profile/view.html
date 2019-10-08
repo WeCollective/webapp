@@ -87,43 +87,11 @@
     
         <div class="side-bar-links">
     
-            <span class="sub-text" href="">Private:</span>
-    
             <div class="side-bar-link">
-                <a class="icon-padding small" title="Settings">
-                    <img class="icon grey" src="/assets/images/icons/settings-01.png">
-                </a>
-                <a class="link-text" title="Settings">Settings</a>
-            </div>
-    
-            <div class="side-bar-link">
-                <a class="icon-padding small" title="Stream">
-                    <img class="icon grey" src="/assets/images/icons/wall-01.png">
-                </a>
-                <a class="link-text" title="Stream">Stream</a>
-            </div>
-    
-            <div class="side-bar-link">
-                <a class="icon-padding small" title="Messages">
-                    <img class="icon grey" src="/assets/images/icons/messages-01.png">
-                </a>
-                <a class="link-text" title="Messages">Messages</a>
-            </div>
-    
-            <div class="side-bar-link margin-bottom-large">
-                <a class="icon-padding small" title="Notifications">
-                    <img class="icon grey" src="/assets/images/icons/notifications-01.png">
-                </a>
-                <a class="link-text" title="Notifications">Notifications</a>
-            </div>
-    
-            <span class="sub-text">Public:</span>
-    
-            <div class="side-bar-link">
-                <a class="icon-padding small" title="About">
+                <a class="icon-padding small" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">
                     <img class="icon grey" src="/assets/images/icons/about-01.png">
                 </a>
-                <a class="link-text" title="About">About</a>
+                <a class="link-text" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">About</a>
             </div>
     
             <div class="side-bar-link">
@@ -163,15 +131,35 @@
     
         </div><!--end of "side-bar-buttons"-->
     
-    </div>
-    
-    <div class="center">
-        <div class="align">
-            <div class="content">
-                <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
-                <div class="content__body" ui-view></div>
+    </div><!--end of "left-side-bar"-->
+
+    <div class="central-panel">
+
+        <div class="header__controls style--spaced">
+            <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
+            <button
+                class="header__read-all"
+                ng-click="Profile.markAllNotificationsAsSeen()"
+                ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
+                offset-x="-150"
+                offset-y="30"
+                text="'Mark all notifications as seen'"
+                tooltip >
+                <img
+                alt="Mark all notifications as read icon"
+                src="/assets/images/icons/tick--circle.svg" />
+            </button>
+        </div>
+        
+        <div class="center">
+            <div class="align">
+                <div class="content">
+                    <loader-bar class="loader__bar--profile" hidden="!Profile.showLoader"></loader-bar>
+                    <div class="content__body" ui-view></div>
+                </div>
             </div>
         </div>
+        
     </div>
   
 </div>

@@ -27,7 +27,7 @@ class ProfileController extends Injectable {
   getInitialState() {
     return {
       tabItems: [
-        'about',
+        'About',
       ],
       tabStates: [
         'weco.profile.about',
@@ -103,11 +103,11 @@ class ProfileController extends Injectable {
     // Add user tabs.
     if (this.UserService.user.username === username) {
       // Settings.
-      newState.tabItems.push('settings');
+      newState.tabItems.push('Settings');
       newState.tabStates.push('weco.profile.settings');
 
       // Notifications.
-      newState.tabItems.push('notifications');
+      newState.tabItems.push('Notifications');
       newState.tabStates.push('weco.profile.notifications');
     }
 
