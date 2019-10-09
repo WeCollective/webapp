@@ -1,12 +1,11 @@
 <div class="central-panel-header-section">
 
-    <a id="sidebar-toggle-button" class="side-bar-toggle-button">
+    <a class="side-bar-toggle-button" ng-click="Ctrl.WallService.toggleSidebarNew()">
         <!--<img id="toggle-button" onclick="rotateToggleButton()" src="/images/icons/toggle-02.png" class="icon toggle-out">-->
         <img   
+            id="toggle-button"
             alt="Toggle sidebar"
-            class="icon"
-            ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-            ng-click="Navbar.AppService.toggleSidebar()"
+            class="icon toggle-out"
             src="/assets/images/icons/toggle-02.png"/>
     </a>
     
@@ -25,8 +24,8 @@
     </a>
 
     <!--Small Create Post Button (hidden when screen width > 900px)-->
-    <a id="create-post-button" class="create-post-button-small">
-            <img src="/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
+    <a id="create-post-button" class="create-post-button-small" ng-click="Ctrl.WallService.handleHeaderButtonClick()">
+            <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
     </a>
 
     <div class="local-search-bar">
@@ -34,13 +33,13 @@
             <!--<input class="local-search-bar-input" placeholder="Search wall..." type="text">-->
 
         <input class="local-search-bar-input"
-                id="searchField"
-                ng-blur="Ctrl.SearchService.hide();"
-                ng-focus="Ctrl.SearchService.show()" 
-                ng-keydown="Ctrl.handleKeyPress($event)"
-                ng-model="Ctrl.query"
-                placeholder="Search branches..."
-                type="text">
+            id="searchField"
+            ng-blur="Ctrl.SearchService.hide();"
+            ng-focus="Ctrl.SearchService.show()" 
+            ng-keydown="Ctrl.handleKeyPress($event)"
+            ng-model="Ctrl.query"
+            placeholder="Search branches..."
+            type="text">
 
             <ul class="srch-results" ng-show="Ctrl.SearchService.isVisible">
                 <li class="srch-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    

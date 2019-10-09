@@ -31,6 +31,27 @@ class BranchController extends Injectable {
       `Unable to update ${messageType} picture.`,
     );
   }
+
+  //New Toggle Sidebar Function [James 09-10-2019]
+  toggleSidebarNew() {
+    var leftSideBar = document.getElementsByClassName("left-side-bar")[0];
+    var toggleButton = document.getElementById("toggle-button");
+
+    toggleButton.onclick = function() {
+      if (leftSideBar.style.display == "block") {
+        leftSideBar.style.display = "none";
+      } else {
+        leftSideBar.style.display = "block";
+      };
+
+      if (toggleButton.className == "icon toggle-in") {
+        toggleButton.className = "icon toggle-out";
+      } else if (toggleButton.className == "icon toggle-out") {
+        toggleButton.className = "icon toggle-in";
+      }
+    };
+  }
+
 }
 
 BranchController.$inject = [

@@ -5,10 +5,24 @@
   ng-click="Navbar.AppService.toggleSidebar()"
   src="/assets/images/icons/show.svg" />-->
 
-<div class="header__controls">
-  <tabs
-    items="Ctrl.state.tabItems"
-    states="Ctrl.state.tabStates"
-    state-params="Ctrl.state.tabStateParams">
-  </tabs>
+<div class="central-panel-header-with-tabs sticky-header">
+
+  <div class="central-panel-header-tabs">  
+
+    <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
+        <img   
+            id="toggle-button"
+            alt="Toggle sidebar"
+            class="icon toggle-out"
+            src="/assets/images/icons/toggle-02.png"/>
+    </a>
+
+    <tabs
+      items="Ctrl.state.tabItems"
+      states="Ctrl.state.tabStates"
+      state-params="Ctrl.state.tabStateParams">
+    </tabs>
+
+  </div>
+
 </div>
