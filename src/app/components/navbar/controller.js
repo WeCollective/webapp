@@ -235,6 +235,18 @@ class NavbarController extends Injectable {
     }
   }
 
+  closeLeftModal() {
+    // Get elements
+    var leftModal = document.getElementsByClassName("nav-bar-left-dropdown-modal-wrapper")[0];
+
+    // When the user clicks anywhere outside of the modal, close it
+    document.onclick = function(event) {
+      if (event.target == leftModal) {
+          leftModal.style.display = "none";
+      }
+    }
+  }
+
   openRightModal() {
     // Get the modal
     var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
@@ -249,14 +261,13 @@ class NavbarController extends Injectable {
   }
 
   closeRightModal() {
-    // Get the modal positioner
+    // Get elements
+    var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
     var rightModalPositioner = document.getElementsByClassName("nav-bar-right-dropdown-modal-positioner")[0];
 
-    // When the user clicks anywhere outside of either modal, close it
-    $window.onclick = function(event) {
-      if (event.target == leftModal) {
-          leftModal.style.display = "none";
-      } else if (event.target == rightModal) {
+    // When the user clicks anywhere outside of the modal, close it
+    document.onclick = function(event) {
+      if (event.target == rightModal) {
           rightModal.style.display = "none";
       } else if (event.target == rightModalPositioner) {
           rightModal.style.display = "none";
@@ -264,7 +275,6 @@ class NavbarController extends Injectable {
     }
   }
 }
-
 
 NavbarController.$inject = [
   '$location',
