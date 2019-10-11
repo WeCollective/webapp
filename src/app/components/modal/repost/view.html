@@ -1,0 +1,10 @@
+<div id="modal__header" ng-controller="CreateRePostModalController as RepostPostModal">
+    <div id="modal__header-content" loading loading-when="RepostPostModal.isLoading">
+        <h1>Repost</h1>
+
+        <tag-editor items="RepostPostModal.post.branches" max="5" title="'Tag another branch, max 5 tags'">
+        </tag-editor>
+
+
+    </div>
+</div>

@@ -12,16 +12,14 @@
 
         </div>
 
-    </div><!--end of "post-index"-->
+    </div>
+    <!--end of "post-index"-->
 
     <div class="post-body">
 
         <div class="post-tags">
 
-            <a 
-                class="small-circular-thumbnail margin-right-medium" 
-                ui-sref="weco.profile.about({ username: ListItem.post.creator })"
-                style="background-image: url('{{ListItem.getUser(ListItem.post.creator).profileUrlThumb}}'), url('/assets/images/default-profile.jpg');">
+            <a class="small-circular-thumbnail margin-right-medium" ui-sref="weco.profile.about({ username: ListItem.post.creator })" style="background-image: url('{{ListItem.getUser(ListItem.post.creator).profileUrlThumb}}'), url('/assets/images/default-profile.jpg');">
             </a>
 
             <a class="sub-text link margin-right-medium" href="">{{ ListItem.post.creator }}</a>
@@ -37,36 +35,28 @@
                 <span class="sub-text margin-right-medium">{{ ListItem.DateService.getElapsedTime(ListItem.post.date) }}</span>
 
                 <span class="post-type-marker" ng-class="ListItem.getMarkerClass(ListItem.post.type)" text="ListItem.post.type | capitalize" tooltip></span>
-                
+
             </div>
 
-        </div><!--end of "post-tags"-->
+        </div>
+        <!--end of "post-tags"-->
 
         <div class="post-content">
 
             <div class="post-image-container">
 
-                <!--<a 
-                    class="post-image" 
+                <!--<a
+                    class="post-image"
                     style="background-image: url('/images/post-images/post-image-01.jpg'), url('/images/post-images/post-image-00.svg');"
                     href="">
                 </a>-->
 
-                <a
-                    class="post-image"
-                    ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
-                    ng-if="['text', 'poll'].includes(ListItem.post.type)"
-                    style="background-image: url('{{ ListItem.getPostImage() }}')">
+                <a class="post-image" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)" style="background-image: url('{{ ListItem.getPostImage() }}')">
                 </a>
-      
+
                 <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
-        
-                <a
-                    class="post-image"
-                    href="{{ ListItem.getPostUrl() }}"
-                    ng-if="!['text', 'poll'].includes(ListItem.post.type)"
-                    target="_blank"
-                    style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')">
+
+                <a class="post-image" href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank" style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')">
                 </a>
 
             </div>
@@ -76,9 +66,7 @@
                 <!--If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
 
                 <div class="post-title">
-                    <a class="title-text" 
-                        ng-href="{{ ListItem.getPostTarget(ListItem.post) }}"
-                        ng-if="['text', 'poll'].includes(ListItem.post.type)">
+                    <a class="title-text" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)">
                         {{ ListItem.post.title }}
                     </a>
                 </div>
@@ -86,10 +74,7 @@
                 <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
 
                 <div class="post-title">
-                    <a class="title-text" 
-                        href="{{ ListItem.getPostUrl() }}"
-                        ng-if="!['text', 'poll'].includes(ListItem.post.type)"
-                        target="_blank">
+                    <a class="title-text" href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank">
                         {{ ListItem.post.title }}
                     </a>
                 </div>
@@ -104,11 +89,7 @@
 
                     <div class="post-interact-section">
 
-                        <a class="post-interact-icon margin-right-small" 
-                            ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }"
-                            ng-click="ListItem.vote('up', $event.target)"
-                            ng-disabled="!ListItem.UserService.isAuthenticated()"
-                            ng-include="'/assets/images/icons/heart-icon.svg'"
+                        <a class="post-interact-icon margin-right-small" ng-class="{ 'style--active': ListItem.post.userVoted === 'up' }" ng-click="ListItem.vote('up', $event.target)" ng-disabled="!ListItem.UserService.isAuthenticated()" ng-include="'/assets/images/icons/heart-icon.svg'"
                             text="'Like post'"></a>
 
                         <a class="sub-text link margin-right-large">{{ ListItem.post[ListItem.stat] }} Likes</a>
@@ -122,10 +103,10 @@
                         <a class="post-interact-icon margin-right-small" href="" style="background-image: url(/assets/images/icons/comment-01.png)"></a>
 
                         <a class="sub-text link margin-right-large" href="">{{ ListItem.post.comment_count }} Comments</a>
-                        
+
                     </div>
 
-                    <div class="post-interact-section">
+                    <div class="post-interact-section" ng-click="ListItem.openRePostModal()" ng-hide="!ListItem.UserService.isAuthenticated()">
                         <a class="post-interact-icon margin-right-small" href="" style="background-image: url(/assets/images/icons/repost-06.png)"></a>
                         <a class="sub-text link margin-right-large" href="">Repost</a>
                     </div>
@@ -140,12 +121,16 @@
                         <a class="sub-text link" href="">Delete</a>
                     </div>
 
-                </div><!--End of "post-interact"-->
+                </div>
+                <!--End of "post-interact"-->
 
-            </div><!--End of "post-info"-->
+            </div>
+            <!--End of "post-info"-->
 
-        </div><!--End of "post-content"-->
-        
-    </div><!--End of "post-body"-->
+        </div>
+        <!--End of "post-content"-->
+
+    </div>
+    <!--End of "post-body"-->
 
 </li>
