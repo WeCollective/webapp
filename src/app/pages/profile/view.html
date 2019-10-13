@@ -8,7 +8,14 @@
 
 <div class="fixed-nav-bar-padding"></div>
 
-<div class="cover-image sticky-cover"></div>
+<cover-photo
+    can-edit="Branch.BranchService.isModerator()"
+    image-url="Branch.BranchService.branch.coverUrl"
+    open-upload-cover-modal="Branch.openModal"
+    thumb-url="Branch.BranchService.branch.coverUrlThumb">
+</cover-photo>
+
+<!--<div class="cover-image sticky-cover"></div>-->
 
 <div
     class="page"
