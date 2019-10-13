@@ -132,6 +132,27 @@ class ProfileController extends Injectable {
 
     this.state = newState;
   }
+
+  // New toggle sidebar function [James 09-10-2019]
+  toggleSidebarNew() {
+    var leftSideBar = document.getElementsByClassName("left-side-bar")[0];
+    var toggleButton = document.getElementById("toggle-button");
+
+    toggleButton.onclick = function() {
+      // Open and close sidebar
+      if (leftSideBar.style.display == "block") {
+        leftSideBar.style.display = "none";
+      } else {
+        leftSideBar.style.display = "block";
+      };
+      // Rotate toggle arrow on click
+      if (toggleButton.className == "icon toggle-in") {
+        toggleButton.className = "icon toggle-out";
+      } else if (toggleButton.className == "icon toggle-out") {
+        toggleButton.className = "icon toggle-in";
+      }
+    };
+  }
 }
 
 ProfileController.$inject = [

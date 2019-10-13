@@ -135,20 +135,40 @@
 
     <div class="central-panel">
 
-        <div class="header__controls style--spaced">
-            <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
-            <button
-                class="header__read-all"
-                ng-click="Profile.markAllNotificationsAsSeen()"
-                ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
-                offset-x="-150"
-                offset-y="30"
-                text="'Mark all notifications as seen'"
-                tooltip >
-                <img
-                alt="Mark all notifications as read icon"
-                src="/assets/images/icons/tick--circle.svg" />
-            </button>
+        <div class="central-panel-header">
+
+            <div class="central-panel-header-with-tabs sticky-header">
+
+                <div class="central-panel-header-tabs">  
+                
+                    <a class="side-bar-toggle-button" ng-click="Profile.toggleSidebarNew()">
+                        <img   
+                            id="toggle-button"
+                            alt="Toggle sidebar"
+                            class="icon toggle-out"
+                            src="/assets/images/icons/toggle-02.png"/>
+                    </a>
+                
+                    <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
+
+                    <!--Mark all notifications as 'read' button needs fixing-->
+                    <!--<button
+                        class="header__read-all"
+                        ng-click="Profile.markAllNotificationsAsSeen()"
+                        ng-show="Profile.$state.current.name.includes('weco.profile.notifications')"
+                        offset-x="-150"
+                        offset-y="30"
+                        text="'Mark all notifications as seen'"
+                        tooltip >
+                        <img
+                        alt="Mark all notifications as read icon"
+                        src="/assets/images/icons/tick--circle.svg" />
+                    </button>-->
+                
+                </div>
+                
+            </div>
+
         </div>
         
         <div class="center">
