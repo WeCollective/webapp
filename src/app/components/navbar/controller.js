@@ -223,13 +223,10 @@ class NavbarController extends Injectable {
   }
 
   openLeftModal() {
-    // Get the modal
+
+    var leftButton = document.getElementsByClassName("nav-bar-left-dropdown-button")[0];
     var leftModal = document.getElementsByClassName("nav-bar-left-dropdown-modal-wrapper")[0];
 
-    // Get the button that opens the modal
-    var leftButton = document.getElementsByClassName("nav-bar-left-dropdown-button")[0];
-
-    // When the user clicks the button, open the modal 
     leftButton.onclick = function() {
         leftModal.style.display = "block";
     }

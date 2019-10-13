@@ -274,6 +274,14 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+
+    //Hide scroll bars ob Chrome:
+    ::-webkit-scrollbar {
+        display: none;
+        }
+
+    //Hide scroll bars on Firefox:
+    scrollbar-width: none;
 }
 
 html {
