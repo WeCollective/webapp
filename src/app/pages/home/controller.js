@@ -54,14 +54,14 @@ class HomeController extends Injectable {
                 .selectAll("circle")
                 .data(root.descendants().slice(1))
                 .join("circle")
-                .attr("fill", d => d.children ? this.color(d.depth) : "white")
+                .attr("fill", d => d.children ? this.color(d.depth) : "#e9f4f3")
                 .attr("pointer-events", d => !d.children ? "none" : null)
                 .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
                 .on("mouseout", function() { d3.select(this).attr("stroke", null); })
                 .on("click", d => focus !== d && (zoom(d, this.width), d3.event.stopPropagation()));
 
             const label = svg.append("g")
-                .style("font", "10px sans-serif")
+                .style("font", "18px sans-serif")
                 .attr("pointer-events", "none")
                 .attr("text-anchor", "middle")
                 .selectAll("text")
