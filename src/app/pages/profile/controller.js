@@ -27,7 +27,7 @@ class ProfileController extends Injectable {
   getInitialState() {
     return {
       tabItems: [
-        'about',
+        'About',
       ],
       tabStates: [
         'weco.profile.about',
@@ -103,11 +103,11 @@ class ProfileController extends Injectable {
     // Add user tabs.
     if (this.UserService.user.username === username) {
       // Settings.
-      newState.tabItems.push('settings');
+      newState.tabItems.push('Settings');
       newState.tabStates.push('weco.profile.settings');
 
       // Notifications.
-      newState.tabItems.push('notifications');
+      newState.tabItems.push('Notifications');
       newState.tabStates.push('weco.profile.notifications');
     }
 
@@ -131,6 +131,27 @@ class ProfileController extends Injectable {
     }
 
     this.state = newState;
+  }
+
+  // New toggle sidebar function [James 09-10-2019]
+  toggleSidebarNew() {
+    var leftSideBar = document.getElementsByClassName("left-side-bar")[0];
+    var toggleButton = document.getElementById("toggle-button");
+
+    toggleButton.onclick = function() {
+      // Open and close sidebar
+      if (leftSideBar.style.display == "block") {
+        leftSideBar.style.display = "none";
+      } else {
+        leftSideBar.style.display = "block";
+      };
+      // Rotate toggle arrow on click
+      if (toggleButton.className == "icon toggle-in") {
+        toggleButton.className = "icon toggle-out";
+      } else if (toggleButton.className == "icon toggle-out") {
+        toggleButton.className = "icon toggle-in";
+      }
+    };
   }
 }
 

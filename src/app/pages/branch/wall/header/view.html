@@ -1,22 +1,15 @@
-
-
 <div class="central-panel-header-section">
 
-    <a id="sidebar-toggle-button" class="side-bar-toggle-button">
-        <!--<img id="toggle-button" onclick="rotateToggleButton()" src="/images/icons/toggle-02.png" class="icon toggle-out">-->
+    <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
+    <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
         <img   
+            id="toggle-button"
             alt="Toggle sidebar"
             class="icon toggle-out"
-            ng-class="{ 'style--toggled': Navbar.AppService.isSidebarOpen }"
-            ng-click="Navbar.AppService.toggleSidebar()"
             src="/assets/images/icons/toggle-02.png"/>
     </a>
     
-    <!--Large Create Post Button (hidden when screen width < 900px)-->
-    <!--<a id="create-post-button" class="create-post-button-large">
-        <text class="primary-button-text">Create Post</text>
-    </a>-->
-
+    <!--Create Post Button Large (hidden when screen width < 1000px)-->
     <a class="create-post-button-large"
         ng-click="Ctrl.WallService.handleHeaderButtonClick()"
         ng-show="Ctrl.WallService.isHeaderButtonVisible()"
@@ -26,31 +19,32 @@
 
     </a>
 
-    <!--Small Create Post Button (hidden when screen width > 900px)-->
-    <a id="create-post-button" class="create-post-button-small">
+    <!--Create Post Button Small (hidden when screen width > 1000px)-->
+    <a id="create-post-button" class="create-post-button-small" ng-click="Ctrl.WallService.handleHeaderButtonClick()">
             <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
     </a>
 
+    <!--Local Search Bar-->
     <div class="local-search-bar">
-        
-            <!--<input class="local-search-bar-input" placeholder="Search wall..." type="text">-->
-
-        <input class="local-search-bar-input"
-                id="searchField"
-                ng-blur="Ctrl.SearchService.hide();"
-                ng-focus="Ctrl.SearchService.show()" 
-                ng-keydown="Ctrl.handleKeyPress($event)"
-                ng-model="Ctrl.query"
-                placeholder="Search wall..."
-                type="text">
-
+        <input 
+            class="local-search-bar-input"
+            id="searchField"
+            ng-blur="Ctrl.SearchService.hide();"
+            ng-focus="Ctrl.SearchService.show()" 
+            ng-keydown="Ctrl.handleKeyPress($event)"
+            ng-model="Ctrl.query"
+            placeholder="Search wall..."
+            type="text">
             <ul class="srch-results" ng-show="Ctrl.SearchService.isVisible">
                 <li class="srch-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
-            </ul>
-        
-        <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">
-    
+            </ul>       
+        <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">  
     </div>
+
+    <!--Toggle Filters Button (hidden when screen width > 700px)-->
+    <a class="toggle-filters-button" ng-click="Branch.toggleFilters()">
+        <img src="/assets/images/icons/filter-07.png" class="icon" style="filter: invert(100%);">
+    </a>
 
 </div>
 
