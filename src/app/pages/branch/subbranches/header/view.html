@@ -1,7 +1,7 @@
 <div class="central-panel-header-section">
 
-    <a class="side-bar-toggle-button" ng-click="Ctrl.WallService.toggleSidebarNew()">
-        <!--<img id="toggle-button" onclick="rotateToggleButton()" src="/images/icons/toggle-02.png" class="icon toggle-out">-->
+    <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
+    <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
         <img   
             id="toggle-button"
             alt="Toggle sidebar"
@@ -48,6 +48,11 @@
         <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">
     
     </div>
+
+    <!--Toggle Filters Button (hidden when screen width > 700px)-->
+    <a class="toggle-filters-button" ng-click="Branch.toggleFilters()">
+        <img src="/assets/images/icons/filter-07.png" class="icon" style="filter: invert(100%);">
+    </a>
 
 </div>
 
