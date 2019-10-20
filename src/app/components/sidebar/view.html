@@ -21,6 +21,7 @@
 
     </div>
 
+    <!--Branch flag image-->
     <div 
         class="side-bar-flag-image-large"
         style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
@@ -37,7 +38,7 @@
 
     </div>
 
-    <div class="side-bar-followers">
+    <!--<div class="side-bar-followers">
 
         <a class="main-text" style="font-size: 15px" ><b>0</b> Followers</a>
 
@@ -61,13 +62,28 @@
                 href="/branch-followers.html">
             </a>
             
-        </div><!--End of "overlapping-thumbnails"-->
+        </div>
 
-    </div><!--End of "followers-link"-->
+    </div>--><!--End of "followers-link"-->
 
+    <!--Follow branch button-->
+    <a
+        class="primary-button"
+        style="width: 140px; margin-top: 20px"
+        ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'"
+        ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
+        ng-click="Ctrl.toggleFollowBranch()"
+        text="Ctrl.getLabelFollowButton()">
+
+        <span class="primary-button-text">
+        {{ Ctrl.BranchService.isFollowingBranch() ? 'Unfollow' : 'Follow' }}
+        </span>
+    </a>
+
+    <!--Branch description-->
     <div class="side-bar-description">
-        <span class="main-text">Branch description:</span>
-        <span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
+        <!--<span class="main-text">Branch description:</span>-->
+        <span class="main-text" marked="Branch.BranchService.branch.description"></span>
     </div>
 
     <div class="side-bar-links">
