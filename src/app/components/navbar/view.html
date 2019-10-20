@@ -113,13 +113,16 @@
             </a>
 
             <div class="nav-bar-right-dropdown-button">
-                <a class="icon-padding" 
+                <span class="icon-padding" 
                     title="User" 
                     style="margin-left: 10px;"
-                    ng-click="Navbar.openRightModal()"
                     ng-show="Navbar.UserService.isAuthenticated()">
-                    <img class="small-circular-thumbnail" style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
-                </a>   
+                    <a
+                        class="small-circular-thumbnail"
+                        style="margin: auto; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/user-images/user-image-00.jpg');"
+                        ng-click="Navbar.openRightModal()">
+                    </a>
+                </span>
             </div>
 
             <a
