@@ -57,9 +57,11 @@ class BranchController extends Injectable {
   toggleFilters() {
     var toggleFiltersButton = document.getElementsByClassName("toggle-filters-button")[0];
     var wallFilters = document.getElementsByClassName("wall-filters")[0];
+    //var centralPanelHeader = document.getElementsByClassName("central-panel-header")[0];
 
     toggleFiltersButton.onclick = function() {
       wallFilters.classList.toggle('reveal');
+      //centralPanelHeader.classList.toggle('expand');
     }
   }
 

@@ -3,7 +3,7 @@ var d3 = require("d3");
 
 class HomeController extends Injectable {
     //post count`
-    maxDepth = 5;
+    maxDepth = 5; // Only displaying 2 layers at the moment...?
     maxSubBranches = 12;
     done = false;
     data = { name: "flare", children: [] };
@@ -62,14 +62,15 @@ class HomeController extends Injectable {
 
             const label = svg.append("g")
                 .style("font", "18px sans-serif")
-                .attr("pointer-events", "none")
+                //.attr("pointer-events", "none")
                 .attr("text-anchor", "middle")
                 .selectAll("text")
                 .data(root.descendants())
                 .join("text")
                 .style("fill-opacity", d => d.parent === root ? 1 : 0)
                 .style("display", d => d.parent === root ? "inline" : "none")
-                .text(d => d.data.name);
+                .text(d => d.data.name) // Display branch name
+                .on("click", function(d) { window.open("/b/" + d.data.id ); }); // Navigate to branch when branch name clicked on
             zoomTo([root.x, root.y, root.r * 2], this.width);
             var width = this.width;
 
