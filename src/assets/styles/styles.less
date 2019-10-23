@@ -274,14 +274,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
-    //Hide scroll bars ob Chrome:
-    ::-webkit-scrollbar {
-        display: none;
-        }
-
-    //Hide scroll bars on Firefox:
-    scrollbar-width: none;
 }
 
 html {
@@ -291,6 +283,19 @@ html {
 body {
     background-color: @light-grey-0; // Original light-grey: rgb(248, 248, 248);
     margin: 0;
+}
+
+.hide-scroll-bars {
+    // Hide scroll bars on Firefox:
+    scrollbar-width: none;
+
+    // Hide scroll bars on Microsoft Edge:
+    -ms-overflow-style: none;
+
+    // Hide scroll bars on Chrome:
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .cover-image {
