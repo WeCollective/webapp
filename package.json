@@ -52,7 +52,7 @@
     "eslint": "^4.11.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-less": "^4.0.1",
     "gulp-nodemon": "^2.4.2",
     "gulp-plumber": "^1.2.1",
