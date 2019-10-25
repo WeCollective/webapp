@@ -4,7 +4,8 @@
 
     <span class="sub-text link margin-bottom-large">b/{{ Branch.BranchService.branch.id }}</span>
 
-    <div class="tab-page-section fixed-height"><!--Followers-->
+    <!--Branch Followers-->
+    <!--<div class="tab-page-section fixed-height">
 
         <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>0</b> Followers</a>
 
@@ -28,11 +29,12 @@
                 href="">
             </a>
             
-        </div><!--End of "overlapping-thumbnails"-->
+        </div>
 
-    </div><!--End of Followers-->
+    </div>-->
 
-    <div class="tab-page-section fixed-height"><!--Branch Stats-->
+    <!--Branch Stats-->
+    <!--<div class="tab-page-section fixed-height">
 
         <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
 
@@ -46,19 +48,24 @@
 
         <span class="sub-text margin-right-large" href="">2 Comments</span>
 
-    </div><!--End of Branch Stats-->
+    </div>-->
 
-    <div class="tab-page-section fixed-height margin-bottom-large"><!--Branch Creator-->
+    <!--Branch Creator-->
+    <div class="tab-page-section fixed-height margin-bottom-large">
 
         <span class="sub-text margin-right-medium">Created by</span>
 
         <a 
             class="small-circular-thumbnail margin-right-medium" 
             style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg');"
-            href="">
+            ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
         </a>
 
-        <span class="sub-text link margin-right-medium">{{ Branch.BranchService.branch.creator }}</span>
+        <a 
+            class="sub-text link margin-right-medium"
+            ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
+            {{ Branch.BranchService.branch.creator }}
+        </a>
 
         <span class="sub-text margin-right-medium">on</span>
 
