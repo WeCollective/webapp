@@ -4,7 +4,7 @@
 
     <span class="sub-text link margin-bottom-large">b/{{ Branch.BranchService.branch.id }}</span>
 
-    <!--Branch Followers-->
+    <!--Branch followers-->
     <!--<div class="tab-page-section fixed-height">
 
         <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>0</b> Followers</a>
@@ -33,7 +33,7 @@
 
     </div>-->
 
-    <!--Branch Stats-->
+    <!--Branch stats-->
     <!--<div class="tab-page-section fixed-height">
 
         <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
@@ -50,7 +50,7 @@
 
     </div>-->
 
-    <!--Branch Creator-->
+    <!--Branch creator-->
     <div class="tab-page-section fixed-height margin-bottom-large">
 
         <span class="sub-text margin-right-medium">Created by</span>
@@ -71,12 +71,11 @@
 
         <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
 
-    </div><!--End of Branch Creator-->
+    </div>
 
+    <!--Branch description-->
     <div class="tab-page-section">
-
-        <span class="sub-text margin-bottom-large"> Description:<br><span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
-
+        <span class="main-text" marked="Branch.BranchService.branch.description"></span>
     </div>
 
 </div>
