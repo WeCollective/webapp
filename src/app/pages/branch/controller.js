@@ -43,6 +43,7 @@ class BranchController extends Injectable {
     } else {
       leftSideBar.style.display = "flex";
     };
+
     // Rotate toggle arrow on click
     if (toggleButton.className == "icon toggle-in") {
       toggleButton.className = "icon toggle-out";
@@ -53,12 +54,8 @@ class BranchController extends Injectable {
 
   // New toggle filters fucntion [James 13-10-2019]
   toggleFilters() {
-    var toggleFiltersButton = document.getElementsByClassName("toggle-filters-button")[0];
     var wallFilters = document.getElementsByClassName("wall-filters")[0];
-    //var centralPanelHeader = document.getElementsByClassName("central-panel-header")[0];
-
     wallFilters.classList.toggle('reveal');
-    //centralPanelHeader.classList.toggle('expand');
   }
 }
 
