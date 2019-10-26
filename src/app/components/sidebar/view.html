@@ -28,7 +28,7 @@
                 {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
             <!--Branch name (on small screens)-->
-            <a class="title-text hide-on-large-screens" style="width: 180px; height: 50px; overflow: scroll" >{{ Ctrl.BranchService.branch.name }}</a>
+            <a class="title-text hide-on-large-screens" style="width: 180px; max-height: 50px; overflow: scroll" >{{ Ctrl.BranchService.branch.name }}</a>
 
         </div>
 
@@ -54,7 +54,7 @@
     <!--Follow branch button-->
     <a
         class="primary-button"
-        style="width: 140px; margin-top: 20px"
+        style="width: 140px; margin: 20px 0"
         ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'"
         ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
         ng-click="Ctrl.toggleFollowBranch()"
