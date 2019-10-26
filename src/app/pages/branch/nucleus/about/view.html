@@ -18,14 +18,14 @@
         </a>
 
         <a 
-            class="sub-text link margin-right-medium"
+            class="main-text link margin-right-medium"
             ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
             {{ Branch.BranchService.branch.creator }}
         </a>
 
-        <span class="sub-text margin-right-medium">on</span>
-
-        <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
+        <span class="sub-text margin-right-medium">
+            on <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
+        </span>       
 
     </div>
 
