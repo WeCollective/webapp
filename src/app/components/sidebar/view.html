@@ -1,8 +1,10 @@
 <!--<div class="sticky-header">-->   <!--Add/remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
 <div class="left-side-bar">
-
+    
+    <!--Sidebar header-->
     <div class="side-bar-header sticky-header">
 
+        <!--Branch flag image (on small screens)-->
         <div 
             class="side-bar-flag-image-small"
             style="background-image: url('/assets/images/branch-images/branch-image-01.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
@@ -10,18 +12,29 @@
 
         <div class="side-bar-header-padding">
 
-            <a class="main-text" 
+            <!--Parent branch name (on large screens)-->
+            <a class="main-text hide-on-small-screens" 
                 ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
                 ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
                 {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
-            <a class="title-text">{{ Ctrl.BranchService.branch.name }}</a>
+            <!--Branch name (on large screens)-->
+            <a class="title-text hide-on-small-screens">{{ Ctrl.BranchService.branch.name }}</a>
+
+            <!--Parent branch name (on small screens)-->
+            <a class="main-text hide-on-large-screens"
+                ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
+                ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+                {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
+
+            <!--Branch name (on small screens)-->
+            <a class="title-text hide-on-large-screens" style="width: 180px; height: 50px; overflow: scroll" >{{ Ctrl.BranchService.branch.name }}</a>
 
         </div>
 
     </div>
 
-    <!--Branch flag image-->
+    <!--Branch flag image (on large screens)-->
     <div 
         class="side-bar-flag-image-large"
         style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
@@ -37,34 +50,6 @@
             src="/assets/images/icons/edit.svg" />
 
     </div>
-
-    <!--<div class="side-bar-followers">
-
-        <a class="main-text" style="font-size: 15px" ><b>0</b> Followers</a>
-
-        <div class="overlapping-thumbnails">
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                href="/branch-followers.html">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                href="/branch-followers.html">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                href="/branch-followers.html">
-            </a>
-            
-        </div>
-
-    </div>--><!--End of "followers-link"-->
 
     <!--Follow branch button-->
     <a

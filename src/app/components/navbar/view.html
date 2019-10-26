@@ -93,20 +93,20 @@
 
         <div class="nav-bar-right">
 
-            <a class="icon-padding hidden-on-small-screen"
+            <a class="icon-padding hide-on-small-screens"
                 href="" 
                 title="Messages"
                 ng-show="Navbar.UserService.isAuthenticated()">
                 <img class="icon white" src="/assets/images/icons/messages-01.png">
             </a>
 
-            <a class="icon-padding hidden-on-small-screen" title="Notifications"
+            <a class="icon-padding hide-on-small-screens" title="Notifications"
                 ng-show="Navbar.UserService.isAuthenticated()"
                 ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
                 <img class="icon white" src="/assets/images/icons/notifications-01.png">
             </a>
 
-            <a class="nav-bar-username-padding hidden-on-small-screen" title="Username"
+            <a class="nav-bar-username-padding hide-on-small-screens" title="Username"
                 ng-show="Navbar.UserService.isAuthenticated()"
                 ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })">
                 <span class="nav-bar-username">{{ Navbar.UserService.user.username }}</span>

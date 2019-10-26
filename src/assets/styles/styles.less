@@ -85,13 +85,16 @@
 @regular-font-weight: 400;
 @bold-font-weight: 600;
 
-// Styles:
-
 .bold {
     font-weight: 600 !Important;
 }
 
-.title-text { // Used for post and branch titles
+// Styles:
+
+
+
+// Used for post and branch titles
+.title-text {
     color: @dark-grey-text;
     font-size: @large-text;
     font-weight: @regular-font-weight;
@@ -537,8 +540,14 @@ body {
 
 //---------------------- Resposive UI ---------------------//
 
-.hidden-on-small-screen {
+.hide-on-small-screens {
     @media screen and (max-width: 700px) {
+        display: none !important;
+    }
+}
+
+.hide-on-large-screens {
+    @media screen and (min-width: 701px) {
         display: none !important;
     }
 }
