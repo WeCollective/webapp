@@ -37,9 +37,9 @@
                 style="background-image: url('/assets/images/notifications/{{ Ctrl.getNotificationImageType(item) }}.svg')"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
             </a>
 
-            <notification class="height-30" index="$index" notification="item"></notification>
+            <notification class="min-height-30" index="$index" notification="item"></notification>
 
-            <span class="sub-text height-30">
+            <span class="sub-text min-height-30">
                 received at {{ item.date | date:'HH:mm on dd of MMMM yyyy' }}
             </span>
             

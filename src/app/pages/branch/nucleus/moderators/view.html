@@ -1,17 +1,18 @@
-<div
-  id="nucleus-moderators-list-container"
-	loading
-  loading-when="!BranchNucleusModerators.mods.length && BranchNucleusModerators.isLoading">
-  <ul class="content__list">
-    <li
-      class="content__list-item text--center"
-      ng-repeat="mod in BranchNucleusModerators.mods">
-      <a
-       class="content__list-link"
-       ui-sref="weco.profile.about({ username: mod.username })">      
-        <div class="content__list-picture" style="background-image: url('{{ mod.profileUrl }}'), url('{{ mod.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"></div>
-        <span class="content__list-label">{{ mod.name }}</span>
-      </a>
-    </li>
-  </ul>
+<div class="tab-page"
+    id="nucleus-moderators-list-container"
+    loading
+    loading-when="!BranchNucleusModerators.mods.length && BranchNucleusModerators.isLoading">
+
+    <ul class="content__list">
+        <li
+            class="content__list-item text--center"
+            ng-repeat="mod in BranchNucleusModerators.mods">
+            <a
+            class="content__list-link"
+            ui-sref="weco.profile.about({ username: mod.username })">      
+            <div class="content__list-picture" style="background-image: url('{{ mod.profileUrl }}'), url('{{ mod.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"></div>
+            <span class="content__list-label">{{ mod.name }}</span>
+            </a>
+        </li>
+    </ul>
 </div>

@@ -1,0 +1,57 @@
+<ul class="branch__list content__list style--full-padding text--center">
+  <li class="branch__item">
+  	<span
+      class="branch__text branch__link"
+      ng-click="BranchNucleusSettings.openModal('profile-picture')">
+  		Change flag image
+  	</span>
+  </li>
+
+  <li class="branch__item">
+    <span
+      class="branch__text branch__link"
+      ng-click="BranchNucleusSettings.openModal('cover-picture')">
+      Change cover photo
+    </span>
+  </li>
+
+  <li class="branch__item">
+    <span class="branch__text">
+      <span class="branch__text style--dark">Visible Name:</span> {{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }} | <span class="branch__link" ng-click="BranchNucleusSettings.openModal('visible-name')">Change</span>
+    </span>
+  </li>
+
+  <li class="branch__item">
+    <div class="branch__text style--dark">
+      Rules &amp; Etiquette:
+    </div>
+
+    <div
+      class="branch__text"
+      marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'">
+    </div>
+
+    <div
+      class="branch__text branch__link"
+      ng-click="BranchNucleusSettings.openModal('rules')">
+      Change
+    </div>
+  </li>
+
+  <li class="branch__item">
+    <div class="branch__text style--dark">
+      Description:
+    </div>
+    
+    <div
+      class="branch__text"
+      marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'">
+    </div>
+    
+    <div
+      class="branch__text branch__link"
+      ng-click="BranchNucleusSettings.openModal('description')">
+      Change
+    </div>
+  </li>
+</ul>

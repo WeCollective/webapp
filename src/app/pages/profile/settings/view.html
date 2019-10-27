@@ -1,21 +1,21 @@
 <div class="tab-page">
 
-    <div class="tab-page-section height-30">
+    <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Name:</span>
         <span class="main-text">{{ ProfileSettings.UserService.user.name }} | <a class="main-text link" ng-click="ProfileSettings.openNameModal()">Change</a></span>
     </div>
 
-    <div class="tab-page-section height-30">
+    <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Email:</span>
         <span class="main-text">{{ ProfileSettings.UserService.user.email }} | <a class="main-text link" ng-click="ProfileSettings.openEmailModal()">Change</a></span>
     </div>
 
-    <div class="tab-page-section height-30">
+    <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Date of birth:</span>
         <span class="main-text">{{ ProfileSettings.UserService.user.dob | date:'dd MMMM yyyy' || 'Not Set' }} | <a class="main-text link" ng-click="ProfileSettings.openDOBModal()">Change</a></span>
     </div>
 
-    <div class="tab-page-section height-30">
+    <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Display NSFW posts:</span>
         <input
             id="checkbox-nsfw"
