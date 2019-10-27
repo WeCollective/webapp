@@ -545,6 +545,7 @@ body {
 
 //---------------------- Resposive UI ---------------------//
 
+// Main 700px break point
 .hide-on-small-screens {
     @media screen and (max-width: 700px) {
         display: none !important;
@@ -553,6 +554,19 @@ body {
 
 .hide-on-large-screens {
     @media screen and (min-width: 701px) {
+        display: none !important;
+    }
+}
+
+// Large 1400px break point (used on side-bar branches)
+.hide-on-small-screens-1400 {
+    @media screen and (max-width: 1400px) {
+        display: none !important;
+    }
+}
+
+.hide-on-large-screens-1400 {
+    @media screen and (min-width: 1401px) {
         display: none !important;
     }
 }
