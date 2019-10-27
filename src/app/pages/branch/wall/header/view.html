@@ -35,8 +35,8 @@
             ng-model="Ctrl.query"
             placeholder="Search wall..."
             type="text">
-            <ul class="srch-results" ng-show="Ctrl.SearchService.isVisible">
-                <li class="srch-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
+            <ul class="search-results box-shadow" ng-show="Ctrl.SearchService.isVisible">
+                <li class="search-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
             </ul>       
         <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">  
     </div>
