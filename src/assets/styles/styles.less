@@ -413,10 +413,21 @@ body {
     height: 200px;
 }
 
+// Box shadow used on sreach drop-down
 .box-shadow {
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
+// Inactive content
+.inactive {
+    opacity: 0.3;
+
+    a {
+        cursor: default;
+    }
+}
+
+// Positioning classes
 .center-aligned {
     align-items: center;
 }
@@ -497,12 +508,21 @@ body {
         }
     }
 
+    &.white-inactive {
+        filter: invert(100%);
+        opacity: 0.6;
+    }
+
     &.grey {
         opacity: 0.6;
 
         &:hover {
             opacity: 1;    
         }
+    }
+
+    &.grey-inactive {
+        opacity: 0.6;
     }
 
     &.toggle-in {
