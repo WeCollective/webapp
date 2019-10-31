@@ -1,75 +1,37 @@
 <div class="tab-page">
 
+    <!--Branch name-->
     <span class="title-text margin-bottom-small">{{ Branch.BranchService.branch.name }}</span>
 
+    <!--Branch URL-->
     <span class="sub-text link margin-bottom-large">b/{{ Branch.BranchService.branch.id }}</span>
 
-    <div class="tab-page-section fixed-height"><!--Followers-->
-
-        <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>0</b> Followers</a>
-
-        <div class="overlapping-thumbnails">
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                href="">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                href="">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                href="">
-            </a>
-            
-        </div><!--End of "overlapping-thumbnails"-->
-
-    </div><!--End of Followers-->
-
-    <div class="tab-page-section fixed-height"><!--Branch Stats-->
-
-        <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
-
-        <span class="sub-text margin-right-large" href="">14 Posts</span>
-        
-        <img class="tab-stat-icon heart margin-right-small" src="/assets/images/icons/like-01.svg">
-
-        <span class="sub-text margin-right-large" href="">6 Likes</span>
-
-        <img class="tab-stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
-
-        <span class="sub-text margin-right-large" href="">2 Comments</span>
-
-    </div><!--End of Branch Stats-->
-
-    <div class="tab-page-section fixed-height margin-bottom-large"><!--Branch Creator-->
+    <!--Branch creator-->
+    <div class="tab-page-section fixed-height margin-bottom-large">
 
         <span class="sub-text margin-right-medium">Created by</span>
 
         <a 
             class="small-circular-thumbnail margin-right-medium" 
             style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg');"
-            href="">
+            ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
         </a>
 
-        <span class="sub-text link margin-right-medium">{{ Branch.BranchService.branch.creator }}</span>
+        <a 
+            class="main-text link margin-right-medium"
+            ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
+            {{ Branch.BranchService.branch.creator }}
+        </a>
 
-        <span class="sub-text margin-right-medium">on</span>
+        <span class="sub-text margin-right-medium">
+            on <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
+        </span>       
 
-        <span class="sub-text margin-right-medium">{{ Branch.BranchService.branch.date | date: 'dd MMMM yyyy' }}</span>
+    </div>
 
-    </div><!--End of Branch Creator-->
-
+    <!--Branch description-->
     <div class="tab-page-section">
-
-        <span class="sub-text margin-bottom-large"> Description:<br><span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
-
+        <span class="main-text" marked="Branch.BranchService.branch.description"></span>
     </div>
 
 </div>

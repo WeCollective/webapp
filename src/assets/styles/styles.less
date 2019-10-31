@@ -19,7 +19,7 @@
 @cover-image-height: 200px;
 @main-content-width: 1400px; // 100%, 1400px, 1200px  |  Used on this page and in "main-content-wrapper" and "nav-bar-content"
 @header-height: 80px; // Used in "left-side-bar" and "central-panel"
-@left-side-bar-width: 270px;
+/*@left-side-bar-width: 270px;*/
 @central-panel-width: 820px;
 @right-side-bar-width: 250px;
 @small-circular-thumbnail: 40px; // Used for all small branch and user thumnail images
@@ -38,10 +38,11 @@
 //---------------------- Colours ----------------------//
 
 @brand-blue: #98cbff; // rgb(153, 196, 228) // Used on buttons, post type markers, and links
+@light-blue: #eff2f7; // Used as background colour on active notifications
 
 // Font Colours:
-@dark-grey-text: #666;  //  Used in "main-text" and "title"
-@light-grey-text: #ccc;  // Used in "sub-text" and side bar buttons
+@dark-grey-text: rgb(50, 50, 50);  //  Used in "main-text" and "title"
+@light-grey-text: rgb(150, 150, 150);  // Used in "sub-text" and side bar buttons
 
 // Post Type Marker Colours:
 //@purple-post-type-marker
@@ -85,19 +86,26 @@
 @regular-font-weight: 400;
 @bold-font-weight: 600;
 
+.bold {
+    font-weight: 600 !Important;
+}
+
 // Styles:
 
-.title-text { // Used for post and branch titles
+// Used for post and branch titles
+.title-text {
     color: @dark-grey-text;
     font-size: @large-text;
     font-weight: @regular-font-weight;
     line-height: @large-text;
 }
 
-.main-text { // Used for post and branch descriptions and comments
+// Used for post and branch descriptions and comments
+.main-text {
     color: @dark-grey-text;
     font-size: @small-text;
     font-weight: @regular-font-weight;
+    line-height: 20px;
 
     &.link {
         color: @brand-blue;
@@ -108,20 +116,20 @@
         }
     }
 
-    &.bold {
-        font-weight: @bold-font-weight;
-    }
-
     &.large {
         font-size: @medium-text;
     }
+
+    /*> p:not(:last-child) {
+        margin-bottom: 20px;
+    }*/
 }
 
-.sub-text { // Used on post-tags and post-interact text
+// Used on post-tags and post-interact text
+.sub-text {
     color: @light-grey-text;
     font-size: @small-text;
     font-weight: @regular-font-weight;
-    flex-shrink: 0;
 
     &.link {
         //font-weight: @bold-font-weight;
@@ -405,6 +413,21 @@ body {
     height: 200px;
 }
 
+// Box shadow used on sreach drop-down
+.box-shadow {
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+// Inactive content
+.inactive {
+    opacity: 0.3;
+
+    a {
+        cursor: default;
+    }
+}
+
+// Positioning classes
 .center-aligned {
     align-items: center;
 }
@@ -433,7 +456,9 @@ body {
     margin-bottom: 20px;
 }
 
-
+.min-height-30 {
+    min-height: 30px;
+}
 
 //---------------------- Sticky Components ----------------------//
 
@@ -483,12 +508,21 @@ body {
         }
     }
 
+    &.white-inactive {
+        filter: invert(100%);
+        opacity: 0.6;
+    }
+
     &.grey {
-        opacity: 0.4;
+        opacity: 0.6;
 
         &:hover {
             opacity: 1;    
         }
+    }
+
+    &.grey-inactive {
+        opacity: 0.6;
     }
 
     &.toggle-in {
@@ -535,8 +569,28 @@ body {
 
 //---------------------- Resposive UI ---------------------//
 
-.hidden-on-small-screen {
+// Main 700px break point
+.hide-on-small-screens {
     @media screen and (max-width: 700px) {
+        display: none !important;
+    }
+}
+
+.hide-on-large-screens {
+    @media screen and (min-width: 701px) {
+        display: none !important;
+    }
+}
+
+// Large 1400px break point (used on side-bar branches)
+.hide-on-small-screens-1400 {
+    @media screen and (max-width: 1400px) {
+        display: none !important;
+    }
+}
+
+.hide-on-large-screens-1400 {
+    @media screen and (min-width: 1401px) {
         display: none !important;
     }
 }

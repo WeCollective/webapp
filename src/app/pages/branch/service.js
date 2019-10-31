@@ -23,20 +23,6 @@ class WallService extends Injectable {
     }
   }
 
-
-
-  /*rotateSidebarToggleButton() {
-    var x = document.getElementById("toggle-button");
-
-    document.onclick = function() {     
-      if (x.className == "icon toggle-in") {
-          x.className = "icon toggle-out";
-      } else if (x.className == "icon toggle-out") {
-          x.className = "icon toggle-in";
-      }
-    }
-  }*/
-
   handleHeaderButtonClick() {
     const branchid = this.BranchService.branch.id;
     const params = { branchid };

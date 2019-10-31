@@ -9,10 +9,10 @@
 <div class="fixed-nav-bar-padding"></div>
 
 <cover-photo
-    can-edit="Branch.BranchService.isModerator()"
-    image-url="Branch.BranchService.branch.coverUrl"
-    open-upload-cover-modal="Branch.openModal"
-    thumb-url="Branch.BranchService.branch.coverUrlThumb">
+    can-edit="Profile.profileUser.username === Profile.UserService.user.username"
+    image-url="Profile.profileUser.coverUrl"
+    open-upload-cover-modal="Profile.openCoverPictureModal"
+    thumb-url="Profile.profileUser.coverUrlThumb">
 </cover-photo>
 
 <!--<div class="cover-image sticky-cover"></div>-->
@@ -60,80 +60,62 @@
                 tooltip />
         </div>
     
-        <div class="side-bar-followers">
-    
-            <a class="main-text" style="font-size: 15px"><b>0</b> Followers</a>
-    
-            <div class="overlapping-thumbnails">
-    
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                    href="/user-followers.html">
-                </a>
-    
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                    href="/user-followers.html">
-                </a>
-    
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                    href="/user-followers.html">
-                </a>
-                
-            </div><!--End of "overlapping-thumbnails"-->
-    
-        </div><!--End of "followers-link"-->
-    
-        <div class="side-bar-description">
-            <span class="main-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, blanditiis id temporibus tempore consequuntur ut quasi, amet nemo beatae similique.</span>
-        </div>
-    
         <div class="side-bar-links">
     
+            <!--About-->
             <div class="side-bar-link">
-                <a class="icon-padding small" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">
+                <a class="icon-padding small" ui-sref="weco.profile.about({ username: Profile.profileUser.username })" title="About">
                     <img class="icon grey" src="/assets/images/icons/about-01.png">
                 </a>
-                <a class="link-text" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">About</a>
+                <a class="link-text" ui-sref="weco.profile.about({ username: Profile.profileUser.username })" title="About">About</a>
             </div>
     
-            <div class="side-bar-link">
+            <!--Dev Work-->
+            <div class="side-bar-link inactive">
+                    <a class="icon-padding small" title="Dev Work">
+                        <img class="icon grey-inactive" src="/assets/images/icons/dev-work-01.png" style="width: 28px; height: 28px">
+                    </a>
+                    <a class="link-text" title="Dev Work">Dev Work</a>
+                </div>
+            
+            <!--Branches-->
+            <div class="side-bar-link inactive">
+                <a class="icon-padding small" title="Branches">
+                    <img class="icon grey-inactive" src="/assets/images/icons/node-01.png">
+                </a>
+                <a class="link-text" title="Branches">Branches</a>
+            </div>
+
+            <!--Posts-->
+            <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Posts">
-                    <img class="icon grey" src="/assets/images/icons/post-01.png">
+                    <img class="icon grey-inactive" src="/assets/images/icons/post-01.png">
                 </a>
                 <a class="link-text" title="About">Posts</a>
             </div>
     
-            <div class="side-bar-link">
+            <!--Comments-->
+            <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Comments">
-                    <img class="icon grey" src="/assets/images/icons/comment-01.png">
+                    <img class="icon grey-inactive" src="/assets/images/icons/comment-01.png">
                 </a>
                 <a class="link-text" title="About">Comments</a>
             </div>
     
-            <div class="side-bar-link">
+            <!--Likes-->
+            <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Likes">
-                    <img class="icon grey" src="/assets/images/icons/like-01.svg">
+                    <img class="icon grey-inactive" src="/assets/images/icons/like-01.svg">
                 </a>
                 <a class="link-text" title="About">Likes</a>
             </div>
     
-            <div class="side-bar-link">
+            <!--Reposts-->
+            <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Reposts">
-                    <img class="icon grey" src="/assets/images/icons/about-01.png">
+                    <img class="icon grey-inactive" src="/assets/images/icons/repost-06.png" style="width: 22px; height: 22px">
                 </a>
                 <a class="link-text" title="About">Reposts</a>
-            </div>
-    
-            <div class="side-bar-link">
-                <a class="icon-padding small" title="Branches">
-                    <img class="icon grey" src="/assets/images/icons/node-01.png">
-                </a>
-                <a class="link-text" title="Branches">Branches</a>
             </div>
     
         </div><!--end of "side-bar-buttons"-->
@@ -144,9 +126,9 @@
 
         <div class="central-panel-header">
 
-            <div class="central-panel-header-with-tabs sticky-header">
+            <div class="central-panel-header-with-tabs sticky-header hide-scroll-bars">
 
-                <div class="central-panel-header-tabs">  
+                <div class="central-panel-header-tabs hide-scroll-bars">  
                 
                     <a class="side-bar-toggle-button" ng-click="Profile.toggleSidebarNew()">
                         <img   

@@ -1,8 +1,10 @@
 <!--<div class="sticky-header">-->   <!--Add/remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
 <div class="left-side-bar">
-
+    
+    <!--Sidebar header-->
     <div class="side-bar-header sticky-header">
 
+        <!--Branch flag image (on small screens)-->
         <div 
             class="side-bar-flag-image-small"
             style="background-image: url('/assets/images/branch-images/branch-image-01.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
@@ -10,18 +12,29 @@
 
         <div class="side-bar-header-padding">
 
-            <a class="main-text" 
+            <!--Parent branch name (on large screens)-->
+            <a class="main-text hide-on-small-screens" 
                 ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
                 ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
                 {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
-            <a class="title-text">{{ Ctrl.BranchService.branch.name }}</a>
+            <!--Branch name (on large screens)-->
+            <a class="title-text hide-on-small-screens">{{ Ctrl.BranchService.branch.name }}</a>
+
+            <!--Parent branch name (on small screens)-->
+            <a class="main-text hide-on-large-screens"
+                ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
+                ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+                {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
+
+            <!--Branch name (on small screens)-->
+            <a class="title-text hide-on-large-screens" style="width: 180px; max-height: 50px; overflow: scroll" >{{ Ctrl.BranchService.branch.name }}</a>
 
         </div>
 
     </div>
 
-    <!--Branch flag image-->
+    <!--Branch flag image (on large screens)-->
     <div 
         class="side-bar-flag-image-large"
         style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
@@ -38,38 +51,10 @@
 
     </div>
 
-    <!--<div class="side-bar-followers">
-
-        <a class="main-text" style="font-size: 15px" ><b>0</b> Followers</a>
-
-        <div class="overlapping-thumbnails">
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                href="/branch-followers.html">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                href="/branch-followers.html">
-            </a>
-
-            <a 
-                class="small-circular-thumbnail" 
-                style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                href="/branch-followers.html">
-            </a>
-            
-        </div>
-
-    </div>--><!--End of "followers-link"-->
-
     <!--Follow branch button-->
     <a
         class="primary-button"
-        style="width: 140px; margin-top: 20px"
+        style="width: 140px; margin: 20px 0"
         ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'"
         ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
         ng-click="Ctrl.toggleFollowBranch()"
@@ -81,7 +66,7 @@
     </a>
 
     <!--Branch description-->
-    <div class="side-bar-description">
+    <div class="side-bar-description hide-scroll-bars">
         <!--<span class="main-text">Branch description:</span>-->
         <span class="main-text" marked="Branch.BranchService.branch.description"></span>
     </div>
@@ -116,76 +101,30 @@
             <a class="link-text" title="Branches" ui-sref="weco.branch.subbranches({ branchid: Ctrl.BranchService.branch.id })">Branches</a>
         </div>
 
-        <div class="side-bar-link">
+        <!--<div class="side-bar-link">
             <a class="icon-padding small" title="Settings">
                 <img class="icon grey" src="/assets/images/icons/settings-01.png">
             </a>
             <a class="link-text" title="Settings">Settings</a>
-        </div>
+        </div>-->
 
     </div><!--end of "side-bar-buttons"-->
 
-    <div class="side-bar-child-branches">
+        <!--Top Child Branches (only visible on small screens)-->
+        <div class="side-bar-child-branches hide-on-large-screens-1400" style="padding: 0">
 
-        <li class="side-bar-child-branch" ng-repeat="branch in Ctrl.topBranches">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('{{ branch.profileUrlThumb }}'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                ui-sref="weco.branch.wall({ branchid: branch.id })">
-            </a>
-            <a class="link-text" ui-sref="weco.branch.wall({ branchid: branch.id })">{{branch.name}}</a>
-        </li>
+            <!--<span class="main-text" style="margin-bottom: 10px">Top child branches:</span>-->
 
-    </div>
-
-    <!--<div class="side-bar-child-branches">
- 
-        <div class="side-bar-child-branch">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('/assets/images/branch-images/branch-image-02.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                href="">
-            </a>
-            <a class="link-text" href="">Child branch 01</a>                      
+            <li class="side-bar-child-branch" ng-repeat="branch in Ctrl.topBranches">
+                <a 
+                    class="small-circular-thumbnail margin-right-large" 
+                    style="background-image: url('{{ branch.profileUrlThumb }}'), url('/assets/images/branch-images/branch-image-00.jpg');"
+                    ui-sref="weco.branch.wall({ branchid: branch.id })">
+                </a>
+                <a class="link-text" ui-sref="weco.branch.wall({ branchid: branch.id })">{{branch.name}}</a>
+            </li>
+    
         </div>
-
-        <div class="side-bar-child-branch">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('/assets/images/branch-images/branch-image-03.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                href="">
-            </a>
-            <a class="link-text" href="">Child branch 02</a>                    
-        </div>
-
-        <div class="side-bar-child-branch">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('/assets/images/branch-images/branch-image-04.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                href="">
-            </a>
-            <a class="link-text" href="">Child branch 03</a>                      
-        </div>
-
-        <div class="side-bar-child-branch">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('/assets/images/branch-images/branch-image-05.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                href="">
-            </a>
-            <a class="link-text" href="">Child branch 04</a>                    
-        </div>
-
-        <div class="side-bar-child-branch">
-            <a 
-                class="small-circular-thumbnail margin-right-large" 
-                style="background-image: url('/assets/images/branch-images/branch-image-06.jpg'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                href="">
-            </a>
-            <a class="link-text" href="">Child branch 05</a>                      
-        </div>
-
-    </div>--><!--end of "side-bar-child-branches"-->
 
 </div>
 

@@ -1,3 +1,4 @@
+
 <div class="fixed-nav-bar-padding"></div>
 
 <cover-photo
@@ -22,6 +23,26 @@
         </div>
 
         <div class="content" ui-view="content"></div>
+
+    </div>
+
+    <div class="right-side-bar">
+        
+        <!--Top Child Branches (only visible on large screens)-->
+        <div class="side-bar-child-branches hide-on-small-screens-1400">
+
+            <span class="main-text" style="margin-bottom: 10px">Top child branches:</span>
+
+            <li class="side-bar-child-branch" ng-repeat="branch in Ctrl.topBranches">
+                <a 
+                    class="small-circular-thumbnail margin-right-large" 
+                    style="background-image: url('{{ branch.profileUrlThumb }}'), url('/assets/images/branch-images/branch-image-00.jpg');"
+                    ui-sref="weco.branch.wall({ branchid: branch.id })">
+                </a>
+                <a class="link-text" ui-sref="weco.branch.wall({ branchid: branch.id })">{{branch.name}}</a>
+            </li>
+    
+        </div>
 
     </div>
 

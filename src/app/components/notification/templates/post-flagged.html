@@ -1,24 +1,23 @@
-<a
+<a class="main-text link"  
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.profile.about({ username: notification.data.username })">
   {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
 </a>
-<span>
-  flagged a
-</span>
-<a
+
+<span class="sub-text">flagged a</span>
+
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
   post
 </a>
-<span>
-  on
-</span>
-<a
+
+<span class="sub-text">on</span>
+
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">
   b/{{ notification.data.branchid }}
 </a>
-<span>
-  {{ reasonString() }}
-</span>
+
+<span class="sub-text">{{ reasonString() }}</span>

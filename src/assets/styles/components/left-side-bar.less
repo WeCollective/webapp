@@ -11,7 +11,7 @@
 .left-side-bar {
     //margin-right: 30px;
     padding: 0 20px 20px 20px;
-    width: @left-side-bar-width;
+    width: 260px;
     //height: 100%;
     //background-color: #eee;
     display: flex;
@@ -78,6 +78,7 @@
         border-radius: 50%;
         background-position: center;
         background-size: cover;
+        flex-shrink: 0;
 
         @media screen and (min-width: 1000px) {
             display: none;
@@ -97,18 +98,13 @@
     }
 
     .side-bar-description {
-        margin: 20px 0;
-        max-height: 100px;
+        max-height: 80px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        overflow: hidden;
+        overflow: scroll;
         line-height: 20px;
-
-        @media screen and (max-width: 1000px) {
-            margin-bottom: 10px;
-        }
-        
+        margin-bottom: 10px;        
     }
 
     .side-bar-links {
