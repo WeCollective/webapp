@@ -3,8 +3,8 @@ var d3 = require("d3");
 
 class HomeController extends Injectable {
     //post count`
-    maxDepth = 6; // Only displaying 2 layers at the moment...?
-    maxSubBranches = 8;
+    maxDepth = 7; // Only displaying 2 layers at the moment...?
+    maxSubBranches = 12;
     done = false;
     data = { name: "flare", children: [] };
     promisesToResolve = [];

@@ -6,16 +6,16 @@ class SidebarController extends Injectable {
         super(SidebarController.$inject, injections);
         this.numSubBranch = 7;
         this.topBranches = [];
-
         const { events } = this.EventService;
         const listeners = [
-            this.EventService.on(events.CHANGE_BRANCH_PREFETCH, () => this.getSubbranches()),
+            this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()),
         ];
         this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
     }
 
     getSubbranches() {
+
         this.BranchService.getSubbranches(this.BranchService.branch.id, 0, "post_points")
             .then(branches => {
                 this.topBranches = branches.slice(0, this.numSubBranch); //cut out only first 7
