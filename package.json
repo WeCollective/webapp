@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "description": "The front-end AngularJS app and server for WECO.",
   "scripts": {
-    "build": "gulp",
+       "beanstalk:dev": "eb deploy webapp-dev --profile weco-iam",
+    "beanstalk:production": "eb deploy webapp-prod --profile weco-iam",
+    "build:dev": "npm-run-all gulp:dev",
+    "build:production": "npm-run-all gulp:production",
+    "deploy:dev": "npm-run-all build:dev upload:dev",
+    "deploy:production": "npm-run-all build:production upload:production",
+    "gulp:dev": "gulp --env=development",
+    "gulp:production": "gulp --env=production",
     "lint": "eslint .",
-    "start": "gulp --env=development --local",
-    "test": "npm run lint"
+    "start": "npm run gulp:production",
+	"start:local": "gulp --env=development --local",
+    "start-server": "node server.js",
+    "test": "npm run lint",
+    "upload:dev": "npm-run-all beanstalk:dev",
+    "upload:production": "npm-run-all beanstalk:production"
   },
   "repository": {
     "type": "git",
