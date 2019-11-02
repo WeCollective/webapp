@@ -1,35 +1,17 @@
-<div
-  class="content__body"
-  loading
-  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
-  <ul
-    class="content__list"
-    ng-if="Ctrl.PostService.posts.length">
-    <li
-      class="branch__post"
-      index="$index"
-      list-item
-      ng-repeat="post in Ctrl.PostService.posts track by $index"
-      post="post"
-      stat="Ctrl.getStatType()">
-    </li>
-  </ul>
+<div class="content__body" loading emit-on-scroll-to-bottom loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
+    <ul class="content__list" ng-if="Ctrl.PostService.posts.length">
+        <li class="branch__post" index="$index" list-item ng-repeat="post in Ctrl.PostService.posts track by $index" post="post" stat="Ctrl.getStatType()">
+        </li>
+    </ul>
 
-  <div
-    class="text--center"
-    ng-if="!Ctrl.PostService.posts.length">
-    <p class="branch__empty-title">
-      There don't seem to be any posts to this branch that match the current filter settings
-    </p>
-    <img
-      alt="Empty state icon"
-      class="branch__empty-icon"
-      src="/assets/images/empty-state.jpg" />
-    <p class="branch__empty-text">
-      To create the first post: <br>
-      Click the 'Add New Content' button (+) above <br>
-      <span class="text--italic">or</span><br>
-      Tag a post you submit elsewhere on the site with this branches unique name '{{ Ctrl.BranchService.branch.id }}'
-    </p>
-  </div>
+    <div class="text--center" ng-if="!Ctrl.PostService.posts.length">
+        <p class="branch__empty-title">
+            There don't seem to be any posts to this branch that match the current filter settings
+        </p>
+        <img alt="Empty state icon" class="branch__empty-icon" src="/assets/images/empty-state.jpg" />
+        <p class="branch__empty-text">
+            To create the first post: <br> Click the 'Add New Content' button (+) above <br>
+            <span class="text--italic">or</span><br> Tag a post you submit elsewhere on the site with this branches unique name '{{ Ctrl.BranchService.branch.id }}'
+        </p>
+    </div>
 </div>

@@ -45,6 +45,7 @@ import DeletePostModal from './components/modal/post/delete/controller';
 import DropdownController from './components/dropdown/controller';
 import FlagPostModal from './components/modal/post/flag/controller';
 import LoaderBar from './components/loader-bar/controller';
+import SlidedToBottom from './components/on-scroll-to-bottom/controller';
 import ModAddModal from './components/modal/branch/nucleus/modtools/mod-add/controller';
 import ModDeleteModal from './components/modal/branch/nucleus/modtools/mod-delete/controller';
 import Navbar from './components/navbar/controller';
@@ -105,6 +106,7 @@ const refs = [
     { name: 'FlagPostModalController', module: FlagPostModal },
     { name: 'ListItemController', module: CardListItem },
     { name: 'LoaderBarController', module: LoaderBar },
+    { name: 'EmitOnScrollToBottomController', module: SlidedToBottom },
     { name: 'NavbarController', module: Navbar },
     { name: 'PollAnswerEditorController', module: PollAnswerEditor },
     { name: 'ProfileSettingsModalController', module: ProfileSettingsModal },

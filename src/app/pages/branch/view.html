@@ -1,24 +1,16 @@
 <div class="fixed-nav-bar-padding"></div>
 
-<cover-photo
-    can-edit="Branch.BranchService.isModerator()"
-    image-url="Branch.BranchService.branch.coverUrl"
-    open-upload-cover-modal="Branch.openModal"
-    thumb-url="Branch.BranchService.branch.coverUrlThumb">
+<cover-photo can-edit="Branch.BranchService.isModerator()" image-url="Branch.BranchService.branch.coverUrl" open-upload-cover-modal="Branch.openModal" thumb-url="Branch.BranchService.branch.coverUrlThumb">
 </cover-photo>
 
 <!--<div class="cover-image sticky-cover"></div>-->
-
-<div class="page">
+<div class="page" emit-on-scroll-to-bottom>
 
     <sidebar></sidebar>
 
     <div class="central-panel">
 
-        <div
-            class="central-panel-header sticky-header"
-            ui-view="{{ Branch.getUIViewName(true) }}"
-            no-constructor-transition>
+        <div class="central-panel-header sticky-header" ui-view="{{ Branch.getUIViewName(true) }}" no-constructor-transition>
         </div>
 
         <div class="content" ui-view="content"></div>

@@ -28,6 +28,7 @@ class HomeController extends Injectable {
         if (this.svg) {
             return null;
         }
+        // Promise.all(this.promisesToResolve).then(() => Promise.all(this.promisesToResolve));
 
         this.svg = "a";
         this.setData(null);
@@ -37,7 +38,6 @@ class HomeController extends Injectable {
                 return Promise.all(this.promisesToResolve);
             });
         }, Promise.resolve()).then(() => {
-
             //do circle setup stuff
             const root = this.pack(this.data);
             let focus = root;
@@ -70,7 +70,7 @@ class HomeController extends Injectable {
                 .style("fill-opacity", d => d.parent === root ? 1 : 0)
                 .style("display", d => d.parent === root ? "inline" : "none")
                 .text(d => d.data.name) // Display branch name
-                .on("click", function(d) { window.open("/b/" + d.data.id ); }); // Navigate to branch when branch name clicked on
+                .on("click", function(d) { window.open("/b/" + d.data.id); }); // Navigate to branch when branch name clicked on
             zoomTo([root.x, root.y, root.r * 2], this.width);
             var width = this.width;
 
@@ -119,7 +119,7 @@ class HomeController extends Injectable {
             //adds promise to list
             this.promisesToResolve.push(this.BranchService.getSubbranches("root", 0, "post_points")
                 .then(branches => {
-                    var subBranches = branches.slice(0, this.maxSubBranches); //cut out only first 7
+                    var subBranches = branches.slice(0, this.maxSubBranches); //cut out only first x branches
                     subBranches.forEach((subbranch, i) => {
                         this.data.children.push({ id: subbranch.id, name: subbranch.name, children: [], value: subbranch.post_points + 1 });
                         let ind = [i];
@@ -130,24 +130,31 @@ class HomeController extends Injectable {
             let children = this.data.children;
             let branch;
             //find branch from ind passed
-            index.forEach((val, ind) => {
+
+            index.forEach((val) => {
                 branch = children[val];
+                if (!branch) //stop sanity check
+                    return;
                 children = branch.children;
             });
             if (!branch) return; //stop if no branch found at position
+            //doesn't come here again
             //adds promise to list
+
             this.promisesToResolve.push(this.BranchService.getSubbranches(branch.id, 0, "post_points")
                 .then(branches => {
-                    if (branches.length == 0)
+                    if (branches.length == 0) {
                         return;
-                    var subBranches = branches.slice(0, this.maxSubBranches); //cut out only first 7
+                    }
+                    var subBranches = branches.slice(0, this.maxSubBranches); //cut out only first x branches
                     subBranches.forEach((subbranch, i) => {
                         branch.children.push({ id: subbranch.id, name: subbranch.name, children: [], value: subbranch.post_points + 1 });
-                        let ind = index.push(i);
-                        this.setData(ind);
+                        index.push(i);
+                        this.setData(index);
                     });
                 }));
         } else {
+
             this.done = true;
             return;
         }
