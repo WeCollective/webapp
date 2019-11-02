@@ -1,57 +1,39 @@
-<ul class="branch__list content__list style--full-padding text--center">
-  <li class="branch__item">
-  	<span
-      class="branch__text branch__link"
-      ng-click="BranchNucleusSettings.openModal('profile-picture')">
-  		Change flag image
-  	</span>
-  </li>
-
-  <li class="branch__item">
-    <span
-      class="branch__text branch__link"
-      ng-click="BranchNucleusSettings.openModal('cover-picture')">
-      Change cover photo
-    </span>
-  </li>
-
-  <li class="branch__item">
-    <span class="branch__text">
-      <span class="branch__text style--dark">Visible Name:</span> {{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }} | <span class="branch__link" ng-click="BranchNucleusSettings.openModal('visible-name')">Change</span>
-    </span>
-  </li>
-
-  <li class="branch__item">
-    <div class="branch__text style--dark">
-      Rules &amp; Etiquette:
-    </div>
-
-    <div
-      class="branch__text"
-      marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set'">
-    </div>
-
-    <div
-      class="branch__text branch__link"
-      ng-click="BranchNucleusSettings.openModal('rules')">
-      Change
-    </div>
-  </li>
-
-  <li class="branch__item">
-    <div class="branch__text style--dark">
-      Description:
+<div class="tab-page">
+    
+    <div class="tab-page-section min-height-30">
+        <a
+            class="main-text link"
+            ng-click="BranchNucleusSettings.openModal('profile-picture')">
+            Change flag image
+        </a>
     </div>
     
-    <div
-      class="branch__text"
-      marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set'">
+    <div class="tab-page-section min-height-30">
+        <a
+            class="main-text link"
+            ng-click="BranchNucleusSettings.openModal('cover-picture')">
+            Change cover photo
+        </a>
     </div>
-    
-    <div
-      class="branch__text branch__link"
-      ng-click="BranchNucleusSettings.openModal('description')">
-      Change
+
+    <div class="tab-page-section min-height-30">
+        <span class="main-text">
+            <span class="sub-text">Visible Name:</span>
+            {{ BranchNucleusSettings.BranchService.branch.name || 'Not Set' }} | 
+            <span class="main-text link" ng-click="BranchNucleusSettings.openModal('visible-name')">Change</span>
+        </span>
     </div>
-  </li>
-</ul>
+
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-small">Rules &amp; Etiquette: </span>
+        <span class="main-text margin-right-small" marked="BranchNucleusSettings.BranchService.branch.rules || 'Not Set |'"></span>
+        <span class="main-text link" ng-click="BranchNucleusSettings.openModal('rules')">Change</span>
+    </div>
+
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-small">Description:</span>
+        <span class="main-text margin-right-small" marked="BranchNucleusSettings.BranchService.branch.description || 'Not Set |'"></span>
+        <span class="main-text link" ng-click="BranchNucleusSettings.openModal('description')">Change</span>
+    </div>
+
+</div>

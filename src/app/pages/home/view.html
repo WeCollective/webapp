@@ -6,20 +6,17 @@
 
             <div class="homepage-panel-01-upper-content">
 
+                <!--Logo and title-->
                 <div class="logo-title-container">
-
                     <img class="homepage-logo" src="/assets/images/homepage-images/homepage-logo-09.png">
-
                     <!--<span class="weco">weco</span>-->
-
                 </div>
 
-                <div class="homepage-sub-title">Cooperatively owned, <br> democratically governed, <br> open source <b>social news</b></div>
-                <div class="circle-map">
-                    {{ (Home.generateCircles()).load() }}
+                <!--Sub title-->
+                <div class="homepage-sub-title">Cooperatively owned, <br> Democratically governed, <br> Open source <b>social media</b> </div>
 
-                </div>
-
+                <!--Circle map-->
+                <div class="circle-map">{{ (Home.generateCircles()).load() }}</div>
 
             </div>
 
@@ -27,7 +24,8 @@
 
                 <div class="homepage-panel-01-stats">
 
-                    <div class="homepage-panel-01-stat">
+                    <!--Users-->
+                    <div class="homepage-panel-01-stat inactive">
 
                         <a class="main-text" href="">Users: <b>890</b></a>
 
@@ -36,58 +34,56 @@
                             <a 
                                 class="small-circular-thumbnail shadow"
                                 style="background-image: url('/assets/images/user-images/user-image-01.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                                href="/branch-followers.html">
+                                href="">
                             </a>
 
                             <a 
                                 class="small-circular-thumbnail shadow"
                                 style="background-image: url('/assets/images/user-images/user-image-02.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                                href="/branch-followers.html">
+                                href="">
                             </a>
 
                             <a 
                                 class="small-circular-thumbnail"
                                 style="background-image: url('/assets/images/user-images/user-image-04.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                                href="/branch-followers.html">
+                                href="">
                             </a>
 
                         </div>
-                        <!--End of "overlapping-thumbnails"-->
 
                     </div>
-                    <!--End of Users-->
 
+                    <!--Branches-->
                     <div class="homepage-panel-01-stat">
 
                         <a class="main-text" ui-sref="weco.branch.subbranches({ branchid: 'root' })">Branches: <b>810</b></a>
 
-                        <a class="overlapping-thumbnails" ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+                        <div class="overlapping-thumbnails" ui-sref="weco.branch.subbranches({ branchid: 'root' })">
 
                             <a 
                                 class="small-circular-thumbnail shadow" 
                                 style="background-image: url('/assets/images/branch-images/branch-image-01.jpg'), url('/assets/images/branch-images/branch-image-00.jpg'); z-index: 7" 
-                                ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+                                ui-sref="">
                             </a>
 
                             <a 
                                 class="small-circular-thumbnail shadow"
                                 style="background-image: url('/assets/images/branch-images/branch-image-03.jpg'), url('/assets/images/branch-images/branch-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                                ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+                                ui-sref="">
                             </a>
 
                             <a 
                                 class="small-circular-thumbnail"
                                 style="background-image: url('/assets/images/branch-images/branch-image-04.jpg'), url('/assets/images/branch-images/branch-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                                ui-sref="weco.branch.subbranches({ branchid: 'root' })">
+                                ui-sref="">
                             </a>
 
-                        </a>
-                        <!--End of "overlapping-thumbnails"-->
+                        </div>
 
                     </div>
-                    <!--End of Branches-->
 
-                    <div class="homepage-panel-01-stat">
+                    <!--Members-->
+                    <div class="homepage-panel-01-stat inactive">
 
                         <a class="main-text" href="">Members: <b>8</b></a>
 
@@ -112,12 +108,11 @@
                             </a>
 
                         </div>
-                        <!--End of "overlapping-thumbnails"-->
 
                     </div>
-                    <!--End of Members-->
 
-                    <div class="homepage-panel-01-stat">
+                    <!--Developers-->
+                    <div class="homepage-panel-01-stat inactive">
 
                         <a class="main-text" href="">Developers: <b>6</b></a>
 
@@ -142,12 +137,11 @@
                             </a>
 
                         </div>
-                        <!--End of "overlapping-thumbnails"-->
 
                     </div>
-                    <!--End of Developers-->
 
-                    <div class="homepage-panel-01-stat">
+                    <!--Donors-->
+                    <div class="homepage-panel-01-stat inactive">
 
                         <a class="main-text" href="">Donors: <b>5</b></a>
 
@@ -172,12 +166,10 @@
                             </a>
 
                         </div>
-                        <!--End of "overlapping-thumbnails"-->
 
                     </div>
-                    <!--End of Donors-->
 
-                </div>
+                </div><!--end of homepage-stats-->
 
             </div>
 
@@ -200,7 +192,7 @@
                         <li><a class="main-text link" href="">Active developers</a> gain free membership</li>
                     </ul>
                 </span>
-                <a class="secondary-button" style="margin-top: 20px;" href="">
+                <a class="secondary-button" style="margin-top: 20px;" href="http://wiki.weco.io/#/ownership">
                     <span class="secondary-button-text">Read more</span>
                 </a>
             </div>
@@ -233,7 +225,7 @@
                         <li>Pitch in to complete tasks and get paid for contributions</li>
                     </ul>
                 </span>
-                <a class="secondary-button" style="margin-top: 20px;" href="">
+                <a class="secondary-button" style="margin-top: 20px;" href="http://wiki.weco.io/#/development">
                     <span class="secondary-button-text">Read more</span>
                 </a>
             </div>
@@ -248,7 +240,7 @@
                         <li><a class="main-text link" href="https://matomo.org/">Matomo</a> used for site analytics</li>
                     </ul>
                 </span>
-                <a class="secondary-button" style="margin-top: 20px;" href="">
+                <a class="secondary-button" style="margin-top: 20px;" href="http://wiki.weco.io/#/">
                     <span class="secondary-button-text">Read more</span>
                 </a>
             </div>  

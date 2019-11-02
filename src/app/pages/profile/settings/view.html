@@ -1,48 +1,28 @@
-<ul class="branch__list content__list style--full-padding">
-  <li class="branch__item">
-  	<a
-      class="link-text"
-      ng-click="Profile.openCoverPictureModal()">
-      Change cover photo
-    </a>
-  </li>
+<div class="tab-page">
 
-  <li class="branch__item">
-  	<a
-      class="link-text"
-      ng-click="Profile.openProfilePictureModal()">
-        Change profile picture
-    </a>
-  </li>
-  
-  <li class="branch__item">
-  	<span class="main-text">
-      <span class="main-text">Name:</span> {{ ProfileSettings.UserService.user.name }} | <a class="link-text" ng-click="ProfileSettings.openNameModal()">Change</a>
-    </span>
-  </li>
-  
-  <li class="branch__item">
-  	<span class="branch__text">
-      <span class="branch__text style--dark">Email:</span> {{ ProfileSettings.UserService.user.email }} | <span class="branch__text branch__link" ng-click="ProfileSettings.openEmailModal()">Change</span>
-    </span>
-  </li>
-  
-  <li class="branch__item">
-  	<span class="branch__text">
-      <span class="branch__text style--dark">DOB:</span> {{ ProfileSettings.UserService.user.dob | date:'dd MMMM yyyy' || 'Not Set' }} | <span class="branch__text branch__link" ng-click="ProfileSettings.openDOBModal()">Change</span>
-    </span>
-  </li>
-  
-  <li class="branch__item">
-  	<span class="branch__text style--dark">
-      Display NSFW posts:
-    </span>
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-medium">Name:</span>
+        <span class="main-text">{{ ProfileSettings.UserService.user.name }} | <a class="main-text link" ng-click="ProfileSettings.openNameModal()">Change</a></span>
+    </div>
 
-    <input
-      id="checkbox-nsfw"
-      ng-change="ProfileSettings.updateNSFW()"
-      ng-model="ProfileSettings.UserService.user.show_nsfw"
-      type="checkbox" />
-    <label class="checkbox" for="checkbox-nsfw"></label>
-  </li>
-</ul>
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-medium">Email:</span>
+        <span class="main-text">{{ ProfileSettings.UserService.user.email }} | <a class="main-text link" ng-click="ProfileSettings.openEmailModal()">Change</a></span>
+    </div>
+
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-medium">Date of birth:</span>
+        <span class="main-text">{{ ProfileSettings.UserService.user.dob | date:'dd MMMM yyyy' || 'Not Set' }} | <a class="main-text link" ng-click="ProfileSettings.openDOBModal()">Change</a></span>
+    </div>
+
+    <div class="tab-page-section min-height-30">
+        <span class="sub-text margin-right-medium">Display NSFW posts:</span>
+        <input
+            id="checkbox-nsfw"
+            ng-change="ProfileSettings.updateNSFW()"
+            ng-model="ProfileSettings.UserService.user.show_nsfw"
+            type="checkbox"/>
+        <label class="checkbox" for="checkbox-nsfw"></label>
+    </div>
+    
+</div>

@@ -1,12 +1,14 @@
-<a
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.nucleus.about({ branchid: notification.data.childid })">
   b/{{ notification.data.childid }}
 </a>
-<span>
+
+<span class="sub-text">
   was moved to
 </span>
-<a
+
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.nucleus.about({ branchid: notification.data.parentid })">
   b/{{ notification.data.parentid }}

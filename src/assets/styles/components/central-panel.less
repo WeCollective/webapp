@@ -5,8 +5,8 @@
 //---------------------- Components ----------------------//
 
 .central-panel {
-    width: 900px;
-    //margin: 0 20px;
+    width: 8500px;
+    margin: 0 20px;
     //height: 100%;
     //margin-left: 40px;
     z-index: 8;
@@ -175,6 +175,27 @@
 
                     &:hover {
                     opacity: 0.6;
+                    }
+                }
+
+                .search-results {
+                    color: @dark-grey-text;
+                    background-color: white;
+                    border-radius: 4px;
+                    position: absolute;
+                    top: 66px;
+                    padding: 10px;
+                }
+
+                .search-item {
+                    color: @dark-grey-text;
+                    background-color: white;
+                    padding: 5px;
+                    border-radius: 4px;
+
+                    &:hover {
+                        background-color: @light-grey-1;
+                        cursor: pointer;
                     }
                 }
 

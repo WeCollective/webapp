@@ -1,24 +1,29 @@
-<a
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.profile.about({ username: notification.data.username })">
   {{ notification.data.username === UserService.user.username ? 'you' : notification.data.username }}
 </a>
-<span>
+
+<span class="sub-text">
   changed the post type of your
 </span>
-<a
+
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.post({ branchid: notification.data.branchid, postid: notification.data.postid })">
   post
 </a>
-<span>
+
+<span class="sub-text">
   on
 </span>
-<a
+
+<a class="main-text link"
   ng-click="NotificationService.markAsRead(index)"
   ui-sref="weco.branch.nucleus.about({ branchid: notification.data.branchid })">
   b/{{ notification.data.branchid }}
 </a>
-<span>
+
+<span class="sub-text">
   to &#39;{{ notification.data.type }}&#39;
 </span>

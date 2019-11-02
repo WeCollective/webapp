@@ -1,18 +1,12 @@
 <div class="branch">
 
     <div class="branch-index">
-
         <div class="branch-index-content">
-
             <div class="branch-index-content-padding">
-
                 <span class="branch-index-text">{{ CardBranch.index + 1 }}</span>
-
             </div>
-
         </div>
-
-    </div><!--end of "branch-index"-->
+    </div>
 
     <a 
         class="branch-flag-image"
@@ -27,53 +21,8 @@
         </div>
 
         <div class="branch-description">
-            <span class="main-text">Branch description:</span>
-            <span class="main-text" marked="Branch.BranchService.branch.description || 'Not Set'"></span>
+            <span class="main-text" marked="CardBranch.branch.description"></span>
         </div>
-
-        <div class="branch-followers">
-
-            <a class="main-text" style="font-size: 15px" href="/branch-followers.html"><b>6</b> Followers</a>
-
-            <div class="overlapping-thumbnails">
-
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/images/user-images/user-image-04.jpg'), url('/assets/images/user-images/user-image-00.jpg'); z-index: 7"
-                    href="">
-                </a>
-
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/images/user-images/user-image-05.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -15px; z-index: 6"
-                    href="">
-                </a>
-
-                <a 
-                    class="small-circular-thumbnail" 
-                    style="background-image: url('/images/user-images/user-image-06.jpg'), url('/assets/images/user-images/user-image-00.jpg'); position: relative; left: -30px; z-index: 5"
-                    href="">
-                </a>
-                
-            </div><!--End of "overlapping-thumbnails"-->
-
-        </div><!--End of "branch-followers"-->
-
-        <div class="branch-stats">
-
-            <img class="branch-stat-icon heart margin-right-small" src="/assets/images/icons/post-01.png">
-
-            <span class="sub-text margin-right-large" href="">14 Posts</span>
-            
-            <img class="branch-stat-icon heart margin-right-small" src="/assets/images/icons/like-01.svg">
-
-            <span class="sub-text margin-right-large" href="">6 Likes</span>
-
-            <img class="branch-stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
-
-            <span class="sub-text margin-right-large" href="">2 Comments</span>
-
-        </div><!--End of "branch-stats"-->
         
     </div><!--End of "branch-body"-->
 
