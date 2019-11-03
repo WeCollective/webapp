@@ -54,7 +54,7 @@
     <!--Follow branch button-->
     <a
         class="primary-button"
-        style="width: 140px; margin: 20px 0"
+        style="width: 140px; margin: 0 0 20px 0"
         ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'"
         ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
         ng-click="Ctrl.toggleFollowBranch()"
