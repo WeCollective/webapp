@@ -377,37 +377,45 @@ body {
     background-size: cover;
 }
 
-.user-card {
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    padding: 20px;
-    width: 230px;
-    height: 350px;
+.users {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    flex-shrink: 0;
-
-    @media screen and (max-width: 500px) {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    /*@media screen and (max-width: 500px) {
-        width: 100% - 5px;
-    }*/
+    flex-wrap: wrap;
+    margin: 0 5px 20px 5px;
 }
 
-    .user-image-medium {
-        width:130px;
-        height: 130px;
-        border-radius: 50%;
-        background-position: center; 
-        background-size: cover;
+    .user-card {
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        padding: 20px;
+        width: 230px;
+        //height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        flex-shrink: 0;
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        /*@media screen and (max-width: 500px) {
+            width: 100% - 5px;
+        }*/
     }
+
+        .user-image-medium {
+            width:130px;
+            height: 130px;
+            border-radius: 50%;
+            background-position: center; 
+            background-size: cover;
+        }
 
 .empty-state-image {
     width: 200px;

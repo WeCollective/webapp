@@ -1,18 +1,18 @@
-<div class="tab-page"
+<ul class="users"
     id="nucleus-moderators-list-container"
     loading
     loading-when="!BranchNucleusModerators.mods.length && BranchNucleusModerators.isLoading">
 
-    <ul class="content__list">
-        <li
-            class="content__list-item text--center"
-            ng-repeat="mod in BranchNucleusModerators.mods">
-            <a
-            class="content__list-link"
-            ui-sref="weco.profile.about({ username: mod.username })">      
-            <div class="content__list-picture" style="background-image: url('{{ mod.profileUrl }}'), url('{{ mod.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"></div>
-            <span class="content__list-label">{{ mod.name }}</span>
-            </a>
-        </li>
-    </ul>
+    <li class="user-card" ng-repeat="mod in BranchNucleusModerators.mods">
+
+        <a 
+            class="user-image-medium"
+            ui-sref="weco.profile.about({ username: mod.username })"
+            style="background-image: url('{{ mod.profileUrl }}'), url('{{ mod.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+        </a>
+            
+        <a class="title-text margin-top-medium">{{ mod.name }}</a>
+
+    </li>
+    
 </div>
