@@ -223,53 +223,23 @@ class NavbarController extends Injectable {
   }
 
   openLeftModal() {
-
-    var leftButton = document.getElementsByClassName("nav-bar-left-dropdown-button")[0];
     var leftModal = document.getElementsByClassName("nav-bar-left-dropdown-modal-wrapper")[0];
-
-    leftButton.onclick = function() {
-        leftModal.style.display = "block";
-    }
+    leftModal.style.display = "block";
   }
 
   closeLeftModal() {
-    // Get elements
     var leftModal = document.getElementsByClassName("nav-bar-left-dropdown-modal-wrapper")[0];
-
-    // When the user clicks anywhere outside of the modal, close it
-    document.onclick = function(event) {
-      if (event.target == leftModal) {
-          leftModal.style.display = "none";
-      }
-    }
+    leftModal.style.display = "none";
   }
-
+  
   openRightModal() {
-    // Get the modal
     var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
-
-    // Get the button that opens the modal
-    var rightButton = document.getElementsByClassName("nav-bar-right-dropdown-button")[0];
-
-    // When the user clicks the button, open the modal 
-    rightButton.onclick = function() {
-      rightModal.style.display = "block";
-    }
+    rightModal.style.display = "block";
   }
 
   closeRightModal() {
-    // Get elements
     var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
-    var rightModalPositioner = document.getElementsByClassName("nav-bar-right-dropdown-modal-positioner")[0];
-
-    // When the user clicks anywhere outside of the modal, close it
-    document.onclick = function(event) {
-      if (event.target == rightModal) {
-          rightModal.style.display = "none";
-      } else if (event.target == rightModalPositioner) {
-          rightModal.style.display = "none";
-      }
-    }
+    rightModal.style.display = "none";
   }
 }
 

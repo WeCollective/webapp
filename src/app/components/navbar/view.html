@@ -179,13 +179,11 @@
                     <!--<span class="sub-text" href="">Private:</span>-->
 
                     <!--Profile-->
-                    <div class="nav-bar-dropdown-link">
-                        <a
-                            class="small-circular-thumbnail"
-                            style="margin-right: 10px; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/user-images/user-image-00.jpg');"
-                            ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="Profile">
+                    <div class="nav-bar-dropdown-link" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="Profile">
+                        <a class="small-circular-thumbnail"
+                            style="margin-right: 10px; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/user-images/user-image-00.jpg');">
                         </a>
-                        <a class="link-text" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="Profile">Profile</a>
+                        <a class="link-text">Profile</a>
                     </div>
 
                     <!--Notifications-->
