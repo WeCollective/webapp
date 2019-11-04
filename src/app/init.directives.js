@@ -23,34 +23,36 @@ import TagEditor from './components/tag-editor/directive';
 import Tooltip from './components/tooltip/directive';
 
 const refs = [
-  { name: 'alerts', module: Alerts },
-  { name: 'cardBranch', module: CardBranch },
-  { name: 'cardPollAnswer', module: CardPollAnswer },
-  { name: 'chart', module: Chart },
-  { name: 'commentInputBox', module: CommentInputBox },
-  { name: 'comments', module: Comments },
-  { name: 'commentThread', module: CommentThread },
-  { name: 'coverPhoto', module: CoverPhoto },
-  { name: 'dropdown', module: Dropdown },
-  { name: 'emitOnScrollToBottom', module: EmitOnScrollToBottom },
-  { name: 'listItem', module: CardListItem },
-  { name: 'loaderBar', module: LoaderBar },
-  { name: 'loading', module: Loading },
-  { name: 'modal', module: Modal },
-  { name: 'modLogEntry', module: ModLogEntry },
-  { name: 'navbar', module: Navbar },
-  { name: 'noConstructorTransition', module: NoConstructorTransition },
-  { name: 'notification', module: Notification },
-  { name: 'pollAnswerEditor', module: PollAnswerEditor },
-  { name: 'sidebar', module: Sidebar },
-  { name: 'tabs', module: Tabs },
-  { name: 'tagEditor', module: TagEditor },
-  { name: 'tooltip', module: Tooltip },
+    { name: 'alerts', module: Alerts },
+    { name: 'cardBranch', module: CardBranch },
+    { name: 'cardPollAnswer', module: CardPollAnswer },
+    { name: 'chart', module: Chart },
+    { name: 'commentInputBox', module: CommentInputBox },
+    { name: 'comments', module: Comments },
+    { name: 'commentThread', module: CommentThread },
+    { name: 'coverPhoto', module: CoverPhoto },
+    { name: 'dropdown', module: Dropdown },
+    { name: 'emitOnScrollToBottom', module: EmitOnScrollToBottom },
+    { name: 'listItem', module: CardListItem },
+    { name: 'loaderBar', module: LoaderBar },
+    { name: 'loading', module: Loading },
+    { name: 'modal', module: Modal },
+    { name: 'modLogEntry', module: ModLogEntry },
+    { name: 'navbar', module: Navbar },
+    { name: 'noConstructorTransition', module: NoConstructorTransition },
+    { name: 'notification', module: Notification },
+    { name: 'pollAnswerEditor', module: PollAnswerEditor },
+    { name: 'sidebar', module: Sidebar },
+    { name: 'tabs', module: Tabs },
+    { name: 'tagEditor', module: TagEditor },
+    { name: 'tooltip', module: Tooltip },
 ];
 
 const directives = registrar => {
-  if (!registrar) throw new Error('Cannot register directives - no registrar provided.');
-  refs.forEach(ref => registrar.directive(ref.name, ref.module));
+    if (!registrar) throw new Error('Cannot register directives - no registrar provided.');
+    refs.forEach(ref => {
+        registrar.directive(ref.name, ref.module);
+    });
 };
 
 export default directives;

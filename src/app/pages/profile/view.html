@@ -8,60 +8,43 @@
 
 <div class="fixed-nav-bar-padding"></div>
 
-<cover-photo
-    can-edit="Profile.profileUser.username === Profile.UserService.user.username"
-    image-url="Profile.profileUser.coverUrl"
-    open-upload-cover-modal="Profile.openCoverPictureModal"
-    thumb-url="Profile.profileUser.coverUrlThumb">
+<cover-photo can-edit="Profile.profileUser.username === Profile.UserService.user.username" image-url="Profile.profileUser.coverUrl" open-upload-cover-modal="Profile.openCoverPictureModal" thumb-url="Profile.profileUser.coverUrlThumb">
 </cover-photo>
 
 <!--<div class="cover-image sticky-cover"></div>-->
 
-<div
-    class="page"
-    emit-on-scroll-to-bottom
-    loading
-    loading-when="Profile.isLoading">
-    
-    <!--<div class="sticky-header">-->   <!--Remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
+<div class="page" emit-on-scroll-to-bottom loading loading-when="Profile.isLoading">
+
+    <!--<div class="sticky-header">-->
+    <!--Remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
 
     <div class="left-side-bar">
-    
+
         <div class="side-bar-header sticky-header">
 
-            <div 
-                class="side-bar-flag-image-small"
-                style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+            <div class="side-bar-flag-image-small" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+                <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
             </div>
-    
+
             <div class="side-bar-header-padding">
-    
+
                 <a class="title-text" href="">{{ Profile.profileUser.name }}</a>
-    
+
                 <a class="sub-text link" href="">{{ Profile.profileUser.username }}</a>
-    
+
             </div>
-    
+
         </div>
-    
-        <div 
-            class="side-bar-flag-image-large"
-            style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
-        
-            <img
-                class="side-bar-flag-image-upload-icon"
-                id="edit"
-                ng-class="{ 'style--default': !Profile.profileUser.profileUrl }"
-                ng-click="Profile.openProfilePictureModal()"
-                ng-show="Profile.profileUser.username === Profile.UserService.user.username"
-                offset-y="30"
-                src="/assets/images/icons/edit.svg"
-                text="'Upload New Image'"
-                tooltip />
+
+        <div class="side-bar-flag-image-large" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+            <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+
+            <img class="side-bar-flag-image-upload-icon" id="edit" ng-class="{ 'style--default': !Profile.profileUser.profileUrl }" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.profileUser.username === Profile.UserService.user.username" offset-y="30"
+                src="/assets/images/icons/edit.svg" text="'Upload New Image'" tooltip />
         </div>
-    
+
         <div class="side-bar-links">
-    
+
             <!--About-->
             <div class="side-bar-link">
                 <a class="icon-padding small" ui-sref="weco.profile.about({ username: Profile.profileUser.username })" title="About">
@@ -69,15 +52,15 @@
                 </a>
                 <a class="link-text" ui-sref="weco.profile.about({ username: Profile.profileUser.username })" title="About">About</a>
             </div>
-    
+
             <!--Dev Work-->
             <div class="side-bar-link inactive">
-                    <a class="icon-padding small" title="Dev Work">
-                        <img class="icon grey-inactive" src="/assets/images/icons/dev-work-01.png" style="width: 28px; height: 28px">
-                    </a>
-                    <a class="link-text" title="Dev Work">Dev Work</a>
-                </div>
-            
+                <a class="icon-padding small" title="Dev Work">
+                    <img class="icon grey-inactive" src="/assets/images/icons/dev-work-01.png" style="width: 28px; height: 28px">
+                </a>
+                <a class="link-text" title="Dev Work">Dev Work</a>
+            </div>
+
             <!--Branches-->
             <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Branches">
@@ -93,7 +76,7 @@
                 </a>
                 <a class="link-text" title="About">Posts</a>
             </div>
-    
+
             <!--Comments-->
             <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Comments">
@@ -101,7 +84,7 @@
                 </a>
                 <a class="link-text" title="About">Comments</a>
             </div>
-    
+
             <!--Likes-->
             <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Likes">
@@ -109,7 +92,7 @@
                 </a>
                 <a class="link-text" title="About">Likes</a>
             </div>
-    
+
             <!--Reposts-->
             <div class="side-bar-link inactive">
                 <a class="icon-padding small" title="Reposts">
@@ -117,10 +100,12 @@
                 </a>
                 <a class="link-text" title="About">Reposts</a>
             </div>
-    
-        </div><!--end of "side-bar-buttons"-->
-    
-    </div><!--end of "left-side-bar"-->
+
+        </div>
+        <!--end of "side-bar-buttons"-->
+
+    </div>
+    <!--end of "left-side-bar"-->
 
     <div class="central-panel">
 
@@ -128,16 +113,12 @@
 
             <div class="central-panel-header-with-tabs sticky-header hide-scroll-bars">
 
-                <div class="central-panel-header-tabs hide-scroll-bars">  
-                
+                <div class="central-panel-header-tabs hide-scroll-bars">
+
                     <a class="side-bar-toggle-button" ng-click="Profile.toggleSidebarNew()">
-                        <img   
-                            id="toggle-button"
-                            alt="Toggle sidebar"
-                            class="icon toggle-out"
-                            src="/assets/images/icons/toggle-02.png"/>
+                        <img id="toggle-button" alt="Toggle sidebar" class="icon toggle-out" src="/assets/images/icons/toggle-02.png" />
                     </a>
-                
+
                     <tabs items="Profile.state.tabItems" states="Profile.state.tabStates"></tabs>
 
                     <!--Mark all notifications as 'read' button needs fixing-->
@@ -153,13 +134,13 @@
                         alt="Mark all notifications as read icon"
                         src="/assets/images/icons/tick--circle.svg" />
                     </button>-->
-                
+
                 </div>
-                
+
             </div>
 
         </div>
-        
+
         <div class="center">
             <div class="align">
                 <div class="content">
@@ -168,7 +149,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-  
+
 </div>

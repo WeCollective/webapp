@@ -1,16 +1,6 @@
-<div
-    class="content__body"
-    loading
-    loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
-    <ul
-        class="content__list"
-        ng-if="Ctrl.items.length">
-        <li
-            class="branch"
-            card-branch
-            branch="branch"
-            index="$index"
-            ng-repeat="branch in Ctrl.items track by $index">
+<div class="content__body" loading loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.items.length">
+    <ul class="content__list" ng-if="Ctrl.items.length">
+        <li class="branch" card-branch branch="branch" index="$index" ng-repeat="branch in Ctrl.items track by $index">
         </li>
 
     </ul>
@@ -19,17 +9,14 @@
 
         <span class="main-text margin-bottom-large">There don't appear to be any branches that match the current filter settings</span>
 
-        <img
-            alt="Empty state icon"
-            class="empty-state-image"
-            src="/assets/images/empty-state.jpg" />
+        <img alt="Empty state icon" class="empty-state-image" src="/assets/images/empty-state.jpg" />
 
         <span class="main-text margin-top-medium" style="text-align: center">
             Click 'Create Branch' above to create the first branch<br>
             or<br>
             Submit a 'Parent Branch Request' from the Mod Tools section of a branch you already moderate.
         </span>
-    
+
     </div>
 
 </div>
