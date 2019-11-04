@@ -8,10 +8,7 @@
         </div>
     </div>
 
-    <a 
-        class="branch-flag-image"
-        ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })"
-        style="background-image: url('{{ CardBranch.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+    <a class="branch-flag-image" ui-sref="weco.branch.wall({ branchid: CardBranch.branch.id })" style="background-image: url('{{ CardBranch.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
     </a>
 
     <div class="branch-body">
@@ -21,9 +18,10 @@
         </div>
 
         <div class="branch-description">
-            <span class="main-text" marked="CardBranch.branch.description"></span>
+            <span class="main-text" marked="{{CardBranch.branch.description}}"></span>
         </div>
-        
-    </div><!--End of "branch-body"-->
+
+    </div>
+    <!--End of "branch-body"-->
 
 </div>
