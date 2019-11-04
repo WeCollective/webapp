@@ -19,4 +19,33 @@
         <span class="main-text">{{ Profile.profileUser.datejoined | date:'dd MMMM yyyy' }}</span>
     </div>
 
+    <!--User stats (not working yet)-->
+    <div class="stats">
+
+        <!--Total followers-->
+        <div class="stat">
+            <img class="followers-icon margin-right-small" src="/assets/images/user-images/user-image-00.jpg">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.stat }} Followers</a>
+        </div>
+
+        <!--Total posts-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/post-01.png">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.stat }} Posts</a>
+        </div>
+
+        <!--Total comments-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.stat }} Comments</a>
+        </div>
+
+        <!--Total likes-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/heart-icon.svg">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.stat }} Likes</a>
+        </div>
+
+    </div>
+
 </div>

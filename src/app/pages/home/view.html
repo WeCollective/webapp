@@ -44,7 +44,7 @@
                     <!--Users-->
                     <div class="homepage-panel-01-stat inactive">
 
-                        <a class="main-text" href="">Users: <b>890</b></a>
+                        <a class="main-text" href="">Users: <b>{{ Home.stats.user_count }}</b></a>
 
                         <div class="overlapping-thumbnails">
 
@@ -64,7 +64,7 @@
                     <!--Branches-->
                     <div class="homepage-panel-01-stat">
 
-                        <a class="main-text" ui-sref="weco.branch.subbranches({ branchid: 'root' })">Branches: <b>810</b></a>
+                        <a class="main-text" ui-sref="weco.branch.subbranches({ branchid: 'root' })">Branches: <b>{{ Home.stats.branch_count }}</b></a>
 
                         <div class="overlapping-thumbnails" ui-sref="weco.branch.subbranches({ branchid: 'root' })">
 
