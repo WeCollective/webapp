@@ -1,0 +1,38 @@
+<div class="header style--inner">
+  <div class="header__body">
+    <div class="header__controls">
+      <dropdown
+        items="Ctrl.timeRange"
+        selected="Ctrl.filters.timeRange.selectedIndex"
+        title="Ctrl.filters.timeRange.title">
+      </dropdown>
+
+      <dropdown
+        items="Ctrl.postType"
+        selected="Ctrl.filters.postType.selectedIndex"
+        title="Ctrl.filters.postType.title">
+      </dropdown>
+
+      <dropdown
+        items="Ctrl.sortBy"
+        selected="Ctrl.filters.sortBy.selectedIndex"
+        title="Ctrl.filters.sortBy.title">
+      </dropdown>
+    </div>
+  </div>
+</div>
+
+<div
+  class="content__body"
+  loading
+  loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
+  <ul class="content__list">
+    <li
+      class="branch__post list-item"
+      index="$index"
+      list-item
+      ng-repeat="post in Ctrl.PostService.posts track by $index"
+      post="post">
+    </li>
+  </ul>
+</div>

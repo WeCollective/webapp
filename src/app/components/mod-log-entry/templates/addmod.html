@@ -1,1 +1,12 @@
-<a class="branch__link" ui-sref="weco.profile.about({ username: entry.username })">{{ entry.username }}</a> added <a class="branch__link" ui-sref="weco.profile.about({ username: entry.data })">{{ entry.data }}</a> as a moderator.
+<a 
+    class="main-text link"
+    ui-sref="weco.profile.about({ username: entry.username })">
+    {{ entry.username }}
+</a>
+ added 
+ <a 
+    class="main-text link"
+    ui-sref="weco.profile.about({ username: entry.data })">
+    {{ entry.data }}
+</a>
+ as a moderator.

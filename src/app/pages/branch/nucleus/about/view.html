@@ -11,9 +11,10 @@
 
         <span class="sub-text margin-right-medium">Created by</span>
 
+        <!--Not working yet-->
         <a 
             class="small-circular-thumbnail margin-right-medium" 
-            style="background-image: url('/assets/images/user-images/user-image-00.jpg'), url('/assets/images/user-images/user-image-00.jpg');"
+            style="background-image: url('{{ Branch.BranchService.branch.creator.profileUrlThumb }}'), url('/assets/images/default-profile.jpg');"
             ui-sref="weco.profile.about({ username: Branch.BranchService.branch.creator })">
         </a>
 

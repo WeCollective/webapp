@@ -1,95 +1,88 @@
-<div class="content__list style--full-padding text--center">
-  <ul class="branch__list">
-    <li
-      class="branch__item"
-      ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
-      <span
-        class="branch__text branch__link style--red"
-        ng-click="ToolsCtrl.handleClick('homepage-stats')">
-        Edit the Homepage Stats
-      </span>
-    </li>
+<div class="tab-page">
 
-    <li class="branch__item">
-      <span
-        class="branch__text branch__link style--colorless"
-        ng-click="ToolsCtrl.handleClick('mod-add')">
-        Add a Moderator
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('homepage-stats')">
+            Edit the Homepage Stats
+        </span>
+    </div>
 
-    <li class="branch__item">
-      <span
-        class="branch__text branch__link style--red"
-        ng-click="ToolsCtrl.handleClick('mod-delete')">
-        Remove a Moderator
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('mod-add')">
+            Add a Moderator
+        </span>
+    </div>
 
-    <li class="branch__item">
-      <span
-        class="branch__text branch__link style--colorless"
-        ng-click="ToolsCtrl.handleClick('branch-review')">
-        Review Child Branch Requests
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('mod-delete')">
+            Remove a Moderator
+        </span>
+    </div>
 
-    <li class="branch__item">
-      <span
-        class="branch__text branch__link style--red"
-        ng-click="ToolsCtrl.handleClick('branch-detach-child')">
-        {{ ToolsCtrl.BranchService.branch.id !== 'root' ? 'Detach a Child Branch' : 'Delete a Branch' }}
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('branch-review')">
+            Review Child Branch Requests
+        </span>
+    </div>
 
-    <li
-      class="branch__item ng-hide"
-      ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
-      <span
-        class="branch__text branch__link style--red"
-        ng-click="ToolsCtrl.handleClick('branch-delete')">
-        Delete <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span>
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('branch-detach-child')">
+            {{ ToolsCtrl.BranchService.branch.id !== 'root' ? 'Detach a Child Branch' : 'Delete a Branch' }}
+        </span>
+    </div>
 
-    <li class="branch__item" ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
-      <span
-        class="branch__text branch__link style--red"
-        ng-click="ToolsCtrl.handleClick('ban-user')">
-        Ban User
-      </span>
-    </li>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('branch-delete')">
+            Delete <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span>
+        </span>
+    </div>
 
-    <li
-      class="branch__item"
-      ng-hide="ToolsCtrl.BranchService.branch.id === 'root'">
-      <span
-        class="branch__text branch__link style--colorless"
-        ng-click="ToolsCtrl.handleClick('branch-request')">
-        Move <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span> to Another Branch
-      </span>
-    </li>
-  </ul>
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('ban-user')">
+            Ban User
+        </span>
+    </div>
+
+    <div class="tab-page-section min-height-30">
+        <span
+            class="main-text link"
+            ng-click="ToolsCtrl.handleClick('branch-request')">
+            Move <span class="text--bold">b/{{ToolsCtrl.BranchService.branch.id}}</span> to Another Branch
+        </span>
+    </div>
+
 </div>
 
-<div
-  class="content__list style--full-padding text--center"
-  loading
-  loading-when="!ToolsCtrl.log.length && ToolsCtrl.isLoading">
-  <h2 class="header__subtitle">Moderator Action Log</h2>
+<div class="tab-page" style="margin-top: 20px" loading loading-when="!ToolsCtrl.log.length && ToolsCtrl.isLoading">
 
-  <h3
-    class="header__empty-state"
-    ng-show="!ToolsCtrl.log || !ToolsCtrl.log.length">
-    No entries to display
-  </h3>
+    <span class="title-text margin-bottom-small">Moderator Action Log</span>
 
-  <ul class="branch__list">
-    <li
-      class="branch__item style--small-text"
-      entry="entry"
-      mod-log-entry
-      ng-repeat="entry in ToolsCtrl.log">
-    </li>
-  </ul>
+    <span class="main-text" ng-show="!ToolsCtrl.log || !ToolsCtrl.log.length">
+        No entries to display.
+    </span>
+
+    <div class="tab-page-section min-height-30">
+
+        <span
+            class="main-text"
+            entry="entry"
+            mod-log-entry
+            ng-repeat="entry in ToolsCtrl.log">
+        </span>
+
+    </div>
+
 </div>
