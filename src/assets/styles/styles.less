@@ -503,6 +503,10 @@ body {
     margin-right: 14px;
 }
 
+.margin-left-medium {
+    margin-left: 6px;
+}
+
 .margin-top-medium {
     margin-top: 20px;
 }
@@ -616,6 +620,26 @@ body {
     -o-transition:all .4s linear; 
     -moz-transition:all .4s linear; 
     -webkit-transition:all .4s linear;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 //---------------------- Outline ----------------------//
