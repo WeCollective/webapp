@@ -63,12 +63,18 @@
                     href="">
                 </a>-->
 
-                <a class="post-image" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)" style="background-image: url('{{ ListItem.getPostImage() }}')">
+                <a class="post-image" 
+                    ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" 
+                    ng-if="['text', 'poll'].includes(ListItem.post.type)" 
+                    style="background-image: url('{{ ListItem.getPostImage() }}')">
                 </a>
 
                 <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
-
-                <a class="post-image" href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank" style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')">
+                <a class="post-image" 
+                    href="{{ ListItem.getPostUrl() }}" 
+                    ng-if="!['text', 'poll'].includes(ListItem.post.type)" 
+                    target="_blank" 
+                    style="background-image: url('{{ ListItem.post.type === 'image' ? ListItem.AppService.getProxyUrl(ListItem.getPostUrl()) : ListItem.getPostImage() }}'), url('/assets/images/placeholders/post--image.svg')">
                 </a>
 
             </div>
