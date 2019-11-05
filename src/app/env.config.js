@@ -1,7 +1,7 @@
 /* Template file from which env.config.js is generated */
 const ENV = {
-  apiEndpoint: 'https://localhost:8080/v1',
-  name: 'development',
+  apiEndpoint: 'https://wecoapi.com/v1',
+  name: 'production',
 };
 
 export default ENV;

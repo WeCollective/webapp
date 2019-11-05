@@ -18,7 +18,35 @@
         </div>
 
         <div class="branch-description">
-            <span class="main-text" marked="{{CardBranch.branch.description}}"></span>
+            <span class="main-text">  {{CardBranch.cut(CardBranch.branch.description) }} </span>
+        </div>
+
+        <div class="stats">
+
+            <!--branch followers future implement
+            <div class="stat">
+                <img class="followers-icon margin-right-small" src="/assets/images/user-images/user-image-00.jpg">
+                <a class="sub-text link margin-right-large">{{ CardBranch.branch[CardBranch.stat] }} Followers</a>
+            </div>
+-->
+            <!--total posts-->
+            <div class="stat">
+                <img class="stat-icon margin-right-small" src="/assets/images/icons/post-01.png">
+                <a class="sub-text link margin-right-large">{{ CardBranch.branch.post_count }} Posts</a>
+            </div>
+
+            <!--total comments-->
+            <div class="stat">
+                <img class="stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
+                <a class="sub-text link margin-right-large">{{ CardBranch.branch.post_comments }} Comments</a>
+            </div>
+
+            <!--total likes-->
+            <div class="stat">
+                <img class="stat-icon margin-right-small" src="/assets/images/icons/heart-icon.svg">
+                <a class="sub-text link margin-right-large">{{ CardBranch.branch.post_points }} Likes</a>
+            </div>
+
         </div>
 
     </div>

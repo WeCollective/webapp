@@ -5,7 +5,7 @@
 //---------------------- Components ----------------------//
 
 .central-panel {
-    width: 8500px;
+    width: 850px;
     margin: 0 20px;
     //height: 100%;
     //margin-left: 40px;
@@ -79,6 +79,11 @@
                 @media screen and (min-width: 1000px) {
                     display: none;
                 }
+
+                @media screen and (max-width: 400px) {
+                    width: 36px;
+                    height: 36px;
+                }
             }
 
             .create-post-button-large {
@@ -128,6 +133,11 @@
                 @media screen and (min-width: 1000px) {
                     display: none;
                 }
+
+                @media screen and (max-width: 400px) {
+                    width: 36px;
+                    height: 36px;
+                }
             }
 
             .local-search-bar {
@@ -159,6 +169,14 @@
                     //flex-shrink: 2;
 
                     &:focus { outline: none; }
+
+                    @media screen and (max-width: 400px) {
+                        width: 140px;
+                    }
+
+                    @media screen and (max-width: 360px) {
+                        width: 100px;
+                    }
 
                 }
 
@@ -223,7 +241,7 @@
                     display: none;
                 }
 
-                @media screen and (max-width: 358px) {
+                @media screen and (max-width: 400px) {
                     width: 36px;
                     height: 36px;
                 }

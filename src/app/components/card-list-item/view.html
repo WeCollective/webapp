@@ -28,6 +28,18 @@
 
             <a class="sub-text link margin-right-medium" ui-sref="weco.branch.wall({ branchid: ListItem.getOriginalBranches()[0] })">{{ ListItem.getOriginalBranches()[0] }}</a>
 
+            <span class="sub-text margin-right-medium">and</span>
+            
+            <span
+                class="sub-text link margin-right-medium ng-hide"
+                ng-show="ListItem.getOriginalBranches().length > 1"
+                offset-x="0"
+                offset-y="0"
+                text="ListItem.getOriginalBranchesTooltipString()"
+                tooltip>
+                {{ ListItem.getOriginalBranches().length - 1 }} others
+            </span>
+
             <span class="sub-text margin-right-medium">|</span>
 
             <div class="post-date">

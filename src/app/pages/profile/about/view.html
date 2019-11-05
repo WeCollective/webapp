@@ -7,9 +7,7 @@
 
     <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Username:</span>
-        <a 
-            class="main-text link"
-            ui-sref="weco.profile.about({ username: Profile.profileUser.username })">
+        <a class="main-text link" ui-sref="weco.profile.about({ username: Profile.profileUser.username })">
             {{ Profile.profileUser.username }}
         </a>
     </div>
@@ -17,6 +15,37 @@
     <div class="tab-page-section min-height-30">
         <span class="sub-text margin-right-medium">Member since:</span>
         <span class="main-text">{{ Profile.profileUser.datejoined | date:'dd MMMM yyyy' }}</span>
+    </div>
+
+    <!--User stats (not working yet)-->
+    <div class="stats">
+
+        <!--Total followers -- can't follow people?
+
+        <div class="stat">
+            <img class="followers-icon margin-right-small" src="/assets/images/user-images/user-image-00.jpg">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.stat }} Followers</a>
+        </div>-->
+
+        <!--Total posts-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/post-01.png">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.num_posts }} Posts</a>
+        </div>
+
+        <!--Total comments-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/comment-01.png">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.num_comments }} Comments</a>
+        </div>
+
+        <!--Total likes-->
+        <!--i would change that to number of branches followed?-->
+        <div class="stat">
+            <img class="stat-icon margin-right-small" src="/assets/images/icons/heart-icon.svg">
+            <a class="sub-text link margin-right-large">{{ Profile.profileUser.num_branches }} Branches Followed</a>
+        </div>
+
     </div>
 
 </div>
