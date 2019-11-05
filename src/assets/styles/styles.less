@@ -322,6 +322,7 @@ body {
     background-position: center;
     background-size: cover;
     //box-shadow: 0 2px 5px rgba(140, 144, 155, 0.15);
+    animation: fade-in 0.6s ease;
 
     @media screen and (max-width: 1400px) {
         height: 140px;
@@ -362,9 +363,9 @@ body {
         box-shadow: 0 0 0 3pt rgb(223, 238, 255);
     }
 
-    &.shadow {
-        //box-shadow: 8px 1px 8px 1px rgba(0, 0, 0, 0.06);
-    }
+    /*&.shadow {
+        box-shadow: 8px 1px 8px 1px rgba(0, 0, 0, 0.06);
+    }*/
 }
 
 .overlapping-thumbnails {
@@ -503,6 +504,10 @@ body {
     margin-right: 14px;
 }
 
+.margin-left-medium {
+    margin-left: 6px;
+}
+
 .margin-top-medium {
     margin-top: 20px;
 }
@@ -616,6 +621,27 @@ body {
     -o-transition:all .4s linear; 
     -moz-transition:all .4s linear; 
     -webkit-transition:all .4s linear;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        visibility: visible;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 //---------------------- Outline ----------------------//

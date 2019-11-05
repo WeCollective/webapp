@@ -1,6 +1,6 @@
 <div class="tab-page">
 
-    <div class="tab-page-section min-height-30">
+    <div class="tab-page-section min-height-30" ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
         <span
             class="main-text link"
             ng-click="ToolsCtrl.handleClick('homepage-stats')">
@@ -40,7 +40,7 @@
         </span>
     </div>
 
-    <div class="tab-page-section min-height-30">
+    <div class="tab-page-section min-height-30" ng-show="ToolsCtrl.BranchService.branch.id !== 'root'">
         <span
             class="main-text link"
             ng-click="ToolsCtrl.handleClick('branch-delete')">
@@ -48,7 +48,7 @@
         </span>
     </div>
 
-    <div class="tab-page-section min-height-30">
+    <div class="tab-page-section min-height-30" ng-show="ToolsCtrl.BranchService.branch.id === 'root'">
         <span
             class="main-text link"
             ng-click="ToolsCtrl.handleClick('ban-user')">
@@ -56,7 +56,7 @@
         </span>
     </div>
 
-    <div class="tab-page-section min-height-30">
+    <div class="tab-page-section min-height-30" ng-hide="ToolsCtrl.BranchService.branch.id === 'root'">
         <span
             class="main-text link"
             ng-click="ToolsCtrl.handleClick('branch-request')">

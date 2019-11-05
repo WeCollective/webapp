@@ -150,13 +150,13 @@
             </a>
     
             <!--Sign-up button-->
-            <a
+            <!--<a
                 class="nav-bar-username-padding"
                 style="margin-right: 10px;"
                 ng-show="!Navbar.UserService.isAuthenticated()"
                 ui-sref="auth.signup">
                 <span class="nav-bar-username">Sign up</span>
-            </a>
+            </a>-->
 
         </div><!--end of "nav-bar-right"-->
 
@@ -176,10 +176,18 @@
                     </a>
 
                     <!--Private links-->
-                    <span class="sub-text" href="">Private:</span>
+                    <!--<span class="sub-text" href="">Private:</span>-->
+
+                    <!--Profile-->
+                    <div class="nav-bar-dropdown-link" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="Profile">
+                        <a class="small-circular-thumbnail"
+                            style="margin-right: 10px; background-image: url('{{ Navbar.UserService.user.profileUrlThumb }}'), url('/assets/images/user-images/user-image-00.jpg');">
+                        </a>
+                        <a class="link-text">Profile</a>
+                    </div>
 
                     <!--Notifications-->
-                    <div class="nav-bar-dropdown-link">
+                    <div class="nav-bar-dropdown-link margin-left-medium">
                         <a 
                             class="icon-padding small"
                             style="margin-right: 7px; margin-left: 3px"
@@ -192,7 +200,7 @@
                     </div>
 
                     <!--Messages-->
-                    <div class="nav-bar-dropdown-link inactive">
+                    <div class="nav-bar-dropdown-link margin-left-medium inactive">
                         <a 
                             class="icon-padding small"
                             href=""
@@ -203,7 +211,7 @@
                     </div>
 
                     <!--Stream-->
-                    <div class="nav-bar-dropdown-link inactive">
+                    <div class="nav-bar-dropdown-link margin-left-medium inactive">
                         <a
                             class="icon-padding small"
                             href=""
@@ -214,7 +222,7 @@
                     </div>   
 
                     <!--Settings-->
-                    <div class="nav-bar-dropdown-link margin-bottom-large">
+                    <div class="nav-bar-dropdown-link margin-left-medium">
                         <a 
                             class="icon-padding small"
                             ui-sref="weco.profile.settings({ username: Navbar.UserService.user.username })"
@@ -225,17 +233,15 @@
                     </div>   
             
                     <!--Public links-->
-                    <span class="sub-text" href="">Public:</span>
+                    <!--<span class="sub-text" href="">Public:</span>-->
             
-                    <!--About-->
-                    <div class="nav-bar-dropdown-link">
+                    <!--<div class="nav-bar-dropdown-link">
                         <a class="icon-padding small" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">
                             <img class="icon grey" src="/assets/images/icons/about-01.png">
                         </a>
                         <a class="link-text" ui-sref="weco.profile.about({ username: Navbar.UserService.user.username })" title="About">About</a>
                     </div>
 
-                    <!--Dev Work-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Dev Work">
                             <img class="icon grey-inactive" src="/assets/images/icons/dev-work-01.png" style="width: 28px; height: 28px">
@@ -243,7 +249,6 @@
                         <a class="link-text" href="" title="Dev Work">Dev Work</a>
                     </div>
 
-                    <!--Branches-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Branches">
                             <img class="icon grey-inactive" src="/assets/images/icons/node-01.png">
@@ -251,7 +256,6 @@
                         <a class="link-text" href="" title="Branches">Branches</a>
                     </div>
             
-                    <!--Posts-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Posts">
                             <img class="icon grey-inactive" src="/assets/images/icons/post-01.png">
@@ -260,7 +264,6 @@
                 
                     </div>
             
-                    <!--Comments-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Comments">
                             <img class="icon grey-inactive" src="/assets/images/icons/comment-01.png">
@@ -268,7 +271,6 @@
                         <a class="link-text" href="" title="About">Comments</a>
                     </div>
             
-                    <!--Likes-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Likes">
                             <img class="icon grey-inactive" src="/assets/images/icons/like-01.svg">
@@ -276,13 +278,12 @@
                         <a class="link-text" href="" title="About">Likes</a>
                     </div>
             
-                    <!--Reposts-->
                     <div class="nav-bar-dropdown-link inactive">
                         <a class="icon-padding small" href="" title="Reposts">
                             <img class="icon grey-inactive" src="/assets/images/icons/repost-06.png" style="width: 22px; height: 22px">
                         </a>
                         <a class="link-text" href="" title="About">Reposts</a>
-                    </div>
+                    </div>-->
             
                 </div><!--end of "nav-bar-right-dropdown-modal-content"-->
 

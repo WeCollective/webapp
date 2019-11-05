@@ -7,11 +7,7 @@
 .central-panel {
     width: 850px;
     margin: 0 20px;
-    //height: 100%;
-    //margin-left: 40px;
     z-index: 8;
-    //background-color: #eee;
-    //width: 100%;
 
     @media screen and (max-width: 1400px) {
         margin: 0;
@@ -34,6 +30,7 @@
         align-items: center;
         z-index: 9;
         flex-wrap: nowrap;
+        //animation: fade-in 0.6s ease;
 
         @media screen and (max-width: 700px) {
             flex-wrap: wrap;
@@ -260,7 +257,7 @@
             overflow: scroll;
 
             @media screen and (max-width: 700px) {
-                margin-top: 10px;
+                margin: 20px 0 10px 0;
                 display: none;
             }
 
@@ -331,9 +328,9 @@
                     background: white;
                 }
 
-                @media screen and (max-width: 700px) {
+                /*@media screen and (max-width: 700px) {
                     width: 130px;
-                }
+                }*/
             }
             
                 .header-title-text {

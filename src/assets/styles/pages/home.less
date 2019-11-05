@@ -183,6 +183,7 @@
                     flex-direction: column;
                     justify-content: flex-start;
                     //align-items: center;
+                    animation: fade-in 0.6s ease;
                 }
 
                     .homepage-logo {
@@ -215,6 +216,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
+                    animation: fade-in 0.6s ease;
                     
                     @media screen and (max-width: 700px) {
                         align-items: center;
@@ -284,15 +286,21 @@
 
                     > svg {
                         background-color: #f8f8f8 !important;
+                        animation: fade-in 0.6s ease;
                     }
 
                     > svg > g > text {
                         font-size: 22px;
                         //font-weight: 600 !important;
-                        color: #666;
+                        //color: #666;
                         //font-family: 'Open Sans', sans-serif !important;
-                    }
+                        transition-property: text-shadow;
+                        transition-duration: 0.5s;
 
+                        &:hover {
+                            text-shadow: 0 0 8px rgba(0,0,0,0.2);
+                        }
+                    }
                 }
 
             .homepage-panel-01-lower-content {
