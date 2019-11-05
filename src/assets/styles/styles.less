@@ -322,6 +322,7 @@ body {
     background-position: center;
     background-size: cover;
     //box-shadow: 0 2px 5px rgba(140, 144, 155, 0.15);
+    animation: fade-in 0.6s ease;
 
     @media screen and (max-width: 1400px) {
         height: 140px;
@@ -636,6 +637,7 @@ body {
 @keyframes fade-in {
     0% {
         opacity: 0;
+        visibility: visible;
     }
     100% {
         opacity: 1;
