@@ -14,9 +14,10 @@
         type="{{ item.type }}" />
       
       <textarea
-        ng-model="Ctrl.textareaValues[$index]"
+        rows="15" ng-model="Ctrl.textareaValues[$index]"
         ng-repeat="item in Ctrl.ModalService.inputArgs.textareas"
-        placeholder="{{ item.placeholder }}">
+        placeholder="{{ item.placeholder }}"
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>
       </textarea>
     </div>
   </div>
