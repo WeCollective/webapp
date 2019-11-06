@@ -1,12 +1,13 @@
-<div class="page auth">
-  <div class="auth__card">
+<div class="auth-page" ng-click="Verify.closeAuthPage()">
+  <div class="auth-modal">        
     <img
       alt="Weco logo"
-      class="auth__logo"
-      src="assets/images/logo.png" />
+      class="auth-logo"
+      style="margin-bottom: 20px"
+      src="assets/images/homepage-images/homepage-logo-09.png" />
     
-    <h1 class="auth__title">
+    <span class="title-text" style="margin-bottom: 40px">
       {{ Verify.message }}
-    </h1>
+    </span>
   </div>
 </div>

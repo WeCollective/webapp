@@ -241,6 +241,28 @@ class NavbarController extends Injectable {
     var rightModal = document.getElementsByClassName("nav-bar-right-dropdown-modal-wrapper")[0];
     rightModal.style.display = "none";
   }
+
+  openLoginModal() {
+    var loginModal = document.getElementsByClassName("auth-modal-wrapper")[0];
+    loginModal.style.display = "block";
+  }
+
+  closeLoginModal() {
+    var loginModal = document.getElementsByClassName("auth-modal-wrapper")[0];
+    loginModal.style.display = "none";
+  }
+
+  submit() {
+    this.isLoading = true;
+    this.credentials.username = this.credentials.username.toLowerCase();
+
+    if (this.isLoginForm()) {
+      this.login();
+    }
+    else {
+      this.signup();
+    }
+  }
 }
 
 NavbarController.$inject = [

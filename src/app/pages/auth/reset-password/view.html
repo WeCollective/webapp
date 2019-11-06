@@ -1,16 +1,17 @@
-<div class="page auth">
-  <div class="auth__card">
+<div class="auth-page" ng-click="ResetPassword.closeAuthPage()">
+  <div class="auth-modal">          
     <img
       alt="Weco logo"
-      class="auth__logo"
-      src="assets/images/logo.png" />
+      class="auth-logo"
+      style="margin-bottom: 20px"
+      src="assets/images/homepage-images/homepage-logo-09.png" />
 
-    <h1 class="auth__title">
-      Reset password.
-    </h1>
+    <span class="title-text" style="font-size: 28px; margin-bottom: 20px">
+      Reset password
+    </span>
 
-    <p>{{ ResetPassword.errorMessage }}</p>
+    <span class="main-text" style="margin-bottom: 20px">{{ ResetPassword.errorMessage }}</span>
 
-    <div ui-view></div>
+    <div class="auth-form" ui-view></div>
   </div>
 </div>

@@ -1,12 +1,13 @@
-<p class="auth__message">
+<span class="main-text centered" style="width: 200px; margin-bottom: 40px">
   You're almost there! Enter a new password and you're ready to go.
-</p>
+</span>
 
 <form
-  class="auth__form"
+  class="auth-form"
   ng-submit="ResetPassword.resetPassword()">
+
   <input
-    class="auth__input"
+    class="auth-form-input"
     name="password"
     ng-model="ResetPassword.credentials.password"
     placeholder="password"
@@ -14,7 +15,7 @@
     type="password" />
 
   <input
-    class="auth__input"
+    class="auth-form-input"
     name="confirmPassword"
     ng-model="ResetPassword.credentials.confirmPassword"
     placeholder="repeat password"
@@ -22,7 +23,8 @@
     type="password" />
 
   <input
-    class="auth__submit"
+    class="auth-button"
+    style="margin-bottom: 40px"
     ng-disabled="ResetPassword.isLoading"
     type="submit"
     value="Set password" />
