@@ -14,8 +14,7 @@ class PostService extends Injectable {
         this.resetLastRequest();
         this.updatePost();
 
-        this.lastIdToPass = null;
-        this.lastFiltered = null;
+        this.cursor = "initial";
         this.EventService.on(this.EventService.events.STATE_CHANGE_SUCCESS, this.updatePost);
     }
 
@@ -92,8 +91,6 @@ class PostService extends Injectable {
             return Promise.resolve();
         }
 
-        // Don't send the request if nothing changed.
-        //TODO: if filters are the same but query has changed just filter current data
         if (lr.id === branchid && lr.lastId === lastId &&
             lr.postType === postType && lr.sortBy === sortBy &&
             lr.statType === statType && lr.timeRange === timeRange && lr.query === query) {
@@ -122,33 +119,17 @@ class PostService extends Injectable {
 
         if (lastId) {
             params.lastPostId = this.lastIdToPass;
-            if (!!this.lastFiltered)
-                params.lastFiltered = this.lastFiltered;
+        } else {
+            this.cursor = "initial";
         }
+        params.cursor = this.cursor;
 
 
 
         return this.API.get('/branch/:branchid/posts', { branchid }, params)
-            .then(res => {
-                const newPosts = res.data;
-                //case when searching post:
-                //case actual results are 0 newPosts = []
-                //case actual results are n newPosts = [n] and newPosts[last] = the final search post, take it out and use it in later requests
-                //case results are 30 and lastfilterid exists, next time pagnating and have to attach lastFiltered with the id of lastfilterid
-                //err case when queryIsOk is false on the API side - make sure that queryIsOk returns false only when filtering without a search
-                //otherwise fail first here and don't send the request, make the checks on the client-side checkout branchwallposts controller get function queryIsOk variable
-                //case when not searching post:
-                //case results are normal and post at the end
-
-                if (newPosts.length > 0) {
-                    let temp = newPosts.splice(newPosts.length - 1, 1);
-                    this.lastIdToPass = temp[0].id;
-                    if (!!temp[0].lastfilterid) {
-                        this.lastFiltered = temp[0].lastfilterid;
-                    } else
-                        this.lastFiltered = null;
-                }
-
+            .then(res => { // upp cursor
+                const newPosts = res.data.results;
+                this.cursor = res.data.cursor;
                 if (lastId && !branchChanged) {
                     this.posts = [
                         ...this.posts,
@@ -160,7 +141,7 @@ class PostService extends Injectable {
 
                 this.EventService.emit(this.EventService.events.POSTS_LOADED);
                 // todo extract constants into a separate file
-                const reachedBottom = newPosts.lengtht < 30;
+                const reachedBottom = newPosts.length < 30;
                 return Promise.resolve(reachedBottom);
             })
             .catch(err => Promise.reject(err.data || err));
@@ -231,7 +212,7 @@ class PostService extends Injectable {
 
     repost(postid, post, repostToBranches) {
         return new Promise((resolve, reject) => this.API
-            .post('/post/:postid/repost', { postid }, { repostTo: repostToBranches, post:post })
+            .post('/post/:postid/repost', { postid }, { repostTo: repostToBranches, post: post })
             .then(resolve)
             .catch(err => reject(err.data || err)));
     }
