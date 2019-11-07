@@ -3,7 +3,7 @@
     <h1>Add a Moderator</h1>
     <p class="error-message">{{ AddModModal.errorMessage }}</p>
     <div id="nucleus-addmod-inputs">
-      <input ng-model="AddModModal.data.username" placeholder="Username of new Moderator" type="text" ng-change="AddModModal.data.username = AddModModal.data.username.split(' ').join('')"></input>
+      <input class="modal-input" ng-model="AddModModal.data.username" placeholder="Username of new Moderator" type="text" ng-change="AddModModal.data.username = AddModModal.data.username.split(' ').join('')"></input>
     </div>
   </div>
 </div>

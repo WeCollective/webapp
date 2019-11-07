@@ -14,7 +14,7 @@ input[type=checkbox] { display: none; }
   cursor: pointer;
   display: inline-block;
   height: $s-checkbox-h;
-  margin-left: $s-spacing-sm / 2;
+  margin-left: 10px;
   position: relative;
   width: $s-checkbox-h;
   transition: border-color ($tr-checkbox-speed / 2);

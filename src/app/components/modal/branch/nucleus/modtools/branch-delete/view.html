@@ -6,7 +6,7 @@
     <p>Please type in the name of the branch to confirm.</p>
     <p class="error-message">{{ DeleteBranchModal.errorMessage }}</p>
     <div>
-      <input
+      <input class="modal-input"
         ng-change="DeleteBranchModal.handleChange()"
         ng-model="DeleteBranchModal.data.branchid"
         type="text" />

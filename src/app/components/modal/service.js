@@ -154,6 +154,14 @@ class ModalService extends Injectable {
     removeListeners() {
         document.removeEventListener('keydown', this.handleKey);
     }
+
+    /*closeModal() {
+        var background = document.getElementsByClassName("modal-wrapper")[0];
+        
+        if (event.target == background) {
+            background.style.display = "none";
+        }
+    }*/
 }
 
 ModalService.$inject = [

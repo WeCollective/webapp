@@ -92,33 +92,62 @@
 
 // Styles:
 
+.centered {
+    text-align: center;
+}
+
 // Used for post and branch titles
 .title-text {
-    color: @dark-grey-text;
-    font-size: @large-text;
-    font-weight: @regular-font-weight;
-    line-height: @large-text;
+    color: rgb(50, 50, 50);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 30px;
+
+    &.large {
+        font-size: 28px;
+    }
 }
 
 // Used for post and branch descriptions and comments
 .main-text {
-    color: @dark-grey-text;
-    font-size: @small-text;
-    font-weight: @regular-font-weight;
+    color: rgb(50, 50, 50);
+    font-size: 14px;
+    font-weight: 400;
     line-height: 20px;
+    
+    &.responsive {
+        width: 100%;
+    }
+
+    > p > img {
+        @media screen and (max-width: 700px) {
+            width: 100%;
+        }
+    }
 
     &.link {
         color: @brand-blue;
         cursor: pointer;
-        //font-weight: @bold-font-weight;
+        transition-property: color;
+        transition-duration: 0.3s;
 
         &:hover {
-            color:  darken(@brand-blue, 10%);
+            color:  darken(@brand-blue, 20%);
+        }
+    }
+
+    &.dark-link {
+        transition-property: color;
+        transition-duration: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            color:  #2cb5e8;
         }
     }
 
     &.large {
-        font-size: @medium-text;
+        font-size: 16px;
     }
 
     &.white {
@@ -132,15 +161,16 @@
 
 // Used on post-tags and post-interact text
 .sub-text {
-    color: @light-grey-text;
-    font-size: @small-text;
-    font-weight: @regular-font-weight;
+    color: rgb(150, 150, 150);
+    font-size: 14px;
+    font-weight: 400;
 
     &.link {
-        //font-weight: @bold-font-weight;
+        transition-property: color;
+        transition-duration: 0.3s;
 
         &:hover {
-            color:  darken(@light-grey-text, 10%);
+            color:  @brand-blue;
         }
     }
 
@@ -160,6 +190,20 @@
         }
     }
 }
+
+/*.medium-text {
+    color: @dark-grey-text;
+    font-size: 16px;
+
+    &.link {
+        transition-property: color;
+        transition-duration: 0.3s;
+
+        &:hover {
+            color: @brand-blue;
+        }
+    }
+}*/
 
 .link-text {
     color: @dark-grey-text;
@@ -230,6 +274,7 @@
     width: 260px;
     height: 50px;
     border-radius: 4px;
+    border: none;
     background-image: linear-gradient(to right,#58afd4,#63c6b6);
     //background-color: @brand-blue; //#2cb5e8;
     display: flex;
@@ -289,6 +334,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-appearance: none;
 }
 
 html {
@@ -405,6 +451,7 @@ body {
         justify-content: flex-start;
         align-items: center;
         flex-shrink: 0;
+        animation: fade-in 0.6s ease;
 
         @media screen and (max-width: 500px) {
             width: 100%;

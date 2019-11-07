@@ -78,6 +78,14 @@ class ResetPasswordController extends Injectable {
       }
     }, 1000);
   }
+
+  closeAuthPage() {
+    var background = document.getElementsByClassName("auth-page")[0];
+    
+    if (event.target == background) {
+      window.open("/b/root/wall","_self");
+    }
+  }
 }
 
 ResetPasswordController.$inject = [
