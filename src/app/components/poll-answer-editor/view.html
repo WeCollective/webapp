@@ -1,54 +1,58 @@
-<div class="poll-answer-editor">
-  <div
-    class="add-item"
-    ng-show="!Editor.preview">
-    <input
-      ng-disabled="Editor.disabled"
-      ng-model="Editor.answer"
-      placeholder="{{ Editor.title }}"
-      type="text" />
+<div class="modal-form create-post" style="align-items: flex-start">
+    <div
+        class="add-item"
+        style="width: 100%; margin-top: 0; position: relative"
+        ng-show="!Editor.preview">
 
-    <button
-      class="add-item-button"
-      ng-click="Editor.addAnswer()"
-      ng-disabled="Editor.disabled">
-      <img
-        alt="{{ Editor.title }}"
-        src="/assets/images/icons/plus.svg" />
-    </button>
-  </div>
-
-  <div class="answers">
-    <h2>Answers</h2>
-    <ul>
-      <p
-        class="empty__state"
-        ng-show="!Editor.preview && !Editor.answers.length">
-        No answers yet.
-      </p>
-
-      <li ng-repeat="answer in Editor.answers track by $index">
-        <p
-          class="poll__answer"
-          ng-show="!Editor.preview">
-          {{ answer }}
-        </p>
-        <div
-          class="poll__answer"
-          marked="answer"
-          ng-show="Editor.preview">
-        </div>
-
+        <input class="modal-input"
+            ng-disabled="Editor.disabled"
+            ng-model="Editor.answer"
+            placeholder="{{ Editor.title }}"
+            type="text" />
+    
         <button
-          class="remove-item-button"
-          ng-click="Editor.removeAnswer($index)"
-          ng-disabled="Editor.disabled"
-          ng-show="!Editor.preview">
-          <img
-            alt=""
-            src="/assets/images/icons/close.svg" />
+            class="tags__input-icon"
+            ng-click="Editor.addAnswer()"
+            ng-disabled="Editor.disabled">
+
+            <img
+                alt="{{ Editor.title }}"
+                src="/assets/images/icons/add-01.png" />
         </button>
-      </li>
-    </ul>
-  </div>
+
+    </div>
+    
+    <div class="answers" style="width: 100%; margin-bottom: 10px">
+        <span class="title-text" style="margin-bottom: 10px">Answers</span>
+
+        <ul style="margin-top: 10px">
+            <span
+                class="main-text"
+                ng-show="!Editor.preview && !Editor.answers.length">
+                No answers yet.
+            </span>
+    
+            <li class="poll-answer" ng-repeat="answer in Editor.answers track by $index">
+
+                <span class="main-text" ng-show="!Editor.preview">{{ answer }}</span>
+
+                <div
+                    class="poll__answer"
+                    marked="answer"
+                    ng-show="Editor.preview">
+                </div>
+    
+                <button
+                    class="tags__icon"
+                    ng-click="Editor.removeAnswer($index)"
+                    ng-disabled="Editor.disabled"
+                    ng-show="!Editor.preview">
+                    <img class="modal-close-icon white" style="filter: none"
+                        alt=""
+                        src="/assets/images/icons/close-02.png" />
+                </button>
+            </li>
+        </ul>
+    </div>
 </div>
+    

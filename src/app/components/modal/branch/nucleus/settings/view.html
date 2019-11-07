@@ -7,13 +7,13 @@
       {{ Ctrl.errorMessage }}
     </p>
     <div id="nucleus-settings-inputs">
-      <input
+      <input class="modal-input"
         ng-model="Ctrl.inputValues[$index]"
         ng-repeat="item in Ctrl.ModalService.inputArgs.inputs"
         placeholder="{{ item.placeholder }}"
         type="{{ item.type }}" />
       
-      <textarea
+      <textarea class="modal-textarea"
         rows="15" ng-model="Ctrl.textareaValues[$index]"
         ng-repeat="item in Ctrl.ModalService.inputArgs.textareas"
         placeholder="{{ item.placeholder }}"

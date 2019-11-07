@@ -20,10 +20,10 @@
             Resend verification email.
         </span>
         
-        <form class="auth-form" style="margin-bottom: 40px" ng-submit="Auth.submit()">
+        <form class="modal-form" style="width: 220px; margin-bottom: 40px" ng-submit="Auth.submit()">
 
             <input
-                class="auth-form-input"
+                class="modal-input"
                 name="name"
                 ng-model="Auth.credentials.name"
                 ng-required="!Auth.isLoginForm()"
@@ -32,7 +32,7 @@
                 type="text" />
         
             <input
-                class="auth-form-input"
+                class="modal-input"
                 name="username"
                 ng-model="Auth.credentials.username"
                 placeholder="username"
@@ -40,7 +40,7 @@
                 type="text" />
         
             <input
-                class="auth-form-input"
+                class="modal-input"
                 name="email"
                 ng-model="Auth.credentials.email"
                 ng-required="!Auth.isLoginForm()"
@@ -49,7 +49,7 @@
                 type="email" />
         
             <input
-                class="auth-form-input"
+                class="modal-input"
                 name="password"
                 ng-model="Auth.credentials.password"
                 placeholder="password"
@@ -57,7 +57,7 @@
                 type="password" />
         
             <input
-                class="auth-form-input"
+                class="modal-input"
                 name="password"
                 ng-model="Auth.credentials.confirmPassword"
                 ng-required="!Auth.isLoginForm()"
@@ -66,7 +66,7 @@
                 type="password" />
         
             <input
-                class="auth-button"
+                class="modal-button"
                 ng-disabled="Auth.isLoading"
                 type="submit"
                 value="{{ Auth.isLoginForm() ? 'Login' : 'Register' }}" />

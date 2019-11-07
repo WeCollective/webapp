@@ -3,7 +3,7 @@
     <h1>Submit a Parent Branch Request</h1>
     <p class="error-message">{{ SubmitSubbranchRequestModal.errorMessage }}</p>
     <div id="nucleus-submitsubbranchrequest-inputs">
-      <input ng-model="SubmitSubbranchRequestModal.data.parentid" placeholder="Unique Name of New Parent Branch" type="text" ng-change="SubmitSubbranchRequestModal.data.parentid = SubmitSubbranchRequestModal.data.parentid.split(' ').join('')"></input>
+      <input class="modal-input" ng-model="SubmitSubbranchRequestModal.data.parentid" placeholder="Unique Name of New Parent Branch" type="text" ng-change="SubmitSubbranchRequestModal.data.parentid = SubmitSubbranchRequestModal.data.parentid.split(' ').join('')"></input>
     </div>
   </div>
 </div>

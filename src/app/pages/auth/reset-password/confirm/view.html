@@ -3,11 +3,11 @@
 </span>
 
 <form
-  class="auth-form"
+  class="modal-form"
   ng-submit="ResetPassword.resetPassword()">
 
   <input
-    class="auth-form-input"
+    class="modal-input"
     name="password"
     ng-model="ResetPassword.credentials.password"
     placeholder="password"
@@ -15,7 +15,7 @@
     type="password" />
 
   <input
-    class="auth-form-input"
+    class="modal-input"
     name="confirmPassword"
     ng-model="ResetPassword.credentials.confirmPassword"
     placeholder="repeat password"
@@ -23,7 +23,7 @@
     type="password" />
 
   <input
-    class="auth-button"
+    class="modal-button"
     style="margin-bottom: 40px"
     ng-disabled="ResetPassword.isLoading"
     type="submit"

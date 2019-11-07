@@ -10,10 +10,6 @@
     justify-content: flex-start;
     align-items: center;
     padding: 100px 0 0 0;
-
-    /*@media screen and (max-width: 700px) {
-        padding: 20px;
-    }*/
     
     @media screen and (max-width: 900px) {
         justify-content: center;
@@ -52,62 +48,6 @@
             width: 140px;
             height: 140px;
         }
-
-        .auth-form {
-            //min-width: 150px;
-            //margin-right: 14px;
-            //border: 1px solid #ccc;
-            //border-radius: 15px;
-            //background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-            .auth-form-input {
-                height: 40px;
-                width: 220px;
-                margin-bottom: 15px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: white;
-                flex-shrink: 2;
-                padding-left: 16px;
-                font-size: 14px;
-                color: black;
-                outline: none;
-                transition-property: border;
-                transition-duration: 0.5s;
-
-                &:focus { border: 1px solid @brand-blue; }
-                }
-
-            .auth-button {
-                width: 220px;
-                color: white;
-                font-size: @small-text;
-                font-weight: @regular-font-weight;
-                line-height: 20px;
-                padding: 10px 20px;
-                border: none;
-                background-color: #2cb5e8;
-                //width: 200px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                border-radius: 4px;
-                transition-property: filter, box-shadow;
-                transition-duration: 0.5s;
-    
-                &:hover {
-                    filter: brightness(110%);
-                    cursor: pointer; 
-                }
-            }
-
-
 
 /*.auth-modal-wrapper {
     padding: 20px;
@@ -152,7 +92,7 @@
             height: 160px;
         }
 
-        .auth-form {
+        .modal-form {
             //min-width: 150px;
             //margin-right: 14px;
             //border: 1px solid #ccc;
@@ -164,7 +104,7 @@
             align-items: center;
         }
     
-            .auth-form-input {
+            .modal-input {
                 height: 30px;
                 width: 200px;
                 margin-bottom: 10px;

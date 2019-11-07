@@ -3,11 +3,11 @@
 </span>
 
 <form
-  class="auth-form"
+  class="modal-form"
   ng-submit="ResetPassword.sendLink()">
 
   <input
-    class="auth-form-input"
+    class="modal-input"
     name="username"
     ng-model="ResetPassword.credentials.username"
     placeholder="username"
@@ -15,7 +15,7 @@
     type="text" />
 
   <input
-    class="auth-button"
+    class="modal-button"
     style="margin-bottom: 40px"
     ng-disabled="ResetPassword.isLoading"
     type="submit"
