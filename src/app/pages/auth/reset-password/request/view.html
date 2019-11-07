@@ -1,12 +1,13 @@
-<p class="auth__message">
+<span class="main-text centered" style="width: 200px; margin-bottom: 40px">
   We will send a reset link to your registered email address.
-</p>
+</span>
 
 <form
-  class="auth__form"
+  class="modal-form"
   ng-submit="ResetPassword.sendLink()">
+
   <input
-    class="auth__input"
+    class="modal-input"
     name="username"
     ng-model="ResetPassword.credentials.username"
     placeholder="username"
@@ -14,8 +15,10 @@
     type="text" />
 
   <input
-    class="auth__submit"
+    class="modal-button"
+    style="margin-bottom: 40px"
     ng-disabled="ResetPassword.isLoading"
     type="submit"
     value="Send link" />
+
 </form>

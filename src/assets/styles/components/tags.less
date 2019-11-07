@@ -11,28 +11,28 @@
 }
 
 .tags__icon {
-  @size: 16px;
+  @size: 20px;
 
   background-color: transparent;
   border: none;
   cursor: pointer;
   display: inline-block;
   height: @size;
-  margin-left: 6px;
+  margin-left: 10px;
   padding: 0;
   width: @size;
-  transition: opacity .2s;
+  //transition: opacity .2s;
 
   svg {
     display: block;
     height: 100%;
     width: auto;
 
-    path#background { fill: transparent; }
+    //path#background { fill: transparent; }
   }
 
-  &:disabled { cursor: initial; }
-  &:not(:disabled):hover { opacity: .5; }
+  //&:disabled { cursor: initial; }
+  //&:not(:disabled):hover { opacity: .5; }
 }
 
 .tags__input {
@@ -48,7 +48,7 @@
 }
 
 .tags__input-icon {
-  @size: 20px;
+  @size: 24px;
 
   background-color: transparent;
   border: none;
@@ -58,7 +58,7 @@
   padding: 0;
   position: absolute;
   right: 10px;
-  top: calc(~'50% - 15px');
+  top: calc(~'50% - 19px');
   width: @size;
   transition: opacity .2s;
 
@@ -80,12 +80,12 @@
 
 .tags__item {
   align-items: center;
-  background-color: @primary-light;
+  background-color: #4f4f4f;
   border-radius: 3px;
   box-sizing: border-box;
   display: inline-flex;
   margin-bottom: 10px;
-  margin-right: 4px;
+  margin-right: 10px;
   padding: 10px;
   word-wrap: break-word;
 }
@@ -97,4 +97,7 @@
   vertical-align: middle;
 }
 
-.tags__list { max-width: 100%; }
+.tags__list { 
+  max-width: 100%;
+  margin-bottom: 10px;
+ }
