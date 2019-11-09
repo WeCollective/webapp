@@ -19,7 +19,9 @@
 
         <div class="post-tags">
 
-            <a class="small-circular-thumbnail margin-right-medium" ui-sref="weco.profile.about({ username: ListItem.post.creator })" style="background-image: url('{{ListItem.getUser(ListItem.post.creator).profileUrlThumb}}'), url('/assets/images/default-profile.jpg');">
+            <a class="small-circular-thumbnail margin-right-medium" 
+                ui-sref="weco.profile.about({ username: ListItem.post.creator })" 
+                style="background-image: url('{{ListItem.getUser(ListItem.post.creator).profileUrlThumb}}'), url('/assets/images/user-images/user-image-00.jpg');">
             </a>
 
             <a class="sub-text link margin-right-medium" ui-sref="weco.profile.about({ username: ListItem.post.creator })">{{ ListItem.post.creator }}</a>
@@ -83,16 +85,16 @@
 
                 <!--If 'text' or 'poll' post that links to another page on Weco (perform internal state transition with uisref)-->
 
-                <div class="post-title">
-                    <a class="title-text" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}" ng-if="['text', 'poll'].includes(ListItem.post.type)">
+                <div class="post-title" ng-if="['text', 'poll'].includes(ListItem.post.type)">
+                    <a class="title-text" ng-href="{{ ListItem.getPostTarget(ListItem.post) }}">
                         {{ ListItem.post.title }}
                     </a>
                 </div>
 
                 <!--If 'page', 'video', 'image', or 'audio' post that links to an external URL-->
 
-                <div class="post-title">
-                    <a class="title-text" href="{{ ListItem.getPostUrl() }}" ng-if="!['text', 'poll'].includes(ListItem.post.type)" target="_blank">
+                <div class="post-title" ng-if="!['text', 'poll'].includes(ListItem.post.type)">
+                    <a class="title-text" href="{{ ListItem.getPostUrl() }}" target="_blank">
                         {{ ListItem.post.title }}
                     </a>
                 </div>

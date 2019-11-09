@@ -12,8 +12,7 @@
 
     <div class="central-panel">
 
-        <div class="central-panel-header sticky-header" ui-view="{{ Branch.getUIViewName(true) }}" no-constructor-transition>
-        </div>
+        <div ui-view="{{ Branch.getUIViewName(true) }}" no-constructor-transition></div>
 
         <div class="content" ui-view="content"></div>
 

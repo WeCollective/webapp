@@ -255,6 +255,23 @@ class NavbarController extends Injectable {
         loginModal.style.display = "none";
     }
 
+    toggleGlobalSearchFilter() {
+        var searchBranches = document.getElementById("search-branches");
+        var searchPosts = document.getElementById("search-posts");
+
+        if (searchPosts.style.display == "block") {
+            searchPosts.style.display = "none";
+        } else {
+            searchPosts.style.display = "block";
+        };
+
+        if (searchBranches.style.display == "none") {
+            searchBranches.style.display = "block";
+        } else {
+            searchBranches.style.display = "none";
+        };
+    }
+
     submit() {
         this.isLoading = true;
         this.credentials.username = this.credentials.username.toLowerCase();

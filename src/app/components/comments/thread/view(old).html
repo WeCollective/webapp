@@ -5,7 +5,7 @@
     
     <a class="thumbnail__small__new" ui-sref="weco.profile.about({ username: comment.data.creator })">
         <img class="thumbnail__small__new"
-          src="/assets/images/default-profile.jpg" />
+          src="/assets/images/user-images/user-image-00.jpg" />
     </a>
 
   </div>
@@ -139,7 +139,7 @@ Remove "_new" postfix from class names when redesign is complete and old styles 
   <a 
     class="thumbnail__small__new"
     ui-sref="weco.profile.about({ username: comment.data.creator })"
-    style="background-image: url('{{ Thread.getUser(comment).profileUrlThumb }}'), url('/assets/images/default-profile.jpg');">
+    style="background-image: url('{{ Thread.getUser(comment).profileUrlThumb }}'), url('/assets/images/user-images/user-image-00.jpg');">
   </a>
 
   <!--"Comment body" section-->
