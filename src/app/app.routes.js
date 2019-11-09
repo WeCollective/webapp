@@ -114,6 +114,15 @@ class AppRoutes extends Injectable {
         pageTrack: '/u/:username/notifications',
       })
 
+      //Members
+      .state('weco.member', {
+        url: '/member',
+        abstract: false,
+        templateUrl: '/app/pages/member/view.html',
+        // controller: 'BranchController',
+        // controllerAs: 'Branch',
+      })
+
       // Branches
       .state('weco.branch', {
         url: '/b/:branchid',
