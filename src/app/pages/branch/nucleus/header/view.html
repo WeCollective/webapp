@@ -1,20 +1,24 @@
-<div class="central-panel-header-with-tabs sticky-header hide-scroll-bars">
+<div class="central-panel-header sticky-header">
+  
+  <div class="central-panel-header-with-tabs sticky-header hide-scroll-bars">
 
-  <div class="central-panel-header-tabs hide-scroll-bars">  
+    <div class="central-panel-header-tabs hide-scroll-bars">  
 
-    <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
-        <img   
-            id="toggle-button"
-            alt="Toggle sidebar"
-            class="icon toggle-out"
-            src="/assets/images/icons/toggle-02.png"/>
-    </a>
+      <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
+          <img   
+              id="toggle-button"
+              alt="Toggle sidebar"
+              class="icon toggle-out"
+              src="/assets/images/icons/toggle-02.png"/>
+      </a>
 
-    <tabs
-      items="Ctrl.state.tabItems"
-      states="Ctrl.state.tabStates"
-      state-params="Ctrl.state.tabStateParams">
-    </tabs>
+      <tabs
+        items="Ctrl.state.tabItems"
+        states="Ctrl.state.tabStates"
+        state-params="Ctrl.state.tabStateParams">
+      </tabs>
+
+    </div>
 
   </div>
 

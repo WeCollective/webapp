@@ -1,53 +1,70 @@
-<div class="post">
-    <div class="post__scrollable-view">
+<div class="tab-page" style="margin-top: 15px; padding: 0">
 
-        <div list-item post="Ctrl.PostService.post" stat="'local'">
-        </div>
+    <div class="post" style="padding: 0">
 
-        <div class="post__preview" ng-show="Ctrl.canPreviewPost()">
+        <div class="post__scrollable-view">
 
-            <div class="post__preview-controls">
+            <div list-item post="Ctrl.PostService.post" stat="'local'"></div>
 
-                <!--Expand/Shrink embedded media [Removed]-->
+            <div class="post__preview" ng-show="Ctrl.canPreviewPost()">
 
-                <!--<img
-          alt="Toggle the post preview cinema mode"
-          class="post__preview-control-btn"
-          ng-click="Ctrl.toggleCinemaMode()"
-          ng-show="Ctrl.previewState !== 'hide' && (Ctrl.isPostType(Ctrl.PostTypeImage) || Ctrl.isPostType(Ctrl.PostTypeVideo))"
-          ng-src="/assets/images/icons/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.svg"
-          offset-y="40"
-          text="Ctrl.previewState === 'maximise' ? 'Shrink' : 'Expand'"
-          tooltip />-->
+                <div class="post__preview-controls">
 
-                <!--Hide/Reveal embedded media [Removed] -->
+                    <!--Expand/Shrink embedded media [Removed]-->
 
-                <!--<img
-          alt="Toggle the post preview visibility"
-          class="post__preview-control-btn"
-          ng-class="{ 'toggled': Ctrl.previewState !== 'hide' }"
-          ng-click="Ctrl.togglePreviewState()"
-          offset-y="40"
-          src="/assets/images/icons/show.svg"
-          text="Ctrl.previewState === 'hide' ? 'Show' : 'Hide'"
-          tooltip />-->
+                    <!--<img
+                        alt="Toggle the post preview cinema mode"
+                        class="post__preview-control-btn"
+                        ng-click="Ctrl.toggleCinemaMode()"
+                        ng-show="Ctrl.previewState !== 'hide' && (Ctrl.isPostType(Ctrl.PostTypeImage) || Ctrl.isPostType(Ctrl.PostTypeVideo))"
+                        ng-src="/assets/images/icons/{{ Ctrl.previewState === 'maximise' ? 'minimise' : 'maximise' }}.svg"
+                        offset-y="40"
+                        text="Ctrl.previewState === 'maximise' ? 'Shrink' : 'Expand'"
+                        tooltip />-->
+
+                    <!--Hide/Reveal embedded media [Removed] -->
+
+                    <!--<img
+                        alt="Toggle the post preview visibility"
+                        class="post__preview-control-btn"
+                        ng-class="{ 'toggled': Ctrl.previewState !== 'hide' }"
+                        ng-click="Ctrl.togglePreviewState()"
+                        offset-y="40"
+                        src="/assets/images/icons/show.svg"
+                        text="Ctrl.previewState === 'hide' ? 'Show' : 'Hide'"
+                        tooltip />-->
+
+                </div>
+
+                <!--Embedded media-->
+
+                <ng-include src="Ctrl.getPreviewTemplate()"></ng-include>
 
             </div>
 
-            <!--Embedded media-->
-
-            <ng-include src="Ctrl.getPreviewTemplate()"></ng-include>
-
         </div>
 
-        <tabs class="style--border style--content-block" items="Ctrl.labels" ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)" states="Ctrl.tabStates" state-params="Ctrl.tabStateParams">
-        </tabs>
+    </div><!--end of post-->
 
-        <div class="post__body" ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)" ui-view>
-        </div>
+</div>
 
-        <div class="post__body" ng-if="!Ctrl.isPostType(Ctrl.PostTypePoll)">
-            <comments change-url="true"></comments>
-        </div>
+<!--Poll tabs-->
+<tabs class="central-panel-header-with-tabs sticky-header hide-scroll-bars"
+    style="margin-top: 15px; padding: 0 10px;" 
+    items="Ctrl.labels" 
+    ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)" 
+    states="Ctrl.tabStates" 
+    state-params="Ctrl.tabStateParams">
+</tabs>
+
+<div class="tab-page" style="margin-top: 15px; padding: 0 10px;">
+
+    <!--Poll content-->
+    <div class="post__body" ng-if="Ctrl.isPostType(Ctrl.PostTypePoll)" ui-view></div>
+
+    <!--comments-->
+    <div class="post__body" ng-if="!Ctrl.isPostType(Ctrl.PostTypePoll)">
+        <comments change-url="true"></comments>
     </div>
+            
 </div>

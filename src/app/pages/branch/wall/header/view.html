@@ -1,129 +1,132 @@
-<div class="central-panel-header-section hide-scroll-bars">
+<div class="central-panel-header sticky-header">
 
-    <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
-    <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
-        <img   
-            id="toggle-button"
-            alt="Toggle sidebar"
-            class="icon toggle-out"
-            src="/assets/images/icons/toggle-02.png"/>
-    </a>
-    
-    <!--Create Post Button Large (hidden when screen width < 1000px)-->
-    <a class="create-post-button-large"
-        ng-click="Ctrl.WallService.handleHeaderButtonClick()"
-        ng-show="Ctrl.WallService.isHeaderButtonVisible()"
-        text="Ctrl.WallService.getHeaderButtonTooltip()">
+    <div class="central-panel-header-section hide-scroll-bars">
 
-        <text class="primary-button-text">Create Post</text>
-
-    </a>
-
-    <!--Create Post Button Small (hidden when screen width > 1000px)-->
-    <a id="create-post-button" class="create-post-button-small" ng-click="Ctrl.WallService.handleHeaderButtonClick()">
-        <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
-    </a>
-
-    <!--Local Search Bar-->
-    <div class="local-search-bar">
-        <input 
-            class="local-search-bar-input"
-            id="searchField"
-            ng-blur="Ctrl.SearchService.hide();"
-            ng-focus="Ctrl.SearchService.show()" 
-            ng-keydown="Ctrl.handleKeyPress($event)"
-            ng-model="Ctrl.query"
-            placeholder="Search wall..."
-            type="text">
-            <ul class="search-results box-shadow" ng-show="Ctrl.SearchService.isVisible">
-                <li class="search-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
-            </ul>       
-        <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">  
-    </div>
-
-    <!--Toggle Filters Button (hidden when screen width > 700px)-->
-    <a class="toggle-filters-button" ng-click="Branch.toggleFilters()">
-        <img src="/assets/images/icons/filter-07.png" class="icon" style="filter: invert(100%);">
-    </a>
-
-</div>
-
-<div class="wall-filters hide-scroll-bars">
-
-    <dropdown
-        items="Ctrl.timeRange"
-        selected="Ctrl.filters.timeRange.selectedIndex"
-        title="Ctrl.filters.timeRange.title">
-    </dropdown>
+        <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
+        <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
+            <img   
+                id="toggle-button"
+                alt="Toggle sidebar"
+                class="icon toggle-out"
+                src="/assets/images/icons/toggle-02.png"/>
+        </a>
         
-    <dropdown
-        items="Ctrl.postType"
-        post-types="true"
-        selected="Ctrl.filters.postType.selectedIndex"
-        title="Ctrl.filters.postType.title">
-    </dropdown>
+        <!--Create Post Button Large (hidden when screen width < 1000px)-->
+        <a class="create-post-button-large"
+            ng-click="Ctrl.WallService.handleHeaderButtonClick()"
+            ng-show="Ctrl.WallService.isHeaderButtonVisible()"
+            text="Ctrl.WallService.getHeaderButtonTooltip()">
+
+            <text class="primary-button-text">Create Post</text>
+
+        </a>
+
+        <!--Create Post Button Small (hidden when screen width > 1000px)-->
+        <a id="create-post-button" class="create-post-button-small" ng-click="Ctrl.WallService.handleHeaderButtonClick()">
+            <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
+        </a>
+
+        <!--Local Search Bar-->
+        <div class="local-search-bar">
+            <input 
+                class="local-search-bar-input"
+                id="searchField"
+                ng-blur="Ctrl.SearchService.hide();"
+                ng-focus="Ctrl.SearchService.show()" 
+                ng-keydown="Ctrl.handleKeyPress($event)"
+                ng-model="Ctrl.query"
+                placeholder="Search wall..."
+                type="text">
+                <ul class="search-results box-shadow" ng-show="Ctrl.SearchService.isVisible">
+                    <li class="search-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
+                </ul>       
+            <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">  
+        </div>
+
+        <!--Toggle Filters Button (hidden when screen width > 700px)-->
+        <a class="toggle-filters-button" ng-click="Branch.toggleFilters()">
+            <img src="/assets/images/icons/filter-07.png" class="icon" style="filter: invert(100%);">
+        </a>
+
+    </div>
+
+    <div class="wall-filters hide-scroll-bars">
+
+        <dropdown
+            items="Ctrl.timeRange"
+            selected="Ctrl.filters.timeRange.selectedIndex"
+            title="Ctrl.filters.timeRange.title">
+        </dropdown>
+            
+        <dropdown
+            items="Ctrl.postType"
+            post-types="true"
+            selected="Ctrl.filters.postType.selectedIndex"
+            title="Ctrl.filters.postType.title">
+        </dropdown>
+        
+        <dropdown
+            items="Ctrl.sortBy"
+            selected="Ctrl.filters.sortBy.selectedIndex"
+            title="Ctrl.filters.sortBy.title">
+        </dropdown>
+        
+        <dropdown
+            items="Ctrl.statType"
+            selected="Ctrl.filters.statType.selectedIndex"
+            title="Ctrl.filters.statType.title">
+        </dropdown>
+
+        <!--<div class="wall-filter">
+            <text class="drop-down-title">Time Range</text>
+            <div class="wall-filter-drop-down">
+                <select class="drop-down-option">
+                    <option value="All Time">All Time</option>
+                    <option value="Last Year">Last Year</option>
+                    <option value="Last Month">Last Month</option>
+                    <option value="Last Week">Last Week</option>
+                    <option value="Last 24hrs">Last 24hrs</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="wall-filter">
+            <text class="drop-down-title">Category</text>
+            <div class="wall-filter-drop-down">
+                <select class="drop-down-option">
+                    <option value="All">All</option>
+                    <option value="Page">Page</option>
+                    <option value="Text">Text</option>
+                    <option value="Video">Video</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Image">Image</option>
+                    <option value="Poll">Poll</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="wall-filter">
+            <text class="drop-down-title">Sort By</text>
+            <div class="wall-filter-drop-down">
+                <select class="drop-down-option">
+                    <option value="Likes">Likes</option>
+                    <option value="Comments">Comments</option>
+                    <option value="Date">Date</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="wall-filter">
+            <text class="drop-down-title">Point Type</text>
+            <div class="wall-filter-drop-down">
+                <select class="drop-down-option">
+                    <option value="Global">Global</option>
+                    <option value="Local">Local</option>
+                    <option value="Branch">Branch</option>
+                </select>
+            </div>
+        </div>-->
+
+    </div><!--End of "wall filters"-->
     
-    <dropdown
-        items="Ctrl.sortBy"
-        selected="Ctrl.filters.sortBy.selectedIndex"
-        title="Ctrl.filters.sortBy.title">
-    </dropdown>
-    
-    <dropdown
-        items="Ctrl.statType"
-        selected="Ctrl.filters.statType.selectedIndex"
-        title="Ctrl.filters.statType.title">
-    </dropdown>
-
-    <!--<div class="wall-filter">
-        <text class="drop-down-title">Time Range</text>
-        <div class="wall-filter-drop-down">
-            <select class="drop-down-option">
-                <option value="All Time">All Time</option>
-                <option value="Last Year">Last Year</option>
-                <option value="Last Month">Last Month</option>
-                <option value="Last Week">Last Week</option>
-                <option value="Last 24hrs">Last 24hrs</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="wall-filter">
-        <text class="drop-down-title">Category</text>
-        <div class="wall-filter-drop-down">
-            <select class="drop-down-option">
-                <option value="All">All</option>
-                <option value="Page">Page</option>
-                <option value="Text">Text</option>
-                <option value="Video">Video</option>
-                <option value="Audio">Audio</option>
-                <option value="Image">Image</option>
-                <option value="Poll">Poll</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="wall-filter">
-        <text class="drop-down-title">Sort By</text>
-        <div class="wall-filter-drop-down">
-            <select class="drop-down-option">
-                <option value="Likes">Likes</option>
-                <option value="Comments">Comments</option>
-                <option value="Date">Date</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="wall-filter">
-        <text class="drop-down-title">Point Type</text>
-        <div class="wall-filter-drop-down">
-            <select class="drop-down-option">
-                <option value="Global">Global</option>
-                <option value="Local">Local</option>
-                <option value="Branch">Branch</option>
-            </select>
-        </div>
-    </div>-->
-
-</div><!--End of "wall filters"-->
-
+</div>

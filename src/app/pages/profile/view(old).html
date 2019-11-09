@@ -9,7 +9,7 @@
             <h2>{{ Profile.profileUser.username }}</h2>
         </div>
 
-        <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/default-profile.jpg');">
+        <div class="sidebar-picture" style="background-image: url('{{ Profile.profileUser.profileUrl }}'), url('/assets/images/user-images/user-image-00.jpg');">
             <img id="edit" ng-class="{ 'style--default': !Profile.profileUser.profileUrl }" ng-click="Profile.openProfilePictureModal()" ng-show="Profile.profileUser.username === Profile.UserService.user.username" offset-y="30" src="/assets/images/icons/edit.svg"
                 text="'Upload New Image'" tooltip />
         </div>
