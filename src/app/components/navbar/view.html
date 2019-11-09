@@ -71,22 +71,27 @@
         <div class="nav-bar-center">
 
             <div class="global-search-bar">
-                <!--
+                
                 <input class="global-search-bar-input" placeholder="Search weco..." type="text" ng-blur="Navbar.SearchService.hide();" ng-focus="Navbar.SearchService.show()" ng-model="Navbar.query">
 
                 <img class="global-search-bar-button" src="/assets/images/icons/search-01.png">
 
-                <a class="global-search-bar-toggle-button">
-                    -->
-                <!--search branches-->
-                <!--<img class="global-search-bar-toggle-button-icon" src="/assets/images/icons/branches-02.png" title="Search branches">
-                    -->
-                <!--search posts-->
-                <!--<img class="global-search-bar-toggle-button-icon"
+                <a class="global-search-bar-toggle-button" ng-click="Navbar.toggleGlobalSearchFilter()">
+                    
+                    <!--search branches-->
+                    <img id="search-branches"
+                        class="global-search-bar-toggle-button-icon" 
+                        src="/assets/images/icons/branches-02.png" 
+                        title="Search branches">
+                    
+                    <!--search posts-->
+                    <img id="search-posts" style="display: none"
+                        class="global-search-bar-toggle-button-icon" 
                         src="/assets/images/icons/post-01.png"
                         title="Search posts">
+
                 </a>
-                -->
+            
 
             </div>
             <!--end of "global-search-bar"-->
