@@ -119,8 +119,27 @@ class AppRoutes extends Injectable {
         url: '/member',
         abstract: false,
         templateUrl: '/app/pages/member/view.html',
-        // controller: 'BranchController',
-        // controllerAs: 'Branch',
+      })
+
+      //Developpers
+      .state('weco.developer', {
+        url: '/developer',
+        abstract: false,
+        templateUrl: '/app/pages/developer/view.html',
+      })
+
+      //Users
+      .state('weco.user', {
+        url: '/user',
+        abstract: false,
+        templateUrl: '/app/pages/user/view.html',
+      })
+
+      //Sponsors
+      .state('weco.sponsor', {
+        url: '/Sponsor',
+        abstract: false,
+        templateUrl: '/app/pages/Sponsor/view.html',
       })
 
       // Branches
