@@ -128,3 +128,20 @@ The front-end web application and server used for the WECO web application.
 2. Execute the `npm run build:dev` command. This will replace the endpoints in the app with the correct ones on the server.
 3. Commit the changes to the CVS.
 4. Execute the `npm run deploy:dev` command.
+
+# How to add new pages
+1. Create a new folder in ../webapp/src/app/pages
+2. create the view.html file with the needed elements e.g. buttons, side bar,... 
+3. Set up the new routes by adding a new state in ../webapp/src/app/app.routes.js an example of how to set up a state is as follows:  
+  	 ```
+	//newpage 
+	.state('weco.newpage', {
+	url: '/newpage',
+	abstract: false,
+	templateUrl: '/app/pages/newpage/view.html',
+	})
+	```
+4. Link the created view.html page by using the installed ui-router module's directive ui-sref="stateName"
+	- Navbar can be included by creating the route as a child of the Weco state e.g. "Weco.newpage" 
+5. Check if the set up works
+
