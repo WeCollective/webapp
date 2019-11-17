@@ -118,7 +118,7 @@ class PostService extends Injectable {
         };
 
         if (lastId) {
-            params.lastPostId = this.lastIdToPass;
+            params.lastPostId = lastId;
         } else {
             this.cursor = "initial";
         }
