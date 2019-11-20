@@ -27,7 +27,7 @@
   "license": "ISC",
   "homepage": "https://weco.io",
   "dependencies": {
-    "angular": "^1.5.7",
+    "angular": "^1.7.9",
     "angular-animate": "^1.5.7",
     "angular-bind-html-compile": "^1.4.1",
     "angular-cache": "^4.6.0",
