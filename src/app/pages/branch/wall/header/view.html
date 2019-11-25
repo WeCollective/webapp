@@ -4,18 +4,11 @@
 
         <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
         <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
-            <img   
-                id="toggle-button"
-                alt="Toggle sidebar"
-                class="icon toggle-out"
-                src="/assets/images/icons/toggle-02.png"/>
+            <img id="toggle-button" alt="Toggle sidebar" class="icon toggle-out" src="/assets/images/icons/toggle-02.png" />
         </a>
-        
+
         <!--Create Post Button Large (hidden when screen width < 1000px)-->
-        <a class="create-post-button-large"
-            ng-click="Ctrl.WallService.handleHeaderButtonClick()"
-            ng-show="Ctrl.WallService.isHeaderButtonVisible()"
-            text="Ctrl.WallService.getHeaderButtonTooltip()">
+        <a class="create-post-button-large" ng-click="Ctrl.WallService.handleHeaderButtonClick()" ng-show="Ctrl.WallService.isHeaderButtonVisible()" text="Ctrl.WallService.getHeaderButtonTooltip()">
 
             <text class="primary-button-text">Create Post</text>
 
@@ -27,21 +20,16 @@
         </a>
 
         <!--Local Search Bar-->
-        <div class="local-search-bar">
-            <input 
-                class="local-search-bar-input"
-                id="searchField"
-                ng-blur="Ctrl.SearchService.hide();"
-                ng-focus="Ctrl.SearchService.show()" 
-                ng-keydown="Ctrl.handleKeyPress($event)"
-                ng-model="Ctrl.query"
-                placeholder="Search wall..."
-                type="text">
-                <ul class="search-results box-shadow" ng-show="Ctrl.SearchService.isVisible">
-                    <li class="search-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
-                </ul>       
-            <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">  
+        <div class="local-search-bar not-hide">
+            <input class="local-search-bar-input not-hide" id="searchField" ng-keydown="Ctrl.handleKeyPress($event)" ng-model="Ctrl.query" placeholder="Search wall..." type="text">
+
+            <!-- <ul class="search-results box-shadow not-hide" ng-show="Ctrl.SearchService.isVisible">
+                <li class="search-item not-hide" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>
+            </ul>
+            -->
+            <img class="local-search-bar-button not-hide" src="/assets/images/icons/search-01.png">
         </div>
+
 
         <!--Toggle Filters Button (hidden when screen width > 700px)-->
         <a class="toggle-filters-button" ng-click="Branch.toggleFilters()">
@@ -52,29 +40,16 @@
 
     <div class="wall-filters hide-scroll-bars">
 
-        <dropdown
-            items="Ctrl.timeRange"
-            selected="Ctrl.filters.timeRange.selectedIndex"
-            title="Ctrl.filters.timeRange.title">
+        <dropdown items="Ctrl.timeRange" selected="Ctrl.filters.timeRange.selectedIndex" title="Ctrl.filters.timeRange.title">
         </dropdown>
-            
-        <dropdown
-            items="Ctrl.postType"
-            post-types="true"
-            selected="Ctrl.filters.postType.selectedIndex"
-            title="Ctrl.filters.postType.title">
+
+        <dropdown items="Ctrl.postType" post-types="true" selected="Ctrl.filters.postType.selectedIndex" title="Ctrl.filters.postType.title">
         </dropdown>
-        
-        <dropdown
-            items="Ctrl.sortBy"
-            selected="Ctrl.filters.sortBy.selectedIndex"
-            title="Ctrl.filters.sortBy.title">
+
+        <dropdown items="Ctrl.sortBy" selected="Ctrl.filters.sortBy.selectedIndex" title="Ctrl.filters.sortBy.title">
         </dropdown>
-        
-        <dropdown
-            items="Ctrl.statType"
-            selected="Ctrl.filters.statType.selectedIndex"
-            title="Ctrl.filters.statType.title">
+
+        <dropdown items="Ctrl.statType" selected="Ctrl.filters.statType.selectedIndex" title="Ctrl.filters.statType.title">
         </dropdown>
 
         <!--<div class="wall-filter">
@@ -127,6 +102,7 @@
             </div>
         </div>-->
 
-    </div><!--End of "wall filters"-->
-    
+    </div>
+    <!--End of "wall filters"-->
+
 </div>

@@ -4,22 +4,15 @@
 
         <!--Toggle Sidebar Button (hidden when screen width > 1000px)-->
         <a class="side-bar-toggle-button" ng-click="Branch.toggleSidebarNew()">
-            <img   
-                id="toggle-button"
-                alt="Toggle sidebar"
-                class="icon toggle-out"
-                src="/assets/images/icons/toggle-02.png"/>
+            <img id="toggle-button" alt="Toggle sidebar" class="icon toggle-out" src="/assets/images/icons/toggle-02.png" />
         </a>
-        
+
         <!--Large Create Post Button (hidden when screen width < 900px)-->
         <!--<a id="create-post-button" class="create-post-button-large">
             <text class="primary-button-text">Create Post</text>
         </a>-->
 
-        <a class="create-post-button-large"
-            ng-click="Ctrl.WallService.handleHeaderButtonClick()"
-            ng-show="Ctrl.WallService.isHeaderButtonVisible()"
-            text="Ctrl.WallService.getHeaderButtonTooltip()">
+        <a class="create-post-button-large" ng-click="Ctrl.WallService.handleHeaderButtonClick()" ng-show="Ctrl.WallService.isHeaderButtonVisible()" text="Ctrl.WallService.getHeaderButtonTooltip()">
 
             <text class="primary-button-text">Create Branch</text>
 
@@ -27,28 +20,21 @@
 
         <!--Small Create Post Button (hidden when screen width > 900px)-->
         <a id="create-post-button" class="create-post-button-small" ng-click="Ctrl.WallService.handleHeaderButtonClick()">
-                <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
+            <img src="assets/images/icons/add-01.png" class="icon" style="filter: invert(100%);">
         </a>
 
-        <div class="local-search-bar">
-            
-                <!--<input class="local-search-bar-input" placeholder="Search wall..." type="text">-->
 
-            <input class="local-search-bar-input"
-                id="searchField"
-                ng-blur="Ctrl.SearchService.hide();"
-                ng-focus="Ctrl.SearchService.show()" 
-                ng-keydown="Ctrl.handleKeyPress($event)"
-                ng-model="Ctrl.query"
-                placeholder="Search branches..."
-                type="text">
+        <div class="local-search-bar not-hide">
 
-                <ul class="search-results box-shadow" ng-show="Ctrl.SearchService.isVisible">
-                    <li class="search-item" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>                    
-                </ul>
-            
-            <img class="local-search-bar-button" src="/assets/images/icons/search-01.png">
-        
+            <input class="local-search-bar-input not-hide" id="searchField" ng-keydown="Ctrl.handleKeyPress($event)" ng-model="Ctrl.query" placeholder="Search branches..." type="text">
+            <!-- Don't show suggestions for local search
+            <ul class="search-results box-shadow not-hide" id="search-loc">
+                <li class="search-item not-hide" ng-repeat="result in Ctrl.results" ng-click="Ctrl.search(result.text);">{{result.text}}</li>
+            </ul>
+            -->
+
+            <img class="local-search-bar-button not-hide" ng-click="Ctrl.search(Ctrl.query);" src="/assets/images/icons/search-01.png">
+
         </div>
 
         <!--Toggle Filters Button (hidden when screen width > 700px)-->
@@ -60,16 +46,10 @@
 
     <div class="wall-filters hide-scroll-bars">
 
-        <dropdown
-            items="Ctrl.timeRange"
-            selected="Ctrl.controls.timeRange.selectedIndex"
-            title="Ctrl.controls.timeRange.title">
+        <dropdown items="Ctrl.timeRange" selected="Ctrl.controls.timeRange.selectedIndex" title="Ctrl.controls.timeRange.title">
         </dropdown>
 
-        <dropdown
-            items="Ctrl.sortBy"
-            selected="Ctrl.controls.sortBy.selectedIndex"
-            title="Ctrl.controls.sortBy.title">
+        <dropdown items="Ctrl.sortBy" selected="Ctrl.controls.sortBy.selectedIndex" title="Ctrl.controls.sortBy.title">
         </dropdown>
 
     </div>

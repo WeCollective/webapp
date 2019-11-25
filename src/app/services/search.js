@@ -3,12 +3,17 @@ import Injectable from 'utils/injectable';
 class Search extends Injectable {
     constructor(...injections) {
         super(Search.$inject, injections);
-        this.isVisible = false;
+        this.isVisible = false; //used for local search
         this.results = [];
+        this.globalResults = [];
     }
 
-    getResults() {
-        return this.results;
+    getResults(global = false) {
+        if (global == false) {
+            return this.results;
+        } else {
+            return this.globalResults;
+        }
     }
 
     hide() {
@@ -33,7 +38,6 @@ class Search extends Injectable {
                 const { data } = res;
                 const { results } = data;
                 this.results = results;
-                this.show();
                 this.EventService.emit(this.EventService.events.SEARCH);
             })
             .catch(err => this.AlertsService.push('error', err.message || err.data));
@@ -41,8 +45,8 @@ class Search extends Injectable {
 
 
 
-
-    searchPosts(query) {
+    //add pass in the current subbranch
+    searchPosts(query, global = false) {
         if (query) {
             query = query.toString();
         }
@@ -58,16 +62,18 @@ class Search extends Injectable {
             .then(res => {
                 const { data } = res;
                 const { results } = data;
-                this.results = results;
-                this.show();
+                if (!global) {
+                    this.results = results;
+                } else
+                    this.globalResults = results;
                 this.EventService.emit(this.EventService.events.SEARCH);
             })
             .catch(err => this.AlertsService.push('error', err.message || err.data));
     }
 
 
-
-    searchBranches(query, rootId) {
+    //global means that it's coming from the navbar component
+    searchBranches(query, rootId = "root", global = false) {
         if (query) {
             query = query.toString();
         } else return;
@@ -87,8 +93,11 @@ class Search extends Injectable {
             .then(res => {
                 const { data } = res;
                 const { results } = data;
-                this.results = results;
-                this.show();
+                if (!global) {
+                    this.results = results;
+                } else {
+                    this.globalResults = results;
+                }
                 this.EventService.emit(this.EventService.events.SEARCH);
             })
             .catch(err => this.AlertsService.push('error', err.message || err.data));
@@ -111,7 +120,6 @@ class Search extends Injectable {
                 const { data } = res;
                 const { results } = data;
                 this.results = results;
-                this.show();
                 this.EventService.emit(this.EventService.events.SEARCH);
             })
             .catch(err => this.AlertsService.push('error', err.message || err.data));
@@ -119,6 +127,12 @@ class Search extends Injectable {
 
     show() {
         this.isVisible = this.results.length > 0;
+    }
+
+    clear(global = false) {
+        if (global) {
+            this.globalResults = []
+        } else this.results = [];
     }
 }
 

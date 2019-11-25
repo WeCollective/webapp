@@ -7,21 +7,29 @@ class SidebarController extends Injectable {
         this.numSubBranch = 7;
         this.topBranches = [];
         const { events } = this.EventService;
+        this.getSubbranches();
         const listeners = [
             this.EventService.on(events.CHANGE_BRANCH, () => this.getSubbranches()),
         ];
+
+        this.waiting = false;
         this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
 
     }
 
     getSubbranches() {
+        if (this.waiting)
+            return;
 
+        this.waiting = true;
         this.BranchService.getSubbranches(this.BranchService.branch.id, 0, "post_points")
             .then(branches => {
                 this.topBranches = branches.slice(0, this.numSubBranch); //cut out only first 7
+                this.waiting = false;
             })
             .catch(() => this.$timeout(() => {
                 this.AlertsService.push('error', 'Error fetching top branches.');
+                this.waiting = false;
             }));
     }
     getBreadcrumbsDynamicLink() {

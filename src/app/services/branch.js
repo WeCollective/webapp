@@ -151,7 +151,8 @@ class BranchService extends Injectable {
         });
     }
 
-    getSubbranches(branchid, timeafter, sortBy, lastBranchId, query) {
+    //callingFromSubbranches means that the call is coming from a subbranches page
+    getSubbranches(branchid, timeafter, sortBy, lastBranchId, query, callingFromSubbranches = false) {
         return new Promise((resolve, reject) => {
             const params = {
                 sortBy,
@@ -165,23 +166,22 @@ class BranchService extends Injectable {
                 //if there is a previous branch add the cursor
                 //it will be inital if nothing else
             } else {
-                //if no branch to pagnate reset the cursor
-                this.cursor = "initial";
+                //look at cursor only in this case
+                if (callingFromSubbranches) {
+                    //if no branch to pagnate reset the cursor
+                    this.cursor = "initial";
+                }
             }
-            //reset cursor if branch changed
-            if (branchid != this.previousBranchReq) {
-                this.cursor = "initial";
-            }
+
+
             params.cursor = this.cursor ? this.cursor : "initial";
-
-
-
-
 
             this.API.get('/branch/:branchid/subbranches', { branchid }, params)
                 .then(res => {
+                    //take care of empty requests
+                    if (res.data.cursor && callingFromSubbranches)
+                        this.cursor = res.data.cursor;
                     resolve(res.data.results);
-                    this.cursor = res.data.cursor;
                 }, true)
                 .catch(err => reject(err.data || err));
         });

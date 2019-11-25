@@ -3,6 +3,7 @@ import Injectable from 'utils/injectable';
 class BranchController extends Injectable {
     constructor(...injections) {
         super(BranchController.$inject, injections);
+
     }
 
     // Hack fix for Angular momentarily showing both header templates on state change where

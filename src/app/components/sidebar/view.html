@@ -1,63 +1,47 @@
-<!--<div class="sticky-header">-->   <!--Add/remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
+<!--<div class="sticky-header">-->
+<!--Add/remove this div to prevent the left-side-bar from sticking to the nav-bar when users scroll down the screen-->
 <div class="left-side-bar">
-    
+
     <!--Sidebar header-->
     <div class="side-bar-header sticky-header">
 
         <!--Branch flag image (on small screens)-->
-        <div 
-            class="side-bar-flag-image-small"
-            style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+        <div class="side-bar-flag-image-small" style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+            <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
         </div>
 
         <div class="side-bar-header-padding">
 
             <!--Parent branch name (on large screens)-->
-            <a class="main-text hide-on-small-screens" 
-                ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
-                ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+            <a class="main-text hide-on-small-screens" ng-show="Ctrl.BranchService.branch.parent.id !== 'none'" ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
                 {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
             <!--Branch name (on large screens)-->
             <a class="title-text hide-on-small-screens">{{ Ctrl.BranchService.branch.name }}</a>
 
             <!--Parent branch name (on small screens)-->
-            <a class="main-text hide-on-large-screens"
-                ng-show="Ctrl.BranchService.branch.parent.id !== 'none'"
-                ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
+            <a class="main-text hide-on-large-screens" ng-show="Ctrl.BranchService.branch.parent.id !== 'none'" ng-href="{{ Ctrl.$state.href(Ctrl.getBreadcrumbsDynamicLink('parent'), { branchid: Ctrl.BranchService.branch.parent.id }) }}">
                 {{ Ctrl.BranchService.branch.parent.name || 'All' }} /</a>
 
             <!--Branch name (on small screens)-->
-            <a class="title-text hide-on-large-screens" style="width: 180px; max-height: 50px; overflow: scroll" >{{ Ctrl.BranchService.branch.name }}</a>
+            <a class="title-text hide-on-large-screens" style="width: 180px; max-height: 50px; overflow: scroll">{{ Ctrl.BranchService.branch.name }}</a>
 
         </div>
 
     </div>
 
     <!--Branch flag image (on large screens)-->
-    <div 
-        class="side-bar-flag-image-large"
-        style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');"> <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
-        
+    <div class="side-bar-flag-image-large" style="background-image: url('{{ Ctrl.BranchService.branch.profileUrl }}'), url('{{ Ctrl.BranchService.branch.profileUrlThumb }}'), url('/assets/images/default-branch.jpg');">
+        <!--background-image: linear-gradient(141deg, #966dd8 0%,#2cb5e8 75%);"-->
+
         <!--Upload new image icon-->
-        <img
-            class="side-bar-flag-image-upload-icon"
-            alt="Change the branch profile image."
-            id="edit"
-            ng-class="{ 'style--default': !Ctrl.BranchService.branch.profileUrl }"
-            ng-click="Ctrl.openModal('profile-picture')"
-            ng-show="Ctrl.BranchService.isModerator()"
+        <img class="side-bar-flag-image-upload-icon" alt="Change the branch profile image." id="edit" ng-class="{ 'style--default': !Ctrl.BranchService.branch.profileUrl }" ng-click="Ctrl.openModal('profile-picture')" ng-show="Ctrl.BranchService.isModerator()"
             src="/assets/images/icons/edit.svg" />
 
     </div>
 
     <!--Follow branch button-->
-    <a
-        class="primary-button"
-        style="width: 140px; margin: 0 0 20px 0"
-        ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'"
-        ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" 
-        ng-click="Ctrl.toggleFollowBranch()"
+    <a class="primary-button" style="width: 140px; margin: 0 0 20px 0" ng-show="Ctrl.UserService.isAuthenticated() && Ctrl.BranchService.branch.id !== 'root'" ng-class="{ 'style--inactive': !Ctrl.BranchService.isFollowingBranch() }" ng-click="Ctrl.toggleFollowBranch()"
         text="Ctrl.getLabelFollowButton()">
 
         <span class="primary-button-text">
@@ -108,24 +92,23 @@
             <a class="link-text" title="Settings">Settings</a>
         </div>-->
 
-    </div><!--end of "side-bar-buttons"-->
+    </div>
+    <!--end of "side-bar-buttons"-->
 
-        <!--Top Child Branches (only visible on small screens)-->
-        <div class="side-bar-child-branches hide-on-large-screens-1400" style="padding: 0">
+    <!--Top Child Branches (only visible on small screens)-->
+    <div class="side-bar-child-branches hide-on-large-screens-1400" style="padding: 0">
 
-            <!--<span class="main-text" style="margin-bottom: 10px">Top child branches:</span>-->
+        <!--<span class="main-text" style="margin-bottom: 10px">Top child branches:</span>-->
 
-            <li class="side-bar-child-branch" ng-repeat="branch in Ctrl.topBranches">
-                <a 
-                    class="small-circular-thumbnail margin-right-large" 
-                    style="background-image: url('{{ branch.profileUrlThumb }}'), url('/assets/images/branch-images/branch-image-00.jpg');"
-                    ui-sref="weco.branch.wall({ branchid: branch.id })">
-                </a>
-                <a class="link-text" ui-sref="weco.branch.wall({ branchid: branch.id })">{{branch.name}}</a>
-            </li>
-    
-        </div>
+        <li class="side-bar-child-branch" ng-repeat="branch in Ctrl.topBranches">
+            <a class="small-circular-thumbnail margin-right-large" style="background-image: url('{{ branch.profileUrlThumb }}'), url('/assets/images/branch-images/branch-image-00.jpg');" ui-sref="weco.branch.wall({ branchid: branch.id })">
+            </a>
+            <a class="link-text" ui-sref="weco.branch.wall({ branchid: branch.id })">{{branch.name}}</a>
+        </li>
+
+    </div>
 
 </div>
 
-<!--</div>-->   <!--Add/remove to prevent whole left-side-bar from sticking to top bar on scroll-->
+<!--</div>-->
+<!--Add/remove to prevent whole left-side-bar from sticking to top bar on scroll-->

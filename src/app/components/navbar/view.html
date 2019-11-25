@@ -70,28 +70,26 @@
 
         <div class="nav-bar-center">
 
-            <div class="global-search-bar">
-                
-                <input class="global-search-bar-input" placeholder="Search weco..." type="text" ng-blur="Navbar.SearchService.hide();" ng-focus="Navbar.SearchService.show()" ng-model="Navbar.query">
+            <div class="global-search-bar not-hide">
+                <!--ng-blur="Navbar.SearchService.hide();"-->
+                <input class="global-search-bar-input not-hide" placeholder="Search weco..." type="text" ng-focus="Navbar.showres()" ng-keydown="Navbar.handleKeyPress($event)" ng-model="Navbar.query">
 
-                <img class="global-search-bar-button" src="/assets/images/icons/search-01.png">
+                <ul class="search-results box-shadow not-hide" id="search-res">
+                    <li class="search-item highlightResult not-hide" ng-repeat="result in Navbar.results" ng-click="Navbar.search(result.text);">{{result.text}}</li>
+                </ul>
 
-                <a class="global-search-bar-toggle-button" ng-click="Navbar.toggleGlobalSearchFilter()">
-                    
+                <img class="global-search-bar-button not-hide" ng-click="Navbar.search(Navbar.query);" src="/assets/images/icons/search-01.png">
+
+                <a class="global-search-bar-toggle-button not-hide" ng-click="Navbar.toggleGlobalSearchFilter()">
+
                     <!--search branches-->
-                    <img id="search-branches"
-                        class="global-search-bar-toggle-button-icon" 
-                        src="/assets/images/icons/branches-02.png" 
-                        title="Search branches">
-                    
+                    <img id="search-branches" class="global-search-bar-toggle-button-icon not-hide" src="/assets/images/icons/branches-02.png" title="Search branches">
+
                     <!--search posts-->
-                    <img id="search-posts" style="display: none"
-                        class="global-search-bar-toggle-button-icon" 
-                        src="/assets/images/icons/post-01.png"
-                        title="Search posts">
+                    <img id="search-posts" style="display: none" class="global-search-bar-toggle-button-icon not-hide" src="/assets/images/icons/post-01.png" title="Search posts">
 
                 </a>
-            
+
 
             </div>
             <!--end of "global-search-bar"-->

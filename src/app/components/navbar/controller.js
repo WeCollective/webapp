@@ -15,22 +15,51 @@ class NavbarController extends Injectable {
         this.isMobileSearchActive = false;
         this.notificationCount = cache.count || 0;
         this.query = '';
-        this.results = this.SearchService.getResults();
+        this.results = this.SearchService.getResults(true);
 
         this.getNotifications();
 
         const { events } = this.EventService;
         const listeners = [];
         listeners.push(this.EventService.on(events.CHANGE_USER, this.getNotifications));
-        listeners.push(this.EventService.on(events.SEARCH, () => this.handleSearch()));
         listeners.push(this.EventService.on(events.UNREAD_NOTIFICATION_CHANGE, this.updateCount));
         listeners.push(this.EventService.on(events.MARK_ALL_NOTIFICATIONS_READ, this.updateCount));
-        listeners.push(this.$scope.$watch(() => this.query, q => this.SearchService.searchBranches(q)));
+
+        listeners.push(this.EventService.on(events.SEARCH, () => this.handleSearch()));
+        listeners.push(this.$scope.$watch(() => this.query, q => {
+            var searchPosts = document.getElementById("search-posts");
+            //if posts are visible search the posts
+            if (searchPosts.style.display == "block") {
+                this.SearchService.searchPosts(q, true);
+            } else {
+                //otherwise the search branches is visible, search branches
+                this.SearchService.searchBranches(q, "root", true);
+            }
+
+            if (q == '') {
+                this.clearQuery();
+                this.SearchService.clear(true);
+            }
+        }));
+
         listeners.push(this.EventService.on(events.STATE_CHANGE_SUCCESS, () => {
             this.clearQuery();
             this.isMobileSearchActive = false;
         }));
         this.$scope.$on('$destroy', () => listeners.forEach(deregisterListener => deregisterListener()));
+
+        this.listClassToNotHideSearch = "not-hide";
+
+        document.getElementById("search-res").style.display = "none";
+        this.$window.addEventListener("click", (e) => {
+            //check if clicked outside of search
+            if (!e.target.classList.contains(this.listClassToNotHideSearch)) {
+                document.getElementById("search-res").style.display = "none";
+            }
+        });
+
+
+
     }
 
     cacheNotifications() {
@@ -40,9 +69,19 @@ class NavbarController extends Injectable {
         this.LocalStorageService.setObject('cache', cache);
     }
 
+    showres() {
+        if (this.results.length > 0)
+            document.getElementById("search-res").style.display = "block";
+        else
+            document.getElementById("search-res").style.display = "none";
+    }
+
     clearQuery() {
         this.query = '';
+        this.results = [];
+
     }
+
 
     getNotifications() {
         const { username } = this.UserService.user;
@@ -71,51 +110,79 @@ class NavbarController extends Injectable {
         return document.getElementsByClassName('nav__search-text')[0];
     }
 
-    getSearchResultTarget(result) {
-        const {
-            id,
-            type,
-        } = result;
-        let tp = type;
-        tp = "branch";
-        switch (tp) {
-            case 'branch':
-                //go to branch
-                return this.$state.href('weco.branch', {
-                    branchid: id,
-                });
+    search(query) {
+        document.getElementById("search-res").style.display = "none";
 
-            case 'post':
-                return this.$state.href('weco.branch.post', {
-                    branchid: 'root',
-                    postid: id,
-                });
-
-            case 'user':
-                return this.$state.href('weco.profile', {
-                    username: id,
-                });
-
-            default:
-                return '';
+        var searchPosts = document.getElementById("search-posts");
+        var target;
+        //if posts are visible search the posts
+        if (searchPosts.style.display == "block") {
+            //get current branch and search inside
+            var target = this.$state.href('weco.branch.wall', { branchid: "root", query: query });
+        } else {
+            //otherwise the search branches is visible, search branches
+            //get current branch and search inside
+            var target = this.$state.href('weco.branch.subbranches', { branchid: "root", query: query });
         }
+
+        if (!target) return;
+        this.clearQuery();
+        this.$location.url(target);
+
     }
 
+    /*
+        getSearchResultTarget(result) {
+            const {
+                id,
+                type,
+            } = result;
+            let tp = type;
+            tp = "branch";
+            switch (tp) {
+                case 'branch':
+                    //go to branch
+                    return this.$state.href('weco.branch', {
+                        branchid: id,
+                    });
+
+                case 'post':
+                    return this.$state.href('weco.branch.post', {
+                        branchid: 'root',
+                        postid: id,
+                    });
+
+                case 'user':
+                    return this.$state.href('weco.profile', {
+                        username: id,
+                    });
+
+                default:
+                    return '';
+            }
+        }
+        */
+
     handleKeyPress(event) {
+
         const { which } = event;
+
         switch (which) {
             // Enter.
             case 13:
                 {
-                    if (this.highlightResult === -1) return;
-                    const target = this.getSearchResultTarget(this.results[this.highlightResult]);
-                    this.$location.url(target);
-                    break;
+                    if (!this.query) {
+                        return;
+                    } else {
+                        this.search(this.query);
+                        break;
+                    }
                 }
 
                 // Escape.
             case 27:
                 {
+                    document.getElementById("search-res").style.display = "none";
                     const input = this.getSearchNode();
                     if (input) input.blur();
                     break;
@@ -148,13 +215,13 @@ class NavbarController extends Injectable {
                 }
 
             default:
-                // Do nothing.
+                this.showres();
                 break;
         }
     }
 
     handleSearch() {
-        this.results = this.SearchService.getResults();
+        this.results = this.SearchService.getResults(true);
         if (this.highlightResult === -1) return;
 
         const {
@@ -270,6 +337,7 @@ class NavbarController extends Injectable {
         } else {
             searchBranches.style.display = "none";
         };
+        this.results = [];
     }
 
     submit() {
@@ -290,12 +358,14 @@ NavbarController.$inject = [
     '$window',
     '$state',
     '$timeout',
+    'UrlService',
     'AlertsService',
     'AppService',
     'EventService',
     'LocalStorageService',
     'SearchService',
     'UserService',
+    'BranchService',
 ];
 
 export default NavbarController;

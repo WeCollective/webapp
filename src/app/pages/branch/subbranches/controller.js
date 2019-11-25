@@ -3,10 +3,8 @@ import Injectable from 'utils/injectable';
 class BranchSubbranchesController extends Injectable {
     constructor(...injections) {
         super(BranchSubbranchesController.$inject, injections);
-
         this.callbackScroll = this.callbackScroll.bind(this);
         this.getItems = this.getItems.bind(this);
-
         this.isInit = true;
         this.isWaitingForRequest = false;
         this.items = [];
@@ -44,6 +42,8 @@ class BranchSubbranchesController extends Injectable {
             return;
         }
 
+
+
         const filters = this.HeaderService.getFilters();
         const id = params.branchid;
         const lr = this.lastRequest;
@@ -52,6 +52,8 @@ class BranchSubbranchesController extends Injectable {
             timeRange,
             query,
         } = filters;
+
+
 
         // Don't send the request if nothing changed.
         if (lr.id === id && lr.lastId === lastId &&
@@ -67,7 +69,7 @@ class BranchSubbranchesController extends Injectable {
         this.lastRequest.query = query;
 
         this.isWaitingForRequest = true;
-        this.BranchService.getSubbranches(id, timeRange, sortBy, lastId, query)
+        this.BranchService.getSubbranches(id, timeRange, sortBy, lastId, query, true)
             .then(branches => this.$timeout(() => {
                 // if lastId was specified we are fetching _more_ branches, so append them
                 this.items = lastId ? this.items.concat(branches) : branches;
