@@ -4,8 +4,8 @@
     ng-class="{ 'style--colour-coded': CardPollAnswer.type === 'result' }"
     ng-show="CardPollAnswer.index >= 0"
     ng-style="CardPollAnswer.type === 'result' ? { 'background-color': CardPollAnswer.getAnswerColor(CardPollAnswer.index) } : {}">
-    {{ CardPollAnswer.index + 1 }}
   </span>
+  <!-- {{ CardPollAnswer.index + 1 }} -->
 
   <input
     id="answer-{{ CardPollAnswer.index }}"
