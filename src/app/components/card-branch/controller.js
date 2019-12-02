@@ -6,14 +6,14 @@ class CardBranchController extends Injectable {
 
     }
 
-    cut(description) {
+    /*cut(description) {
         if (description) {
             return description.slice(0, 150) + "..";
         } else {
             return "No Description :(";
         }
 
-    }
+    }*/
 }
 
 CardBranchController.$inject = [];
