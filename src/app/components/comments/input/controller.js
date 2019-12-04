@@ -117,7 +117,7 @@ class CommentInputBoxController extends Injectable {
           newComment.id = id2;
         })
         .catch(err => {
-          if (err.status === 403) {
+          if (err.status === 403 || 500) {
             this.AlertsService.push('error', 'Please log in or create an account to comment.');
           }
           else {

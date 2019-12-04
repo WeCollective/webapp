@@ -11,22 +11,24 @@
       {{ FlagPostModal.errorMessage }}
     </p>
 
+    <!--TODO: create style class for dropdown-->
     <dropdown
+      style="width: 150px; height: 30px; margin-left: 0;"
       items="FlagPostModal.flagItems"
       selected="FlagPostModal.selectedIndex"
       title="'This post is'">
     </dropdown>
 
     <p
-      class="info"
+      class="main-text"
       ng-show="FlagPostModal.selectedIndex === 0">
-      Note: Please check the <a ui-sref="weco.branch.nucleus.about({ branchid: FlagPostModal.ModalService.inputArgs.branchid })" ng-click="FlagPostModal.close()">branch rules</a> first.
+      Note: Please check the <a class="main-text link" ui-sref="weco.branch.nucleus.about({ branchid: FlagPostModal.ModalService.inputArgs.branchid })" ng-click="FlagPostModal.close()">branch rules</a> first.
     </p>
 
     <p
-      class="info"
+      class="main-text"
       ng-show="FlagPostModal.selectedIndex === 1">
-      Note: Please check the <a href="http://wecollective.co.uk/faqs.html#bannedcontent">site rules</a> first.
+      Note: Please check the <a class="main-text link" href="http://wecollective.co.uk/faqs.html#bannedcontent">site rules</a> first.
     </p>
   </div>
 </div>

@@ -20,7 +20,7 @@
                 <img class="icon white" src="/assets/images/icons/node-01.png">
             </a>
 
-            <a class="member-button" style="margin-left: 10px" href="https://opencollective.com/weco">
+            <a class="member-button" style="margin-left: 10px; height: 38px" href="https://opencollective.com/weco">
                 <span class="main-text white">Become a co-owner</span>
             </a>
 
@@ -111,6 +111,11 @@
             <!--Notifications-->
             <a class="icon-padding hide-on-small-screens" title="Notifications" ng-show="Navbar.UserService.isAuthenticated()" ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
                 <img class="icon white" src="/assets/images/icons/notifications-01.png">
+                <div class="notification-badge" ng-show="Navbar.notificationCount > 0">
+                    <span class="main-text white" style="font-size: 12px">
+                        {{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}
+                    </span>
+                </div>
             </a>
 
             <!--Username-->
@@ -208,19 +213,23 @@
 
             </div>-->
 
-            <!--Log-in button-->
-            <a class="login-button" style="width: auto" ng-show="!Navbar.UserService.isAuthenticated()" ui-sref="auth.login">
-                <span class="main-text white">Login</span>
-            </a>
-
             <!--Sign-up button-->
-            <!--<a
-                class="nav-bar-username-padding"
-                style="margin-right: 10px;"
+            <a
+                class="login-button hide-on-small-screens"
+                style="width: auto; height: 38px; margin-right: 0; background-color: #2cb5e8"
                 ng-show="!Navbar.UserService.isAuthenticated()"
                 ui-sref="auth.signup">
-                <span class="nav-bar-username">Sign up</span>
-            </a>-->
+                <span class="main-text white" style="white-space: nowrap">Sign up for free</span>
+            </a>
+
+            <!--Log-in button-->
+            <a 
+                class="login-button" 
+                style="width: auto; height: 38px" 
+                ng-show="!Navbar.UserService.isAuthenticated()" 
+                ui-sref="auth.login">
+                <span class="main-text white">Login</span>
+            </a>
 
         </div>
         <!--end of "nav-bar-right"-->
