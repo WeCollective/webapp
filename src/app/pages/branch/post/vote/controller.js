@@ -115,7 +115,7 @@ class BranchPostVoteController extends Injectable {
 
     this.PostService.votePollAnswer(answer.postid, answer.id)
       .then(() => this.AlertsService.push('success', 'Your vote has been cast!'))
-      .catch(err => this.AlertsService.push('error', err.message || 'Error casting your vote!'));
+      .catch(err => this.AlertsService.push('error', 'Please log in or create an account to vote.' )); // err.message || 'Error casting your vote!'
   }
 }
 
