@@ -111,6 +111,11 @@
             <!--Notifications-->
             <a class="icon-padding hide-on-small-screens" title="Notifications" ng-show="Navbar.UserService.isAuthenticated()" ui-sref="weco.profile.notifications({ username: Navbar.UserService.user.username })">
                 <img class="icon white" src="/assets/images/icons/notifications-01.png">
+                <div class="notification-badge" ng-show="Navbar.notificationCount > 0">
+                    <span class="main-text white" style="font-size: 12px">
+                        {{ Navbar.notificationCount > 9 ? '9+' : Navbar.notificationCount }}
+                    </span>
+                </div>
             </a>
 
             <!--Username-->
