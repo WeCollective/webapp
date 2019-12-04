@@ -219,11 +219,11 @@ class ListItemController extends Injectable {
                         break;
 
                     case 403:
-                        error = 'Please log in or create an account to vote.';
+                        error = 'Please log in or create an account to like posts.';
                         break;
 
                     case 500:
-                        error = 'Please log in or create an account to vote.';
+                        error = 'Please log in or create an account to like posts.';
                         break;
 
                     default:
