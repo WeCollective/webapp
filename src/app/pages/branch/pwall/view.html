@@ -1,0 +1,22 @@
+<div class="content__body" loading loading-when="(Ctrl.isInit || Ctrl.isWaitingForRequest) && !Ctrl.PostService.posts.length">
+    <ul class="content__list" ng-if="Ctrl.PostService.posts.length">
+        <li class="post" list-item post="post" index="$index" ng-repeat="post in Ctrl.PostService.posts track by $index" stat="Ctrl.getStatType()">
+        </li>
+
+    </ul>
+
+    <div class="tab-page center-aligned" ng-if="!Ctrl.PostService.posts.length">
+
+        <span class="main-text margin-bottom-large">There don't appear to be any posts to this branch that match the current filter settings</span>
+
+        <img alt="Empty state icon" class="empty-state-image" src="assets/images/empty-state.jpg" />
+
+        <span class="main-text margin-top-medium" style="text-align: center">
+            Click 'Create Post' above to create the first post<br>
+            or<br>
+            Tag a post elsewhere on the site with this branches unique name: '{{ Ctrl.BranchService.branch.id }}'.
+        </span>
+
+    </div>
+
+</div>
