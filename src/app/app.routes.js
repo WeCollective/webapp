@@ -241,6 +241,24 @@ class AppRoutes extends Injectable {
         },
       })
 
+      //Personal wall
+      .state('weco.branch.pwall', {
+        url: '/pwall',
+        pageTrack: '/b/:branchid/pwall',
+        views: {
+          content: {
+            templateUrl: '/app/pages/branch/pwall/view.html',
+            controller: 'BranchWallController',
+            controllerAs: 'Ctrl',
+          },
+          header: {
+            templateUrl: '/app/pages/branch/pwall/header/view.html',
+            controller: 'BranchWallHeaderController',
+            controllerAs: 'Ctrl',
+          },
+        },
+      })
+
       // Posts
       .state('weco.branch.post', {
         url: '/p/:postid',
