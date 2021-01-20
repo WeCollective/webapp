@@ -47,7 +47,7 @@
     "ng-file-upload": "^12.0.4",
     "prerender-node": "^2.4.0",
     "raven-js": "^3.22.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "viewport-units-buggyfill": "^0.6.2"
   },
   "devDependencies": {
